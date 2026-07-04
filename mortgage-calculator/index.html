@@ -1020,14 +1020,13 @@
       {val:res.otherBucketMonthly,color:'#EAB308'}
     ];
     var total=res.totalOutOfPocketMonthly||1;
-    var maxVal=Math.max.apply(null,cats.map(function(c){return c.val;}))||1;
     var chartTop=10,chartBottom=140;
     var labelSpace=14;
     var barX=[44,96,148,200],barW=38;
     var g='';
     cats.forEach(function(c,i){
       var pct=Math.round(c.val/total*100);
-      var h=Math.max(2,(c.val/maxVal)*(chartBottom-chartTop-labelSpace));
+      var h=Math.max(2,(pct/100)*(chartBottom-chartTop-labelSpace));
       var y=chartBottom-h;
       var cx=barX[i]+barW/2;
       g+='<text x="'+cx+'" y="'+(y-5)+'" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">'+pct+'%</text>';
