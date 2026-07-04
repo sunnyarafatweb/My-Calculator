@@ -185,7 +185,7 @@
 
       <button type="button" class="mc-more-btn" id="mc-moreOptionsBtn">+ More Options</button>
 
-      <div id="mc-increaseSection">
+      <div id="mc-increaseSection" class="mc-hidden">
         <p class="mc-section-title">Annual Tax &amp; Cost Increase</p>
         <div class="mc-field"><span class="mc-field-label">Property Taxes Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-propertyTaxIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
         <div class="mc-field"><span class="mc-field-label">Home Insurance Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-homeInsuranceIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
@@ -854,6 +854,14 @@
   if(moreOnetimeBtn){
     moreOnetimeBtn.addEventListener('click',function(){
       onetimeContainer.classList.toggle('mc-hidden');
+    });
+  }
+  var moreOptionsBtn=$('mc-moreOptionsBtn');
+  var increaseSection=$('mc-increaseSection');
+  if(moreOptionsBtn && increaseSection){
+    moreOptionsBtn.addEventListener('click',function(){
+      var nowHidden=increaseSection.classList.toggle('mc-hidden');
+      moreOptionsBtn.textContent=nowHidden?'+ More Options':'- Fewer Options';
     });
   }
 })();
