@@ -34,6 +34,14 @@
 .mc-legend-row{display:flex;align-items:center;gap:7px;font-size:12px}
 .mc-legend-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0}
 .mc-legend-row .lbl{color:var(--ink-soft)}
+.mc-sidecol{display:flex;flex-direction:column;gap:16px;flex:0 1 220px;width:220px;max-width:100%}
+.mc-ad-box{width:100%;height:280px;border:1px solid var(--border-fine);border-radius:16px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:11px}
+.mc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.mc-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.mc-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.mc-calc-card a:hover{background:rgba(255,255,255,0.06)}
+.mc-calc-card .arrow{opacity:0.6;font-size:11px}
+.mc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 .mc-loansum-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%}
 .mc-loansum-card .title{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);background:var(--surface-sunken);padding:5px 12px;border-radius:8px;margin-bottom:12px}
 .mc-loansum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink)}
@@ -296,6 +304,23 @@
   <div class="mc-loansum-row"><span>Total Interest</span><span class="v">$254,000</span></div>
   <div class="mc-loansum-row"><span>Mortgage Payoff Date</span><span class="v">Jul 2056</span></div>
 </div>
+</div>
+
+<div class="mc-sidecol">
+  <div class="mc-ad-box">Advertisement</div>
+  <div class="mc-calc-card">
+    <div class="h">Financial Calculators</div>
+    <a href="/mortgage-calculator">Mortgage <span class="arrow">→</span></a>
+    <a href="/auto-loan-calculator">Auto Loan <span class="arrow">→</span></a>
+    <a href="/income-tax-calculator">Income Tax <span class="arrow">→</span></a>
+    <a href="/amortization-calculator">Amortization <span class="arrow">→</span></a>
+    <a href="/investment-calculator">Investment <span class="arrow">→</span></a>
+    <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+    <a href="/compound-interest-calculator">Compound Interest <span class="arrow">→</span></a>
+    <a href="/salary-calculator">Salary <span class="arrow">→</span></a>
+    <a href="/interest-rate-calculator">Interest Rate <span class="arrow">→</span></a>
+    <a href="/" class="mc-viewmore">View More <span class="arrow">→</span></a>
+  </div>
 </div>
 
 </div>
