@@ -16,16 +16,17 @@
 .mc-summary-table{width:100%;font-size:12px;border-collapse:collapse;table-layout:fixed}
 .mc-summary-table{margin:14px}
 .mc-summary-table{width:calc(100% - 28px)}
-.mc-summary-table col.c1{width:42%}
-.mc-summary-table col.c2{width:29%}
-.mc-summary-table col.c3{width:29%}
+.mc-summary-table col.c1{width:34%}
+.mc-summary-table col.c2{width:27%}
+.mc-summary-table col.c3{width:39%}
 .mc-summary-table th{text-align:right;font-size:10px;text-transform:uppercase;color:var(--ink-faint);font-weight:500;padding-bottom:6px;white-space:nowrap}
 .mc-summary-table th:first-child{text-align:left}
 .mc-summary-table td{padding:7px 2px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-data);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mc-summary-table td:first-child{text-align:left;font-family:var(--font-body);color:var(--ink-soft);font-weight:600;font-size:12px}
-.mc-summary-table tr.total td{font-weight:700;border-top:2px solid var(--border)}
+.mc-summary-table tr.total td{font-weight:700;border-top:2px solid var(--border);padding-top:12px}
 .mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0}
-.mc-summary-table tr.total td:not(:first-child){background:#22C55E;color:#fff;border-top:none;border-radius:8px;padding:8px 6px}
+.mc-summary-table tr.total td:not(:first-child){padding:12px 4px 8px}
+.mc-summary-table tr.total .mc-pill{display:inline-block;background:#22C55E;color:#fff;border-radius:8px;padding:6px 10px;white-space:nowrap;box-sizing:border-box}
 .mc-right-col{display:flex;flex-direction:column;gap:16px;flex:0 1 390px;width:390px;max-width:100%}
 .mc-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
 .mc-chart-box{display:flex;align-items:center;gap:14px;max-width:100%}
@@ -248,7 +249,7 @@
       <tr><td>Property Tax</td><td>$400.00</td><td>$144,000.00</td></tr>
       <tr><td>Home Insurance</td><td>$125.00</td><td>$45,000.00</td></tr>
       <tr><td>Other Costs</td><td>$333.33</td><td>$120,000.00</td></tr>
-      <tr class="total"><td>Total Out-of-Pocket</td><td>$2,897.60</td><td>$1,043,137.79</td></tr>
+      <tr class="total"><td>Total Out-of-Pocket</td><td><span class="mc-pill">$2,897.60</span></td><td><span class="mc-pill">$1,043,137.79</span></td></tr>
     </tbody>
   </table>
 </div>
