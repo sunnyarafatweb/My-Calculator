@@ -10,18 +10,15 @@
 .mc-card-pad{padding:16px}
 .mc-main-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
   grid-template-areas:
-    "form result sidebar"
-    "form chart sidebar"
-    "form loansum sidebar"
+    "form rightstack sidebar"
     "rates rates rates"
     "bottomgrid bottomgrid bottomgrid";}
 .area-form{grid-area:form}
-.area-result{grid-area:result}
-.area-chart{grid-area:chart}
-.area-loansum{grid-area:loansum}
+.area-rightstack{grid-area:rightstack}
 .area-sidebar{grid-area:sidebar}
 .area-rates{grid-area:rates}
 .area-bottomgrid{grid-area:bottomgrid}
+.mc-right-stack{display:flex;flex-direction:column;gap:20px;min-width:0}
 .mc-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:100%}
 .mc-headline{padding:14px 16px;background:#16A34A;color:#fff;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .mc-headline .label{font-size:15px;font-weight:600}
@@ -123,9 +120,7 @@
     grid-template-columns:1fr;
     grid-template-areas:
       "form"
-      "result"
-      "chart"
-      "loansum"
+      "rightstack"
       "rates"
       "bottomgrid"
       "sidebar";
@@ -282,7 +277,8 @@
   </div>
 </div>
 
-<div class="mc-result-card area-result">
+<div class="mc-right-stack area-rightstack">
+<div class="mc-result-card">
   <div class="mc-headline"><span class="label">Monthly Pay:</span><span class="value" id="mc-out-monthlyPay">$2,039.27</span></div>
   <table class="mc-summary-table">
     <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
@@ -297,7 +293,7 @@
   </table>
 </div>
 
-<div class="mc-chart-card area-chart">
+<div class="mc-chart-card">
   <div class="mc-chart-box">
     <svg viewBox="0 0 600 300" class="mc-chart-svg" xmlns="http://www.w3.org/2000/svg">
       <!-- gridlines + axis labels, 10% steps (chartTop=40, chartBottom=270) -->
@@ -346,7 +342,7 @@
   </div>
 </div>
 
-<div class="mc-loansum-card area-loansum">
+<div class="mc-loansum-card">
   <span class="title">Loan Summary</span>
   <div id="mc-loanSummary">
   <div class="mc-loansum-row"><span>House Price</span><span class="v">$400,000</span></div>
@@ -356,6 +352,7 @@
   <div class="mc-loansum-row"><span>Total Interest</span><span class="v">$254,000</span></div>
   <div class="mc-loansum-row"><span>Mortgage Payoff Date</span><span class="v">Jul 2056</span></div>
   </div>
+</div>
 </div>
 
 <div class="mc-sidecol area-sidebar">
