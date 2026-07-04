@@ -37,9 +37,9 @@
 .mc-summary-table td{padding:7px 2px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-data);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mc-summary-table td:first-child{text-align:left;font-family:var(--font-body);color:var(--ink-soft);font-weight:600;font-size:12px}
 .mc-summary-table tr.total td{font-weight:500;border-top:2px solid var(--border);padding-top:12px}
-.mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0}
+.mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0;font-weight:600}
 .mc-summary-table tr.total td:not(:first-child){padding:12px 0 8px}
-.mc-summary-table tr.total .mc-pill{display:inline-block;background:#16A34A;color:#fff;border-radius:8px;padding:6px 8px 6px 14px;white-space:nowrap;box-sizing:border-box}
+.mc-summary-table tr.total .mc-pill{display:inline-block;background:#16A34A;color:#fff;border-radius:8px;padding:6px 8px 6px 14px;white-space:nowrap;box-sizing:border-box;font-size:13px}
 .mc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .mc-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
 .mc-chart-box{display:flex;flex-direction:column;gap:16px;max-width:100%}
@@ -1044,11 +1044,11 @@
   function renderSummary(res){
     $('mc-out-monthlyPay').textContent=money(res.basePayment);
     $('mc-summaryBody').innerHTML=
-      '<tr><td>Mortgage Payment</td><td>'+money(res.basePayment)+'</td><td>'+money(res.mortgageTotal,0)+'</td></tr>'+
-      '<tr><td>Property Tax</td><td>'+money(res.initialPT)+'</td><td>'+money(res.ptTotal,0)+'</td></tr>'+
-      '<tr><td>Home Insurance</td><td>'+money(res.initialHI)+'</td><td>'+money(res.hiTotal,0)+'</td></tr>'+
-      '<tr><td>Other Costs</td><td>'+money(res.otherBucketMonthly)+'</td><td>'+money(res.otherBucketTotal,0)+'</td></tr>'+
-      '<tr class="total"><td>Total Out-of-Pocket</td><td><span class="mc-pill">'+money(res.totalOutOfPocketMonthly)+'</span></td><td><span class="mc-pill">'+money(res.totalOutOfPocketTotal,0)+'</span></td></tr>';
+      '<tr><td>Mortgage Payment</td><td>'+money(res.basePayment)+'</td><td>'+money(res.mortgageTotal)+'</td></tr>'+
+      '<tr><td>Property Tax</td><td>'+money(res.initialPT)+'</td><td>'+money(res.ptTotal)+'</td></tr>'+
+      '<tr><td>Home Insurance</td><td>'+money(res.initialHI)+'</td><td>'+money(res.hiTotal)+'</td></tr>'+
+      '<tr><td>Other Costs</td><td>'+money(res.otherBucketMonthly)+'</td><td>'+money(res.otherBucketTotal)+'</td></tr>'+
+      '<tr class="total"><td>Total Out-of-Pocket</td><td><span class="mc-pill">'+money(res.totalOutOfPocketMonthly)+'</span></td><td><span class="mc-pill">'+money(res.totalOutOfPocketTotal)+'</span></td></tr>';
   }
 
   function renderBreakdown(res){
