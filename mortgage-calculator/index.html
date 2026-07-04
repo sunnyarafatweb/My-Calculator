@@ -34,7 +34,8 @@
 .mc-legend{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;padding-left:6px;min-width:0}
 .mc-legend-row{display:flex;align-items:center;gap:7px;font-size:12px}
 .mc-legend-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0}
-.mc-legend-row .lbl{color:var(--ink-soft)}
+.mc-legend-row .lbl{color:var(--ink-soft);flex:1}
+.mc-legend-row .val{font-family:var(--font-data);font-weight:600;color:var(--ink);font-size:11px}
 .mc-sidecol{display:flex;flex-direction:column;gap:16px;flex:1 1 260px;min-width:260px;max-width:100%}
 .mc-ad-box{width:100%;height:280px;border:1px solid var(--border-fine);border-radius:16px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:11px}
 .mc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -240,11 +241,11 @@
 
 <div class="mc-right-col">
 <div class="mc-result-card">
-  <div class="mc-headline"><span class="label">Monthly Pay:</span><span class="value">$2,039.27</span></div>
+  <div class="mc-headline"><span class="label">Monthly Pay:</span><span class="value" id="mc-out-monthlyPay">$2,039.27</span></div>
   <table class="mc-summary-table">
     <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
     <thead><tr><th></th><th>Monthly</th><th>Total</th></tr></thead>
-    <tbody>
+    <tbody id="mc-summaryBody">
       <tr><td>Mortgage Payment</td><td>$2,039.27</td><td>$734,137.79</td></tr>
       <tr><td>Property Tax</td><td>$400.00</td><td>$144,000.00</td></tr>
       <tr><td>Home Insurance</td><td>$125.00</td><td>$45,000.00</td></tr>
@@ -279,7 +280,7 @@
       <line x1="34" y1="10" x2="250" y2="10" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
       <text x="28" y="13" font-size="9" text-anchor="end" fill="var(--ink-faint)">100%</text>
 
-      <!-- bars: y and height computed so bottom always sits exactly on the x-axis (y=140) -->
+      <g id="mc-breakdown-bars">
       <text x="63" y="45" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">70%</text>
       <rect x="44" y="49" width="38" height="91" fill="#DC2626" rx="2"/>
       <text x="115" y="84" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">40%</text>
@@ -288,28 +289,31 @@
       <rect x="148" y="114" width="38" height="26" fill="#3B82F6" rx="2"/>
       <text x="219" y="71" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">50%</text>
       <rect x="200" y="75" width="38" height="65" fill="#EAB308" rx="2"/>
+      </g>
 
       <!-- axes drawn last so they sit crisp on top -->
       <line x1="34" y1="10" x2="34" y2="140" stroke="var(--ink-faint)" stroke-width="1.5"/>
       <line x1="34" y1="140" x2="250" y2="140" stroke="var(--ink-faint)" stroke-width="1.5"/>
     </svg>
-    <div class="mc-legend">
-      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#DC2626"></div><div class="lbl">Principal &amp; Interest</div></div>
-      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#22C55E"></div><div class="lbl">Property Taxes</div></div>
-      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#3B82F6"></div><div class="lbl">Home Insurance</div></div>
-      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#EAB308"></div><div class="lbl">Other Cost</div></div>
+    <div class="mc-legend" id="mc-legend">
+      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#DC2626"></div><div class="lbl">Principal &amp; Interest</div><div class="val" id="mc-leg-pi">$2,039.27</div></div>
+      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#22C55E"></div><div class="lbl">Property Taxes</div><div class="val" id="mc-leg-pt">$400.00</div></div>
+      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#3B82F6"></div><div class="lbl">Home Insurance</div><div class="val" id="mc-leg-hi">$125.00</div></div>
+      <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#EAB308"></div><div class="lbl">Other Cost</div><div class="val" id="mc-leg-oc">$333.33</div></div>
     </div>
   </div>
 </div>
 
 <div class="mc-loansum-card">
   <span class="title">Loan Summary</span>
+  <div id="mc-loanSummary">
   <div class="mc-loansum-row"><span>House Price</span><span class="v">$400,000</span></div>
   <div class="mc-loansum-row"><span>Loan Amount</span><span class="v">$200,000</span></div>
   <div class="mc-loansum-row"><span>Down Payment</span><span class="v">$200,000 (50.0%)</span></div>
   <div class="mc-loansum-row"><span>Total of 360 Payments</span><span class="v">$454,000</span></div>
   <div class="mc-loansum-row"><span>Total Interest</span><span class="v">$254,000</span></div>
   <div class="mc-loansum-row"><span>Mortgage Payoff Date</span><span class="v">Jul 2056</span></div>
+  </div>
 </div>
 </div>
 
@@ -755,6 +759,7 @@
 
 <div class="mc-balchart-card">
   <span class="t">Balance &amp; Interest Over Time</span>
+  <div id="mc-balchart-container">
   <svg viewBox="0 0 400 200" class="mc-balchart-svg" xmlns="http://www.w3.org/2000/svg">
 <line x1="50" y1="170.0" x2="390" y2="170.0" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
 <line x1="50" y1="131.2" x2="390" y2="131.2" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
@@ -788,6 +793,7 @@
     <span><i style="background:#2563EB"></i>Balance</span>
     <span><i style="background:#22C55E"></i>Interest</span>
     <span><i style="background:#EAB308"></i>Payment</span>
+  </div>
   </div>
 </div>
 </div>
@@ -871,6 +877,294 @@
       moreOptionsBtn.textContent=nowHidden?'+ More Options':'- Fewer Options';
     });
   }
+})();
+</script>
+
+<script>
+(function(){
+  var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var fmt0=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
+  var fmt2=new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  function money(n,dec){dec=dec===undefined?2:dec;if(!isFinite(n))n=0;var s=(dec?fmt2:fmt0).format(Math.abs(n));return (n<0?'-$':'$')+s;}
+  function $(id){return document.getElementById(id);}
+  function val(id){var el=$(id);return el?parseFloat(el.value)||0:0;}
+  function sel(id){var el=$(id);return el?el.value:'';}
+
+  function annualDollar(rawVal,unit,homePrice){return unit==='%' ? homePrice*rawVal/100 : rawVal;}
+
+  function monthIndexFrom(baseMonth,baseYear,month,year){return (year-baseYear)*12+(month-baseMonth);}
+
+  function getExtraOnetimes(){
+    var list=[];
+    var amt=val('mc-extraOnetimeAmt');
+    if(amt>0){list.push({amount:amt,month:parseInt(sel('mc-extraOnetimeMonth'),10)||7,year:parseInt(sel('mc-extraOnetimeYear'),10)||2026});}
+    document.querySelectorAll('#mc-additionalOnetimeContainer .mc-onetime-row').forEach(function(row){
+      var a=parseFloat(row.querySelector('.mc-ot-amt').value)||0;
+      if(a>0){
+        var m=parseInt(row.querySelector('.mc-ot-month').value,10)||7;
+        var y=parseInt(row.querySelector('.mc-ot-year').value,10)||2026;
+        list.push({amount:a,month:m,year:y});
+      }
+    });
+    return list;
+  }
+
+  function calculate(){
+    var homePrice=val('mc-homePrice');
+    var dpInput=val('mc-downPayment');
+    var dpUnit=sel('mc-downPaymentUnit')||'%';
+    var downPaymentAmt=dpUnit==='%' ? homePrice*dpInput/100 : dpInput;
+    var downPaymentPct=homePrice>0 ? downPaymentAmt/homePrice*100 : 0;
+    var loanAmount=Math.max(homePrice-downPaymentAmt,0);
+    var termYears=val('mc-loanTerm')||30;
+    var n=Math.max(1,Math.round(termYears*12));
+    var annualRate=val('mc-interestRate');
+    var r=annualRate/100/12;
+    var startMonth=parseInt(sel('mc-startMonth'),10)||7;
+    var startYear=parseInt(sel('mc-startYear'),10)||2026;
+
+    var includeTaxes=$('mc-includeTaxes') ? $('mc-includeTaxes').checked : false;
+    var propertyTaxAnnual=includeTaxes?annualDollar(val('mc-propertyTax'),sel('mc-propertyTaxUnit'),homePrice):0;
+    var homeInsuranceAnnual=includeTaxes?annualDollar(val('mc-homeInsurance'),sel('mc-homeInsuranceUnit'),homePrice):0;
+    var pmiAnnual=includeTaxes?annualDollar(val('mc-pmi'),sel('mc-pmiUnit'),homePrice):0;
+    var hoaAnnual=includeTaxes?annualDollar(val('mc-hoa'),sel('mc-hoaUnit'),homePrice):0;
+    var otherAnnual=includeTaxes?annualDollar(val('mc-otherCosts'),sel('mc-otherUnit'),homePrice):0;
+
+    var ptInc=(includeTaxes?val('mc-propertyTaxIncrease'):0)/100;
+    var hiInc=(includeTaxes?val('mc-homeInsuranceIncrease'):0)/100;
+    var hoaInc=(includeTaxes?val('mc-hoaIncrease'):0)/100;
+    var otInc=(includeTaxes?val('mc-otherIncrease'):0)/100;
+
+    var extraMonthlyAmt=includeTaxes?val('mc-extraMonthlyAmt'):0;
+    var extraMonthlyStart=monthIndexFrom(startMonth,startYear,parseInt(sel('mc-extraMonthlyMonth'),10)||7,parseInt(sel('mc-extraMonthlyYear'),10)||2026);
+    var extraYearlyAmt=includeTaxes?val('mc-extraYearlyAmt'):0;
+    var extraYearlyStart=monthIndexFrom(startMonth,startYear,parseInt(sel('mc-extraYearlyMonth'),10)||7,parseInt(sel('mc-extraYearlyYear'),10)||2026);
+    var onetimes=(includeTaxes?getExtraOnetimes():[]).map(function(o){return {amount:o.amount,idx:monthIndexFrom(startMonth,startYear,o.month,o.year)};});
+
+    var basePayment;
+    if(r===0){basePayment=loanAmount/n;}
+    else{basePayment=loanAmount*r/(1-Math.pow(1+r,-n));}
+    if(!isFinite(basePayment))basePayment=0;
+
+    var balance=loanAmount;
+    var totalInterest=0;
+    var schedule=[];
+    var ltvThreshold=0.8;
+
+    for(var m=0;m<n;m++){
+      if(balance<=0.005)break;
+      var yearIdx=Math.floor(m/12);
+      var interestPay=balance*r;
+      var principalPay=basePayment-interestPay;
+      var extra=0;
+      if(extraMonthlyAmt>0 && m>=extraMonthlyStart)extra+=extraMonthlyAmt;
+      if(extraYearlyAmt>0 && m>=extraYearlyStart && (m-extraYearlyStart)%12===0)extra+=extraYearlyAmt;
+      onetimes.forEach(function(o){if(o.idx===m)extra+=o.amount;});
+      var principalTotal=principalPay+extra;
+      if(principalTotal>balance)principalTotal=balance;
+      if(principalTotal<0)principalTotal=0;
+      balance-=principalTotal;
+      totalInterest+=interestPay;
+
+      var ptMonthly=(propertyTaxAnnual*Math.pow(1+ptInc,yearIdx))/12;
+      var hiMonthly=(homeInsuranceAnnual*Math.pow(1+hiInc,yearIdx))/12;
+      var hoaMonthly=(hoaAnnual*Math.pow(1+hoaInc,yearIdx))/12;
+      var otMonthly=(otherAnnual*Math.pow(1+otInc,yearIdx))/12;
+      var pmiMonthly=((homePrice>0?balance/homePrice:0)>ltvThreshold)?pmiAnnual/12:0;
+
+      var dm=startMonth-1+m;var dy=startYear+Math.floor(dm/12);dm=dm%12;
+      schedule.push({m:m,month:dm+1,year:dy,interest:interestPay,principal:principalTotal,balance:Math.max(balance,0),
+        propertyTax:ptMonthly,homeInsurance:hiMonthly,pmi:pmiMonthly,hoa:hoaMonthly,other:otMonthly});
+    }
+
+    var initialPT=propertyTaxAnnual/12,initialHI=homeInsuranceAnnual/12;
+    var initialPMI=(downPaymentPct<20)?pmiAnnual/12:0;
+    var initialHOA=hoaAnnual/12,initialOT=otherAnnual/12;
+    var otherBucketMonthly=initialPMI+initialHOA+initialOT;
+    var totalOutOfPocketMonthly=basePayment+initialPT+initialHI+otherBucketMonthly;
+
+    var ptTotal=0,hiTotal=0,otherBucketTotal=0;
+    schedule.forEach(function(row){ptTotal+=row.propertyTax;hiTotal+=row.homeInsurance;otherBucketTotal+=row.pmi+row.hoa+row.other;});
+    var mortgageTotal=loanAmount+totalInterest;
+    var totalOutOfPocketTotal=mortgageTotal+ptTotal+hiTotal+otherBucketTotal;
+
+    var payoffLabel='—';
+    if(schedule.length){var last=schedule[schedule.length-1];payoffLabel=MONTHS[last.month-1]+' '+last.year;}
+
+    return {homePrice:homePrice,loanAmount:loanAmount,downPaymentAmt:downPaymentAmt,downPaymentPct:downPaymentPct,
+      basePayment:basePayment,totalInterest:totalInterest,mortgageTotal:mortgageTotal,
+      initialPT:initialPT,initialHI:initialHI,otherBucketMonthly:otherBucketMonthly,
+      ptTotal:ptTotal,hiTotal:hiTotal,otherBucketTotal:otherBucketTotal,
+      totalOutOfPocketMonthly:totalOutOfPocketMonthly,totalOutOfPocketTotal:totalOutOfPocketTotal,
+      paymentsMade:schedule.length,payoffLabel:payoffLabel,schedule:schedule};
+  }
+
+  var lastResult=null;
+  var amortView='annual';
+
+  function renderSummary(res){
+    $('mc-out-monthlyPay').textContent=money(res.basePayment);
+    $('mc-summaryBody').innerHTML=
+      '<tr><td>Mortgage Payment</td><td>'+money(res.basePayment)+'</td><td>'+money(res.mortgageTotal,0)+'</td></tr>'+
+      '<tr><td>Property Tax</td><td>'+money(res.initialPT)+'</td><td>'+money(res.ptTotal,0)+'</td></tr>'+
+      '<tr><td>Home Insurance</td><td>'+money(res.initialHI)+'</td><td>'+money(res.hiTotal,0)+'</td></tr>'+
+      '<tr><td>Other Costs</td><td>'+money(res.otherBucketMonthly)+'</td><td>'+money(res.otherBucketTotal,0)+'</td></tr>'+
+      '<tr class="total"><td>Total Out-of-Pocket</td><td><span class="mc-pill">'+money(res.totalOutOfPocketMonthly)+'</span></td><td><span class="mc-pill">'+money(res.totalOutOfPocketTotal,0)+'</span></td></tr>';
+  }
+
+  function renderBreakdown(res){
+    var cats=[
+      {val:res.basePayment,color:'#DC2626'},
+      {val:res.initialPT,color:'#22C55E'},
+      {val:res.initialHI,color:'#3B82F6'},
+      {val:res.otherBucketMonthly,color:'#EAB308'}
+    ];
+    var total=res.totalOutOfPocketMonthly||1;
+    var maxVal=Math.max.apply(null,cats.map(function(c){return c.val;}))||1;
+    var chartTop=10,chartBottom=140;
+    var barX=[44,96,148,200],barW=38;
+    var g='';
+    cats.forEach(function(c,i){
+      var pct=Math.round(c.val/total*100);
+      var h=Math.max(2,(c.val/maxVal)*(chartBottom-chartTop));
+      var y=chartBottom-h;
+      var cx=barX[i]+barW/2;
+      g+='<text x="'+cx+'" y="'+(y-5)+'" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">'+pct+'%</text>';
+      g+='<rect x="'+barX[i]+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="2"/>';
+    });
+    $('mc-breakdown-bars').innerHTML=g;
+    $('mc-leg-pi').textContent=money(res.basePayment);
+    $('mc-leg-pt').textContent=money(res.initialPT);
+    $('mc-leg-hi').textContent=money(res.initialHI);
+    $('mc-leg-oc').textContent=money(res.otherBucketMonthly);
+  }
+
+  function renderLoanSummary(res){
+    $('mc-loanSummary').innerHTML=
+      '<div class="mc-loansum-row"><span>House Price</span><span class="v">'+money(res.homePrice,0)+'</span></div>'+
+      '<div class="mc-loansum-row"><span>Loan Amount</span><span class="v">'+money(res.loanAmount,0)+'</span></div>'+
+      '<div class="mc-loansum-row"><span>Down Payment</span><span class="v">'+money(res.downPaymentAmt,0)+' ('+res.downPaymentPct.toFixed(1)+'%)</span></div>'+
+      '<div class="mc-loansum-row"><span>Total of '+res.paymentsMade+' Payments</span><span class="v">'+money(res.mortgageTotal,0)+'</span></div>'+
+      '<div class="mc-loansum-row"><span>Total Interest</span><span class="v">'+money(res.totalInterest,0)+'</span></div>'+
+      '<div class="mc-loansum-row"><span>Mortgage Payoff Date</span><span class="v">'+res.payoffLabel+'</span></div>';
+  }
+
+  function renderAmort(res){
+    var annualBody=$('mc-amort-annual'),monthlyBody=$('mc-amort-monthly');
+    if(!annualBody||!monthlyBody)return;
+    var years=[];
+    for(var i=0;i<res.schedule.length;i+=12){
+      var chunk=res.schedule.slice(i,i+12);
+      var interest=0,principal=0;
+      chunk.forEach(function(r){interest+=r.interest;principal+=r.principal;});
+      var first=chunk[0],last=chunk[chunk.length-1];
+      years.push({year:Math.floor(i/12)+1,
+        dateLabel:MONTHS[first.month-1]+' '+first.year+' - '+MONTHS[last.month-1]+' '+last.year,
+        interest:interest,principal:principal,balance:last.balance});
+    }
+    annualBody.innerHTML=years.map(function(y){
+      return '<tr><td>'+y.year+'</td><td>'+y.dateLabel+'</td><td>'+money(y.interest)+'</td><td>'+money(y.principal)+'</td><td>'+money(y.balance)+'</td></tr>';
+    }).join('');
+    monthlyBody.innerHTML=res.schedule.map(function(r){
+      return '<tr><td>'+(r.m+1)+'</td><td>'+MONTHS[r.month-1]+' '+r.year+'</td><td>'+money(r.interest)+'</td><td>'+money(r.principal)+'</td><td>'+money(r.balance)+'</td></tr>';
+    }).join('');
+  }
+
+  function renderBalanceChart(res){
+    var container=$('mc-balchart-container');
+    if(!container)return;
+    var W=400,H=200,padL=50,padR=10,padT=15,padB=30;
+    var chartTop=padT,chartBottom=H-padB,chartLeft=padL,chartRight=W-padR;
+    var years=[];
+    for(var i=0;i<res.schedule.length;i+=12){years.push(res.schedule[Math.min(i+11,res.schedule.length-1)]);}
+    if(!years.length){container.innerHTML='';return;}
+    var cumInterest=0,cumPayment=0;
+    var pts=years.map(function(row,idx){
+      var chunkStart=idx*12,chunkEnd=Math.min(chunkStart+12,res.schedule.length);
+      var chunk=res.schedule.slice(chunkStart,chunkEnd);
+      chunk.forEach(function(r){cumInterest+=r.interest;cumPayment+=r.interest+r.principal;});
+      return {year:idx+1,balance:row.balance,interest:cumInterest,payment:cumPayment};
+    });
+    var maxVal=0;
+    pts.forEach(function(p){maxVal=Math.max(maxVal,p.balance,p.interest,p.payment);});
+    maxVal=Math.ceil(maxVal/50000)*50000||50000;
+    var n=pts.length;
+    function X(i){return chartLeft+(chartRight-chartLeft)*(n<=1?0:i/(n-1));}
+    function Y(v){return chartBottom-(chartBottom-chartTop)*(v/maxVal);}
+    function pathFor(key){return pts.map(function(p,i){return (i===0?'M':'L')+X(i).toFixed(1)+','+Y(p[key]).toFixed(1);}).join(' ');}
+    var yTicks=4;
+    var svg='';
+    for(var t=0;t<=yTicks;t++){
+      var v=maxVal/yTicks*t;
+      var y=Y(v);
+      svg+='<line x1="'+chartLeft+'" y1="'+y.toFixed(1)+'" x2="'+chartRight+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      svg+='<text x="'+(chartLeft-8)+'" y="'+(y+3).toFixed(1)+'" font-size="9" text-anchor="end" fill="var(--ink-faint)">'+(v>0?'$'+Math.round(v/1000)+'k':'$0')+'</text>';
+    }
+    var step=Math.max(1,Math.round(n/10));
+    for(var i2=0;i2<n;i2+=step){
+      svg+='<text x="'+X(i2).toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="8" text-anchor="middle" fill="var(--ink-faint)">'+pts[i2].year+'</text>';
+    }
+    if((n-1)%step!==0){svg+='<text x="'+X(n-1).toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="8" text-anchor="middle" fill="var(--ink-faint)">'+pts[n-1].year+'</text>';}
+    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg+='<path d="'+pathFor('balance')+'" fill="none" stroke="#2563EB" stroke-width="2"/>';
+    svg+='<path d="'+pathFor('interest')+'" fill="none" stroke="#22C55E" stroke-width="2"/>';
+    svg+='<path d="'+pathFor('payment')+'" fill="none" stroke="#EAB308" stroke-width="2"/>';
+    var legend='<div class="mc-balchart-legend">'+
+      '<span><i style="background:#2563EB"></i>Balance</span>'+
+      '<span><i style="background:#22C55E"></i>Interest</span>'+
+      '<span><i style="background:#EAB308"></i>Payment</span>'+
+      '</div>';
+    container.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" class="mc-balchart-svg" xmlns="http://www.w3.org/2000/svg">'+svg+'</svg>'+legend;
+  }
+
+  function render(){
+    var res=calculate();
+    lastResult=res;
+    renderSummary(res);
+    renderBreakdown(res);
+    renderLoanSummary(res);
+    renderAmort(res);
+    renderBalanceChart(res);
+  }
+
+  var liveIds=['mc-homePrice','mc-downPayment','mc-downPaymentUnit','mc-loanTerm','mc-interestRate',
+    'mc-startMonth','mc-startYear','mc-includeTaxes','mc-includeTaxes2',
+    'mc-propertyTax','mc-propertyTaxUnit','mc-homeInsurance','mc-homeInsuranceUnit',
+    'mc-pmi','mc-pmiUnit','mc-hoa','mc-hoaUnit','mc-otherCosts','mc-otherUnit',
+    'mc-propertyTaxIncrease','mc-homeInsuranceIncrease','mc-hoaIncrease','mc-otherIncrease',
+    'mc-extraMonthlyAmt','mc-extraMonthlyMonth','mc-extraMonthlyYear',
+    'mc-extraYearlyAmt','mc-extraYearlyMonth','mc-extraYearlyYear',
+    'mc-extraOnetimeAmt','mc-extraOnetimeMonth','mc-extraOnetimeYear'];
+  liveIds.forEach(function(id){
+    var el=$(id);
+    if(!el)return;
+    var evt=(el.tagName==='SELECT'||el.type==='checkbox')?'change':'input';
+    el.addEventListener(evt,render);
+  });
+
+  // live-wire the 10 additional one-time rows (created dynamically earlier in this file)
+  document.querySelectorAll('#mc-additionalOnetimeContainer input, #mc-additionalOnetimeContainer select').forEach(function(el){
+    var evt=el.tagName==='SELECT'?'change':'input';
+    el.addEventListener(evt,render);
+  });
+
+  var calcBtn=$('mc-calculateBtn');
+  if(calcBtn)calcBtn.addEventListener('click',render);
+
+  var clearBtn=$('mc-clearBtn');
+  if(clearBtn)clearBtn.addEventListener('click',function(){
+    $('mc-homePrice').value=0;$('mc-downPayment').value=0;$('mc-loanTerm').value=30;$('mc-interestRate').value=0;
+    ['mc-propertyTax','mc-homeInsurance','mc-pmi','mc-hoa','mc-otherCosts','mc-propertyTaxIncrease','mc-homeInsuranceIncrease','mc-hoaIncrease','mc-otherIncrease','mc-extraMonthlyAmt','mc-extraYearlyAmt','mc-extraOnetimeAmt'].forEach(function(id){var e=$(id);if(e)e.value=0;});
+    document.querySelectorAll('#mc-additionalOnetimeContainer .mc-ot-amt').forEach(function(inp){inp.value=0;});
+    render();
+  });
+
+  var annualBtn=$('mc-amortAnnualBtn'),monthlyBtn=$('mc-amortMonthlyBtn');
+  if(annualBtn)annualBtn.addEventListener('click',function(){amortView='annual';});
+  if(monthlyBtn)monthlyBtn.addEventListener('click',function(){amortView='monthly';});
+
+  render();
 })();
 </script>
 </div><!--$--><!--/$--></main><div class="px-4 sm:px-6 pb-6 mt-8"><footer class="max-w-6xl mx-auto rounded-[28px] p-8 sm:p-10" style="background:var(--surface);box-shadow:var(--shadow-sm)"><div class="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-8 pb-8 border-b" style="border-color:var(--border-fine)"><div class="col-span-2 md:col-span-1"><h4 class="text-2xl font-semibold tracking-tight mb-3" style="color:var(--ink)">CalcFolio</h4><p class="text-sm leading-relaxed max-w-xs" style="color:var(--ink-soft)">A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p><div class="flex gap-2 mt-5"><a href="#" aria-label="Twitter" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l-6 8 6 8h-3l-4.5-6L6 20H3l6.5-8L3 4h3l4 5.5L14 4z"></path></svg></a><a href="#" aria-label="GitHub" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z"></path></svg></a></div></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Popular</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/mortgage-calculator/">Mortgage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/loan-calculator/">Loan Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/income-tax-calculator/">Income Tax Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/bmi-calculator/">BMI Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/age-calculator/">Age Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/percentage-calculator/">Percentage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/compound-interest-calculator/">Compound Interest</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/calorie-calculator/">Calorie Calculator</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Categories</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#finance">Finance</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#health-fitness">Health &amp; Fitness</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#math">Math</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Date &amp; Time</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Conversions</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Electronics</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Company</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/about/">About</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/contact/">Contact</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/privacy-policy/">Privacy</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/terms/">Terms</a></li></ul></div></div><div class="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs" style="color:var(--ink-soft)"><div>© <!-- -->2026<!-- --> <!-- -->CalcFolio<!-- -->. All calculations are estimates — not financial, legal, or medical advice.</div><div class="flex gap-5"><a class="hover:opacity-60 transition-opacity" href="/privacy-policy/">Privacy</a><a class="hover:opacity-60 transition-opacity" href="/terms/">Terms</a></div></div></footer></div></body></html>
