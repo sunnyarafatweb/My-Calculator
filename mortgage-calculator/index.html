@@ -24,8 +24,8 @@
 .area-bottomgrid{grid-area:bottomgrid}
 .mc-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:100%}
 .mc-headline{padding:14px 16px;background:#16A34A;color:#fff;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.mc-headline .label{font-size:13px;font-weight:600}
-.mc-headline .value{font-size:19px;font-weight:500;font-family:var(--font-data);white-space:nowrap}
+.mc-headline .label{font-size:15px;font-weight:600}
+.mc-headline .value{font-size:24px;font-weight:600;font-family:var(--font-body);white-space:nowrap}
 .mc-summary-table{width:100%;font-size:12px;border-collapse:collapse;table-layout:fixed}
 .mc-summary-table{margin:14px}
 .mc-summary-table{width:calc(100% - 28px)}
@@ -34,10 +34,10 @@
 .mc-summary-table col.c3{width:39%}
 .mc-summary-table th{text-align:right;font-size:10px;text-transform:uppercase;color:var(--ink-faint);font-weight:500;padding-bottom:6px;white-space:nowrap}
 .mc-summary-table th:first-child{text-align:left}
-.mc-summary-table td{padding:7px 2px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-data);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-summary-table td{padding:7px 2px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mc-summary-table td:first-child{text-align:left;font-family:var(--font-body);color:var(--ink-soft);font-weight:600;font-size:12px}
 .mc-summary-table tr.total td{font-weight:500;border-top:2px solid var(--border);padding-top:12px}
-.mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0;font-weight:600}
+.mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0;font-weight:600;white-space:normal;line-height:1.25}
 .mc-summary-table tr.total td:not(:first-child){padding:12px 0 8px}
 .mc-summary-table tr.total .mc-pill{display:inline-block;background:#16A34A;color:#fff;border-radius:8px;padding:6px 8px 6px 14px;white-space:nowrap;box-sizing:border-box;font-size:13px}
 .mc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
@@ -49,7 +49,7 @@
 .mc-legend-row .lbl-value-wrap{display:flex;flex-direction:column;min-width:0;flex:1}
 .mc-legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:3px}
 .mc-legend-row .lbl{color:var(--ink-soft)}
-.mc-legend-row .val{font-family:var(--font-data);font-weight:500;color:var(--ink);font-size:13.5px}
+.mc-legend-row .val{font-family:var(--font-body);font-weight:600;color:var(--ink);font-size:13.5px}
 .mc-ad-box{width:100%;height:280px;border:1px solid var(--border-fine);border-radius:16px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:11px}
 .mc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .mc-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
@@ -61,7 +61,7 @@
 .mc-loansum-card .title{display:inline-block;font-size:13px;font-weight:700;color:var(--ink);background:var(--surface-sunken);padding:5px 12px;border-radius:8px;margin-bottom:12px}
 .mc-loansum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink)}
 .mc-loansum-row:last-child{border-bottom:none}
-.mc-loansum-row .v{font-weight:500;font-family:var(--font-data)}
+.mc-loansum-row .v{font-weight:600;font-family:var(--font-body)}
 .mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%}
 .mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
@@ -69,7 +69,7 @@
 .mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mc-rates-grid>div{text-align:center;border-radius:12px;padding:14px;background:var(--surface-sunken)}
 .mc-rates-grid .lbl{font-size:11px;color:var(--ink-soft);margin-bottom:4px}
-.mc-rates-grid .val{font-size:22px;font-weight:500;font-family:var(--font-data);color:#22C55E}
+.mc-rates-grid .val{font-size:22px;font-weight:600;font-family:var(--font-body);color:#22C55E}
 .mc-rates-note{font-size:11px;color:var(--ink-faint);margin-top:12px}
 .mc-amort-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;max-width:750px;width:100%;margin-top:16px;overflow:hidden}
 .mc-amort-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
@@ -82,7 +82,7 @@
 .mc-amort-table{width:100%;font-size:12.5px;border-collapse:collapse}
 .mc-amort-table th{position:sticky;top:0;background:var(--surface);text-align:right;padding:8px 14px;font-size:10.5px;text-transform:uppercase;color:var(--ink-faint);font-weight:500;border-bottom:1px solid var(--border-fine)}
 .mc-amort-table th:nth-child(1),.mc-amort-table th:nth-child(2){text-align:left}
-.mc-amort-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-data)}
+.mc-amort-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-body)}
 .mc-amort-table td:nth-child(1){font-weight:600}
 .mc-amort-table td:nth-child(2){text-align:left;color:var(--ink-soft);font-family:var(--font-body)}
 .mc-amort-table td:last-child{font-weight:500;color:#22C55E}
@@ -106,7 +106,7 @@
 .mc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:0}
 .mc-input-group{flex:1;display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#fff;min-width:0}
 .mc-input-group span{flex-shrink:0;font-size:11px;color:var(--ink-soft);background:var(--surface-sunken);padding:6px 7px}
-.mc-input-group input,.mc-input-group select{border:none;outline:none;background:#fff;padding:6px 8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-data)}
+.mc-input-group input,.mc-input-group select{border:none;outline:none;background:#fff;padding:6px 8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
 .mc-unit-select{flex-shrink:0;width:52px;border:1px solid var(--border);border-radius:6px;padding:6px 4px;font-size:12px;background:#fff;color:var(--ink);text-align:center}
 .mc-select-plain{border:1px solid var(--border);border-radius:6px;padding:6px 7px;font-size:13px;background:#fff;color:var(--ink);flex:1;min-width:0}
 .mc-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
