@@ -831,18 +831,19 @@
 (function(){
   var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function $(id){return document.getElementById(id);}
-  function fillMonthYearSelects(monthSel,yearSel,defMonth,defYear,startYear){
+  function fillMonthYearSelects(monthSel,yearSel,defMonth,defYear,startYear,endYear){
+    endYear = endYear || (startYear+15);
     monthSel.innerHTML='';
     for(var m=0;m<12;m++){var o=document.createElement('option');o.value=m+1;o.textContent=MONTHS[m];if(m+1===defMonth)o.selected=true;monthSel.appendChild(o);}
     yearSel.innerHTML='';
-    for(var y=startYear;y<startYear+15;y++){var o2=document.createElement('option');o2.value=y;o2.textContent=y;if(y===defYear)o2.selected=true;yearSel.appendChild(o2);}
+    for(var y=startYear;y<=endYear;y++){var o2=document.createElement('option');o2.value=y;o2.textContent=y;if(y===defYear)o2.selected=true;yearSel.appendChild(o2);}
   }
   var now=new Date();
   var curYear=now.getFullYear();
   fillMonthYearSelects($('mc-startMonth'),$('mc-startYear'),7,2026,curYear);
-  fillMonthYearSelects($('mc-extraMonthlyMonth'),$('mc-extraMonthlyYear'),7,2026,curYear);
-  fillMonthYearSelects($('mc-extraYearlyMonth'),$('mc-extraYearlyYear'),7,2026,curYear);
-  fillMonthYearSelects($('mc-extraOnetimeMonth'),$('mc-extraOnetimeYear'),7,2026,curYear);
+  fillMonthYearSelects($('mc-extraMonthlyMonth'),$('mc-extraMonthlyYear'),7,2026,curYear,2099);
+  fillMonthYearSelects($('mc-extraYearlyMonth'),$('mc-extraYearlyYear'),7,2026,curYear,2099);
+  fillMonthYearSelects($('mc-extraOnetimeMonth'),$('mc-extraOnetimeYear'),7,2026,curYear,2099);
 
   var onetimeContainer=$('mc-additionalOnetimeContainer');
   for(var i=0;i<10;i++){
@@ -853,7 +854,7 @@
       '<select class="mc-select-plain mc-ot-month"></select>'+
       '<select class="mc-select-plain mc-ot-year"></select>';
     onetimeContainer.appendChild(row);
-    fillMonthYearSelects(row.querySelector('.mc-ot-month'),row.querySelector('.mc-ot-year'),7,2026,curYear);
+    fillMonthYearSelects(row.querySelector('.mc-ot-month'),row.querySelector('.mc-ot-year'),7,2026,curYear,2099);
   }
   var moreOnetimeBtn=$('mc-moreOnetimeBtn');
   if(moreOnetimeBtn){
