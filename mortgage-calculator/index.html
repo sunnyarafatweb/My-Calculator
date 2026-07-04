@@ -6,9 +6,22 @@
 .mc-wrap{font-size:14px;max-width:100%;box-sizing:border-box}
 .mc-wrap *{box-sizing:border-box}
 .mc-bar{max-width:750px;width:100%;padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;margin-bottom:16px}
-.mc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:340px;max-width:100%;flex:0 1 340px}
+.mc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:100%}
 .mc-card-pad{padding:16px}
-.mc-row{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;max-width:100%}
+.mc-main-grid{display:grid;grid-template-columns:340px 1fr 260px;gap:20px;align-items:start;
+  grid-template-areas:
+    "form result sidebar"
+    "form chart sidebar"
+    "form loansum sidebar"
+    "rates rates rates"
+    "bottomgrid bottomgrid bottomgrid";}
+.area-form{grid-area:form}
+.area-result{grid-area:result}
+.area-chart{grid-area:chart}
+.area-loansum{grid-area:loansum}
+.area-sidebar{grid-area:sidebar}
+.area-rates{grid-area:rates}
+.area-bottomgrid{grid-area:bottomgrid}
 .mc-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:100%}
 .mc-headline{padding:14px 16px;background:#16A34A;color:#fff;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .mc-headline .label{font-size:13px;font-weight:600}
@@ -27,7 +40,7 @@
 .mc-summary-table tr.total td:first-child{color:var(--ink);background:none;padding-left:0}
 .mc-summary-table tr.total td:not(:first-child){padding:12px 0 8px}
 .mc-summary-table tr.total .mc-pill{display:inline-block;background:#16A34A;color:#fff;border-radius:8px;padding:6px 8px 6px 14px;white-space:nowrap;box-sizing:border-box}
-.mc-right-col{display:flex;flex-direction:column;gap:16px;flex:0 1 390px;width:390px;max-width:100%}
+.mc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .mc-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
 .mc-chart-box{display:flex;flex-direction:column;gap:16px;max-width:100%}
 .mc-chart-svg{width:100%;height:auto;display:block}
@@ -37,7 +50,6 @@
 .mc-legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:3px}
 .mc-legend-row .lbl{color:var(--ink-soft)}
 .mc-legend-row .val{font-family:var(--font-data);font-weight:500;color:var(--ink);font-size:13.5px}
-.mc-sidecol{display:flex;flex-direction:column;gap:16px;flex:1 1 260px;min-width:260px;max-width:100%}
 .mc-ad-box{width:100%;height:280px;border:1px solid var(--border-fine);border-radius:16px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:11px}
 .mc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .mc-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
@@ -50,7 +62,7 @@
 .mc-loansum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink)}
 .mc-loansum-row:last-child{border-bottom:none}
 .mc-loansum-row .v{font-weight:500;font-family:var(--font-data)}
-.mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;margin-top:16px}
+.mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%}
 .mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
 .mc-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
@@ -76,7 +88,7 @@
 .mc-amort-table td:last-child{font-weight:500;color:#22C55E}
 .mc-hidden{display:none !important}
 .mc-amort-table tbody.mc-hidden{display:none}
-.mc-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;margin-top:16px;align-items:start}
+.mc-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:start}
 .mc-balchart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
 .mc-balchart-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px;display:block}
 .mc-balchart-svg{width:100%;height:auto;display:block}
@@ -107,9 +119,17 @@
 .mc-onetime-row .mc-input-group{flex:1}
 .mc-onetime-row select.mc-select-plain{flex:1}
 @media (max-width:900px){
-  .mc-card{width:100%;flex:1 1 100%}
-  .mc-right-col{width:100%;flex:1 1 100%}
-  .mc-sidecol{width:100%;flex:1 1 100%;min-width:0}
+  .mc-main-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "form"
+      "result"
+      "chart"
+      "loansum"
+      "rates"
+      "bottomgrid"
+      "sidebar";
+  }
   .mc-bottom-grid{grid-template-columns:1fr}
   .mc-rates-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -129,8 +149,8 @@
 
 <div class="mc-wrap">
 <div class="mc-bar">Modify the values and click the calculate button to use</div>
-<div class="mc-row">
-<div class="mc-card">
+<div class="mc-main-grid">
+<div class="mc-card area-form">
   <div class="mc-card-pad">
 
     <div class="mc-field">
@@ -260,8 +280,7 @@
   </div>
 </div>
 
-<div class="mc-right-col">
-<div class="mc-result-card">
+<div class="mc-result-card area-result">
   <div class="mc-headline"><span class="label">Monthly Pay:</span><span class="value" id="mc-out-monthlyPay">$2,039.27</span></div>
   <table class="mc-summary-table">
     <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
@@ -276,7 +295,7 @@
   </table>
 </div>
 
-<div class="mc-chart-card">
+<div class="mc-chart-card area-chart">
   <div class="mc-chart-box">
     <svg viewBox="0 0 600 300" class="mc-chart-svg" xmlns="http://www.w3.org/2000/svg">
       <!-- gridlines + axis labels, 10% steps (chartTop=40, chartBottom=270) -->
@@ -325,7 +344,7 @@
   </div>
 </div>
 
-<div class="mc-loansum-card">
+<div class="mc-loansum-card area-loansum">
   <span class="title">Loan Summary</span>
   <div id="mc-loanSummary">
   <div class="mc-loansum-row"><span>House Price</span><span class="v">$400,000</span></div>
@@ -336,9 +355,8 @@
   <div class="mc-loansum-row"><span>Mortgage Payoff Date</span><span class="v">Jul 2056</span></div>
   </div>
 </div>
-</div>
 
-<div class="mc-sidecol">
+<div class="mc-sidecol area-sidebar">
   <div class="mc-ad-box">Advertisement</div>
   <div class="mc-calc-card">
     <div class="h">Financial Calculators</div>
@@ -355,9 +373,7 @@
   </div>
 </div>
 
-</div>
-
-<div class="mc-rates-card">
+<div class="mc-rates-card area-rates">
   <div class="mc-rates-head"><span class="t">Latest Mortgage Rates</span><span class="u">Updated 2026</span></div>
   <div class="mc-rates-grid">
     <div><div class="lbl">30 Years Fixed</div><div class="val">6.82%</div></div>
@@ -367,7 +383,7 @@
   <p class="mc-rates-note">Rates are national averages and change daily. Your actual rate depends on your credit score, down payment, and lender.</p>
 </div>
 
-<div class="mc-bottom-grid">
+<div class="mc-bottom-grid area-bottomgrid">
 <div class="mc-amort-card" style="margin-top:0">
   <div class="mc-amort-head">
     <span class="t">Amortization Schedule</span>
@@ -815,6 +831,7 @@
     <span><i style="background:#EAB308"></i>Payment</span>
   </div>
   </div>
+</div>
 </div>
 </div>
 </div>
