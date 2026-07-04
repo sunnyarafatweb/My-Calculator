@@ -220,7 +220,7 @@
     </div>
 
     <button type="button" class="mc-more-btn" id="mc-moreOnetimeBtn">+ Additional One-Time Payments</button>
-    <div id="mc-additionalOnetimeContainer" style="margin-top:10px"></div>
+    <div id="mc-additionalOnetimeContainer" class="mc-hidden" style="margin-top:10px"></div>
     </div>
 
     <label class="mc-check-row"><input id="mc-includeTaxes2" type="checkbox" checked> Include Taxes &amp; Costs Below</label>
@@ -849,6 +849,12 @@
       '<select class="mc-select-plain mc-ot-year"></select>';
     onetimeContainer.appendChild(row);
     fillMonthYearSelects(row.querySelector('.mc-ot-month'),row.querySelector('.mc-ot-year'),7,2026,curYear);
+  }
+  var moreOnetimeBtn=$('mc-moreOnetimeBtn');
+  if(moreOnetimeBtn){
+    moreOnetimeBtn.addEventListener('click',function(){
+      onetimeContainer.classList.toggle('mc-hidden');
+    });
   }
 })();
 </script>
