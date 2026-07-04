@@ -26,12 +26,18 @@
 .mc-summary-table tr.total td{background:#22C55E;color:#fff;font-weight:700;border-top:none}
 .mc-summary-table tr.total td:first-child{border-radius:8px 0 0 8px;padding-left:6px;color:#fff}
 .mc-summary-table tr.total td:last-child{border-radius:0 8px 8px 0;padding-right:6px}
-.mc-chart-box{margin:0 16px 16px 16px;padding-top:8px;border-top:1px solid var(--border-fine);display:flex;align-items:flex-end;gap:14px}
-.mc-bars{display:flex;align-items:flex-end;gap:8px;height:100px;flex-shrink:0;width:140px;padding-top:10px}
+.mc-right-col{display:flex;flex-direction:column;gap:16px;flex:0 1 390px;width:390px;max-width:100%}
+.mc-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px}
+.mc-chart-box{display:flex;align-items:stretch;gap:10px}
+.mc-axis{display:flex;flex-direction:column-reverse;justify-content:space-between;height:130px;font-size:9px;color:var(--ink-faint);flex-shrink:0;padding-bottom:16px}
+.mc-bars-area{position:relative;width:150px;flex-shrink:0;height:130px;padding-bottom:16px}
+.mc-gridlines{position:absolute;inset:0 0 16px 0;display:flex;flex-direction:column-reverse;justify-content:space-between}
+.mc-gridlines span{display:block;height:1px;background:var(--ink-faint);opacity:0.15;width:100%}
+.mc-bars{position:relative;display:flex;align-items:flex-end;gap:10px;height:100%;width:100%}
 .mc-bars .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
 .mc-bars .bar-pct{font-size:9px;font-weight:700;color:var(--ink);margin-bottom:4px}
 .mc-bars .bar{width:100%;border-radius:3px 3px 0 0;min-height:3px}
-.mc-legend{flex:1;display:flex;flex-direction:column;justify-content:center;gap:9px;padding-top:10px}
+.mc-legend{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;padding-left:6px}
 .mc-legend-row{display:flex;align-items:center;gap:7px;font-size:12px}
 .mc-legend-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0}
 .mc-legend-row .lbl{color:var(--ink-soft)}
@@ -188,6 +194,7 @@
   </div>
 </div>
 
+<div class="mc-right-col">
 <div class="mc-result-card">
   <div class="mc-headline"><span class="label">Monthly Pay:</span><span class="value">$2,039.27</span></div>
   <table class="mc-summary-table">
@@ -201,13 +208,21 @@
       <tr class="total"><td>Total Out-of-Pocket</td><td>$2,897.60</td><td>$1,043,137.79</td></tr>
     </tbody>
   </table>
+</div>
 
+<div class="mc-chart-card">
   <div class="mc-chart-box">
-    <div class="mc-bars">
-      <div class="bar-col"><div class="bar-pct">70%</div><div class="bar" style="height:70%;background:#DC2626"></div></div>
-      <div class="bar-col"><div class="bar-pct">40%</div><div class="bar" style="height:40%;background:#22C55E"></div></div>
-      <div class="bar-col"><div class="bar-pct">20%</div><div class="bar" style="height:20%;background:#3B82F6"></div></div>
-      <div class="bar-col"><div class="bar-pct">50%</div><div class="bar" style="height:50%;background:#EAB308"></div></div>
+    <div class="mc-axis">
+      <span>100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span>
+    </div>
+    <div class="mc-bars-area">
+      <div class="mc-gridlines"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="mc-bars">
+        <div class="bar-col"><div class="bar-pct">70%</div><div class="bar" style="height:70%;background:#DC2626"></div></div>
+        <div class="bar-col"><div class="bar-pct">40%</div><div class="bar" style="height:40%;background:#22C55E"></div></div>
+        <div class="bar-col"><div class="bar-pct">20%</div><div class="bar" style="height:20%;background:#3B82F6"></div></div>
+        <div class="bar-col"><div class="bar-pct">50%</div><div class="bar" style="height:50%;background:#EAB308"></div></div>
+      </div>
     </div>
     <div class="mc-legend">
       <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#DC2626"></div><div class="lbl">Principal &amp; Interest</div></div>
@@ -216,6 +231,7 @@
       <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#EAB308"></div><div class="lbl">Other Cost</div></div>
     </div>
   </div>
+</div>
 </div>
 
 </div>
