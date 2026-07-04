@@ -5,7 +5,7 @@
 <style>
 .mc-wrap{font-size:14px;max-width:100%;box-sizing:border-box}
 .mc-wrap *{box-sizing:border-box}
-.mc-bar{max-width:750px;width:100%;padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;margin-bottom:16px}
+.mc-bar{width:100%;padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;margin-bottom:16px}
 .mc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:340px;max-width:100%;flex:0 1 340px}
 .mc-card-pad{padding:16px}
 .mc-row{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;max-width:100%}
@@ -47,11 +47,11 @@
 .mc-loansum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink)}
 .mc-loansum-row:last-child{border-bottom:none}
 .mc-loansum-row .v{font-weight:700;font-family:var(--font-data)}
-.mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;max-width:750px;width:100%;margin-top:16px}
+.mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;margin-top:16px}
 .mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
 .mc-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
-.mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mc-rates-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .mc-rates-grid>div{text-align:center;border-radius:12px;padding:14px;background:var(--surface-sunken)}
 .mc-rates-grid .lbl{font-size:11px;color:var(--ink-soft);margin-bottom:4px}
 .mc-rates-grid .val{font-size:22px;font-weight:700;font-family:var(--font-data);color:#22C55E}
@@ -71,7 +71,7 @@
 .mc-amort-table td:nth-child(2){text-align:left;color:var(--ink-soft);font-family:var(--font-body)}
 .mc-amort-table td:last-child{font-weight:600;color:#22C55E}
 .mc-amort-table tbody.mc-hidden{display:none}
-.mc-bottom-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;max-width:750px;width:100%;margin-top:16px;align-items:start}
+.mc-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;margin-top:16px;align-items:start}
 .mc-balchart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
 .mc-balchart-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px;display:block}
 .mc-balchart-svg{width:100%;height:auto;display:block}
@@ -331,6 +331,7 @@
     <div><div class="lbl">30 Years Fixed</div><div class="val">6.82%</div></div>
     <div><div class="lbl">15 Years Fixed</div><div class="val">6.13%</div></div>
     <div><div class="lbl">10 Years Fixed</div><div class="val">5.97%</div></div>
+    <div><div class="lbl">40 Years Fixed</div><div class="val">6.95%</div></div>
   </div>
   <p class="mc-rates-note">Rates are national averages and change daily. Your actual rate depends on your credit score, down payment, and lender.</p>
 </div>
