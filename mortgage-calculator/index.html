@@ -65,7 +65,8 @@
 .mc-amort-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .mc-amort-toggle button{padding:6px 14px;font-size:12px;font-weight:600;border:none;background:#fff;color:var(--ink-soft);cursor:pointer}
 .mc-amort-toggle button.active{background:#131313;color:#fff}
-.mc-amort-scroll{max-height:420px;overflow-y:auto}
+.mc-amort-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
+.mc-amort-table{min-width:480px}
 .mc-amort-table{width:100%;font-size:12.5px;border-collapse:collapse}
 .mc-amort-table th{position:sticky;top:0;background:var(--surface);text-align:right;padding:8px 14px;font-size:10.5px;text-transform:uppercase;color:var(--ink-faint);font-weight:500;border-bottom:1px solid var(--border-fine)}
 .mc-amort-table th:nth-child(1),.mc-amort-table th:nth-child(2){text-align:left}
@@ -105,6 +106,25 @@
 .mc-onetime-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .mc-onetime-row .mc-input-group{flex:1}
 .mc-onetime-row select.mc-select-plain{flex:1}
+@media (max-width:900px){
+  .mc-card{width:100%;flex:1 1 100%}
+  .mc-right-col{width:100%;flex:1 1 100%}
+  .mc-sidecol{width:100%;flex:1 1 100%;min-width:0}
+  .mc-bottom-grid{grid-template-columns:1fr}
+  .mc-rates-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .mc-field{flex-wrap:wrap}
+  .mc-field-label{width:100%}
+  .mc-field-control{width:100%}
+  .mc-rates-grid{grid-template-columns:1fr}
+  .mc-legend{grid-template-columns:1fr}
+  .mc-headline{flex-direction:column;align-items:flex-start;gap:4px}
+  .mc-headline .value{font-size:22px}
+  .mc-summary-table{font-size:11px}
+  .mc-loansum-row{flex-wrap:wrap;gap:2px}
+  .mc-calc-card a{font-size:12px;padding:9px 12px}
+}
 </style>
 
 <div class="mc-wrap">
