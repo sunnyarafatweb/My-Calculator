@@ -80,6 +80,9 @@
 .mc-balchart-legend span{display:inline-flex;align-items:center;gap:5px}
 .mc-balchart-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .mc-field{display:flex;align-items:center;gap:8px;padding:6px 0}
+.mc-field-stacked{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:8px 0}
+.mc-field-stacked .mc-field-label{width:auto}
+.mc-field-stacked .mc-field-control{width:100%}
 .mc-field-label{width:128px;flex-shrink:0;text-align:left;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;justify-content:flex-start;gap:4px}
 .mc-help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--ink-faint);color:var(--ink-faint);font-size:9px;flex-shrink:0;cursor:help}
 .mc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:0}
@@ -193,7 +196,7 @@
         <div class="mc-field"><span class="mc-field-label">Other Costs Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-otherIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
 
         <p class="mc-section-title">Extra Payments</p>
-        <div class="mc-field"><span class="mc-field-label">Extra Monthly Pay</span>
+        <div class="mc-field mc-field-stacked"><span class="mc-field-label">Extra Monthly Pay</span>
           <div class="mc-field-control">
             <div class="mc-input-group"><span>$</span><input id="mc-extraMonthlyAmt" type="number" min="0" step="10" value="0"></div>
             <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">from</span>
@@ -201,7 +204,7 @@
             <select id="mc-extraMonthlyYear" class="mc-select-plain"></select>
           </div>
         </div>
-        <div class="mc-field"><span class="mc-field-label">Extra Yearly Pay</span>
+        <div class="mc-field mc-field-stacked"><span class="mc-field-label">Extra Yearly Pay</span>
           <div class="mc-field-control">
             <div class="mc-input-group"><span>$</span><input id="mc-extraYearlyAmt" type="number" min="0" step="10" value="0"></div>
             <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">from</span>
@@ -209,7 +212,7 @@
             <select id="mc-extraYearlyYear" class="mc-select-plain"></select>
           </div>
         </div>
-        <div class="mc-field"><span class="mc-field-label">Extra One-time Pay</span>
+        <div class="mc-field mc-field-stacked"><span class="mc-field-label">Extra One-time Pay</span>
           <div class="mc-field-control">
             <div class="mc-input-group"><span>$</span><input id="mc-extraOnetimeAmt" type="number" min="0" step="10" value="0"></div>
             <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">in</span>
