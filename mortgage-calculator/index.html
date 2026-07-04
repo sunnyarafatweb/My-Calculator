@@ -11,28 +11,25 @@
 .mc-card-pad{padding:18px}
 .mc-card-head{padding:12px 16px;text-align:center;color:#fff;font-weight:600;font-size:13px;background:#1E3A5F}
 .mc-field{display:flex;align-items:center;gap:8px;padding:6px 0}
-.mc-field-label{width:120px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-soft)}
+.mc-field-label{width:128px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.mc-help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--ink-faint);color:var(--ink-faint);font-size:9px;flex-shrink:0;cursor:help}
 .mc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:0}
 .mc-input-group{flex:1;display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#fff;min-width:0}
 .mc-input-group span{flex-shrink:0;font-size:11px;color:var(--ink-soft);background:var(--surface-sunken);padding:6px 7px}
 .mc-input-group input,.mc-input-group select{border:none;outline:none;background:#fff;padding:6px 8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-data)}
+.mc-unit-select{flex-shrink:0;width:52px;border:1px solid var(--border);border-radius:6px;padding:6px 4px;font-size:12px;background:#fff;color:var(--ink);text-align:center}
 .mc-select-plain{border:1px solid var(--border);border-radius:6px;padding:6px 7px;font-size:13px;background:#fff;color:var(--ink);flex:1;min-width:0}
-.mc-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.mc-unit-toggle button{padding:6px 9px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:#fff;color:var(--ink-soft)}
-.mc-unit-toggle button.active{background:#1E3A5F;color:#fff}
-.mc-chip{font-size:11px;padding:4px 7px;border-radius:6px;background:var(--surface-sunken);color:var(--ink-soft);font-family:var(--font-data);flex-shrink:0;min-width:64px;text-align:center}
 .mc-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
 .mc-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
-.mc-check-row{display:flex;align-items:center;gap:7px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:12px;font-weight:600;color:#1E3A5F;cursor:pointer}
-.mc-btn-row{display:flex;gap:8px;padding-top:6px}
+.mc-check-row{display:flex;align-items:center;gap:7px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.mc-btn-row{display:flex;gap:8px;padding-top:10px}
 .mc-btn-calc{background:#22C55E;color:#fff;border:none;border-radius:8px;padding:9px 26px;font-size:14px;font-weight:600;cursor:pointer}
 .mc-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:9px 20px;font-size:14px;font-weight:500;cursor:pointer}
 .mc-onetime-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .mc-onetime-row .mc-input-group{flex:1}
-.mc-onetime-row select{flex:1}
-.mc-remove-btn{flex-shrink:0;width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;font-size:12px;line-height:1}
+.mc-onetime-row select.mc-select-plain{flex:1}
 .mc-hidden{display:none !important}
-.mc-headline{padding:14px 20px;background:#1E3A5F;color:#fff;display:flex;align-items:center;gap:12px}
+.mc-headline{padding:14px 20px;background:#22C55E;color:#fff;display:flex;align-items:center;gap:12px}
 .mc-headline .label{font-size:13px;font-weight:600}
 .mc-headline .value{font-size:26px;font-weight:700;font-family:var(--font-data)}
 .mc-results-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
@@ -45,26 +42,26 @@
 .mc-summary-table th:first-child{text-align:left}
 .mc-summary-table td{padding:7px 0;border-top:1px solid var(--border-fine);text-align:right;font-family:var(--font-data)}
 .mc-summary-table td:first-child{text-align:left;font-family:var(--font-body);color:var(--ink-soft)}
-.mc-summary-table tr.total td{border-top:2px solid var(--border);font-weight:700;color:#22C55E;padding-top:10px}
-.mc-summary-table tr.total td:first-child{color:var(--ink)}
-.mc-legend-row{display:flex;align-items:center;gap:8px;font-size:11.5px;margin-bottom:6px}
+.mc-summary-table tr.total td{background:#22C55E;color:#fff;font-weight:700;border-top:none}
+.mc-summary-table tr.total td:first-child{border-radius:8px 0 0 8px;padding-left:8px;color:#fff}
+.mc-summary-table tr.total td:last-child{border-radius:0 8px 8px 0;padding-right:8px}
+.mc-summary-table tr.total{box-shadow:0 0 0 0}
+.mc-breakdown{display:flex;gap:14px}
+.mc-bars{display:flex;align-items:flex-end;gap:8px;height:110px;flex-shrink:0;width:120px}
+.mc-bars .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.mc-bars .bar-pct{font-size:9px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.mc-bars .bar{width:100%;border-radius:3px 3px 0 0;min-height:3px}
+.mc-legend{flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.mc-legend-row{display:flex;align-items:center;gap:7px;font-size:11px}
 .mc-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 .mc-legend-row .lbl{flex:1;color:var(--ink-soft)}
-.mc-legend-row .val{font-family:var(--font-data);font-weight:600;color:var(--ink)}
-.mc-bars{display:flex;align-items:flex-end;gap:10px;height:110px;margin-top:10px}
-.mc-bars .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
-.mc-bars .bar-pct{font-size:10px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.mc-bars .bar{width:100%;border-radius:4px 4px 0 0;min-height:3px}
+.mc-legend-row .val{font-family:var(--font-data);font-weight:600;color:var(--ink);font-size:10.5px}
 .mc-loansum{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;margin-top:16px}
 .mc-loansum p.title{font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--ink-faint);margin-bottom:10px}
 .mc-loansum-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
 .mc-loansum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-fine);font-size:13px}
 .mc-loansum-row.full{grid-column:1/-1}
 .mc-loansum-row .v{font-family:var(--font-data);font-weight:600;color:var(--ink)}
-.mc-rates-box{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px}
-.mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-.mc-rates-grid>div{text-align:center;border-radius:12px;padding:16px;border:1px solid var(--border-fine);background:var(--surface-sunken)}
-.mc-rates-grid p.n{font-size:26px;font-weight:700;font-family:var(--font-data)}
 .mc-bottom-grid{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:20px;align-items:start}
 @media (max-width:900px){.mc-bottom-grid{grid-template-columns:1fr}}
 .mc-amort-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
@@ -79,7 +76,6 @@
 .mc-amort-table td:nth-child(1){font-weight:600}
 .mc-amort-table td:nth-child(2){text-align:left;color:var(--ink-soft);font-family:var(--font-body)}
 .mc-amort-table td:last-child{font-weight:600;color:#22C55E}
-.mc-sidebar-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:16px}
 </style>
 
 <div class="mc-wrap">
@@ -98,26 +94,22 @@
     </div>
 
     <div class="mc-field">
-      <span class="mc-field-label">Down Payment</span>
+      <span class="mc-field-label">Down Payment <span class="mc-help" title="How much you pay upfront, as a percent of price or a flat dollar amount.">?</span></span>
       <div class="mc-field-control">
         <div class="mc-input-group"><input id="mc-downPayment" type="number" min="0" step="0.5" value="20"></div>
-        <span class="mc-chip" id="mc-downPaymentAmt">$80,000</span>
-        <div class="mc-unit-toggle">
-          <button id="mc-dpUnitPct" class="active" type="button">%</button>
-          <button id="mc-dpUnitDollar" type="button">$</button>
-        </div>
+        <select id="mc-downPaymentUnit" class="mc-unit-select"><option value="%">%</option><option value="$">$</option></select>
       </div>
     </div>
 
     <div class="mc-field">
-      <span class="mc-field-label">Loan Term</span>
+      <span class="mc-field-label">Loan Term <span class="mc-help" title="Number of years to repay the loan.">?</span></span>
       <div class="mc-field-control">
         <div class="mc-input-group"><input id="mc-loanTerm" type="number" min="1" max="50" step="1" value="30"><span>Years</span></div>
       </div>
     </div>
 
     <div class="mc-field">
-      <span class="mc-field-label">Interest Rate</span>
+      <span class="mc-field-label">Interest Rate <span class="mc-help" title="Annual interest rate on the loan.">?</span></span>
       <div class="mc-field-control">
         <div class="mc-input-group"><input id="mc-interestRate" type="number" min="0" max="20" step="0.001" value="6.579"><span>%</span></div>
       </div>
@@ -137,33 +129,38 @@
       <p class="mc-section-title">Annual Tax &amp; Cost</p>
 
       <div class="mc-field">
-        <span class="mc-field-label">Property Taxes</span>
+        <span class="mc-field-label">Property Taxes <span class="mc-help" title="Annual property tax, as a percent of home price or a flat dollar amount.">?</span></span>
         <div class="mc-field-control">
           <div class="mc-input-group"><span>$</span><input id="mc-propertyTax" type="number" min="0" step="10" value="4800"></div>
+          <select id="mc-propertyTaxUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
         </div>
       </div>
       <div class="mc-field">
-        <span class="mc-field-label">Home Insurance</span>
+        <span class="mc-field-label">Home Insurance <span class="mc-help" title="Annual homeowners insurance premium.">?</span></span>
         <div class="mc-field-control">
           <div class="mc-input-group"><span>$</span><input id="mc-homeInsurance" type="number" min="0" step="10" value="1440"></div>
+          <select id="mc-homeInsuranceUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
         </div>
       </div>
       <div class="mc-field">
-        <span class="mc-field-label">PMI Insurance</span>
+        <span class="mc-field-label">PMI Insurance <span class="mc-help" title="Private Mortgage Insurance, required when down payment is under 20%.">?</span></span>
         <div class="mc-field-control">
           <div class="mc-input-group"><span>$</span><input id="mc-pmi" type="number" min="0" step="10" value="1920"></div>
+          <select id="mc-pmiUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
         </div>
       </div>
       <div class="mc-field">
-        <span class="mc-field-label">HOA Fee</span>
+        <span class="mc-field-label">HOA Fee <span class="mc-help" title="Annual homeowners association fee.">?</span></span>
         <div class="mc-field-control">
           <div class="mc-input-group"><span>$</span><input id="mc-hoa" type="number" min="0" step="10" value="0"></div>
+          <select id="mc-hoaUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
         </div>
       </div>
       <div class="mc-field">
-        <span class="mc-field-label">Other Costs</span>
+        <span class="mc-field-label">Other Costs <span class="mc-help" title="Any other recurring annual homeownership cost.">?</span></span>
         <div class="mc-field-control">
           <div class="mc-input-group"><span>$</span><input id="mc-otherCosts" type="number" min="0" step="10" value="0"></div>
+          <select id="mc-otherUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
         </div>
       </div>
 
@@ -204,8 +201,10 @@
       </div>
     </div>
 
-    <button type="button" class="mc-more-btn" id="mc-addOnetimeBtn">+ Additional One-Time Payments</button>
-    <div id="mc-additionalOnetimeContainer" style="margin-top:10px"></div>
+    <button type="button" class="mc-more-btn" id="mc-moreOnetimeBtn">+ Additional One-Time Payments</button>
+    <div id="mc-additionalOnetimeContainer" class="mc-hidden" style="margin-top:10px"></div>
+
+    <label class="mc-check-row"><input id="mc-includeTaxes2" type="checkbox" checked> Include Taxes &amp; Costs Below</label>
 
     <div class="mc-btn-row">
       <button type="button" class="mc-btn-calc" id="mc-calculateBtn">Calculate</button>
@@ -226,8 +225,10 @@
         </table>
       </div>
       <div>
-        <div id="mc-legend"></div>
-        <div class="mc-bars" id="mc-bars"></div>
+        <div class="mc-breakdown">
+          <div class="mc-bars" id="mc-bars"></div>
+          <div class="mc-legend" id="mc-legend"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -301,42 +302,35 @@
   fillMonthYearSelects($('mc-extraYearlyMonth'),$('mc-extraYearlyYear'),7,2026,curYear);
   fillMonthYearSelects($('mc-extraOnetimeMonth'),$('mc-extraOnetimeYear'),7,2026,curYear);
 
-  var downPaymentUnit='%';
-  $('mc-dpUnitPct').addEventListener('click',function(){downPaymentUnit='%';$('mc-dpUnitPct').classList.add('active');$('mc-dpUnitDollar').classList.remove('active');syncDownPaymentChip();});
-  $('mc-dpUnitDollar').addEventListener('click',function(){downPaymentUnit='$';$('mc-dpUnitDollar').classList.add('active');$('mc-dpUnitPct').classList.remove('active');syncDownPaymentChip();});
-
-  function syncDownPaymentChip(){
-    var homePrice=parseFloat($('mc-homePrice').value)||0;
-    var dp=parseFloat($('mc-downPayment').value)||0;
-    var amt = downPaymentUnit==='%' ? homePrice*dp/100 : dp;
-    $('mc-downPaymentAmt').textContent = money(amt,0);
+  // keep the two "Include Taxes" checkboxes (top + bottom) in sync
+  function wireTaxToggle(cb){
+    cb.addEventListener('change',function(){
+      $('mc-includeTaxes').checked=this.checked;
+      $('mc-includeTaxes2').checked=this.checked;
+      $('mc-taxSection').classList.toggle('mc-hidden',!this.checked);
+    });
   }
-  $('mc-homePrice').addEventListener('input',syncDownPaymentChip);
-  $('mc-downPayment').addEventListener('input',syncDownPaymentChip);
-
-  $('mc-includeTaxes').addEventListener('change',function(){
-    $('mc-taxSection').classList.toggle('mc-hidden',!this.checked);
-  });
+  wireTaxToggle($('mc-includeTaxes'));
+  wireTaxToggle($('mc-includeTaxes2'));
 
   $('mc-moreOptionsBtn').addEventListener('click',function(){
     $('mc-increaseSection').classList.toggle('mc-hidden');
   });
 
-  var onetimeExtraCount=0;
-  $('mc-addOnetimeBtn').addEventListener('click',function(){
-    if(onetimeExtraCount>=9)return;
-    onetimeExtraCount++;
+  // pre-render 10 additional one-time payment rows (matches reference design)
+  var onetimeContainer=$('mc-additionalOnetimeContainer');
+  for(var i=0;i<10;i++){
     var row=document.createElement('div');
     row.className='mc-onetime-row';
-    var id='mc-extraOT-'+onetimeExtraCount;
     row.innerHTML='<div class="mc-input-group"><span>$</span><input type="number" min="0" step="10" value="0" class="mc-ot-amt"></div>'+
       '<span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">in</span>'+
       '<select class="mc-select-plain mc-ot-month"></select>'+
-      '<select class="mc-select-plain mc-ot-year"></select>'+
-      '<button type="button" class="mc-remove-btn">×</button>';
-    $('mc-additionalOnetimeContainer').appendChild(row);
+      '<select class="mc-select-plain mc-ot-year"></select>';
+    onetimeContainer.appendChild(row);
     fillMonthYearSelects(row.querySelector('.mc-ot-month'),row.querySelector('.mc-ot-year'),7,2026,curYear);
-    row.querySelector('.mc-remove-btn').addEventListener('click',function(){row.remove();});
+  }
+  $('mc-moreOnetimeBtn').addEventListener('click',function(){
+    onetimeContainer.classList.toggle('mc-hidden');
   });
 
   function getExtraOnetimes(){
@@ -354,10 +348,15 @@
     return (year-baseYear)*12 + (month-baseMonth);
   }
 
+  function annualDollar(rawVal,unit,homePrice){
+    return unit==='%' ? homePrice*rawVal/100 : rawVal;
+  }
+
   function calculate(){
     var homePrice=parseFloat($('mc-homePrice').value)||0;
     var dpInput=parseFloat($('mc-downPayment').value)||0;
-    var downPaymentAmt = downPaymentUnit==='%' ? homePrice*dpInput/100 : dpInput;
+    var dpUnit=$('mc-downPaymentUnit').value;
+    var downPaymentAmt = dpUnit==='%' ? homePrice*dpInput/100 : dpInput;
     var downPaymentPct = homePrice>0 ? downPaymentAmt/homePrice*100 : 0;
     var loanAmount=Math.max(homePrice-downPaymentAmt,0);
     var termYears=parseFloat($('mc-loanTerm').value)||30;
@@ -368,11 +367,11 @@
     var startYear=parseInt($('mc-startYear').value,10);
 
     var includeTaxes=$('mc-includeTaxes').checked;
-    var propertyTaxAnnual=includeTaxes?(parseFloat($('mc-propertyTax').value)||0):0;
-    var homeInsuranceAnnual=includeTaxes?(parseFloat($('mc-homeInsurance').value)||0):0;
-    var pmiAnnual=includeTaxes?(parseFloat($('mc-pmi').value)||0):0;
-    var hoaAnnual=includeTaxes?(parseFloat($('mc-hoa').value)||0):0;
-    var otherAnnual=includeTaxes?(parseFloat($('mc-otherCosts').value)||0):0;
+    var propertyTaxAnnual=includeTaxes?annualDollar(parseFloat($('mc-propertyTax').value)||0,$('mc-propertyTaxUnit').value,homePrice):0;
+    var homeInsuranceAnnual=includeTaxes?annualDollar(parseFloat($('mc-homeInsurance').value)||0,$('mc-homeInsuranceUnit').value,homePrice):0;
+    var pmiAnnual=includeTaxes?annualDollar(parseFloat($('mc-pmi').value)||0,$('mc-pmiUnit').value,homePrice):0;
+    var hoaAnnual=includeTaxes?annualDollar(parseFloat($('mc-hoa').value)||0,$('mc-hoaUnit').value,homePrice):0;
+    var otherAnnual=includeTaxes?annualDollar(parseFloat($('mc-otherCosts').value)||0,$('mc-otherUnit').value,homePrice):0;
 
     var ptInc=(parseFloat($('mc-propertyTaxIncrease').value)||0)/100;
     var hiInc=(parseFloat($('mc-homeInsuranceIncrease').value)||0)/100;
@@ -463,9 +462,9 @@
       '<tr class="total"><td>Total Out-of-Pocket</td><td>'+money(res.totalOutOfPocketMonthly)+'</td><td>'+money(res.totalOutOfPocketTotal,0)+'</td></tr>';
 
     var cats=[
-      {label:'Principal & Interest',val:res.basePayment,color:'#1E3A5F'},
+      {label:'Principal & Interest',val:res.basePayment,color:'#DC2626'},
       {label:'Property Taxes',val:res.initialPT,color:'#22C55E'},
-      {label:'Home Insurance',val:res.initialHI,color:'#2563EB'},
+      {label:'Home Insurance',val:res.initialHI,color:'#3B82F6'},
       {label:'Other Cost',val:res.otherBucketMonthly,color:'#EAB308'}
     ];
     var total=res.totalOutOfPocketMonthly||1;
@@ -570,12 +569,10 @@
   $('mc-clearBtn').addEventListener('click',function(){
     $('mc-homePrice').value=0;$('mc-downPayment').value=0;$('mc-loanTerm').value=30;$('mc-interestRate').value=0;
     ['mc-propertyTax','mc-homeInsurance','mc-pmi','mc-hoa','mc-otherCosts','mc-propertyTaxIncrease','mc-homeInsuranceIncrease','mc-hoaIncrease','mc-otherIncrease','mc-extraMonthlyAmt','mc-extraYearlyAmt','mc-extraOnetimeAmt'].forEach(function(id){$(id).value=0;});
-    document.querySelectorAll('#mc-additionalOnetimeContainer .mc-onetime-row').forEach(function(r){r.remove();});
-    syncDownPaymentChip();
+    document.querySelectorAll('#mc-additionalOnetimeContainer .mc-ot-amt').forEach(function(inp){inp.value=0;});
     render();
   });
 
-  syncDownPaymentChip();
   render();
 })();
 </script>
