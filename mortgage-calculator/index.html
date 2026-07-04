@@ -4,10 +4,190 @@
 <div class="mb-6"><h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2" style="color:var(--ink);letter-spacing:-0.025em">Mortgage Calculator</h1><p class="text-base leading-relaxed max-w-3xl" style="color:var(--ink-soft)">Enter the home price and down payment, then add taxes and insurance to see the payment you&#x27;ll actually owe each month — not just the loan portion.</p></div>
 <style>
 .mc-wrap{font-size:14px}
-.mc-bar{padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:18px;background:#1E3A5F;border-radius:12px}
+.mc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;max-width:340px}
+.mc-card-head{padding:12px 16px;text-align:center;color:#fff;font-weight:600;font-size:13px;background:#1E3A5F}
+.mc-card-pad{padding:16px}
+.mc-field{display:flex;align-items:center;gap:8px;padding:6px 0}
+.mc-field-label{width:128px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.mc-help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--ink-faint);color:var(--ink-faint);font-size:9px;flex-shrink:0;cursor:help}
+.mc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:0}
+.mc-input-group{flex:1;display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#fff;min-width:0}
+.mc-input-group span{flex-shrink:0;font-size:11px;color:var(--ink-soft);background:var(--surface-sunken);padding:6px 7px}
+.mc-input-group input,.mc-input-group select{border:none;outline:none;background:#fff;padding:6px 8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-data)}
+.mc-unit-select{flex-shrink:0;width:52px;border:1px solid var(--border);border-radius:6px;padding:6px 4px;font-size:12px;background:#fff;color:var(--ink);text-align:center}
+.mc-select-plain{border:1px solid var(--border);border-radius:6px;padding:6px 7px;font-size:13px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.mc-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.mc-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.mc-check-row{display:flex;align-items:center;gap:7px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+.mc-btn-row{display:flex;gap:8px;padding-top:10px}
+.mc-btn-calc{background:#22C55E;color:#fff;border:none;border-radius:8px;padding:9px 26px;font-size:14px;font-weight:600;cursor:pointer}
+.mc-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:9px 20px;font-size:14px;font-weight:500;cursor:pointer}
+.mc-onetime-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mc-onetime-row .mc-input-group{flex:1}
+.mc-onetime-row select.mc-select-plain{flex:1}
 </style>
 
 <div class="mc-wrap">
-  <div class="mc-bar">Modify the values and click the calculate button to use</div>
+<div class="mc-card">
+  <div class="mc-card-head">Modify the values and click the Calculate button to use</div>
+  <div class="mc-card-pad">
+
+    <div class="mc-field">
+      <span class="mc-field-label">Home Price</span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><span>$</span><input id="mc-homePrice" type="number" min="0" step="1000" value="400000"></div>
+      </div>
+    </div>
+
+    <div class="mc-field">
+      <span class="mc-field-label">Down Payment <span class="mc-help" title="How much you pay upfront, as a percent of price or a flat dollar amount.">?</span></span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><input id="mc-downPayment" type="number" min="0" step="0.5" value="20"></div>
+        <select id="mc-downPaymentUnit" class="mc-unit-select"><option value="%">%</option><option value="$">$</option></select>
+      </div>
+    </div>
+
+    <div class="mc-field">
+      <span class="mc-field-label">Loan Term <span class="mc-help" title="Number of years to repay the loan.">?</span></span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><input id="mc-loanTerm" type="number" min="1" max="50" step="1" value="30"><span>Years</span></div>
+      </div>
+    </div>
+
+    <div class="mc-field">
+      <span class="mc-field-label">Interest Rate <span class="mc-help" title="Annual interest rate on the loan.">?</span></span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><input id="mc-interestRate" type="number" min="0" max="20" step="0.001" value="6.579"><span>%</span></div>
+      </div>
+    </div>
+
+    <div class="mc-field">
+      <span class="mc-field-label">Start Date</span>
+      <div class="mc-field-control">
+        <select id="mc-startMonth" class="mc-select-plain"></select>
+        <select id="mc-startYear" class="mc-select-plain"></select>
+      </div>
+    </div>
+
+    <label class="mc-check-row"><input id="mc-includeTaxes" type="checkbox"> Include Taxes &amp; Costs Below</label>
+
+    <div id="mc-taxSection">
+      <p class="mc-section-title">Annual Tax &amp; Cost</p>
+
+      <div class="mc-field">
+        <span class="mc-field-label">Property Taxes <span class="mc-help" title="Annual property tax, as a percent of home price or a flat dollar amount.">?</span></span>
+        <div class="mc-field-control">
+          <div class="mc-input-group"><span>$</span><input id="mc-propertyTax" type="number" min="0" step="10" value="4800"></div>
+          <select id="mc-propertyTaxUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
+        </div>
+      </div>
+      <div class="mc-field">
+        <span class="mc-field-label">Home Insurance <span class="mc-help" title="Annual homeowners insurance premium.">?</span></span>
+        <div class="mc-field-control">
+          <div class="mc-input-group"><span>$</span><input id="mc-homeInsurance" type="number" min="0" step="10" value="1440"></div>
+          <select id="mc-homeInsuranceUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
+        </div>
+      </div>
+      <div class="mc-field">
+        <span class="mc-field-label">PMI Insurance <span class="mc-help" title="Private Mortgage Insurance, required when down payment is under 20%.">?</span></span>
+        <div class="mc-field-control">
+          <div class="mc-input-group"><span>$</span><input id="mc-pmi" type="number" min="0" step="10" value="1920"></div>
+          <select id="mc-pmiUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
+        </div>
+      </div>
+      <div class="mc-field">
+        <span class="mc-field-label">HOA Fee <span class="mc-help" title="Annual homeowners association fee.">?</span></span>
+        <div class="mc-field-control">
+          <div class="mc-input-group"><span>$</span><input id="mc-hoa" type="number" min="0" step="10" value="0"></div>
+          <select id="mc-hoaUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
+        </div>
+      </div>
+      <div class="mc-field">
+        <span class="mc-field-label">Other Costs <span class="mc-help" title="Any other recurring annual homeownership cost.">?</span></span>
+        <div class="mc-field-control">
+          <div class="mc-input-group"><span>$</span><input id="mc-otherCosts" type="number" min="0" step="10" value="0"></div>
+          <select id="mc-otherUnit" class="mc-unit-select"><option value="$" selected>$</option><option value="%">%</option></select>
+        </div>
+      </div>
+
+      <button type="button" class="mc-more-btn" id="mc-moreOptionsBtn">+ More Options</button>
+
+      <div id="mc-increaseSection">
+        <p class="mc-section-title">Annual Tax &amp; Cost Increase</p>
+        <div class="mc-field"><span class="mc-field-label">Property Taxes Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-propertyTaxIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="mc-field"><span class="mc-field-label">Home Insurance Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-homeInsuranceIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="mc-field"><span class="mc-field-label">HOA Fee Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-hoaIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="mc-field"><span class="mc-field-label">Other Costs Increase</span><div class="mc-field-control"><div class="mc-input-group"><input id="mc-otherIncrease" type="number" min="0" step="0.1" value="0"><span>%</span></div></div></div>
+      </div>
+    </div>
+
+    <p class="mc-section-title">Extra Payments</p>
+    <div class="mc-field"><span class="mc-field-label">Extra Monthly Pay</span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><span>$</span><input id="mc-extraMonthlyAmt" type="number" min="0" step="10" value="0"></div>
+        <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">from</span>
+        <select id="mc-extraMonthlyMonth" class="mc-select-plain"></select>
+        <select id="mc-extraMonthlyYear" class="mc-select-plain"></select>
+      </div>
+    </div>
+    <div class="mc-field"><span class="mc-field-label">Extra Yearly Pay</span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><span>$</span><input id="mc-extraYearlyAmt" type="number" min="0" step="10" value="0"></div>
+        <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">from</span>
+        <select id="mc-extraYearlyMonth" class="mc-select-plain"></select>
+        <select id="mc-extraYearlyYear" class="mc-select-plain"></select>
+      </div>
+    </div>
+    <div class="mc-field"><span class="mc-field-label">Extra One-time Pay</span>
+      <div class="mc-field-control">
+        <div class="mc-input-group"><span>$</span><input id="mc-extraOnetimeAmt" type="number" min="0" step="10" value="0"></div>
+        <span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">in</span>
+        <select id="mc-extraOnetimeMonth" class="mc-select-plain"></select>
+        <select id="mc-extraOnetimeYear" class="mc-select-plain"></select>
+      </div>
+    </div>
+
+    <button type="button" class="mc-more-btn" id="mc-moreOnetimeBtn">+ Additional One-Time Payments</button>
+    <div id="mc-additionalOnetimeContainer" style="margin-top:10px"></div>
+
+    <label class="mc-check-row"><input id="mc-includeTaxes2" type="checkbox"> Include Taxes &amp; Costs Below</label>
+
+    <div class="mc-btn-row">
+      <button type="button" class="mc-btn-calc" id="mc-calculateBtn">Calculate</button>
+      <button type="button" class="mc-btn-clear" id="mc-clearBtn">Clear</button>
+    </div>
+  </div>
 </div>
+</div>
+
+<script>
+(function(){
+  var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function $(id){return document.getElementById(id);}
+  function fillMonthYearSelects(monthSel,yearSel,defMonth,defYear,startYear){
+    monthSel.innerHTML='';
+    for(var m=0;m<12;m++){var o=document.createElement('option');o.value=m+1;o.textContent=MONTHS[m];if(m+1===defMonth)o.selected=true;monthSel.appendChild(o);}
+    yearSel.innerHTML='';
+    for(var y=startYear;y<startYear+15;y++){var o2=document.createElement('option');o2.value=y;o2.textContent=y;if(y===defYear)o2.selected=true;yearSel.appendChild(o2);}
+  }
+  var now=new Date();
+  var curYear=now.getFullYear();
+  fillMonthYearSelects($('mc-startMonth'),$('mc-startYear'),7,2026,curYear);
+  fillMonthYearSelects($('mc-extraMonthlyMonth'),$('mc-extraMonthlyYear'),7,2026,curYear);
+  fillMonthYearSelects($('mc-extraYearlyMonth'),$('mc-extraYearlyYear'),7,2026,curYear);
+  fillMonthYearSelects($('mc-extraOnetimeMonth'),$('mc-extraOnetimeYear'),7,2026,curYear);
+
+  var onetimeContainer=$('mc-additionalOnetimeContainer');
+  for(var i=0;i<10;i++){
+    var row=document.createElement('div');
+    row.className='mc-onetime-row';
+    row.innerHTML='<div class="mc-input-group"><span>$</span><input type="number" min="0" step="10" value="0" class="mc-ot-amt"></div>'+
+      '<span style="font-size:11px;color:var(--ink-soft);flex-shrink:0">in</span>'+
+      '<select class="mc-select-plain mc-ot-month"></select>'+
+      '<select class="mc-select-plain mc-ot-year"></select>';
+    onetimeContainer.appendChild(row);
+    fillMonthYearSelects(row.querySelector('.mc-ot-month'),row.querySelector('.mc-ot-year'),7,2026,curYear);
+  }
+})();
+</script>
 </div><!--$--><!--/$--></main><div class="px-4 sm:px-6 pb-6 mt-8"><footer class="max-w-6xl mx-auto rounded-[28px] p-8 sm:p-10" style="background:var(--surface);box-shadow:var(--shadow-sm)"><div class="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-8 pb-8 border-b" style="border-color:var(--border-fine)"><div class="col-span-2 md:col-span-1"><h4 class="text-2xl font-semibold tracking-tight mb-3" style="color:var(--ink)">CalcFolio</h4><p class="text-sm leading-relaxed max-w-xs" style="color:var(--ink-soft)">A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p><div class="flex gap-2 mt-5"><a href="#" aria-label="Twitter" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l-6 8 6 8h-3l-4.5-6L6 20H3l6.5-8L3 4h3l4 5.5L14 4z"></path></svg></a><a href="#" aria-label="GitHub" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z"></path></svg></a></div></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Popular</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/mortgage-calculator/">Mortgage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/loan-calculator/">Loan Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/income-tax-calculator/">Income Tax Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/bmi-calculator/">BMI Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/age-calculator/">Age Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/percentage-calculator/">Percentage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/compound-interest-calculator/">Compound Interest</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/calorie-calculator/">Calorie Calculator</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Categories</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#finance">Finance</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#health-fitness">Health &amp; Fitness</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#math">Math</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Date &amp; Time</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Conversions</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Electronics</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Company</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/about/">About</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/contact/">Contact</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/privacy-policy/">Privacy</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/terms/">Terms</a></li></ul></div></div><div class="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs" style="color:var(--ink-soft)"><div>© <!-- -->2026<!-- --> <!-- -->CalcFolio<!-- -->. All calculations are estimates — not financial, legal, or medical advice.</div><div class="flex gap-5"><a class="hover:opacity-60 transition-opacity" href="/privacy-policy/">Privacy</a><a class="hover:opacity-60 transition-opacity" href="/terms/">Terms</a></div></div></footer></div></body></html>
