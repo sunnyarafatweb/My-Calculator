@@ -5,14 +5,16 @@
 <style>
 .mc-wrap{font-size:14px;max-width:100%;box-sizing:border-box}
 .mc-wrap *{box-sizing:border-box}
-.mc-bar{max-width:750px;width:100%;padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;margin-bottom:16px}
+.mc-bar{width:100%;padding:14px 16px;text-align:center;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px}
 .mc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;width:100%}
 .mc-card-pad{padding:16px}
 .mc-main-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
   grid-template-areas:
+    "bar bar ."
     "form rightstack sidebar"
     "rates rates rates"
     "bottomgrid bottomgrid bottomgrid";}
+.area-bar{grid-area:bar}
 .area-form{grid-area:form}
 .area-rightstack{grid-area:rightstack}
 .area-sidebar{grid-area:sidebar}
@@ -119,6 +121,7 @@
   .mc-main-grid{
     grid-template-columns:1fr;
     grid-template-areas:
+      "bar"
       "form"
       "rightstack"
       "rates"
@@ -145,8 +148,8 @@
 </style>
 
 <div class="mc-wrap">
-<div class="mc-bar">Modify the values and click the calculate button to use</div>
 <div class="mc-main-grid">
+<div class="mc-bar area-bar">Just enter your values below — results update automatically, no need to click Calculate</div>
 <div class="mc-card area-form">
   <div class="mc-card-pad">
 
