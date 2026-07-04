@@ -39,6 +39,15 @@
 .mc-loansum-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink)}
 .mc-loansum-row:last-child{border-bottom:none}
 .mc-loansum-row .v{font-weight:700;font-family:var(--font-data)}
+.mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;max-width:750px;width:100%;margin-top:16px}
+.mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
+.mc-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
+.mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mc-rates-grid>div{text-align:center;border-radius:12px;padding:14px;background:var(--surface-sunken)}
+.mc-rates-grid .lbl{font-size:11px;color:var(--ink-soft);margin-bottom:4px}
+.mc-rates-grid .val{font-size:22px;font-weight:700;font-family:var(--font-data);color:#22C55E}
+.mc-rates-note{font-size:11px;color:var(--ink-faint);margin-top:12px}
 .mc-field{display:flex;align-items:center;gap:8px;padding:6px 0}
 .mc-field-label{width:128px;flex-shrink:0;text-align:right;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;justify-content:flex-end;gap:4px}
 .mc-help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--ink-faint);color:var(--ink-faint);font-size:9px;flex-shrink:0;cursor:help}
@@ -267,6 +276,16 @@
 </div>
 </div>
 
+</div>
+
+<div class="mc-rates-card">
+  <div class="mc-rates-head"><span class="t">Latest Mortgage Rates</span><span class="u">Updated 2026</span></div>
+  <div class="mc-rates-grid">
+    <div><div class="lbl">30 Years Fixed</div><div class="val">6.82%</div></div>
+    <div><div class="lbl">15 Years Fixed</div><div class="val">6.13%</div></div>
+    <div><div class="lbl">10 Years Fixed</div><div class="val">5.97%</div></div>
+  </div>
+  <p class="mc-rates-note">Rates are national averages and change daily. Your actual rate depends on your credit score, down payment, and lender.</p>
 </div>
 </div>
 
