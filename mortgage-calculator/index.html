@@ -29,9 +29,9 @@
 .mc-summary-table tr.total .mc-pill{display:inline-block;background:#16A34A;color:#fff;border-radius:8px;padding:6px 10px;white-space:nowrap;box-sizing:border-box}
 .mc-right-col{display:flex;flex-direction:column;gap:16px;flex:0 1 390px;width:390px;max-width:100%}
 .mc-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
-.mc-chart-box{display:flex;align-items:center;gap:14px;max-width:100%}
-.mc-chart-svg{width:100%;max-width:250px;flex:1 1 auto;min-width:0;height:auto}
-.mc-legend{flex:0 0 140px;width:140px;display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:0}
+.mc-chart-box{display:flex;flex-direction:column;gap:16px;max-width:100%}
+.mc-chart-svg{width:100%;height:auto;display:block}
+.mc-legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
 .mc-legend-row{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;flex-wrap:wrap}
 .mc-legend-row .lbl-value-wrap{display:flex;flex-direction:column;min-width:0;flex:1}
 .mc-legend-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0}
@@ -258,43 +258,43 @@
 
 <div class="mc-chart-card">
   <div class="mc-chart-box">
-    <svg viewBox="0 0 250 160" class="mc-chart-svg" xmlns="http://www.w3.org/2000/svg">
-      <!-- gridlines + axis labels, 10% steps -->
-      <line x1="34" y1="127" x2="250" y2="127" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="130" font-size="9" text-anchor="end" fill="var(--ink-faint)">10%</text>
-      <line x1="34" y1="114" x2="250" y2="114" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="117" font-size="9" text-anchor="end" fill="var(--ink-faint)">20%</text>
-      <line x1="34" y1="101" x2="250" y2="101" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="104" font-size="9" text-anchor="end" fill="var(--ink-faint)">30%</text>
-      <line x1="34" y1="88" x2="250" y2="88" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="91" font-size="9" text-anchor="end" fill="var(--ink-faint)">40%</text>
-      <line x1="34" y1="75" x2="250" y2="75" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="78" font-size="9" text-anchor="end" fill="var(--ink-faint)">50%</text>
-      <line x1="34" y1="62" x2="250" y2="62" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="65" font-size="9" text-anchor="end" fill="var(--ink-faint)">60%</text>
-      <line x1="34" y1="49" x2="250" y2="49" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="52" font-size="9" text-anchor="end" fill="var(--ink-faint)">70%</text>
-      <line x1="34" y1="36" x2="250" y2="36" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="39" font-size="9" text-anchor="end" fill="var(--ink-faint)">80%</text>
-      <line x1="34" y1="23" x2="250" y2="23" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="26" font-size="9" text-anchor="end" fill="var(--ink-faint)">90%</text>
-      <line x1="34" y1="10" x2="250" y2="10" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
-      <text x="28" y="13" font-size="9" text-anchor="end" fill="var(--ink-faint)">100%</text>
+    <svg viewBox="0 0 600 200" class="mc-chart-svg" xmlns="http://www.w3.org/2000/svg">
+      <!-- gridlines + axis labels, 10% steps (chartTop=20, chartBottom=170) -->
+      <line x1="50" y1="155" x2="580" y2="155" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="158" font-size="11" text-anchor="end" fill="var(--ink-faint)">10%</text>
+      <line x1="50" y1="140" x2="580" y2="140" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="143" font-size="11" text-anchor="end" fill="var(--ink-faint)">20%</text>
+      <line x1="50" y1="125" x2="580" y2="125" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="128" font-size="11" text-anchor="end" fill="var(--ink-faint)">30%</text>
+      <line x1="50" y1="110" x2="580" y2="110" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="113" font-size="11" text-anchor="end" fill="var(--ink-faint)">40%</text>
+      <line x1="50" y1="95" x2="580" y2="95" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="98" font-size="11" text-anchor="end" fill="var(--ink-faint)">50%</text>
+      <line x1="50" y1="80" x2="580" y2="80" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="83" font-size="11" text-anchor="end" fill="var(--ink-faint)">60%</text>
+      <line x1="50" y1="65" x2="580" y2="65" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="68" font-size="11" text-anchor="end" fill="var(--ink-faint)">70%</text>
+      <line x1="50" y1="50" x2="580" y2="50" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="53" font-size="11" text-anchor="end" fill="var(--ink-faint)">80%</text>
+      <line x1="50" y1="35" x2="580" y2="35" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="38" font-size="11" text-anchor="end" fill="var(--ink-faint)">90%</text>
+      <line x1="50" y1="20" x2="580" y2="20" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>
+      <text x="44" y="23" font-size="11" text-anchor="end" fill="var(--ink-faint)">100%</text>
 
       <g id="mc-breakdown-bars">
-      <text x="63" y="45" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">70%</text>
-      <rect x="44" y="49" width="38" height="91" fill="#DC2626" rx="2"/>
-      <text x="115" y="84" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">40%</text>
-      <rect x="96" y="88" width="38" height="52" fill="#22C55E" rx="2"/>
-      <text x="167" y="110" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">20%</text>
-      <rect x="148" y="114" width="38" height="26" fill="#3B82F6" rx="2"/>
-      <text x="219" y="71" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">50%</text>
-      <rect x="200" y="75" width="38" height="65" fill="#EAB308" rx="2"/>
+      <text x="116" y="60" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ink)">70%</text>
+      <rect x="83" y="65" width="66" height="105" fill="#DC2626" rx="3"/>
+      <text x="249" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ink)">40%</text>
+      <rect x="216" y="104" width="66" height="66" fill="#22C55E" rx="3"/>
+      <text x="381" y="128" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ink)">20%</text>
+      <rect x="348" y="133" width="66" height="37" fill="#3B82F6" rx="3"/>
+      <text x="514" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ink)">50%</text>
+      <rect x="481" y="89" width="66" height="81" fill="#EAB308" rx="3"/>
       </g>
 
       <!-- axes drawn last so they sit crisp on top -->
-      <line x1="34" y1="10" x2="34" y2="140" stroke="var(--ink-faint)" stroke-width="1.5"/>
-      <line x1="34" y1="140" x2="250" y2="140" stroke="var(--ink-faint)" stroke-width="1.5"/>
+      <line x1="50" y1="20" x2="50" y2="170" stroke="var(--ink-faint)" stroke-width="1.5"/>
+      <line x1="50" y1="170" x2="580" y2="170" stroke="var(--ink-faint)" stroke-width="1.5"/>
     </svg>
     <div class="mc-legend" id="mc-legend">
       <div class="mc-legend-row"><div class="mc-legend-dot" style="background:#DC2626;margin-top:2px"></div><div class="lbl-value-wrap"><div class="lbl">Principal &amp; Interest</div><div class="val" id="mc-leg-pi">$2,039.27</div></div></div>
@@ -1020,17 +1020,16 @@
       {val:res.otherBucketMonthly,color:'#EAB308'}
     ];
     var total=res.totalOutOfPocketMonthly||1;
-    var chartTop=10,chartBottom=140;
-    var labelSpace=14;
-    var barX=[44,96,148,200],barW=38;
+    var chartTop=20,chartBottom=170;
+    var barX=[83,216,348,481],barW=66;
     var g='';
     cats.forEach(function(c,i){
       var pct=Math.round(c.val/total*100);
-      var h=Math.max(2,(pct/100)*(chartBottom-chartTop-labelSpace));
+      var h=Math.max(2,(pct/100)*(chartBottom-chartTop));
       var y=chartBottom-h;
       var cx=barX[i]+barW/2;
-      g+='<text x="'+cx+'" y="'+(y-5)+'" font-size="10" font-weight="700" text-anchor="middle" fill="var(--ink)">'+pct+'%</text>';
-      g+='<rect x="'+barX[i]+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="2"/>';
+      g+='<text x="'+cx+'" y="'+(y-8)+'" font-size="13" font-weight="700" text-anchor="middle" fill="var(--ink)">'+pct+'%</text>';
+      g+='<rect x="'+barX[i]+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="3"/>';
     });
     $('mc-breakdown-bars').innerHTML=g;
     $('mc-leg-pi').textContent=money(res.basePayment);
