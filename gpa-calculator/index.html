@@ -4,8 +4,20 @@
 .gpa-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .gpa-bar-pdf-btn:hover{background:#f0f0f0}
 
-.gpa-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
-@media(max-width:860px){.gpa-grid{grid-template-columns:1fr}}
+.gpa-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar"}
+.gpa-area-bar{grid-area:bar}
+.gpa-area-form{grid-area:form}
+.gpa-area-result{grid-area:result}
+.gpa-area-sidebar{grid-area:sidebar}
+.gpa-calc-sidebar{display:flex;flex-direction:column;gap:16px;width:100%}
+.gpa-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.gpa-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.gpa-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.gpa-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+@media(max-width:860px){
+  .gpa-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "sidebar"}
+}
 
 .gpa-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .gpa-card-pad{padding:24px}
@@ -93,13 +105,13 @@
 </style>
 
 <div class="gpa-wrap">
-<div class="gpa-bar">
+<div class="gpa-grid">
+<div class="gpa-bar gpa-area-bar">
   <span>Just enter your values below — results update automatically.</span>
   <button type="button" class="gpa-bar-pdf-btn" id="gpa-pdfBtn">💾 Save as PDF</button>
 </div>
 
-<div class="gpa-grid">
-  <div class="gpa-card">
+  <div class="gpa-card gpa-area-form">
     <div class="gpa-card-pad">
       <h2 id="gpa-coursesTitle">Your Courses</h2>
       <div id="gpa-semesters"></div>
@@ -151,7 +163,7 @@
     </div>
   </div>
 
-  <div class="gpa-result-card">
+  <div class="gpa-result-card gpa-area-result">
     <div class="gpa-result-head">
       <div class="label">Result: GPA <span id="gpa-overallGpa">0.000</span></div>
       <div class="sub">Total Credits: <span id="gpa-totalCredits">0</span></div>
@@ -164,6 +176,22 @@
         <tr><td>Overall GPA</td><td colspan="3" id="gpa-footOverallGpa">0.000</td></tr>
       </tfoot>
     </table>
+  </div>
+
+  <div class="gpa-calc-sidebar gpa-area-sidebar">
+    <div class="gpa-calc-card">
+      <div class="h">Financial Calculators</div>
+      <a href="/gpa-calculator">GPA <span class="arrow">→</span></a>
+      <a href="/grade-calculator">Grade <span class="arrow">→</span></a>
+      <a href="/mortgage-calculator">Mortgage <span class="arrow">→</span></a>
+      <a href="/loan-calculator">Loan <span class="arrow">→</span></a>
+      <a href="/income-tax-calculator">Income Tax <span class="arrow">→</span></a>
+      <a href="/salary-calculator">Salary <span class="arrow">→</span></a>
+      <a href="/interest-rate-calculator">Interest Rate <span class="arrow">→</span></a>
+      <a href="/compound-interest-calculator">Compound Interest <span class="arrow">→</span></a>
+      <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+      <a href="/" class="gpa-viewmore">View More <span class="arrow">→</span></a>
+    </div>
   </div>
 </div>
 
