@@ -47,6 +47,7 @@
 .gpa-settings-title{display:flex;align-items:center;justify-content:space-between;background:#1E3A5F;color:#fff;font-weight:700;font-size:13px;padding:10px 16px;border-radius:8px;margin-bottom:16px}
 .gpa-settings-title .gpa-close-settings{background:#DC2626;border:none;color:#fff;width:20px;height:20px;border-radius:5px;font-size:12px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
 .gpa-settings-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.gpa-options-stack{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .gpa-settings-row label{font-size:13px;color:var(--ink);display:flex;align-items:center;gap:6px;cursor:pointer}
 .gpa-settings-label{font-size:13px;color:var(--ink-soft);width:110px;flex-shrink:0}
 
@@ -85,7 +86,8 @@
 @media(max-width:520px){
   .gpa-row-head{display:none}
   .gpa-row input.gpa-name{min-width:100%;order:-1}
-  .gpa-settings-row{flex-direction:column;align-items:flex-start;gap:10px}
+  .gpa-settings-row{align-items:flex-start;gap:10px}
+  .gpa-options-stack{flex:1;flex-direction:column;align-items:flex-end;gap:10px}
 }
 </style>
 
@@ -117,9 +119,11 @@
         </div>
         <div class="gpa-settings-row">
           <span class="gpa-settings-label">Grade Format:</span>
-          <label><input type="radio" name="gpa-gradeFormat" value="letter" checked> Letter</label>
-          <label><input type="radio" name="gpa-gradeFormat" value="percentage"> Percentage</label>
-          <label><input type="radio" name="gpa-gradeFormat" value="point"> Point Value</label>
+          <div class="gpa-options-stack">
+            <label><input type="radio" name="gpa-gradeFormat" value="letter" checked> Letter</label>
+            <label><input type="radio" name="gpa-gradeFormat" value="percentage"> Percentage</label>
+            <label><input type="radio" name="gpa-gradeFormat" value="point"> Point Value</label>
+          </div>
         </div>
         <div class="gpa-settings-row">
           <label><input type="checkbox" id="gpa-priorToggle"> Add GPA of prior semesters</label>
@@ -136,8 +140,10 @@
         </div>
         <div class="gpa-settings-row">
           <span class="gpa-settings-label">GPA Decimals:</span>
-          <label><input type="radio" name="gpa-decimalPlaces" value="2" checked> 2 (3.66)</label>
-          <label><input type="radio" name="gpa-decimalPlaces" value="3"> 3 (3.662)</label>
+          <div class="gpa-options-stack">
+            <label><input type="radio" name="gpa-decimalPlaces" value="2" checked> 2 (3.66)</label>
+            <label><input type="radio" name="gpa-decimalPlaces" value="3"> 3 (3.662)</label>
+          </div>
         </div>
         <div class="gpa-action-row" id="gpa-actionRowBottom" style="display:none"></div>
       </div>
