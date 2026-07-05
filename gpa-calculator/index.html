@@ -133,6 +133,11 @@
         <div class="gpa-settings-row">
           <label><input type="checkbox" id="gpa-groupToggle"> Group courses into semesters</label>
         </div>
+        <div class="gpa-settings-row">
+          <span class="gpa-settings-label">GPA Decimals:</span>
+          <label><input type="radio" name="gpa-decimalPlaces" value="2" checked> 2 (3.66)</label>
+          <label><input type="radio" name="gpa-decimalPlaces" value="3"> 3 (3.662)</label>
+        </div>
         <div class="gpa-action-row" id="gpa-actionRowBottom" style="display:none"></div>
       </div>
     </div>
@@ -187,6 +192,7 @@
   var semestersContainer = $('gpa-semesters');
   var semesterIdCounter = 0;
   var gradeFormat = 'letter';
+  var decimalPlaces = 2;
   var grouped = false;
 
   var GRADE_POINTS = {
@@ -319,6 +325,13 @@
   $('gpa-priorGpa').addEventListener('input', render);
   $('gpa-priorCredits').addEventListener('input', render);
 
+  document.querySelectorAll('input[name="gpa-decimalPlaces"]').forEach(function(radio){
+    radio.addEventListener('change', function(){
+      decimalPlaces = parseInt(this.value, 10);
+      render();
+    });
+  });
+
   $('gpa-groupToggle').addEventListener('change', function(){
     grouped = this.checked;
     var blocks = semestersContainer.querySelectorAll('.gpa-semester-block');
@@ -435,10 +448,10 @@
 
   function render(){
     var res = calculate();
-    $('gpa-overallGpa').textContent = res.gpa.toFixed(3);
+    $('gpa-overallGpa').textContent = res.gpa.toFixed(decimalPlaces);
     $('gpa-totalCredits').textContent = res.totalCredits;
     $('gpa-footTotalCredits').textContent = res.totalCredits;
-    $('gpa-footOverallGpa').textContent = res.gpa.toFixed(3);
+    $('gpa-footOverallGpa').textContent = res.gpa.toFixed(decimalPlaces);
 
     var html = '';
     var lastSem = null;
@@ -466,11 +479,11 @@
     }
     var neededGpa = (target*(currentCredits+additionalCredits) - current*currentCredits) / additionalCredits;
     if(neededGpa>4.0){
-      body.innerHTML = 'To achieve a target GPA of <b>'+target+'</b>, you would need a GPA of <b>'+neededGpa.toFixed(3)+'</b> for the next '+additionalCredits+' credits — that\'s above the 4.0 maximum, so this target isn\'t achievable with only '+additionalCredits+' additional credits.';
+      body.innerHTML = 'To achieve a target GPA of <b>'+target+'</b>, you would need a GPA of <b>'+neededGpa.toFixed(decimalPlaces)+'</b> for the next '+additionalCredits+' credits — that\'s above the 4.0 maximum, so this target isn\'t achievable with only '+additionalCredits+' additional credits.';
     } else if(neededGpa<0){
       body.innerHTML = 'You\'ve already exceeded a target GPA of <b>'+target+'</b> — any grades in your next '+additionalCredits+' credits will keep you above it.';
     } else {
-      body.innerHTML = 'To achieve a target GPA of <b>'+target+'</b>, the GPA for the next <b>'+additionalCredits+'</b> credits needs to be <b>'+neededGpa.toFixed(3)+'</b> or higher.';
+      body.innerHTML = 'To achieve a target GPA of <b>'+target+'</b>, the GPA for the next <b>'+additionalCredits+'</b> credits needs to be <b>'+neededGpa.toFixed(decimalPlaces)+'</b> or higher.';
     }
   }
 
@@ -501,7 +514,7 @@
       y+=22;
       doc.setDrawColor(220,220,220); doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y); y+=22;
       doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(22,163,74);
-      doc.text('Overall GPA: '+res.gpa.toFixed(3)+'  (Total Credits: '+res.totalCredits+')',margin,y);
+      doc.text('Overall GPA: '+res.gpa.toFixed(decimalPlaces)+'  (Total Credits: '+res.totalCredits+')',margin,y);
       y+=26;
       doc.autoTable({
         startY:y,margin:{left:margin,right:margin},
