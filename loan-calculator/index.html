@@ -47,7 +47,7 @@
 
 .ln-chart-box{margin-top:6px}
 .ln-chart-svg{width:100%;height:auto;display:block}
-.ln-legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin-top:16px}
+.ln-legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin-top:8px}
 .ln-legend-row{display:flex;align-items:flex-start;gap:8px;font-size:14px}
 .ln-legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:3px}
 .ln-legend-row .lbl{color:var(--ink-soft)}
@@ -165,8 +165,8 @@
 </div>
 
 <div class="ln-card">
-  <div class="ln-card-pad" style="padding-top:18px">
-    <svg viewBox="0 0 300 170" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="ln-card-pad" style="padding-top:14px;padding-bottom:14px">
+    <svg viewBox="0 0 300 150" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="ln-legend" id="ln-legend"></div>
   </div>
 </div>
@@ -343,7 +343,7 @@
   }
 
   function renderBarChart(cats){
-    var chartLeft=50,chartRight=280,chartTop=22,chartBottom=130;
+    var chartLeft=50,chartRight=280,chartTop=20,chartBottom=115;
     var barSpacing=(chartRight-chartLeft)/cats.length, barW=60;
     var svg='';
     var ticks=[10,20,30,40,50,60,70,80,90,100];
