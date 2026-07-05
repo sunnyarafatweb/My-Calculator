@@ -38,6 +38,7 @@
 .gpa-btn-more-settings:hover{background:var(--surface-sunken)}
 
 .gpa-action-row{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+#gpa-settingsBtn{margin-left:auto}
 .gpa-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .gpa-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
@@ -352,7 +353,13 @@
     $('gpa-actionRowTop').insertBefore($('gpa-clearBtn'), $('gpa-settingsBtn'));
     $('gpa-actionRowBottom').style.display = 'none';
   }
-  $('gpa-settingsBtn').addEventListener('click', openSettings);
+  $('gpa-settingsBtn').addEventListener('click', function(){
+    if($('gpa-settingsPanel').classList.contains('open')){
+      closeSettings();
+    } else {
+      openSettings();
+    }
+  });
   $('gpa-closeSettings').addEventListener('click', closeSettings);
 
   $('gpa-clearBtn').addEventListener('click', function(){
