@@ -64,7 +64,14 @@
 .mc-loansum-row:last-child{border-bottom:none}
 .mc-loansum-row .v{font-weight:600;font-family:var(--font-body)}
 .mc-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%}
-.mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.mc-live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--ink-soft);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
+.mc-live-dot{width:8px;height:8px;border-radius:50%;background:#22C55E;display:inline-block;animation:mcLivePulse 1.6s ease-in-out infinite}
+@keyframes mcLivePulse{
+  0%{box-shadow:0 0 0 0 rgba(34,197,94,0.6)}
+  70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
+  100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+}
 .mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
 .mc-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
 .mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -416,7 +423,10 @@
 </div>
 
 <div class="mc-rates-card area-rates">
-  <div class="mc-rates-head"><span class="t">Latest Mortgage Rates</span><span class="u">Updated Jul 4, 2026</span></div>
+  <div class="mc-rates-head">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="t">Latest Mortgage Rates</span><span class="u">Updated Jul 4, 2026</span></div>
+    <span class="mc-live-badge"><span class="mc-live-dot"></span>Live</span>
+  </div>
   <div class="mc-rates-grid">
     <div><div class="lbl">30 Years Fixed</div><div class="val">6.54%</div></div>
     <div><div class="lbl">15 Years Fixed</div><div class="val">5.88%</div></div>
