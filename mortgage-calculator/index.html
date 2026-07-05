@@ -146,6 +146,7 @@
   .mc-calc-card a{font-size:12px;padding:9px 12px}
 }
 .mc-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.mc-seo-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
 .mc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
 .mc-seo-article h2:first-child{margin-top:0}
 .mc-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
@@ -196,6 +197,13 @@
       <div class="mc-field-control">
         <select id="mc-startMonth" class="mc-select-plain"></select>
         <select id="mc-startYear" class="mc-select-plain"></select>
+      </div>
+    </div>
+
+    <div class="mc-field">
+      <span class="mc-field-label">State <span class="mc-help" title="Auto-fills an estimated property tax rate and home insurance cost for your state. You can still edit these below.">?</span></span>
+      <div class="mc-field-control">
+        <select id="mc-stateSelect" class="mc-select-plain" style="flex:1"><option value="">Select a state (optional)</option></select>
       </div>
     </div>
 
@@ -285,6 +293,7 @@
     <div class="mc-btn-row">
       <button type="button" class="mc-btn-calc" id="mc-calculateBtn">Calculate</button>
       <button type="button" class="mc-btn-clear" id="mc-clearBtn">Clear</button>
+      <button type="button" class="mc-btn-clear" id="mc-shareBtn" title="Copy a link with your current values">🔗 Share</button>
     </div>
   </div>
 </div>
@@ -846,6 +855,7 @@
 </div>
 
 <article class="mc-seo-article">
+<div class="mc-seo-byline">Written by the CalcFolio Finance Team · Reviewed for accuracy · <span id="mc-lastUpdated">Last updated July 2026</span></div>
 <h2>Understanding Your Mortgage Payment</h2>
 <p>Buying a home is one of the biggest financial decisions most people ever make, and the monthly mortgage payment is usually the single largest recurring expense in a household budget. This <strong>mortgage calculator</strong> is built to give you more than a rough guess — it breaks your <em>true monthly housing cost</em> into every piece that actually shows up on a mortgage statement: principal and interest, property taxes, homeowners insurance, private mortgage insurance (PMI), and HOA dues. Whether you're shopping for your first home, comparing a 15-year fixed mortgage against a 30-year fixed mortgage, or simply curious how extra payments could shorten your loan, the numbers below update instantly as you type.</p>
 
@@ -1265,7 +1275,96 @@
   if(annualBtn)annualBtn.addEventListener('click',function(){amortView='annual';});
   if(monthlyBtn)monthlyBtn.addEventListener('click',function(){amortView='monthly';});
 
+  // State-based smart defaults: approximate average effective property tax rate (%)
+  // and average annual home insurance premium ($). These are national averages by
+  // state for estimation only -- actual local rates vary by county/insurer.
+  var STATE_DATA=[
+    ['AL','Alabama',0.41,1350],['AK','Alaska',1.19,1650],['AZ','Arizona',0.62,1450],
+    ['AR','Arkansas',0.62,1750],['CA','California',0.75,1450],['CO','Colorado',0.51,2350],
+    ['CT','Connecticut',2.14,1850],['DE','Delaware',0.58,1050],['FL','Florida',0.86,3200],
+    ['GA','Georgia',0.92,1950],['HI','Hawaii',0.29,1350],['ID','Idaho',0.63,1250],
+    ['IL','Illinois',2.08,1550],['IN','Indiana',0.85,1450],['IA','Iowa',1.52,1650],
+    ['KS','Kansas',1.40,2050],['KY','Kentucky',0.85,1650],['LA','Louisiana',0.55,2650],
+    ['ME','Maine',1.28,1150],['MD','Maryland',1.09,1450],['MA','Massachusetts',1.20,1650],
+    ['MI','Michigan',1.38,1650],['MN','Minnesota',1.11,1950],['MS','Mississippi',0.79,2050],
+    ['MO','Missouri',0.98,1950],['MT','Montana',0.83,2150],['NE','Nebraska',1.61,2450],
+    ['NV','Nevada',0.53,1150],['NH','New Hampshire',2.09,1150],['NJ','New Jersey',2.33,1350],
+    ['NM','New Mexico',0.73,1650],['NY','New York',1.62,1450],['NC','North Carolina',0.78,1650],
+    ['ND','North Dakota',1.01,1950],['OH','Ohio',1.53,1250],['OK','Oklahoma',0.88,2450],
+    ['OR','Oregon',0.93,1050],['PA','Pennsylvania',1.53,1250],['RI','Rhode Island',1.53,1650],
+    ['SC','South Carolina',0.55,1950],['SD','South Dakota',1.22,1950],['TN','Tennessee',0.63,1650],
+    ['TX','Texas',1.68,2850],['UT','Utah',0.55,1150],['VT','Vermont',1.83,1050],
+    ['VA','Virginia',0.80,1250],['WA','Washington',0.87,1350],['WV','West Virginia',0.55,1350],
+    ['WI','Wisconsin',1.61,1250],['WY','Wyoming',0.55,1650],['DC','Washington D.C.',0.56,1350]
+  ];
+  var stateSelect=$('mc-stateSelect');
+  if(stateSelect){
+    STATE_DATA.forEach(function(s){
+      var o=document.createElement('option');
+      o.value=s[0]; o.textContent=s[1]; o.setAttribute('data-tax',s[2]); o.setAttribute('data-ins',s[3]);
+      stateSelect.appendChild(o);
+    });
+    stateSelect.addEventListener('change',function(){
+      var opt=stateSelect.options[stateSelect.selectedIndex];
+      if(!opt.value)return;
+      var taxPct=parseFloat(opt.getAttribute('data-tax'));
+      var insAmt=parseFloat(opt.getAttribute('data-ins'));
+      var homePrice=val('mc-homePrice')||0;
+      $('mc-propertyTax').value=Math.round(homePrice*taxPct/100);
+      $('mc-propertyTaxUnit').value='$';
+      $('mc-homeInsurance').value=insAmt;
+      // reveal the tax section so the user can see what was filled in
+      $('mc-includeTaxes').checked=true;
+      $('mc-includeTaxes2').checked=true;
+      var taxSection=$('mc-taxSection');
+      if(taxSection)taxSection.classList.remove('mc-hidden');
+      render();
+    });
+  }
+
   render();
+
+  // Shareable URL: encode key values as query params, and pre-fill from URL on load
+  var SHARE_FIELDS=['mc-homePrice','mc-downPayment','mc-downPaymentUnit','mc-loanTerm','mc-interestRate'];
+  function loadFromUrl(){
+    var params=new URLSearchParams(window.location.search);
+    var any=false;
+    SHARE_FIELDS.forEach(function(id){
+      var key=id.replace('mc-','');
+      if(params.has(key)){
+        var el=$(id);
+        if(el){el.value=params.get(key);any=true;}
+      }
+    });
+    if(any)render();
+  }
+  loadFromUrl();
+  var shareBtn=$('mc-shareBtn');
+  if(shareBtn){
+    shareBtn.addEventListener('click',function(){
+      var params=new URLSearchParams();
+      SHARE_FIELDS.forEach(function(id){
+        var key=id.replace('mc-','');
+        var el=$(id);
+        if(el)params.set(key,el.value);
+      });
+      var url=window.location.origin+window.location.pathname+'?'+params.toString();
+      var originalText=shareBtn.textContent;
+      function fallbackCopy(){
+        var ta=document.createElement('textarea');
+        ta.value=url; document.body.appendChild(ta); ta.select();
+        try{document.execCommand('copy');}catch(e){}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+      shareBtn.textContent='✓ Link Copied';
+      setTimeout(function(){shareBtn.textContent=originalText;},2000);
+    });
+  }
 })();
 </script>
 </div><!--$--><!--/$--></main><div class="px-4 sm:px-6 pb-6 mt-8"><footer class="max-w-6xl mx-auto rounded-[28px] p-8 sm:p-10" style="background:var(--surface);box-shadow:var(--shadow-sm)"><div class="grid grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-8 pb-8 border-b" style="border-color:var(--border-fine)"><div class="col-span-2 md:col-span-1"><h4 class="text-2xl font-semibold tracking-tight mb-3" style="color:var(--ink)">CalcFolio</h4><p class="text-sm leading-relaxed max-w-xs" style="color:var(--ink-soft)">A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p><div class="flex gap-2 mt-5"><a href="#" aria-label="Twitter" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l-6 8 6 8h-3l-4.5-6L6 20H3l6.5-8L3 4h3l4 5.5L14 4z"></path></svg></a><a href="#" aria-label="GitHub" class="w-9 h-9 flex items-center justify-center rounded-[10px] transition-colors" style="background:var(--surface-sunken);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z"></path></svg></a></div></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Popular</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/mortgage-calculator/">Mortgage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/loan-calculator/">Loan Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/income-tax-calculator/">Income Tax Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/bmi-calculator/">BMI Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/age-calculator/">Age Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/percentage-calculator/">Percentage Calculator</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/compound-interest-calculator/">Compound Interest</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/calorie-calculator/">Calorie Calculator</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Categories</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#finance">Finance</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#health-fitness">Health &amp; Fitness</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#math">Math</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Date &amp; Time</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Conversions</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/#other">Electronics</a></li></ul></div><div><h5 class="text-xs uppercase tracking-[0.08em] font-medium mb-4" style="color:var(--ink-soft)">Company</h5><ul class="space-y-2.5"><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/about/">About</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/contact/">Contact</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/privacy-policy/">Privacy</a></li><li><a class="text-sm transition-opacity hover:opacity-60" style="color:var(--ink);font-weight:450" href="/terms/">Terms</a></li></ul></div></div><div class="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs" style="color:var(--ink-soft)"><div>© <!-- -->2026<!-- --> <!-- -->CalcFolio<!-- -->. All calculations are estimates — not financial, legal, or medical advice.</div><div class="flex gap-5"><a class="hover:opacity-60 transition-opacity" href="/privacy-policy/">Privacy</a><a class="hover:opacity-60 transition-opacity" href="/terms/">Terms</a></div></div></footer></div></body></html>
