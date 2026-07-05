@@ -167,7 +167,6 @@
 <div class="ln-card">
   <div class="ln-card-pad" style="padding-top:14px;padding-bottom:14px">
     <svg viewBox="0 0 300 150" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-    <div class="ln-legend" id="ln-legend"></div>
   </div>
 </div>
 </div>
@@ -359,14 +358,12 @@
       var y=chartBottom-h;
       svg+='<text x="'+cx+'" y="'+(y-7)+'" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ink)">'+c.pct+'%</text>';
       svg+='<rect x="'+barX+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="3"/>';
+      svg+='<text x="'+cx+'" y="'+(chartBottom+16)+'" font-size="11" text-anchor="middle" fill="var(--ink-soft)">'+c.label+'</text>';
+      svg+='<text x="'+cx+'" y="'+(chartBottom+30)+'" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ink)">'+c.valueLabel+'</text>';
     });
     svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
     svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
     $('ln-barSvg').innerHTML=svg;
-
-    $('ln-legend').innerHTML=cats.map(function(c){
-      return '<div class="ln-legend-row"><div class="ln-legend-dot" style="background:'+c.color+'"></div><div><div class="lbl">'+c.label+'</div><div class="val">'+c.valueLabel+'</div></div></div>';
-    }).join('');
   }
 
   function render(){
