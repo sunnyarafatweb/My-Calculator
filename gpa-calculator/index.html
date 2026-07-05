@@ -34,10 +34,13 @@
 .gpa-add-btn:hover{color:#15803D}
 .gpa-add-semester-row{margin-top:8px;margin-bottom:14px}
 
-.gpa-action-row{display:flex;gap:10px;margin-top:6px;align-items:center;flex-wrap:wrap}
+.gpa-more-settings-row{display:flex;justify-content:flex-end;margin:4px 0 14px}
+.gpa-btn-more-settings{background:#fff;color:#1E3A5F;border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
+.gpa-btn-more-settings:hover{background:var(--surface-sunken)}
+
+.gpa-action-row{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
 .gpa-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .gpa-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
-.gpa-btn-settings-link{background:none;border:none;color:#1E3A5F;font-size:14px;font-weight:700;cursor:pointer;text-decoration:underline;padding:10px 4px}
 
 .gpa-settings-panel{margin-top:16px;border-top:1px solid var(--border-fine);padding-top:16px;display:none}
 .gpa-settings-panel.open{display:block}
@@ -99,10 +102,8 @@
         <button type="button" class="gpa-add-btn" id="gpa-addSemesterBtn" style="display:none">+ Add a semester</button>
       </div>
 
-      <div class="gpa-action-row">
-        <button type="button" class="gpa-btn-calc" id="gpa-calcBtn">Calculate ▸</button>
-        <button type="button" class="gpa-btn-clear" id="gpa-clearBtn">Clear</button>
-        <button type="button" class="gpa-btn-settings-link" id="gpa-settingsBtn">Settings</button>
+      <div class="gpa-more-settings-row">
+        <button type="button" class="gpa-btn-more-settings" id="gpa-settingsBtn">More Settings ▾</button>
       </div>
 
       <div class="gpa-settings-panel" id="gpa-settingsPanel">
@@ -129,6 +130,11 @@
         <div class="gpa-settings-row">
           <label><input type="checkbox" id="gpa-groupToggle"> Group courses into semesters</label>
         </div>
+      </div>
+
+      <div class="gpa-action-row">
+        <button type="button" class="gpa-btn-calc" id="gpa-calcBtn">Calculate ▸</button>
+        <button type="button" class="gpa-btn-clear" id="gpa-clearBtn">Clear</button>
       </div>
     </div>
   </div>
