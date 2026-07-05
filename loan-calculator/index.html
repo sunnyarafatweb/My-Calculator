@@ -24,7 +24,7 @@
 .ln-card-pad h2{font-size:17px;font-weight:700;margin-bottom:16px;color:var(--ink)}
 
 .ln-field{display:flex;align-items:center;gap:8px;padding:8px 0}
-.ln-field-label{width:128px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
+.ln-field-label{width:100px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
 .ln-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:0}
 .ln-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
 .ln-input-group span{padding:0 8px;color:var(--ink-faint);font-size:13px;flex-shrink:0}
@@ -110,8 +110,8 @@
     <div class="ln-field">
       <span class="ln-field-label">Loan Term</span>
       <div class="ln-field-control">
-        <div class="ln-input-group"><input id="ln-termYears" type="number" min="0" step="1" value="10"><span>years</span></div>
-        <div class="ln-input-group"><input id="ln-termMonths" type="number" min="0" max="11" step="1" value="0"><span>months</span></div>
+        <div class="ln-input-group"><input id="ln-termYears" type="number" min="0" step="1" value="10"><span>Y</span></div>
+        <div class="ln-input-group"><input id="ln-termMonths" type="number" min="0" max="11" step="1" value="0"><span>M</span></div>
       </div>
     </div>
     <div class="ln-field">
@@ -159,10 +159,6 @@
     <div id="ln-resultRows"></div>
     <div class="ln-chart-box">
       <svg viewBox="0 0 300 190" class="ln-chart-svg" id="ln-pieSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="ln-legend">
-        <span><i style="background:#3B82F6"></i>Principal</span>
-        <span><i style="background:#22C55E"></i>Interest</span>
-      </div>
     </div>
   </div>
 </div>
