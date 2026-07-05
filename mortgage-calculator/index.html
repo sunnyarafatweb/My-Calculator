@@ -71,7 +71,9 @@
 .mc-rates-grid .val{font-size:22px;font-weight:600;font-family:var(--font-body);color:#22C55E}
 .mc-rates-note{font-size:11px;color:var(--ink-faint);margin-top:12px}
 .mc-amort-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;max-width:750px;width:100%;margin-top:16px;overflow:hidden}
-.mc-amort-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.mc-amort-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
+.mc-print-btn{background:#fff;border:1px solid var(--border);color:var(--ink-soft);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.mc-print-btn:hover{background:var(--surface-sunken)}
 .mc-amort-head .t{font-size:14px;font-weight:700;color:var(--ink)}
 .mc-amort-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .mc-amort-toggle button{padding:6px 14px;font-size:12px;font-weight:600;border:none;background:#fff;color:var(--ink-soft);cursor:pointer}
@@ -155,6 +157,19 @@
 .mc-seo-article em{font-style:italic}
 .mc-seo-article ul{color:var(--ink-soft);font-size:15px}
 .mc-seo-article ul li strong{color:var(--ink)}
+@media print{
+  nav, footer, .mc-sidecol, .mc-btn-row, .mc-print-btn, .mc-more-btn, .mc-amort-toggle,
+  .mc-viewmore, .mc-seo-article, header{display:none !important}
+  .mc-amort-scroll{max-height:none !important;overflow:visible !important}
+  .mc-main-grid{grid-template-columns:1fr !important;grid-template-areas:"bar" "form" "rightstack" "rates" "bottomgrid" !important}
+  .mc-bottom-grid{grid-template-columns:1fr !important}
+  .mc-card, .mc-result-card, .mc-chart-card, .mc-loansum-card, .mc-rates-card, .mc-amort-card, .mc-balchart-card{
+    border:1px solid #ccc !important;box-shadow:none !important;break-inside:avoid
+  }
+  body{background:#fff !important}
+  .mc-bar{background:#1E3A5F !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mc-headline{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 
 <div class="mc-wrap">
@@ -406,9 +421,12 @@
 <div class="mc-amort-card" style="margin-top:0">
   <div class="mc-amort-head">
     <span class="t">Amortization Schedule</span>
-    <div class="mc-amort-toggle">
-      <button type="button" id="mc-amortAnnualBtn" class="active">Annual</button>
-      <button type="button" id="mc-amortMonthlyBtn">Monthly</button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button type="button" class="mc-print-btn" id="mc-printBtn" title="Print or save this report as a PDF">🖨️ Print / Save PDF</button>
+      <div class="mc-amort-toggle">
+        <button type="button" id="mc-amortAnnualBtn" class="active">Annual</button>
+        <button type="button" id="mc-amortMonthlyBtn">Monthly</button>
+      </div>
     </div>
   </div>
   <div class="mc-amort-scroll">
@@ -1319,6 +1337,13 @@
       var taxSection=$('mc-taxSection');
       if(taxSection)taxSection.classList.remove('mc-hidden');
       render();
+    });
+  }
+
+  var printBtn=$('mc-printBtn');
+  if(printBtn){
+    printBtn.addEventListener('click',function(){
+      window.print();
     });
   }
 
