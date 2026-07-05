@@ -46,9 +46,11 @@
 
 .ln-chart-box{margin-top:6px}
 .ln-chart-svg{width:100%;height:auto;display:block}
-.ln-legend{display:flex;justify-content:center;gap:20px;margin-top:10px;font-size:12px;color:var(--ink-soft)}
-.ln-legend span{display:inline-flex;align-items:center;gap:6px}
-.ln-legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.ln-legend{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin-top:16px}
+.ln-legend-row{display:flex;align-items:flex-start;gap:8px;font-size:14px}
+.ln-legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:3px}
+.ln-legend-row .lbl{color:var(--ink-soft)}
+.ln-legend-row .val{font-weight:600;color:var(--ink);font-size:13.5px}
 
 .ln-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .ln-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -158,7 +160,8 @@
   <div class="ln-result-body">
     <div id="ln-resultRows"></div>
     <div class="ln-chart-box">
-      <svg viewBox="0 0 300 190" class="ln-chart-svg" id="ln-pieSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <svg viewBox="0 0 300 300" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="ln-legend" id="ln-legend"></div>
     </div>
   </div>
 </div>
@@ -333,24 +336,31 @@
     return calcBond();
   }
 
-  function renderPie(pct1,pct2,color1,color2){
-    var cx=90,cy=95,r=70;
-    function arc(startPct,endPct,color){
-      var startAngle=startPct*3.6-90, endAngle=endPct*3.6-90;
-      var x1=cx+r*Math.cos(startAngle*Math.PI/180), y1=cy+r*Math.sin(startAngle*Math.PI/180);
-      var x2=cx+r*Math.cos(endAngle*Math.PI/180), y2=cy+r*Math.sin(endAngle*Math.PI/180);
-      var largeArc=(endPct-startPct)>50?1:0;
-      return '<path d="M'+cx+','+cy+' L'+x1.toFixed(1)+','+y1.toFixed(1)+' A'+r+','+r+' 0 '+largeArc+' 1 '+x2.toFixed(1)+','+y2.toFixed(1)+' Z" fill="'+color+'"/>';
-    }
-    var g='';
-    if(pct1>0)g+=arc(0,pct1,color1);
-    if(pct2>0)g+=arc(pct1,100,color2);
-    g+='<circle cx="'+cx+'" cy="'+cy+'" r="38" fill="#fff"/>';
-    g+='<text x="'+cx+'" y="'+cy+'" text-anchor="middle" dominant-baseline="middle" font-size="15" font-weight="700" fill="var(--ink)">'+Math.round(pct1)+'% / '+Math.round(pct2)+'%</text>';
-    var legendX=190;
-    g+='<rect x="'+legendX+'" y="55" width="12" height="12" fill="'+color1+'" rx="2"/><text x="'+(legendX+18)+'" y="65" font-size="12" fill="var(--ink)">Principal</text>';
-    g+='<rect x="'+legendX+'" y="80" width="12" height="12" fill="'+color2+'" rx="2"/><text x="'+(legendX+18)+'" y="90" font-size="12" fill="var(--ink)">Interest</text>';
-    return g;
+  function renderBarChart(cats){
+    var chartLeft=50,chartRight=280,chartTop=40,chartBottom=270;
+    var barSpacing=(chartRight-chartLeft)/cats.length, barW=60;
+    var svg='';
+    var ticks=[10,20,30,40,50,60,70,80,90,100];
+    ticks.forEach(function(pct){
+      var y=chartBottom-(pct/100)*(chartBottom-chartTop);
+      svg+='<line x1="'+chartLeft+'" y1="'+y+'" x2="'+chartRight+'" y2="'+y+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      svg+='<text x="'+(chartLeft-6)+'" y="'+(y+4)+'" font-size="12" text-anchor="end" fill="var(--ink-faint)">'+pct+'%</text>';
+    });
+    cats.forEach(function(c,i){
+      var cx=chartLeft+barSpacing*(i+0.5);
+      var barX=cx-barW/2;
+      var h=Math.max(2,(c.pct/100)*(chartBottom-chartTop));
+      var y=chartBottom-h;
+      svg+='<text x="'+cx+'" y="'+(y-10)+'" font-size="16" font-weight="700" text-anchor="middle" fill="var(--ink)">'+c.pct+'%</text>';
+      svg+='<rect x="'+barX+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="3"/>';
+    });
+    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    $('ln-barSvg').innerHTML=svg;
+
+    $('ln-legend').innerHTML=cats.map(function(c){
+      return '<div class="ln-legend-row"><div class="ln-legend-dot" style="background:'+c.color+'"></div><div><div class="lbl">'+c.label+'</div><div class="val">'+c.valueLabel+'</div></div></div>';
+    }).join('');
   }
 
   function render(){
@@ -364,24 +374,33 @@
         '<div class="ln-result-row"><span>Payment Every Period</span><span>'+money(res.payment)+'</span></div>'+
         '<div class="ln-result-row"><span>Total of '+res.totalPayments+' Payments</span><span>'+money(res.totalOfPayments,0)+'</span></div>'+
         '<div class="ln-result-row"><span>Total Interest</span><span>'+money(res.totalInterest,0)+'</span></div>';
-      var pct1=res.principal/(res.principal+res.totalInterest)*100, pct2=100-pct1;
-      $('ln-pieSvg').innerHTML=renderPie(pct1,pct2,'#3B82F6','#22C55E');
+      var pct1=Math.round(res.principal/(res.principal+res.totalInterest)*100), pct2=100-pct1;
+      renderBarChart([
+        {label:'Principal',pct:pct1,color:'#3B82F6',valueLabel:money(res.principal,0)},
+        {label:'Interest',pct:pct2,color:'#22C55E',valueLabel:money(res.totalInterest,0)}
+      ]);
     } else if(res.mode==='deferred'){
       headline='Amount Due: '+money(res.fv,0);
       rowsHtml=
         '<div class="ln-result-row"><span>Amount Due at Maturity</span><span>'+money(res.fv,0)+'</span></div>'+
         '<div class="ln-result-row"><span>Principal Borrowed</span><span>'+money(res.principal,0)+'</span></div>'+
         '<div class="ln-result-row"><span>Total Interest</span><span>'+money(res.totalInterest,0)+'</span></div>';
-      var pct1=res.principal/res.fv*100, pct2=100-pct1;
-      $('ln-pieSvg').innerHTML=renderPie(pct1,pct2,'#3B82F6','#22C55E');
+      var pct1=Math.round(res.principal/res.fv*100), pct2=100-pct1;
+      renderBarChart([
+        {label:'Principal',pct:pct1,color:'#3B82F6',valueLabel:money(res.principal,0)},
+        {label:'Interest',pct:pct2,color:'#22C55E',valueLabel:money(res.totalInterest,0)}
+      ]);
     } else {
       headline='Present Value: '+money(res.pv,0);
       rowsHtml=
         '<div class="ln-result-row"><span>Amount Received Today</span><span>'+money(res.pv,0)+'</span></div>'+
         '<div class="ln-result-row"><span>Face Value at Maturity</span><span>'+money(res.faceValue,0)+'</span></div>'+
         '<div class="ln-result-row"><span>Total Interest</span><span>'+money(res.totalInterest,0)+'</span></div>';
-      var pct1=res.pv/res.faceValue*100, pct2=100-pct1;
-      $('ln-pieSvg').innerHTML=renderPie(pct1,pct2,'#3B82F6','#22C55E');
+      var pct1=Math.round(res.pv/res.faceValue*100), pct2=100-pct1;
+      renderBarChart([
+        {label:'Present Value',pct:pct1,color:'#3B82F6',valueLabel:money(res.pv,0)},
+        {label:'Interest (Discount)',pct:pct2,color:'#22C55E',valueLabel:money(res.totalInterest,0)}
+      ]);
     }
     $('ln-resultHeadline').textContent=headline;
     $('ln-resultRows').innerHTML=rowsHtml;
