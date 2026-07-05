@@ -40,13 +40,9 @@
 .bmi-result-head .bignum{font-size:32px;font-weight:700;line-height:1.1}
 .bmi-result-head .cat{font-size:14px;font-weight:600;opacity:.95;margin-top:2px}
 
-.bmi-meter-box{padding:22px 20px 12px}
-.bmi-meter-track{position:relative;height:16px;border-radius:8px;overflow:visible;
-  background:linear-gradient(to right,#3B82F6 0%,#3B82F6 18.5%,#22C55E 18.5%,#22C55E 40%,#EAB308 40%,#EAB308 55%,#DC2626 55%,#DC2626 100%)}
-.bmi-meter-marker{position:absolute;top:-10px;width:4px;height:36px;background:#1E3A5F;border-radius:2px;transform:translateX(-50%);transition:left 0.3s ease}
-.bmi-meter-marker::after{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #1E3A5F}
-.bmi-meter-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;color:var(--ink-faint)}
-.bmi-meter-zones{display:flex;justify-content:space-between;margin-top:14px;font-size:11px;text-align:center}
+.bmi-meter-box{padding:14px 20px 12px}
+.bmi-gauge-svg{width:100%;height:auto;display:block}
+.bmi-meter-zones{display:flex;justify-content:space-between;margin-top:2px;font-size:11px;text-align:center}
 .bmi-meter-zones div{flex:1}
 .bmi-meter-zones .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:4px}
 
@@ -160,8 +156,7 @@
     <div class="cat" id="bmi-category">Normal weight</div>
   </div>
   <div class="bmi-meter-box">
-    <div class="bmi-meter-track"><div class="bmi-meter-marker" id="bmi-marker" style="left:35%"></div></div>
-    <div class="bmi-meter-labels"><span>15</span><span>18.5</span><span>25</span><span>30</span><span>40+</span></div>
+    <svg viewBox="0 0 300 190" class="bmi-gauge-svg" id="bmi-gaugeSvg" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="bmi-meter-zones">
       <div><span class="dot" style="background:#3B82F6"></span>Underweight</div>
       <div><span class="dot" style="background:#22C55E"></span>Normal</div>
@@ -287,20 +282,60 @@
 
     $('bmi-value').textContent=res.bmi.toFixed(1);
     $('bmi-category').textContent=cat.label;
-    $('bmi-result-head') // noop guard
     document.querySelector('.bmi-result-head').style.background=cat.color;
 
-    // marker position: map bmi range 15-40 to 0-100% on the track
-    var minB=15,maxB=40;
-    var pct=((res.bmi-minB)/(maxB-minB))*100;
-    pct=Math.max(0,Math.min(100,pct));
-    $('bmi-marker').style.left=pct+'%';
+    renderGauge(res.bmi);
 
     $('bmi-resultRows').innerHTML=
       '<div class="bmi-result-row"><span>Healthy BMI Range</span><span>18.5 – 25</span></div>'+
       '<div class="bmi-result-row"><span>Healthy Weight for Height</span><span>'+fmtWeight(res.healthyMinKg)+' – '+fmtWeight(res.healthyMaxKg)+'</span></div>'+
       '<div class="bmi-result-row"><span>BMI Prime</span><span>'+res.bmiPrime.toFixed(2)+'</span></div>'+
       '<div class="bmi-result-row"><span>Ponderal Index</span><span>'+res.ponderal.toFixed(1)+' kg/m³</span></div>';
+  }
+
+  function renderGauge(bmi){
+    var minB=15,maxB=40;
+    var cx=150,cy=160,r=115,sw=20;
+    function frac(v){return Math.max(0,Math.min(1,(v-minB)/(maxB-minB)));}
+    function pt(f){
+      var ang=(180-f*180)*Math.PI/180;
+      return {x:cx+r*Math.cos(ang), y:cy-r*Math.sin(ang)};
+    }
+    function arcSeg(f1,f2,color){
+      var p1=pt(f1), p2=pt(f2);
+      return '<path d="M'+p1.x.toFixed(2)+','+p1.y.toFixed(2)+' A'+r+','+r+' 0 0,1 '+p2.x.toFixed(2)+','+p2.y.toFixed(2)+'" fill="none" stroke="'+color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
+    }
+    var zones=[
+      {f1:frac(minB),f2:frac(18.5),color:'#3B82F6'},
+      {f1:frac(18.5),f2:frac(25),color:'#22C55E'},
+      {f1:frac(25),f2:frac(30),color:'#EAB308'},
+      {f1:frac(30),f2:frac(maxB),color:'#DC2626'}
+    ];
+    var svg='<defs><filter id="bmiGlow" x="-100%" y="-100%" width="300%" height="300%">'+
+      '<feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>'+
+      '</filter></defs>';
+    // background track (light gray full arc, slightly larger stroke for a groove look)
+    var pStart=pt(0), pEnd=pt(1);
+    svg+='<path d="M'+pStart.x.toFixed(2)+','+pStart.y.toFixed(2)+' A'+r+','+r+' 0 0,1 '+pEnd.x.toFixed(2)+','+pEnd.y.toFixed(2)+'" fill="none" stroke="var(--surface-sunken)" stroke-width="'+(sw+6)+'" stroke-linecap="round"/>';
+    zones.forEach(function(z){svg+=arcSeg(z.f1,z.f2,z.color);});
+
+    // tick labels
+    [15,18.5,25,30,40].forEach(function(v){
+      var f=frac(v);
+      var labelPt=pt(f);
+      var lx=cx+(r+26)*Math.cos((180-f*180)*Math.PI/180);
+      var ly=cy-(r+26)*Math.sin((180-f*180)*Math.PI/180);
+      svg+='<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">'+v+'</text>';
+    });
+
+    // glowing marker at current bmi position
+    var mf=frac(bmi);
+    var mp=pt(mf);
+    var markerColor=(bmi<18.5)?'#3B82F6':(bmi<25?'#22C55E':(bmi<30?'#EAB308':'#DC2626'));
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="9" fill="'+markerColor+'" filter="url(#bmiGlow)"/>';
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="9" fill="'+markerColor+'" stroke="#fff" stroke-width="3"/>';
+
+    $('bmi-gaugeSvg').innerHTML=svg;
   }
 
   var liveIds=['bmi-age','bmi-heightFt','bmi-heightIn','bmi-weightLb','bmi-heightCm','bmi-weightKg','bmi-heightOther','bmi-heightOtherUnit','bmi-weightOther','bmi-weightOtherUnit'];
