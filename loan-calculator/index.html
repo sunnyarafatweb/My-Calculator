@@ -13,6 +13,7 @@
 .ln-area-bar{grid-area:bar}
 .ln-area-form{grid-area:form}
 .ln-area-result{grid-area:result}
+.ln-right-stack{display:flex;flex-direction:column;gap:20px;min-width:0}
 .ln-area-sidebar{grid-area:sidebar}
 .ln-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
@@ -155,15 +156,20 @@
   </div>
 </div>
 
-<div class="ln-result-card ln-area-result">
+<div class="ln-right-stack ln-area-result">
+<div class="ln-result-card">
   <div class="ln-result-head"><div class="label" id="ln-resultHeadline">Payment: $1,110.21 / month</div></div>
   <div class="ln-result-body">
     <div id="ln-resultRows"></div>
-    <div class="ln-chart-box">
-      <svg viewBox="0 0 300 300" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="ln-legend" id="ln-legend"></div>
-    </div>
   </div>
+</div>
+
+<div class="ln-card">
+  <div class="ln-card-pad" style="padding-top:18px">
+    <svg viewBox="0 0 300 300" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="ln-legend" id="ln-legend"></div>
+  </div>
+</div>
 </div>
 
 <div class="ln-sidecol ln-area-sidebar">
