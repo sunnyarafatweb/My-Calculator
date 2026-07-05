@@ -1388,9 +1388,12 @@
     doc.autoTable({
       startY:y,margin:{left:margin,right:margin},
       head:[['','Monthly','Total']],
-      headStyles:{fillColor:[30,58,95]},
+      headStyles:{fillColor:[30,58,95],halign:'left'},
       styles:{fontSize:10,cellPadding:5},
       columnStyles:{1:{halign:'right'},2:{halign:'right'}},
+      didParseCell:function(data){
+        if(data.column.index>=1){data.cell.styles.halign='right';}
+      },
       body:[
         ['Mortgage Payment',money(res.basePayment),money(res.mortgageTotal)],
         ['Property Tax',money(res.initialPT),money(res.ptTotal)],
@@ -1416,9 +1419,13 @@
     doc.autoTable({
       startY:y,margin:{left:margin,right:margin},
       head:[['Year','Date','Interest','Principal','Ending Balance']],
-      headStyles:{fillColor:[30,58,95]},
+      headStyles:{fillColor:[30,58,95],halign:'left'},
       styles:{fontSize:9,cellPadding:4},
       columnStyles:{2:{halign:'right'},3:{halign:'right'},4:{halign:'right',textColor:[22,163,74]}},
+      didParseCell:function(data){
+        if(data.column.index>=2){data.cell.styles.halign='right';}
+        if(data.section==='body' && data.column.index===4){data.cell.styles.textColor=[22,163,74];}
+      },
       body:years
     });
 
