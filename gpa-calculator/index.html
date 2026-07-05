@@ -317,6 +317,10 @@
       $('gpa-coursesTitle').textContent = 'Semesters';
       $('gpa-addSemesterBtn').style.display = '';
       blocks.forEach(function(b){ b.querySelector('.gpa-semester-header').classList.add('show'); });
+      if(blocks.length===1){
+        var newBlock = createSemesterBlock('Semester 2');
+        addRow(newBlock.querySelector('.gpa-rows-container'));
+      }
       renumberSemesters();
     } else {
       $('gpa-coursesTitle').textContent = 'Your Courses';
