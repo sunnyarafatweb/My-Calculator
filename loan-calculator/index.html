@@ -166,7 +166,7 @@
 
 <div class="ln-card">
   <div class="ln-card-pad" style="padding-top:18px">
-    <svg viewBox="0 0 300 300" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg viewBox="0 0 300 170" class="ln-chart-svg" id="ln-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="ln-legend" id="ln-legend"></div>
   </div>
 </div>
@@ -343,21 +343,21 @@
   }
 
   function renderBarChart(cats){
-    var chartLeft=50,chartRight=280,chartTop=40,chartBottom=270;
+    var chartLeft=50,chartRight=280,chartTop=22,chartBottom=130;
     var barSpacing=(chartRight-chartLeft)/cats.length, barW=60;
     var svg='';
     var ticks=[10,20,30,40,50,60,70,80,90,100];
     ticks.forEach(function(pct){
       var y=chartBottom-(pct/100)*(chartBottom-chartTop);
       svg+='<line x1="'+chartLeft+'" y1="'+y+'" x2="'+chartRight+'" y2="'+y+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
-      svg+='<text x="'+(chartLeft-6)+'" y="'+(y+4)+'" font-size="12" text-anchor="end" fill="var(--ink-faint)">'+pct+'%</text>';
+      svg+='<text x="'+(chartLeft-6)+'" y="'+(y+3)+'" font-size="10" text-anchor="end" fill="var(--ink-faint)">'+pct+'%</text>';
     });
     cats.forEach(function(c,i){
       var cx=chartLeft+barSpacing*(i+0.5);
       var barX=cx-barW/2;
       var h=Math.max(2,(c.pct/100)*(chartBottom-chartTop));
       var y=chartBottom-h;
-      svg+='<text x="'+cx+'" y="'+(y-10)+'" font-size="16" font-weight="700" text-anchor="middle" fill="var(--ink)">'+c.pct+'%</text>';
+      svg+='<text x="'+cx+'" y="'+(y-7)+'" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ink)">'+c.pct+'%</text>';
       svg+='<rect x="'+barX+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="3"/>';
     });
     svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
