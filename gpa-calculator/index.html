@@ -5,20 +5,22 @@
 .gpa-bar-pdf-btn:hover{background:#f0f0f0}
 
 .gpa-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "planning planning ."}
+  grid-template-areas:"bar bar ." "form result sidebar" "planningtitle planningtitle ." "planningform planningresult ."}
 .gpa-area-bar{grid-area:bar}
 .gpa-area-form{grid-area:form}
 .gpa-area-result{grid-area:result}
 .gpa-area-sidebar{grid-area:sidebar}
-.gpa-area-planning{grid-area:planning;margin-top:0}
+.gpa-area-planningtitle{grid-area:planningtitle}
+.gpa-area-planningform{grid-area:planningform}
+.gpa-area-planningresult{grid-area:planningresult;display:flex;flex-direction:column}
 .gpa-calc-sidebar{display:flex;flex-direction:column;gap:16px;width:100%}
 .gpa-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .gpa-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
 .gpa-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
 .gpa-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 @media(max-width:860px){
-  .gpa-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "planning" "sidebar"}
-  .gpa-area-planning{margin-top:32px}
+  .gpa-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "planningtitle" "planningform" "planningresult" "sidebar"}
+  .gpa-area-planningtitle{margin-top:32px}
 }
 
 .gpa-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
@@ -86,11 +88,8 @@
 .gpa-breakdown-table tfoot td{background:#dde3ea;font-weight:700;border-top:2px solid var(--border);color:var(--ink)}
 .gpa-breakdown-table .gpa-sem-label td{background:#eef2f6;color:var(--ink-soft);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.02em;padding:6px 10px}
 
-.gpa-planning-section h2{font-size:20px;font-weight:700;margin-bottom:8px}
-.gpa-planning-section .gpa-planning-desc{font-size:14px;color:var(--ink-soft);margin-bottom:18px;max-width:640px}
-.gpa-planning-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:stretch}
-.gpa-planning-grid .gpa-result-card{display:flex;flex-direction:column}
-@media(max-width:860px){.gpa-planning-grid{grid-template-columns:1fr}}
+.gpa-area-planningtitle h2{font-size:20px;font-weight:700;margin-bottom:8px}
+.gpa-planning-desc{font-size:14px;color:var(--ink-soft);margin-bottom:18px;max-width:640px}
 .gpa-plan-field{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
 .gpa-plan-field label{font-size:13px;color:var(--ink-soft)}
 .gpa-plan-field input{width:120px;font-size:14px;background:var(--surface-sunken);border-radius:8px;padding:9px 10px;color:var(--ink);outline:none;border:1px solid var(--border-fine);text-align:right}
@@ -196,11 +195,11 @@
     </div>
   </div>
 
-<div class="gpa-planning-section gpa-area-planning">
+<div class="gpa-area-planningtitle" style="margin-top:32px">
   <h2>GPA Planning Calculator</h2>
   <p class="gpa-planning-desc">Find the minimum GPA you need in future courses to raise your GPA to a desired level, or keep it above a certain level.</p>
-  <div class="gpa-planning-grid">
-    <div class="gpa-card">
+</div>
+<div class="gpa-card gpa-area-planningform">
       <div class="gpa-card-pad">
         <div class="gpa-plan-field"><label>Current GPA</label><input type="number" id="gpa-planCurrent" step="0.01" value="3"></div>
         <div class="gpa-plan-field"><label>Target GPA</label><input type="number" id="gpa-planTarget" step="0.01" value="3.3"></div>
@@ -211,13 +210,12 @@
           <button type="button" class="gpa-btn-clear" id="gpa-planClearBtn">Clear</button>
         </div>
       </div>
-    </div>
-    <div class="gpa-result-card">
+</div>
+<div class="gpa-result-card gpa-area-planningresult">
       <div class="gpa-result-head"><div class="label">Result</div></div>
       <div class="gpa-plan-result-body" id="gpa-planResultBody">—</div>
-    </div>
-  </div>
 </div>
+
 </div>
 </div>
 
