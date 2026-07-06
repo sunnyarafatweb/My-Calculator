@@ -295,6 +295,9 @@
       '<div class="bmi-result-row"><span>Ponderal Index</span><span>'+res.ponderal.toFixed(1)+' kg/m³</span></div>';
   }
 
+  var currentNeedleAngle=null;
+  var animFrame=null;
+
   function renderGauge(bmi){
     var minB=15,maxB=40;
     var cx=150,cy=160,r=115,sw=20;
@@ -316,45 +319,67 @@
     var svg='<defs><filter id="bmiGlow" x="-100%" y="-100%" width="300%" height="300%">'+
       '<feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>'+
       '</filter></defs>';
-    // background track (light gray full arc, slightly larger stroke for a groove look)
     var pStart=pt(0), pEnd=pt(1);
     svg+='<path d="M'+pStart.x.toFixed(2)+','+pStart.y.toFixed(2)+' A'+r+','+r+' 0 0,1 '+pEnd.x.toFixed(2)+','+pEnd.y.toFixed(2)+'" fill="none" stroke="var(--surface-sunken)" stroke-width="'+(sw+6)+'" stroke-linecap="round"/>';
     zones.forEach(function(z){svg+=arcSeg(z.f1,z.f2,z.color);});
-
-    // tick labels
     [15,18.5,25,30,40].forEach(function(v){
       var f=frac(v);
-      var labelPt=pt(f);
       var lx=cx+(r+26)*Math.cos((180-f*180)*Math.PI/180);
       var ly=cy-(r+26)*Math.sin((180-f*180)*Math.PI/180);
       svg+='<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">'+v+'</text>';
     });
 
-    // glowing marker at current bmi position
     var mf=frac(bmi);
     var mp=pt(mf);
     var markerColor=(bmi<18.5)?'#3B82F6':(bmi<25?'#22C55E':(bmi<30?'#EAB308':'#DC2626'));
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" filter="url(#bmiGlow)" id="bmi-glowDot"/>';
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" stroke="#fff" stroke-width="2.5" id="bmi-solidDot"/>';
 
-    // rotating needle from center pivot, styled as a tapered gradient blade (unique vs. plain needle)
-    var needleAngleDeg=180-mf*180;
-    var needleLen=r-30;
-    var tipX=cx+needleLen*Math.cos(needleAngleDeg*Math.PI/180);
-    var tipY=cy-needleLen*Math.sin(needleAngleDeg*Math.PI/180);
-    var perpDeg=needleAngleDeg+90;
-    var baseW=5;
-    var b1x=cx+baseW*Math.cos(perpDeg*Math.PI/180), b1y=cy-baseW*Math.sin(perpDeg*Math.PI/180);
-    var b2x=cx-baseW*Math.cos(perpDeg*Math.PI/180), b2y=cy+baseW*Math.sin(perpDeg*Math.PI/180);
+    // needle drawn pointing right (local angle 0) from pivot; rotated into place via transform
+    var needleLen=r-30, baseW=5;
     svg+='<defs><linearGradient id="needleGrad" x1="0%" y1="0%" x2="100%" y2="0%">'+
       '<stop offset="0%" stop-color="'+markerColor+'"/><stop offset="100%" stop-color="#1E3A5F"/></linearGradient></defs>';
-    svg+='<polygon points="'+b1x.toFixed(2)+','+b1y.toFixed(2)+' '+tipX.toFixed(2)+','+tipY.toFixed(2)+' '+b2x.toFixed(2)+','+b2y.toFixed(2)+'" fill="url(#needleGrad)"/>';
-    svg+='<circle cx="'+cx+'" cy="'+cy+'" r="10" fill="#1E3A5F"/>';
-    svg+='<circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>';
-
-    // glowing tip marker on the arc itself
-    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" filter="url(#bmiGlow)"/>';
-    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" stroke="#fff" stroke-width="2.5"/>';
+    svg+='<g id="bmi-needleGroup" style="transform-origin:'+cx+'px '+cy+'px">'+
+      '<polygon points="'+cx+','+(cy+baseW)+' '+(cx+needleLen)+','+cy+' '+cx+','+(cy-baseW)+'" fill="url(#needleGrad)"/>'+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="10" fill="#1E3A5F"/>'+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>'+
+      '</g>';
 
     $('bmi-gaugeSvg').innerHTML=svg;
+
+    var targetAngle=180-mf*180;
+    animateNeedle(targetAngle, markerColor);
+  }
+
+  function easeOutElastic(t){
+    var c4=(2*Math.PI)/3;
+    if(t===0)return 0;
+    if(t===1)return 1;
+    return Math.pow(2,-10*t)*Math.sin((t*10-0.75)*c4)+1;
+  }
+
+  function animateNeedle(targetAngle, color){
+    var group=$('bmi-needleGroup');
+    if(!group)return;
+    var startAngle=(currentNeedleAngle===null)?180:currentNeedleAngle;
+    var delta=targetAngle-startAngle;
+    var duration=900;
+    var startTime=null;
+    if(animFrame)cancelAnimationFrame(animFrame);
+    function step(ts){
+      if(!startTime)startTime=ts;
+      var t=Math.min(1,(ts-startTime)/duration);
+      var eased=easeOutElastic(t);
+      var angleNow=startAngle+delta*eased;
+      var rotateBy=-(angleNow); // convert to SVG clockwise rotation from local 0deg (pointing right)
+      group.style.transform='rotate('+rotateBy+'deg)';
+      if(t<1){
+        animFrame=requestAnimationFrame(step);
+      } else {
+        currentNeedleAngle=targetAngle;
+      }
+    }
+    animFrame=requestAnimationFrame(step);
   }
 
   var liveIds=['bmi-age','bmi-heightFt','bmi-heightIn','bmi-weightLb','bmi-heightCm','bmi-weightKg','bmi-heightOther','bmi-heightOtherUnit','bmi-weightOther','bmi-weightOtherUnit'];
