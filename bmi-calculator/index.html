@@ -6,7 +6,7 @@
 .bmi-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .bmi-bar-pdf-btn:hover{background:#f0f0f0}
 
-.bmi-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+.bmi-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:stretch;
   grid-template-areas:"bar bar ." "form result sidebar"}
 .bmi-area-bar{grid-area:bar}
 .bmi-area-form{grid-area:form}
@@ -53,6 +53,7 @@
 .bmi-result-row span:last-child{font-weight:600;color:var(--ink)}
 
 .bmi-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.bmi-sidecol .bmi-calc-card{flex:1}
 .bmi-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .bmi-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
 .bmi-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
@@ -352,10 +353,10 @@
   }
 
   function easeOutElastic(t){
-    var c4=(2*Math.PI)/3;
+    var c4=(2*Math.PI)/4.5;
     if(t===0)return 0;
     if(t===1)return 1;
-    return Math.pow(2,-10*t)*Math.sin((t*10-0.75)*c4)+1;
+    return Math.pow(2,-8*t)*Math.sin((t*8-0.7)*c4)*0.55+1;
   }
 
   function animateNeedle(targetAngle, color){
@@ -363,7 +364,7 @@
     if(!group)return;
     var startAngle=(currentNeedleAngle===null)?180:currentNeedleAngle;
     var delta=targetAngle-startAngle;
-    var duration=900;
+    var duration=1400;
     var startTime=null;
     if(animFrame)cancelAnimationFrame(animFrame);
     function step(ts){
