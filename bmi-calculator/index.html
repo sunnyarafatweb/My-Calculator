@@ -334,8 +334,25 @@
     var mf=frac(bmi);
     var mp=pt(mf);
     var markerColor=(bmi<18.5)?'#3B82F6':(bmi<25?'#22C55E':(bmi<30?'#EAB308':'#DC2626'));
-    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="9" fill="'+markerColor+'" filter="url(#bmiGlow)"/>';
-    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="9" fill="'+markerColor+'" stroke="#fff" stroke-width="3"/>';
+
+    // rotating needle from center pivot, styled as a tapered gradient blade (unique vs. plain needle)
+    var needleAngleDeg=180-mf*180;
+    var needleLen=r-30;
+    var tipX=cx+needleLen*Math.cos(needleAngleDeg*Math.PI/180);
+    var tipY=cy-needleLen*Math.sin(needleAngleDeg*Math.PI/180);
+    var perpDeg=needleAngleDeg+90;
+    var baseW=5;
+    var b1x=cx+baseW*Math.cos(perpDeg*Math.PI/180), b1y=cy-baseW*Math.sin(perpDeg*Math.PI/180);
+    var b2x=cx-baseW*Math.cos(perpDeg*Math.PI/180), b2y=cy+baseW*Math.sin(perpDeg*Math.PI/180);
+    svg+='<defs><linearGradient id="needleGrad" x1="0%" y1="0%" x2="100%" y2="0%">'+
+      '<stop offset="0%" stop-color="'+markerColor+'"/><stop offset="100%" stop-color="#1E3A5F"/></linearGradient></defs>';
+    svg+='<polygon points="'+b1x.toFixed(2)+','+b1y.toFixed(2)+' '+tipX.toFixed(2)+','+tipY.toFixed(2)+' '+b2x.toFixed(2)+','+b2y.toFixed(2)+'" fill="url(#needleGrad)"/>';
+    svg+='<circle cx="'+cx+'" cy="'+cy+'" r="10" fill="#1E3A5F"/>';
+    svg+='<circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>';
+
+    // glowing tip marker on the arc itself
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" filter="url(#bmiGlow)"/>';
+    svg+='<circle cx="'+mp.x.toFixed(2)+'" cy="'+mp.y.toFixed(2)+'" r="8" fill="'+markerColor+'" stroke="#fff" stroke-width="2.5"/>';
 
     $('bmi-gaugeSvg').innerHTML=svg;
   }
