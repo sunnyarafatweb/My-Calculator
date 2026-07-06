@@ -240,10 +240,33 @@
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
-<body>
+<style>
+.ac-hero{padding:36px 0 8px}
+.ac-title{font-family:var(--f-body);font-size:clamp(30px,4vw,44px);font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.ac-sub{color:var(--ink-soft);font-size:16px;max-width:640px;margin-bottom:24px}
+.ac-search{position:relative;max-width:520px;margin-bottom:8px}
+.ac-search input{width:100%;padding:13px 16px 13px 42px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:14.5px;font-family:var(--f-body);box-shadow:var(--sh-sm)}
+.ac-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.ac-jump{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
+.ac-jump a{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft)}
+.ac-count{font-size:13px;color:var(--muted);margin:6px 0 20px}
+.ac-cat{scroll-margin-top:90px;margin-bottom:34px}
+.ac-cat-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ac-cat-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;font-size:18px}
+.ac-cat-name{font-size:20px;font-weight:700;color:var(--ink)}
+.ac-cat-desc{font-size:13.5px;color:var(--muted)}
+.ac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ac-item{display:block;padding:13px 15px;border-radius:13px;border:1px solid var(--line);background:var(--card);font-size:13.5px;font-weight:600;color:var(--ink);box-shadow:var(--sh-sm);transition:.15s}
+.ac-item:hover{border-color:var(--ac);transform:translateY(-1px);box-shadow:var(--sh)}
+.ac-item.hide{display:none}
+.ac-cat.hide{display:none}
+@media(max-width:900px){.ac-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.ac-grid{grid-template-columns:1fr}}
+</style>
+</head><body>
 <header>
   <div class="wrap nav">
-    <a class="brand" href="/">
+    <a class="brand" href="#">
       <span class="logo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
@@ -254,11 +277,11 @@
       CalcFolio
     </a>
     <nav class="nav-links">
-      <a href="/">Home</a>
+      <a href="#">Home</a>
       <a href="/all-calculators/">Calculators</a>
-      <a href="/#categories">Categories</a>
+      <a href="#categories">Categories</a>
       <a href="#">Live Rates<span class="soon">SOON</span></a>
-      <a href="/about/">About</a>
+      <a href="#">About</a>
     </nav>
     <div class="nav-spacer"></div>
     <div class="nav-cta">
@@ -267,7 +290,7 @@
       <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
-
+</header>
 <section class="ac-hero"><div class="wrap">
 <h1 class="ac-title">All Calculators</h1>
 <p class="ac-sub">Every CalcFolio tool in one place — 194 calculators across finance, health, math, and everyday life.</p>
@@ -491,7 +514,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="brand" href="/">
+        <a class="brand" href="#">
           <span class="logo">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
@@ -517,7 +540,7 @@
       </div>
       <div class="foot-col">
         <h4>Company</h4>
-        <a href="/about/">About</a><a href="#">Contact</a><a href="#">Privacy</a><a href="#">Terms</a>
+        <a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a><a href="#">Terms</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -529,7 +552,6 @@
 <script>
 (function(){
   var input = document.getElementById('acSearch');
-  var items = document.querySelectorAll('.ac-item');
   var cats = document.querySelectorAll('.ac-cat');
   var countEl = document.getElementById('acCount');
   function filter(){
