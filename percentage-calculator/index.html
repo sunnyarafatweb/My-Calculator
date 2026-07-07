@@ -104,6 +104,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .pc-result-box span{padding:0 8px 0 0;color:var(--ink-faint);font-size:13px;flex-shrink:0}
 .pc-copy-btn{width:38px;height:38px;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
 .pc-copy-btn:hover{border-color:#16A34A;color:#16A34A}
+.pc-toggle{display:flex;background:var(--surface-sunken);border-radius:8px;padding:3px;gap:2px}
+.pc-toggle-btn{border:none;background:none;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink-soft);border-radius:6px;cursor:pointer;white-space:nowrap}
+.pc-toggle-btn.active{background:#1E3A5F;color:#fff}
 
 @media(max-width:640px){
   .pc-row-card{grid-template-columns:1fr}
@@ -144,13 +147,18 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
   <div class="pc-row-card">
     <div class="pc-sentence">
-      <span>% increase/decrease</span>
-      <span class="pc-fromto"><label>From</label><input type="number" class="pc-num" id="pc3-x" value="50"></span>
-      <span class="pc-fromto"><label>To</label><input type="number" class="pc-num" id="pc3-y" value="75"></span>
+      <input type="number" class="pc-num" id="pc3-x" value="50">
+      <span class="pc-toggle">
+        <button type="button" class="pc-toggle-btn active" id="pc3-inc" data-dir="inc">Increase</button>
+        <button type="button" class="pc-toggle-btn" id="pc3-dec" data-dir="dec">Decrease</button>
+      </span>
+      <span>by</span>
+      <input type="number" class="pc-num" id="pc3-y" value="20">
+      <span>%</span>
     </div>
     <div class="pc-controls">
       <button type="button" class="pc-calc-btn" id="pc3-btn">Calculate</button>
-      <div class="pc-result-box"><input type="text" id="pc3-result" readonly value="50"><span>%</span></div>
+      <div class="pc-result-box"><input type="text" id="pc3-result" readonly value="60"></div>
       <button type="button" class="pc-copy-btn" id="pc3-copy" title="Copy result">📋</button>
     </div>
   </div>
@@ -176,10 +184,11 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var x=val('pc2-x'), y=val('pc2-y');
     $('pc2-result').value = y!==0 ? fmt((x/y)*100) : '—';
   }
+  var pc3dir = 'inc';
   function calc3(){
     var x=val('pc3-x'), y=val('pc3-y');
-    var r = x!==0 ? ((y-x)/x)*100 : NaN;
-    $('pc3-result').value = isFinite(r) ? (r>=0?'+':'')+fmt(r) : '—';
+    var r = pc3dir==='inc' ? x*(1+y/100) : x*(1-y/100);
+    $('pc3-result').value = isFinite(r) ? fmt(r) : '—';
   }
 
   $('pc1-btn').addEventListener('click', calc1);
@@ -188,6 +197,12 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   ['pc1-x','pc1-y'].forEach(function(id){$(id).addEventListener('input', calc1);});
   ['pc2-x','pc2-y'].forEach(function(id){$(id).addEventListener('input', calc2);});
   ['pc3-x','pc3-y'].forEach(function(id){$(id).addEventListener('input', calc3);});
+  $('pc3-inc').addEventListener('click', function(){
+    pc3dir='inc'; $('pc3-inc').classList.add('active'); $('pc3-dec').classList.remove('active'); calc3();
+  });
+  $('pc3-dec').addEventListener('click', function(){
+    pc3dir='dec'; $('pc3-dec').classList.add('active'); $('pc3-inc').classList.remove('active'); calc3();
+  });
 
   function wireCopy(btnId, resultId, suffix){
     $(btnId).addEventListener('click', function(){
@@ -204,7 +219,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   }
   wireCopy('pc1-copy','pc1-result','');
   wireCopy('pc2-copy','pc2-result','%');
-  wireCopy('pc3-copy','pc3-result','%');
+  wireCopy('pc3-copy','pc3-result','');
 
   calc1(); calc2(); calc3();
 })();
