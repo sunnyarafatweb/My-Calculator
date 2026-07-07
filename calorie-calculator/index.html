@@ -301,6 +301,31 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 </div>
 
 </div>
+
+<div class="cal-card" style="margin-top:20px">
+  <div class="cal-card-pad">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:4px;color:var(--ink)">Food Energy Converter</h2>
+    <p style="font-size:12.5px;color:var(--ink-faint);margin-bottom:16px">Convert between Calories and other common food energy units.</p>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="cal-input-group" style="flex:0 0 140px"><input type="number" id="fec-fromVal" value="1"></div>
+      <select id="fec-fromUnit" class="cal-select-plain" style="flex:0 0 220px">
+        <option value="kcal" selected>Calorie [Nutritional, kcal]</option>
+        <option value="cal">calorie [cal]</option>
+        <option value="kj">Kilojoule [kJ]</option>
+        <option value="j">joule [J]</option>
+      </select>
+      <span style="font-weight:700;color:var(--ink-soft)">=</span>
+      <div class="cal-input-group" style="flex:0 0 140px"><input type="text" id="fec-toVal" readonly value="4.1868"></div>
+      <select id="fec-toUnit" class="cal-select-plain" style="flex:0 0 220px">
+        <option value="kcal">Calorie [Nutritional, kcal]</option>
+        <option value="cal">calorie [cal]</option>
+        <option value="kj" selected>Kilojoule [kJ]</option>
+        <option value="j">joule [J]</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -489,6 +514,23 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     }
   }
   $('cal-pdfBtn').addEventListener('click',generatePdf);
+
+  // Food Energy Converter — exact factors based on 1 kcal = 4.1868 kJ (International Table calorie)
+  var FEC_TO_J = { kcal: 4186.8, cal: 4.1868, kj: 1000, j: 1 };
+  function fecConvert(){
+    var v = parseFloat($('fec-fromVal').value) || 0;
+    var fromU = sel('fec-fromUnit'), toU = sel('fec-toUnit');
+    var joules = v * FEC_TO_J[fromU];
+    var result = joules / FEC_TO_J[toU];
+    var display = result >= 1000 ? result.toLocaleString('en-US',{maximumFractionDigits:4}) : (Math.round(result*100000)/100000).toString();
+    $('fec-toVal').value = display;
+  }
+  ['fec-fromVal','fec-fromUnit','fec-toUnit'].forEach(function(id){
+    var el=$(id);
+    var evt=(el.tagName==='SELECT')?'change':'input';
+    el.addEventListener(evt, fecConvert);
+  });
+  fecConvert();
 
   render();
 })();
