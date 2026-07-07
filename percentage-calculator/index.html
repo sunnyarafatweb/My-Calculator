@@ -87,97 +87,70 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .pc-bar{max-width:760px;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}
 .pc-bar-text{display:flex;align-items:center;gap:10px}
 .pc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
-.pc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 
-.pc-card{max-width:760px;background:var(--surface);border:1px solid var(--border-fine);border-radius:18px;overflow:hidden;box-shadow:0 1px 3px rgba(22,27,38,0.06)}
-.pc-card-pad{padding:28px}
+.pc-cards{max-width:760px;display:flex;flex-direction:column;gap:14px}
+.pc-row-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:14px;padding:16px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pc-sentence{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:14.5px;color:var(--ink);flex:1;min-width:220px}
+.pc-num{width:70px;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;background:var(--surface-sunken);font-size:14px;text-align:center;color:var(--ink);font-family:var(--font-body);outline:none}
+.pc-num:focus{border-color:#1E3A5F;background:#fff}
 
-.pc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.pc-tab{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:20px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
-.pc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-
-.pc-question{font-size:15px;color:var(--ink-soft);margin-bottom:18px}
-.pc-inputs{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
-.pc-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;overflow:hidden}
-.pc-input-group input{border:none;outline:none;background:#fff;padding:12px 14px;font-size:18px;font-weight:600;width:130px;color:var(--ink);font-family:var(--font-body);text-align:center}
-.pc-input-group span{padding:0 10px;color:var(--ink-faint);font-size:15px}
-.pc-inline-text{font-size:15px;color:var(--ink-soft);font-weight:500}
-
-.pc-result-box{background:var(--surface-sunken);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:4px}
-.pc-result-label{font-size:13.5px;color:var(--ink-soft)}
-.pc-result-value{font-size:40px;font-weight:700;color:#16A34A;line-height:1.15}
-.pc-copy-btn{align-self:flex-start;margin-top:10px;background:#fff;border:1px solid var(--border);color:var(--ink-soft);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.pc-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pc-calc-btn{background:#1E3A5F;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pc-calc-btn:hover{background:#16304d}
+.pc-result-box{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.pc-result-box input{width:110px;padding:10px;border:none;background:transparent;outline:none;font-size:14px;font-weight:600;color:#16A34A;text-align:right;font-family:var(--font-body)}
+.pc-result-box span{padding:0 8px;color:var(--ink-faint);font-size:13px}
+.pc-copy-btn{width:38px;height:38px;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
 .pc-copy-btn:hover{border-color:#16A34A;color:#16A34A}
 
-.pc-footnote{font-size:12px;color:var(--ink-faint);margin-top:18px;padding-top:16px;border-top:1px solid var(--border-fine)}
-
-@media(max-width:520px){
-  .pc-input-group input{width:100px;font-size:16px}
+@media(max-width:640px){
+  .pc-row-card{flex-direction:column;align-items:stretch}
+  .pc-controls{justify-content:space-between}
 }
 </style>
 
 <div class="pc-wrap">
 
 <div class="pc-bar">
-  <span class="pc-bar-text"><span class="pc-bar-badge">▾</span>Pick the question shape that matches yours — results update automatically.</span>
+  <span class="pc-bar-text"><span class="pc-bar-badge">▾</span>Enter values in any card below and click Calculate.</span>
 </div>
 
-<div class="pc-card">
-  <div class="pc-card-pad">
-    <div class="pc-tabs">
-      <button type="button" class="pc-tab active" data-mode="xofy">X% of Y</button>
-      <button type="button" class="pc-tab" data-mode="xisy">X is what % of Y</button>
-      <button type="button" class="pc-tab" data-mode="xisyof">X is Y% of what</button>
-      <button type="button" class="pc-tab" data-mode="change">% Change</button>
-    </div>
+<div class="pc-cards">
 
-    <div id="pc-mode-xofy" class="pc-mode">
-      <div class="pc-question">What is <strong>X%</strong> of <strong>Y</strong>?</div>
-      <div class="pc-inputs">
-        <div class="pc-input-group"><input id="pc-xofy-x" type="number" value="25"><span>%</span></div>
-        <span class="pc-inline-text">of</span>
-        <div class="pc-input-group"><input id="pc-xofy-y" type="number" value="80"></div>
-      </div>
+  <div class="pc-row-card">
+    <div class="pc-sentence">
+      What is <input type="number" class="pc-num" id="pc1-x" value="25"> % of <input type="number" class="pc-num" id="pc1-y" value="80"> ?
     </div>
-
-    <div id="pc-mode-xisy" class="pc-mode" style="display:none">
-      <div class="pc-question"><strong>X</strong> is what percent of <strong>Y</strong>?</div>
-      <div class="pc-inputs">
-        <div class="pc-input-group"><input id="pc-xisy-x" type="number" value="20"></div>
-        <span class="pc-inline-text">is what % of</span>
-        <div class="pc-input-group"><input id="pc-xisy-y" type="number" value="80"></div>
-      </div>
+    <div class="pc-controls">
+      <button type="button" class="pc-calc-btn" id="pc1-btn">Calculate</button>
+      <div class="pc-result-box"><input type="text" id="pc1-result" readonly value="20"></div>
+      <button type="button" class="pc-copy-btn" id="pc1-copy" title="Copy result">📋</button>
     </div>
-
-    <div id="pc-mode-xisyof" class="pc-mode" style="display:none">
-      <div class="pc-question"><strong>X</strong> is <strong>Y%</strong> of what number?</div>
-      <div class="pc-inputs">
-        <div class="pc-input-group"><input id="pc-xisyof-x" type="number" value="20"></div>
-        <span class="pc-inline-text">is</span>
-        <div class="pc-input-group"><input id="pc-xisyof-y" type="number" value="25"><span>%</span></div>
-        <span class="pc-inline-text">of what</span>
-      </div>
-    </div>
-
-    <div id="pc-mode-change" class="pc-mode" style="display:none">
-      <div class="pc-question">Percent change from <strong>X</strong> to <strong>Y</strong>?</div>
-      <div class="pc-inputs">
-        <div class="pc-input-group"><input id="pc-change-x" type="number" value="50"></div>
-        <span class="pc-inline-text">to</span>
-        <div class="pc-input-group"><input id="pc-change-y" type="number" value="75"></div>
-      </div>
-    </div>
-
-    <div class="pc-result-box">
-      <div class="pc-result-label" id="pc-resultLabel">25% of 80 is</div>
-      <div class="pc-result-value" id="pc-resultValue">20</div>
-      <button type="button" class="pc-copy-btn" id="pc-copyBtn">📋 Copy result</button>
-    </div>
-
-    <div class="pc-footnote">Pick the question shape that matches what you actually need — all four are the same underlying relationship, just solved for a different variable.</div>
   </div>
-</div>
 
+  <div class="pc-row-card">
+    <div class="pc-sentence">
+      <input type="number" class="pc-num" id="pc2-x" value="20"> is what percent of <input type="number" class="pc-num" id="pc2-y" value="80"> ?
+    </div>
+    <div class="pc-controls">
+      <button type="button" class="pc-calc-btn" id="pc2-btn">Calculate</button>
+      <div class="pc-result-box"><input type="text" id="pc2-result" readonly value="25"><span>%</span></div>
+      <button type="button" class="pc-copy-btn" id="pc2-copy" title="Copy result">📋</button>
+    </div>
+  </div>
+
+  <div class="pc-row-card">
+    <div class="pc-sentence">
+      What is the percentage increase/decrease from <input type="number" class="pc-num" id="pc3-x" value="50"> to <input type="number" class="pc-num" id="pc3-y" value="75"> ?
+    </div>
+    <div class="pc-controls">
+      <button type="button" class="pc-calc-btn" id="pc3-btn">Calculate</button>
+      <div class="pc-result-box"><input type="text" id="pc3-result" readonly value="50"><span>%</span></div>
+      <button type="button" class="pc-copy-btn" id="pc3-copy" title="Copy result">📋</button>
+    </div>
+  </div>
+
+</div>
 </div>
 
 <script>
@@ -190,66 +163,45 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     return rounded.toLocaleString('en-US',{maximumFractionDigits:2});
   }
 
-  var mode = 'xofy';
-  var tabs = document.querySelectorAll('.pc-tab');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      tabs.forEach(function(t){t.classList.remove('active');});
-      tab.classList.add('active');
-      mode = tab.dataset.mode;
-      document.querySelectorAll('.pc-mode').forEach(function(m){m.style.display='none';});
-      $('pc-mode-'+mode).style.display='';
-      render();
-    });
-  });
-
-  function render(){
-    var label='', value='';
-    if(mode==='xofy'){
-      var x=val('pc-xofy-x'), y=val('pc-xofy-y');
-      var r = (x/100)*y;
-      label = x+'% of '+fmt(y)+' is';
-      value = fmt(r);
-    } else if(mode==='xisy'){
-      var x=val('pc-xisy-x'), y=val('pc-xisy-y');
-      var r = y!==0 ? (x/y)*100 : NaN;
-      label = fmt(x)+' is what % of '+fmt(y)+' —';
-      value = fmt(r)+'%';
-    } else if(mode==='xisyof'){
-      var x=val('pc-xisyof-x'), y=val('pc-xisyof-y');
-      var r = y!==0 ? x/(y/100) : NaN;
-      label = fmt(x)+' is '+y+'% of —';
-      value = fmt(r);
-    } else if(mode==='change'){
-      var x=val('pc-change-x'), y=val('pc-change-y');
-      var r = x!==0 ? ((y-x)/x)*100 : NaN;
-      var dir = r>=0 ? 'increase' : 'decrease';
-      label = 'From '+fmt(x)+' to '+fmt(y)+' is a';
-      value = fmt(Math.abs(r))+'% '+dir;
-    }
-    $('pc-resultLabel').textContent = label;
-    $('pc-resultValue').textContent = value;
+  function calc1(){
+    var x=val('pc1-x'), y=val('pc1-y');
+    $('pc1-result').value = fmt((x/100)*y);
+  }
+  function calc2(){
+    var x=val('pc2-x'), y=val('pc2-y');
+    $('pc2-result').value = y!==0 ? fmt((x/y)*100) : '—';
+  }
+  function calc3(){
+    var x=val('pc3-x'), y=val('pc3-y');
+    var r = x!==0 ? ((y-x)/x)*100 : NaN;
+    $('pc3-result').value = isFinite(r) ? (r>=0?'+':'')+fmt(r) : '—';
   }
 
-  var allInputs = ['pc-xofy-x','pc-xofy-y','pc-xisy-x','pc-xisy-y','pc-xisyof-x','pc-xisyof-y','pc-change-x','pc-change-y'];
-  allInputs.forEach(function(id){
-    var el=$(id);
-    if(el) el.addEventListener('input', render);
-  });
+  $('pc1-btn').addEventListener('click', calc1);
+  $('pc2-btn').addEventListener('click', calc2);
+  $('pc3-btn').addEventListener('click', calc3);
+  ['pc1-x','pc1-y'].forEach(function(id){$(id).addEventListener('input', calc1);});
+  ['pc2-x','pc2-y'].forEach(function(id){$(id).addEventListener('input', calc2);});
+  ['pc3-x','pc3-y'].forEach(function(id){$(id).addEventListener('input', calc3);});
 
-  $('pc-copyBtn').addEventListener('click', function(){
-    var text = $('pc-resultLabel').textContent+' '+$('pc-resultValue').textContent;
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(text).then(function(){
-        var btn=$('pc-copyBtn');
-        var orig=btn.innerHTML;
-        btn.innerHTML='✅ Copied!';
-        setTimeout(function(){btn.innerHTML=orig;},1500);
-      });
-    }
-  });
+  function wireCopy(btnId, resultId, suffix){
+    $(btnId).addEventListener('click', function(){
+      var text = $(resultId).value + (suffix||'');
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(function(){
+          var btn=$(btnId);
+          var orig=btn.innerHTML;
+          btn.innerHTML='✅';
+          setTimeout(function(){btn.innerHTML=orig;},1200);
+        });
+      }
+    });
+  }
+  wireCopy('pc1-copy','pc1-result','');
+  wireCopy('pc2-copy','pc2-result','%');
+  wireCopy('pc3-copy','pc3-result','%');
 
-  render();
+  calc1(); calc2(); calc3();
 })();
 </script>
 <style>
