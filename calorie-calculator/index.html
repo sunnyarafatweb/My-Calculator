@@ -240,6 +240,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     <div class="cal-field" id="cal-field-bodyfat" style="display:none">
       <span class="cal-field-label">Body Fat %</span>
       <div class="cal-field-control"><div class="cal-input-group"><input id="cal-bodyfat" type="number" min="0" max="70" value="20"><span>%</span></div></div>
+      <div class="cal-field-hint" style="font-size:10.5px;color:var(--ink-faint);width:100%;margin-top:2px">Don't know it? Estimate it with our <a href="/body-fat-calculator" style="color:#1E3A5F;font-weight:600">Body Fat Calculator</a>.</div>
     </div>
     <div class="cal-field">
       <span class="cal-field-label">Results Unit</span>
@@ -551,27 +552,43 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .cal-table td{padding:7px 12px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
 .cal-table tr:nth-child(even){background:var(--surface-sunken)}
 .cal-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.cal-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.cal-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.cal-toc a:hover{color:#1E3A5F}
 </style>
 
 <article class="cal-seo-article">
 <div class="cal-byline">Written by the CalcFolio Health Team · Reviewed for accuracy · Last updated July 2026</div>
 
-<h2>How This Calculator Estimates Your Calories</h2>
-<p>Your daily calorie need is built in two steps. First, we estimate your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns just staying alive at complete rest, running your heart, brain, and organs. Then we multiply that by an <strong>activity factor</strong> that accounts for how much you move during the day, giving your maintenance calories: the number you'd eat to hold your current weight steady.</p>
+<nav class="cal-toc">
+<a href="#cal-how">How This Calculator Estimates Your Calories</a>
+<a href="#cal-formulas">The Three BMR Formulas, Explained</a>
+<a href="#cal-activity">Activity Multipliers</a>
+<a href="#cal-worked">A Full Worked Example</a>
+<a href="#cal-tiers">Why the Weight Loss/Gain Tiers Use Those Numbers</a>
+<a href="#cal-howmuch">How Much Should You Actually Cut?</a>
+<a href="#cal-beyond">Beyond Calories In vs. Calories Out</a>
+<a href="#cal-zigzag">Zigzag Calorie Cycling</a>
+<a href="#cal-common">Calories in Common Foods (Quick Reference)</a>
+<a href="#cal-faq">Frequently Asked Questions</a>
+</nav>
 
-<h2>The Three BMR Formulas, Explained</h2>
+<h2 id="cal-how">How This Calculator Estimates Your Calories</h2>
+<p>Your daily calorie need is built in two steps. First, we estimate your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns just staying alive at complete rest, running your heart, brain, and organs. Then we multiply that by an <strong>activity factor</strong> that accounts for how much you move during the day, giving your maintenance calories: the number you'd eat to hold your current weight steady. Everything else on this page — the loss tiers, the gain tiers, the Food Energy Converter — builds outward from that one core number.</p>
+
+<h2 id="cal-formulas">The Three BMR Formulas, Explained</h2>
 <h3>Mifflin-St Jeor (default, most accurate for most people)</h3>
 <div class="cal-formula-box">Men: BMR = 10W + 6.25H − 5A + 5<br>Women: BMR = 10W + 6.25H − 5A − 161</div>
-<p>Introduced in 1990, this is the formula most dietitians and clinicians default to today — research comparing all three consistently finds it the closest match to measured energy expenditure for the general population.</p>
+<p>Introduced in 1990, this is the formula most dietitians and clinicians default to today — research comparing all three consistently finds it the closest match to measured energy expenditure for the general population, across a wide range of body sizes.</p>
 <h3>Revised Harris-Benedict (the original, from 1919, revised in 1984)</h3>
 <div class="cal-formula-box">Men: BMR = 13.397W + 4.799H − 5.677A + 88.362<br>Women: BMR = 9.247W + 3.098H − 4.330A + 447.593</div>
-<p>The older standard, still widely referenced. It tends to run slightly higher than Mifflin-St Jeor for most body types, which is part of why it's gradually been superseded.</p>
+<p>The older standard, still widely referenced and still used in some clinical settings. It tends to run slightly higher than Mifflin-St Jeor for most body types, which is part of why the field has gradually shifted toward the newer formula.</p>
 <h3>Katch-McArdle (best if you know your body fat %)</h3>
 <div class="cal-formula-box">BMR = 370 + 21.6 × (1 − F) × W</div>
-<p>Unlike the other two, this formula uses <strong>lean body mass</strong> instead of total weight and age — it doesn't need your age at all, since it's driven by how much metabolically active tissue you actually carry. It tends to be the most accurate choice for leaner, more muscular individuals who know their body fat percentage, since two people of the same weight but very different body fat can have meaningfully different metabolic rates.</p>
+<p>Unlike the other two, this formula uses <strong>lean body mass</strong> instead of total weight and age — it doesn't need your age at all, since it's driven by how much metabolically active tissue you actually carry. It tends to be the most accurate choice for leaner, more muscular individuals who know their body fat percentage, since two people of the same weight but very different body fat can have meaningfully different metabolic rates. If you don't know your percentage, our calculator shows the field automatically when you select this formula, with a shortcut to estimate it first.</p>
 <p><em>W is body weight in kg, H is height in cm, A is age in years, F is body fat as a decimal (20% = 0.20).</em></p>
 
-<h2>Activity Multipliers</h2>
+<h2 id="cal-activity">Activity Multipliers</h2>
 <table class="cal-table">
 <tr><th>Level</th><th>Description</th><th>Multiplier</th></tr>
 <tr><td>Sedentary</td><td>Little or no exercise</td><td>1.2</td></tr>
@@ -581,20 +598,40 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <tr><td>Very Active</td><td>Intense exercise 6–7 times/week</td><td>1.725</td></tr>
 <tr><td>Extra Active</td><td>Very intense daily training, or a physical job</td><td>1.9</td></tr>
 </table>
+<p>Be honest rather than aspirational when picking a level — most people overestimate how "active" their week actually is, and overestimating here is the single most common reason a calorie target ends up too high to produce real results.</p>
 
-<h2>Why the Weight Loss/Gain Tiers Use Those Numbers</h2>
+<h2 id="cal-worked">A Full Worked Example</h2>
+<p>Take a 25-year-old man, 176 cm tall, 60 kg, sedentary, using Mifflin-St Jeor:</p>
+<p style="text-align:center;font-style:italic;background:var(--surface-sunken);padding:12px;border-radius:8px;margin:16px 0">BMR = (10 × 60) + (6.25 × 176) − (5 × 25) + 5 = 600 + 1,100 − 125 + 5 = <strong>1,580</strong></p>
+<p>Multiplying by the sedentary factor of 1.2 gives a maintenance level of <strong>1,896 calories/day</strong>. From there, the tiers simply subtract or add fixed amounts: 1,646 for mild loss, 1,396 for standard loss, 896 for extreme loss, and mirrored additions of 2,146, 2,396, and 2,896 for the three gain tiers. Try entering these exact numbers into the calculator above to confirm the math yourself.</p>
+
+<h2 id="cal-tiers">Why the Weight Loss/Gain Tiers Use Those Numbers</h2>
 <p>One kilogram of body fat holds roughly 7,700 calories; one pound holds roughly 3,500. Losing 1 kg a week works out to a daily deficit of about 1,000–1,100 calories, so this calculator uses clean round tiers — 250, 500, and 1,000 calories below (or above) maintenance — mapping to mild, standard, and aggressive rates of change. The same logic applies symmetrically to weight gain for anyone bulking or recovering from underweight.</p>
 
-<h2>How Much Should You Actually Cut?</h2>
-<p>Cutting more than 1,000 calories a day below maintenance is generally discouraged — beyond that point the body starts shedding muscle along with fat, which lowers your BMR further and makes the deficit harder to sustain. Most guidance suggests staying above roughly <strong>1,200 calories/day for women</strong> and <strong>1,500 calories/day for men</strong> unless a doctor is directly supervising a more aggressive plan.</p>
+<h2 id="cal-howmuch">How Much Should You Actually Cut?</h2>
+<p>Cutting more than 1,000 calories a day below maintenance is generally discouraged — beyond that point the body starts shedding muscle along with fat, which lowers your BMR further and makes the deficit harder to sustain over time. Most guidance suggests staying above roughly <strong>1,200 calories/day for women</strong> and <strong>1,500 calories/day for men</strong> unless a doctor is directly supervising a more aggressive plan. Below those floors, the body often can't get enough protein, vitamins, and minerals even from well-chosen food.</p>
 
-<h2>Beyond Calories In vs. Calories Out</h2>
-<p>The math is simple in theory — eat less than you burn and you lose weight — but real bodies complicate it. Food quality affects how many calories are actually absorbed and how full you feel per calorie; highly processed food tends to be easier to overeat than whole food at the same calorie count. Sleep, stress, and hydration all shift day-to-day weight independent of calorie balance, which is why tracking a weekly average matters far more than obsessing over any single day's number.</p>
+<h2 id="cal-beyond">Beyond Calories In vs. Calories Out</h2>
+<p>The math is simple in theory — eat less than you burn and you lose weight — but real bodies complicate it. Food quality affects how many calories are actually absorbed and how full you feel per calorie; highly processed food tends to be easier to overeat than whole food at the same calorie count, simply because it's less filling per calorie. Sleep, stress, and hydration all shift day-to-day weight independent of calorie balance, which is why tracking a weekly average matters far more than obsessing over any single day's number on the scale.</p>
 
-<h2>Zigzag Calorie Cycling</h2>
-<p>Bodies adapt to a steady calorie deficit over time, sometimes stalling progress even when intake stays the same. Zigzag cycling — alternating higher and lower calorie days that still average out to your weekly target — is one way some people work around this plateau, since the day-to-day variation avoids giving the body a single fixed number to fully adapt to. There's no rigorously proven "best" pattern; the only rule that matters is that the week's total lands where you intended.</p>
+<h2 id="cal-zigzag">Zigzag Calorie Cycling</h2>
+<p>Bodies adapt to a steady calorie deficit over time, sometimes stalling progress even when intake stays technically the same. Zigzag cycling — alternating higher and lower calorie days that still average out to your weekly target — is one way some people work around this plateau, since the day-to-day variation avoids giving the body a single fixed number to fully adapt to. There's no rigorously proven "best" pattern for how to split the days; the only rule that actually matters is that the week's total lands where you intended it to.</p>
 
-<h2>Frequently Asked Questions</h2>
+<h2 id="cal-common">Calories in Common Foods (Quick Reference)</h2>
+<table class="cal-table">
+<tr><th>Food</th><th>Typical Serving</th><th>Approx. Calories</th></tr>
+<tr><td>Chicken breast, cooked</td><td>100 g</td><td>165</td></tr>
+<tr><td>White rice, cooked</td><td>1 cup</td><td>205</td></tr>
+<tr><td>Banana</td><td>1 medium</td><td>105</td></tr>
+<tr><td>Olive oil</td><td>1 tbsp</td><td>119</td></tr>
+<tr><td>Egg</td><td>1 large</td><td>72</td></tr>
+<tr><td>Whole milk</td><td>1 cup</td><td>149</td></tr>
+<tr><td>Almonds</td><td>1 oz (23 nuts)</td><td>164</td></tr>
+<tr><td>Avocado</td><td>1 medium</td><td>240</td></tr>
+</table>
+<p>Values are typical averages and vary by brand, preparation, and exact portion — useful for a fast mental estimate, not a substitute for a food label when precision matters.</p>
+
+<h2 id="cal-faq">Frequently Asked Questions</h2>
 <h3>Which BMR formula should I use?</h3>
 <p>Mifflin-St Jeor if you're unsure — it's the modern default and works well for most people. Switch to Katch-McArdle only if you have a reasonably accurate body fat percentage measurement, since a rough guess there can throw off the result more than just using Mifflin-St Jeor directly.</p>
 <h3>Why does my result look different from another calorie calculator?</h3>
@@ -605,6 +642,8 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <p>Yes — your BMR drops as body weight drops, since a smaller body needs less energy to maintain itself. Recalculating every few weeks (or whenever the scale has moved several kilograms) keeps the target realistic instead of drifting away from your actual current maintenance level.</p>
 <h3>What's the difference between BMR and TDEE?</h3>
 <p>BMR is calories burned at complete rest; Total Daily Energy Expenditure (TDEE) — what this calculator's "maintenance" figure represents — adds in the activity multiplier to account for movement, exercise, and daily life on top of that resting baseline.</p>
+<h3>How accurate is the Food Energy Converter above?</h3>
+<p>It uses the International Table calorie definition (1 kcal = 4.1868 kJ exactly), the same standard used on nutrition labels worldwide, so conversions between Calories, calories, kilojoules, and joules are exact — not estimates.</p>
 
 <p style="font-size:12px;color:var(--ink-faint);margin-top:20px">This calculator is provided for educational and estimation purposes only and does not constitute medical or nutritional advice. Consult a doctor or registered dietitian before making significant changes to your diet, especially for weight loss beyond mild/moderate rates.</p>
 </article>
