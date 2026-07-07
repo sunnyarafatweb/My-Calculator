@@ -431,12 +431,32 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var totalPayments = fedWithheld;
     var refundOrOwed = totalPayments - taxAfterCredits;
 
+    // Marginal tax rate: bracket rate applying to the last dollar of ordinary taxable income
+    var marginalRate = 0.10;
+    var ob = BRACKETS[status];
+    for(var mi=0;mi<ob.length;mi++){
+      if(taxableOrdinary > ob[mi][0]) marginalRate = ob[mi][1];
+    }
+
+    // Net Investment Income Tax: 3.8% on lesser of net investment income or MAGI over threshold
+    var NIIT_THRESHOLD = {single:200000, mfj:250000, mfs:125000, hoh:200000};
+    var netInvestmentIncome = interest + ordDiv + qualDiv + Math.max(0,stcg) + Math.max(0,ltcg);
+    var magi = agi;
+    var niitBase = Math.min(netInvestmentIncome, Math.max(0, magi - NIIT_THRESHOLD[status]));
+    var niit = niitBase * 0.038;
+
+    var amt = 0; // Alternative Minimum Tax: rarely applies to typical filers; not modeled in this simplified estimate
+
+    taxAfterCredits += niit + amt;
+    refundOrOwed = totalPayments - taxAfterCredits;
+
     return {
       status:status, grossIncome:grossIncome, agi:agi, deduction:deduction, usedItemized:usedItemized,
       taxableOrdinary:taxableOrdinary, taxablePreferential:taxablePreferential,
       taxOrdinary:taxOrdinary, taxPreferential:taxPreferential, taxBeforeCredits:taxBeforeCredits,
       ctc:ctc, careCredit:careCredit, totalCredits:totalCredits, taxAfterCredits:taxAfterCredits,
-      fedWithheld:fedWithheld, refundOrOwed:refundOrOwed, taxableSS:taxableSS
+      fedWithheld:fedWithheld, refundOrOwed:refundOrOwed, taxableSS:taxableSS,
+      marginalRate:marginalRate, niit:niit, amt:amt
     };
   }
 
@@ -452,11 +472,14 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       '<div class="it-result-row"><span>Adjusted Gross Income</span><span>'+money(r.agi)+'</span></div>'+
       '<div class="it-result-row"><span>Deduction ('+(r.usedItemized?'Itemized':'Standard')+')</span><span>'+money(r.deduction)+'</span></div>'+
       '<div class="it-result-row"><span>Taxable Income</span><span>'+money(r.taxableOrdinary+r.taxablePreferential)+'</span></div>'+
-      '<div class="it-result-row"><span>Tax Before Credits</span><span>'+money(r.taxBeforeCredits)+'</span></div>'+
+      '<div class="it-result-row"><span>Regular Tax</span><span>'+money(r.taxBeforeCredits)+'</span></div>'+
+      '<div class="it-result-row"><span>Alternative Minimum Tax</span><span>'+money(r.amt)+'</span></div>'+
+      '<div class="it-result-row"><span>Net Investment Income Tax</span><span>'+money(r.niit)+'</span></div>'+
       '<div class="it-result-row"><span>Child Tax Credit</span><span>'+money(r.ctc)+'</span></div>'+
       '<div class="it-result-row"><span>Child &amp; Dependent Care Credit</span><span>'+money(r.careCredit)+'</span></div>'+
       '<div class="it-result-row total"><span>Total Tax</span><span>'+money(r.taxAfterCredits)+'</span></div>'+
-      '<div class="it-result-row"><span>Federal Tax Withheld</span><span>'+money(r.fedWithheld)+'</span></div>';
+      '<div class="it-result-row"><span>Marginal Tax Rate</span><span>'+(r.marginalRate*100).toFixed(0)+'%</span></div>'+
+      '<div class="it-result-row"><span>Tax Pre-payments</span><span>'+money(r.fedWithheld)+'</span></div>';
   }
 
   var liveIds=['it-status','it-youngDep','it-otherDep','it-wages','it-fedWithheld','it-interest','it-ordDiv','it-qualDiv','it-stcg','it-ltcg','it-ssIncome','it-otherIncome','it-stateRate','it-ira','it-studentInt','it-realEstateTax','it-mortInt','it-charity','it-childCare','it-otherDeduct'];
