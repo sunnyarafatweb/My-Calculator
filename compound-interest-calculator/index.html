@@ -107,15 +107,15 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .ci-card-head h2{font-size:17px;font-weight:700;color:var(--ink)}
 .ci-currency-select{font-size:12.5px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;padding:6px 8px;color:var(--ink-soft)}
 
-.ci-field{padding:9px 0}
-.ci-field-toprow{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
-.ci-field-label{font-size:12.5px;color:var(--ink-soft)}
-.ci-field-value{display:flex;align-items:center;gap:2px;font-size:13.5px;font-weight:600;color:var(--ink);font-family:var(--font-body)}
-.ci-field-value input{border:none;outline:none;background:transparent;text-align:right;width:90px;font-weight:600;color:var(--ink);font-family:var(--font-body);font-size:13.5px}
-.ci-slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--surface-sunken);outline:none}
-.ci-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--surface);border:2px solid #16A34A;box-shadow:0 1px 4px rgba(0,0,0,0.15);cursor:pointer}
-.ci-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--surface);border:2px solid #16A34A;box-shadow:0 1px 4px rgba(0,0,0,0.15);cursor:pointer;border:2px solid #16A34A}
-.ci-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:13px;background:#fff;color:var(--ink);width:100%}
+.ci-field{display:flex;align-items:center;gap:8px;padding:9px 0}
+.ci-field-label{width:150px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.ci-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.ci-input-group span{padding:0 8px;color:var(--ink-faint);font-size:13px;flex-shrink:0}
+.ci-input-group input{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.ci-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:13px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.ci-btn-row{display:flex;gap:8px;padding-top:12px}
+.ci-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.ci-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
 .ci-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .ci-result-head{padding:18px 20px;background:#16A34A;color:#fff}
@@ -179,36 +179,32 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     </div>
 
     <div class="ci-field">
-      <div class="ci-field-toprow"><span class="ci-field-label">Initial amount</span>
-        <span class="ci-field-value"><span class="ci-cur-sym">$</span><input id="ci-initial-num" type="number" value="10000"></span>
-      </div>
-      <input id="ci-initial" type="range" class="ci-slider" min="0" max="500000" step="500" value="10000">
+      <span class="ci-field-label">Initial amount</span>
+      <div class="ci-input-group"><span class="ci-cur-sym">$</span><input id="ci-initial-num" type="number" min="0" value="25000"></div>
     </div>
     <div class="ci-field">
-      <div class="ci-field-toprow"><span class="ci-field-label">Monthly contribution</span>
-        <span class="ci-field-value"><span class="ci-cur-sym">$</span><input id="ci-monthly-num" type="number" value="200"></span>
-      </div>
-      <input id="ci-monthly" type="range" class="ci-slider" min="0" max="5000" step="25" value="200">
+      <span class="ci-field-label">Monthly contribution</span>
+      <div class="ci-input-group"><span class="ci-cur-sym">$</span><input id="ci-monthly-num" type="number" min="0" value="350"></div>
     </div>
     <div class="ci-field">
-      <div class="ci-field-toprow"><span class="ci-field-label">Annual return</span>
-        <span class="ci-field-value"><input id="ci-rate-num" type="number" step="0.1" value="7"><span>%</span></span>
-      </div>
-      <input id="ci-rate" type="range" class="ci-slider" min="0" max="20" step="0.1" value="7">
+      <span class="ci-field-label">Annual return</span>
+      <div class="ci-input-group"><input id="ci-rate-num" type="number" min="0" step="0.1" value="8.5"><span>%</span></div>
     </div>
     <div class="ci-field">
-      <div class="ci-field-toprow"><span class="ci-field-label">Time horizon</span>
-        <span class="ci-field-value"><input id="ci-years-num" type="number" value="20"><span>years</span></span>
-      </div>
-      <input id="ci-years" type="range" class="ci-slider" min="1" max="50" step="1" value="20">
+      <span class="ci-field-label">Time horizon</span>
+      <div class="ci-input-group"><input id="ci-years-num" type="number" min="1" value="15"><span>years</span></div>
     </div>
     <div class="ci-field">
-      <div class="ci-field-toprow"><span class="ci-field-label">Compounding frequency</span></div>
+      <span class="ci-field-label">Compounding</span>
       <select id="ci-compound" class="ci-select-plain">
         <option value="1">Annually</option>
         <option value="12" selected>Monthly</option>
         <option value="365">Daily</option>
       </select>
+    </div>
+    <div class="ci-btn-row">
+      <button type="button" class="ci-btn-calc" id="ci-calcBtn">Calculate ▸</button>
+      <button type="button" class="ci-btn-clear" id="ci-clearBtn">Clear</button>
     </div>
   </div>
 </div>
@@ -274,19 +270,19 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   function money(n,dec){dec=dec===undefined?0:dec;var sym=sel('ci-currency');var neg=n<0;n=Math.abs(n);var s=n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return (neg?'-':'')+sym+s;}
   function sel(id){var el=$(id);return el?el.value:'$';}
 
-  function syncPair(sliderId, numId){
-    var slider=$(sliderId), num=$(numId);
-    slider.addEventListener('input', function(){ num.value=slider.value; render(); });
-    num.addEventListener('input', function(){ slider.value=num.value; render(); });
-  }
-  syncPair('ci-initial','ci-initial-num');
-  syncPair('ci-monthly','ci-monthly-num');
-  syncPair('ci-rate','ci-rate-num');
-  syncPair('ci-years','ci-years-num');
+  var liveIds=['ci-initial-num','ci-monthly-num','ci-rate-num','ci-years-num'];
+  liveIds.forEach(function(id){
+    $(id).addEventListener('input', render);
+  });
   $('ci-compound').addEventListener('change', render);
   $('ci-currency').addEventListener('change', function(){
     var sym = sel('ci-currency');
     document.querySelectorAll('.ci-cur-sym').forEach(function(s){s.textContent=sym;});
+    render();
+  });
+  $('ci-calcBtn').addEventListener('click', render);
+  $('ci-clearBtn').addEventListener('click', function(){
+    liveIds.forEach(function(id){ $(id).value = 0; });
     render();
   });
 
