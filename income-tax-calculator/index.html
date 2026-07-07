@@ -371,12 +371,27 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
   // 2025 brackets used as the estimate basis for both 2025 and 2026 (2026 brackets not finalized at time of writing)
   var BRACKETS = {
-    single:[[0,0.10],[11925,0.12],[48475,0.22],[103350,0.24],[197300,0.32],[250525,0.35],[626350,0.37]],
-    mfj:[[0,0.10],[23850,0.12],[96950,0.22],[206700,0.24],[394600,0.32],[501050,0.35],[751600,0.37]],
-    mfs:[[0,0.10],[11925,0.12],[48475,0.22],[103350,0.24],[197300,0.32],[250525,0.35],[375800,0.37]],
-    hoh:[[0,0.10],[17000,0.12],[64850,0.22],[103350,0.24],[197300,0.32],[250500,0.35],[626350,0.37]]
+    2025:{
+      single:[[0,0.10],[11925,0.12],[48475,0.22],[103350,0.24],[197300,0.32],[250525,0.35],[626350,0.37]],
+      mfj:[[0,0.10],[23850,0.12],[96950,0.22],[206700,0.24],[394600,0.32],[501050,0.35],[751600,0.37]],
+      mfs:[[0,0.10],[11925,0.12],[48475,0.22],[103350,0.24],[197300,0.32],[250525,0.35],[375800,0.37]],
+      hoh:[[0,0.10],[17000,0.12],[64850,0.22],[103350,0.24],[197300,0.32],[250500,0.35],[626350,0.37]]
+    },
+    2026:{
+      single:[[0,0.10],[12400,0.12],[50400,0.22],[105700,0.24],[201800,0.32],[256300,0.35],[640600,0.37]],
+      mfj:[[0,0.10],[24800,0.12],[100800,0.22],[211500,0.24],[403500,0.32],[512600,0.35],[768700,0.37]],
+      mfs:[[0,0.10],[12400,0.12],[50400,0.22],[105700,0.24],[201800,0.32],[256300,0.35],[384400,0.37]],
+      hoh:[[0,0.10],[17700,0.12],[67450,0.22],[105700,0.24],[201800,0.32],[256300,0.35],[640600,0.37]]
+    }
   };
-  var STD_DEDUCTION = {single:15000, mfj:30000, mfs:15000, hoh:22500};
+  // Verified against IRS Rev. Proc. 2024-40 (as modified by OBBBA) for 2025, and Rev. Proc. 2025-32 for 2026
+  var STD_DEDUCTION = {
+    2025:{single:15750, mfj:31500, mfs:15750, hoh:23625},
+    2026:{single:16100, mfj:32200, mfs:16100, hoh:24150}
+  };
+  var SENIOR_DEDUCTION_BASE = 6000; // new OBBBA senior deduction, 2025-2028, per qualifying taxpayer 65+
+  var SENIOR_DEDUCTION_THRESHOLD = {single:75000, mfj:150000, mfs:75000, hoh:75000};
+  var STD_CHARITY_CAP = {single:1000, mfj:2000, mfs:1000, hoh:1000}; // new: charity deduction even without itemizing
 
   var LTCG_BRACKETS = {
     single:[[0,0],[48350,0.15],[533400,0.20]],
@@ -419,6 +434,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
   function calculate(){
     var status = sel('it-status');
+    var taxYear = sel_radio('it-taxyear') || '2026';
     var youngDep = val('it-youngDep');
     var otherDep = val('it-otherDep');
     var age = val('it-age');
@@ -479,7 +495,19 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
     var SALT = Math.min(10000, realEstateTax + stateWithheld + localWithheld);
     var itemized = SALT + mortInt + charity;
-    var stdDeduction = STD_DEDUCTION[status] + (age>=65 ? (status==='mfj'||status==='mfs'?1600:2000) : 0);
+
+    // New OBBBA senior deduction ($6,000/person 65+, 2025-2028), phasing out 6% per dollar of AGI over threshold
+    var seniorDeduction = 0;
+    if(age>=65){
+      var overThresh = Math.max(0, agi - SENIOR_DEDUCTION_THRESHOLD[status]);
+      seniorDeduction = Math.max(0, SENIOR_DEDUCTION_BASE - overThresh*0.06);
+    }
+
+    var baseStd = STD_DEDUCTION[taxYear][status] + seniorDeduction;
+    // New: filers taking the standard deduction can still deduct a small amount of charity
+    var stdCharityBonus = !((itemized) > baseStd) ? Math.min(charity, STD_CHARITY_CAP[status]) : 0;
+    var stdDeduction = baseStd + stdCharityBonus;
+
     var deduction = Math.max(stdDeduction, itemized);
     var usedItemized = itemized > stdDeduction;
 
@@ -488,7 +516,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var remainingDeduction = Math.max(0, deduction - ordinaryAGI);
     var taxablePreferential = Math.max(0, preferentialIncome - remainingDeduction);
 
-    var taxOrdinary = taxFromBrackets(taxableOrdinary, BRACKETS[status]);
+    var taxOrdinary = taxFromBrackets(taxableOrdinary, BRACKETS[taxYear][status]);
     var taxPreferential = ltcgTax(taxableOrdinary, taxablePreferential, status);
 
     var taxBeforeCredits = taxOrdinary + taxPreferential;
@@ -517,7 +545,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
     // Marginal tax rate: bracket rate applying to the last dollar of ordinary taxable income
     var marginalRate = 0.10;
-    var ob = BRACKETS[status];
+    var ob = BRACKETS[taxYear][status];
     for(var mi=0;mi<ob.length;mi++){
       if(taxableOrdinary > ob[mi][0]) marginalRate = ob[mi][1];
     }
