@@ -88,30 +88,34 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .pc-bar-text{display:flex;align-items:center;gap:10px}
 .pc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 
-.pc-cards{max-width:760px;display:flex;flex-direction:column;gap:14px}
-.pc-row-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:14px;padding:16px 20px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
-.pc-sentence{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:14.5px;color:var(--ink);min-width:0}
-.pc-num{width:110px;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;background:var(--surface-sunken);font-size:14px;text-align:center;color:var(--ink);font-family:var(--font-body);outline:none;flex-shrink:0}
-.pc-num:focus{border-color:#1E3A5F;background:#fff}
-.pc-fromto{display:flex;align-items:center;gap:6px}
-.pc-fromto label{font-size:12px;color:var(--ink-faint);font-weight:600}
+.pc-cards{max-width:760px;display:flex;flex-direction:column;gap:16px}
+.pc-row-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pc-card-title{font-size:13px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.02em;margin-bottom:14px}
 
-.pc-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.pc-calc-btn{background:#1E3A5F;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;width:98px}
-.pc-calc-btn:hover{background:#16304d}
-.pc-result-box{display:flex;align-items:center;justify-content:flex-end;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;width:150px;flex-shrink:0}
-.pc-result-box input{width:100%;padding:10px;border:none;background:transparent;outline:none;font-size:14px;font-weight:600;color:#16A34A;text-align:right;font-family:var(--font-body);min-width:0}
-.pc-result-box span{padding:0 8px 0 0;color:var(--ink-faint);font-size:13px;flex-shrink:0}
-.pc-copy-btn{width:38px;height:38px;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
-.pc-copy-btn:hover{border-color:#16A34A;color:#16A34A}
-.pc-toggle{display:flex;background:var(--surface-sunken);border-radius:8px;padding:3px;gap:2px}
-.pc-toggle-btn{border:none;background:none;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink-soft);border-radius:6px;cursor:pointer;white-space:nowrap}
+.pc-field{display:flex;align-items:center;gap:10px;padding:7px 0}
+.pc-field-label{flex:1;font-size:14px;color:var(--ink-soft);min-width:0}
+.pc-num{width:130px;flex-shrink:0;padding:10px;border:1px solid var(--border-fine);border-radius:8px;background:var(--surface-sunken);font-size:15px;text-align:right;color:var(--ink);font-family:var(--font-body);outline:none}
+.pc-num:focus{border-color:#1E3A5F;background:#fff}
+
+.pc-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;gap:10px}
+.pc-toggle{display:flex;background:var(--surface-sunken);border-radius:8px;padding:3px;gap:2px;flex-shrink:0}
+.pc-toggle-btn{border:none;background:none;padding:8px 16px;font-size:13px;font-weight:600;color:var(--ink-soft);border-radius:6px;cursor:pointer;white-space:nowrap}
 .pc-toggle-btn.active{background:#1E3A5F;color:#fff}
 
-@media(max-width:640px){
-  .pc-row-card{grid-template-columns:1fr}
-  .pc-controls{justify-content:space-between;width:100%}
-  .pc-calc-btn{flex:1;width:auto}
+.pc-btn-row{display:flex;align-items:center;gap:10px;margin-top:14px}
+.pc-calc-btn{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0}
+.pc-calc-btn:hover{background:#128a3d}
+.pc-copy-btn{width:42px;height:42px;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.pc-copy-btn:hover{border-color:#16A34A;color:#16A34A}
+
+.pc-result-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface-sunken);border-radius:10px;padding:14px 16px;margin-top:14px;gap:10px}
+.pc-result-label{font-size:13px;color:var(--ink-soft);font-weight:600}
+.pc-result-value{font-size:22px;font-weight:700;color:#16A34A;text-align:right}
+
+@media(max-width:520px){
+  .pc-num{width:120px;font-size:14px}
+  .pc-btn-row{flex-direction:row}
+  .pc-calc-btn{flex:1}
 }
 </style>
 
@@ -124,42 +128,69 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <div class="pc-cards">
 
   <div class="pc-row-card">
-    <div class="pc-sentence">
-      What is <input type="number" class="pc-num" id="pc1-x" value="25"> % of <input type="number" class="pc-num" id="pc1-y" value="80"> ?
+    <div class="pc-card-title">What is X% of Y?</div>
+    <div class="pc-field">
+      <span class="pc-field-label">Percent (%)</span>
+      <input type="number" class="pc-num" id="pc1-x" value="25">
     </div>
-    <div class="pc-controls">
+    <div class="pc-field">
+      <span class="pc-field-label">Of this number</span>
+      <input type="number" class="pc-num" id="pc1-y" value="80">
+    </div>
+    <div class="pc-btn-row">
       <button type="button" class="pc-calc-btn" id="pc1-btn">Calculate</button>
-      <div class="pc-result-box"><input type="text" id="pc1-result" readonly value="20"></div>
       <button type="button" class="pc-copy-btn" id="pc1-copy" title="Copy result">📋</button>
     </div>
+    <div class="pc-result-row">
+      <span class="pc-result-label">Result</span>
+      <span class="pc-result-value" id="pc1-result">20</span>
+    </div>
   </div>
 
   <div class="pc-row-card">
-    <div class="pc-sentence">
-      <input type="number" class="pc-num" id="pc2-x" value="20"> is what percent of <input type="number" class="pc-num" id="pc2-y" value="80"> ?
+    <div class="pc-card-title">X is What % of Y?</div>
+    <div class="pc-field">
+      <span class="pc-field-label">This number</span>
+      <input type="number" class="pc-num" id="pc2-x" value="20">
     </div>
-    <div class="pc-controls">
+    <div class="pc-field">
+      <span class="pc-field-label">Is what % of this number</span>
+      <input type="number" class="pc-num" id="pc2-y" value="80">
+    </div>
+    <div class="pc-btn-row">
       <button type="button" class="pc-calc-btn" id="pc2-btn">Calculate</button>
-      <div class="pc-result-box"><input type="text" id="pc2-result" readonly value="25"><span>%</span></div>
       <button type="button" class="pc-copy-btn" id="pc2-copy" title="Copy result">📋</button>
     </div>
+    <div class="pc-result-row">
+      <span class="pc-result-label">Result</span>
+      <span class="pc-result-value" id="pc2-result">25%</span>
+    </div>
   </div>
 
   <div class="pc-row-card">
-    <div class="pc-sentence">
+    <div class="pc-card-title">Increase / Decrease by %</div>
+    <div class="pc-field">
+      <span class="pc-field-label">Starting number</span>
       <input type="number" class="pc-num" id="pc3-x" value="50">
+    </div>
+    <div class="pc-toggle-row">
+      <span class="pc-field-label">Direction</span>
       <span class="pc-toggle">
         <button type="button" class="pc-toggle-btn active" id="pc3-inc" data-dir="inc">Increase</button>
         <button type="button" class="pc-toggle-btn" id="pc3-dec" data-dir="dec">Decrease</button>
       </span>
-      <span>by</span>
-      <input type="number" class="pc-num" id="pc3-y" value="20">
-      <span>%</span>
     </div>
-    <div class="pc-controls">
+    <div class="pc-field">
+      <span class="pc-field-label">By this percent (%)</span>
+      <input type="number" class="pc-num" id="pc3-y" value="20">
+    </div>
+    <div class="pc-btn-row">
       <button type="button" class="pc-calc-btn" id="pc3-btn">Calculate</button>
-      <div class="pc-result-box"><input type="text" id="pc3-result" readonly value="60"></div>
       <button type="button" class="pc-copy-btn" id="pc3-copy" title="Copy result">📋</button>
+    </div>
+    <div class="pc-result-row">
+      <span class="pc-result-label">New value</span>
+      <span class="pc-result-value" id="pc3-result">60</span>
     </div>
   </div>
 
@@ -178,17 +209,17 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
   function calc1(){
     var x=val('pc1-x'), y=val('pc1-y');
-    $('pc1-result').value = fmt((x/100)*y);
+    $('pc1-result').textContent = fmt((x/100)*y);
   }
   function calc2(){
     var x=val('pc2-x'), y=val('pc2-y');
-    $('pc2-result').value = y!==0 ? fmt((x/y)*100) : '—';
+    $('pc2-result').textContent = y!==0 ? fmt((x/y)*100)+'%' : '—';
   }
   var pc3dir = 'inc';
   function calc3(){
     var x=val('pc3-x'), y=val('pc3-y');
     var r = pc3dir==='inc' ? x*(1+y/100) : x*(1-y/100);
-    $('pc3-result').value = isFinite(r) ? fmt(r) : '—';
+    $('pc3-result').textContent = isFinite(r) ? fmt(r) : '—';
   }
 
   $('pc1-btn').addEventListener('click', calc1);
@@ -204,9 +235,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     pc3dir='dec'; $('pc3-dec').classList.add('active'); $('pc3-inc').classList.remove('active'); calc3();
   });
 
-  function wireCopy(btnId, resultId, suffix){
+  function wireCopy(btnId, resultId){
     $(btnId).addEventListener('click', function(){
-      var text = $(resultId).value + (suffix||'');
+      var text = $(resultId).textContent;
       if(navigator.clipboard){
         navigator.clipboard.writeText(text).then(function(){
           var btn=$(btnId);
@@ -217,9 +248,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       }
     });
   }
-  wireCopy('pc1-copy','pc1-result','');
-  wireCopy('pc2-copy','pc2-result','%');
-  wireCopy('pc3-copy','pc3-result','');
+  wireCopy('pc1-copy','pc1-result');
+  wireCopy('pc2-copy','pc2-result');
+  wireCopy('pc3-copy','pc3-result');
 
   calc1(); calc2(); calc3();
 })();
