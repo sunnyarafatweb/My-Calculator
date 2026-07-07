@@ -335,6 +335,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     <div class="sub" id="it-resultSub">Estimated federal tax result</div>
   </div>
   <div class="it-result-body" id="it-resultRows"></div>
+  <div style="padding:0 20px 20px">
+    <button type="button" class="it-btn-clear" id="it-imgBtn" style="width:100%;justify-content:center;display:flex;align-items:center;gap:6px">🖼️ Save as Image</button>
+  </div>
 </div>
 
 <div class="it-sidecol it-area-sidebar">
@@ -361,6 +364,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 (function(){
@@ -648,6 +652,24 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     }
   }
   $('it-pdfBtn').addEventListener('click',generatePdf);
+
+  function saveAsImage(){
+    if(!window.html2canvas){alert('Image library is still loading, please try again in a moment.');return;}
+    var btn = $('it-imgBtn');
+    var card = document.querySelector('.it-area-result');
+    btn.style.display='none';
+    html2canvas(card, {backgroundColor:'#ffffff', scale:2}).then(function(canvas){
+      btn.style.display='';
+      var link = document.createElement('a');
+      link.download = 'income-tax-result-'+new Date().toISOString().slice(0,10)+'.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(function(e){
+      btn.style.display='';
+      alert('Sorry, there was a problem saving the image: '+e.message);
+    });
+  }
+  $('it-imgBtn').addEventListener('click',saveAsImage);
 
   render();
 })();
