@@ -568,7 +568,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     refundOrOwed = totalPayments - taxAfterCredits;
 
     return {
-      status:status, grossIncome:grossIncome, agi:agi, deduction:deduction, usedItemized:usedItemized,
+      status:status, taxYear:taxYear, grossIncome:grossIncome, agi:agi, deduction:deduction, usedItemized:usedItemized,
       taxableOrdinary:taxableOrdinary, taxablePreferential:taxablePreferential,
       taxOrdinary:taxOrdinary, taxPreferential:taxPreferential, taxBeforeCredits:taxBeforeCredits,
       ctc:ctc, careCredit:careCredit, eduCredit:eduCredit, totalCredits:totalCredits, taxAfterCredits:taxAfterCredits,
@@ -581,7 +581,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var r = calculate();
     var isRefund = r.refundOrOwed >= 0;
     $('it-resultHead').style.background = isRefund ? '#16A34A' : '#DC2626';
-    $('it-resultBignum').textContent = (isRefund?'Refund: ':'You Owe: ') + money(Math.abs(r.refundOrOwed));
+    $('it-resultBignum').textContent = (isRefund?'Estimated Refund for '+r.taxYear+': ':'Tax Amount Owe for '+r.taxYear+': ') + money(Math.abs(r.refundOrOwed));
     $('it-resultSub').textContent = isRefund ? 'Your withholding covers more than your estimated tax.' : 'Your estimated tax exceeds your withholding.';
 
     $('it-resultRows').innerHTML =
