@@ -181,6 +181,11 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
         </div>
       </div>
     </div>
+    <div class="it-field">
+      <span class="it-field-label">Age</span>
+      <div class="it-field-control"><div class="it-input-group"><input id="it-age" type="number" min="0" value="30"></div></div>
+      <div class="it-field-hint">65+ gets an extra standard deduction</div>
+    </div>
   </div>
 
   <div class="it-section-head">Income</div>
@@ -196,6 +201,29 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       <div class="it-field-hint">W-2 box 2</div>
     </div>
     <div class="it-field">
+      <span class="it-field-label">State Tax Withheld</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-stateWithheld" type="number" min="0" step="50" value="0"></div></div>
+      <div class="it-field-hint">W-2 box 17</div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label">Local Tax Withheld</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-localWithheld" type="number" min="0" step="50" value="0"></div></div>
+      <div class="it-field-hint">W-2 box 19</div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label">Business/Self-Employed?</span>
+      <div class="it-field-control">
+        <div class="it-radio-row">
+          <label><input type="radio" name="it-hasSE" value="yes"> Yes</label>
+          <label><input type="radio" name="it-hasSE" value="no" checked> No</label>
+        </div>
+      </div>
+    </div>
+    <div class="it-field" id="it-field-seIncome" style="display:none">
+      <span class="it-field-label">Net Self-Employment Income</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-seIncome" type="number" min="0" step="100" value="0"></div></div>
+    </div>
+    <div class="it-field">
       <span class="it-field-label">Interest Income</span>
       <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-interest" type="number" min="0" step="100" value="0"></div></div>
     </div>
@@ -206,6 +234,11 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     <div class="it-field">
       <span class="it-field-label">Qualified Dividends</span>
       <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-qualDiv" type="number" min="0" step="100" value="0"></div></div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label">Passive Income</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-passiveIncome" type="number" step="100" value="0"></div></div>
+      <div class="it-field-hint">e.g. rentals and real estate, royalties</div>
     </div>
     <div class="it-field">
       <span class="it-field-label">Short-term Cap. Gains</span>
@@ -220,17 +253,26 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-ssIncome" type="number" min="0" step="100" value="0"></div></div>
     </div>
     <div class="it-field">
-      <span class="it-field-label">Other Income</span>
-      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-otherIncome" type="number" step="100" value="0"></div></div>
+      <span class="it-field-label">Tips Income</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-tipsIncome" type="number" min="0" step="100" value="0"></div></div>
     </div>
     <div class="it-field">
-      <span class="it-field-label">State + Local Tax Rate</span>
-      <div class="it-field-control"><div class="it-input-group"><input id="it-stateRate" type="number" min="0" step="0.1" value="0"><span>%</span></div></div>
+      <span class="it-field-label">Overtime Income</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-overtimeIncome" type="number" min="0" step="100" value="0"></div></div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label">Other Income</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-otherIncome" type="number" step="100" value="0"></div></div>
     </div>
   </div>
 
   <div class="it-section-head">Deductions &amp; Credits</div>
   <div class="it-card-pad" style="padding-bottom:8px">
+    <div class="it-field">
+      <span class="it-field-label">Car Loan Interest</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-carLoanInt" type="number" min="0" step="50" value="0"></div></div>
+      <div class="it-field-hint">Max $10,000, new US-assembled vehicle</div>
+    </div>
     <div class="it-field">
       <span class="it-field-label">IRA Contributions</span>
       <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-ira" type="number" min="0" step="100" value="0"></div></div>
@@ -256,6 +298,23 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       <span class="it-field-label">Child &amp; Dep. Care</span>
       <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-childCare" type="number" min="0" step="100" value="0"></div></div>
       <div class="it-field-hint">Max $3,000/dependent, $6,000 total</div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label">College Education Expense</span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-college1" type="number" min="0" step="100" value="0"><span>Student 1</span></div></div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label"></span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-college2" type="number" min="0" step="100" value="0"><span>Student 2</span></div></div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label"></span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-college3" type="number" min="0" step="100" value="0"><span>Student 3</span></div></div>
+    </div>
+    <div class="it-field">
+      <span class="it-field-label"></span>
+      <div class="it-field-control"><div class="it-input-group"><span>$</span><input id="it-college4" type="number" min="0" step="100" value="0"><span>Student 4</span></div></div>
+      <div class="it-field-hint">American Opportunity Credit, up to $2,500/student</div>
     </div>
     <div class="it-field">
       <span class="it-field-label">Other Deductibles</span>
@@ -308,6 +367,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   function $(id){return document.getElementById(id);}
   function val(id){var el=$(id);return el?(parseFloat(el.value)||0):0;}
   function sel(id){var el=$(id);return el?el.value:'';}
+  function sel_radio(name){var el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
   function money(n,dec){dec=dec===undefined?0:dec;var neg=n<0;n=Math.abs(n);var s=n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return (neg?'-$':'$')+s;}
 
   // 2025 brackets used as the estimate basis for both 2025 and 2026 (2026 brackets not finalized at time of writing)
@@ -362,28 +422,46 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var status = sel('it-status');
     var youngDep = val('it-youngDep');
     var otherDep = val('it-otherDep');
+    var age = val('it-age');
 
     var wages = val('it-wages');
     var fedWithheld = val('it-fedWithheld');
+    var stateWithheld = val('it-stateWithheld');
+    var localWithheld = val('it-localWithheld');
+    var hasSE = sel_radio('it-hasSE');
+    var seIncome = hasSE==='yes' ? val('it-seIncome') : 0;
     var interest = val('it-interest');
     var ordDiv = val('it-ordDiv');
     var qualDiv = val('it-qualDiv');
+    var passiveIncome = val('it-passiveIncome');
     var stcg = val('it-stcg');
     var ltcg = val('it-ltcg');
     var ssIncome = val('it-ssIncome');
+    var tipsIncome = val('it-tipsIncome');
+    var overtimeIncome = val('it-overtimeIncome');
     var otherIncome = val('it-otherIncome');
-    var stateRate = val('it-stateRate')/100;
 
+    var carLoanInt = Math.min(10000, val('it-carLoanInt'));
     var ira = val('it-ira');
     var studentInt = Math.min(2500, val('it-studentInt'));
     var realEstateTax = val('it-realEstateTax');
     var mortInt = val('it-mortInt');
     var charity = val('it-charity');
     var childCareRaw = val('it-childCare');
+    var college = [val('it-college1'),val('it-college2'),val('it-college3'),val('it-college4')];
     var otherDeduct = val('it-otherDeduct');
 
+    // Self-employment tax: 15.3% on 92.35% of net SE income; half is an above-the-line deduction
+    var seTax = seIncome>0 ? seIncome*0.9235*0.153 : 0;
+    var seTaxDeduction = seTax/2;
+
+    // No Tax on Tips / No Tax on Overtime (2025 OBBBA provisions, simplified, no phase-out modeled)
+    var tipsDeduction = Math.min(tipsIncome, 25000);
+    var overtimeCap = (status==='mfj') ? 25000 : 12500;
+    var overtimeDeduction = Math.min(overtimeIncome, overtimeCap);
+
     // taxable SS: simplified 85% inclusion if other income is meaningful, else scaled
-    var otherIncomeForSS = wages+interest+ordDiv+stcg+otherIncome;
+    var otherIncomeForSS = wages+interest+ordDiv+stcg+otherIncome+seIncome+passiveIncome+tipsIncome+overtimeIncome;
     var provisional = otherIncomeForSS + 0.5*ssIncome;
     var taxableSS = 0;
     if(ssIncome>0){
@@ -392,17 +470,17 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       else taxableSS = 0;
     }
 
-    var ordinaryIncome = wages+interest+ordDiv+stcg+otherIncome+taxableSS;
+    var ordinaryIncome = wages+interest+ordDiv+stcg+otherIncome+taxableSS+seIncome+passiveIncome+tipsIncome+overtimeIncome;
     var preferentialIncome = qualDiv+Math.max(0,ltcg);
 
     var grossIncome = ordinaryIncome + preferentialIncome;
 
-    var adjustments = Math.min(ira,7000) + studentInt;
+    var adjustments = Math.min(ira,7000) + studentInt + seTaxDeduction + carLoanInt + tipsDeduction + overtimeDeduction;
     var agi = Math.max(0, grossIncome - adjustments);
 
-    var SALT = Math.min(10000, realEstateTax + (stateRate * wages));
+    var SALT = Math.min(10000, realEstateTax + stateWithheld + localWithheld);
     var itemized = SALT + mortInt + charity;
-    var stdDeduction = STD_DEDUCTION[status];
+    var stdDeduction = STD_DEDUCTION[status] + (age>=65 ? (status==='mfj'||status==='mfs'?1600:2000) : 0);
     var deduction = Math.max(stdDeduction, itemized);
     var usedItemized = itemized > stdDeduction;
 
@@ -423,10 +501,17 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     var careCap = Math.min(childCareRaw, (youngDep+otherDep)>=2 ? 6000 : 3000);
     var careCredit = careCap*0.2;
 
+    // American Opportunity Credit style: 100% of first $2,000 + 25% of next $2,000, per student, max $2,500 each
+    var eduCredit = 0;
+    college.forEach(function(exp){
+      var e = Math.min(exp,2000)*1.0 + Math.max(0,Math.min(exp,4000)-2000)*0.25;
+      eduCredit += e;
+    });
+
     var otherDeductCredit = otherDeduct>0 ? otherDeduct*0.10 : 0; // treated as a modest itemized-style benefit, simplified
 
-    var totalCredits = ctc + careCredit;
-    var taxAfterCredits = Math.max(0, taxBeforeCredits - totalCredits);
+    var totalCredits = ctc + careCredit + eduCredit;
+    var taxAfterCredits = Math.max(0, taxBeforeCredits - totalCredits) + seTax;
 
     var totalPayments = fedWithheld;
     var refundOrOwed = totalPayments - taxAfterCredits;
@@ -454,9 +539,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       status:status, grossIncome:grossIncome, agi:agi, deduction:deduction, usedItemized:usedItemized,
       taxableOrdinary:taxableOrdinary, taxablePreferential:taxablePreferential,
       taxOrdinary:taxOrdinary, taxPreferential:taxPreferential, taxBeforeCredits:taxBeforeCredits,
-      ctc:ctc, careCredit:careCredit, totalCredits:totalCredits, taxAfterCredits:taxAfterCredits,
+      ctc:ctc, careCredit:careCredit, eduCredit:eduCredit, totalCredits:totalCredits, taxAfterCredits:taxAfterCredits,
       fedWithheld:fedWithheld, refundOrOwed:refundOrOwed, taxableSS:taxableSS,
-      marginalRate:marginalRate, niit:niit, amt:amt
+      marginalRate:marginalRate, niit:niit, amt:amt, seTax:seTax
     };
   }
 
@@ -473,16 +558,18 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       '<div class="it-result-row"><span>Deduction ('+(r.usedItemized?'Itemized':'Standard')+')</span><span>'+money(r.deduction)+'</span></div>'+
       '<div class="it-result-row"><span>Taxable Income</span><span>'+money(r.taxableOrdinary+r.taxablePreferential)+'</span></div>'+
       '<div class="it-result-row"><span>Regular Tax</span><span>'+money(r.taxBeforeCredits)+'</span></div>'+
+      '<div class="it-result-row"><span>Self-Employment Tax</span><span>'+money(r.seTax)+'</span></div>'+
       '<div class="it-result-row"><span>Alternative Minimum Tax</span><span>'+money(r.amt)+'</span></div>'+
       '<div class="it-result-row"><span>Net Investment Income Tax</span><span>'+money(r.niit)+'</span></div>'+
       '<div class="it-result-row"><span>Child Tax Credit</span><span>'+money(r.ctc)+'</span></div>'+
       '<div class="it-result-row"><span>Child &amp; Dependent Care Credit</span><span>'+money(r.careCredit)+'</span></div>'+
+      '<div class="it-result-row"><span>Education Credit</span><span>'+money(r.eduCredit)+'</span></div>'+
       '<div class="it-result-row total"><span>Total Tax</span><span>'+money(r.taxAfterCredits)+'</span></div>'+
       '<div class="it-result-row"><span>Marginal Tax Rate</span><span>'+(r.marginalRate*100).toFixed(0)+'%</span></div>'+
       '<div class="it-result-row"><span>Tax Pre-payments</span><span>'+money(r.fedWithheld)+'</span></div>';
   }
 
-  var liveIds=['it-status','it-youngDep','it-otherDep','it-wages','it-fedWithheld','it-interest','it-ordDiv','it-qualDiv','it-stcg','it-ltcg','it-ssIncome','it-otherIncome','it-stateRate','it-ira','it-studentInt','it-realEstateTax','it-mortInt','it-charity','it-childCare','it-otherDeduct'];
+  var liveIds=['it-status','it-youngDep','it-otherDep','it-age','it-wages','it-fedWithheld','it-stateWithheld','it-localWithheld','it-seIncome','it-interest','it-ordDiv','it-qualDiv','it-passiveIncome','it-stcg','it-ltcg','it-ssIncome','it-tipsIncome','it-overtimeIncome','it-otherIncome','it-carLoanInt','it-ira','it-studentInt','it-realEstateTax','it-mortInt','it-charity','it-childCare','it-college1','it-college2','it-college3','it-college4','it-otherDeduct'];
   liveIds.forEach(function(id){
     var el=$(id);
     if(!el)return;
@@ -490,6 +577,12 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     el.addEventListener(evt,render);
   });
   document.querySelectorAll('input[name="it-taxyear"]').forEach(function(r){r.addEventListener('change',render);});
+  document.querySelectorAll('input[name="it-hasSE"]').forEach(function(r){
+    r.addEventListener('change',function(){
+      $('it-field-seIncome').style.display = (sel_radio('it-hasSE')==='yes') ? '' : 'none';
+      render();
+    });
+  });
   $('it-calcBtn').addEventListener('click',render);
   $('it-clearBtn').addEventListener('click',function(){
     liveIds.forEach(function(id){
