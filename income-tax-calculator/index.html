@@ -113,6 +113,7 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .it-input-group input,.it-input-group select{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
 .it-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:13px;background:#fff;color:var(--ink);flex:1;min-width:0}
 .it-radio-row{display:flex;gap:14px;align-items:center;font-size:13px}
+.it-radio-col{flex-direction:column;align-items:flex-start;gap:6px}
 .it-radio-row label{display:flex;align-items:center;gap:5px;cursor:pointer}
 
 .it-btn-row{display:flex;gap:8px;padding:16px 20px;flex-wrap:wrap;border-top:1px solid var(--border-fine)}
@@ -175,9 +176,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     <div class="it-field">
       <span class="it-field-label">Tax Year</span>
       <div class="it-field-control">
-        <div class="it-radio-row">
-          <label><input type="radio" name="it-taxyear" value="2026" checked> 2026</label>
-          <label><input type="radio" name="it-taxyear" value="2025"> 2025</label>
+        <div class="it-radio-row it-radio-col">
+          <label><input type="radio" name="it-taxyear" value="2026" checked> 2026 (return filed in 2027)</label>
+          <label><input type="radio" name="it-taxyear" value="2025"> 2025 (return filed in 2026)</label>
         </div>
       </div>
     </div>
