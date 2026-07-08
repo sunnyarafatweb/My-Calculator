@@ -125,7 +125,9 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .tip-result-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
 .tip-result-row:first-child{border-top:none}
 .tip-result-row span:last-child{font-weight:600;color:var(--ink)}
-.tip-result-row.split{background:var(--surface-sunken);margin:10px -20px -20px;padding:14px 20px}
+.tip-split-box{background:var(--surface-sunken);border-radius:10px;margin-top:12px;padding:4px 14px}
+.tip-split-box .tip-result-row{border-top:1px solid var(--border-fine);padding:10px 0}
+.tip-split-box .tip-result-row:first-child{border-top:none}
 
 .tip-compare-toggle-wrap{padding:0 20px 18px}
 .tip-compare-toggle{width:100%;text-align:left;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:9px;padding:10px 14px;font-size:12.5px;font-weight:600;color:#1E3A5F;cursor:pointer;display:flex;align-items:center;gap:8px}
@@ -510,8 +512,10 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
       '<div class="tip-result-row"><span>Tip ('+r.pct+'%)</span><span>'+money(r.tip)+'</span></div>'+
       '<div class="tip-result-row"><span>Total Bill</span><span>'+money(r.total)+'</span></div>';
     if(r.people>1){
-      rows += '<div class="tip-result-row split"><span>Tip Per Person ('+r.people+')</span><span>'+money(r.tipPerPerson)+'</span></div>'+
-        '<div class="tip-result-row" style="margin-top:-14px"><span>Total Per Person</span><span>'+money(r.totalPerPerson)+'</span></div>';
+      rows += '<div class="tip-split-box">'+
+        '<div class="tip-result-row"><span>Tip Per Person ('+r.people+')</span><span>'+money(r.tipPerPerson)+'</span></div>'+
+        '<div class="tip-result-row"><span>Total Per Person</span><span>'+money(r.totalPerPerson)+'</span></div>'+
+        '</div>';
     }
     $('tip-resultRows').innerHTML = rows;
     renderCompareTable(r.price, r.pct);
