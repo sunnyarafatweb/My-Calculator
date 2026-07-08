@@ -127,6 +127,18 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .tip-result-row span:last-child{font-weight:600;color:var(--ink)}
 .tip-result-row.split{background:var(--surface-sunken);margin:10px -20px -20px;padding:14px 20px}
 
+.tip-compare-toggle-wrap{padding:0 20px 18px}
+.tip-compare-toggle{width:100%;text-align:left;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:9px;padding:10px 14px;font-size:12.5px;font-weight:600;color:#1E3A5F;cursor:pointer;display:flex;align-items:center;gap:8px}
+.tip-compare-toggle:hover{background:var(--border-fine)}
+.tip-compare-toggle .plus{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#1E3A5F;color:#fff;font-size:12px;font-weight:700;flex-shrink:0;transition:transform .15s}
+.tip-compare-toggle.open .plus{transform:rotate(45deg)}
+.tip-compare-panel{margin-top:10px;border:1px solid var(--border-fine);border-radius:10px;overflow:hidden}
+.tip-compare-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.tip-compare-table th{background:#1E3A5F;color:#fff;padding:8px 12px;text-align:right;font-size:10.5px;text-transform:uppercase}
+.tip-compare-table th:first-child,.tip-compare-table td:first-child{text-align:left}
+.tip-compare-table td{padding:7px 12px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.tip-compare-table tr.tip-highlight td{background:var(--surface-sunken);font-weight:700;color:#16A34A}
+
 .tip-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .tip-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .tip-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
@@ -217,6 +229,17 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     <div class="bignum" id="tip-tipAmount">$0.00</div>
   </div>
   <div class="tip-result-body" id="tip-resultRows"></div>
+  <div class="tip-compare-toggle-wrap">
+    <button type="button" class="tip-compare-toggle" id="tip-compareToggle">
+      <span class="plus">+</span> Compare tip amounts from 5% to 50%
+    </button>
+    <div class="tip-compare-panel" id="tip-comparePanel" style="display:none">
+      <table class="tip-compare-table">
+        <thead><tr><th>Tip %</th><th>Tip Amount</th><th>Total</th></tr></thead>
+        <tbody id="tip-compareBody"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <div class="tip-sidecol tip-area-sidebar">
@@ -491,7 +514,27 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
         '<div class="tip-result-row" style="margin-top:-14px"><span>Total Per Person</span><span>'+money(r.totalPerPerson)+'</span></div>';
     }
     $('tip-resultRows').innerHTML = rows;
+    renderCompareTable(r.price, r.pct);
   }
+
+  var COMPARE_PCTS = [5,10,12,14,15,18,20,25,30,50];
+  function renderCompareTable(price, currentPct){
+    var rows = COMPARE_PCTS.map(function(pct){
+      var tip = price*(pct/100);
+      var total = price+tip;
+      var hl = (pct===Math.round(currentPct)) ? ' class="tip-highlight"' : '';
+      return '<tr'+hl+'><td>'+pct+'%</td><td>'+money(tip)+'</td><td>'+money(total)+'</td></tr>';
+    }).join('');
+    $('tip-compareBody').innerHTML = rows;
+  }
+
+  $('tip-compareToggle').addEventListener('click', function(){
+    var panel = $('tip-comparePanel');
+    var isOpen = panel.style.display !== 'none';
+    panel.style.display = isOpen ? 'none' : '';
+    this.classList.toggle('open', !isOpen);
+    this.innerHTML = '<span class="plus">+</span> '+(isOpen ? 'Compare tip amounts from 5% to 50%' : 'Hide comparison table');
+  });
 
   var quickBtns = document.querySelectorAll('#tip-quickpct button');
   quickBtns.forEach(function(btn){
