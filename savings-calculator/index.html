@@ -385,27 +385,79 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
   function renderBalanceChart(yearlySchedule, initial){
     var container=$('sav-balchartContainer');
-    var W=400,H=220,padL=55,padR=15,padT=15,padB=30;
+    var n=yearlySchedule.length;
+    var W=400,H=230,padL=50,padR=10,padT=34,padB=32;
     var chartTop=padT,chartBottom=H-padB,chartLeft=padL,chartRight=W-padR;
-    var allPts=[{year:0,balance:initial}].concat(yearlySchedule.map(function(y){return {year:y.year,balance:y.balance};}));
-    var maxVal=Math.max.apply(null,allPts.map(function(p){return p.balance;}))||1;
-    var n=allPts.length;
-    function X(i){return chartLeft+(chartRight-chartLeft)*(n<=1?0:i/(n-1));}
+
+    var cumContrib=0, cumInterest=0;
+    var bars=yearlySchedule.map(function(y){
+      cumContrib+=y.deposit;
+      cumInterest+=y.interest;
+      return {year:y.year, initial:initial, contrib:cumContrib, interest:cumInterest, total:initial+cumContrib+cumInterest};
+    });
+    var maxVal=Math.max.apply(null,bars.map(function(b){return b.total;}))*1.08||1;
+
     function Y(v){return chartBottom-(chartBottom-chartTop)*(v/maxVal);}
-    var yTicks=4, svg='';
+    var barSpacing=(chartRight-chartLeft)/n;
+    var barW=Math.min(30,barSpacing*0.55);
+
+    var svg='<defs>'+
+      '<linearGradient id="savGradBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#3B82F6"/></linearGradient>'+
+      '<linearGradient id="savGradGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ADE80"/><stop offset="100%" stop-color="#22C55E"/></linearGradient>'+
+      '<linearGradient id="savGradRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F87171"/><stop offset="100%" stop-color="#DC2626"/></linearGradient>'+
+      '</defs>';
+
+    var yTicks=4;
     for(var t=0;t<=yTicks;t++){
       var v=maxVal/yTicks*t, y=Y(v);
-      svg+='<line x1="'+chartLeft+'" y1="'+y.toFixed(1)+'" x2="'+chartRight+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
-      svg+='<text x="'+(chartLeft-8)+'" y="'+(y+3).toFixed(1)+'" font-size="10" text-anchor="end" fill="var(--ink-faint)">$'+Math.round(v/1000)+'k</text>';
+      svg+='<line x1="'+chartLeft+'" y1="'+y.toFixed(1)+'" x2="'+chartRight+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.12"/>';
+      svg+='<text x="'+(chartLeft-8)+'" y="'+(y+3).toFixed(1)+'" font-size="9.5" text-anchor="end" fill="var(--ink-faint)">$'+Math.round(v/1000)+'k</text>';
     }
-    var step=Math.max(1,Math.round(n/10));
-    for(var i2=0;i2<n;i2+=step){
-      svg+='<text x="'+X(i2).toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="9" text-anchor="middle" fill="var(--ink-faint)">'+allPts[i2].year+'</text>';
-    }
-    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
-    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
-    var path=allPts.map(function(p,i){return (i===0?'M':'L')+X(i).toFixed(1)+','+Y(p.balance).toFixed(1);}).join(' ');
-    svg+='<path d="'+path+'" fill="none" stroke="#22C55E" stroke-width="2"/>';
+
+    var r=4; // corner radius for top segment
+    bars.forEach(function(b,i){
+      var cx=chartLeft+barSpacing*(i+0.5);
+      var x=cx-barW/2;
+      var yInitTop=Y(b.initial), yContribTop=Y(b.initial+b.contrib), yTotalTop=Y(b.total);
+      var yBase=chartBottom;
+
+      // bottom segment: initial deposit
+      svg+='<rect x="'+x.toFixed(1)+'" y="'+yInitTop.toFixed(1)+'" width="'+barW+'" height="'+(yBase-yInitTop).toFixed(1)+'" fill="url(#savGradBlue)"/>';
+      // middle segment: contributions
+      if(b.contrib>0){
+        svg+='<rect x="'+x.toFixed(1)+'" y="'+yContribTop.toFixed(1)+'" width="'+barW+'" height="'+(yInitTop-yContribTop).toFixed(1)+'" fill="url(#savGradGreen)"/>';
+      }
+      // top segment: interest, with rounded top corners
+      if(b.interest>0){
+        var segH=yContribTop-yTotalTop;
+        var rr=Math.min(r,segH,barW/2);
+        var path='M'+x.toFixed(1)+','+(yTotalTop+rr).toFixed(1)+
+          ' Q'+x.toFixed(1)+','+yTotalTop.toFixed(1)+' '+(x+rr).toFixed(1)+','+yTotalTop.toFixed(1)+
+          ' L'+(x+barW-rr).toFixed(1)+','+yTotalTop.toFixed(1)+
+          ' Q'+(x+barW).toFixed(1)+','+yTotalTop.toFixed(1)+' '+(x+barW).toFixed(1)+','+(yTotalTop+rr).toFixed(1)+
+          ' L'+(x+barW).toFixed(1)+','+yContribTop.toFixed(1)+
+          ' L'+x.toFixed(1)+','+yContribTop.toFixed(1)+' Z';
+        svg+='<path d="'+path+'" fill="url(#savGradRed)"/>';
+      } else {
+        // round the top of the topmost visible segment even if interest is 0
+      }
+
+      svg+='<text x="'+cx.toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="9.5" text-anchor="middle" fill="var(--ink-soft)">'+b.year+'</text>';
+    });
+
+    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.2" opacity="0.4"/>';
+    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.2" opacity="0.4"/>';
+
+    // legend
+    var legendY=14;
+    var items=[{c:'#3B82F6',l:'Initial'},{c:'#22C55E',l:'Contributions'},{c:'#DC2626',l:'Interest'}];
+    var lx=chartLeft;
+    items.forEach(function(it){
+      svg+='<circle cx="'+(lx+4)+'" cy="'+legendY+'" r="4" fill="'+it.c+'"/>';
+      svg+='<text x="'+(lx+12)+'" y="'+(legendY+3)+'" font-size="9.5" fill="var(--ink-soft)">'+it.l+'</text>';
+      lx += it.l.length*5.6+28;
+    });
+
     container.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" class="sav-balchart-svg" xmlns="http://www.w3.org/2000/svg">'+svg+'</svg>';
   }
 
