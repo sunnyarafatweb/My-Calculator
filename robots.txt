@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://calcfolio.com/sitemap.xml
+Sitemap: https://calculatorboss.com/sitemap.xml
