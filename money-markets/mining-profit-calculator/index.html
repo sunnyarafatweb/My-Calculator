@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try{if(localStorage.getItem('cf-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
+<title>Mining Profit Calculator — Hashrate, Power &amp; ROI | Calculator Boss</title>
+<meta name="description" content="Free crypto mining profit calculator — enter your hashrate, power draw, electricity rate and network hashrate to project daily, monthly and yearly mining profit. Includes break-even electricity rate, hardware payback period, and a solo vs. pool mining odds comparison.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calculatorboss.com/mining-profit-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Calculator Boss">
+<meta property="og:title" content="Mining Profit Calculator — Hashrate, Power &amp; ROI">
+<meta property="og:description" content="Project your crypto mining profit from hashrate, power draw and electricity rate — plus break-even electricity rate, hardware payback period, and solo vs. pool mining odds.">
+<meta property="og:url" content="https://calculatorboss.com/mining-profit-calculator/">
+<meta property="og:image" content="https://calculatorboss.com/og/mining-profit-calculator-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://calculatorboss.com/og/mining-profit-calculator-og.png">
+<meta name="twitter:title" content="Mining Profit Calculator — Hashrate, Power &amp; ROI">
+<meta name="twitter:description" content="Project your crypto mining profit from hashrate, power draw and electricity rate — plus break-even electricity rate, hardware payback period, and solo vs. pool mining odds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C11;
+    --panel:#12151D;
+    --panel-2:#171B26;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --text:#EDEEF2;
+    --text-soft:#AEB2BC;
+    --muted:#7B7F89;
+
+    --mint:#33C266; --mint-deep:#1BA94C;
+    --up:#2ED67F; --up-bg:rgba(46,214,127,.1);
+    --down:#F0546A; --down-bg:rgba(240,84,106,.1);
+
+    --cx:#E5A93A; --cx-tint:rgba(229,169,58,.12);
+
+    --r:14px; --r-lg:22px; --r-xl:30px;
+    --maxw:1180px;
+    --f-head:"Plus Jakarta Sans",system-ui,sans-serif;
+    --f-body:"Inter",system-ui,sans-serif;
+    --f-mono:"Inter",system-ui,sans-serif;
+
+    --page-gradient:none;
+    --tile-shadow-hover:0 20px 40px -24px rgba(0,0,0,.6);
+  }
+  [data-theme="light"]{
+    --bg:#F3F1EA;
+    --panel:#FFFFFF;
+    --panel-2:#FBFAF6;
+    --line:#E4E2D8;
+    --line-2:#D8D5C8;
+    --text:#181A1F;
+    --text-soft:#474C55;
+    --muted:#686D76;
+    --up:#0E9F6E; --up-bg:#E1F6EE;
+    --down:#D33249; --down-bg:#FBE4E8;
+    --cx:#B0790F; --cx-tint:#FAF0D6;
+    --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
+    --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f-body);background-color:var(--bg);background-image:var(--page-gradient);background-repeat:no-repeat;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--mint);color:#04240f}
+  :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--cx);color:#1a1400;font-weight:700;padding:12px 20px;border-radius:0 0 10px 0}
+  .skip-link:focus{left:0}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+  body{font-variant-numeric:tabular-nums}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:rgba(10,12,17,.9);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em;color:#fff}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#1c202b,#12151d);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{font-size:14px;font-weight:500;color:#AEB2BC;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-spacer{flex:1}
+  .nav-cta{display:flex;align-items:center;gap:11px}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);display:grid;place-items:center;color:#C7CACF;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px}
+  .btn-accent{color:#1a1400;background:linear-gradient(120deg,var(--cx),#F2C158);}
+  .btn-accent:hover{filter:brightness(1.06)}
+  .menu-btn{display:none}
+
+  /* ===== BREADCRUMB ===== */
+  .crumb{padding:16px 0;font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .crumb a{color:var(--text-soft);transition:.2s}
+  .crumb a:hover{color:var(--mint)}
+  .crumb .sep{opacity:.5}
+  .crumb .cur{color:var(--text)}
+
+  /* ===== HERO ===== */
+  .hero{padding:10px 0 30px;position:relative}
+  .hero-inner{position:relative;z-index:1;max-width:720px}
+  .sym-badge{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--cx);background:var(--cx-tint);border-radius:7px;padding:5px 11px;display:inline-flex;align-items:center;gap:8px}
+  h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:16px 0 0}
+  .hero-sub{font-size:15.5px;color:var(--text-soft);max-width:640px;margin:14px 0 0;line-height:1.65}
+
+  /* ===== BENCHMARK QUICK BAR ===== */
+  .bench-bar{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:18px}
+  .bench-chip{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);cursor:pointer;transition:.18s}
+  .bench-chip:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .bench-chip .bc-lbl{font-size:11.5px;color:var(--text-soft)}
+  .bench-chip .bc-rate{font-family:var(--f-mono);font-weight:700;font-size:19px;color:var(--cx)}
+
+  /* ===== CALCULATOR ===== */
+  .calc-section{padding:10px 0 46px}
+  .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
+
+  .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs::-webkit-scrollbar{display:none}
+  .ctab-btn{flex-shrink:0;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:100px;padding:7px 13px;cursor:pointer;transition:.18s}
+  .ctab-btn:hover{border-color:var(--cx)}
+  .ctab-btn.on{background:var(--cx);color:#1a1400;border-color:var(--cx)}
+
+  .seg-row{display:flex;gap:8px;margin-bottom:18px}
+  .seg-btn{flex:1;font-family:var(--f-mono);font-size:12.5px;font-weight:600;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-soft);cursor:pointer;transition:.18s}
+  .seg-btn.on-neutral{background:var(--cx-tint);color:var(--cx);border-color:var(--cx)}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .advanced-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:11px 14px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;margin-bottom:0;transition:.18s}
+  .advanced-toggle:hover{border-color:var(--cx);color:var(--text)}
+  .advanced-toggle svg{transition:.25s;flex-shrink:0}
+  .advanced-toggle[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--cx)}
+  .advanced-fields{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .advanced-fields.open{max-height:300px;margin-top:14px}
+  .atr-preview{font-size:12.5px;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.5}
+  .fld{margin-bottom:15px}
+  .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
+  .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
+  .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+
+  /* ===== RESULTS ===== */
+  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden}
+  .result-hero.up{background:linear-gradient(155deg,var(--up-bg),transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
+  .result-hero.neutral{background:linear-gradient(155deg,var(--cx-tint),transparent);border:1px solid color-mix(in srgb,var(--cx) 30%,transparent)}
+  .result-hero.risk{background:linear-gradient(155deg,var(--down-bg),transparent);border:1px solid color-mix(in srgb,var(--down) 30%,transparent)}
+  .rh-label{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px}
+  .rh-value.up{color:var(--up)} .rh-value.neutral{color:var(--cx)} .rh-value.risk{color:var(--down)}
+  .rh-roi{font-family:var(--f-mono);font-size:14px;font-weight:600;margin-top:6px}
+  .rh-roi.up{color:var(--up)} .rh-roi.neutral{color:var(--cx)} .rh-roi.risk{color:var(--down)}
+
+  .pl-bar{height:12px;border-radius:100px;background:var(--line-2);margin-top:18px;position:relative;overflow:hidden}
+  .pl-bar-fill,.pl-bar-fill2{height:100%;position:absolute;top:0}
+  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+  .leg-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
+
+  .stat-list{margin-top:20px;display:flex;flex-direction:column;gap:0}
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;gap:10px}
+  .stat-row:first-child{border-top:none}
+  .stat-lbl{color:var(--muted)}
+  .stat-val{font-family:var(--f-mono);font-weight:600;text-align:right}
+
+  .share-row{display:flex;gap:10px;margin-top:20px}
+  .share-row .btn{flex:1;justify-content:center;background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .share-row .btn:hover{color:var(--text);border-color:var(--cx)}
+
+  .note{font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 13px;margin-top:14px;line-height:1.55}
+  .note.risk-note{color:var(--down);background:var(--down-bg);border-color:transparent}
+
+  /* ===== CONTENT / SEO ===== */
+  .content-section{padding:20px 0 48px}
+  .content-section h2{font-family:var(--f-head);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:36px 0 14px}
+  .content-section h2:first-child{margin-top:0}
+  .content-section h3{font-family:var(--f-head);font-weight:600;font-size:17px;letter-spacing:-.01em;margin:22px 0 8px}
+  .content-section p{font-size:14.5px;color:var(--text-soft);line-height:1.75;margin-bottom:12px;max-width:760px}
+  .content-section .formula{font-family:var(--f-mono);font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:inline-block;margin:8px 0 16px;color:var(--cx)}
+  .content-section ul{margin:0 0 16px 20px;color:var(--text-soft);font-size:14.5px;line-height:1.8}
+  .byline{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+  .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;max-width:780px}
+  .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .faq-q{width:100%;text-align:left;font-family:var(--f-body);font-weight:600;font-size:14.5px;color:var(--text);background:none;border:none;padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .faq-q svg{flex-shrink:0;transition:.25s;color:var(--muted)}
+  .faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--cx)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 18px 16px;font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
+
+  .disclaimer{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:30px;line-height:1.6}
+
+  /* ===== AD SLOTS ===== */
+  .ad{margin:26px 0;border:1px dashed var(--line-2);border-radius:16px;background:var(--panel);min-height:96px;display:grid;place-items:center;text-align:center;color:var(--muted)}
+  .ad .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .ad .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+
+  /* ===== RELATED ===== */
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .rel-card{border:1px solid var(--line);border-top:2px solid var(--cx);border-radius:12px;padding:15px;background:var(--panel);transition:.2s}
+  .rel-card:hover{transform:translateY(-3px);background:var(--panel-2)}
+  .rel-sym{font-family:var(--f-mono);font-size:10.5px;font-weight:700;color:var(--cx);background:var(--cx-tint);border-radius:6px;padding:3px 8px;display:inline-block}
+  .rel-name{font-family:var(--f-head);font-weight:600;font-size:13.5px;margin-top:9px}
+
+  /* ===== CHART ===== */
+  .chart-panel{padding:22px}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .chart-box{width:100%;height:280px}
+  .chart-loading{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+
+  /* ===== STATS GRID ===== */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .mstat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .mstat .k{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .mstat .v{font-family:var(--f-mono);font-weight:700;font-size:16.5px;margin-top:6px}
+  .mstat .v.up{color:var(--up)} .mstat .v.down{color:var(--down)}
+
+  /* ===== TABLES (year-by-year + benchmark) ===== */
+  .coins-table{width:100%;border-collapse:collapse;margin-top:16px}
+  .coins-table th{text-align:left;font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .coins-table td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  .coins-table tr:last-child td{border-bottom:none}
+  .ct-use{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:7px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+  .ct-use:hover{background:var(--cx);color:#1a1400}
+  .ct-use:disabled{opacity:.35;cursor:not-allowed}
+  .table-scroll{overflow-x:auto}
+  .table-scroll-y{max-height:0;overflow-y:hidden;transition:max-height .35s ease}
+  .table-scroll-y.open{max-height:480px;overflow-y:auto}
+  .show-more{margin-top:12px;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:9px;padding:8px 14px;cursor:pointer}
+
+  /* ===== GAUGE ===== */
+  .gauge-card{display:flex;align-items:center;gap:26px;padding:22px;flex-wrap:wrap}
+  .gauge-wrap{position:relative;width:200px;flex-shrink:0}
+  .gauge-svg{width:100%;height:auto}
+  .gauge-val{position:absolute;bottom:0;left:0;right:0;text-align:center}
+  .gv-num{font-family:var(--f-mono);font-weight:700;font-size:28px}
+  .gv-lbl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;text-transform:uppercase;color:var(--cx)}
+  .gauge-desc{flex:1;min-width:220px;font-size:13.5px;color:var(--text-soft);line-height:1.7}
+
+  footer{background:#15171D;border-top:1px solid rgba(255,255,255,.08);padding:44px 0 26px;margin-top:10px}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12px;color:#9297A0}
+  .foot-bottom a{font-size:12px;color:#9A9EA6}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.nav-links{display:none}}
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .panel{padding:20px}
+    .row2{grid-template-columns:1fr 1fr}
+    .related-grid{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .bench-bar{flex-direction:column}
+    .takeaways{padding:16px 18px}
+    .btn-accent{display:none}
+    .gauge-card{flex-direction:column;text-align:center}
+    .menu-btn{display:grid}
+    .calc-tabs{margin:0 -20px 20px;padding:0 20px 16px;width:calc(100% + 40px)}
+    .ctab-btn{font-size:11px;padding:6px 11px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* ===== TOC / QUICK NAV ===== */
+  .toc{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:16px}
+  .toc a{font-size:12.5px;font-weight:600;color:var(--text-soft);padding:6px 11px;border-radius:8px;transition:.18s;white-space:nowrap}
+  .toc a:hover{color:var(--text);background:var(--panel-2)}
+
+  /* ===== KEY TAKEAWAYS ===== */
+  .takeaways{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cx);border-radius:14px;padding:20px 24px;margin-top:18px}
+  .takeaways h2{font-family:var(--f-head);font-size:15px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em}
+  .takeaways ul{margin:0;padding:0;list-style:none;font-size:13.5px;color:var(--text-soft);line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+  .takeaways li{position:relative;padding-left:16px}
+  .takeaways li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--cx)}
+
+  /* ===== BYLINE / E-E-A-T ===== */
+  .page-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+  .review-box{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:24px}
+  .review-avatar{width:38px;height:38px;border-radius:50%;background:var(--cx-tint);color:var(--cx);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;flex-shrink:0}
+  .review-box .rb-name{font-weight:600;font-size:13.5px}
+  .review-box .rb-role{font-size:12px;color:var(--muted)}
+  .review-box p{margin-top:6px !important}
+
+  /* ===== GLOSSARY ===== */
+  .glossary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .gloss-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .gloss-item dt{font-family:var(--f-head);font-weight:600;font-size:14px;margin-bottom:4px}
+  .gloss-item dd{font-size:13px;color:var(--text-soft);line-height:1.6;margin:0}
+
+  /* ===== HOW-TO STEPS ===== */
+  .steps{counter-reset:step;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .step-num{counter-increment:step;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--cx-tint);color:var(--cx);font-family:var(--f-mono);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .step-num::before{content:counter(step)}
+  .step-body h3{margin:0 0 4px !important;font-size:14.5px !important}
+  .step-body p{margin:0 !important;font-size:13.5px !important}
+
+  /* ===== GOAL SCENARIO CARDS ===== */
+  .goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .goal-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.2s;text-align:left}
+  .goal-card:hover{transform:translateY(-3px);border-color:var(--cx)}
+  .goal-card .g-name{font-family:var(--f-head);font-weight:700;font-size:14.5px}
+  .goal-card .g-detail{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
+  .goal-card .g-cta{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);margin-top:10px;display:inline-block}
+
+  /* ===== EXPORT / PRINT / FEEDBACK ===== */
+  .export-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .export-row .btn{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .export-row .btn:hover{color:var(--text);border-color:var(--cx)}
+  .feedback-box{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:30px}
+  .feedback-box p{margin-bottom:12px !important}
+  .fb-btns{display:flex;gap:10px;justify-content:center}
+  .fb-btn{font-size:20px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:12px;padding:10px 18px;cursor:pointer;transition:.18s}
+  .fb-btn:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .fb-thanks{font-size:13px;color:var(--up);margin-top:10px;display:none}
+
+  @media(max-width:980px){.goal-grid{grid-template-columns:repeat(2,1fr)}.glossary{grid-template-columns:1fr}}
+  @media(max-width:680px){.takeaways ul{grid-template-columns:1fr}}
+  @media print{
+    header,.toc,.bench-bar,.ad,.share-row,.export-row,footer,.menu-btn,.nav-cta,.calc-tabs,#showMoreYears,.feedback-box{display:none !important}
+    body{background:#fff !important;color:#111 !important}
+    .panel{border:1px solid #ccc !important;background:#fff !important}
+    a{color:#111 !important}
+  }
+
+  /* ===== CALCULATE / CLEAR BUTTONS ===== */
+  .calc-btn-row{display:flex;gap:10px;margin:20px 0 2px}
+  .calc-btn-row .btn{flex:1;justify-content:center;font-size:14.5px;padding:13px 16px}
+  .btn-clear{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft)}
+  .btn-clear:hover{border-color:var(--down);color:var(--down);background:var(--down-bg)}
+  .btn-calc-pulse{animation:calcPulse .5s ease}
+  @keyframes calcPulse{0%{transform:scale(1)}30%{transform:scale(1.015)}100%{transform:scale(1)}}
+  .save-row{display:flex;gap:8px;margin-top:10px}
+  .save-row .in{flex:1}
+  .btn-save{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);white-space:nowrap;font-size:13px}
+  .btn-save:hover{border-color:var(--cx);color:var(--text)}
+
+  /* ===== LONG / SHORT DIRECTION TOGGLE ===== */
+  .seg-btn.on-long{background:var(--up-bg);color:var(--up);border-color:var(--up)}
+  .seg-btn.on-short{background:var(--down-bg);color:var(--down);border-color:var(--down)}
+
+  /* ===== TRADE RISK MAP ===== */
+  .tradebar-wrap{padding:8px 4px 4px}
+  .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How is crypto mining profit calculated?","acceptedAnswer":{"@type":"Answer","text":"Daily coins mined equals the block reward multiplied by the number of blocks found per day, multiplied by your share of the total network hashrate (your hashrate divided by network hashrate). Multiply that by the coin's price for revenue, subtract pool fees and electricity cost, and what's left is net profit."}},
+    {"@type":"Question","name":"What's the difference between hashrate and difficulty?","acceptedAnswer":{"@type":"Answer","text":"Hashrate is the raw computing power devoted to mining, measured in hashes per second. Difficulty is a network-set target that adjusts (on Bitcoin, roughly every two weeks) to keep block times steady as total hashrate changes. Network hashrate can be derived directly from difficulty and average block time, which is what this calculator's ratio-based formula relies on."}},
+    {"@type":"Question","name":"Why is electricity cost the most important factor in mining profitability?","acceptedAnswer":{"@type":"Answer","text":"Hardware is a fixed, one-time cost, but electricity is a continuous expense for as long as the miner runs. A small difference in your electricity rate compounds every single day, which is why industrial miners aggressively seek the cheapest reliable power rather than simply buying the newest hardware."}},
+    {"@type":"Question","name":"What is break-even electricity rate?","acceptedAnswer":{"@type":"Answer","text":"It's the electricity price at which your mining revenue exactly equals your electricity cost, leaving zero profit. Paying anything below that rate is profitable before hardware costs; paying above it means you're losing money on every kWh regardless of how much you mine."}},
+    {"@type":"Question","name":"How long does it take to pay back mining hardware?","acceptedAnswer":{"@type":"Answer","text":"Divide the hardware's purchase price by your daily net profit to get the payback period in days. This assumes network difficulty, coin price and your electricity rate all stay constant, which in practice they don't \u2014 rising difficulty and hardware depreciation both tend to push real payback periods longer than a static estimate."}},
+    {"@type":"Question","name":"What is a mining pool and why do most miners use one?","acceptedAnswer":{"@type":"Answer","text":"A mining pool combines many miners' hashrate and distributes rewards proportionally to each participant's contribution, in exchange for a small fee. At today's network difficulty, an individual miner's odds of finding a block completely solo can be so low that it could take years or decades on average, so pools trade a small fee for steady, predictable income."}},
+    {"@type":"Question","name":"What happens to mining profitability after a halving?","acceptedAnswer":{"@type":"Answer","text":"A halving cuts the block reward in half overnight, which cuts mining revenue in half at the same price and difficulty. Unless the coin's price rises enough to offset the smaller reward, less efficient hardware and higher electricity rates become unprofitable and are typically forced offline until difficulty adjusts downward."}},
+    {"@type":"Question","name":"Does network difficulty only go up?","acceptedAnswer":{"@type":"Answer","text":"No, but it trends upward over time as more efficient hardware and more total hashrate join the network. Difficulty can and does drop when miners go offline \u2014 for example after a price crash or a halving \u2014 but the long-run trend for major networks has generally been growth, which erodes a fixed hashrate's revenue over time."}},
+    {"@type":"Question","name":"Does a positive mining profit guarantee I'll come out ahead overall?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator projects profit at today's snapshot of difficulty, price and your costs. Over the time it takes to pay back hardware, difficulty tends to rise and hardware tends to become less competitive, both of which push real-world results below a static day-one projection."}},
+    {"@type":"Question","name":"Should I mine solo or join a pool?","acceptedAnswer":{"@type":"Answer","text":"For the vast majority of individual miners, a pool is the practical choice \u2014 it converts a rare, unpredictable lottery-style payout into steady, proportional daily income, at the cost of a small fee. Solo mining only makes sense for operations with enough hashrate that the expected time to find a block is short enough to be a reasonable bet."}},
+    {"@type":"Question","name":"What's a common mistake when estimating mining profitability?","acceptedAnswer":{"@type":"Answer","text":"Treating a day-one profitability snapshot as a guarantee over the hardware's full life. Difficulty tends to rise, coin prices are volatile, and hardware becomes relatively less efficient as newer models launch \u2014 all of which mean real returns usually underperform a static first-day estimate."}},
+    {"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes \u2014 use \"Print / Save as PDF\" for a printable summary of your current setup, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Calculator Boss","item":"https://calculatorboss.com/"},
+    {"@type":"ListItem","position":2,"name":"Money Tools","item":"https://calculatorboss.com/money-tools/"},
+    {"@type":"ListItem","position":3,"name":"Crypto","item":"https://calculatorboss.com/money-tools/#cat-crypto"},
+    {"@type":"ListItem","position":4,"name":"Mining Profit Calculator","item":"https://calculatorboss.com/mining-profit-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Mining Profit Calculator",
+  "url": "https://calculatorboss.com/mining-profit-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any (web browser)",
+  "datePublished": "2026-07-01",
+  "dateModified": "2026-07-01",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "publisher": {"@type":"Organization","name":"Calculator Boss"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to use the Mining Profit Calculator",
+  "step": [
+    {"@type":"HowToStep","name":"Enter your hashrate and power draw","text":"Type in your miner's hashrate and its power consumption in watts."},
+    {"@type":"HowToStep","name":"Enter network hashrate, block reward and block time","text":"Add the network's current total hashrate, the block reward, and the average block time."},
+    {"@type":"HowToStep","name":"Add coin price, electricity rate and pool fee","text":"Enter the coin's current price, your electricity rate, and your pool's fee percentage."},
+    {"@type":"HowToStep","name":"Read your projected profit","text":"Review daily, weekly, monthly and yearly coins mined, revenue, costs and net profit."},
+    {"@type":"HowToStep","name":"Check break-even and payback","text":"Switch tabs to see your break-even electricity rate, hardware payback period, and solo vs. pool mining odds."}
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+<a href="#calculator" class="skip-link">Skip to calculator</a>
+  <div class="wrap nav">
+    <a class="brand" href="../index.html">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#5B96F5"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#33C266"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#E5A93A"/>
+        </svg>
+      </span>
+      Calculator Boss
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light / dark mode">
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20 13a8 8 0 1 1-9-9 6.2 6.2 0 0 0 9 9Z"/></svg>
+      </button>
+      <a class="btn btn-accent" href="../index.html">Browse all tools</a>
+      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Calculator Boss</a><span class="sep">/</span>
+    <a href="../index.html#cat-crypto">Crypto</a><span class="sep">/</span>
+    <span class="cur">Mining Profit Calculator</span>
+  </nav>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+  <div class="hero-inner">
+    <span class="sym-badge">MINE</span>
+    <h1 class="hero-title">Mining Profit Calculator</h1>
+    <p class="hero-sub">Enter your hashrate, power draw, electricity rate and network hashrate to project daily, weekly, monthly and yearly mining profit. Find the maximum electricity rate you can pay and still be profitable, work out your hardware payback period, and compare solo mining odds against steady pool income.</p>
+    <div class="page-meta"><span id="lastUpdated">Last updated: July 2026</span><span>·</span><span>Reviewed by the Calculator Boss finance team</span><span>·</span><span>~7 min read</span></div>
+  </div>
+  <div class="takeaways reveal">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Daily coins mined = block reward × blocks per day × (your hashrate ÷ network hashrate) — the same formula used by established mining calculators.</li>
+      <li>Electricity is usually the dominant ongoing cost — a small rate difference compounds every day the miner runs, often mattering more than the hardware price.</li>
+      <li>A profitable snapshot today isn't a guarantee — rising network difficulty and hardware depreciation typically push real returns below a static first-day estimate.</li>
+      <li>This tool also solves backwards for your break-even electricity rate and hardware payback period, compares solo mining odds against pool income, and includes an explicit difficulty/price forecast so you can see erosion over time instead of just a day-one snapshot.</li>
+      <li>Add hosting, cooling or maintenance costs under "Additional monthly costs" if you're not running the miner yourself, so the profit figure reflects your real total cost, not just electricity.</li>
+    </ul>
+  </div>
+  <div class="bench-bar reveal" id="benchBar"></div>
+  </div>
+</section>
+<!-- ===== CALCULATOR ===== -->
+<section class="calc-section" id="calculator">
+  <div class="wrap">
+    <div class="calc-grid reveal">
+
+      <!-- INPUTS -->
+      <div class="panel">
+        <div class="calc-tabs" id="calcTabs" role="tablist" aria-label="Calculation mode">
+          <button class="ctab-btn on" data-tab="profit" role="tab" aria-selected="true" id="tab-profit" aria-controls="panel-profit">Mining Profit</button>
+          <button class="ctab-btn" data-tab="breakeven" role="tab" aria-selected="false" id="tab-breakeven" aria-controls="panel-breakeven">Break-Even &amp; ROI</button>
+          <button class="ctab-btn" data-tab="solo" role="tab" aria-selected="false" id="tab-solo" aria-controls="panel-solo">Solo vs Pool</button>
+        </div>
+
+        <div class="fld">
+          <label for="currency">Currency</label>
+          <select class="sel" id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD ($)</option>
+            <option value="AUD">AUD ($)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+        </div>
+
+        <button type="button" class="advanced-toggle" id="advancedToggle" aria-expanded="false" aria-controls="advancedFields">
+          <span>Forecast assumptions (difficulty &amp; price growth)</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="advanced-fields" id="advancedFields">
+          <div class="row2">
+            <div class="fld"><label for="diffGrowth">Difficulty growth <span class="hint">% per month, applies to the forecast table</span></label><input class="in" id="diffGrowth" type="number" value="5" step="0.5"></div>
+            <div class="fld"><label for="priceChange">Price change <span class="hint">% per month, applies to the forecast table</span></label><input class="in" id="priceChange" type="number" value="0" step="0.5"></div>
+          </div>
+        </div>
+
+        <!-- MINING PROFIT TAB -->
+        <div class="tab-fields" data-tab="profit" role="tabpanel" id="panel-profit" aria-labelledby="tab-profit">
+          <div class="fld">
+            <label for="hashrate">Your hashrate</label>
+            <div class="row2">
+              <input class="in" id="hashrate" type="number" value="300" min="0">
+              <select class="sel" id="hashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12" selected>TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18">EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="fld"><label for="power">Power consumption <span class="hint">watts</span></label><input class="in" id="power" type="number" value="3450" min="0"></div>
+          <div class="fld">
+            <label for="netHashrate">Network hashrate</label>
+            <div class="row2">
+              <input class="in" id="netHashrate" type="number" value="750" min="0">
+              <select class="sel" id="netHashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12">TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18" selected>EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="blockReward">Block reward <span class="hint">coins</span></label><input class="in" id="blockReward" type="number" value="3.125" step="0.0001" min="0"></div>
+            <div class="fld"><label for="blockTime">Block time <span class="hint">seconds</span></label><input class="in" id="blockTime" type="number" value="600" min="1"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="coinPrice">Coin price</label><input class="in" id="coinPrice" type="number" value="95000" min="0"></div>
+            <div class="fld"><label for="elecRate">Electricity rate <span class="hint">per kWh</span></label><input class="in" id="elecRate" type="number" value="0.05" step="0.001" min="0"></div>
+          </div>
+          <div class="fld"><label for="poolFee">Pool fee <span class="hint">% \u2014 0 for solo</span></label><input class="in" id="poolFee" type="number" value="1" step="0.1" min="0" max="100"></div>
+          <div class="fld"><label for="overheadCost">Additional monthly costs <span class="hint">hosting, cooling, maintenance</span></label><input class="in" id="overheadCost" type="number" value="0" min="0"></div>
+        </div>
+
+        <!-- BREAK-EVEN & ROI TAB -->
+        <div class="tab-fields" data-tab="breakeven" role="tabpanel" id="panel-breakeven" aria-labelledby="tab-breakeven" style="display:none">
+          <div class="fld">
+            <label for="beHashrate">Your hashrate</label>
+            <div class="row2">
+              <input class="in" id="beHashrate" type="number" value="300" min="0">
+              <select class="sel" id="beHashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12" selected>TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18">EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="fld"><label for="bePower">Power consumption <span class="hint">watts</span></label><input class="in" id="bePower" type="number" value="3450" min="0"></div>
+          <div class="fld">
+            <label for="beNetHashrate">Network hashrate</label>
+            <div class="row2">
+              <input class="in" id="beNetHashrate" type="number" value="750" min="0">
+              <select class="sel" id="beNetHashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12">TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18" selected>EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="beBlockReward">Block reward <span class="hint">coins</span></label><input class="in" id="beBlockReward" type="number" value="3.125" step="0.0001" min="0"></div>
+            <div class="fld"><label for="beBlockTime">Block time <span class="hint">seconds</span></label><input class="in" id="beBlockTime" type="number" value="600" min="1"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="beCoinPrice">Coin price</label><input class="in" id="beCoinPrice" type="number" value="95000" min="0"></div>
+            <div class="fld"><label for="bePoolFee">Pool fee <span class="hint">%</span></label><input class="in" id="bePoolFee" type="number" value="1" step="0.1" min="0" max="100"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="beHardwareCost">Hardware cost</label><input class="in" id="beHardwareCost" type="number" value="4500" min="0"></div>
+            <div class="fld"><label for="beActualRate">Your electricity rate <span class="hint">per kWh</span></label><input class="in" id="beActualRate" type="number" value="0.05" step="0.001" min="0"></div>
+          </div>
+          <div class="fld"><label for="beOverheadCost">Additional monthly costs <span class="hint">hosting, cooling, maintenance</span></label><input class="in" id="beOverheadCost" type="number" value="0" min="0"></div>
+        </div>
+
+        <!-- SOLO VS POOL TAB -->
+        <div class="tab-fields" data-tab="solo" role="tabpanel" id="panel-solo" aria-labelledby="tab-solo" style="display:none">
+          <div class="fld">
+            <label for="soloHashrate">Your hashrate</label>
+            <div class="row2">
+              <input class="in" id="soloHashrate" type="number" value="300" min="0">
+              <select class="sel" id="soloHashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12" selected>TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18">EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="fld">
+            <label for="soloNetHashrate">Network hashrate</label>
+            <div class="row2">
+              <input class="in" id="soloNetHashrate" type="number" value="750" min="0">
+              <select class="sel" id="soloNetHashrateUnit">
+                <option value="1e9">GH/s</option>
+                <option value="1e12">TH/s</option>
+                <option value="1e15">PH/s</option>
+                <option value="1e18" selected>EH/s</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="soloBlockTime">Block time <span class="hint">seconds</span></label><input class="in" id="soloBlockTime" type="number" value="600" min="1"></div>
+            <div class="fld"><label for="soloPoolFee">Pool fee <span class="hint">% \u2014 for comparison</span></label><input class="in" id="soloPoolFee" type="number" value="1" step="0.1" min="0" max="100"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="soloBlockReward">Block reward <span class="hint">coins</span></label><input class="in" id="soloBlockReward" type="number" value="3.125" step="0.0001" min="0"></div>
+            <div class="fld"><label for="soloCoinPrice">Coin price <span class="hint">for dollar context</span></label><input class="in" id="soloCoinPrice" type="number" value="95000" min="0"></div>
+          </div>
+        </div>
+
+        <div class="calc-btn-row">
+          <button type="button" class="btn btn-accent" id="calcBtn">Calculate</button>
+          <button type="button" class="btn btn-clear" id="clearBtn">Clear</button>
+        </div>
+        <div class="save-row">
+          <input class="in" id="presetName" type="text" placeholder="Name this setup (optional)" maxlength="40">
+          <button type="button" class="btn btn-save" id="savePresetBtn">💾 Save setup</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="result-hero up" id="resultHero" aria-live="polite" role="status">
+          <div class="rh-label" id="rhLabel">Daily Net Profit</div>
+          <div class="rh-value up" id="rhValue">$0.00</div>
+          <div class="rh-roi up" id="rhRoi"></div>
+          <div class="pl-bar" id="plBarWrap"><div class="pl-bar-fill" id="plBarFill"></div><div class="pl-bar-fill2" id="plBarFill2"></div></div>
+          <div class="pl-legend" id="plLegend"></div>
+        </div>
+        <div id="resultNote"></div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="stat-list" id="statList"></div>
+          <div class="share-row">
+            <button class="btn" id="copyResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy result</button>
+          </div>
+          <div class="export-row">
+            <button class="btn" id="printResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>
+            <button class="btn" id="downloadCsv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Download as CSV</button>
+            <button class="btn" id="copyShareLink"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Copy shareable link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">In-content unit — paste AdSense code here</div></div>
+  </div>
+</div>
+<!-- ===== BREAK-EVEN CHART ===== -->
+<section class="content-section" id="chart" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Cumulative profit &amp; break-even</h2>
+    <div class="panel chart-panel reveal">
+      <div class="chart-head">
+        <span class="mono" style="font-size:12.5px;color:var(--muted)" id="chartLabel">Cumulative net profit over time</span>
+      </div>
+      <div class="chart-box" id="chartBox"><div class="chart-loading">Loading chart…</div></div>
+      <div class="pl-legend" id="chartLegend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MILESTONE STATS ===== -->
+<section class="content-section" id="milestones" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Key numbers</h2>
+    <div class="stats-grid reveal" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== PROFIT MARGIN GAUGE ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Profit margin health</h2>
+    <div class="panel gauge-card reveal">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 220 130" class="gauge-svg">
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="var(--line-2)" stroke-width="16" stroke-linecap="round"/>
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="url(#ggrad)" stroke-width="16" stroke-linecap="round"/>
+          <defs><linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#F0546A"/><stop offset="45%" stop-color="#E5B93A"/><stop offset="100%" stop-color="#0E9F6E"/>
+          </linearGradient></defs>
+          <g id="fgNeedle" style="transform-origin:110px 116px;transition:transform .8s cubic-bezier(.2,.7,.3,1)">
+            <line x1="110" y1="116" x2="110" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="116" r="6" fill="currentColor"/>
+          </g>
+        </svg>
+        <div class="gauge-val"><div class="gv-num" id="fgNum">--</div><div class="gv-lbl" id="fgLbl">Loading</div></div>
+      </div>
+      <div class="gauge-desc" id="gaugeDesc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ELECTRICITY RATE SENSITIVITY ===== -->
+<section class="content-section" id="sensitivity" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How electricity rate changes your profit</h2>
+    <p style="margin-bottom:0">Using your current hashrate, power draw and coin price, here's your net daily profit at a range of electricity rates.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <div class="table-scroll-y" id="sensTableWrap">
+        <table class="coins-table">
+          <thead><tr><th>Electricity rate</th><th>Daily electricity cost</th><th>Net daily profit</th></tr></thead>
+          <tbody id="sensTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFITABILITY FORECAST ===== -->
+<section class="content-section" id="forecast" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Profitability forecast (your assumptions)</h2>
+    <p style="margin-bottom:0">This is an explicit "what-if" projection, not a prediction \u2014 it applies the difficulty growth and price change rates you set above (in "Forecast assumptions") month by month, so you can see how a rising network hashrate and a changing coin price would affect this setup over time. Set both to 0% to see a flat, no-change baseline instead.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Time horizon</th><th>Assumed network hashrate</th><th>Assumed coin price</th><th>Projected daily profit</th><th>Cumulative profit to date</th></tr></thead>
+        <tbody id="forecastTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">Responsive unit — paste AdSense code here</div></div>
+  </div>
+</div>
+
+<!-- ===== HARDWARE EFFICIENCY COMPARISON ===== -->
+<section class="content-section" id="presets" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How hardware efficiency changes profit</h2>
+    <p>Illustrative efficiency classes (in joules per terahash) at a reference 100 TH/s and your current network hashrate, coin price and electricity rate — not specific named products, since exact specs and prices change constantly. Compare against your actual hardware's rated efficiency.</p>
+    <div class="page-meta" style="margin:0 0 14px"><span id="benchReviewDate">Reviewed: July 2026</span></div>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Efficiency class</th><th>Power at 100 TH/s</th><th>Net daily profit</th><th><span class="visually-hidden">Action</span></th></tr></thead>
+        <tbody id="benchTbody"></tbody>
+      </table>
+    </div>
+    <nav class="toc reveal" aria-label="On this page">
+      <a href="#calculator">Calculator</a>
+      <a href="#chart">Break-Even Chart</a>
+      <a href="#milestones">Key Numbers</a>
+      <a href="#sensitivity">Electricity Table</a>
+      <a href="#forecast">Forecast</a>
+      <a href="#presets">Efficiency Classes</a>
+      <a href="#learn">Learn</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#how-to">How to Use</a>
+      <a href="#mistakes">Common Mistakes</a>
+      <a href="#goals">Example Setups</a>
+      <a href="#saved-setups">Saved Setups</a>
+      <a href="#vs-solo">Solo vs. Pool Example</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</section>
+<!-- ===== SEO CONTENT ===== -->
+<section class="content-section" id="learn">
+  <div class="wrap">
+    <h2>Understanding mining profitability</h2>
+    <p>Proof-of-work mining pays participants for contributing computing power (hashrate) to secure the network and validate transactions. Miners compete to solve a cryptographic puzzle roughly once every block interval; whoever solves it first earns the block reward. Since individual odds are vanishingly small at today's network scale, most miners join a pool that combines hashrate and pays out a steady share proportional to each contributor's power.</p>
+    <div class="formula">Daily Coins Mined = Block Reward × Blocks Per Day × (Your Hashrate ÷ Network Hashrate)</div>
+    <p>Where Blocks Per Day = 86,400 seconds ÷ average block time. This is the same hashrate-share formula used by established mining calculators, and it's mathematically identical to the difficulty-based version (Network Hashrate = Difficulty × 2³² ÷ Block Time) — this calculator asks for network hashrate directly since it's a more intuitive number than raw difficulty, without changing the underlying math.</p>
+
+    <h3>Electricity is usually the number that decides profitability</h3>
+    <p>Mining hardware is a one-time cost; electricity is a continuous expense for as long as the miner is plugged in. A rate difference of just a few cents per kWh compounds every single day the machine runs, which is why large-scale operations aggressively chase the cheapest reliable power — often below $0.05/kWh through direct deals, stranded energy, or renewables — rather than simply buying the newest hardware. Two identical miners at $0.05 versus $0.15 per kWh can be the difference between solidly profitable and losing money outright.</p>
+
+    <h3>Break-even electricity rate</h3>
+    <p>This is the electricity price at which your revenue exactly covers your power cost, leaving zero profit before accounting for hardware. At the default scenario on this page — 300 TH/s, a 750 EH/s network, a $95,000 coin price and a 1% pool fee — the break-even rate works out to about $0.20/kWh. Below that rate you're profitable before hardware costs; above it, running the miner loses money regardless of how much you mine.</p>
+
+    <h3>Hardware payback and depreciation</h3>
+    <p>Payback period is simply hardware cost divided by daily net profit. In the default scenario, a $4,500 miner earning about $12.79 a day pays for itself in roughly 352 days — just under a year, assuming price, difficulty and electricity rate all stay exactly where they started. In practice none of those three stay fixed: difficulty tends to trend upward, newer and more efficient hardware keeps launching, and prices are volatile — all of which mean real-world payback periods usually run longer than a static day-one estimate.</p>
+
+    <h3>How a halving affects profitability</h3>
+    <p>A halving cuts the block reward in half overnight, which — at unchanged price and difficulty — cuts your revenue in half too, while your electricity cost stays exactly the same. In the default scenario, halving the reward from 3.125 to 1.5625 coins drops daily net profit from about $12.79 to roughly $4.32 — a much bigger hit than the 50% revenue cut alone, because the fixed electricity cost eats a larger share of a smaller revenue number. Coin prices have historically tended to rise around halvings, but that's never guaranteed, and older or less efficient hardware is often the first to become unprofitable and get switched off.</p>
+
+    <h3>Difficulty tends to rise, eroding a fixed hashrate's share</h3>
+    <p>As more hashrate joins a network, difficulty adjusts upward to keep block times steady, which shrinks the revenue of any hashrate that stays fixed. A 20% increase in network hashrate — with your hashrate, the price and the reward all unchanged — drops daily profit from about $12.79 to roughly $9.97 in the default scenario, purely from your shrinking share of the network. This is why a profitable day-one snapshot tends to decay over the life of a piece of hardware unless the coin's price rises to compensate. The "Profitability forecast" section further down this page lets you set your own assumed monthly difficulty growth and price change rates and see this erosion (or growth) played out month by month, rather than relying on a single static snapshot — set both to 0% for a flat, no-change baseline instead.</p>
+
+    <h3>A worked example</h3>
+    <p>300 TH/s against a 750 EH/s network, a 3.125-coin block reward, a 600-second block time, and a $95,000 coin price mines about 0.00018 coins a day — worth roughly $17.10 in gross revenue. A 1% pool fee brings that to about $16.93, and 3,450 watts at $0.05/kWh costs about $4.14 a day in electricity, leaving a net profit of roughly $12.79 a day, or about $383.67 a month.</p>
+  </div>
+</section>
+
+<!-- ===== GLOSSARY ===== -->
+<section class="content-section" id="glossary" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Glossary of terms</h2>
+    <dl class="glossary reveal">
+      <div class="gloss-item"><dt>Hashrate</dt><dd>The computing power devoted to mining, measured in hashes per second (commonly GH/s, TH/s, PH/s or EH/s).</dd></div>
+      <div class="gloss-item"><dt>Network hashrate</dt><dd>The combined hashrate of every miner on the network, which can be derived directly from the current difficulty and average block time.</dd></div>
+      <div class="gloss-item"><dt>Difficulty</dt><dd>A network-set target that adjusts periodically to keep block times steady as total network hashrate changes.</dd></div>
+      <div class="gloss-item"><dt>Block reward</dt><dd>The number of new coins paid to whoever finds a valid block, set by the network's protocol and reduced at scheduled halvings on some chains.</dd></div>
+      <div class="gloss-item"><dt>Mining pool</dt><dd>A group of miners who combine hashrate and split rewards proportionally, in exchange for a small fee, converting a rare solo payout into steady income.</dd></div>
+      <div class="gloss-item"><dt>Break-even electricity rate</dt><dd>The power price at which mining revenue exactly equals electricity cost, leaving zero profit before hardware is considered.</dd></div>
+      <div class="gloss-item"><dt>Payback period</dt><dd>Hardware cost divided by daily net profit — the time needed to recover a miner's purchase price at current conditions.</dd></div>
+      <div class="gloss-item"><dt>J/TH (joules per terahash)</dt><dd>A standard efficiency metric for mining hardware — energy consumed per unit of hashing power; lower is more efficient.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== HOW TO USE ===== -->
+<section class="content-section" id="how-to" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How to use this calculator</h2>
+    <div class="steps reveal">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Enter your hashrate and power draw</h3><p>Type in your miner's hashrate and its power consumption in watts.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Enter network hashrate, block reward and block time</h3><p>Add the network's current total hashrate, the block reward, and the average block time.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Add coin price, electricity rate and pool fee</h3><p>Enter the coin's current price, your electricity rate, and your pool's fee percentage.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Read your projected profit</h3><p>Review daily, weekly, monthly and yearly coins mined, revenue, costs and net profit.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Check break-even and payback</h3><p>Switch tabs to see your break-even electricity rate, hardware payback period, and solo vs. pool mining odds, then click Calculate to lock in the numbers or Clear to start fresh.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMON MISTAKES ===== -->
+<section class="content-section" id="mistakes" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Common mistakes &amp; tips for evaluating mining profitability</h2>
+    <ul>
+      <li><b>Treating a day-one snapshot as a multi-year guarantee.</b> Difficulty tends to rise and hardware becomes relatively less efficient over time — build a buffer into any payback estimate.</li>
+      <li><b>Underestimating electricity as the dominant cost.</b> A few cents per kWh matters more over a hardware's lifetime than most people expect — compute your break-even rate before committing.</li>
+      <li><b>Ignoring pool fees when comparing pools.</b> A slightly higher advertised payout with a much higher fee can net out worse than a lower headline rate with a smaller fee.</li>
+      <li><b>Attempting solo mining with modest hashrate.</b> At most networks' current scale, solo mining with anything less than serious hashrate can mean waiting years for a single payout — a pool converts that into steady income.</li>
+      <li><b>Forgetting cooling, hosting and maintenance costs.</b> This calculator covers electricity and hardware price directly, but real operations often have additional overhead not reflected in a basic projection.</li>
+      <li><b>Ignoring price risk on top of mining risk.</b> Coins mined are still subject to price volatility after they're earned — a profitable mining operation can still lose money in dollar terms if the coin's price falls faster than it's mined.</li>
+    </ul>
+  </div>
+</section>
+<!-- ===== EXAMPLE SETUPS ===== -->
+<section class="content-section" id="goals" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Example setups</h2>
+    <p>A few realistic hashrate, power and network combinations — click one to load it into the Mining Profit tab above.</p>
+    <div class="goal-grid reveal" id="goalGrid"></div>
+  </div>
+</section>
+
+<!-- ===== SAVED SETUPS ===== -->
+<section class="content-section" id="saved-setups" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Your saved setups</h2>
+    <p>Click "💾 Save setup" above to keep the projection you're currently running — it's stored privately in this browser, not sent anywhere, so it'll be here next time you visit on this device.</p>
+    <div class="goal-grid reveal" id="savedPresetsList"></div>
+  </div>
+</section>
+
+<!-- ===== SOLO VS POOL EXAMPLE ===== -->
+<section class="content-section" id="vs-solo" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Solo vs. pool mining — a side-by-side example</h2>
+    <p>300 TH/s against a 750 EH/s network, 3.125-coin block reward, $95,000 coin price — the same hashrate, mined two different ways.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Approach</th><th>Payout style</th><th>Expected value per day</th></tr></thead>
+        <tbody>
+          <tr><td>Solo mining</td><td>~47.6 years between finds on average, then a full $296,875 block reward</td><td class="mono" style="font-weight:700">$17.10</td></tr>
+          <tr><td>Pool mining (1% fee)</td><td>Steady daily payout proportional to hashrate share</td><td class="mono" style="font-weight:700">$16.93</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">Both approaches have almost exactly the same long-run expected value — pool mining simply trades a small fee for converting an extremely rare, massive payout into steady, predictable income. For nearly any individual miner, the practical choice is the pool: a real person can't wait out a multi-decade lottery, no matter how mathematically fair its expected value is.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="content-section" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Frequently asked questions</h2>
+    <div class="faq-list" id="faqList"></div>
+
+    <div class="disclaimer">This calculator provides estimates for general informational purposes only and is not financial or investment advice. Mining profitability depends on constantly changing network difficulty, coin price and electricity rates — treat all projections as a snapshot, not a guarantee, and consult a licensed financial advisor for personalized guidance before committing capital to mining hardware.</div>
+
+    <div class="review-box">
+      <div class="review-avatar">CB</div>
+      <div>
+        <div class="rb-name">Calculator Boss Finance Team</div>
+        <div class="rb-role">Formulas cross-checked against standard references (below) · <span id="lastReviewed">Last reviewed July 2026</span></div>
+        <p style="margin-top:8px">Have feedback on this calculator, or spotted something that looks off? Use the feedback widget below or reach out via the About page — we periodically review these tools for accuracy.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:16px">
+      <b>References &amp; sources:</b>
+      <ul style="margin:8px 0 0 18px;padding:0;line-height:1.7">
+        <li>Nakamoto, S. (2008). <i>Bitcoin: A Peer-to-Peer Electronic Cash System.</i> — the foundational description of proof-of-work mining and the block reward mechanism this calculator is built on.</li>
+        <li>CoinWarz. "Bitcoin Mining Calculator" methodology (coinwarz.com). — reference for the standard hashrate-share mining revenue formula this calculator's math is cross-checked against.</li>
+      </ul>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox">
+      <p>Was this calculator helpful?</p>
+      <div class="fb-btns">
+        <button class="fb-btn" data-fb="up" aria-label="Yes, helpful">👍</button>
+        <button class="fb-btn" data-fb="down" aria-label="Not helpful">👎</button>
+      </div>
+      <div class="fb-thanks" id="fbThanks">Thanks for letting us know!</div>
+    </div>
+
+    <div class="byline">Built by the Calculator Boss team</div>
+  </div>
+</section>
+
+<!-- ===== RELATED ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Related calculators</h2>
+    <div class="related-grid">
+      <a class="rel-card" href="../staking-reward-calculator/"><span class="rel-sym">STK</span><div class="rel-name">Staking Reward Calculator</div></a>
+      <a class="rel-card" href="../crypto-profit-loss-calculator/"><span class="rel-sym">PNL</span><div class="rel-name">Crypto Profit / Loss Calculator</div></a>
+      <a class="rel-card" href="../crypto-tax-calculator/"><span class="rel-sym">TAX</span><div class="rel-name">Crypto Tax Calculator</div></a>
+      <a class="rel-card" href="../crypto-position-size-calculator/"><span class="rel-sym">SIZE</span><div class="rel-name">Crypto Position Size Calculator</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <p>© 2026 Calculator Boss. Estimates only — not financial or tax advice.</p>
+      <a href="../index.html">← Back to all Money Tools</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id);};
+  var fmt=function(n,d){ if(d===undefined) d=2; if(!isFinite(n)) n=0; return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); };
+  var CURR = {USD:'$',GBP:'£',CAD:'$',AUD:'$',EUR:'€'};
+  var currency='USD';
+  var money=function(n,d){ if(d===undefined)d=2; if(!isFinite(n)) n=0; var neg=n<0; var s=CURR[currency]||'$'; return (neg?'-':'')+s+fmt(Math.abs(n),d); };
+  function isBlank(id){ var el=$(id); return !el || el.value.trim()===''; }
+
+  /* ---------- auto-refreshing freshness date ---------- */
+  (function(){
+    var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var now=new Date();
+    var label = MONTHS[now.getMonth()]+' '+now.getFullYear();
+    var lu=$('lastUpdated'); if(lu) lu.textContent='Last updated: '+label;
+    var br=$('benchReviewDate'); if(br) br.textContent='Reviewed: '+label;
+    var lr=$('lastReviewed'); if(lr) lr.textContent='Last reviewed '+label;
+    try{
+      var iso = now.toISOString().slice(0,10);
+      Array.prototype.forEach.call(document.querySelectorAll('script[type="application/ld+json"]'), function(s){
+        try{ var data=JSON.parse(s.textContent); if(data['@type']==='WebApplication'){ data.dateModified=iso; s.textContent=JSON.stringify(data); } }catch(e){}
+      });
+    }catch(e){}
+  })();
+
+  /* ---------- theme toggle ---------- */
+  (function(){
+    var html=document.documentElement;
+    var toggle=$('themeToggle'), iconSun=$('iconSun'), iconMoon=$('iconMoon');
+    function syncIcons(){ var isLight=html.getAttribute('data-theme')==='light'; iconSun.style.display=isLight?'none':''; iconMoon.style.display=isLight?'':'none'; }
+    syncIcons();
+    toggle.addEventListener('click', function(){
+      var isLight = html.getAttribute('data-theme')==='light';
+      if(isLight){ html.removeAttribute('data-theme'); } else { html.setAttribute('data-theme','light'); }
+      try{ localStorage.setItem('cf-theme', isLight?'dark':'light'); }catch(e){}
+      syncIcons();
+    });
+  })();
+
+  /* ---------- state ---------- */
+  var STATE = { activeTab:'profit' };
+  var EFF = null; // {yourH,netH,reward,blockTime,coinPrice,power,elecRate,poolFee,coins,revenue,afterPool,elecCostDay,netProfit,margin,hardwareCost,tabKey}
+
+  /* ---------- core math (all closed-form) ---------- */
+  function dailyCoinsOf(yourH_Hs, netH_Hs, reward, blockTimeSec){
+    if(!(netH_Hs>0) || !(blockTimeSec>0)) return 0;
+    var blocksPerDay = 86400/blockTimeSec;
+    return reward * blocksPerDay * (yourH_Hs/netH_Hs);
+  }
+  function row(lbl,val){ return '<div class="stat-row"><span class="stat-lbl">'+lbl+'</span><span class="stat-val">'+val+'</span></div>'; }
+  function setResultHero(label,value,cls,sub){
+    var hero=$('resultHero');
+    hero.className='result-hero '+cls;
+    $('rhLabel').textContent=label;
+    $('rhValue').className='rh-value '+cls;
+    $('rhValue').textContent=value;
+    $('rhRoi').className='rh-roi '+cls;
+    $('rhRoi').textContent=sub||'';
+  }
+  function setNote(html,risk){
+    $('resultNote').innerHTML = html ? ('<div class="note'+(risk?' risk-note':'')+'">'+html+'</div>') : '';
+  }
+  function setPlBar(aPct,bPct){
+    $('plBarFill').style.cssText='left:0;width:'+aPct+'%;background:#5B96F5';
+    $('plBarFill2').style.cssText='left:'+aPct+'%;width:'+bPct+'%;background:var(--cx)';
+  }
+
+  function showEmptyState(label, msg){
+    setResultHero(label, '—', 'neutral', '');
+    setNote(msg, false);
+    $('statList').innerHTML='';
+    setPlBar(0,0);
+    $('plLegend').innerHTML='';
+    EFF=null;
+    $('chartBox').innerHTML='<div class="chart-loading">Enter your details above to see the chart.</div>';
+    $('chartLegend').innerHTML='';
+    $('statsGrid').innerHTML='';
+    $('fgNum').textContent='--'; $('fgLbl').textContent='—';
+    $('fgNeedle').style.transform='rotate(-90deg)';
+    $('gaugeDesc').textContent='Fill in your details above to see your profit margin health.';
+    $('sensTbody').innerHTML='';
+    $('benchTbody').innerHTML='';
+  }
+
+  /* ---------- tab calculators ---------- */
+  function calcProfit(){
+    var need=['hashrate','power','netHashrate','blockReward','blockTime','coinPrice','elecRate'];
+    if(need.some(isBlank)){
+      showEmptyState('Daily Net Profit','Fill in your hashrate, power draw, network hashrate, block details, coin price and electricity rate to see your profit.');
+      return;
+    }
+    var yourH = (parseFloat($('hashrate').value)||0) * parseFloat($('hashrateUnit').value);
+    var power = parseFloat($('power').value)||0;
+    var netH = (parseFloat($('netHashrate').value)||0) * parseFloat($('netHashrateUnit').value);
+    var reward = parseFloat($('blockReward').value)||0;
+    var blockTime = parseFloat($('blockTime').value);
+    var coinPrice = parseFloat($('coinPrice').value)||0;
+    var elecRate = parseFloat($('elecRate').value)||0;
+    var poolFee = parseFloat($('poolFee').value)||0;
+    var overheadMonthly = parseFloat($('overheadCost').value)||0;
+    var overheadDaily = overheadMonthly/30;
+
+    if(yourH<=0 || netH<=0 || !(blockTime>0)){
+      setResultHero('Daily Net Profit','—','risk','');
+      setNote(!(blockTime>0) ? 'Block time must be greater than 0 seconds.' : 'Your hashrate and network hashrate must both be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var coins = dailyCoinsOf(yourH,netH,reward,blockTime);
+    var revenue = coins*coinPrice;
+    var afterPool = revenue*(1-poolFee/100);
+    var elecCostDay = (power/1000)*24*elecRate;
+    var netProfit = afterPool-elecCostDay-overheadDaily;
+    var margin = revenue>0 ? netProfit/revenue*100 : 0;
+
+    var cls = netProfit<0 ? 'risk' : (margin<10 ? 'neutral' : 'up');
+    setResultHero('Daily Net Profit', money(netProfit), cls, coins.toFixed(8)+' coins/day \u00b7 '+fmt(margin,1)+'% margin');
+    var costPct = revenue>0 ? Math.max(0,Math.min(100, (elecCostDay+overheadDaily)/revenue*100)) : 0;
+    setPlBar(Math.max(0,Math.min(100,100-costPct)), costPct);
+    $('plLegend').innerHTML = '<span><span class="leg-dot" style="background:#5B96F5"></span>Net profit share</span><span><span class="leg-dot" style="background:var(--cx)"></span>Electricity + overhead cost share</span>';
+
+    var notes=[];
+    if(netProfit<0) notes.push('This setup is unprofitable at your current inputs \u2014 electricity and other costs exceed mining revenue.');
+    else if(margin<10) notes.push('Thin margin \u2014 a small rise in difficulty or electricity rate, or a small drop in price, could turn this unprofitable.');
+    setNote(notes.length?notes.join(' '):'', netProfit<0);
+
+    $('statList').innerHTML =
+      row('Coins mined / day', coins.toFixed(8))+
+      row('Gross revenue / day', money(revenue))+
+      row('Pool fee / day', money(revenue*poolFee/100))+
+      row('Electricity cost / day', money(elecCostDay))+
+      row('Additional costs / day', money(overheadDaily))+
+      row('Net profit / month', money(netProfit*30))+
+      row('Net profit / year', money(netProfit*365));
+
+    EFF = {yourH:yourH, netH:netH, reward:reward, blockTime:blockTime, coinPrice:coinPrice, power:power, elecRate:elecRate,
+           poolFee:poolFee, coins:coins, revenue:revenue, afterPool:afterPool, elecCostDay:elecCostDay, overheadDaily:overheadDaily, netProfit:netProfit,
+           margin:margin, hardwareCost:0, tabKey:'profit'};
+    renderDownstream();
+  }
+
+  function calcBreakeven(){
+    var need=['beHashrate','bePower','beNetHashrate','beBlockReward','beBlockTime','beCoinPrice','beHardwareCost','beActualRate'];
+    if(need.some(isBlank)){
+      showEmptyState('Break-Even Electricity Rate','Fill in your hashrate, power draw, network details, coin price, hardware cost and electricity rate to see your break-even point.');
+      return;
+    }
+    var yourH = (parseFloat($('beHashrate').value)||0) * parseFloat($('beHashrateUnit').value);
+    var power = parseFloat($('bePower').value)||0;
+    var netH = (parseFloat($('beNetHashrate').value)||0) * parseFloat($('beNetHashrateUnit').value);
+    var reward = parseFloat($('beBlockReward').value)||0;
+    var blockTime = parseFloat($('beBlockTime').value);
+    var coinPrice = parseFloat($('beCoinPrice').value)||0;
+    var poolFee = parseFloat($('bePoolFee').value)||0;
+    var hardwareCost = parseFloat($('beHardwareCost').value)||0;
+    var actualRate = parseFloat($('beActualRate').value)||0;
+    var overheadMonthly = parseFloat($('beOverheadCost').value)||0;
+    var overheadDaily = overheadMonthly/30;
+
+    if(yourH<=0 || netH<=0 || power<=0 || !(blockTime>0)){
+      setResultHero('Break-Even Electricity Rate','—','risk','');
+      setNote(!(blockTime>0) ? 'Block time must be greater than 0 seconds.' : 'Hashrate, network hashrate and power draw must all be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var coins = dailyCoinsOf(yourH,netH,reward,blockTime);
+    var revenue = coins*coinPrice;
+    var afterPool = revenue*(1-poolFee/100);
+    var dailyKwh = (power/1000)*24;
+    var breakEvenRate = dailyKwh>0 ? (afterPool-overheadDaily)/dailyKwh : 0;
+    var elecCostDay = dailyKwh*actualRate;
+    var netProfit = afterPool-elecCostDay-overheadDaily;
+    var paybackDays = netProfit>0 ? hardwareCost/netProfit : Infinity;
+
+    var cls = actualRate>breakEvenRate ? 'risk' : 'up';
+    setResultHero('Break-Even Electricity Rate', money(breakEvenRate,4)+'/kWh', cls, 'your rate '+money(actualRate,4)+'/kWh \u2192 '+(isFinite(paybackDays)?fmt(paybackDays,0)+'-day payback':'never pays back at this rate'));
+    setPlBar(0,0); $('plLegend').innerHTML='';
+    setNote(actualRate>breakEvenRate ? 'Your electricity rate is above break-even \u2014 this setup loses money at your current rate regardless of hardware cost.' : '', actualRate>breakEvenRate);
+
+    $('statList').innerHTML =
+      row('Break-even electricity rate', money(breakEvenRate,4)+'/kWh')+
+      row('Your electricity rate', money(actualRate,4)+'/kWh')+
+      row('Additional costs / day', money(overheadDaily))+
+      row('Net profit / day at your rate', money(netProfit))+
+      row('Hardware cost', money(hardwareCost))+
+      row('Payback period', isFinite(paybackDays)?fmt(paybackDays,0)+' days ('+fmt(paybackDays/30,1)+' months)':'\u2014');
+
+    EFF = {yourH:yourH, netH:netH, reward:reward, blockTime:blockTime, coinPrice:coinPrice, power:power, elecRate:actualRate,
+           poolFee:poolFee, coins:coins, revenue:revenue, afterPool:afterPool, elecCostDay:elecCostDay, overheadDaily:overheadDaily, netProfit:netProfit,
+           margin: revenue>0?netProfit/revenue*100:0, hardwareCost:hardwareCost, tabKey:'breakeven'};
+    renderDownstream();
+  }
+
+  function calcSolo(){
+    var need=['soloHashrate','soloNetHashrate','soloBlockTime'];
+    if(need.some(isBlank)){
+      showEmptyState('Expected Time to Find a Block','Fill in your hashrate, network hashrate and block time to see your solo mining odds.');
+      return;
+    }
+    var yourH = (parseFloat($('soloHashrate').value)||0) * parseFloat($('soloHashrateUnit').value);
+    var netH = (parseFloat($('soloNetHashrate').value)||0) * parseFloat($('soloNetHashrateUnit').value);
+    var blockTime = parseFloat($('soloBlockTime').value);
+    var poolFee = parseFloat($('soloPoolFee').value)||0;
+    var reward = parseFloat($('soloBlockReward').value)||0;
+    var price = parseFloat($('soloCoinPrice').value)||0;
+
+    if(yourH<=0 || netH<=0 || !(blockTime>0)){
+      setResultHero('Expected Time to Find a Block','—','risk','');
+      setNote(!(blockTime>0) ? 'Block time must be greater than 0 seconds.' : 'Your hashrate and network hashrate must both be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var blocksPerDay = 86400/blockTime;
+    var hashShare = yourH/netH;
+    var expectedBlocksPerDay = blocksPerDay*hashShare;
+    var expectedDaysPerBlock = expectedBlocksPerDay>0 ? 1/expectedBlocksPerDay : Infinity;
+    var coins = dailyCoinsOf(yourH,netH,reward,blockTime);
+    var revenue = coins*price;
+    var afterPool = revenue*(1-poolFee/100);
+    var soloPayout = reward*price;
+
+    var cls = expectedDaysPerBlock>3650 ? 'risk' : (expectedDaysPerBlock>180 ? 'neutral' : 'up');
+    var timeLabel = expectedDaysPerBlock>730 ? fmt(expectedDaysPerBlock/365,1)+' years' : fmt(expectedDaysPerBlock,1)+' days';
+    setResultHero('Expected Time to Find a Block (Solo)', timeLabel, cls, 'vs. pool: steady '+money(afterPool)+'/day ('+fmt(poolFee,1)+'% fee)');
+    setPlBar(0,0); $('plLegend').innerHTML='';
+    setNote(expectedDaysPerBlock>365 ? 'At this hashrate, solo mining could realistically take years between payouts \u2014 most individual miners use a pool for steady income instead.' : '');
+
+    $('statList').innerHTML =
+      row('Hash share of network', (hashShare*100).toExponential(3)+'%')+
+      row('Probability of a block per day', (expectedBlocksPerDay*100).toExponential(3)+'%')+
+      row('Probability of a block per year', (expectedBlocksPerDay*365*100).toFixed(4)+'%')+
+      row('Solo payout if found', money(soloPayout))+
+      row('Pool income / day (after fee)', money(afterPool))+
+      row('Days to mine 1 coin via pool', coins>0?fmt(1/coins,1):'\u2014');
+
+    EFF = {yourH:yourH, netH:netH, reward:reward, blockTime:blockTime, coinPrice:price, power:0, elecRate:0,
+           poolFee:poolFee, coins:coins, revenue:revenue, afterPool:afterPool, elecCostDay:0, overheadDaily:0, netProfit:afterPool,
+           margin:100, hardwareCost:0, tabKey:'solo'};
+    renderDownstream();
+  }
+
+  var CALC_FNS = {profit:calcProfit, breakeven:calcBreakeven, solo:calcSolo};
+  function calc(){ (CALC_FNS[STATE.activeTab]||calcProfit)(); }
+
+  /* ---------- downstream: chart, milestones, gauge, sensitivity, presets ---------- */
+  function renderDownstream(){
+    if(!EFF) return;
+    drawChart(EFF);
+    renderMilestones();
+    renderGauge();
+    renderSensitivityTable();
+    renderForecastTable();
+    renderPresets();
+  }
+
+  function drawChart(eff){
+    var box=$('chartBox');
+    var dailyProfit = eff.netProfit;
+    var hwCost = eff.hardwareCost||0;
+    if(!isFinite(dailyProfit)){ box.innerHTML='<div class="chart-loading">No data.</div>'; return; }
+    var maxDays;
+    var beDays = (hwCost>0 && dailyProfit>0) ? hwCost/dailyProfit : null;
+    maxDays = beDays!=null ? Math.min(1095, Math.max(30, beDays*2)) : 365;
+    var W=900,H=280,L=10,R=10,T=16,B=16, pw=W-L-R, ph=H-T-B;
+    var startVal = -hwCost;
+    var endVal = startVal + dailyProfit*maxDays;
+    var minV = Math.min(startVal, endVal, 0);
+    var maxV = Math.max(startVal, endVal, 0);
+    var range = (maxV-minV)||1;
+    function xOf(t){ return L + (t/maxDays)*pw; }
+    function yOf(v){ return T + ph - ((v-minV)/range)*ph; }
+    var zeroY = yOf(0);
+    var p0x=xOf(0), p0y=yOf(startVal), p1x=xOf(maxDays), p1y=yOf(endVal);
+    var areaColor = dailyProfit>=0 ? 'var(--up)' : 'var(--down)';
+    var areaPath = 'M'+p0x+','+p0y+' L'+p1x+','+p1y+' L'+p1x+','+zeroY+' L'+p0x+','+zeroY+' Z';
+    var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="overflow:visible">';
+    s+='<line x1="'+L+'" y1="'+zeroY+'" x2="'+(L+pw)+'" y2="'+zeroY+'" stroke="var(--line-2)" stroke-width="1.5" stroke-dasharray="4 4"/>';
+    s+='<path d="'+areaPath+'" fill="'+areaColor+'" fill-opacity="0.18" stroke="none"/>';
+    s+='<line x1="'+p0x+'" y1="'+p0y+'" x2="'+p1x+'" y2="'+p1y+'" stroke="'+areaColor+'" stroke-width="2.4" stroke-linecap="round"/>';
+    if(beDays!=null && beDays<=maxDays){
+      var bx=xOf(beDays);
+      s+='<line x1="'+bx+'" y1="'+T+'" x2="'+bx+'" y2="'+(T+ph)+'" stroke="var(--cx)" stroke-width="1.5" stroke-dasharray="3 3"/>';
+      s+='<circle cx="'+bx+'" cy="'+zeroY+'" r="5" fill="var(--cx)"/>';
+      s+='<text x="'+bx+'" y="'+(T+12)+'" text-anchor="middle" font-family="var(--f-mono)" font-size="11" font-weight="700" fill="var(--cx)">Break-even: day '+Math.round(beDays)+'</text>';
+    }
+    s+='</svg>';
+    box.innerHTML=s;
+    $('chartLegend').innerHTML =
+      (hwCost>0 ? '<span><span class="leg-dot" style="background:var(--line-2)"></span>Hardware cost ('+money(hwCost)+')</span>' : '')+
+      '<span><span class="leg-dot" style="background:'+areaColor+'"></span>Cumulative profit</span>';
+  }
+
+  function renderMilestones(){
+    var dailyKwh = (EFF.power/1000)*24;
+    var breakEvenRate = dailyKwh>0 ? EFF.afterPool/dailyKwh : null;
+    var payback = (EFF.hardwareCost>0 && EFF.netProfit>0) ? EFF.hardwareCost/EFF.netProfit : null;
+    var items = [
+      mstat('Daily Net Profit', money(EFF.netProfit), EFF.netProfit>=0?'up':'down'),
+      mstat('Monthly Net Profit', money(EFF.netProfit*30), EFF.netProfit>=0?'up':'down'),
+      mstat('Yearly Net Profit', money(EFF.netProfit*365), EFF.netProfit>=0?'up':'down'),
+      mstat('Coins Mined / Day', EFF.coins.toFixed(8)),
+      mstat('Profit Margin', fmt(EFF.margin,1)+'%', EFF.margin>=0?'up':'down'),
+      mstat('Break-Even Electricity Rate', breakEvenRate!=null?money(breakEvenRate,4)+'/kWh':'\u2014'),
+      mstat('Days to Mine 1 Coin (pool)', EFF.coins>0?fmt(1/EFF.coins,1):'\u2014'),
+      mstat('Hardware Payback', payback!=null?fmt(payback,0)+' days':'\u2014')
+    ];
+    $('statsGrid').innerHTML = items.join('');
+  }
+  function mstat(k,v,cls){ return '<div class="mstat"><div class="k">'+k+'</div><div class="v'+(cls?' '+cls:'')+'">'+v+'</div></div>'; }
+
+  function renderGauge(){
+    var margin = isFinite(EFF.margin) ? EFF.margin : 0;
+    var clamped = Math.max(-20, Math.min(50, margin));
+    var score = ((clamped+20)/70)*100;
+    var lbl = margin<0 ? 'Unprofitable' : margin<20 ? 'Thin margin' : 'Healthy margin';
+    $('fgNum').textContent = fmt(margin,1)+'%';
+    $('fgLbl').textContent = lbl;
+    var angle = (score/100)*180-90;
+    $('fgNeedle').style.transform='rotate('+angle+'deg)';
+    $('fgNeedle').style.color = margin<0?'#F0546A':(margin<20?'#B98A1E':'#0E9F6E');
+    $('gaugeDesc').textContent = 'Your profit margin is '+fmt(margin,1)+'% of gross revenue. A negative margin means electricity and fees exceed revenue outright; a thin margin under about 20% leaves little room before a difficulty increase, price drop, or rate hike turns this unprofitable.';
+  }
+
+  function renderSensitivityTable(){
+    var tb=$('sensTbody');
+    if(!(EFF.power>0)){
+      tb.innerHTML = '<tr><td colspan="3" class="mono" style="color:var(--muted)">Electricity cost isn\u2019t modeled on this tab \u2014 switch to Mining Profit or Break-Even &amp; ROI to see this table.</td></tr>';
+      return;
+    }
+    var presets=[0.03,0.05,0.08,0.10,0.15,0.20,0.25,0.30];
+    var dailyKwh=(EFF.power/1000)*24;
+    var overhead = EFF.overheadDaily||0;
+    tb.innerHTML = presets.map(function(r){
+      var elecCost = dailyKwh*r;
+      var netProfit = EFF.afterPool-elecCost-overhead;
+      return '<tr>'+
+        '<td class="mono">'+money(r,3)+'/kWh</td>'+
+        '<td class="mono">'+money(elecCost)+'</td>'+
+        '<td class="mono" style="font-weight:700;color:'+(netProfit>=0?'var(--up)':'var(--down)')+'">'+money(netProfit)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  /* ---------- Profitability forecast: explicit "what-if" scenario modeling -----------
+     This does NOT predict the future. It takes the difficulty-growth and price-change
+     assumptions the person sets and simulates day-by-day what this exact setup would
+     earn if those assumed monthly rates held steady, so the effect of rising difficulty
+     (and a moving price) is visible instead of silently ignored. */
+  function renderForecastTable(){
+    var tb=$('forecastTbody');
+    if(!(EFF.netH>0)){ tb.innerHTML=''; return; }
+    var diffGrowthMonthly = parseFloat($('diffGrowth').value)||0;
+    var priceChangeMonthly = parseFloat($('priceChange').value)||0;
+    var dailyDiffGrowth = Math.pow(1+diffGrowthMonthly/100, 1/30)-1;
+    var dailyPriceChange = Math.pow(1+priceChangeMonthly/100, 1/30)-1;
+    var overhead = EFF.overheadDaily||0;
+
+    var checkpoints = [1,3,6,12,18,24]; // months
+    var checkpointDays = checkpoints.map(function(m){ return Math.round(m*30); });
+    var maxDay = checkpointDays[checkpointDays.length-1];
+    var results = {};
+    var cum = 0;
+    for(var d=1; d<=maxDay; d++){
+      var netH_d = EFF.netH*Math.pow(1+dailyDiffGrowth, d);
+      var price_d = EFF.coinPrice*Math.pow(1+dailyPriceChange, d);
+      var coins_d = dailyCoinsOf(EFF.yourH, netH_d, EFF.reward, EFF.blockTime);
+      var revenue_d = coins_d*price_d;
+      var afterPool_d = revenue_d*(1-(EFF.poolFee||0)/100);
+      var elecCost_d = (EFF.power/1000)*24*(EFF.elecRate||0);
+      var netProfit_d = afterPool_d - elecCost_d - overhead;
+      cum += netProfit_d;
+      var idx = checkpointDays.indexOf(d);
+      if(idx!==-1) results[checkpoints[idx]] = {netH:netH_d, price:price_d, dailyProfit:netProfit_d, cum:cum};
+    }
+    tb.innerHTML = checkpoints.map(function(m){
+      var r = results[m];
+      var label = m<12 ? m+' month'+(m===1?'':'s') : (m/12)+' year'+(m===12?'':'s');
+      return '<tr>'+
+        '<td class="mono">'+label+'</td>'+
+        '<td class="mono">'+(r.netH/1e18).toFixed(2)+' EH/s</td>'+
+        '<td class="mono">'+money(r.price)+'</td>'+
+        '<td class="mono" style="color:'+(r.dailyProfit>=0?'var(--up)':'var(--down)')+'">'+money(r.dailyProfit)+'/day</td>'+
+        '<td class="mono" style="font-weight:700;color:'+(r.cum>=0?'var(--up)':'var(--down)')+'">'+money(r.cum)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  var EFFICIENCY_CLASSES = [
+    {name:'Highly efficient (~11 J/TH)', jth:11},
+    {name:'Modern / average (~16 J/TH)', jth:16},
+    {name:'Older generation (~25 J/TH)', jth:25},
+    {name:'Legacy / inefficient (~38 J/TH)', jth:38}
+  ];
+  var TAB_HASH_POWER = {
+    profit: {hash:'hashrate', unit:'hashrateUnit', power:'power'},
+    breakeven: {hash:'beHashrate', unit:'beHashrateUnit', power:'bePower'},
+    solo: null
+  };
+  function renderPresets(){
+    var tb=$('benchTbody');
+    var fields = TAB_HASH_POWER[STATE.activeTab];
+    var refHashTHs = 100;
+    var netH=EFF.netH, reward=EFF.reward, blockTime=EFF.blockTime, coinPrice=EFF.coinPrice, elecRate=EFF.elecRate||0, poolFee=EFF.poolFee||0;
+    tb.innerHTML = EFFICIENCY_CLASSES.map(function(c){
+      var powerW = refHashTHs*c.jth;
+      var coins = dailyCoinsOf(refHashTHs*1e12, netH, reward, blockTime);
+      var revenue = coins*coinPrice;
+      var afterPool = revenue*(1-poolFee/100);
+      var elecCost = (powerW/1000)*24*elecRate;
+      var netProfit = afterPool-elecCost;
+      var btn = fields ? '<button class="ct-use" data-jth="'+c.jth+'">Use \u2192</button>' : '<button class="ct-use" disabled>N/A</button>';
+      return '<tr>'+
+        '<td>'+c.name+'</td>'+
+        '<td class="mono">'+powerW+' W</td>'+
+        '<td class="mono" style="font-weight:700;color:'+(netProfit>=0?'var(--up)':'var(--down)')+'">'+money(netProfit)+'</td>'+
+        '<td>'+btn+'</td>'+
+      '</tr>';
+    }).join('');
+    Array.prototype.forEach.call(tb.querySelectorAll('.ct-use[data-jth]'), function(btn){
+      btn.addEventListener('click', function(){
+        var f=TAB_HASH_POWER[STATE.activeTab];
+        if(f){
+          $(f.hash).value = refHashTHs;
+          $(f.unit).value = '1e12';
+          $(f.power).value = refHashTHs*parseFloat(btn.dataset.jth);
+          calc();
+        }
+      });
+    });
+  }
+
+  function renderBenchBar(){
+    $('benchBar').innerHTML = EFFICIENCY_CLASSES.map(function(c){
+      return '<div class="bench-chip" data-jth="'+c.jth+'"><span class="bc-lbl">'+c.name+'</span><span class="bc-rate">'+(100*c.jth)+' W</span></div>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.bench-chip'), function(chip){
+      chip.addEventListener('click', function(){
+        var f=TAB_HASH_POWER[STATE.activeTab];
+        if(f){
+          $(f.hash).value = 100;
+          $(f.unit).value = '1e12';
+          $(f.power).value = 100*parseFloat(chip.dataset.jth);
+          calc();
+        }
+      });
+    });
+  }
+
+  /* ---------- events: tabs ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(x){x.classList.remove('on'); x.setAttribute('aria-selected','false');});
+      b.classList.add('on'); b.setAttribute('aria-selected','true');
+      STATE.activeTab=b.dataset.tab;
+      Array.prototype.forEach.call(document.querySelectorAll('.tab-fields'), function(tf){
+        tf.style.display = tf.dataset.tab===STATE.activeTab ? '' : 'none';
+      });
+      calc();
+      syncShareUrl();
+    });
+  });
+
+  /* ---------- events: currency ---------- */
+  $('currency').addEventListener('change', function(){ currency=this.value; calc(); syncShareUrl(); });
+
+  /* ---------- events: forecast assumptions toggle ---------- */
+  $('advancedToggle').addEventListener('click', function(){
+    var open = this.getAttribute('aria-expanded')==='true';
+    this.setAttribute('aria-expanded', open ? 'false' : 'true');
+    $('advancedFields').classList.toggle('open', !open);
+  });
+
+  /* ---------- events: all numeric inputs ---------- */
+  var ALL_FIELDS = ['hashrate','hashrateUnit','power','netHashrate','netHashrateUnit','blockReward','blockTime','coinPrice','elecRate','poolFee','overheadCost',
+                     'beHashrate','beHashrateUnit','bePower','beNetHashrate','beNetHashrateUnit','beBlockReward','beBlockTime','beCoinPrice','bePoolFee','beHardwareCost','beActualRate','beOverheadCost',
+                     'soloHashrate','soloHashrateUnit','soloNetHashrate','soloNetHashrateUnit','soloBlockTime','soloPoolFee','soloBlockReward','soloCoinPrice',
+                     'diffGrowth','priceChange'];
+  ALL_FIELDS.forEach(function(id){ var el=$(id); if(el) el.addEventListener('input', function(){ calc(); syncShareUrl(); }); });
+
+  /* ---------- Calculate / Clear buttons ---------- */
+  var TAB_FIELDS = {
+    profit: ['hashrate','power','netHashrate','blockReward','blockTime','coinPrice','elecRate','poolFee','overheadCost'],
+    breakeven: ['beHashrate','bePower','beNetHashrate','beBlockReward','beBlockTime','beCoinPrice','bePoolFee','beHardwareCost','beActualRate','beOverheadCost'],
+    solo: ['soloHashrate','soloNetHashrate','soloBlockTime','soloPoolFee','soloBlockReward','soloCoinPrice']
+  };
+  $('calcBtn').addEventListener('click', function(){
+    calc();
+    var hero=$('resultHero');
+    hero.classList.remove('btn-calc-pulse');
+    void hero.offsetWidth;
+    hero.classList.add('btn-calc-pulse');
+    syncShareUrl();
+  });
+  $('clearBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) el.value=''; });
+    calc();
+    syncShareUrl();
+    var firstField=$(TAB_FIELDS[tab][0]);
+    if(firstField) firstField.focus();
+  });
+
+  /* ---------- shareable URL ---------- */
+  var SHARE_FIELDS = ALL_FIELDS;
+  function buildShareParams(){
+    var p = new URLSearchParams();
+    p.set('tab', STATE.activeTab);
+    p.set('cur', currency);
+    SHARE_FIELDS.forEach(function(id){ var el=$(id); if(el && el.value!=='' && el.value!=null) p.set(id, el.value); });
+    return p;
+  }
+  function syncShareUrl(){
+    try{
+      var p = buildShareParams();
+      history.replaceState(null, '', location.pathname + '?' + p.toString());
+    }catch(e){}
+  }
+  function applyShareParamsFromUrl(){
+    var p = new URLSearchParams(location.search);
+    if(![...p.keys()].length) return false;
+    if(p.has('cur') && $('currency')){ $('currency').value=p.get('cur'); currency=p.get('cur'); }
+    SHARE_FIELDS.forEach(function(id){ if(p.has(id) && $(id)) $(id).value = p.get(id); });
+    if(p.has('tab') && document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]')){
+      document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]').click();
+    }
+    return true;
+  }
+  $('copyShareLink').addEventListener('click', function(){
+    syncShareUrl();
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Link copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- copy result ---------- */
+  $('copyResult').addEventListener('click', function(){
+    var text = $('rhLabel').textContent+': '+$('rhValue').textContent+' ('+$('rhRoi').textContent+')';
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- print ---------- */
+  $('printResult').addEventListener('click', function(){ window.print(); });
+
+  /* ---------- CSV export ---------- */
+  $('downloadCsv').addEventListener('click', function(){
+    if(!EFF){ return; }
+    var rows = [
+      ['Field','Value'],
+      ['Tab', EFF.tabKey],
+      ['Coins mined / day', EFF.coins.toFixed(8)],
+      ['Gross revenue / day', EFF.revenue.toFixed(2)],
+      ['Revenue after pool fee / day', EFF.afterPool.toFixed(2)],
+      ['Electricity cost / day', EFF.elecCostDay.toFixed(2)],
+      ['Net profit / day', EFF.netProfit.toFixed(2)],
+      ['Net profit / month', (EFF.netProfit*30).toFixed(2)],
+      ['Net profit / year', (EFF.netProfit*365).toFixed(2)],
+      ['Profit margin %', EFF.margin.toFixed(2)],
+      ['Hardware cost', EFF.hardwareCost]
+    ];
+    var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+    var blob = new Blob([csv], {type:'text/csv'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'mining-profit-calculator.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  /* ---------- example setup cards ---------- */
+  var GOALS = [
+    {name:'Efficient home miner', detail:'300 TH/s \u00b7 3,450W \u00b7 $0.05/kWh', hashrate:300, power:3450, netHashrate:750, price:95000, elecRate:0.05, poolFee:1},
+    {name:'Budget older-gen miner', detail:'110 TH/s \u00b7 3,250W \u00b7 $0.08/kWh', hashrate:110, power:3250, netHashrate:750, price:95000, elecRate:0.08, poolFee:1},
+    {name:'Cheap industrial power', detail:'1,000 TH/s \u00b7 15,000W \u00b7 $0.03/kWh', hashrate:1000, power:15000, netHashrate:750, price:95000, elecRate:0.03, poolFee:1.5},
+    {name:'High electricity rate (marginal)', detail:'300 TH/s \u00b7 3,450W \u00b7 $0.18/kWh', hashrate:300, power:3450, netHashrate:750, price:95000, elecRate:0.18, poolFee:1}
+  ];
+  $('goalGrid').innerHTML = GOALS.map(function(g,i){
+    return '<button class="goal-card" data-i="'+i+'"><div class="g-name">'+g.name+'</div><div class="g-detail">'+g.detail+'</div><span class="g-cta">Try this scenario →</span></button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.goal-card'), function(card){
+    card.addEventListener('click', function(){
+      var g = GOALS[parseInt(card.dataset.i,10)];
+      document.querySelector('.ctab-btn[data-tab="profit"]').click();
+      $('hashrate').value = g.hashrate;
+      $('hashrateUnit').value = '1e12';
+      $('power').value = g.power;
+      $('netHashrate').value = g.netHashrate;
+      $('netHashrateUnit').value = '1e18';
+      $('blockReward').value = 3.125;
+      $('blockTime').value = 600;
+      $('coinPrice').value = g.price;
+      $('elecRate').value = g.elecRate;
+      $('poolFee').value = g.poolFee;
+      calc();
+      document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+    });
+  });
+
+  /* ---------- saved setups (stored locally in this browser only) ---------- */
+  var PRESET_KEY = 'cb-mining-presets';
+  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function loadPresets(){ try{ var v=JSON.parse(localStorage.getItem(PRESET_KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function savePresetsToStorage(arr){ try{ localStorage.setItem(PRESET_KEY, JSON.stringify(arr)); }catch(e){} }
+  var TAB_LABEL = {profit:'Mining Profit', breakeven:'Break-Even & ROI', solo:'Solo vs Pool'};
+  function buildPresetSummary(tab, fields){
+    if(tab==='profit') return (fields.hashrate||'?')+' TH/s \u00b7 '+(fields.power||'?')+'W \u00b7 '+money(parseFloat(fields.elecRate)||0,3)+'/kWh';
+    if(tab==='breakeven') return (fields.beHashrate||'?')+' TH/s \u00b7 hw '+money(parseFloat(fields.beHardwareCost)||0);
+    return (fields.soloHashrate||'?')+' TH/s solo odds';
+  }
+  function renderSavedPresets(){
+    var wrap=$('savedPresetsList');
+    if(!wrap) return;
+    var arr=loadPresets();
+    if(!arr.length){
+      wrap.innerHTML = '<p class="mono" style="grid-column:1/-1;color:var(--muted);font-size:12.5px">No saved setups yet \u2014 fill in a projection above and click "\ud83d\udcbe Save setup" to keep it here for next time.</p>';
+      return;
+    }
+    wrap.innerHTML = arr.map(function(p,i){
+      return '<div class="goal-card" style="cursor:default">'+
+        '<div class="g-name">'+escapeHtml(p.name || (TAB_LABEL[p.tab]+' setup'))+'</div>'+
+        '<div class="g-detail">'+escapeHtml(p.summary)+' \u00b7 '+escapeHtml(TAB_LABEL[p.tab]||'')+'</div>'+
+        '<div style="display:flex;gap:8px;margin-top:10px">'+
+          '<button type="button" class="ct-use" data-load="'+i+'">Load</button>'+
+          '<button type="button" class="ct-use" data-del="'+i+'" style="background:var(--down-bg);color:var(--down)">Delete</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-load]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.load,10);
+        var p=loadPresets()[i];
+        if(!p) return;
+        document.querySelector('.ctab-btn[data-tab="'+p.tab+'"]').click();
+        Object.keys(p.fields||{}).forEach(function(id){ var el=$(id); if(el) el.value=p.fields[id]; });
+        calc();
+        syncShareUrl();
+        document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-del]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.del,10);
+        var arr2=loadPresets();
+        arr2.splice(i,1);
+        savePresetsToStorage(arr2);
+        renderSavedPresets();
+      });
+    });
+  }
+  $('savePresetBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    var fields={};
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) fields[id]=el.value; });
+    var name = $('presetName').value.trim();
+    var arr = loadPresets();
+    arr.unshift({ name:name, tab:tab, fields:fields, summary:buildPresetSummary(tab,fields), savedAt:Date.now() });
+    if(arr.length>12) arr = arr.slice(0,12);
+    savePresetsToStorage(arr);
+    $('presetName').value='';
+    renderSavedPresets();
+    var btn=$('savePresetBtn'); var old=btn.innerHTML;
+    btn.innerHTML='Saved \u2713'; setTimeout(function(){ btn.innerHTML=old; }, 1400);
+  });
+
+  /* ---------- feedback widget ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(x){ x.disabled=true; x.style.opacity='.5'; });
+      $('fbThanks').style.display='block';
+    });
+  });
+
+  /* ---------- FAQ ---------- */
+  var FAQ=[
+    ['How is crypto mining profit calculated?','Daily coins mined equals the block reward multiplied by the number of blocks found per day, multiplied by your share of the total network hashrate (your hashrate divided by network hashrate). Multiply that by the coin\u2019s price for revenue, subtract pool fees and electricity cost, and what\u2019s left is net profit.'],
+    ['What\u2019s the difference between hashrate and difficulty?','Hashrate is the raw computing power devoted to mining, measured in hashes per second. Difficulty is a network-set target that adjusts (on Bitcoin, roughly every two weeks) to keep block times steady as total hashrate changes. Network hashrate can be derived directly from difficulty and average block time, which is what this calculator\u2019s ratio-based formula relies on.'],
+    ['Why is electricity cost the most important factor in mining profitability?','Hardware is a fixed, one-time cost, but electricity is a continuous expense for as long as the miner runs. A small difference in your electricity rate compounds every single day, which is why industrial miners aggressively seek the cheapest reliable power rather than simply buying the newest hardware.'],
+    ['What is break-even electricity rate?','It\u2019s the electricity price at which your mining revenue exactly equals your electricity cost, leaving zero profit. Paying anything below that rate is profitable before hardware costs; paying above it means you\u2019re losing money on every kWh regardless of how much you mine.'],
+    ['How long does it take to pay back mining hardware?','Divide the hardware\u2019s purchase price by your daily net profit to get the payback period in days. This assumes network difficulty, coin price and your electricity rate all stay constant, which in practice they don\u2019t \u2014 rising difficulty and hardware depreciation both tend to push real payback periods longer than a static estimate.'],
+    ['What is a mining pool and why do most miners use one?','A mining pool combines many miners\u2019 hashrate and distributes rewards proportionally to each participant\u2019s contribution, in exchange for a small fee. At today\u2019s network difficulty, an individual miner\u2019s odds of finding a block completely solo can be so low that it could take years or decades on average, so pools trade a small fee for steady, predictable income.'],
+    ['What happens to mining profitability after a halving?','A halving cuts the block reward in half overnight, which cuts mining revenue in half at the same price and difficulty. Unless the coin\u2019s price rises enough to offset the smaller reward, less efficient hardware and higher electricity rates become unprofitable and are typically forced offline until difficulty adjusts downward.'],
+    ['Does network difficulty only go up?','No, but it trends upward over time as more efficient hardware and more total hashrate join the network. Difficulty can and does drop when miners go offline \u2014 for example after a price crash or a halving \u2014 but the long-run trend for major networks has generally been growth, which erodes a fixed hashrate\u2019s revenue over time.'],
+    ['Does a positive mining profit guarantee I\u2019ll come out ahead overall?','No. This calculator projects profit at today\u2019s snapshot of difficulty, price and your costs. Over the time it takes to pay back hardware, difficulty tends to rise and hardware tends to become less competitive, both of which push real-world results below a static day-one projection.'],
+    ['Should I mine solo or join a pool?','For the vast majority of individual miners, a pool is the practical choice \u2014 it converts a rare, unpredictable lottery-style payout into steady, proportional daily income, at the cost of a small fee. Solo mining only makes sense for operations with enough hashrate that the expected time to find a block is short enough to be a reasonable bet.'],
+    ['What\u2019s a common mistake when estimating mining profitability?','Treating a day-one profitability snapshot as a guarantee over the hardware\u2019s full life. Difficulty tends to rise, coin prices are volatile, and hardware becomes relatively less efficient as newer models launch \u2014 all of which mean real returns usually underperform a static first-day estimate.'],
+    ['Can I download, print or share my results?','Yes \u2014 use "Print / Save as PDF" for a printable summary of your current setup, "Download as CSV" to export the full breakdown, or "Copy shareable link" to send a URL that reloads your exact inputs for someone else.']
+  ];
+  $('faqList').innerHTML = FAQ.map(function(f){return '<div class="faq-item"><button class="faq-q">'+f[0]+'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>'+f[1]+'</p></div></div>';}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.faq-item'), function(it){
+    it.querySelector('.faq-q').addEventListener('click', function(){
+      var open=it.classList.contains('open'); it.classList.toggle('open');
+      var a=it.querySelector('.faq-a'); a.style.maxHeight = open? null : a.scrollHeight+'px';
+    });
+  });
+
+  /* ---------- init ---------- */
+  renderBenchBar();
+  renderSavedPresets();
+  applyShareParamsFromUrl();
+  calc();
+
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+})();
+</script>
+</body>
+</html>

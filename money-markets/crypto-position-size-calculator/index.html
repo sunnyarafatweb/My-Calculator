@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try{if(localStorage.getItem('cf-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
+<title>Crypto Position Size Calculator — Risk-Based Sizing | Calculator Boss</title>
+<meta name="description" content="Free crypto position size calculator — enter account size, risk %, entry and stop-loss to get your exact trade size, required margin and risk:reward ratio. Works long or short, leverage-aware.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calculatorboss.com/crypto-position-size-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Calculator Boss">
+<meta property="og:title" content="Crypto Position Size Calculator — Risk-Based Sizing">
+<meta property="og:description" content="Enter your account size, risk %, entry and stop-loss to get your exact position size, required margin and risk:reward ratio — long or short, leverage-aware.">
+<meta property="og:url" content="https://calculatorboss.com/crypto-position-size-calculator/">
+<meta property="og:image" content="https://calculatorboss.com/og/crypto-position-size-calculator-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://calculatorboss.com/og/crypto-position-size-calculator-og.png">
+<meta name="twitter:title" content="Crypto Position Size Calculator — Risk-Based Sizing">
+<meta name="twitter:description" content="Enter your account size, risk %, entry and stop-loss to get your exact position size, required margin and risk:reward ratio — long or short, leverage-aware.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C11;
+    --panel:#12151D;
+    --panel-2:#171B26;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --text:#EDEEF2;
+    --text-soft:#AEB2BC;
+    --muted:#7B7F89;
+
+    --mint:#33C266; --mint-deep:#1BA94C;
+    --up:#2ED67F; --up-bg:rgba(46,214,127,.1);
+    --down:#F0546A; --down-bg:rgba(240,84,106,.1);
+
+    --cx:#E5A93A; --cx-tint:rgba(229,169,58,.12);
+
+    --r:14px; --r-lg:22px; --r-xl:30px;
+    --maxw:1180px;
+    --f-head:"Plus Jakarta Sans",system-ui,sans-serif;
+    --f-body:"Inter",system-ui,sans-serif;
+    --f-mono:"Inter",system-ui,sans-serif;
+
+    --page-gradient:none;
+    --tile-shadow-hover:0 20px 40px -24px rgba(0,0,0,.6);
+  }
+  [data-theme="light"]{
+    --bg:#F3F1EA;
+    --panel:#FFFFFF;
+    --panel-2:#FBFAF6;
+    --line:#E4E2D8;
+    --line-2:#D8D5C8;
+    --text:#181A1F;
+    --text-soft:#474C55;
+    --muted:#686D76;
+    --up:#0E9F6E; --up-bg:#E1F6EE;
+    --down:#D33249; --down-bg:#FBE4E8;
+    --cx:#B0790F; --cx-tint:#FAF0D6;
+    --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
+    --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f-body);background-color:var(--bg);background-image:var(--page-gradient);background-repeat:no-repeat;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--mint);color:#04240f}
+  :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--cx);color:#1a1400;font-weight:700;padding:12px 20px;border-radius:0 0 10px 0}
+  .skip-link:focus{left:0}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+  body{font-variant-numeric:tabular-nums}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:rgba(10,12,17,.9);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em;color:#fff}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#1c202b,#12151d);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{font-size:14px;font-weight:500;color:#AEB2BC;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-spacer{flex:1}
+  .nav-cta{display:flex;align-items:center;gap:11px}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);display:grid;place-items:center;color:#C7CACF;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px}
+  .btn-accent{color:#1a1400;background:linear-gradient(120deg,var(--cx),#F2C158);}
+  .btn-accent:hover{filter:brightness(1.06)}
+  .menu-btn{display:none}
+
+  /* ===== BREADCRUMB ===== */
+  .crumb{padding:16px 0;font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .crumb a{color:var(--text-soft);transition:.2s}
+  .crumb a:hover{color:var(--mint)}
+  .crumb .sep{opacity:.5}
+  .crumb .cur{color:var(--text)}
+
+  /* ===== HERO ===== */
+  .hero{padding:10px 0 30px;position:relative}
+  .hero-inner{position:relative;z-index:1;max-width:720px}
+  .sym-badge{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--cx);background:var(--cx-tint);border-radius:7px;padding:5px 11px;display:inline-flex;align-items:center;gap:8px}
+  h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:16px 0 0}
+  .hero-sub{font-size:15.5px;color:var(--text-soft);max-width:640px;margin:14px 0 0;line-height:1.65}
+
+  /* ===== BENCHMARK QUICK BAR ===== */
+  .bench-bar{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:18px}
+  .bench-chip{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);cursor:pointer;transition:.18s}
+  .bench-chip:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .bench-chip .bc-lbl{font-size:11.5px;color:var(--text-soft)}
+  .bench-chip .bc-rate{font-family:var(--f-mono);font-weight:700;font-size:19px;color:var(--cx)}
+
+  /* ===== CALCULATOR ===== */
+  .calc-section{padding:10px 0 46px}
+  .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
+
+  .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs::-webkit-scrollbar{display:none}
+  .ctab-btn{flex-shrink:0;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:100px;padding:7px 13px;cursor:pointer;transition:.18s}
+  .ctab-btn:hover{border-color:var(--cx)}
+  .ctab-btn.on{background:var(--cx);color:#1a1400;border-color:var(--cx)}
+
+  .seg-row{display:flex;gap:8px;margin-bottom:18px}
+  .seg-btn{flex:1;font-family:var(--f-mono);font-size:12.5px;font-weight:600;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-soft);cursor:pointer;transition:.18s}
+  .seg-btn.on-neutral{background:var(--cx-tint);color:var(--cx);border-color:var(--cx)}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .advanced-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:11px 14px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;margin-bottom:0;transition:.18s}
+  .advanced-toggle:hover{border-color:var(--cx);color:var(--text)}
+  .advanced-toggle svg{transition:.25s;flex-shrink:0}
+  .advanced-toggle[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--cx)}
+  .advanced-fields{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .advanced-fields.open{max-height:300px;margin-top:14px}
+  .atr-preview{font-size:12.5px;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.5}
+  .fld{margin-bottom:15px}
+  .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
+  .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
+  .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+
+  /* ===== RESULTS ===== */
+  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden}
+  .result-hero.up{background:linear-gradient(155deg,var(--up-bg),transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
+  .result-hero.neutral{background:linear-gradient(155deg,var(--cx-tint),transparent);border:1px solid color-mix(in srgb,var(--cx) 30%,transparent)}
+  .result-hero.risk{background:linear-gradient(155deg,var(--down-bg),transparent);border:1px solid color-mix(in srgb,var(--down) 30%,transparent)}
+  .rh-label{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px}
+  .rh-value.up{color:var(--up)} .rh-value.neutral{color:var(--cx)} .rh-value.risk{color:var(--down)}
+  .rh-roi{font-family:var(--f-mono);font-size:14px;font-weight:600;margin-top:6px}
+  .rh-roi.up{color:var(--up)} .rh-roi.neutral{color:var(--cx)} .rh-roi.risk{color:var(--down)}
+
+  .pl-bar{height:12px;border-radius:100px;background:var(--line-2);margin-top:18px;position:relative;overflow:hidden}
+  .pl-bar-fill,.pl-bar-fill2{height:100%;position:absolute;top:0}
+  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+  .leg-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
+
+  .stat-list{margin-top:20px;display:flex;flex-direction:column;gap:0}
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;gap:10px}
+  .stat-row:first-child{border-top:none}
+  .stat-lbl{color:var(--muted)}
+  .stat-val{font-family:var(--f-mono);font-weight:600;text-align:right}
+
+  .share-row{display:flex;gap:10px;margin-top:20px}
+  .share-row .btn{flex:1;justify-content:center;background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .share-row .btn:hover{color:var(--text);border-color:var(--cx)}
+
+  .note{font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 13px;margin-top:14px;line-height:1.55}
+  .note.risk-note{color:var(--down);background:var(--down-bg);border-color:transparent}
+
+  /* ===== CONTENT / SEO ===== */
+  .content-section{padding:20px 0 48px}
+  .content-section h2{font-family:var(--f-head);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:36px 0 14px}
+  .content-section h2:first-child{margin-top:0}
+  .content-section h3{font-family:var(--f-head);font-weight:600;font-size:17px;letter-spacing:-.01em;margin:22px 0 8px}
+  .content-section p{font-size:14.5px;color:var(--text-soft);line-height:1.75;margin-bottom:12px;max-width:760px}
+  .content-section .formula{font-family:var(--f-mono);font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:inline-block;margin:8px 0 16px;color:var(--cx)}
+  .content-section ul{margin:0 0 16px 20px;color:var(--text-soft);font-size:14.5px;line-height:1.8}
+  .byline{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+  .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;max-width:780px}
+  .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .faq-q{width:100%;text-align:left;font-family:var(--f-body);font-weight:600;font-size:14.5px;color:var(--text);background:none;border:none;padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .faq-q svg{flex-shrink:0;transition:.25s;color:var(--muted)}
+  .faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--cx)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 18px 16px;font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
+
+  .disclaimer{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:30px;line-height:1.6}
+
+  /* ===== AD SLOTS ===== */
+  .ad{margin:26px 0;border:1px dashed var(--line-2);border-radius:16px;background:var(--panel);min-height:96px;display:grid;place-items:center;text-align:center;color:var(--muted)}
+  .ad .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .ad .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+
+  /* ===== RELATED ===== */
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .rel-card{border:1px solid var(--line);border-top:2px solid var(--cx);border-radius:12px;padding:15px;background:var(--panel);transition:.2s}
+  .rel-card:hover{transform:translateY(-3px);background:var(--panel-2)}
+  .rel-sym{font-family:var(--f-mono);font-size:10.5px;font-weight:700;color:var(--cx);background:var(--cx-tint);border-radius:6px;padding:3px 8px;display:inline-block}
+  .rel-name{font-family:var(--f-head);font-weight:600;font-size:13.5px;margin-top:9px}
+
+  /* ===== CHART ===== */
+  .chart-panel{padding:22px}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .chart-box{width:100%;height:280px}
+  .chart-loading{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+
+  /* ===== STATS GRID ===== */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .mstat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .mstat .k{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .mstat .v{font-family:var(--f-mono);font-weight:700;font-size:16.5px;margin-top:6px}
+  .mstat .v.up{color:var(--up)} .mstat .v.down{color:var(--down)}
+
+  /* ===== TABLES (year-by-year + benchmark) ===== */
+  .coins-table{width:100%;border-collapse:collapse;margin-top:16px}
+  .coins-table th{text-align:left;font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .coins-table td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  .coins-table tr:last-child td{border-bottom:none}
+  .ct-use{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:7px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+  .ct-use:hover{background:var(--cx);color:#1a1400}
+  .ct-use:disabled{opacity:.35;cursor:not-allowed}
+  .table-scroll{overflow-x:auto}
+  .table-scroll-y{max-height:0;overflow-y:hidden;transition:max-height .35s ease}
+  .table-scroll-y.open{max-height:480px;overflow-y:auto}
+  .show-more{margin-top:12px;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:9px;padding:8px 14px;cursor:pointer}
+
+  /* ===== GAUGE ===== */
+  .gauge-card{display:flex;align-items:center;gap:26px;padding:22px;flex-wrap:wrap}
+  .gauge-wrap{position:relative;width:200px;flex-shrink:0}
+  .gauge-svg{width:100%;height:auto}
+  .gauge-val{position:absolute;bottom:0;left:0;right:0;text-align:center}
+  .gv-num{font-family:var(--f-mono);font-weight:700;font-size:28px}
+  .gv-lbl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;text-transform:uppercase;color:var(--cx)}
+  .gauge-desc{flex:1;min-width:220px;font-size:13.5px;color:var(--text-soft);line-height:1.7}
+
+  footer{background:#15171D;border-top:1px solid rgba(255,255,255,.08);padding:44px 0 26px;margin-top:10px}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12px;color:#9297A0}
+  .foot-bottom a{font-size:12px;color:#9A9EA6}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.nav-links{display:none}}
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .panel{padding:20px}
+    .row2{grid-template-columns:1fr 1fr}
+    .related-grid{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .bench-bar{flex-direction:column}
+    .takeaways{padding:16px 18px}
+    .btn-accent{display:none}
+    .gauge-card{flex-direction:column;text-align:center}
+    .menu-btn{display:grid}
+    .calc-tabs{margin:0 -20px 20px;padding:0 20px 16px;width:calc(100% + 40px)}
+    .ctab-btn{font-size:11px;padding:6px 11px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* ===== TOC / QUICK NAV ===== */
+  .toc{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:16px}
+  .toc a{font-size:12.5px;font-weight:600;color:var(--text-soft);padding:6px 11px;border-radius:8px;transition:.18s;white-space:nowrap}
+  .toc a:hover{color:var(--text);background:var(--panel-2)}
+
+  /* ===== KEY TAKEAWAYS ===== */
+  .takeaways{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cx);border-radius:14px;padding:20px 24px;margin-top:18px}
+  .takeaways h2{font-family:var(--f-head);font-size:15px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em}
+  .takeaways ul{margin:0;padding:0;list-style:none;font-size:13.5px;color:var(--text-soft);line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+  .takeaways li{position:relative;padding-left:16px}
+  .takeaways li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--cx)}
+
+  /* ===== BYLINE / E-E-A-T ===== */
+  .page-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+  .review-box{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:24px}
+  .review-avatar{width:38px;height:38px;border-radius:50%;background:var(--cx-tint);color:var(--cx);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;flex-shrink:0}
+  .review-box .rb-name{font-weight:600;font-size:13.5px}
+  .review-box .rb-role{font-size:12px;color:var(--muted)}
+  .review-box p{margin-top:6px !important}
+
+  /* ===== GLOSSARY ===== */
+  .glossary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .gloss-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .gloss-item dt{font-family:var(--f-head);font-weight:600;font-size:14px;margin-bottom:4px}
+  .gloss-item dd{font-size:13px;color:var(--text-soft);line-height:1.6;margin:0}
+
+  /* ===== HOW-TO STEPS ===== */
+  .steps{counter-reset:step;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .step-num{counter-increment:step;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--cx-tint);color:var(--cx);font-family:var(--f-mono);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .step-num::before{content:counter(step)}
+  .step-body h3{margin:0 0 4px !important;font-size:14.5px !important}
+  .step-body p{margin:0 !important;font-size:13.5px !important}
+
+  /* ===== GOAL SCENARIO CARDS ===== */
+  .goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .goal-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.2s;text-align:left}
+  .goal-card:hover{transform:translateY(-3px);border-color:var(--cx)}
+  .goal-card .g-name{font-family:var(--f-head);font-weight:700;font-size:14.5px}
+  .goal-card .g-detail{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
+  .goal-card .g-cta{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);margin-top:10px;display:inline-block}
+
+  /* ===== EXPORT / PRINT / FEEDBACK ===== */
+  .export-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .export-row .btn{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .export-row .btn:hover{color:var(--text);border-color:var(--cx)}
+  .feedback-box{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:30px}
+  .feedback-box p{margin-bottom:12px !important}
+  .fb-btns{display:flex;gap:10px;justify-content:center}
+  .fb-btn{font-size:20px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:12px;padding:10px 18px;cursor:pointer;transition:.18s}
+  .fb-btn:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .fb-thanks{font-size:13px;color:var(--up);margin-top:10px;display:none}
+
+  @media(max-width:980px){.goal-grid{grid-template-columns:repeat(2,1fr)}.glossary{grid-template-columns:1fr}}
+  @media(max-width:680px){.takeaways ul{grid-template-columns:1fr}}
+  @media print{
+    header,.toc,.bench-bar,.ad,.share-row,.export-row,footer,.menu-btn,.nav-cta,.calc-tabs,#showMoreYears,.feedback-box{display:none !important}
+    body{background:#fff !important;color:#111 !important}
+    .panel{border:1px solid #ccc !important;background:#fff !important}
+    a{color:#111 !important}
+  }
+
+  /* ===== CALCULATE / CLEAR BUTTONS ===== */
+  .calc-btn-row{display:flex;gap:10px;margin:20px 0 2px}
+  .calc-btn-row .btn{flex:1;justify-content:center;font-size:14.5px;padding:13px 16px}
+  .btn-clear{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft)}
+  .btn-clear:hover{border-color:var(--down);color:var(--down);background:var(--down-bg)}
+  .btn-calc-pulse{animation:calcPulse .5s ease}
+  @keyframes calcPulse{0%{transform:scale(1)}30%{transform:scale(1.015)}100%{transform:scale(1)}}
+  .save-row{display:flex;gap:8px;margin-top:10px}
+  .save-row .in{flex:1}
+  .btn-save{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);white-space:nowrap;font-size:13px}
+  .btn-save:hover{border-color:var(--cx);color:var(--text)}
+
+  /* ===== LONG / SHORT DIRECTION TOGGLE ===== */
+  .seg-btn.on-long{background:var(--up-bg);color:var(--up);border-color:var(--up)}
+  .seg-btn.on-short{background:var(--down-bg);color:var(--down);border-color:var(--down)}
+
+  /* ===== TRADE RISK MAP ===== */
+  .tradebar-wrap{padding:8px 4px 4px}
+  .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is position sizing and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Position sizing is deciding how much of an asset to buy or sell on a trade so that your dollar risk stays consistent with a rule you've set in advance. It matters because it's the one part of a trade fully within your control — you can't control whether price hits your stop, but you can control how much that stop costs you."}},
+    {"@type":"Question","name":"How is crypto position size calculated?","acceptedAnswer":{"@type":"Answer","text":"Multiply your account balance by your chosen risk percentage to get your risk amount in dollars. Divide that by the distance between your entry price and stop-loss price (your risk per unit) to get the number of coins or tokens to buy or sell."}},
+    {"@type":"Question","name":"Does leverage increase my risk?","acceptedAnswer":{"@type":"Answer","text":"Not directly. Leverage changes how much margin (collateral) you need to open a given position size — it doesn't change your dollar loss if your stop-loss is hit, since that's driven by position size and stop distance. Higher leverage does move your liquidation price closer to your entry, so your stop-loss needs to sit safely before it."}},
+    {"@type":"Question","name":"What risk percentage should I use per trade?","acceptedAnswer":{"@type":"Answer","text":"Commonly cited guidance is 0.5-1% per trade for conservative accounts, 1-2% for active traders, and rarely above 2-3% even for high-conviction setups. At 1% risk per trade, it takes roughly 69 straight losses to cut an account in half; at 5% risk, only around 13-14 straight losses do the same."}},
+    {"@type":"Question","name":"How do trading fees affect position size?","acceptedAnswer":{"@type":"Answer","text":"Entry and exit fees are an additional cost on top of your intended risk, so ignoring them means your real loss if stopped out is larger than planned. This calculator's advanced settings let you add a fee percentage that's factored into a fee-adjusted risk figure."}},
+    {"@type":"Question","name":"What's the difference between position size and leverage?","acceptedAnswer":{"@type":"Answer","text":"Position size (or notional value) is the total dollar value of the trade. Leverage determines how much of your own capital (margin) you need to post to control that notional value — a $10,000 position at 10x leverage needs $1,000 margin, but your risk is still set by where your stop-loss sits, not by the leverage number."}},
+    {"@type":"Question","name":"Why do volatile altcoins need a wider stop-loss?","acceptedAnswer":{"@type":"Answer","text":"A stop placed too close to entry on a volatile asset is likely to be hit by normal price noise rather than an actual change in trend. Since position size is risk amount divided by stop distance, a wider stop for a volatile coin automatically produces a smaller position size for the same dollar risk."}},
+    {"@type":"Question","name":"Can I use this calculator for short positions?","acceptedAnswer":{"@type":"Answer","text":"Yes — switch the direction toggle to Short. The math is identical, just mirrored: your stop-loss sits above your entry price instead of below it, and the calculator validates that automatically."}},
+    {"@type":"Question","name":"What if the required margin exceeds my account balance?","acceptedAnswer":{"@type":"Answer","text":"That means the position size your risk rule calls for needs more leverage than you've entered, or more capital than you have available. The calculator flags this so you can raise leverage, reduce the position, tighten the stop, or skip the trade rather than accidentally over-committing your account."}},
+    {"@type":"Question","name":"Should I risk a fixed percentage or a fixed dollar amount?","acceptedAnswer":{"@type":"Answer","text":"A fixed percentage is generally recommended because it scales with your account — as your balance grows or shrinks, the dollar amount at risk adjusts automatically, keeping your risk proportionate. A fixed dollar amount stays static even as your account changes, which can quietly become too large or too small a share of your capital over time."}},
+    {"@type":"Question","name":"What is ATR and how does it help set a stop-loss?","acceptedAnswer":{"@type":"Answer","text":"ATR (Average True Range) measures how much an asset typically moves over a lookback period, usually 14 days. Setting a stop at a multiple of ATR \u2014 commonly 1.5x to 3x \u2014 scales the stop distance to the asset's real volatility instead of a fixed percentage picked out of habit."}},
+    {"@type":"Question","name":"What's the difference between isolated and cross margin?","acceptedAnswer":{"@type":"Answer","text":"With isolated margin, only the margin allocated to that specific position can be lost if it's liquidated. With cross margin, your entire account balance backs every open position, which allows more room before liquidation but means a bad outcome can draw down your whole balance rather than just one position's margin."}},
+    {"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes — use \"Print / Save as PDF\" for a printable summary of your current trade plan, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Calculator Boss","item":"https://calculatorboss.com/"},
+    {"@type":"ListItem","position":2,"name":"Money Tools","item":"https://calculatorboss.com/money-tools/"},
+    {"@type":"ListItem","position":3,"name":"Crypto","item":"https://calculatorboss.com/money-tools/#cat-crypto"},
+    {"@type":"ListItem","position":4,"name":"Crypto Position Size Calculator","item":"https://calculatorboss.com/crypto-position-size-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Crypto Position Size Calculator",
+  "url": "https://calculatorboss.com/crypto-position-size-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any (web browser)",
+  "datePublished": "2026-07-01",
+  "dateModified": "2026-07-01",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "publisher": {"@type":"Organization","name":"Calculator Boss"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to use the Crypto Position Size Calculator",
+  "step": [
+    {"@type":"HowToStep","name":"Enter your account balance","text":"Type in the total capital in the account you're trading from."},
+    {"@type":"HowToStep","name":"Set your risk per trade","text":"Choose a percentage of your account, or a fixed dollar amount, that you're willing to lose if the trade fails."},
+    {"@type":"HowToStep","name":"Pick a direction and enter entry and stop-loss","text":"Choose Long or Short, then enter your planned entry price and stop-loss price."},
+    {"@type":"HowToStep","name":"Add leverage and a take-profit if relevant","text":"Enter leverage to see required margin, and a take-profit price to see your risk:reward ratio."},
+    {"@type":"HowToStep","name":"Read your position size","text":"Review the position size in coins and dollars, the risk amount, required margin and risk:reward ratio."}
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+<a href="#calculator" class="skip-link">Skip to calculator</a>
+  <div class="wrap nav">
+    <a class="brand" href="../index.html">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#5B96F5"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#33C266"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#E5A93A"/>
+        </svg>
+      </span>
+      Calculator Boss
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light / dark mode">
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20 13a8 8 0 1 1-9-9 6.2 6.2 0 0 0 9 9Z"/></svg>
+      </button>
+      <a class="btn btn-accent" href="../index.html">Browse all tools</a>
+      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Calculator Boss</a><span class="sep">/</span>
+    <a href="../index.html#cat-crypto">Crypto</a><span class="sep">/</span>
+    <span class="cur">Crypto Position Size Calculator</span>
+  </nav>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+  <div class="hero-inner">
+    <span class="sym-badge">SIZE</span>
+    <h1 class="hero-title">Crypto Position Size Calculator</h1>
+    <p class="hero-sub">Enter your account balance, risk per trade, entry price and stop-loss to get the exact position size that keeps your loss on plan if the trade fails — in coins, in dollars, and as required margin if you're using leverage. Works for long or short setups, and solves backwards to find a stop-loss or check the risk on a position you've already sized.</p>
+    <div class="page-meta"><span id="lastUpdated">Last updated: July 2026</span><span>·</span><span>Reviewed by the Calculator Boss finance team</span><span>·</span><span>~6 min read</span></div>
+  </div>
+  <div class="takeaways reveal">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Position size = risk amount ÷ distance between entry and stop-loss. The stop distance decides the size, not the other way around.</li>
+      <li>Leverage changes the margin you need to post, not your dollar risk — your loss at the stop is set by position size and stop distance alone.</li>
+      <li>A fixed dollar position size makes your real risk swing wildly between a tight stop and a wide stop; risk-based sizing keeps it constant.</li>
+      <li>This tool also works backwards: find the stop-loss a target position size implies, or check the risk % on a trade you've already sized.</li>
+    </ul>
+  </div>
+  <div class="bench-bar reveal" id="benchBar"></div>
+  </div>
+</section>
+<!-- ===== CALCULATOR ===== -->
+<section class="calc-section" id="calculator">
+  <div class="wrap">
+    <div class="calc-grid reveal">
+
+      <!-- INPUTS -->
+      <div class="panel">
+        <div class="calc-tabs" id="calcTabs" role="tablist" aria-label="Calculation mode">
+          <button class="ctab-btn on" data-tab="size" role="tab" aria-selected="true" id="tab-size" aria-controls="panel-size">Position Size</button>
+          <button class="ctab-btn" data-tab="stop" role="tab" aria-selected="false" id="tab-stop" aria-controls="panel-stop">Find Stop-Loss</button>
+          <button class="ctab-btn" data-tab="risk" role="tab" aria-selected="false" id="tab-risk" aria-controls="panel-risk">Check My Risk %</button>
+        </div>
+
+        <div class="fld">
+          <label for="currency">Currency</label>
+          <select class="sel" id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD ($)</option>
+            <option value="AUD">AUD ($)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+        </div>
+
+        <!-- POSITION SIZE TAB -->
+        <div class="tab-fields" data-tab="size" role="tabpanel" id="panel-size" aria-labelledby="tab-size">
+          <div class="fld">
+            <label id="sizeDirLabel">Direction</label>
+            <div class="seg-row" id="sizeDirectionRow" role="group" aria-labelledby="sizeDirLabel">
+              <button class="seg-btn on-long" data-dir="long" aria-pressed="true">Long (Buy)</button>
+              <button class="seg-btn" data-dir="short" aria-pressed="false">Short (Sell)</button>
+            </div>
+          </div>
+          <div class="fld"><label for="accountBalance">Account balance</label><input class="in" id="accountBalance" type="number" value="10000" min="0"></div>
+          <div class="fld">
+            <label id="sizeRiskModeLabel">Risk per trade</label>
+            <div class="seg-row" id="sizeRiskModeRow" role="group" aria-labelledby="sizeRiskModeLabel">
+              <button class="seg-btn on-neutral" data-mode="pct" aria-pressed="true">% of account</button>
+              <button class="seg-btn" data-mode="fixed" aria-pressed="false">Fixed $ amount</button>
+            </div>
+          </div>
+          <div class="fld"><label for="riskValue" id="riskValueLabel">Risk <span class="hint">% of account</span></label><input class="in" id="riskValue" type="number" value="1" step="0.1" min="0"></div>
+          <div class="row2">
+            <div class="fld"><label for="entryPrice">Entry price</label><input class="in" id="entryPrice" type="number" value="67500" min="0"></div>
+            <div class="fld"><label for="stopLossPrice">Stop-loss price</label><input class="in" id="stopLossPrice" type="number" value="65000" min="0"></div>
+          </div>
+          <div class="fld"><label for="takeProfitPrice">Take-profit price <span class="hint">optional, for risk:reward</span></label><input class="in" id="takeProfitPrice" type="number" value="72000" min="0"></div>
+
+          <button type="button" class="advanced-toggle" id="atrToggle" aria-expanded="false" aria-controls="atrFields">
+            <span>Suggest a stop-loss from ATR (volatility)</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="advanced-fields" id="atrFields">
+            <div class="row2">
+              <div class="fld"><label for="atrValue">ATR (14) <span class="hint">price units</span></label><input class="in" id="atrValue" type="number" step="0.01" min="0" placeholder="e.g. 1200"></div>
+              <div class="fld"><label for="atrMultiplier">Multiplier <span class="hint">1.5\u20133x common</span></label><input class="in" id="atrMultiplier" type="number" value="2" step="0.5" min="0.5"></div>
+            </div>
+            <div class="atr-preview" id="atrPreview">Enter your entry price and an ATR value to see a suggested stop.</div>
+            <button type="button" class="btn btn-clear" id="useAtrStop" style="width:100%;justify-content:center">Use this stop-loss</button>
+          </div>
+
+          <button type="button" class="advanced-toggle" id="advancedToggle" aria-expanded="false" aria-controls="advancedFields">
+            <span>Advanced (leverage, fees, margin mode)</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="advanced-fields" id="advancedFields">
+            <div class="row2">
+              <div class="fld"><label for="leverage">Leverage <span class="hint">1 = spot / no leverage</span></label><input class="in" id="leverage" type="number" value="1" step="1" min="1" max="125"></div>
+              <div class="fld"><label for="feePct">Fee per side <span class="hint">% of notional</span></label><input class="in" id="feePct" type="number" value="0.05" step="0.01" min="0"></div>
+            </div>
+            <div class="fld">
+              <label id="marginModeLabel">Margin mode <span class="hint">only matters with leverage &gt; 1</span></label>
+              <div class="seg-row" id="marginModeRow" role="group" aria-labelledby="marginModeLabel">
+                <button class="seg-btn on-neutral" data-margin="isolated" aria-pressed="true">Isolated</button>
+                <button class="seg-btn" data-margin="cross" aria-pressed="false">Cross</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIND STOP-LOSS TAB -->
+        <div class="tab-fields" data-tab="stop" role="tabpanel" id="panel-stop" aria-labelledby="tab-stop" style="display:none">
+          <div class="fld">
+            <label id="stopDirLabel">Direction</label>
+            <div class="seg-row" id="stopDirectionRow" role="group" aria-labelledby="stopDirLabel">
+              <button class="seg-btn on-long" data-dir="long" aria-pressed="true">Long (Buy)</button>
+              <button class="seg-btn" data-dir="short" aria-pressed="false">Short (Sell)</button>
+            </div>
+          </div>
+          <div class="fld"><label for="stopAccountBalance">Account balance</label><input class="in" id="stopAccountBalance" type="number" value="10000" min="0"></div>
+          <div class="fld">
+            <label id="stopRiskModeLabel">Risk per trade</label>
+            <div class="seg-row" id="stopRiskModeRow" role="group" aria-labelledby="stopRiskModeLabel">
+              <button class="seg-btn on-neutral" data-mode="pct" aria-pressed="true">% of account</button>
+              <button class="seg-btn" data-mode="fixed" aria-pressed="false">Fixed $ amount</button>
+            </div>
+          </div>
+          <div class="fld"><label for="stopRiskValue" id="stopRiskValueLabel">Risk <span class="hint">% of account</span></label><input class="in" id="stopRiskValue" type="number" value="1" step="0.1" min="0"></div>
+          <div class="fld"><label for="stopEntryPrice">Entry price</label><input class="in" id="stopEntryPrice" type="number" value="67500" min="0"></div>
+          <div class="fld"><label for="stopPositionValue">Desired position size <span class="hint">$ notional value</span></label><input class="in" id="stopPositionValue" type="number" value="20000" min="0"></div>
+        </div>
+
+        <!-- CHECK MY RISK % TAB -->
+        <div class="tab-fields" data-tab="risk" role="tabpanel" id="panel-risk" aria-labelledby="tab-risk" style="display:none">
+          <div class="fld">
+            <label id="riskDirLabel">Direction</label>
+            <div class="seg-row" id="riskDirectionRow" role="group" aria-labelledby="riskDirLabel">
+              <button class="seg-btn on-long" data-dir="long" aria-pressed="true">Long (Buy)</button>
+              <button class="seg-btn" data-dir="short" aria-pressed="false">Short (Sell)</button>
+            </div>
+          </div>
+          <div class="fld"><label for="riskAccountBalance">Account balance</label><input class="in" id="riskAccountBalance" type="number" value="10000" min="0"></div>
+          <div class="fld"><label for="riskPositionValue">Your position size <span class="hint">$ notional value</span></label><input class="in" id="riskPositionValue" type="number" value="20000" min="0"></div>
+          <div class="row2">
+            <div class="fld"><label for="riskEntryPrice">Entry price</label><input class="in" id="riskEntryPrice" type="number" value="67500" min="0"></div>
+            <div class="fld"><label for="riskStopLossPrice">Stop-loss price</label><input class="in" id="riskStopLossPrice" type="number" value="65000" min="0"></div>
+          </div>
+        </div>
+
+        <div class="calc-btn-row">
+          <button type="button" class="btn btn-accent" id="calcBtn">Calculate</button>
+          <button type="button" class="btn btn-clear" id="clearBtn">Clear</button>
+        </div>
+        <div class="save-row">
+          <input class="in" id="presetName" type="text" placeholder="Name this setup (optional)" maxlength="40">
+          <button type="button" class="btn btn-save" id="savePresetBtn">💾 Save setup</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="result-hero up" id="resultHero" aria-live="polite" role="status">
+          <div class="rh-label" id="rhLabel">Position Size</div>
+          <div class="rh-value up" id="rhValue">0.0000</div>
+          <div class="rh-roi up" id="rhRoi"></div>
+          <div class="pl-bar" id="plBarWrap"><div class="pl-bar-fill" id="plBarFill"></div><div class="pl-bar-fill2" id="plBarFill2"></div></div>
+          <div class="pl-legend" id="plLegend"></div>
+        </div>
+        <div id="resultNote"></div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="stat-list" id="statList"></div>
+          <div class="share-row">
+            <button class="btn" id="copyResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy result</button>
+          </div>
+          <div class="export-row">
+            <button class="btn" id="printResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>
+            <button class="btn" id="downloadCsv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Download as CSV</button>
+            <button class="btn" id="copyShareLink"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Copy shareable link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">In-content unit — paste AdSense code here</div></div>
+  </div>
+</div>
+<!-- ===== TRADE RISK MAP ===== -->
+<section class="content-section" id="chart" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Trade risk map</h2>
+    <div class="panel chart-panel reveal">
+      <div class="chart-head">
+        <span class="mono" style="font-size:12.5px;color:var(--muted)" id="chartLabel">Stop-loss, entry and take-profit on a price axis</span>
+      </div>
+      <div class="chart-box tradebar-wrap" id="chartBox"><div class="chart-loading">Loading chart…</div></div>
+      <div class="pl-legend" id="chartLegend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MILESTONE STATS ===== -->
+<section class="content-section" id="milestones" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Key numbers</h2>
+    <div class="stats-grid reveal" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== RISK INTENSITY GAUGE ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Risk intensity</h2>
+    <div class="panel gauge-card reveal">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 220 130" class="gauge-svg">
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="var(--line-2)" stroke-width="16" stroke-linecap="round"/>
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="url(#ggrad)" stroke-width="16" stroke-linecap="round"/>
+          <defs><linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0E9F6E"/><stop offset="45%" stop-color="#E5B93A"/><stop offset="100%" stop-color="#F0546A"/>
+          </linearGradient></defs>
+          <g id="fgNeedle" style="transform-origin:110px 116px;transition:transform .8s cubic-bezier(.2,.7,.3,1)">
+            <line x1="110" y1="116" x2="110" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="116" r="6" fill="currentColor"/>
+          </g>
+        </svg>
+        <div class="gauge-val"><div class="gv-num" id="fgNum">--</div><div class="gv-lbl" id="fgLbl">Loading</div></div>
+      </div>
+      <div class="gauge-desc" id="gaugeDesc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STOP-DISTANCE SENSITIVITY TABLE ===== -->
+<section class="content-section" id="sensitivity" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How stop-loss distance changes your position size</h2>
+    <p style="margin-bottom:0">Using your current account balance and risk amount, here's how the position size shifts as the stop-loss gets closer to or further from entry — the same dollar risk, sized differently.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <div class="table-scroll-y" id="sensTableWrap">
+        <table class="coins-table">
+          <thead><tr><th>Stop distance</th><th>Stop-loss price</th><th>Position size</th><th>Position value</th></tr></thead>
+          <tbody id="sensTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">Responsive unit — paste AdSense code here</div></div>
+  </div>
+</div>
+
+<!-- ===== RISK % PRESETS ===== -->
+<section class="content-section" id="presets" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Common risk-per-trade presets</h2>
+    <p>Using your current account balance, entry and stop-loss, here's the position size and dollar risk at a few commonly cited risk percentages. These are general guidance, not a rule for your specific situation — your own risk tolerance and strategy matter more than any single number.</p>
+    <div class="page-meta" style="margin:0 0 14px"><span id="benchReviewDate">Guidance reviewed: July 2026</span></div>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Risk profile</th><th>Risk %</th><th>Position size</th><th>Risk amount</th><th><span class="visually-hidden">Action</span></th></tr></thead>
+        <tbody id="benchTbody"></tbody>
+      </table>
+    </div>
+    <nav class="toc reveal" aria-label="On this page">
+      <a href="#calculator">Calculator</a>
+      <a href="#chart">Risk Map</a>
+      <a href="#milestones">Key Numbers</a>
+      <a href="#sensitivity">Stop-Distance Table</a>
+      <a href="#presets">Risk Presets</a>
+      <a href="#learn">Learn</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#how-to">How to Use</a>
+      <a href="#mistakes">Common Mistakes</a>
+      <a href="#goals">Example Trades</a>
+      <a href="#saved-setups">Saved Setups</a>
+      <a href="#vs-fixed">Fixed vs. Risk-Based Sizing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</section>
+<!-- ===== SEO CONTENT ===== -->
+<section class="content-section" id="learn">
+  <div class="wrap">
+    <h2>Understanding position sizing</h2>
+    <p>Position sizing answers one question: given how much you're willing to lose on this trade, how many coins or tokens should you actually buy or sell? It's the step traders skip most often, and the one that determines whether a string of losing trades is a normal drawdown or an account-ending event. Two traders can take the exact same entry and stop-loss and end up with completely different outcomes purely because one sized the trade correctly and the other guessed.</p>
+    <div class="formula">Position size (units) = (Account balance × Risk %) ÷ |Entry price − Stop-loss price|</div>
+    <p>The risk amount — account balance multiplied by your chosen risk percentage — is fixed first. The distance between your entry and stop-loss then determines how many units that risk amount buys. A tight stop lets you size up; a wide stop forces you to size down. This calculator runs that formula on the main tab, and rearranges it to solve for a required stop-loss or to check the risk on a position you've already sized.</p>
+
+    <h3>Why leverage doesn't increase your dollar risk</h3>
+    <p>This is the most commonly misunderstood part of leveraged trading. Leverage determines how much margin — your own capital posted as collateral — is needed to open a given position size. It does not change how much you lose if your stop-loss is hit; that loss is set entirely by position size and stop distance, exactly as in the formula above. A $2,700 position needs $2,700 of your own money at 1x (spot), or roughly $270 of margin at 10x leverage — but if the stop-loss is hit either way, the dollar loss is the same. What leverage does change is your liquidation price, which moves closer to your entry as leverage increases. Your stop-loss needs to sit comfortably before that liquidation level, or the exchange will close the position for you before your own stop has a chance to.</p>
+
+    <h3>Fixed dollar size vs. risk-based sizing</h3>
+    <p>Trading the same dollar amount on every position — say, always buying $1,000 worth — feels simple, but it lets your actual risk swing wildly. A $1,000 position with a 2% stop risks $20; the same $1,000 position with an 8% stop risks $80, four times as much, purely because the setups had different stop distances. Risk-based sizing fixes the dollar risk instead and lets the position size move: targeting $100 of risk, a 2% stop allows a $5,000 position while an 8% stop allows only $1,250 — a quarter of the size, for the same $100 on the line either way. The "Stop-loss distance" table further down this page shows this relationship using your own numbers.</p>
+
+    <h3>Position sizing for volatile altcoins</h3>
+    <p>Bitcoin and Ethereum still move several percent in a normal day; smaller-cap altcoins routinely move far more. A stop-loss set too close to entry on a volatile coin is likely to be hit by ordinary noise rather than a genuine change in trend, which is why volatile assets typically need a proportionally wider stop. Because position size is risk amount divided by stop distance, a wider stop on a volatile coin automatically produces a smaller position for the same dollar risk — the formula adjusts for volatility on its own once you set the stop where the chart actually calls for it, rather than picking a fixed percentage out of habit.</p>
+
+    <h3>A worked example</h3>
+    <p>Account balance $10,000, risking 1% ($100) on a long entry at $67,500 with a stop-loss at $65,000. The stop is $2,500 away from entry (about 3.7%), so the position size is $100 ÷ $2,500 = 0.04 BTC, worth $2,700 at entry. Add a take-profit at $72,000 and the reward is $4,500 per unit against $2,500 of risk — a risk:reward ratio of about 1:1.8. On 10x leverage, that $2,700 position needs roughly $270 of margin; the $100 risk if the stop is hit doesn't change.</p>
+
+    <h3>Trading fees eat into your risk budget</h3>
+    <p>Exchange fees on both the entry and the exit are a cost on top of your intended risk, not included in the basic formula. A 0.05% taker fee on each side of a $2,700 position adds roughly $2.70 in total fees — small on its own, but it compounds across dozens of trades and matters more on tight-stop, high-frequency strategies. The advanced settings on this calculator let you add a fee percentage that's factored into a separate fee-adjusted risk figure, so the number you see is closer to your real worst case.</p>
+
+    <h3>How much should you risk per trade?</h3>
+    <p>There's no universally "correct" number, but commonly cited guidance clusters around 0.5-1% per trade for conservative accounts, 1-2% for active traders, and rarely more than 2-3% even on high-conviction setups. The reason comes down to survivability: at a steady 1% risk per trade, it takes roughly 69 consecutive losses to cut an account in half. At 5% risk per trade, only around 13-14 consecutive losses do the same damage. No strategy has a 100% win rate, so the risk percentage you choose is really a decision about how many losing trades in a row your account — and your discipline — can absorb.</p>
+
+    <h3>Setting a stop-loss from ATR instead of a round percentage</h3>
+    <p>Picking a stop at a flat "5% below entry" ignores how much the asset actually moves day to day — a stop that's comfortably wide on a calm asset can be far too tight on a volatile one, and vice versa. The Average True Range (ATR) measures an asset's typical price movement over a lookback period (14 days is standard), so a stop set as a multiple of ATR — commonly 1.5x to 3x — scales automatically with real volatility instead of a guess. For example, with a 14-day ATR of $1,200 on an entry at $67,500, a 2x-ATR stop sits $2,400 away at $65,100 (about 3.6%) — tighter or wider than that depends entirely on how the asset has actually been trading, not on a round number picked out of habit. Use the ATR helper above the stop-loss field to compute this automatically and load it straight into the calculator.</p>
+
+    <h3>Isolated margin vs. cross margin</h3>
+    <p>These two settings change what happens if a leveraged position moves against you, without changing the risk math itself. With <b>isolated margin</b>, only the margin allocated to that specific position can be lost — if it's liquidated, the damage is capped at the margin shown above, and the rest of your account balance is untouched. With <b>cross margin</b>, your entire account balance backs every open position, which can survive a larger adverse move before liquidation (more collateral is available), but a bad outcome can draw down your whole balance rather than just one position's margin. Neither setting changes your planned dollar risk from this calculator's main formula — it only changes what backs the position if the market gaps past your stop-loss or the stop isn't honored.</p>
+  </div>
+</section>
+
+<!-- ===== GLOSSARY ===== -->
+<section class="content-section" id="glossary" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Glossary of terms</h2>
+    <dl class="glossary reveal">
+      <div class="gloss-item"><dt>Position size</dt><dd>The number of coins or tokens you buy or sell on a trade — the output this calculator solves for on the main tab.</dd></div>
+      <div class="gloss-item"><dt>Notional / position value</dt><dd>The total dollar value of the position: position size multiplied by entry price.</dd></div>
+      <div class="gloss-item"><dt>Risk amount</dt><dd>The dollar amount you stand to lose if your stop-loss is hit — your account balance multiplied by your chosen risk percentage, or a fixed dollar figure you set directly.</dd></div>
+      <div class="gloss-item"><dt>Risk per unit</dt><dd>The dollar distance between your entry price and your stop-loss price for a single coin or token.</dd></div>
+      <div class="gloss-item"><dt>Leverage</dt><dd>A multiplier that reduces how much of your own capital (margin) is needed to control a given position size — it does not change your dollar risk at the stop-loss.</dd></div>
+      <div class="gloss-item"><dt>Margin</dt><dd>The collateral required to open a leveraged position, calculated as the position's notional value divided by the leverage used.</dd></div>
+      <div class="gloss-item"><dt>Risk:Reward ratio</dt><dd>The distance from entry to your take-profit divided by the distance from entry to your stop-loss — a 1:2 ratio means the potential gain is twice the potential loss.</dd></div>
+      <div class="gloss-item"><dt>Long / Short</dt><dd>Long means buying, profiting if price rises (stop-loss sits below entry). Short means selling first, profiting if price falls (stop-loss sits above entry).</dd></div>
+      <div class="gloss-item"><dt>ATR (Average True Range)</dt><dd>A volatility measure showing an asset's typical price movement over a lookback period, commonly 14 days — used to set a stop-loss that scales with real volatility instead of a fixed percentage.</dd></div>
+      <div class="gloss-item"><dt>Isolated margin</dt><dd>A margin mode where only the collateral allocated to one position can be lost if it's liquidated, leaving the rest of the account balance untouched.</dd></div>
+      <div class="gloss-item"><dt>Cross margin</dt><dd>A margin mode where the entire account balance backs every open position, giving more room before liquidation but exposing the whole balance if things go badly.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== HOW TO USE ===== -->
+<section class="content-section" id="how-to" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How to use this calculator</h2>
+    <div class="steps reveal">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Enter your account balance</h3><p>Type in the total capital in the account you're trading from.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Set your risk per trade</h3><p>Choose a percentage of your account, or a fixed dollar amount, that you're willing to lose if the trade fails.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Pick a direction and enter entry and stop-loss</h3><p>Choose Long or Short, then enter your planned entry price and stop-loss price.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Add leverage and a take-profit if relevant</h3><p>Enter leverage to see required margin, and a take-profit price to see your risk:reward ratio.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Read your position size</h3><p>Review the position size in coins and dollars, the risk amount, required margin and risk:reward ratio, then click Calculate to lock in the numbers or Clear to start a fresh trade.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMON MISTAKES ===== -->
+<section class="content-section" id="mistakes" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Common mistakes &amp; tips for sizing trades well</h2>
+    <ul>
+      <li><b>Trading a fixed dollar size regardless of stop distance.</b> The same position size can mean wildly different dollar risk depending on how far away the stop-loss is — size from the risk amount, not a habit.</li>
+      <li><b>Confusing leverage with risk.</b> Leverage sets your margin requirement; your stop-loss and position size set your actual dollar risk. Raising leverage without shrinking position size increases exposure, not just convenience.</li>
+      <li><b>Ignoring fees.</b> Entry and exit fees are a real cost on top of your planned risk, especially on tight-stop or high-frequency strategies.</li>
+      <li><b>Moving the stop-loss after entering.</b> Widening a stop because price is moving against you turns a planned, sized risk into an unplanned, unsized one.</li>
+      <li><b>Using the same stop percentage on every asset.</b> A 2% stop that works on Bitcoin may be far too tight for a volatile small-cap altcoin, and will get hit by normal noise.</li>
+      <li><b>Sizing up on "high conviction" trades.</b> Confidence in a setup doesn't reduce the chance it's wrong — treat every trade with the same risk discipline regardless of how sure it feels.</li>
+    </ul>
+  </div>
+</section>
+<!-- ===== GOAL EXAMPLES ===== -->
+<section class="content-section" id="goals" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Example trades</h2>
+    <p>A few realistic account, entry and stop-loss combinations — click one to load it into the Position Size tab above.</p>
+    <div class="goal-grid reveal" id="goalGrid"></div>
+  </div>
+</section>
+
+<!-- ===== SAVED SETUPS ===== -->
+<section class="content-section" id="saved-setups" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Your saved setups</h2>
+    <p>Click "💾 Save setup" above to keep the trade you're currently sizing — it's stored privately in this browser, not sent anywhere, so it'll be here next time you visit on this device.</p>
+    <div class="goal-grid reveal" id="savedPresetsList"></div>
+  </div>
+</section>
+
+<!-- ===== FIXED VS RISK-BASED SIZING ===== -->
+<section class="content-section" id="vs-fixed" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Fixed position size vs. risk-based sizing — a side-by-side example</h2>
+    <p>Two trades, both taken with a fixed $1,000 position — the only difference is how far away the stop-loss sits. Compare that to sizing each trade to keep the dollar risk fixed at $100 instead.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Approach</th><th>Trade A (2% stop)</th><th>Trade B (8% stop)</th></tr></thead>
+        <tbody>
+          <tr><td>Fixed $1,000 position</td><td class="mono" style="color:var(--up)">Risk = $20</td><td class="mono" style="color:var(--down);font-weight:700">Risk = $80 (4× more)</td></tr>
+          <tr><td>Risk-based ($100 target)</td><td class="mono" style="font-weight:700">Position = $5,000</td><td class="mono">Position = $1,250 (¼ the size)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">Fixed sizing let the same $1,000 position risk four times as much on the wider-stop trade, purely by accident of where the stop happened to land. Risk-based sizing holds the $100 risk steady on both trades and lets the position size do the adjusting instead — which is the entire point of calculating position size from risk rather than picking a dollar amount out of habit.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="content-section" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Frequently asked questions</h2>
+    <div class="faq-list" id="faqList"></div>
+
+    <div class="disclaimer">This calculator provides estimates for general informational purposes only and is not financial or trading advice. Trading cryptocurrency, especially with leverage, carries substantial risk of loss — consult a licensed financial advisor and your exchange's own margin rules before placing a trade.</div>
+
+    <div class="review-box">
+      <div class="review-avatar">CB</div>
+      <div>
+        <div class="rb-name">Calculator Boss Finance Team</div>
+        <div class="rb-role">Content and formulas cross-checked against standard risk-management references (below) · <span id="lastReviewed">Last reviewed July 2026</span></div>
+        <p style="margin-top:8px">Have feedback on this calculator, or spotted something that looks off? Use the feedback widget below or reach out via the About page — we periodically review these tools for accuracy.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:16px">
+      <b>References &amp; further reading:</b>
+      <ul style="margin:8px 0 0 18px;padding:0;line-height:1.7">
+        <li>Tharp, V. K. (2007). <i>Trade Your Way to Financial Freedom</i> (2nd ed.). McGraw-Hill. — the core reference on position sizing as the deciding factor in trading outcomes, cited throughout this page's approach to risk-based sizing.</li>
+        <li>Elder, A. (2014). <i>The New Trading for a Living</i>. John Wiley &amp; Sons. — source of the widely used "2% Rule" for per-trade risk referenced in the risk-percentage guidance above.</li>
+      </ul>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox">
+      <p>Was this calculator helpful?</p>
+      <div class="fb-btns">
+        <button class="fb-btn" data-fb="up" aria-label="Yes, helpful">👍</button>
+        <button class="fb-btn" data-fb="down" aria-label="Not helpful">👎</button>
+      </div>
+      <div class="fb-thanks" id="fbThanks">Thanks for letting us know!</div>
+    </div>
+
+    <div class="byline">Built by the Calculator Boss team</div>
+  </div>
+</section>
+
+<!-- ===== RELATED ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Related calculators</h2>
+    <div class="related-grid">
+      <a class="rel-card" href="../risk-reward-calculator/"><span class="rel-sym">R:R</span><div class="rel-name">Risk / Reward Calculator</div></a>
+      <a class="rel-card" href="../leverage-calculator/"><span class="rel-sym">LEV</span><div class="rel-name">Leverage Calculator</div></a>
+      <a class="rel-card" href="../liquidation-price-calculator/"><span class="rel-sym">LIQ</span><div class="rel-name">Liquidation Price Calculator</div></a>
+      <a class="rel-card" href="../crypto-profit-loss-calculator/"><span class="rel-sym">PNL</span><div class="rel-name">Crypto Profit / Loss Calculator</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <p>© 2026 Calculator Boss. Estimates only — not financial or trading advice.</p>
+      <a href="../index.html">← Back to all Money Tools</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id);};
+  var fmt=function(n,d){ if(d===undefined) d=2; if(!isFinite(n)) n=0; return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); };
+  var CURR = {USD:'$',GBP:'£',CAD:'$',AUD:'$',EUR:'€'};
+  var currency='USD';
+  var money=function(n,d){ if(d===undefined)d=2; if(!isFinite(n)) n=0; var neg=n<0; var s=CURR[currency]||'$'; return (neg?'-':'')+s+fmt(Math.abs(n),d); };
+  function coins(n){ if(!isFinite(n)) n=0; var a=Math.abs(n); var d = a<1?6:(a<1000?4:2); return fmt(n,d); }
+  function isBlank(id){ var el=$(id); return !el || el.value.trim()===''; }
+
+  /* ---------- auto-refreshing freshness date ---------- */
+  (function(){
+    var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var now=new Date();
+    var label = MONTHS[now.getMonth()]+' '+now.getFullYear();
+    var lu=$('lastUpdated'); if(lu) lu.textContent='Last updated: '+label;
+    var br=$('benchReviewDate'); if(br) br.textContent='Guidance reviewed: '+label;
+    var lr=$('lastReviewed'); if(lr) lr.textContent='Last reviewed '+label;
+    try{
+      var iso = now.toISOString().slice(0,10);
+      Array.prototype.forEach.call(document.querySelectorAll('script[type="application/ld+json"]'), function(s){
+        try{ var data=JSON.parse(s.textContent); if(data['@type']==='WebApplication'){ data.dateModified=iso; s.textContent=JSON.stringify(data); } }catch(e){}
+      });
+    }catch(e){}
+  })();
+
+  /* ---------- theme toggle ---------- */
+  (function(){
+    var html=document.documentElement;
+    var toggle=$('themeToggle'), iconSun=$('iconSun'), iconMoon=$('iconMoon');
+    function syncIcons(){ var isLight=html.getAttribute('data-theme')==='light'; iconSun.style.display=isLight?'none':''; iconMoon.style.display=isLight?'':'none'; }
+    syncIcons();
+    toggle.addEventListener('click', function(){
+      var isLight = html.getAttribute('data-theme')==='light';
+      if(isLight){ html.removeAttribute('data-theme'); } else { html.setAttribute('data-theme','light'); }
+      try{ localStorage.setItem('cf-theme', isLight?'dark':'light'); }catch(e){}
+      syncIcons();
+    });
+  })();
+
+  /* ---------- state ---------- */
+  var STATE = {
+    activeTab:'size',
+    size:{dir:'long', mode:'pct', margin:'isolated'},
+    stop:{dir:'long', mode:'pct'},
+    risk:{dir:'long'}
+  };
+  var EFF = null; // {units,value,riskAmt,riskPct,stopPct,margin,marginPct,entry,stop,tp,rr,direction,account,leverage,feePct,marginMode}
+
+  /* ---------- core math ---------- */
+  function riskAmountOf(account, mode, val){ return mode==='pct' ? account*val/100 : val; }
+  function row(lbl,val){ return '<div class="stat-row"><span class="stat-lbl">'+lbl+'</span><span class="stat-val">'+val+'</span></div>'; }
+  function setResultHero(label,value,cls,sub){
+    var hero=$('resultHero');
+    hero.className='result-hero '+cls;
+    $('rhLabel').textContent=label;
+    $('rhValue').className='rh-value '+cls;
+    $('rhValue').textContent=value;
+    $('rhRoi').className='rh-roi '+cls;
+    $('rhRoi').textContent=sub||'';
+  }
+  function setNote(html,risk){
+    $('resultNote').innerHTML = html ? ('<div class="note'+(risk?' risk-note':'')+'">'+html+'</div>') : '';
+  }
+  function setPlBar(aPct,bPct){
+    $('plBarFill').style.cssText='left:0;width:'+aPct+'%;background:#5B96F5';
+    $('plBarFill2').style.cssText='left:'+aPct+'%;width:'+bPct+'%;background:var(--cx)';
+  }
+
+  function showEmptyState(label, msg){
+    setResultHero(label, '—', 'neutral', '');
+    setNote(msg, false);
+    $('statList').innerHTML='';
+    setPlBar(0,0);
+    $('plLegend').innerHTML='';
+    EFF=null;
+    $('chartBox').innerHTML='<div class="tradebar-empty">Enter your trade details above to see the risk map.</div>';
+    $('chartLegend').innerHTML='';
+    $('statsGrid').innerHTML='';
+    $('fgNum').textContent='--'; $('fgLbl').textContent='—';
+    $('fgNeedle').style.transform='rotate(-90deg)';
+    $('gaugeDesc').textContent='Fill in your trade details above to see where your risk falls on the scale.';
+    $('sensTbody').innerHTML='';
+  }
+
+  /* ---------- direction / risk-mode toggles ---------- */
+  function setDirection(tabKey, dir){
+    STATE[tabKey].dir = dir;
+    var row=$(tabKey+'DirectionRow');
+    if(!row) return;
+    Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      var isOn = b.dataset.dir===dir;
+      b.classList.remove('on-long','on-short');
+      if(isOn) b.classList.add(dir==='long'?'on-long':'on-short');
+      b.setAttribute('aria-pressed', isOn?'true':'false');
+    });
+  }
+  function setRiskMode(tabKey, mode){
+    STATE[tabKey].mode = mode;
+    var row=$(tabKey+'RiskModeRow');
+    if(row){
+      Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+        var isOn=b.dataset.mode===mode;
+        b.classList.toggle('on-neutral', isOn);
+        b.setAttribute('aria-pressed', isOn?'true':'false');
+      });
+    }
+    var lblId = tabKey==='size' ? 'riskValueLabel' : 'stopRiskValueLabel';
+    var lbl=$(lblId);
+    if(lbl){
+      var hint=lbl.querySelector('.hint');
+      if(hint) hint.textContent = mode==='pct' ? '% of account' : '$ fixed amount';
+    }
+  }
+  function setMarginMode(mode){
+    STATE.size.margin = mode;
+    var row=$('marginModeRow');
+    if(row) Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      var isOn=b.dataset.margin===mode;
+      b.classList.toggle('on-neutral', isOn);
+      b.setAttribute('aria-pressed', isOn?'true':'false');
+    });
+  }
+
+  /* ---------- tab calculators ---------- */
+  function calcSize(){
+    if(isBlank('accountBalance')||isBlank('riskValue')||isBlank('entryPrice')||isBlank('stopLossPrice')){
+      showEmptyState('Position Size','Fill in account balance, risk, entry and stop-loss to see your position size.');
+      return;
+    }
+    var account=parseFloat($('accountBalance').value)||0;
+    var mode=STATE.size.mode, riskVal=parseFloat($('riskValue').value)||0;
+    var direction=STATE.size.dir;
+    var entry=parseFloat($('entryPrice').value)||0;
+    var stop=parseFloat($('stopLossPrice').value)||0;
+    var tpRaw=$('takeProfitPrice').value;
+    var tp = tpRaw.trim()==='' ? 0 : (parseFloat(tpRaw)||0);
+    var hasTp = tp>0;
+    var leverage=parseFloat($('leverage').value)||1; if(leverage<1) leverage=1;
+    var feePct=parseFloat($('feePct').value)||0;
+
+    if(account<=0 || entry<=0){
+      setResultHero('Position Size','—','risk','');
+      setNote('Account balance and entry price must be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var riskPerUnit = Math.abs(entry-stop);
+    if(riskPerUnit<=0){
+      setResultHero('Position Size','—','risk','');
+      setNote('Stop-loss can\u2019t equal your entry price.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var riskAmt = riskAmountOf(account, mode, riskVal);
+    var units = riskAmt/riskPerUnit;
+    var value = units*entry;
+    var riskPct = account>0 ? riskAmt/account*100 : 0;
+    var stopPct = riskPerUnit/entry*100;
+    var margin = value/leverage;
+    var marginPct = account>0 ? margin/account*100 : 0;
+    var totalFees = value*feePct/100*2;
+    var feeAdjRisk = riskAmt+totalFees;
+    var feeAdjRiskPct = account>0 ? feeAdjRisk/account*100 : 0;
+
+    var dirValid = direction==='long' ? stop<entry : stop>entry;
+    var rr=null, reward=null;
+    if(hasTp){
+      var tpValid = direction==='long' ? tp>entry : tp<entry;
+      reward = Math.abs(tp-entry);
+      rr = reward/riskPerUnit;
+    }
+
+    var cls = riskPct>5 ? 'risk' : (riskPct>2 ? 'neutral' : 'up');
+    setResultHero('Position Size', coins(units)+' units', cls, money(value)+' notional \u00b7 '+fmt(riskPct,2)+'% risk ('+money(riskAmt)+')');
+    var freePct = Math.max(0, Math.min(100, 100-marginPct));
+    setPlBar(Math.max(0,Math.min(100,marginPct)), 0);
+    $('plLegend').innerHTML = '<span><span class="leg-dot" style="background:#5B96F5"></span>Margin required ('+fmt(Math.min(100,marginPct),1)+'% of account)</span>';
+
+    var notes=[];
+    if(!dirValid) notes.push('For a '+(direction==='long'?'long':'short')+' position, your stop-loss should be '+(direction==='long'?'below':'above')+' your entry price \u2014 double-check your prices.');
+    if(hasTp && !tpValid) notes.push('Your take-profit looks like it\u2019s on the wrong side of entry for a '+direction+' position.');
+    if(marginPct>100) notes.push('Required margin ('+money(margin)+') exceeds your account balance at '+fmt(leverage,0)+'x leverage \u2014 raise leverage, reduce risk, or tighten the stop.');
+    if(leverage>1){
+      notes.push('With leverage, keep your stop-loss safely before your liquidation price \u2014 check the Liquidation Price Calculator for the exact level.');
+      notes.push(STATE.size.margin==='isolated'
+        ? 'Isolated margin: if liquidated, the loss on this position is capped at the '+money(margin)+' margin shown \u2014 the rest of your account is untouched.'
+        : 'Cross margin: your whole account balance backs this position, which allows more room before liquidation but can draw down your entire balance if it goes badly.');
+    }
+    setNote(notes.length?notes.join(' '):'', !dirValid||marginPct>100);
+
+    $('statList').innerHTML =
+      row('Position value (notional)', money(value))+
+      row('Risk amount', money(riskAmt)+' ('+fmt(riskPct,2)+'%)')+
+      row('Stop-loss distance', fmt(stopPct,2)+'%')+
+      row('Required margin', money(margin)+(leverage>1?' at '+fmt(leverage,0)+'x ('+(STATE.size.margin==='isolated'?'Isolated':'Cross')+')':''))+
+      (hasTp && rr!=null ? row('Risk:Reward ratio', '1 : '+fmt(rr,2)) : '')+
+      row('Fee-adjusted risk', money(feeAdjRisk)+' ('+fmt(feeAdjRiskPct,2)+'%)');
+
+    EFF = {units:units, value:value, riskAmt:riskAmt, riskPct:riskPct, stopPct:stopPct, margin:margin, marginPct:marginPct,
+           entry:entry, stop:stop, tp:hasTp?tp:null, rr:rr, direction:direction, account:account, leverage:leverage,
+           feePct:feePct, mode:mode, riskVal:riskVal, marginMode:STATE.size.margin, tabKey:'size'};
+    renderDownstream();
+  }
+
+  function calcStop(){
+    if(isBlank('stopAccountBalance')||isBlank('stopRiskValue')||isBlank('stopEntryPrice')||isBlank('stopPositionValue')){
+      showEmptyState('Required Stop-Loss','Fill in account balance, risk, entry and desired position size to find your stop-loss.');
+      return;
+    }
+    var account=parseFloat($('stopAccountBalance').value)||0;
+    var mode=STATE.stop.mode, riskVal=parseFloat($('stopRiskValue').value)||0;
+    var direction=STATE.stop.dir;
+    var entry=parseFloat($('stopEntryPrice').value)||0;
+    var posValue=parseFloat($('stopPositionValue').value)||0;
+
+    if(account<=0 || entry<=0 || posValue<=0){
+      setResultHero('Required Stop-Loss','—','risk','');
+      setNote('Account balance, entry price and position size must all be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var riskAmt = riskAmountOf(account, mode, riskVal);
+    var units = posValue/entry;
+    var riskPerUnit = units>0 ? riskAmt/units : 0;
+    var stopPrice = direction==='long' ? entry-riskPerUnit : entry+riskPerUnit;
+    var stopPct = entry>0 ? riskPerUnit/entry*100 : 0;
+    var riskPct = account>0 ? riskAmt/account*100 : 0;
+
+    var cls = riskPct>5 ? 'risk' : (riskPct>2 ? 'neutral' : 'up');
+    var invalid = stopPrice<=0;
+    setResultHero('Required Stop-Loss', invalid?'—':money(stopPrice), invalid?'risk':cls, invalid?'':fmt(stopPct,2)+'% from entry, '+money(riskAmt)+' risk');
+    setPlBar(0,0);
+    $('plLegend').innerHTML='';
+    setNote(invalid ? 'That position size and risk combination implies a stop-loss at or below zero \u2014 reduce the position size or increase your risk amount.' : '', invalid);
+
+    $('statList').innerHTML =
+      row('Position size', coins(units)+' units ('+money(posValue)+')')+
+      row('Risk amount', money(riskAmt)+' ('+fmt(riskPct,2)+'%)')+
+      row('Stop-loss distance', fmt(stopPct,2)+'%')+
+      row('Direction', direction==='long'?'Long (stop below entry)':'Short (stop above entry)');
+
+    EFF = {units:units, value:posValue, riskAmt:riskAmt, riskPct:riskPct, stopPct:stopPct, margin:posValue, marginPct:0,
+           entry:entry, stop:invalid?entry:stopPrice, tp:null, rr:null, direction:direction, account:account, leverage:1,
+           feePct:0, mode:mode, riskVal:riskVal, tabKey:'stop'};
+    renderDownstream();
+  }
+
+  function calcRisk(){
+    if(isBlank('riskAccountBalance')||isBlank('riskPositionValue')||isBlank('riskEntryPrice')||isBlank('riskStopLossPrice')){
+      showEmptyState('Risk on This Position','Fill in account balance, position size, entry and stop-loss to check your risk %.');
+      return;
+    }
+    var account=parseFloat($('riskAccountBalance').value)||0;
+    var posValue=parseFloat($('riskPositionValue').value)||0;
+    var direction=STATE.risk.dir;
+    var entry=parseFloat($('riskEntryPrice').value)||0;
+    var stop=parseFloat($('riskStopLossPrice').value)||0;
+
+    if(account<=0 || entry<=0){
+      setResultHero('Risk on This Position','—','risk','');
+      setNote('Account balance and entry price must be greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var riskPerUnit = Math.abs(entry-stop);
+    var units = posValue/entry;
+    var riskAmt = units*riskPerUnit;
+    var riskPct = account>0 ? riskAmt/account*100 : 0;
+    var stopPct = entry>0 ? riskPerUnit/entry*100 : 0;
+    var dirValid = direction==='long' ? stop<entry : stop>entry;
+
+    var cls = riskPct>5 ? 'risk' : (riskPct>2 ? 'neutral' : 'up');
+    setResultHero('Risk on This Position', fmt(riskPct,2)+'%', cls, money(riskAmt)+' at risk on a '+money(posValue)+' position');
+    setPlBar(0,0);
+    $('plLegend').innerHTML='';
+    setNote(!dirValid ? 'For a '+direction+' position, your stop-loss should be '+(direction==='long'?'below':'above')+' your entry price \u2014 double-check your prices.' : (riskPct>5 ? 'This is well above commonly cited risk guidance of 1\u20132% per trade \u2014 consider reducing position size or tightening the stop.' : ''), !dirValid||riskPct>5);
+
+    $('statList').innerHTML =
+      row('Position size', coins(units)+' units')+
+      row('Risk amount', money(riskAmt))+
+      row('Risk % of account', fmt(riskPct,2)+'%')+
+      row('Stop-loss distance', fmt(stopPct,2)+'%');
+
+    EFF = {units:units, value:posValue, riskAmt:riskAmt, riskPct:riskPct, stopPct:stopPct, margin:posValue, marginPct:0,
+           entry:entry, stop:stop, tp:null, rr:null, direction:direction, account:account, leverage:1,
+           feePct:0, mode:'pct', riskVal:riskPct, tabKey:'risk'};
+    renderDownstream();
+  }
+
+  var CALC_FNS = {size:calcSize, stop:calcStop, risk:calcRisk};
+  function calc(){ (CALC_FNS[STATE.activeTab]||calcSize)(); }
+
+  /* ---------- downstream: trade map, milestones, gauge, sensitivity, presets ---------- */
+  function renderDownstream(){
+    if(!EFF) return;
+    drawTradeMap(EFF.entry, EFF.stop, EFF.tp, EFF.direction);
+    renderMilestones();
+    renderGauge();
+    renderSensitivityTable();
+    renderPresets();
+  }
+
+  function drawTradeMap(entry, stop, tp, direction){
+    var box=$('chartBox');
+    if(!(entry>0) || !isFinite(stop)){ box.innerHTML='<div class="tradebar-empty">Enter entry and stop-loss to see the risk map.</div>'; return; }
+    var W=900,H=280, top=26, bottom=H-26;
+    var hasTp = tp!=null && tp>0;
+    var vals=[entry,stop]; if(hasTp) vals.push(tp);
+    var pMin=Math.min.apply(null,vals), pMax=Math.max.apply(null,vals);
+    var range = pMax-pMin; if(range<=0) range = (pMax||1)*0.05;
+    var pad = range*0.35;
+    pMin-=pad; pMax+=pad;
+    function yOf(p){ return top + (pMax-p)/(pMax-pMin)*(bottom-top); }
+    var barX=W*0.14, barW=W*0.07;
+    var yEntry=yOf(entry), yStop=yOf(stop), yTp = hasTp? yOf(tp): null;
+
+    var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="overflow:visible">';
+    s+='<rect x="'+barX+'" y="'+top+'" width="'+barW+'" height="'+(bottom-top)+'" rx="6" fill="var(--line-2)" opacity="0.5"/>';
+    var riskTop=Math.min(yEntry,yStop), riskH=Math.max(2,Math.abs(yStop-yEntry));
+    s+='<rect x="'+barX+'" y="'+riskTop+'" width="'+barW+'" height="'+riskH+'" rx="4" fill="var(--down)" opacity="0.45"/>';
+    if(hasTp){
+      var rewTop=Math.min(yEntry,yTp), rewH=Math.max(2,Math.abs(yTp-yEntry));
+      s+='<rect x="'+barX+'" y="'+rewTop+'" width="'+barW+'" height="'+rewH+'" rx="4" fill="var(--up)" opacity="0.45"/>';
+    }
+    function markerLine(y,color,label,priceStr,sub,dashed){
+      var x2=W-24;
+      var out='<line x1="'+barX+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'" stroke="'+color+'" stroke-width="2"'+(dashed?' stroke-dasharray="5 4"':'')+'/>';
+      out+='<circle cx="'+(barX+barW/2)+'" cy="'+y+'" r="4.5" fill="'+color+'"/>';
+      out+='<text x="'+(x2-6)+'" y="'+(y-9)+'" text-anchor="end" font-family="var(--f-mono)" font-size="12.5" font-weight="700" fill="'+color+'">'+label+' '+priceStr+'</text>';
+      if(sub) out+='<text x="'+(x2-6)+'" y="'+(y+15)+'" text-anchor="end" font-family="var(--f-mono)" font-size="10.5" fill="var(--muted)">'+sub+'</text>';
+      return out;
+    }
+    var riskPerUnit=Math.abs(entry-stop), stopPct=entry>0?riskPerUnit/entry*100:0;
+    s+=markerLine(yStop, 'var(--down)', 'STOP-LOSS', money(stop), '\u2212'+money(riskPerUnit)+' (\u2212'+fmt(stopPct,2)+'%)', true);
+    if(hasTp){
+      var rewardPerUnit=Math.abs(tp-entry), rewardPct=entry>0?rewardPerUnit/entry*100:0;
+      s+=markerLine(yTp, 'var(--up)', 'TAKE-PROFIT', money(tp), '+'+money(rewardPerUnit)+' (+'+fmt(rewardPct,2)+'%)', true);
+    }
+    s+=markerLine(yEntry, 'var(--text)', 'ENTRY', money(entry), direction==='long'?'Long':'Short', false);
+    s+='</svg>';
+    box.innerHTML=s;
+    $('chartLegend').innerHTML =
+      '<span><span class="leg-dot" style="background:var(--down)"></span>Risk zone</span>'+
+      (hasTp ? '<span><span class="leg-dot" style="background:var(--up)"></span>Reward zone</span>' : '');
+  }
+
+  function renderMilestones(){
+    var g=$('statsGrid');
+    var items = [
+      mstat('Position Size', coins(EFF.units)+' units'),
+      mstat('Position Value', money(EFF.value)),
+      mstat('Risk Amount', money(EFF.riskAmt), 'down'),
+      mstat('Risk % of Account', fmt(EFF.riskPct,2)+'%', EFF.riskPct>5?'down':(EFF.riskPct>2?'':'up')),
+      mstat('Stop-Loss Distance', fmt(EFF.stopPct,2)+'%'),
+      mstat('Required Margin', money(EFF.margin)+(EFF.leverage>1?' ('+fmt(EFF.leverage,0)+'x)':'')),
+      mstat('Risk:Reward Ratio', EFF.rr!=null ? '1 : '+fmt(EFF.rr,2) : '\u2014', EFF.rr!=null&&EFF.rr>=2?'up':''),
+      mstat('Direction', EFF.direction==='long'?'Long (Buy)':'Short (Sell)')
+    ];
+    g.innerHTML = items.join('');
+  }
+  function mstat(k,v,cls){ return '<div class="mstat"><div class="k">'+k+'</div><div class="v'+(cls?' '+cls:'')+'">'+v+'</div></div>'; }
+
+  function renderGauge(){
+    var pct = isFinite(EFF.riskPct) ? EFF.riskPct : 0;
+    var clamped = Math.max(0, Math.min(8, pct));
+    var score = (clamped/8)*100;
+    var lbl = pct<1 ? 'Conservative' : pct<2 ? 'Moderate' : pct<5 ? 'Aggressive' : 'Excessive';
+    $('fgNum').textContent = fmt(pct,2)+'%';
+    $('fgLbl').textContent = lbl;
+    var angle = (score/100)*180-90;
+    $('fgNeedle').style.transform='rotate('+angle+'deg)';
+    $('fgNeedle').style.color = pct<1?'#0E9F6E':(pct<2?'#3FAE72':(pct<5?'#B98A1E':'#F0546A'));
+    $('gaugeDesc').textContent = 'You\u2019re risking '+fmt(pct,2)+'% of your account on this trade. Commonly cited guidance clusters around 0.5\u20131% for conservative accounts and 1\u20132% for active traders \u2014 risk above 5% leaves an account able to absorb only a handful of consecutive losses before a serious drawdown.';
+  }
+
+  function renderSensitivityTable(){
+    var presets=[0.5,1,2,3,5,8,10];
+    var tb=$('sensTbody');
+    var entry=EFF.entry, direction=EFF.direction, riskAmt=EFF.riskAmt;
+    tb.innerHTML = presets.map(function(p){
+      var dist = entry*p/100;
+      var sPrice = direction==='long' ? entry-dist : entry+dist;
+      var units = dist>0 ? riskAmt/dist : 0;
+      var value = units*entry;
+      var isCurrent = Math.abs(p-EFF.stopPct) < 0.05;
+      return '<tr'+(isCurrent?' style="background:var(--cx-tint)"':'')+'>'+
+        '<td class="mono">'+fmt(p,1)+'%'+(isCurrent?' (current)':'')+'</td>'+
+        '<td class="mono">'+money(sPrice)+'</td>'+
+        '<td class="mono" style="font-weight:700">'+coins(units)+' units</td>'+
+        '<td class="mono">'+money(value)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  var RISK_PRESETS = [
+    {name:'Very conservative', pct:0.5},
+    {name:'Conservative', pct:1},
+    {name:'Moderate (common sweet spot)', pct:2},
+    {name:'Aggressive', pct:3},
+    {name:'High conviction (use sparingly)', pct:5}
+  ];
+  var TAB_RISK_FIELD = {size:'riskValue', stop:'stopRiskValue', risk:null};
+  function renderPresets(){
+    var tb=$('benchTbody');
+    var riskField = TAB_RISK_FIELD[STATE.activeTab];
+    var entry=EFF.entry, stop=EFF.stop, account=EFF.account, direction=EFF.direction;
+    var riskPerUnit=Math.abs(entry-stop);
+    tb.innerHTML = RISK_PRESETS.map(function(p){
+      var riskAmt = account*p.pct/100;
+      var units = riskPerUnit>0 ? riskAmt/riskPerUnit : 0;
+      var value = units*entry;
+      var btn = riskField ? '<button class="ct-use" data-pct="'+p.pct+'">Use \u2192</button>' : '<button class="ct-use" disabled>N/A</button>';
+      return '<tr>'+
+        '<td>'+p.name+'</td>'+
+        '<td class="mono">'+fmt(p.pct,1)+'%</td>'+
+        '<td class="mono" style="font-weight:700">'+coins(units)+' units</td>'+
+        '<td class="mono" style="color:var(--down)">'+money(riskAmt)+'</td>'+
+        '<td>'+btn+'</td>'+
+      '</tr>';
+    }).join('');
+    Array.prototype.forEach.call(tb.querySelectorAll('.ct-use[data-pct]'), function(btn){
+      btn.addEventListener('click', function(){
+        var rf=TAB_RISK_FIELD[STATE.activeTab];
+        if(rf){
+          $(rf).value = btn.dataset.pct;
+          setRiskMode(STATE.activeTab, 'pct');
+          calc();
+        }
+      });
+    });
+  }
+
+  function renderBenchBar(){
+    $('benchBar').innerHTML = RISK_PRESETS.map(function(p){
+      return '<div class="bench-chip" data-pct="'+p.pct+'"><span class="bc-lbl">'+p.name+'</span><span class="bc-rate">'+fmt(p.pct,1)+'%</span></div>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.bench-chip'), function(chip){
+      chip.addEventListener('click', function(){
+        var rf=TAB_RISK_FIELD[STATE.activeTab];
+        if(rf){ $(rf).value=chip.dataset.pct; setRiskMode(STATE.activeTab,'pct'); calc(); }
+      });
+    });
+  }
+
+  /* ---------- events: tabs ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(x){x.classList.remove('on'); x.setAttribute('aria-selected','false');});
+      b.classList.add('on'); b.setAttribute('aria-selected','true');
+      STATE.activeTab=b.dataset.tab;
+      Array.prototype.forEach.call(document.querySelectorAll('.tab-fields'), function(tf){
+        tf.style.display = tf.dataset.tab===STATE.activeTab ? '' : 'none';
+      });
+      calc();
+      syncShareUrl();
+    });
+  });
+
+  /* ---------- events: direction & risk-mode toggles ---------- */
+  ['size','stop','risk'].forEach(function(tabKey){
+    var row=$(tabKey+'DirectionRow');
+    if(row) Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      b.addEventListener('click', function(){ setDirection(tabKey,b.dataset.dir); calc(); syncShareUrl(); });
+    });
+  });
+  ['size','stop'].forEach(function(tabKey){
+    var row=$(tabKey+'RiskModeRow');
+    if(row) Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      b.addEventListener('click', function(){ setRiskMode(tabKey,b.dataset.mode); calc(); syncShareUrl(); });
+    });
+  });
+  (function(){
+    var row=$('marginModeRow');
+    if(row) Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      b.addEventListener('click', function(){ setMarginMode(b.dataset.margin); calc(); syncShareUrl(); });
+    });
+  })();
+
+  /* ---------- events: advanced toggle, currency ---------- */
+  $('advancedToggle').addEventListener('click', function(){
+    var open = this.getAttribute('aria-expanded')==='true';
+    this.setAttribute('aria-expanded', open ? 'false' : 'true');
+    $('advancedFields').classList.toggle('open', !open);
+  });
+  $('currency').addEventListener('change', function(){ currency=this.value; calc(); syncShareUrl(); });
+
+  /* ---------- events: ATR stop-loss helper ---------- */
+  $('atrToggle').addEventListener('click', function(){
+    var open = this.getAttribute('aria-expanded')==='true';
+    this.setAttribute('aria-expanded', open ? 'false' : 'true');
+    $('atrFields').classList.toggle('open', !open);
+  });
+  function updateAtrPreview(){
+    var atr=parseFloat($('atrValue').value)||0;
+    var mult=parseFloat($('atrMultiplier').value)||0;
+    var entry=parseFloat($('entryPrice').value)||0;
+    if(atr<=0 || entry<=0){ $('atrPreview').textContent='Enter your entry price and an ATR value to see a suggested stop.'; return; }
+    var dist=atr*mult;
+    var suggested = STATE.size.dir==='long' ? entry-dist : entry+dist;
+    var pct = entry>0 ? dist/entry*100 : 0;
+    $('atrPreview').innerHTML = 'Suggested stop-loss: <b>'+money(suggested)+'</b> ('+fmt(pct,2)+'% away, '+fmt(mult,1)+'\u00d7 ATR)';
+  }
+  ['atrValue','atrMultiplier','entryPrice'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input', updateAtrPreview); });
+  $('useAtrStop').addEventListener('click', function(){
+    var atr=parseFloat($('atrValue').value)||0;
+    var mult=parseFloat($('atrMultiplier').value)||0;
+    var entry=parseFloat($('entryPrice').value)||0;
+    if(atr<=0 || entry<=0) return;
+    var dist=atr*mult;
+    var suggested = STATE.size.dir==='long' ? entry-dist : entry+dist;
+    $('stopLossPrice').value = suggested < 1 ? suggested.toFixed(6) : suggested.toFixed(2);
+    calc();
+    syncShareUrl();
+  });
+
+  /* ---------- events: all numeric inputs ---------- */
+  var ALL_FIELDS = ['accountBalance','riskValue','entryPrice','stopLossPrice','takeProfitPrice','leverage','feePct',
+                     'stopAccountBalance','stopRiskValue','stopEntryPrice','stopPositionValue',
+                     'riskAccountBalance','riskPositionValue','riskEntryPrice','riskStopLossPrice'];
+  ALL_FIELDS.forEach(function(id){ var el=$(id); if(el) el.addEventListener('input', function(){ calc(); syncShareUrl(); }); });
+
+  /* ---------- Calculate / Clear buttons ---------- */
+  var TAB_FIELDS = {
+    size: ['accountBalance','riskValue','entryPrice','stopLossPrice','takeProfitPrice','leverage','feePct','atrValue','atrMultiplier'],
+    stop: ['stopAccountBalance','stopRiskValue','stopEntryPrice','stopPositionValue'],
+    risk: ['riskAccountBalance','riskPositionValue','riskEntryPrice','riskStopLossPrice']
+  };
+  $('calcBtn').addEventListener('click', function(){
+    calc();
+    var hero=$('resultHero');
+    hero.classList.remove('btn-calc-pulse');
+    void hero.offsetWidth;
+    hero.classList.add('btn-calc-pulse');
+    syncShareUrl();
+  });
+  $('clearBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) el.value=''; });
+    if(tab==='size'){ setDirection('size','long'); setRiskMode('size','pct'); setMarginMode('isolated'); updateAtrPreview(); }
+    if(tab==='stop'){ setDirection('stop','long'); setRiskMode('stop','pct'); }
+    if(tab==='risk'){ setDirection('risk','long'); }
+    calc();
+    syncShareUrl();
+    var firstField=$(TAB_FIELDS[tab][0]);
+    if(firstField) firstField.focus();
+  });
+
+  /* ---------- shareable URL ---------- */
+  var SHARE_FIELDS = ALL_FIELDS.concat(['atrValue','atrMultiplier']);
+  function buildShareParams(){
+    var p = new URLSearchParams();
+    p.set('tab', STATE.activeTab);
+    p.set('cur', currency);
+    p.set('sdir', STATE.size.dir); p.set('smode', STATE.size.mode); p.set('smargin', STATE.size.margin);
+    p.set('podir', STATE.stop.dir); p.set('pomode', STATE.stop.mode);
+    p.set('rdir', STATE.risk.dir);
+    SHARE_FIELDS.forEach(function(id){ var el=$(id); if(el && el.value.trim()!=='') p.set(id, el.value); });
+    return p;
+  }
+  function syncShareUrl(){
+    try{
+      var p = buildShareParams();
+      history.replaceState(null, '', location.pathname + '?' + p.toString());
+    }catch(e){}
+  }
+  function applyShareParamsFromUrl(){
+    var p = new URLSearchParams(location.search);
+    if(![...p.keys()].length) return false;
+    if(p.has('cur') && $('currency')){ $('currency').value=p.get('cur'); currency=p.get('cur'); }
+    if(p.has('sdir')) setDirection('size', p.get('sdir'));
+    if(p.has('smode')) setRiskMode('size', p.get('smode'));
+    if(p.has('smargin')) setMarginMode(p.get('smargin'));
+    if(p.has('podir')) setDirection('stop', p.get('podir'));
+    if(p.has('pomode')) setRiskMode('stop', p.get('pomode'));
+    if(p.has('rdir')) setDirection('risk', p.get('rdir'));
+    SHARE_FIELDS.forEach(function(id){ if(p.has(id) && $(id)) $(id).value = p.get(id); });
+    if(p.has('tab') && document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]')){
+      document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]').click();
+    }
+    return true;
+  }
+  $('copyShareLink').addEventListener('click', function(){
+    syncShareUrl();
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Link copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- copy result ---------- */
+  $('copyResult').addEventListener('click', function(){
+    var text = $('rhLabel').textContent+': '+$('rhValue').textContent+' ('+$('rhRoi').textContent+')';
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- print ---------- */
+  $('printResult').addEventListener('click', function(){ window.print(); });
+
+  /* ---------- CSV export ---------- */
+  $('downloadCsv').addEventListener('click', function(){
+    if(!EFF){ return; }
+    var rows = [
+      ['Field','Value'],
+      ['Direction', EFF.direction],
+      ['Position size (units)', EFF.units],
+      ['Position value', EFF.value.toFixed(2)],
+      ['Risk amount', EFF.riskAmt.toFixed(2)],
+      ['Risk % of account', EFF.riskPct.toFixed(2)],
+      ['Stop-loss distance %', EFF.stopPct.toFixed(2)],
+      ['Required margin', EFF.margin.toFixed(2)],
+      ['Risk:Reward ratio', EFF.rr!=null?EFF.rr.toFixed(2):''],
+      ['Entry price', EFF.entry],
+      ['Stop-loss price', EFF.stop],
+      ['Take-profit price', EFF.tp||'']
+    ];
+    var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+    var blob = new Blob([csv], {type:'text/csv'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'crypto-position-size.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  /* ---------- goal example cards ---------- */
+  var GOALS = [
+    {name:'Conservative BTC swing', detail:'$10,000 acct \u00b7 1% risk \u00b7 Long', account:10000, riskVal:1, entry:67500, stop:65000, tp:72000, dir:'long', leverage:1},
+    {name:'Altcoin scalp', detail:'$5,000 acct \u00b7 3% risk \u00b7 Long', account:5000, riskVal:3, entry:2.50, stop:2.35, tp:2.80, dir:'long', leverage:1},
+    {name:'Short on rejection', detail:'$20,000 acct \u00b7 2% risk \u00b7 Short', account:20000, riskVal:2, entry:3200, stop:3350, tp:2900, dir:'short', leverage:1},
+    {name:'Leveraged futures trade', detail:'$2,000 acct \u00b7 2% risk \u00b7 10x Long', account:2000, riskVal:2, entry:67000, stop:66000, tp:69000, dir:'long', leverage:10}
+  ];
+  $('goalGrid').innerHTML = GOALS.map(function(g,i){
+    return '<button class="goal-card" data-i="'+i+'"><div class="g-name">'+g.name+'</div><div class="g-detail">'+g.detail+'</div><span class="g-cta">Try this scenario →</span></button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.goal-card'), function(card){
+    card.addEventListener('click', function(){
+      var g = GOALS[parseInt(card.dataset.i,10)];
+      document.querySelector('.ctab-btn[data-tab="size"]').click();
+      setDirection('size', g.dir);
+      setRiskMode('size', 'pct');
+      $('accountBalance').value = g.account;
+      $('riskValue').value = g.riskVal;
+      $('entryPrice').value = g.entry;
+      $('stopLossPrice').value = g.stop;
+      $('takeProfitPrice').value = g.tp;
+      $('leverage').value = g.leverage;
+      calc();
+      document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+    });
+  });
+
+  /* ---------- saved setups (stored locally in this browser only) ---------- */
+  var PRESET_KEY = 'cb-possize-presets';
+  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function loadPresets(){ try{ var v=JSON.parse(localStorage.getItem(PRESET_KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function savePresetsToStorage(arr){ try{ localStorage.setItem(PRESET_KEY, JSON.stringify(arr)); }catch(e){} }
+  function buildPresetSummary(tab, fields, dir){
+    if(tab==='size') return money(parseFloat(fields.accountBalance)||0)+' \u00b7 '+(fields.riskValue||'?')+(STATE.size.mode==='pct'?'%':'$')+' risk \u00b7 '+(dir==='long'?'Long':'Short');
+    if(tab==='stop') return money(parseFloat(fields.stopAccountBalance)||0)+' acct \u00b7 target '+money(parseFloat(fields.stopPositionValue)||0)+' \u00b7 '+(dir==='long'?'Long':'Short');
+    return money(parseFloat(fields.riskAccountBalance)||0)+' acct \u00b7 position '+money(parseFloat(fields.riskPositionValue)||0);
+  }
+  var TAB_LABEL = {size:'Position Size', stop:'Find Stop-Loss', risk:'Check My Risk %'};
+  function renderSavedPresets(){
+    var wrap=$('savedPresetsList');
+    if(!wrap) return;
+    var arr=loadPresets();
+    if(!arr.length){
+      wrap.innerHTML = '<p class="mono" style="grid-column:1/-1;color:var(--muted);font-size:12.5px">No saved setups yet \u2014 fill in a trade above and click "\ud83d\udcbe Save setup" to keep it here for next time.</p>';
+      return;
+    }
+    wrap.innerHTML = arr.map(function(p,i){
+      return '<div class="goal-card" style="cursor:default">'+
+        '<div class="g-name">'+escapeHtml(p.name || (TAB_LABEL[p.tab]+' setup'))+'</div>'+
+        '<div class="g-detail">'+escapeHtml(p.summary)+' \u00b7 '+escapeHtml(TAB_LABEL[p.tab]||'')+'</div>'+
+        '<div style="display:flex;gap:8px;margin-top:10px">'+
+          '<button type="button" class="ct-use" data-load="'+i+'">Load</button>'+
+          '<button type="button" class="ct-use" data-del="'+i+'" style="background:var(--down-bg);color:var(--down)">Delete</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-load]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.load,10);
+        var p=loadPresets()[i];
+        if(!p) return;
+        document.querySelector('.ctab-btn[data-tab="'+p.tab+'"]').click();
+        setDirection(p.tab, p.dir||'long');
+        if(p.mode) setRiskMode(p.tab, p.mode);
+        if(p.tab==='size' && p.marginMode) setMarginMode(p.marginMode);
+        Object.keys(p.fields||{}).forEach(function(id){ var el=$(id); if(el) el.value=p.fields[id]; });
+        calc();
+        syncShareUrl();
+        document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-del]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.del,10);
+        var arr2=loadPresets();
+        arr2.splice(i,1);
+        savePresetsToStorage(arr2);
+        renderSavedPresets();
+      });
+    });
+  }
+  $('savePresetBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    var fields={};
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) fields[id]=el.value; });
+    var dir = STATE[tab] ? STATE[tab].dir : 'long';
+    var mode = STATE[tab] ? STATE[tab].mode : undefined;
+    var name = $('presetName').value.trim();
+    var arr = loadPresets();
+    arr.unshift({
+      name: name,
+      tab: tab,
+      fields: fields,
+      dir: dir,
+      mode: mode,
+      marginMode: tab==='size' ? STATE.size.margin : undefined,
+      summary: buildPresetSummary(tab, fields, dir),
+      savedAt: Date.now()
+    });
+    if(arr.length>12) arr = arr.slice(0,12);
+    savePresetsToStorage(arr);
+    $('presetName').value='';
+    renderSavedPresets();
+    var btn=$('savePresetBtn'); var old=btn.innerHTML;
+    btn.innerHTML='Saved \u2713'; setTimeout(function(){ btn.innerHTML=old; }, 1400);
+  });
+
+  /* ---------- feedback widget ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(x){ x.disabled=true; x.style.opacity='.5'; });
+      $('fbThanks').style.display='block';
+    });
+  });
+
+  /* ---------- FAQ ---------- */
+  var FAQ=[
+    ['What is position sizing and why does it matter?','Position sizing is deciding how much of an asset to buy or sell on a trade so that your dollar risk stays consistent with a rule you\u2019ve set in advance. It matters because it\u2019s the one part of a trade fully within your control \u2014 you can\u2019t control whether price hits your stop, but you can control how much that stop costs you.'],
+    ['How is crypto position size calculated?','Multiply your account balance by your chosen risk percentage to get your risk amount in dollars. Divide that by the distance between your entry price and stop-loss price (your risk per unit) to get the number of coins or tokens to buy or sell.'],
+    ['Does leverage increase my risk?','Not directly. Leverage changes how much margin (collateral) you need to open a given position size \u2014 it doesn\u2019t change your dollar loss if your stop-loss is hit, since that\u2019s driven by position size and stop distance. Higher leverage does move your liquidation price closer to your entry, so your stop-loss needs to sit safely before it.'],
+    ['What risk percentage should I use per trade?','Commonly cited guidance is 0.5-1% per trade for conservative accounts, 1-2% for active traders, and rarely above 2-3% even for high-conviction setups. At 1% risk per trade, it takes roughly 69 straight losses to cut an account in half; at 5% risk, only around 13-14 straight losses do the same.'],
+    ['How do trading fees affect position size?','Entry and exit fees are an additional cost on top of your intended risk, so ignoring them means your real loss if stopped out is larger than planned. This calculator\u2019s advanced settings let you add a fee percentage that\u2019s factored into a fee-adjusted risk figure.'],
+    ['What\u2019s the difference between position size and leverage?','Position size (or notional value) is the total dollar value of the trade. Leverage determines how much of your own capital (margin) you need to post to control that notional value \u2014 a $10,000 position at 10x leverage needs $1,000 margin, but your risk is still set by where your stop-loss sits, not by the leverage number.'],
+    ['Why do volatile altcoins need a wider stop-loss?','A stop placed too close to entry on a volatile asset is likely to be hit by normal price noise rather than an actual change in trend. Since position size is risk amount divided by stop distance, a wider stop for a volatile coin automatically produces a smaller position size for the same dollar risk.'],
+    ['Can I use this calculator for short positions?','Yes \u2014 switch the direction toggle to Short. The math is identical, just mirrored: your stop-loss sits above your entry price instead of below it, and the calculator validates that automatically.'],
+    ['What if the required margin exceeds my account balance?','That means the position size your risk rule calls for needs more leverage than you\u2019ve entered, or more capital than you have available. The calculator flags this so you can raise leverage, reduce the position, tighten the stop, or skip the trade rather than accidentally over-committing your account.'],
+    ['Should I risk a fixed percentage or a fixed dollar amount?','A fixed percentage is generally recommended because it scales with your account \u2014 as your balance grows or shrinks, the dollar amount at risk adjusts automatically, keeping your risk proportionate. A fixed dollar amount stays static even as your account changes, which can quietly become too large or too small a share of your capital over time.'],
+    ['What is ATR and how does it help set a stop-loss?','ATR (Average True Range) measures how much an asset typically moves over a lookback period, usually 14 days. Setting a stop at a multiple of ATR \u2014 commonly 1.5x to 3x \u2014 scales the stop distance to the asset\u2019s real volatility instead of a fixed percentage picked out of habit.'],
+    ['What\u2019s the difference between isolated and cross margin?','With isolated margin, only the margin allocated to that specific position can be lost if it\u2019s liquidated. With cross margin, your entire account balance backs every open position, which allows more room before liquidation but means a bad outcome can draw down your whole balance rather than just one position\u2019s margin.'],
+    ['Can I download, print or share my results?','Yes \u2014 use "Print / Save as PDF" for a printable summary of your current trade plan, "Download as CSV" to export the full breakdown, or "Copy shareable link" to send a URL that reloads your exact inputs for someone else.']
+  ];
+  $('faqList').innerHTML = FAQ.map(function(f){return '<div class="faq-item"><button class="faq-q">'+f[0]+'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>'+f[1]+'</p></div></div>';}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.faq-item'), function(it){
+    it.querySelector('.faq-q').addEventListener('click', function(){
+      var open=it.classList.contains('open'); it.classList.toggle('open');
+      var a=it.querySelector('.faq-a'); a.style.maxHeight = open? null : a.scrollHeight+'px';
+    });
+  });
+
+  /* ---------- init ---------- */
+  renderBenchBar();
+  renderSavedPresets();
+  applyShareParamsFromUrl();
+  updateAtrPreview();
+  calc();
+
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+})();
+</script>
+</body>
+</html>

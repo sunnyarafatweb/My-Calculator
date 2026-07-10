@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try{if(localStorage.getItem('cf-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
+<title>Risk/Reward Calculator — R:R Ratio, Expectancy &amp; Win Rate | Calculator Boss</title>
+<meta name="description" content="Free risk/reward ratio calculator — enter entry, stop-loss and take-profit to find your R:R ratio and breakeven win rate. Includes a trade expectancy calculator with Kelly Criterion sizing, and a multi-target calculator for partial profit-taking.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://calculatorboss.com/risk-reward-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Calculator Boss">
+<meta property="og:title" content="Risk/Reward Calculator — R:R Ratio, Expectancy &amp; Win Rate">
+<meta property="og:description" content="Find your risk/reward ratio and breakeven win rate from entry, stop-loss and take-profit — plus trade expectancy, Kelly Criterion sizing, and a multi-target calculator for partial profit-taking.">
+<meta property="og:url" content="https://calculatorboss.com/risk-reward-calculator/">
+<meta property="og:image" content="https://calculatorboss.com/og/risk-reward-calculator-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://calculatorboss.com/og/risk-reward-calculator-og.png">
+<meta name="twitter:title" content="Risk/Reward Calculator — R:R Ratio, Expectancy &amp; Win Rate">
+<meta name="twitter:description" content="Find your risk/reward ratio and breakeven win rate from entry, stop-loss and take-profit — plus trade expectancy, Kelly Criterion sizing, and a multi-target calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C11;
+    --panel:#12151D;
+    --panel-2:#171B26;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --text:#EDEEF2;
+    --text-soft:#AEB2BC;
+    --muted:#7B7F89;
+
+    --mint:#33C266; --mint-deep:#1BA94C;
+    --up:#2ED67F; --up-bg:rgba(46,214,127,.1);
+    --down:#F0546A; --down-bg:rgba(240,84,106,.1);
+
+    --cx:#E5A93A; --cx-tint:rgba(229,169,58,.12);
+
+    --r:14px; --r-lg:22px; --r-xl:30px;
+    --maxw:1180px;
+    --f-head:"Plus Jakarta Sans",system-ui,sans-serif;
+    --f-body:"Inter",system-ui,sans-serif;
+    --f-mono:"Inter",system-ui,sans-serif;
+
+    --page-gradient:none;
+    --tile-shadow-hover:0 20px 40px -24px rgba(0,0,0,.6);
+  }
+  [data-theme="light"]{
+    --bg:#F3F1EA;
+    --panel:#FFFFFF;
+    --panel-2:#FBFAF6;
+    --line:#E4E2D8;
+    --line-2:#D8D5C8;
+    --text:#181A1F;
+    --text-soft:#474C55;
+    --muted:#686D76;
+    --up:#0E9F6E; --up-bg:#E1F6EE;
+    --down:#D33249; --down-bg:#FBE4E8;
+    --cx:#B0790F; --cx-tint:#FAF0D6;
+    --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
+    --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f-body);background-color:var(--bg);background-image:var(--page-gradient);background-repeat:no-repeat;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--mint);color:#04240f}
+  :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--cx);color:#1a1400;font-weight:700;padding:12px 20px;border-radius:0 0 10px 0}
+  .skip-link:focus{left:0}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+  body{font-variant-numeric:tabular-nums}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:rgba(10,12,17,.9);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em;color:#fff}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#1c202b,#12151d);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{font-size:14px;font-weight:500;color:#AEB2BC;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav-spacer{flex:1}
+  .nav-cta{display:flex;align-items:center;gap:11px}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);display:grid;place-items:center;color:#C7CACF;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px}
+  .btn-accent{color:#1a1400;background:linear-gradient(120deg,var(--cx),#F2C158);}
+  .btn-accent:hover{filter:brightness(1.06)}
+  .menu-btn{display:none}
+
+  /* ===== BREADCRUMB ===== */
+  .crumb{padding:16px 0;font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .crumb a{color:var(--text-soft);transition:.2s}
+  .crumb a:hover{color:var(--mint)}
+  .crumb .sep{opacity:.5}
+  .crumb .cur{color:var(--text)}
+
+  /* ===== HERO ===== */
+  .hero{padding:10px 0 30px;position:relative}
+  .hero-inner{position:relative;z-index:1;max-width:720px}
+  .sym-badge{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--cx);background:var(--cx-tint);border-radius:7px;padding:5px 11px;display:inline-flex;align-items:center;gap:8px}
+  h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:16px 0 0}
+  .hero-sub{font-size:15.5px;color:var(--text-soft);max-width:640px;margin:14px 0 0;line-height:1.65}
+
+  /* ===== BENCHMARK QUICK BAR ===== */
+  .bench-bar{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:18px}
+  .bench-chip{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);cursor:pointer;transition:.18s}
+  .bench-chip:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .bench-chip .bc-lbl{font-size:11.5px;color:var(--text-soft)}
+  .bench-chip .bc-rate{font-family:var(--f-mono);font-weight:700;font-size:19px;color:var(--cx)}
+
+  /* ===== CALCULATOR ===== */
+  .calc-section{padding:10px 0 46px}
+  .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
+
+  .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs::-webkit-scrollbar{display:none}
+  .ctab-btn{flex-shrink:0;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:100px;padding:7px 13px;cursor:pointer;transition:.18s}
+  .ctab-btn:hover{border-color:var(--cx)}
+  .ctab-btn.on{background:var(--cx);color:#1a1400;border-color:var(--cx)}
+
+  .seg-row{display:flex;gap:8px;margin-bottom:18px}
+  .seg-btn{flex:1;font-family:var(--f-mono);font-size:12.5px;font-weight:600;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-soft);cursor:pointer;transition:.18s}
+  .seg-btn.on-neutral{background:var(--cx-tint);color:var(--cx);border-color:var(--cx)}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .advanced-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:11px 14px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;margin-bottom:0;transition:.18s}
+  .advanced-toggle:hover{border-color:var(--cx);color:var(--text)}
+  .advanced-toggle svg{transition:.25s;flex-shrink:0}
+  .advanced-toggle[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--cx)}
+  .advanced-fields{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .advanced-fields.open{max-height:300px;margin-top:14px}
+  .atr-preview{font-size:12.5px;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.5}
+  .fld{margin-bottom:15px}
+  .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
+  .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
+  .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+
+  /* ===== RESULTS ===== */
+  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden}
+  .result-hero.up{background:linear-gradient(155deg,var(--up-bg),transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
+  .result-hero.neutral{background:linear-gradient(155deg,var(--cx-tint),transparent);border:1px solid color-mix(in srgb,var(--cx) 30%,transparent)}
+  .result-hero.risk{background:linear-gradient(155deg,var(--down-bg),transparent);border:1px solid color-mix(in srgb,var(--down) 30%,transparent)}
+  .rh-label{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px}
+  .rh-value.up{color:var(--up)} .rh-value.neutral{color:var(--cx)} .rh-value.risk{color:var(--down)}
+  .rh-roi{font-family:var(--f-mono);font-size:14px;font-weight:600;margin-top:6px}
+  .rh-roi.up{color:var(--up)} .rh-roi.neutral{color:var(--cx)} .rh-roi.risk{color:var(--down)}
+
+  .pl-bar{height:12px;border-radius:100px;background:var(--line-2);margin-top:18px;position:relative;overflow:hidden}
+  .pl-bar-fill,.pl-bar-fill2{height:100%;position:absolute;top:0}
+  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+  .leg-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
+
+  .stat-list{margin-top:20px;display:flex;flex-direction:column;gap:0}
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;gap:10px}
+  .stat-row:first-child{border-top:none}
+  .stat-lbl{color:var(--muted)}
+  .stat-val{font-family:var(--f-mono);font-weight:600;text-align:right}
+
+  .share-row{display:flex;gap:10px;margin-top:20px}
+  .share-row .btn{flex:1;justify-content:center;background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .share-row .btn:hover{color:var(--text);border-color:var(--cx)}
+
+  .note{font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 13px;margin-top:14px;line-height:1.55}
+  .note.risk-note{color:var(--down);background:var(--down-bg);border-color:transparent}
+
+  /* ===== CONTENT / SEO ===== */
+  .content-section{padding:20px 0 48px}
+  .content-section h2{font-family:var(--f-head);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:36px 0 14px}
+  .content-section h2:first-child{margin-top:0}
+  .content-section h3{font-family:var(--f-head);font-weight:600;font-size:17px;letter-spacing:-.01em;margin:22px 0 8px}
+  .content-section p{font-size:14.5px;color:var(--text-soft);line-height:1.75;margin-bottom:12px;max-width:760px}
+  .content-section .formula{font-family:var(--f-mono);font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:inline-block;margin:8px 0 16px;color:var(--cx)}
+  .content-section ul{margin:0 0 16px 20px;color:var(--text-soft);font-size:14.5px;line-height:1.8}
+  .byline{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+  .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;max-width:780px}
+  .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .faq-q{width:100%;text-align:left;font-family:var(--f-body);font-weight:600;font-size:14.5px;color:var(--text);background:none;border:none;padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .faq-q svg{flex-shrink:0;transition:.25s;color:var(--muted)}
+  .faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--cx)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 18px 16px;font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
+
+  .disclaimer{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:30px;line-height:1.6}
+
+  /* ===== AD SLOTS ===== */
+  .ad{margin:26px 0;border:1px dashed var(--line-2);border-radius:16px;background:var(--panel);min-height:96px;display:grid;place-items:center;text-align:center;color:var(--muted)}
+  .ad .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .ad .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+
+  /* ===== RELATED ===== */
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .rel-card{border:1px solid var(--line);border-top:2px solid var(--cx);border-radius:12px;padding:15px;background:var(--panel);transition:.2s}
+  .rel-card:hover{transform:translateY(-3px);background:var(--panel-2)}
+  .rel-sym{font-family:var(--f-mono);font-size:10.5px;font-weight:700;color:var(--cx);background:var(--cx-tint);border-radius:6px;padding:3px 8px;display:inline-block}
+  .rel-name{font-family:var(--f-head);font-weight:600;font-size:13.5px;margin-top:9px}
+
+  /* ===== CHART ===== */
+  .chart-panel{padding:22px}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .chart-box{width:100%;height:280px}
+  .chart-loading{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+
+  /* ===== STATS GRID ===== */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .mstat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .mstat .k{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .mstat .v{font-family:var(--f-mono);font-weight:700;font-size:16.5px;margin-top:6px}
+  .mstat .v.up{color:var(--up)} .mstat .v.down{color:var(--down)}
+
+  /* ===== TABLES (year-by-year + benchmark) ===== */
+  .coins-table{width:100%;border-collapse:collapse;margin-top:16px}
+  .coins-table th{text-align:left;font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .coins-table td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  .coins-table tr:last-child td{border-bottom:none}
+  .ct-use{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:7px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+  .ct-use:hover{background:var(--cx);color:#1a1400}
+  .ct-use:disabled{opacity:.35;cursor:not-allowed}
+  .table-scroll{overflow-x:auto}
+  .table-scroll-y{max-height:0;overflow-y:hidden;transition:max-height .35s ease}
+  .table-scroll-y.open{max-height:480px;overflow-y:auto}
+  .show-more{margin-top:12px;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:9px;padding:8px 14px;cursor:pointer}
+
+  /* ===== GAUGE ===== */
+  .gauge-card{display:flex;align-items:center;gap:26px;padding:22px;flex-wrap:wrap}
+  .gauge-wrap{position:relative;width:200px;flex-shrink:0}
+  .gauge-svg{width:100%;height:auto}
+  .gauge-val{position:absolute;bottom:0;left:0;right:0;text-align:center}
+  .gv-num{font-family:var(--f-mono);font-weight:700;font-size:28px}
+  .gv-lbl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;text-transform:uppercase;color:var(--cx)}
+  .gauge-desc{flex:1;min-width:220px;font-size:13.5px;color:var(--text-soft);line-height:1.7}
+
+  footer{background:#15171D;border-top:1px solid rgba(255,255,255,.08);padding:44px 0 26px;margin-top:10px}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12px;color:#9297A0}
+  .foot-bottom a{font-size:12px;color:#9A9EA6}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.nav-links{display:none}}
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .panel{padding:20px}
+    .row2{grid-template-columns:1fr 1fr}
+    .related-grid{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .bench-bar{flex-direction:column}
+    .takeaways{padding:16px 18px}
+    .btn-accent{display:none}
+    .gauge-card{flex-direction:column;text-align:center}
+    .menu-btn{display:grid}
+    .calc-tabs{margin:0 -20px 20px;padding:0 20px 16px;width:calc(100% + 40px)}
+    .ctab-btn{font-size:11px;padding:6px 11px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* ===== TOC / QUICK NAV ===== */
+  .toc{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:16px}
+  .toc a{font-size:12.5px;font-weight:600;color:var(--text-soft);padding:6px 11px;border-radius:8px;transition:.18s;white-space:nowrap}
+  .toc a:hover{color:var(--text);background:var(--panel-2)}
+
+  /* ===== KEY TAKEAWAYS ===== */
+  .takeaways{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cx);border-radius:14px;padding:20px 24px;margin-top:18px}
+  .takeaways h2{font-family:var(--f-head);font-size:15px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em}
+  .takeaways ul{margin:0;padding:0;list-style:none;font-size:13.5px;color:var(--text-soft);line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+  .takeaways li{position:relative;padding-left:16px}
+  .takeaways li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--cx)}
+
+  /* ===== BYLINE / E-E-A-T ===== */
+  .page-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+  .review-box{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:24px}
+  .review-avatar{width:38px;height:38px;border-radius:50%;background:var(--cx-tint);color:var(--cx);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;flex-shrink:0}
+  .review-box .rb-name{font-weight:600;font-size:13.5px}
+  .review-box .rb-role{font-size:12px;color:var(--muted)}
+  .review-box p{margin-top:6px !important}
+
+  /* ===== GLOSSARY ===== */
+  .glossary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .gloss-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .gloss-item dt{font-family:var(--f-head);font-weight:600;font-size:14px;margin-bottom:4px}
+  .gloss-item dd{font-size:13px;color:var(--text-soft);line-height:1.6;margin:0}
+
+  /* ===== HOW-TO STEPS ===== */
+  .steps{counter-reset:step;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .step-num{counter-increment:step;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--cx-tint);color:var(--cx);font-family:var(--f-mono);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .step-num::before{content:counter(step)}
+  .step-body h3{margin:0 0 4px !important;font-size:14.5px !important}
+  .step-body p{margin:0 !important;font-size:13.5px !important}
+
+  /* ===== GOAL SCENARIO CARDS ===== */
+  .goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .goal-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.2s;text-align:left}
+  .goal-card:hover{transform:translateY(-3px);border-color:var(--cx)}
+  .goal-card .g-name{font-family:var(--f-head);font-weight:700;font-size:14.5px}
+  .goal-card .g-detail{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
+  .goal-card .g-cta{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);margin-top:10px;display:inline-block}
+
+  /* ===== EXPORT / PRINT / FEEDBACK ===== */
+  .export-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .export-row .btn{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .export-row .btn:hover{color:var(--text);border-color:var(--cx)}
+  .feedback-box{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:30px}
+  .feedback-box p{margin-bottom:12px !important}
+  .fb-btns{display:flex;gap:10px;justify-content:center}
+  .fb-btn{font-size:20px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:12px;padding:10px 18px;cursor:pointer;transition:.18s}
+  .fb-btn:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .fb-thanks{font-size:13px;color:var(--up);margin-top:10px;display:none}
+
+  @media(max-width:980px){.goal-grid{grid-template-columns:repeat(2,1fr)}.glossary{grid-template-columns:1fr}}
+  @media(max-width:680px){.takeaways ul{grid-template-columns:1fr}}
+  @media print{
+    header,.toc,.bench-bar,.ad,.share-row,.export-row,footer,.menu-btn,.nav-cta,.calc-tabs,#showMoreYears,.feedback-box{display:none !important}
+    body{background:#fff !important;color:#111 !important}
+    .panel{border:1px solid #ccc !important;background:#fff !important}
+    a{color:#111 !important}
+  }
+
+  /* ===== CALCULATE / CLEAR BUTTONS ===== */
+  .calc-btn-row{display:flex;gap:10px;margin:20px 0 2px}
+  .calc-btn-row .btn{flex:1;justify-content:center;font-size:14.5px;padding:13px 16px}
+  .btn-clear{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft)}
+  .btn-clear:hover{border-color:var(--down);color:var(--down);background:var(--down-bg)}
+  .btn-calc-pulse{animation:calcPulse .5s ease}
+  @keyframes calcPulse{0%{transform:scale(1)}30%{transform:scale(1.015)}100%{transform:scale(1)}}
+  .save-row{display:flex;gap:8px;margin-top:10px}
+  .save-row .in{flex:1}
+  .btn-save{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);white-space:nowrap;font-size:13px}
+  .btn-save:hover{border-color:var(--cx);color:var(--text)}
+
+  /* ===== LONG / SHORT DIRECTION TOGGLE ===== */
+  .seg-btn.on-long{background:var(--up-bg);color:var(--up);border-color:var(--up)}
+  .seg-btn.on-short{background:var(--down-bg);color:var(--down);border-color:var(--down)}
+
+  /* ===== TRADE RISK MAP ===== */
+  .tradebar-wrap{padding:8px 4px 4px}
+  .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the risk/reward ratio in trading?","acceptedAnswer":{"@type":"Answer","text":"It compares how much you stand to lose if a trade hits your stop-loss against how much you stand to gain if it hits your take-profit. For a long trade it's the distance from entry to target divided by the distance from entry to stop; for a short trade the distances are reversed. A 1:3 ratio means you're risking $1 to potentially make $3."}},
+    {"@type":"Question","name":"How do I calculate risk/reward ratio?","acceptedAnswer":{"@type":"Answer","text":"Long trade: R:R = (Target − Entry) ÷ (Entry − Stop). Short trade: R:R = (Entry − Target) ÷ (Stop − Entry). Both formulas divide your potential reward per unit by your potential risk per unit \u2014 the position size and account currency don't affect the ratio itself."}},
+    {"@type":"Question","name":"What is breakeven win rate and how is it calculated?","acceptedAnswer":{"@type":"Answer","text":"Breakeven win rate is the minimum percentage of trades you need to win, at a given risk/reward ratio, to avoid losing money before costs. The formula is 1 \u00f7 (1 + R:R ratio). At a 1:3 ratio you only need to win 25% of trades to break even; at 1:1 you need to win more than 50%."}},
+    {"@type":"Question","name":"Is risk/reward ratio more important than win rate?","acceptedAnswer":{"@type":"Answer","text":"Neither matters on its own \u2014 they work together. A high win rate with a poor risk/reward ratio can still lose money, and a low win rate with a strong risk/reward ratio can still be profitable. A trader winning 40% of trades at 1:3 has a bigger edge than one winning 70% of trades at 1:0.5, because the second trader's average loss is larger than their average win."}},
+    {"@type":"Question","name":"What is trade expectancy?","acceptedAnswer":{"@type":"Answer","text":"Expectancy is the average result you can expect per trade, given your win rate and risk/reward ratio, expressed in R-multiples (units of risk) or dollars. It's calculated as (win rate \u00d7 average win) minus (loss rate \u00d7 average loss). A positive expectancy means your strategy has a mathematical edge over a large number of trades; a negative expectancy means it doesn't, regardless of how it feels trade to trade."}},
+    {"@type":"Question","name":"What is the Kelly Criterion and how does it relate to risk/reward?","acceptedAnswer":{"@type":"Answer","text":"The Kelly Criterion, developed by J.L. Kelly Jr. in 1956, estimates the mathematically optimal fraction of capital to risk per trade given your win rate and risk/reward ratio: Kelly % = Win Rate \u2212 (Loss Rate \u00f7 R:R Ratio). Full Kelly is aggressive and produces large swings, so most traders use a fraction of it, such as half or quarter Kelly, for a smoother equity curve."}},
+    {"@type":"Question","name":"What is a good risk/reward ratio?","acceptedAnswer":{"@type":"Answer","text":"There's no universal answer \u2014 it depends on your win rate. Many traders aim for at least 1:2, which only requires a 33% win rate to break even, but a very high win rate strategy can still be profitable at 1:1 or lower. The ratio and the win rate always need to be evaluated together, not separately."}},
+    {"@type":"Question","name":"What is a multi-target or partial profit-taking strategy?","acceptedAnswer":{"@type":"Answer","text":"It means closing part of a position at each of several take-profit levels instead of exiting all at once \u2014 for example, 40% of the position at 2R, 30% at 4R, and the rest at 8R. This blends multiple risk/reward outcomes into a single weighted-average R-multiple for the trade, and often lets a trader lock in partial profit while still leaving room for a bigger move."}},
+    {"@type":"Question","name":"What's a common mistake with risk/reward ratios?","acceptedAnswer":{"@type":"Answer","text":"Moving the stop-loss further away, or picking an unrealistic take-profit target, purely to make the ratio look better on paper. The ratio should come from where the trade is genuinely invalidated (the stop) and where price is realistically likely to reach (the target) \u2014 inflating either number to flatter the math doesn't change the market."}},
+    {"@type":"Question","name":"How does risk/reward relate to position sizing?","acceptedAnswer":{"@type":"Answer","text":"They answer different questions. Risk/reward asks whether a setup is worth taking at all, based on the ratio of potential gain to potential loss. Position sizing asks how many units to trade so that a stop-out costs a fixed, acceptable percentage of your account \u2014 use a dedicated position size calculator for that once you've confirmed the risk/reward ratio makes sense."}},
+    {"@type":"Question","name":"What does it mean to think in R-multiples?","acceptedAnswer":{"@type":"Answer","text":"An R-multiple expresses a trade's result as a multiple of the amount risked rather than a dollar figure \u2014 a trade that risks $200 and makes $600 is a +3R result, regardless of position size. This makes results from different trades, instruments, and account sizes directly comparable, which is why many professional traders track performance in R rather than dollars."}},
+    {"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes \u2014 use \"Print / Save as PDF\" for a printable summary of your current setup, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Calculator Boss","item":"https://calculatorboss.com/"},
+    {"@type":"ListItem","position":2,"name":"Money Tools","item":"https://calculatorboss.com/money-tools/"},
+    {"@type":"ListItem","position":3,"name":"Crypto","item":"https://calculatorboss.com/money-tools/#cat-crypto"},
+    {"@type":"ListItem","position":4,"name":"Risk/Reward Calculator","item":"https://calculatorboss.com/risk-reward-calculator/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Risk/Reward Calculator",
+  "url": "https://calculatorboss.com/risk-reward-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any (web browser)",
+  "datePublished": "2026-07-01",
+  "dateModified": "2026-07-01",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "publisher": {"@type":"Organization","name":"Calculator Boss"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to use the Risk/Reward Calculator",
+  "step": [
+    {"@type":"HowToStep","name":"Choose Long or Short","text":"Select the direction of your planned trade."},
+    {"@type":"HowToStep","name":"Enter entry, stop-loss and take-profit","text":"Add the three price levels that define your trade setup."},
+    {"@type":"HowToStep","name":"Read your R:R ratio and breakeven win rate","text":"Review the ratio and the minimum win rate your strategy would need to break even at that ratio."},
+    {"@type":"HowToStep","name":"Check expectancy with your real win rate","text":"Switch to the Expectancy tab and enter your actual or backtested win rate to see your edge and Kelly sizing."},
+    {"@type":"HowToStep","name":"Model partial exits if relevant","text":"Use the Multi-Target tab to blend several take-profit levels into one weighted R-multiple."}
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+<a href="#calculator" class="skip-link">Skip to calculator</a>
+  <div class="wrap nav">
+    <a class="brand" href="../index.html">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#5B96F5"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#33C266"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#E5A93A"/>
+        </svg>
+      </span>
+      Calculator Boss
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light / dark mode">
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20 13a8 8 0 1 1-9-9 6.2 6.2 0 0 0 9 9Z"/></svg>
+      </button>
+      <a class="btn btn-accent" href="../index.html">Browse all tools</a>
+      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Calculator Boss</a><span class="sep">/</span>
+    <a href="../index.html#cat-crypto">Crypto</a><span class="sep">/</span>
+    <span class="cur">Risk/Reward Calculator</span>
+  </nav>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+  <div class="hero-inner">
+    <span class="sym-badge">R:R</span>
+    <h1 class="hero-title">Risk/Reward Calculator</h1>
+    <p class="hero-sub">Enter your entry, stop-loss and take-profit to find your risk/reward ratio and the minimum win rate you'd need to break even. Check your trade expectancy and Kelly Criterion position size against your real win rate, and blend multiple partial take-profit levels into one weighted R-multiple.</p>
+    <div class="page-meta"><span id="lastUpdated">Last updated: July 2026</span><span>·</span><span>Reviewed by the Calculator Boss finance team</span><span>·</span><span>~7 min read</span></div>
+  </div>
+  <div class="takeaways reveal">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>R:R Ratio = reward per unit ÷ risk per unit — a 1:3 ratio means risking $1 to potentially make $3.</li>
+      <li>Breakeven win rate = 1 ÷ (1 + R:R ratio) — at 1:3 you only need to win 25% of trades to break even; at 1:1 you need over 50%.</li>
+      <li>Win rate and risk/reward always work together — a low win rate can still be profitable with a strong enough ratio, and a high win rate can still lose money with a weak one.</li>
+      <li>This tool also calculates trade expectancy and Kelly Criterion position sizing against your real win rate, and blends multiple take-profit targets into one weighted ratio.</li>
+    </ul>
+  </div>
+  <div class="bench-bar reveal" id="benchBar"></div>
+  </div>
+</section>
+<!-- ===== CALCULATOR ===== -->
+<section class="calc-section" id="calculator">
+  <div class="wrap">
+    <div class="calc-grid reveal">
+
+      <!-- INPUTS -->
+      <div class="panel">
+        <div class="calc-tabs" id="calcTabs" role="tablist" aria-label="Calculation mode">
+          <button class="ctab-btn on" data-tab="ratio" role="tab" aria-selected="true" id="tab-ratio" aria-controls="panel-ratio">Risk/Reward Ratio</button>
+          <button class="ctab-btn" data-tab="expectancy" role="tab" aria-selected="false" id="tab-expectancy" aria-controls="panel-expectancy">Expectancy &amp; Kelly</button>
+          <button class="ctab-btn" data-tab="multi" role="tab" aria-selected="false" id="tab-multi" aria-controls="panel-multi">Multi-Target</button>
+        </div>
+
+        <div class="fld">
+          <label for="currency">Currency</label>
+          <select class="sel" id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD ($)</option>
+            <option value="AUD">AUD ($)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+        </div>
+
+        <!-- RISK/REWARD RATIO TAB -->
+        <div class="tab-fields" data-tab="ratio" role="tabpanel" id="panel-ratio" aria-labelledby="tab-ratio">
+          <div class="fld">
+            <label id="ratioDirLabel">Direction</label>
+            <div class="seg-row" id="ratioDirectionRow" role="group" aria-labelledby="ratioDirLabel">
+              <button class="seg-btn on-long" data-dir="long" aria-pressed="true">Long</button>
+              <button class="seg-btn" data-dir="short" aria-pressed="false">Short</button>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="rEntry">Entry price</label><input class="in" id="rEntry" type="number" value="100" min="0" step="0.01"></div>
+            <div class="fld"><label for="rStop">Stop-loss price</label><input class="in" id="rStop" type="number" value="95" min="0" step="0.01"></div>
+          </div>
+          <div class="fld"><label for="rTarget">Take-profit price</label><input class="in" id="rTarget" type="number" value="115" min="0" step="0.01"></div>
+          <div class="fld"><label for="rQty">Position size <span class="hint">units \u2014 optional, for dollar figures</span></label><input class="in" id="rQty" type="number" value="50" min="0" step="0.0001"></div>
+        </div>
+
+        <!-- EXPECTANCY & KELLY TAB -->
+        <div class="tab-fields" data-tab="expectancy" role="tabpanel" id="panel-expectancy" aria-labelledby="tab-expectancy" style="display:none">
+          <div class="fld"><label for="eRR">Risk/reward ratio <span class="hint">e.g. 3 for a 1:3 setup</span></label><input class="in" id="eRR" type="number" value="3" min="0.01" step="0.1"></div>
+          <div class="fld"><label for="eWinRate">Your win rate <span class="hint">% \u2014 actual or backtested</span></label><input class="in" id="eWinRate" type="number" value="40" min="0" max="100" step="1"></div>
+          <div class="row2">
+            <div class="fld"><label for="eRiskPerTrade">Risk per trade</label><input class="in" id="eRiskPerTrade" type="number" value="200" min="0"></div>
+            <div class="fld"><label for="eNumTrades">Number of trades</label><input class="in" id="eNumTrades" type="number" value="100" min="1" step="1"></div>
+          </div>
+        </div>
+
+        <!-- MULTI-TARGET TAB -->
+        <div class="tab-fields" data-tab="multi" role="tabpanel" id="panel-multi" aria-labelledby="tab-multi" style="display:none">
+          <div class="fld">
+            <label id="multiDirLabel">Direction</label>
+            <div class="seg-row" id="multiDirectionRow" role="group" aria-labelledby="multiDirLabel">
+              <button class="seg-btn on-long" data-dir="long" aria-pressed="true">Long</button>
+              <button class="seg-btn" data-dir="short" aria-pressed="false">Short</button>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="mEntry">Entry price</label><input class="in" id="mEntry" type="number" value="100" min="0" step="0.01"></div>
+            <div class="fld"><label for="mStop">Stop-loss price</label><input class="in" id="mStop" type="number" value="95" min="0" step="0.01"></div>
+          </div>
+          <p class="hint" style="margin:6px 0 8px">Set price to 0 to skip a target.</p>
+          <div class="row2"><div class="fld"><label for="mTp1Price">Target 1 price</label><input class="in" id="mTp1Price" type="number" value="110" min="0" step="0.01"></div><div class="fld"><label for="mTp1Pct">Target 1 <span class="hint">% of position</span></label><input class="in" id="mTp1Pct" type="number" value="40" min="0" max="100" step="1"></div></div>
+          <div class="row2"><div class="fld"><label for="mTp2Price">Target 2 price</label><input class="in" id="mTp2Price" type="number" value="120" min="0" step="0.01"></div><div class="fld"><label for="mTp2Pct">Target 2 <span class="hint">% of position</span></label><input class="in" id="mTp2Pct" type="number" value="30" min="0" max="100" step="1"></div></div>
+          <div class="row2"><div class="fld"><label for="mTp3Price">Target 3 price</label><input class="in" id="mTp3Price" type="number" value="140" min="0" step="0.01"></div><div class="fld"><label for="mTp3Pct">Target 3 <span class="hint">% of position</span></label><input class="in" id="mTp3Pct" type="number" value="30" min="0" max="100" step="1"></div></div>
+        </div>
+
+        <div class="calc-btn-row">
+          <button type="button" class="btn btn-accent" id="calcBtn">Calculate</button>
+          <button type="button" class="btn btn-clear" id="clearBtn">Clear</button>
+        </div>
+        <div class="save-row">
+          <input class="in" id="presetName" type="text" placeholder="Name this setup (optional)" maxlength="40">
+          <button type="button" class="btn btn-save" id="savePresetBtn">💾 Save setup</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="result-hero up" id="resultHero" aria-live="polite" role="status">
+          <div class="rh-label" id="rhLabel">Risk/Reward Ratio</div>
+          <div class="rh-value up" id="rhValue">1 : 0.00</div>
+          <div class="rh-roi up" id="rhRoi"></div>
+          <div class="pl-bar" id="plBarWrap"><div class="pl-bar-fill" id="plBarFill"></div><div class="pl-bar-fill2" id="plBarFill2"></div></div>
+          <div class="pl-legend" id="plLegend"></div>
+        </div>
+        <div id="resultNote"></div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="stat-list" id="statList"></div>
+          <div class="share-row">
+            <button class="btn" id="copyResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy result</button>
+          </div>
+          <div class="export-row">
+            <button class="btn" id="printResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>
+            <button class="btn" id="downloadCsv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Download as CSV</button>
+            <button class="btn" id="copyShareLink"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Copy shareable link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">In-content unit — paste AdSense code here</div></div>
+  </div>
+</div>
+<!-- ===== BREAKEVEN CURVE CHART ===== -->
+<section class="content-section" id="chart" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Breakeven win rate across risk/reward ratios</h2>
+    <div class="panel chart-panel reveal">
+      <div class="chart-head">
+        <span class="mono" style="font-size:12.5px;color:var(--muted)" id="chartLabel">Minimum win rate needed to break even, by R:R ratio</span>
+      </div>
+      <div class="chart-box" id="chartBox"><div class="chart-loading">Loading chart…</div></div>
+      <div class="pl-legend" id="chartLegend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MILESTONE STATS ===== -->
+<section class="content-section" id="milestones" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Key numbers</h2>
+    <div class="stats-grid reveal" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== TRADE QUALITY GAUGE ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Trade quality</h2>
+    <div class="panel gauge-card reveal">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 220 130" class="gauge-svg">
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="var(--line-2)" stroke-width="16" stroke-linecap="round"/>
+          <path d="M14 116 A96 96 0 0 1 206 116" fill="none" stroke="url(#ggrad)" stroke-width="16" stroke-linecap="round"/>
+          <defs><linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#F0546A"/><stop offset="45%" stop-color="#E5B93A"/><stop offset="100%" stop-color="#0E9F6E"/>
+          </linearGradient></defs>
+          <g id="fgNeedle" style="transform-origin:110px 116px;transition:transform .8s cubic-bezier(.2,.7,.3,1)">
+            <line x1="110" y1="116" x2="110" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="116" r="6" fill="currentColor"/>
+          </g>
+        </svg>
+        <div class="gauge-val"><div class="gv-num" id="fgNum">--</div><div class="gv-lbl" id="fgLbl">Loading</div></div>
+      </div>
+      <div class="gauge-desc" id="gaugeDesc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WIN RATE NEEDED TABLE ===== -->
+<section class="content-section" id="sensitivity" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Win rate needed at different ratios</h2>
+    <p style="margin-bottom:0">How the breakeven win rate changes across common risk/reward ratios \u2014 your current setup is highlighted.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <div class="table-scroll-y" id="sensTableWrap">
+        <table class="coins-table">
+          <thead><tr><th>Risk : Reward</th><th>Breakeven win rate</th><th>Example (per $100 risked)</th></tr></thead>
+          <tbody id="sensTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="ad">
+    <div><div class="lbl">Advertisement</div><div class="hint">Responsive unit — paste AdSense code here</div></div>
+  </div>
+</div>
+
+<!-- ===== COMMON RATIO PRESETS ===== -->
+<section class="content-section" id="presets" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Expectancy at different win rates</h2>
+    <p>Using your current risk/reward ratio, here's your trade expectancy at a range of win rates \u2014 see where your actual win rate needs to sit to have an edge.</p>
+    <div class="page-meta" style="margin:0 0 14px"><span id="benchReviewDate">Reviewed: July 2026</span></div>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Win rate</th><th>Expectancy (R)</th><th>Edge vs. breakeven</th><th><span class="visually-hidden">Action</span></th></tr></thead>
+        <tbody id="benchTbody"></tbody>
+      </table>
+    </div>
+    <nav class="toc reveal" aria-label="On this page">
+      <a href="#calculator">Calculator</a>
+      <a href="#chart">Breakeven Curve</a>
+      <a href="#milestones">Key Numbers</a>
+      <a href="#sensitivity">Win Rate Table</a>
+      <a href="#presets">Expectancy Table</a>
+      <a href="#learn">Learn</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#how-to">How to Use</a>
+      <a href="#mistakes">Common Mistakes</a>
+      <a href="#goals">Example Setups</a>
+      <a href="#saved-setups">Saved Setups</a>
+      <a href="#vs-winrate">Win Rate vs. R:R</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</section>
+<!-- ===== SEO CONTENT ===== -->
+<section class="content-section" id="learn">
+  <div class="wrap">
+    <h2>Understanding risk/reward ratio</h2>
+    <p>Risk/reward ratio compares how much you stand to lose if a trade hits your stop-loss against how much you stand to gain if it hits your take-profit. It's calculated purely from price levels, independent of position size, account currency, or the instrument you're trading — the same arithmetic applies to a stock, a forex pair, or a crypto position.</p>
+    <div class="formula">Long: R:R = (Target − Entry) ÷ (Entry − Stop)</div>
+    <div class="formula">Short: R:R = (Entry − Target) ÷ (Stop − Entry)</div>
+    <p>A ratio of 3 (written 1:3) means you're risking one unit to potentially make three. In the default example on this page — entry $100, stop $95, target $115 — the risk is $5 per unit, the reward is $15 per unit, giving a 1:3 ratio.</p>
+
+    <h3>Breakeven win rate: the number that puts the ratio in context</h3>
+    <p>A risk/reward ratio alone doesn't tell you whether a strategy is profitable — you also need to know how often it wins. Breakeven win rate answers a specific question: at this ratio, what's the minimum percentage of trades I need to win just to avoid losing money, before considering spreads, commissions, or slippage?</p>
+    <div class="formula">Breakeven Win Rate = 1 ÷ (1 + R:R Ratio)</div>
+    <p>At a 1:3 ratio, breakeven win rate is 25% — you can be wrong on three out of every four trades and still not lose money. At 1:1, it's 50%. At 1:0.5 (risking more than you stand to gain), it climbs to 67%. This is why many systematic traders deliberately favor setups with a ratio of 1:2 or better: it builds in room for a strategy to be wrong most of the time and still survive.</p>
+
+    <h3>Win rate and risk/reward are inseparable</h3>
+    <p>Neither number means much without the other. Consider two traders, both risking $100 per trade over 100 trades: Trader A wins 70% of the time but only makes half of what they risk on winners (a 1:0.5 ratio) — their expected result is +0.05R per trade, or about $500 total. Trader B wins only 40% of the time but at a 1:3 ratio — their expected result is +0.6R per trade, or about $6,000 total, twelve times more, despite winning far less often. The ratio, not the win rate alone, usually does more of the work.</p>
+
+    <h3>Trade expectancy: your edge in one number</h3>
+    <p>Expectancy converts win rate and risk/reward into a single expected value per trade, in units of risk (R) or in dollars.</p>
+    <div class="formula">Expectancy (R) = (Win Rate × R:R Ratio) − (Loss Rate × 1)</div>
+    <p>A positive expectancy means a strategy has a mathematical edge over a large enough sample of trades; a negative expectancy means it doesn't, no matter how a handful of recent trades felt. Expectancy is a long-run average — it says nothing about any single trade, which can still lose even with strongly positive expectancy, or win despite negative expectancy. The edge only shows up reliably over many trades.</p>
+
+    <h3>Kelly Criterion: sizing your edge</h3>
+    <p>Developed by J.L. Kelly Jr. at Bell Labs in 1956, the Kelly Criterion estimates the mathematically optimal fraction of capital to risk per trade, given a win rate and risk/reward ratio.</p>
+    <div class="formula">Kelly % = Win Rate − (Loss Rate ÷ R:R Ratio)</div>
+    <p>At a 40% win rate and a 1:3 ratio, full Kelly suggests risking 20% of capital per trade — mathematically optimal for long-run growth, but aggressive enough to produce large drawdowns along the way. In practice, most traders use a fraction of full Kelly, commonly half or quarter Kelly, trading some growth rate for a much smoother equity curve. Kelly is also highly sensitive to the accuracy of your win rate and ratio estimates, which are usually based on a limited sample and carry real uncertainty.</p>
+
+    <h3>Multi-target trades: blending several outcomes into one ratio</h3>
+    <p>Many traders don't exit an entire position at a single target — they close part of it at each of several levels. Blending these into one weighted-average R-multiple shows the trade's overall risk/reward profile: closing 40% of a position at 2R, 30% at 4R, and the remaining 30% at 8R blends to a 4.4R weighted average, considerably better than any single conservative target alone, while still locking in partial profit along the way.</p>
+
+    <h3>What this calculator doesn't do</h3>
+    <p>It doesn't know your actual win rate — that has to come from your own trading history or a backtest, and a small sample size makes any win rate estimate unreliable. It also doesn't include spread, commission, funding, or slippage, all of which quietly raise the effective breakeven win rate above the raw math shown here. Build in a buffer above the calculated breakeven point before treating a strategy as genuinely profitable.</p>
+  </div>
+</section>
+
+<!-- ===== GLOSSARY ===== -->
+<section class="content-section" id="glossary" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Glossary of terms</h2>
+    <dl class="glossary reveal">
+      <div class="gloss-item"><dt>Risk/reward ratio (R:R)</dt><dd>The potential reward on a trade divided by the potential risk, both measured from entry to the relevant price level.</dd></div>
+      <div class="gloss-item"><dt>R-multiple</dt><dd>A trade's result expressed as a multiple of the amount risked — a trade that risks $200 and makes $600 is a +3R result.</dd></div>
+      <div class="gloss-item"><dt>Breakeven win rate</dt><dd>The minimum percentage of trades that must win, at a given R:R ratio, to avoid losing money before costs.</dd></div>
+      <div class="gloss-item"><dt>Expectancy</dt><dd>The average expected result per trade given a win rate and risk/reward ratio — a strategy's long-run mathematical edge, in R or dollars.</dd></div>
+      <div class="gloss-item"><dt>Kelly Criterion</dt><dd>A formula estimating the optimal fraction of capital to risk per trade to maximize long-run growth, given a win rate and risk/reward ratio.</dd></div>
+      <div class="gloss-item"><dt>Half / quarter Kelly</dt><dd>Risking half or a quarter of the full Kelly-suggested fraction, trading some theoretical growth for meaningfully smaller drawdowns.</dd></div>
+      <div class="gloss-item"><dt>Multi-target exit</dt><dd>Closing a position in stages across multiple take-profit levels rather than all at once, each with its own weight and R-multiple.</dd></div>
+      <div class="gloss-item"><dt>Edge</dt><dd>The amount by which a strategy's actual win rate exceeds (or falls short of) its breakeven win rate at a given ratio.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== HOW TO USE ===== -->
+<section class="content-section" id="how-to" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">How to use this calculator</h2>
+    <div class="steps reveal">
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Choose Long or Short</h3><p>Select the direction of your planned trade.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Enter entry, stop-loss and take-profit</h3><p>Add the three price levels that define your trade setup.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Read your R:R ratio and breakeven win rate</h3><p>Review the ratio and the minimum win rate your strategy would need to break even at that ratio.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Check expectancy with your real win rate</h3><p>Switch to the Expectancy tab and enter your actual or backtested win rate to see your edge and Kelly sizing.</p></div></div>
+      <div class="step"><span class="step-num"></span><div class="step-body"><h3>Model partial exits if relevant</h3><p>Use the Multi-Target tab to blend several take-profit levels into one weighted R-multiple, then click Calculate to lock in the numbers or Clear to start fresh.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMON MISTAKES ===== -->
+<section class="content-section" id="mistakes" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Common mistakes &amp; tips for using risk/reward well</h2>
+    <ul>
+      <li><b>Moving the stop-loss to flatter the ratio.</b> The stop should sit where the trade idea is genuinely invalidated, not wherever produces a nicer-looking number.</li>
+      <li><b>Picking an unrealistic take-profit.</b> A target price rarely reaches produces a beautiful ratio and a terrible real-world win rate — set targets at levels price actually trades to.</li>
+      <li><b>Judging a strategy on win rate alone.</b> A 70% win rate with a 1:0.5 ratio can still lose money; always check the ratio and win rate together.</li>
+      <li><b>Ignoring trading costs.</b> Spread, commission, and slippage all raise your effective breakeven win rate above the raw calculation — build in a buffer.</li>
+      <li><b>Using full Kelly position sizing.</b> It's mathematically optimal for growth but produces large drawdowns; most traders use a fraction of it for a smoother ride.</li>
+      <li><b>Trusting a small sample win rate.</b> A win rate from 10–20 trades is statistically noisy — Kelly and expectancy figures based on it can be badly misleading until the sample grows.</li>
+    </ul>
+  </div>
+</section>
+<!-- ===== EXAMPLE SETUPS ===== -->
+<section class="content-section" id="goals" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Example setups</h2>
+    <p>A few realistic entry, stop and target combinations — click one to load it into the Risk/Reward Ratio tab above.</p>
+    <div class="goal-grid reveal" id="goalGrid"></div>
+  </div>
+</section>
+
+<!-- ===== SAVED SETUPS ===== -->
+<section class="content-section" id="saved-setups" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Your saved setups</h2>
+    <p>Click "💾 Save setup" above to keep the trade you're currently checking — it's stored privately in this browser, not sent anywhere, so it'll be here next time you visit on this device.</p>
+    <div class="goal-grid reveal" id="savedPresetsList"></div>
+  </div>
+</section>
+
+<!-- ===== WIN RATE VS R:R ===== -->
+<section class="content-section" id="vs-winrate" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">High win rate vs. high risk/reward — a side-by-side example</h2>
+    <p>Two traders, both risking $100 per trade over 100 trades, with very different styles.</p>
+    <div class="panel table-scroll reveal" style="padding:10px 6px">
+      <table class="coins-table">
+        <thead><tr><th>Trader</th><th>Win rate</th><th>Ratio</th><th>Expectancy</th><th>Result over 100 trades</th></tr></thead>
+        <tbody>
+          <tr><td>Trader A (high win rate)</td><td class="mono">70%</td><td class="mono">1:0.5</td><td class="mono">+0.05R</td><td class="mono">+$500</td></tr>
+          <tr><td>Trader B (high ratio)</td><td class="mono">40%</td><td class="mono">1:3</td><td class="mono" style="font-weight:700;color:var(--up)">+0.60R</td><td class="mono" style="font-weight:700;color:var(--up)">+$6,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">Trader B wins less than half as often as Trader A, but ends up twelve times more profitable, purely because their ratio does more work per winning trade than Trader A's high win rate can offset for its weak ratio. Neither approach is universally "better" — a very high win rate can absolutely work at a lower ratio, and a very low win rate can fail even at a strong ratio if it's below breakeven — but the ratio deserves at least as much attention as the win rate when evaluating a strategy.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="content-section" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Frequently asked questions</h2>
+    <div class="faq-list" id="faqList"></div>
+
+    <div class="disclaimer">This calculator provides estimates for general informational purposes only and is not financial or trading advice. Real trading results depend on execution, slippage, spreads, commissions, and many factors beyond the price levels entered here — consult a licensed financial advisor for personalized guidance.</div>
+
+    <div class="review-box">
+      <div class="review-avatar">CB</div>
+      <div>
+        <div class="rb-name">Calculator Boss Finance Team</div>
+        <div class="rb-role">Formulas cross-checked against standard references (below) · <span id="lastReviewed">Last reviewed July 2026</span></div>
+        <p style="margin-top:8px">Have feedback on this calculator, or spotted something that looks off? Use the feedback widget below or reach out via the About page — we periodically review these tools for accuracy.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:16px">
+      <b>References &amp; sources:</b>
+      <ul style="margin:8px 0 0 18px;padding:0;line-height:1.7">
+        <li>Van K. Tharp. <i>Trade Your Way to Financial Freedom</i> (2nd ed., 2007, McGraw-Hill). — origin of the R-multiple and expectancy framework this calculator's Expectancy tab is built on.</li>
+        <li>Kelly, J. L. Jr. (1956). "A New Interpretation of Information Rate." <i>Bell System Technical Journal.</i> — the original derivation of the Kelly Criterion used for the position-sizing figures on the Expectancy tab.</li>
+      </ul>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox">
+      <p>Was this calculator helpful?</p>
+      <div class="fb-btns">
+        <button class="fb-btn" data-fb="up" aria-label="Yes, helpful">👍</button>
+        <button class="fb-btn" data-fb="down" aria-label="Not helpful">👎</button>
+      </div>
+      <div class="fb-thanks" id="fbThanks">Thanks for letting us know!</div>
+    </div>
+
+    <div class="byline">Built by the Calculator Boss team</div>
+  </div>
+</section>
+
+<!-- ===== RELATED ===== -->
+<section class="content-section" style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-top:0">Related calculators</h2>
+    <div class="related-grid">
+      <a class="rel-card" href="../crypto-position-size-calculator/"><span class="rel-sym">SIZE</span><div class="rel-name">Crypto Position Size Calculator</div></a>
+      <a class="rel-card" href="../leverage-calculator/"><span class="rel-sym">LEV</span><div class="rel-name">Leverage Calculator</div></a>
+      <a class="rel-card" href="../liquidation-price-calculator/"><span class="rel-sym">LIQ</span><div class="rel-name">Liquidation Price Calculator</div></a>
+      <a class="rel-card" href="../crypto-profit-loss-calculator/"><span class="rel-sym">PNL</span><div class="rel-name">Crypto Profit / Loss Calculator</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <p>© 2026 Calculator Boss. Estimates only — not financial or trading advice.</p>
+      <a href="../index.html">← Back to all Money Tools</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id);};
+  var fmt=function(n,d){ if(d===undefined) d=2; if(!isFinite(n)) n=0; return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); };
+  var CURR = {USD:'$',GBP:'£',CAD:'$',AUD:'$',EUR:'€'};
+  var currency='USD';
+  var money=function(n,d){ if(d===undefined)d=2; if(!isFinite(n)) n=0; var neg=n<0; var s=CURR[currency]||'$'; return (neg?'-':'')+s+fmt(Math.abs(n),d); };
+  function isBlank(id){ var el=$(id); return !el || el.value.trim()===''; }
+
+  /* ---------- auto-refreshing freshness date ---------- */
+  (function(){
+    var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var now=new Date();
+    var label = MONTHS[now.getMonth()]+' '+now.getFullYear();
+    var lu=$('lastUpdated'); if(lu) lu.textContent='Last updated: '+label;
+    var br=$('benchReviewDate'); if(br) br.textContent='Reviewed: '+label;
+    var lr=$('lastReviewed'); if(lr) lr.textContent='Last reviewed '+label;
+    try{
+      var iso = now.toISOString().slice(0,10);
+      Array.prototype.forEach.call(document.querySelectorAll('script[type="application/ld+json"]'), function(s){
+        try{ var data=JSON.parse(s.textContent); if(data['@type']==='WebApplication'){ data.dateModified=iso; s.textContent=JSON.stringify(data); } }catch(e){}
+      });
+    }catch(e){}
+  })();
+
+  /* ---------- theme toggle ---------- */
+  (function(){
+    var html=document.documentElement;
+    var toggle=$('themeToggle'), iconSun=$('iconSun'), iconMoon=$('iconMoon');
+    function syncIcons(){ var isLight=html.getAttribute('data-theme')==='light'; iconSun.style.display=isLight?'none':''; iconMoon.style.display=isLight?'':'none'; }
+    syncIcons();
+    toggle.addEventListener('click', function(){
+      var isLight = html.getAttribute('data-theme')==='light';
+      if(isLight){ html.removeAttribute('data-theme'); } else { html.setAttribute('data-theme','light'); }
+      try{ localStorage.setItem('cf-theme', isLight?'dark':'light'); }catch(e){}
+      syncIcons();
+    });
+  })();
+
+  /* ---------- state ---------- */
+  var STATE = { activeTab:'ratio', ratio:{dir:'long'}, multi:{dir:'long'} };
+  var EFF = null; // {rr, breakeven, tabKey, ...extras}
+
+  /* ---------- core math (all closed-form, verified against published worked examples) ---------- */
+  function rrOf(entry, stop, target, dir){
+    if(dir==='long') return (target-entry)/(entry-stop);
+    return (entry-target)/(stop-entry);
+  }
+  function breakevenWinRate(rr){ return (1+rr)>0 ? 1/(1+rr)*100 : null; }
+  function expectancyR(winRateFrac, rr){ return winRateFrac*rr - (1-winRateFrac)*1; }
+  function kellyPct(winRateFrac, rr){ return rr>0 ? (winRateFrac - (1-winRateFrac)/rr)*100 : null; }
+
+  function row(lbl,val){ return '<div class="stat-row"><span class="stat-lbl">'+lbl+'</span><span class="stat-val">'+val+'</span></div>'; }
+  function setResultHero(label,value,cls,sub){
+    var hero=$('resultHero');
+    hero.className='result-hero '+cls;
+    $('rhLabel').textContent=label;
+    $('rhValue').className='rh-value '+cls;
+    $('rhValue').textContent=value;
+    $('rhRoi').className='rh-roi '+cls;
+    $('rhRoi').textContent=sub||'';
+  }
+  function setNote(html,risk){
+    $('resultNote').innerHTML = html ? ('<div class="note'+(risk?' risk-note':'')+'">'+html+'</div>') : '';
+  }
+  function setPlBar(aPct,bPct){
+    $('plBarFill').style.cssText='left:0;width:'+aPct+'%;background:var(--down)';
+    $('plBarFill2').style.cssText='left:'+aPct+'%;width:'+bPct+'%;background:var(--up)';
+  }
+  function showEmptyState(label, msg){
+    setResultHero(label, '—', 'neutral', '');
+    setNote(msg, false);
+    $('statList').innerHTML='';
+    setPlBar(0,0);
+    $('plLegend').innerHTML='';
+    EFF=null;
+    $('chartBox').innerHTML='<div class="chart-loading">Enter your details above to see the chart.</div>';
+    $('chartLegend').innerHTML='';
+    $('statsGrid').innerHTML='';
+    $('fgNum').textContent='--'; $('fgLbl').textContent='—';
+    $('fgNeedle').style.transform='rotate(-90deg)';
+    $('gaugeDesc').textContent='Fill in your details above to see your trade quality.';
+    $('sensTbody').innerHTML='';
+    $('benchTbody').innerHTML='';
+  }
+
+  /* ---------- direction toggles ---------- */
+  function setDirection(tabKey, dir){
+    STATE[tabKey].dir = dir;
+    var row=$(tabKey+'DirectionRow');
+    if(!row) return;
+    Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      var isOn = b.dataset.dir===dir;
+      b.classList.remove('on-long','on-short');
+      if(isOn) b.classList.add(dir==='long'?'on-long':'on-short');
+      b.setAttribute('aria-pressed', isOn?'true':'false');
+    });
+  }
+
+  /* ---------- tab calculators ---------- */
+  function calcRatio(){
+    if(isBlank('rEntry')||isBlank('rStop')||isBlank('rTarget')){
+      showEmptyState('Risk/Reward Ratio','Fill in your entry, stop-loss and take-profit to see your ratio.');
+      return;
+    }
+    var dir = STATE.ratio.dir;
+    var entry=parseFloat($('rEntry').value)||0;
+    var stop=parseFloat($('rStop').value)||0;
+    var target=parseFloat($('rTarget').value)||0;
+    var qty=parseFloat($('rQty').value)||0;
+
+    var riskPerUnit = dir==='long' ? entry-stop : stop-entry;
+    var rewardPerUnit = dir==='long' ? target-entry : entry-target;
+
+    if(entry<=0 || riskPerUnit<=0 || rewardPerUnit<=0){
+      setResultHero('Risk/Reward Ratio','—','risk','');
+      var msg = dir==='long'
+        ? 'For a long trade, stop-loss must be below entry, and take-profit must be above entry.'
+        : 'For a short trade, stop-loss must be above entry, and take-profit must be below entry.';
+      setNote(msg, true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var rr = rewardPerUnit/riskPerUnit;
+    var breakeven = breakevenWinRate(rr);
+    var totalRisk = riskPerUnit*qty, totalReward = rewardPerUnit*qty;
+
+    var cls = rr<1 ? 'risk' : (rr<2 ? 'neutral' : 'up');
+    setResultHero('Risk/Reward Ratio', '1 : '+fmt(rr,2), cls, 'breakeven win rate '+fmt(breakeven,1)+'% \u00b7 '+(dir==='long'?'Long':'Short'));
+    var totalUnits = totalRisk+totalReward;
+    setPlBar(totalUnits>0?(totalRisk/totalUnits*100):50, totalUnits>0?(totalReward/totalUnits*100):50);
+    $('plLegend').innerHTML = '<span><span class="leg-dot" style="background:var(--down)"></span>Risk</span><span><span class="leg-dot" style="background:var(--up)"></span>Reward</span>';
+
+    var notes=[];
+    if(rr<1) notes.push('This ratio requires winning more than half your trades just to break even \u2014 consider a wider target or tighter stop if the setup allows it.');
+    else if(rr>=3) notes.push('A strong ratio \u2014 breakeven win rate is only '+fmt(breakeven,1)+'%, leaving plenty of room for a strategy that\u2019s wrong most of the time.');
+    setNote(notes.length?notes.join(' '):'');
+
+    $('statList').innerHTML =
+      row('Risk per unit', money(riskPerUnit))+
+      row('Reward per unit', money(rewardPerUnit))+
+      row('Total risk'+(qty>0?'':' (add position size)'), qty>0?money(totalRisk):'\u2014')+
+      row('Total reward'+(qty>0?'':' (add position size)'), qty>0?money(totalReward):'\u2014')+
+      row('Breakeven win rate', fmt(breakeven,1)+'%');
+
+    EFF = {rr:rr, breakeven:breakeven, riskPerUnit:riskPerUnit, rewardPerUnit:rewardPerUnit, totalRisk:totalRisk,
+           totalReward:totalReward, direction:dir, tabKey:'ratio'};
+    renderDownstream();
+  }
+
+  function calcExpectancy(){
+    if(isBlank('eRR')||isBlank('eWinRate')||isBlank('eRiskPerTrade')||isBlank('eNumTrades')){
+      showEmptyState('Expectancy per Trade','Fill in your risk/reward ratio, win rate, risk per trade and number of trades to see your expectancy.');
+      return;
+    }
+    var rr = parseFloat($('eRR').value)||0;
+    var winRatePct = parseFloat($('eWinRate').value)||0;
+    var riskPerTrade = parseFloat($('eRiskPerTrade').value)||0;
+    var numTrades = parseFloat($('eNumTrades').value)||0;
+
+    if(rr<=0 || winRatePct<0 || winRatePct>100){
+      setResultHero('Expectancy per Trade','—','risk','');
+      setNote('Risk/reward ratio must be greater than 0, and win rate must be between 0 and 100%.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var winRateFrac = winRatePct/100;
+    var breakeven = breakevenWinRate(rr);
+    var expR = expectancyR(winRateFrac, rr);
+    var expDollar = expR*riskPerTrade;
+    var totalExpected = expDollar*numTrades;
+    var edge = winRatePct-breakeven;
+    var kelly = kellyPct(winRateFrac, rr);
+
+    var cls = expR>0 ? 'up' : (expR<0 ? 'risk' : 'neutral');
+    setResultHero('Expectancy per Trade', fmt(expR,3)+'R', cls, money(expDollar)+'/trade \u00b7 '+(edge>=0?'+':'')+fmt(edge,1)+'% edge vs. breakeven');
+    setPlBar(0,0); $('plLegend').innerHTML='';
+
+    var notes=[];
+    if(expR<=0) notes.push('This combination has zero or negative expectancy \u2014 your win rate doesn\u2019t clear the '+fmt(breakeven,1)+'% breakeven threshold for a 1:'+fmt(rr,1)+' ratio.');
+    else if(kelly!=null && kelly>25) notes.push('Full Kelly suggests risking '+fmt(kelly,1)+'% per trade \u2014 very aggressive. Most traders use half or quarter Kelly for a smoother equity curve.');
+    setNote(notes.length?notes.join(' '):'');
+
+    $('statList').innerHTML =
+      row('Breakeven win rate', fmt(breakeven,1)+'%')+
+      row('Your win rate', fmt(winRatePct,1)+'%')+
+      row('Expected value / trade', money(expDollar))+
+      row('Expected total over '+fmt(numTrades,0)+' trades', money(totalExpected))+
+      row('Full Kelly position size', kelly!=null?fmt(Math.max(0,kelly),1)+'%':'\u2014')+
+      row('Half Kelly / Quarter Kelly', kelly!=null?fmt(Math.max(0,kelly)/2,1)+'% / '+fmt(Math.max(0,kelly)/4,1)+'%':'\u2014');
+
+    EFF = {rr:rr, breakeven:breakeven, winRatePct:winRatePct, expR:expR, expDollar:expDollar, totalExpected:totalExpected,
+           edge:edge, kelly:kelly, riskPerTrade:riskPerTrade, numTrades:numTrades, tabKey:'expectancy'};
+    renderDownstream();
+  }
+
+  function calcMulti(){
+    if(isBlank('mEntry')||isBlank('mStop')||isBlank('mTp1Price')||isBlank('mTp1Pct')){
+      showEmptyState('Blended R-Multiple','Fill in entry, stop-loss and at least Target 1 to see your blended ratio.');
+      return;
+    }
+    var dir = STATE.multi.dir;
+    var entry=parseFloat($('mEntry').value)||0;
+    var stop=parseFloat($('mStop').value)||0;
+    var riskPerUnit = dir==='long' ? entry-stop : stop-entry;
+
+    if(entry<=0 || riskPerUnit<=0){
+      setResultHero('Blended R-Multiple','—','risk','');
+      var msg = dir==='long' ? 'For a long trade, stop-loss must be below entry.' : 'For a short trade, stop-loss must be above entry.';
+      setNote(msg, true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var rawTargets = [
+      {price:parseFloat($('mTp1Price').value)||0, pct:parseFloat($('mTp1Pct').value)||0},
+      {price:parseFloat($('mTp2Price').value)||0, pct:parseFloat($('mTp2Pct').value)||0},
+      {price:parseFloat($('mTp3Price').value)||0, pct:parseFloat($('mTp3Pct').value)||0}
+    ];
+    var targets = rawTargets.filter(function(t){ return t.price>0 && t.pct>0; });
+    if(!targets.length){
+      setResultHero('Blended R-Multiple','—','risk','');
+      setNote('Add at least one target with a price and a percentage greater than 0.', true);
+      $('statList').innerHTML=''; EFF=null;
+      return;
+    }
+    var totalPct = targets.reduce(function(s,t){return s+t.pct;},0);
+    var blendedR = 0;
+    var rows = targets.map(function(t){
+      var rMultiple = dir==='long' ? (t.price-entry)/riskPerUnit : (entry-t.price)/riskPerUnit;
+      var weight = t.pct/totalPct;
+      blendedR += weight*rMultiple;
+      return {price:t.price, pct:t.pct, weight:weight, rMultiple:rMultiple};
+    });
+    var breakeven = breakevenWinRate(blendedR);
+
+    var cls = blendedR<1 ? 'risk' : (blendedR<2 ? 'neutral' : 'up');
+    setResultHero('Blended R-Multiple', fmt(blendedR,2)+'R', cls, 'breakeven win rate '+fmt(breakeven,1)+'% \u00b7 '+(dir==='long'?'Long':'Short'));
+    setPlBar(0,0); $('plLegend').innerHTML='';
+    setNote(Math.abs(totalPct-100)>0.5 ? 'Your target percentages add up to '+fmt(totalPct,0)+'%, not 100% \u2014 weights below are normalized proportionally.' : '');
+
+    $('statList').innerHTML = rows.map(function(r,i){
+      return row('Target '+(i+1)+' ('+fmt(r.pct,0)+'% of position)', fmt(r.rMultiple,2)+'R at '+money(r.price));
+    }).join('') + row('Blended R-multiple', fmt(blendedR,2)+'R') + row('Blended breakeven win rate', fmt(breakeven,1)+'%');
+
+    EFF = {rr:blendedR, breakeven:breakeven, direction:dir, targets:rows, tabKey:'multi'};
+    renderDownstream();
+  }
+
+  var CALC_FNS = {ratio:calcRatio, expectancy:calcExpectancy, multi:calcMulti};
+  function calc(){ (CALC_FNS[STATE.activeTab]||calcRatio)(); }
+
+  /* ---------- downstream: chart, milestones, gauge, sensitivity, presets ---------- */
+  function renderDownstream(){
+    if(!EFF) return;
+    drawChart(EFF);
+    renderMilestones();
+    renderGauge();
+    renderSensitivityTable();
+    renderPresets();
+  }
+
+  function drawChart(eff){
+    var box=$('chartBox');
+    var W=900,H=280,L=50,R=20,T=16,B=32, pw=W-L-R, ph=H-T-B;
+    var xMin=0, xMax=10, yMin=0, yMax=100;
+    function xOf(rr){ return L+((Math.min(rr,xMax)-xMin)/(xMax-xMin))*pw; }
+    function yOf(be){ return T+ph-((be-yMin)/(yMax-yMin))*ph; }
+    var N=100, pts=[];
+    for(var i=0;i<=N;i++){
+      var rr = xMin+(xMax-xMin)*i/N;
+      var be = breakevenWinRate(rr);
+      pts.push(xOf(rr)+','+yOf(be));
+    }
+    var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="overflow:visible">';
+    [25,50,75].forEach(function(gy){
+      s+='<line x1="'+L+'" y1="'+yOf(gy)+'" x2="'+(L+pw)+'" y2="'+yOf(gy)+'" stroke="var(--line-2)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>';
+      s+='<text x="'+(L-6)+'" y="'+(yOf(gy)+4)+'" text-anchor="end" font-family="var(--f-mono)" font-size="10" fill="var(--muted)">'+gy+'%</text>';
+    });
+    s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="var(--cx)" stroke-width="2.4" stroke-linecap="round"/>';
+    var curRR = Math.max(xMin, Math.min(xMax, eff.rr));
+    var cx = xOf(curRR), cy = yOf(Math.max(0,Math.min(100,eff.breakeven)));
+    s+='<line x1="'+cx+'" y1="'+T+'" x2="'+cx+'" y2="'+(T+ph)+'" stroke="var(--up)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.6"/>';
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--up)" stroke="var(--panel)" stroke-width="2"/>';
+    s+='<text x="'+cx+'" y="'+(T-2)+'" text-anchor="middle" font-family="var(--f-mono)" font-size="11" font-weight="700" fill="var(--up)">1:'+fmt(eff.rr,1)+'</text>';
+    s+='<text x="'+(L+pw)+'" y="'+(T+ph+22)+'" text-anchor="end" font-family="var(--f-mono)" font-size="10.5" fill="var(--muted)">Risk : Reward ratio (0 to 10)</text>';
+    s+='</svg>';
+    box.innerHTML=s;
+    $('chartLegend').innerHTML = '<span><span class="leg-dot" style="background:var(--cx)"></span>Breakeven win rate curve</span><span><span class="leg-dot" style="background:var(--up)"></span>Your setup (1:'+fmt(eff.rr,2)+')</span>';
+  }
+
+  function renderMilestones(){
+    var items = [
+      mstat('R:R Ratio', '1 : '+fmt(EFF.rr,2)),
+      mstat('Breakeven Win Rate', fmt(EFF.breakeven,1)+'%'),
+      mstat('Risk per Unit/Trade', EFF.riskPerUnit!=null?money(EFF.riskPerUnit):(EFF.riskPerTrade!=null?money(EFF.riskPerTrade):'\u2014')),
+      mstat('Reward per Unit', EFF.rewardPerUnit!=null?money(EFF.rewardPerUnit):'\u2014'),
+      mstat('Total Risk', EFF.totalRisk!=null&&EFF.totalRisk>0?money(EFF.totalRisk):'\u2014'),
+      mstat('Total Reward', EFF.totalReward!=null&&EFF.totalReward>0?money(EFF.totalReward):'\u2014'),
+      mstat('Expectancy', EFF.expR!=null?fmt(EFF.expR,3)+'R':(EFF.rr>0?fmt(0,3)+'R (add win rate)':'\u2014')),
+      mstat('Trade Verdict', EFF.rr<1?'Poor':(EFF.rr<2?'Moderate':(EFF.rr<3?'Good':'Excellent')), EFF.rr<1?'down':(EFF.rr<2?'':'up'))
+    ];
+    $('statsGrid').innerHTML = items.join('');
+  }
+  function mstat(k,v,cls){ return '<div class="mstat"><div class="k">'+k+'</div><div class="v'+(cls?' '+cls:'')+'">'+v+'</div></div>'; }
+
+  function renderGauge(){
+    var rr = isFinite(EFF.rr) ? EFF.rr : 0;
+    var clamped = Math.max(0, Math.min(5, rr));
+    var score = (clamped/5)*100;
+    var lbl = rr<1 ? 'Poor' : rr<2 ? 'Moderate' : rr<3 ? 'Good' : 'Excellent';
+    $('fgNum').textContent = '1:'+fmt(rr,1);
+    $('fgLbl').textContent = lbl;
+    var angle = (score/100)*180-90;
+    $('fgNeedle').style.transform='rotate('+angle+'deg)';
+    $('fgNeedle').style.color = rr<1?'#F0546A':(rr<2?'#B98A1E':'#0E9F6E');
+    $('gaugeDesc').textContent = 'At a 1:'+fmt(rr,2)+' ratio, you need to win '+fmt(EFF.breakeven,1)+'% of trades just to break even. Many systematic traders look for at least 1:2 (a 33% breakeven win rate or lower) to build in room for a strategy that\u2019s wrong more often than it\u2019s right.';
+  }
+
+  function renderSensitivityTable(){
+    var presets=[0.5,1,1.5,2,3,4,5,7,10];
+    var tb=$('sensTbody');
+    tb.innerHTML = presets.map(function(rr){
+      var be = breakevenWinRate(rr);
+      var exampleReward = 100*rr;
+      var isCurrent = Math.abs(rr-EFF.rr)<0.05;
+      return '<tr'+(isCurrent?' style="background:var(--panel-2)"':'')+'>'+
+        '<td class="mono">1 : '+fmt(rr,1)+(isCurrent?' <span class="hint">(yours)</span>':'')+'</td>'+
+        '<td class="mono" style="font-weight:700">'+fmt(be,1)+'%</td>'+
+        '<td class="mono">risk $100 \u2192 win '+money(exampleReward,0)+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  var WINRATE_PRESETS = [10,20,30,40,50,60,70,80];
+  function renderPresets(){
+    var tb=$('benchTbody');
+    var rr = EFF.rr;
+    tb.innerHTML = WINRATE_PRESETS.map(function(wr){
+      var expR = expectancyR(wr/100, rr);
+      var edge = wr-EFF.breakeven;
+      return '<tr>'+
+        '<td class="mono">'+wr+'%</td>'+
+        '<td class="mono" style="font-weight:700;color:'+(expR>=0?'var(--up)':'var(--down)')+'">'+(expR>=0?'+':'')+fmt(expR,3)+'R</td>'+
+        '<td class="mono" style="color:'+(edge>=0?'var(--up)':'var(--down)')+'">'+(edge>=0?'+':'')+fmt(edge,1)+'%</td>'+
+        '<td><button class="ct-use" data-wr="'+wr+'">Use \u2192</button></td>'+
+      '</tr>';
+    }).join('');
+    Array.prototype.forEach.call(tb.querySelectorAll('.ct-use[data-wr]'), function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelector('.ctab-btn[data-tab="expectancy"]').click();
+        $('eRR').value = fmt(rr,2);
+        $('eWinRate').value = btn.dataset.wr;
+        calc();
+      });
+    });
+  }
+
+  function renderBenchBar(){
+    var chips=[1,1.5,2,3,5];
+    $('benchBar').innerHTML = chips.map(function(rr){
+      return '<div class="bench-chip" data-rr="'+rr+'"><span class="bc-lbl">Set ratio</span><span class="bc-rate">1:'+rr+'</span></div>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('.bench-chip'), function(chip){
+      chip.addEventListener('click', function(){
+        var rr = parseFloat(chip.dataset.rr);
+        if(STATE.activeTab==='ratio'){
+          var entry=parseFloat($('rEntry').value)||100;
+          var stop=parseFloat($('rStop').value)||(entry*0.95);
+          var risk = STATE.ratio.dir==='long' ? entry-stop : stop-entry;
+          if(risk<=0){ risk = entry*0.05; }
+          var target = STATE.ratio.dir==='long' ? entry+risk*rr : entry-risk*rr;
+          $('rTarget').value = Math.round(target*100)/100;
+        } else if(STATE.activeTab==='expectancy'){
+          $('eRR').value = rr;
+        }
+        calc();
+      });
+    });
+  }
+
+  /* ---------- events: tabs ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.ctab-btn'), function(x){x.classList.remove('on'); x.setAttribute('aria-selected','false');});
+      b.classList.add('on'); b.setAttribute('aria-selected','true');
+      STATE.activeTab=b.dataset.tab;
+      Array.prototype.forEach.call(document.querySelectorAll('.tab-fields'), function(tf){
+        tf.style.display = tf.dataset.tab===STATE.activeTab ? '' : 'none';
+      });
+      calc();
+      syncShareUrl();
+    });
+  });
+
+  /* ---------- events: direction toggles ---------- */
+  ['ratio','multi'].forEach(function(tabKey){
+    var row=$(tabKey+'DirectionRow');
+    if(row) Array.prototype.forEach.call(row.querySelectorAll('.seg-btn'), function(b){
+      b.addEventListener('click', function(){ setDirection(tabKey,b.dataset.dir); calc(); syncShareUrl(); });
+    });
+  });
+
+  /* ---------- events: currency ---------- */
+  $('currency').addEventListener('change', function(){ currency=this.value; calc(); syncShareUrl(); });
+
+  /* ---------- events: all numeric inputs ---------- */
+  var ALL_FIELDS = ['rEntry','rStop','rTarget','rQty',
+                     'eRR','eWinRate','eRiskPerTrade','eNumTrades',
+                     'mEntry','mStop','mTp1Price','mTp1Pct','mTp2Price','mTp2Pct','mTp3Price','mTp3Pct'];
+  ALL_FIELDS.forEach(function(id){ var el=$(id); if(el) el.addEventListener('input', function(){ calc(); syncShareUrl(); }); });
+
+  /* ---------- Calculate / Clear buttons ---------- */
+  var TAB_FIELDS = {
+    ratio: ['rEntry','rStop','rTarget','rQty'],
+    expectancy: ['eRR','eWinRate','eRiskPerTrade','eNumTrades'],
+    multi: ['mEntry','mStop','mTp1Price','mTp1Pct','mTp2Price','mTp2Pct','mTp3Price','mTp3Pct']
+  };
+  $('calcBtn').addEventListener('click', function(){
+    calc();
+    var hero=$('resultHero');
+    hero.classList.remove('btn-calc-pulse');
+    void hero.offsetWidth;
+    hero.classList.add('btn-calc-pulse');
+    syncShareUrl();
+  });
+  $('clearBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) el.value=''; });
+    if(tab==='ratio') setDirection('ratio','long');
+    if(tab==='multi') setDirection('multi','long');
+    calc();
+    syncShareUrl();
+    var firstField=$(TAB_FIELDS[tab][0]);
+    if(firstField) firstField.focus();
+  });
+
+  /* ---------- shareable URL ---------- */
+  var SHARE_FIELDS = ALL_FIELDS;
+  function buildShareParams(){
+    var p = new URLSearchParams();
+    p.set('tab', STATE.activeTab);
+    p.set('cur', currency);
+    p.set('rdir', STATE.ratio.dir);
+    p.set('mdir', STATE.multi.dir);
+    SHARE_FIELDS.forEach(function(id){ var el=$(id); if(el && el.value!=='' && el.value!=null) p.set(id, el.value); });
+    return p;
+  }
+  function syncShareUrl(){
+    try{
+      var p = buildShareParams();
+      history.replaceState(null, '', location.pathname + '?' + p.toString());
+    }catch(e){}
+  }
+  function applyShareParamsFromUrl(){
+    var p = new URLSearchParams(location.search);
+    if(![...p.keys()].length) return false;
+    if(p.has('cur') && $('currency')){ $('currency').value=p.get('cur'); currency=p.get('cur'); }
+    if(p.has('rdir')) setDirection('ratio', p.get('rdir'));
+    if(p.has('mdir')) setDirection('multi', p.get('mdir'));
+    SHARE_FIELDS.forEach(function(id){ if(p.has(id) && $(id)) $(id).value = p.get(id); });
+    if(p.has('tab') && document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]')){
+      document.querySelector('.ctab-btn[data-tab="'+p.get('tab')+'"]').click();
+    }
+    return true;
+  }
+  $('copyShareLink').addEventListener('click', function(){
+    syncShareUrl();
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Link copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- copy result ---------- */
+  $('copyResult').addEventListener('click', function(){
+    var text = $('rhLabel').textContent+': '+$('rhValue').textContent+' ('+$('rhRoi').textContent+')';
+    var btn=this;
+    var done=function(){ var old=btn.innerHTML; btn.innerHTML='Copied ✓'; setTimeout(function(){ btn.innerHTML=old; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(done); } else { done(); }
+  });
+
+  /* ---------- print ---------- */
+  $('printResult').addEventListener('click', function(){ window.print(); });
+
+  /* ---------- CSV export ---------- */
+  $('downloadCsv').addEventListener('click', function(){
+    if(!EFF){ return; }
+    var rows = [
+      ['Field','Value'],
+      ['Tab', EFF.tabKey],
+      ['R:R ratio', '1:'+EFF.rr.toFixed(3)],
+      ['Breakeven win rate %', EFF.breakeven.toFixed(2)]
+    ];
+    if(EFF.riskPerUnit!=null) rows.push(['Risk per unit', EFF.riskPerUnit.toFixed(4)]);
+    if(EFF.rewardPerUnit!=null) rows.push(['Reward per unit', EFF.rewardPerUnit.toFixed(4)]);
+    if(EFF.totalRisk!=null) rows.push(['Total risk', EFF.totalRisk.toFixed(2)]);
+    if(EFF.totalReward!=null) rows.push(['Total reward', EFF.totalReward.toFixed(2)]);
+    if(EFF.expR!=null) rows.push(['Expectancy (R)', EFF.expR.toFixed(4)]);
+    if(EFF.kelly!=null) rows.push(['Full Kelly %', EFF.kelly.toFixed(2)]);
+    var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+    var blob = new Blob([csv], {type:'text/csv'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'risk-reward-calculator.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  /* ---------- example setup cards ---------- */
+  var GOALS = [
+    {name:'Solid swing trade (1:3)', detail:'Entry $100 \u00b7 Stop $95 \u00b7 Target $115 \u00b7 Long', entry:100, stop:95, target:115, qty:50, dir:'long'},
+    {name:'Tight scalp (1:1)', detail:'Entry $50 \u00b7 Stop $49 \u00b7 Target $51 \u00b7 Long', entry:50, stop:49, target:51, qty:200, dir:'long'},
+    {name:'Short setup (1:2.5)', detail:'Entry $200 \u00b7 Stop $208 \u00b7 Target $180 \u00b7 Short', entry:200, stop:208, target:180, qty:25, dir:'short'},
+    {name:'Weak ratio (1:0.5, avoid)', detail:'Entry $100 \u00b7 Stop $90 \u00b7 Target $105 \u00b7 Long', entry:100, stop:90, target:105, qty:50, dir:'long'}
+  ];
+  $('goalGrid').innerHTML = GOALS.map(function(g,i){
+    return '<button class="goal-card" data-i="'+i+'"><div class="g-name">'+g.name+'</div><div class="g-detail">'+g.detail+'</div><span class="g-cta">Try this scenario →</span></button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.goal-card'), function(card){
+    card.addEventListener('click', function(){
+      var g = GOALS[parseInt(card.dataset.i,10)];
+      document.querySelector('.ctab-btn[data-tab="ratio"]').click();
+      setDirection('ratio', g.dir);
+      $('rEntry').value = g.entry;
+      $('rStop').value = g.stop;
+      $('rTarget').value = g.target;
+      $('rQty').value = g.qty;
+      calc();
+      document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+    });
+  });
+
+  /* ---------- saved setups (stored locally in this browser only) ---------- */
+  var PRESET_KEY = 'cb-riskreward-presets';
+  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function loadPresets(){ try{ var v=JSON.parse(localStorage.getItem(PRESET_KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function savePresetsToStorage(arr){ try{ localStorage.setItem(PRESET_KEY, JSON.stringify(arr)); }catch(e){} }
+  var TAB_LABEL = {ratio:'Risk/Reward Ratio', expectancy:'Expectancy & Kelly', multi:'Multi-Target'};
+  function buildPresetSummary(tab, fields, dir){
+    if(tab==='ratio') return money(parseFloat(fields.rEntry)||0)+' entry \u00b7 '+(dir==='long'?'Long':'Short');
+    if(tab==='expectancy') return '1:'+(fields.eRR||'?')+' \u00b7 '+(fields.eWinRate||'?')+'% win rate';
+    return money(parseFloat(fields.mEntry)||0)+' entry \u00b7 multi-target \u00b7 '+(dir==='long'?'Long':'Short');
+  }
+  function renderSavedPresets(){
+    var wrap=$('savedPresetsList');
+    if(!wrap) return;
+    var arr=loadPresets();
+    if(!arr.length){
+      wrap.innerHTML = '<p class="mono" style="grid-column:1/-1;color:var(--muted);font-size:12.5px">No saved setups yet \u2014 fill in a trade above and click "\ud83d\udcbe Save setup" to keep it here for next time.</p>';
+      return;
+    }
+    wrap.innerHTML = arr.map(function(p,i){
+      return '<div class="goal-card" style="cursor:default">'+
+        '<div class="g-name">'+escapeHtml(p.name || (TAB_LABEL[p.tab]+' setup'))+'</div>'+
+        '<div class="g-detail">'+escapeHtml(p.summary)+' \u00b7 '+escapeHtml(TAB_LABEL[p.tab]||'')+'</div>'+
+        '<div style="display:flex;gap:8px;margin-top:10px">'+
+          '<button type="button" class="ct-use" data-load="'+i+'">Load</button>'+
+          '<button type="button" class="ct-use" data-del="'+i+'" style="background:var(--down-bg);color:var(--down)">Delete</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-load]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.load,10);
+        var p=loadPresets()[i];
+        if(!p) return;
+        document.querySelector('.ctab-btn[data-tab="'+p.tab+'"]').click();
+        if(p.dir && STATE[p.tab]) setDirection(p.tab, p.dir);
+        Object.keys(p.fields||{}).forEach(function(id){ var el=$(id); if(el) el.value=p.fields[id]; });
+        calc();
+        syncShareUrl();
+        document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll('[data-del]'), function(btn){
+      btn.addEventListener('click', function(){
+        var i=parseInt(btn.dataset.del,10);
+        var arr2=loadPresets();
+        arr2.splice(i,1);
+        savePresetsToStorage(arr2);
+        renderSavedPresets();
+      });
+    });
+  }
+  $('savePresetBtn').addEventListener('click', function(){
+    var tab=STATE.activeTab;
+    var fields={};
+    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) fields[id]=el.value; });
+    var dir = STATE[tab] ? STATE[tab].dir : undefined;
+    var name = $('presetName').value.trim();
+    var arr = loadPresets();
+    arr.unshift({ name:name, tab:tab, fields:fields, dir:dir, summary:buildPresetSummary(tab,fields,dir), savedAt:Date.now() });
+    if(arr.length>12) arr = arr.slice(0,12);
+    savePresetsToStorage(arr);
+    $('presetName').value='';
+    renderSavedPresets();
+    var btn=$('savePresetBtn'); var old=btn.innerHTML;
+    btn.innerHTML='Saved \u2713'; setTimeout(function(){ btn.innerHTML=old; }, 1400);
+  });
+
+  /* ---------- feedback widget ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.fb-btn'), function(x){ x.disabled=true; x.style.opacity='.5'; });
+      $('fbThanks').style.display='block';
+    });
+  });
+
+  /* ---------- FAQ ---------- */
+  var FAQ=[
+    ['What is the risk/reward ratio in trading?','It compares how much you stand to lose if a trade hits your stop-loss against how much you stand to gain if it hits your take-profit. For a long trade it\u2019s the distance from entry to target divided by the distance from entry to stop; for a short trade the distances are reversed. A 1:3 ratio means you\u2019re risking $1 to potentially make $3.'],
+    ['How do I calculate risk/reward ratio?','Long trade: R:R = (Target \u2212 Entry) \u00f7 (Entry \u2212 Stop). Short trade: R:R = (Entry \u2212 Target) \u00f7 (Stop \u2212 Entry). Both formulas divide your potential reward per unit by your potential risk per unit \u2014 the position size and account currency don\u2019t affect the ratio itself.'],
+    ['What is breakeven win rate and how is it calculated?','Breakeven win rate is the minimum percentage of trades you need to win, at a given risk/reward ratio, to avoid losing money before costs. The formula is 1 \u00f7 (1 + R:R ratio). At a 1:3 ratio you only need to win 25% of trades to break even; at 1:1 you need to win more than 50%.'],
+    ['Is risk/reward ratio more important than win rate?','Neither matters on its own \u2014 they work together. A high win rate with a poor risk/reward ratio can still lose money, and a low win rate with a strong risk/reward ratio can still be profitable. A trader winning 40% of trades at 1:3 has a bigger edge than one winning 70% of trades at 1:0.5, because the second trader\u2019s average loss is larger than their average win.'],
+    ['What is trade expectancy?','Expectancy is the average result you can expect per trade, given your win rate and risk/reward ratio, expressed in R-multiples (units of risk) or dollars. It\u2019s calculated as (win rate \u00d7 average win) minus (loss rate \u00d7 average loss). A positive expectancy means your strategy has a mathematical edge over a large number of trades; a negative expectancy means it doesn\u2019t, regardless of how it feels trade to trade.'],
+    ['What is the Kelly Criterion and how does it relate to risk/reward?','The Kelly Criterion, developed by J.L. Kelly Jr. in 1956, estimates the mathematically optimal fraction of capital to risk per trade given your win rate and risk/reward ratio: Kelly % = Win Rate \u2212 (Loss Rate \u00f7 R:R Ratio). Full Kelly is aggressive and produces large swings, so most traders use a fraction of it, such as half or quarter Kelly, for a smoother equity curve.'],
+    ['What is a good risk/reward ratio?','There\u2019s no universal answer \u2014 it depends on your win rate. Many traders aim for at least 1:2, which only requires a 33% win rate to break even, but a very high win rate strategy can still be profitable at 1:1 or lower. The ratio and the win rate always need to be evaluated together, not separately.'],
+    ['What is a multi-target or partial profit-taking strategy?','It means closing part of a position at each of several take-profit levels instead of exiting all at once \u2014 for example, 40% of the position at 2R, 30% at 4R, and the rest at 8R. This blends multiple risk/reward outcomes into a single weighted-average R-multiple for the trade, and often lets a trader lock in partial profit while still leaving room for a bigger move.'],
+    ['What\u2019s a common mistake with risk/reward ratios?','Moving the stop-loss further away, or picking an unrealistic take-profit target, purely to make the ratio look better on paper. The ratio should come from where the trade is genuinely invalidated (the stop) and where price is realistically likely to reach (the target) \u2014 inflating either number to flatter the math doesn\u2019t change the market.'],
+    ['How does risk/reward relate to position sizing?','They answer different questions. Risk/reward asks whether a setup is worth taking at all, based on the ratio of potential gain to potential loss. Position sizing asks how many units to trade so that a stop-out costs a fixed, acceptable percentage of your account \u2014 use a dedicated position size calculator for that once you\u2019ve confirmed the risk/reward ratio makes sense.'],
+    ['What does it mean to think in R-multiples?','An R-multiple expresses a trade\u2019s result as a multiple of the amount risked rather than a dollar figure \u2014 a trade that risks $200 and makes $600 is a +3R result, regardless of position size. This makes results from different trades, instruments, and account sizes directly comparable, which is why many professional traders track performance in R rather than dollars.'],
+    ['Can I download, print or share my results?','Yes \u2014 use "Print / Save as PDF" for a printable summary of your current setup, "Download as CSV" to export the full breakdown, or "Copy shareable link" to send a URL that reloads your exact inputs for someone else.']
+  ];
+  $('faqList').innerHTML = FAQ.map(function(f){return '<div class="faq-item"><button class="faq-q">'+f[0]+'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>'+f[1]+'</p></div></div>';}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.faq-item'), function(it){
+    it.querySelector('.faq-q').addEventListener('click', function(){
+      var open=it.classList.contains('open'); it.classList.toggle('open');
+      var a=it.querySelector('.faq-a'); a.style.maxHeight = open? null : a.scrollHeight+'px';
+    });
+  });
+
+  /* ---------- init ---------- */
+  renderBenchBar();
+  renderSavedPresets();
+  applyShareParamsFromUrl();
+  calc();
+
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+})();
+</script>
+</body>
+</html>
