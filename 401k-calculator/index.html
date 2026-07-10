@@ -97,12 +97,13 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .k401-panel.active{display:block}
 
 .k401-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"form result sidebar"}
+  grid-template-areas:"bar bar ." "form result sidebar"}
+.k401-area-bar{grid-area:bar}
 .k401-area-form{grid-area:form}
 .k401-area-result{grid-area:result}
 .k401-area-sidebar{grid-area:sidebar}
 @media(max-width:860px){
-  .k401-grid{grid-template-columns:1fr;grid-template-areas:"form" "result" "sidebar"}
+  .k401-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "sidebar"}
 }
 
 .k401-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
@@ -159,11 +160,6 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
 <div class="k401-wrap">
 
-<div class="k401-bar">
-  <span class="k401-bar-text"><span class="k401-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
-  <button type="button" class="k401-bar-pdf-btn" id="k401-pdfBtn">💾 Save as PDF</button>
-</div>
-
 <div class="k401-tabs">
   <button type="button" class="k401-tab active" data-panel="proj">401(k) Projection</button>
   <button type="button" class="k401-tab" data-panel="early">Early Withdrawal Cost</button>
@@ -173,6 +169,10 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <!-- ===== PANEL 1: PROJECTION ===== -->
 <div class="k401-panel active" id="k401-panel-proj">
 <div class="k401-grid">
+  <div class="k401-bar k401-area-bar">
+    <span class="k401-bar-text"><span class="k401-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="k401-bar-pdf-btn" id="k401-pdfBtn">💾 Save as PDF</button>
+  </div>
   <div class="k401-card k401-area-form">
     <div class="k401-card-pad">
       <div class="k401-field"><span class="k401-field-label">Current Age</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-age" type="number" min="18" max="80" value="30"></div></div></div>
@@ -237,6 +237,10 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <!-- ===== PANEL 2: EARLY WITHDRAWAL ===== -->
 <div class="k401-panel" id="k401-panel-early">
 <div class="k401-grid">
+  <div class="k401-bar k401-area-bar">
+    <span class="k401-bar-text"><span class="k401-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="k401-bar-pdf-btn" id="k401e-pdfBtn">💾 Save as PDF</button>
+  </div>
   <div class="k401-card k401-area-form">
     <div class="k401-card-pad">
       <div class="k401-field"><span class="k401-field-label">Withdrawal Amount</span><div class="k401-field-control"><div class="k401-input-group"><span>$</span><input id="k401e-amount" type="number" min="0" step="100" value="20000"></div></div></div>
@@ -279,6 +283,10 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 <!-- ===== PANEL 3: MAXIMIZE MATCH ===== -->
 <div class="k401-panel" id="k401-panel-match">
 <div class="k401-grid">
+  <div class="k401-bar k401-area-bar">
+    <span class="k401-bar-text"><span class="k401-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="k401-bar-pdf-btn" id="k401m-pdfBtn">💾 Save as PDF</button>
+  </div>
   <div class="k401-card k401-area-form">
     <div class="k401-card-pad">
       <div class="k401-field"><span class="k401-field-label">Current Age</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401m-age" type="number" min="18" max="80" value="30"></div></div></div>
@@ -536,6 +544,8 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
     }
   }
   $('k401-pdfBtn').addEventListener('click',generatePdf);
+  $('k401e-pdfBtn').addEventListener('click',generatePdf);
+  $('k401m-pdfBtn').addEventListener('click',generatePdf);
 
   renderProjection();
   renderEarly();
