@@ -110,6 +110,8 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 .k401-card-pad{padding:24px}
 
 .k401-field{display:flex;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap}
+.k401-section-head{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;padding:14px 0 4px;border-top:1px solid var(--border-fine);margin-top:6px}
+.k401-section-head:first-child{border-top:none;margin-top:0;padding-top:0}
 .k401-field-label{width:150px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
 .k401-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
 .k401-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
@@ -175,12 +177,14 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   </div>
   <div class="k401-card k401-area-form">
     <div class="k401-card-pad">
+      <div class="k401-section-head">Basic Info</div>
       <div class="k401-field"><span class="k401-field-label">Current Age</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-age" type="number" min="18" max="80" value="30"></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Current Salary</span><div class="k401-field-control"><div class="k401-input-group"><span>$</span><input id="k401-salary" type="number" min="0" step="500" value="60000"></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Current Balance</span><div class="k401-field-control"><div class="k401-input-group"><span>$</span><input id="k401-balance" type="number" min="0" step="500" value="10000"></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Contribution</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-contribPct" type="number" min="0" max="100" step="0.5" value="6"><span>% of salary</span></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Employer Match</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-erMatch" type="number" min="0" step="1" value="50"><span>%</span></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Match Limit</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-erLimit" type="number" min="0" step="0.5" value="6"><span>% of salary</span></div></div></div>
+      <div class="k401-section-head">Projections</div>
       <div class="k401-field"><span class="k401-field-label">Retirement Age</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-retAge" type="number" min="30" max="90" value="65"></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Life Expectancy</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-lifeExp" type="number" min="60" max="110" value="85"></div></div></div>
       <div class="k401-field"><span class="k401-field-label">Salary Increase</span><div class="k401-field-control"><div class="k401-input-group"><input id="k401-salInc" type="number" step="0.1" value="3"><span>%/yr</span></div></div></div>
