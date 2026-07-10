@@ -84,21 +84,22 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   </div>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does the trade-in value reduce my sales tax, not just the price?","acceptedAnswer":{"@type":"Answer","text":"Most US states only charge sales tax on the difference between the vehicle price and your trade-in value, treating the trade-in as a credit against the purchase rather than separate income. A handful of states tax the full price regardless — check your specific state's rule if this matters for your budget."}},{"@type":"Question","name":"Should I put my trade-in toward the down payment or just reduce the loan?","acceptedAnswer":{"@type":"Answer","text":"Mechanically they work out the same in this calculator — both reduce the amount financed. The practical difference comes down to dealer paperwork and whether you'd rather sell the trade-in privately for potentially more money instead."}},{"@type":"Question","name":"Why is my interest rate higher than advertised rates I've seen?","acceptedAnswer":{"@type":"Answer","text":"Advertised low rates are usually reserved for the strongest credit tiers and sometimes only certain models or terms. Your actual rate depends on credit score, loan term, and whether you finance through the dealer or your own bank or credit union — it's worth comparing more than one offer."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Auto Loan Calculator","url":"https://calculatorboss.com/auto-loan-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Auto Loan Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Add your trade-in and local sales tax to get the real monthly payment — not just a generic loan estimate off the sticker price.</p><style>
 .auto-wrap{max-width:100%;font-family:var(--font-body);color:var(--ink);font-size:14px}
-.auto-tabs{display:flex;gap:8px;margin-bottom:20px}
+.auto-tabs{display:flex;gap:8px}
 .auto-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer}
 .auto-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .auto-panel{display:none}
 .auto-panel.active{display:block}
 
 .auto-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .auto-area-bar{grid-area:bar}
+.auto-area-tabs{grid-area:tabs}
 .auto-area-form{grid-area:form}
 .auto-area-result{grid-area:result}
 .auto-area-sidebar{grid-area:sidebar}
 .auto-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .auto-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .auto-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 
 .auto-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -169,11 +170,6 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
 <div class="auto-wrap">
 
-<div class="auto-tabs">
-  <button type="button" class="auto-tab active" data-panel="price">Auto Price</button>
-  <button type="button" class="auto-tab" data-panel="payment">Monthly Payment</button>
-</div>
-
 <!-- ===== PANEL 1: AUTO PRICE ===== -->
 <div class="auto-panel active" id="auto-panel-price">
 <div class="auto-grid">
@@ -181,6 +177,10 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
   <div class="auto-bar auto-area-bar">
     <span class="auto-bar-text"><span class="auto-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
     <button type="button" class="auto-bar-pdf-btn" id="auto-pdfBtn">💾 Save as PDF</button>
+  </div>
+  <div class="auto-tabs auto-area-tabs">
+    <button type="button" class="auto-tab active" data-panel="price">Auto Price</button>
+    <button type="button" class="auto-tab" data-panel="payment">Monthly Payment</button>
   </div>
 
   <div class="auto-card auto-area-form">
@@ -261,11 +261,15 @@ footer{background:#2B2926;border-top:1px solid rgba(255,255,255,.08);padding:62p
 
 <!-- ===== PANEL 2: MONTHLY PAYMENT (REVERSE) ===== -->
 <div class="auto-panel" id="auto-panel-payment">
-<div class="auto-grid" style="grid-template-areas:'bar bar .' 'form result sidebar'">
+<div class="auto-grid" style="grid-template-areas:'bar bar .' 'tabs tabs .' 'form result sidebar'">
 
   <div class="auto-bar auto-area-bar">
     <span class="auto-bar-text"><span class="auto-bar-badge">▾</span>Enter your target monthly payment to find the max auto price.</span>
     <button type="button" class="auto-bar-pdf-btn" id="autop-pdfBtn">💾 Save as PDF</button>
+  </div>
+  <div class="auto-tabs auto-area-tabs">
+    <button type="button" class="auto-tab" data-panel="price">Auto Price</button>
+    <button type="button" class="auto-tab active" data-panel="payment">Monthly Payment</button>
   </div>
 
   <div class="auto-card auto-area-form">
