@@ -1,6 +1,29 @@
 <!DOCTYPE html><html lang="en" class="h-full"><head><meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ============================================================
+     PROTECTED SHARED STYLE BLOCK -- READ BEFORE EDITING
+     ============================================================
+     This block is duplicated across 200+ pages. Before changing
+     ANYTHING here site-wide:
+     1. NEVER add a universal *{...} reset rule here -- it breaks
+        Tailwind's .mx-auto centering on calculator pages (caused
+        a real left-alignment bug across the whole site).
+     2. NEVER remove --surface, --surface-sunken, --border,
+        --border-fine, --ink-faint, --shadow-sm from :root -- 185+
+        template pages use these via Tailwind classes (bg-surface,
+        border-border) for result-card styling. Removing them makes
+        cards invisible/unstyled with no error thrown.
+     3. After ANY edit to this block, propagate the SAME edit to
+        ALL pages (not just homepage), then spot-check a
+        non-custom-built page (e.g. body-fat-calculator) AND a
+        custom-built page (e.g. bmi-calculator, tip-calculator) for:
+        centered layout, visible card backgrounds, white header/
+        footer, nav-links display:flex, zero console errors.
+     4. Do a full 200-page automated check (not just a sample)
+        before pushing -- past incidents were missed by small
+        samples and only caught after the user reported them live.
+     ============================================================ */
   :root{
     --bg:#F3F1EA;
     --surface:#FFFFFF;
