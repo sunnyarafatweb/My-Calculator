@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="h-full"><head><meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Retirement Calculator — Project Your Savings &amp; Income | Calculator Boss</title><meta name="description" content="Project your retirement balance from your current age, savings, contributions and employer match — plus an estimated retirement income using the 4% rule."/><meta name="author" content="Calculator Boss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="Calculator Boss"/><meta name="publisher" content="Calculator Boss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/retirement-calculator/"/><meta property="og:title" content="Retirement Calculator | Calculator Boss"/><meta property="og:description" content="Project retirement savings growth and estimated retirement income."/><meta property="og:url" content="https://calculatorboss.com/retirement-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Calculator Boss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!DOCTYPE html><html lang="en" class="h-full"><head><meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Retirement Calculator — Savings, Income &amp; Withdrawal Planner | Calculator Boss</title><meta name="description" content="Free retirement calculator with 4 tools: project your savings at retirement, find how much to save monthly, estimate a safe withdrawal amount, and see how long your money will last."/><meta name="author" content="Calculator Boss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="Calculator Boss"/><meta name="publisher" content="Calculator Boss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/retirement-calculator/"/><meta property="og:title" content="Retirement Calculator — Savings, Income &amp; Withdrawal Planner | Calculator Boss"/><meta property="og:description" content="Project retirement savings growth and estimated retirement income."/><meta property="og:url" content="https://calculatorboss.com/retirement-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Calculator Boss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -247,6 +247,10 @@
     .panel{border-radius:24px}
     .menu-btn{display:grid}
     .nav-cta .btn-ghost{display:none}
+    .rc-full{display:none}
+    .btn-crypto{font-size:11.5px!important;padding:8px 10px!important}
+    .nav-spacer{display:none}
+    .nav{gap:10px}
     .mu-grid{grid-template-columns:repeat(2,1fr)}
     .cat-grid{grid-template-columns:repeat(2,1fr)}
     .cat-top{flex-wrap:wrap}
@@ -283,59 +287,579 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
-      <a href="/money-markets/" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Stocks Calculator</a>
+      <a href="/money-markets/" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Stocks<span class="rc-full"> Calculator</span></a>
       <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-12 sm:py-16"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the 4% withdrawal guideline?","acceptedAnswer":{"@type":"Answer","text":"It's a commonly cited rule of thumb suggesting that withdrawing about 4% of a retirement portfolio in the first year, then adjusting for inflation each year after, has historically had a strong chance of lasting 30 years without running out. It's a planning heuristic, not a guarantee — actual safe withdrawal rates depend on market conditions and how long retirement lasts."}},{"@type":"Question","name":"Should I count my employer match separately?","acceptedAnswer":{"@type":"Answer","text":"Yes — it's free money on top of your own contribution, and including it gives a much more realistic growth projection. If you're not sure of your exact match, a conservative estimate is still more useful than leaving it out entirely."}},{"@type":"Question","name":"What return rate is realistic to assume?","acceptedAnswer":{"@type":"Answer","text":"Long-run stock market averages are often cited in the 6-10% range before inflation, though a single year can swing sharply either direction. A diversified portfolio that shifts toward bonds closer to retirement typically assumes something lower than an all-stock portfolio."}},{"@type":"Question","name":"Does this account for inflation or taxes on withdrawal?","acceptedAnswer":{"@type":"Answer","text":"No — the projected balance is in today's-dollars terms only if your return assumption is already inflation-adjusted (a 'real' return), and withdrawals from accounts like a traditional 401(k) are taxed as ordinary income, which isn't factored in here."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Retirement Calculator","url":"https://calculatorboss.com/retirement-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Retirement Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Set your current age, savings and monthly contribution to see where you&#x27;re projected to land — and what that could mean as monthly income.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><h2 class="font-display text-lg text-ink">Your plan</h2><div class="grid grid-cols-2 gap-4"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Current age</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="30"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:23.076923076923077%;background:var(--accent)"></div><input type="range" min="18" max="70" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Current age" value="30"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(23.076923076923077% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Retirement age</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="65"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:66.66666666666666%;background:var(--accent)"></div><input type="range" min="45" max="75" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Retirement age" value="65"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(66.66666666666666% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Current retirement savings</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="20000"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:4%;background:var(--accent)"></div><input type="range" min="0" max="500000" step="1000" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Current retirement savings" value="20000"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(4% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Your monthly contribution</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="500"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:10%;background:var(--accent)"></div><input type="range" min="0" max="5000" step="25" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Your monthly contribution" value="500"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(10% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Employer match (monthly)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="200"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:10%;background:var(--accent)"></div><input type="range" min="0" max="2000" step="25" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Employer match (monthly)" value="200"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(10% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Expected annual return</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="7"/><span style="color:var(--ink-faint)">%</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:58.333333333333336%;background:var(--accent)"></div><input type="range" min="0" max="12" step="0.1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Expected annual return" value="7"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(58.333333333333336% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Projected balance at <!-- -->65</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">$1,490,861.26</div><dl class="grid grid-cols-2 gap-4 text-sm mb-6"><div><dt class="text-ink-faint mb-1">Total contributed</dt><dd class="tabular text-ink font-medium">$314,000.00</dd></div><div><dt class="text-ink-faint mb-1">Growth earned</dt><dd class="tabular text-ink font-medium">$1,176,861.26</dd></div></dl><div class="rounded-lg bg-accent-soft px-4 py-3 mb-6"><div class="text-xs text-accent-strong mb-1">Using the 4% withdrawal guideline</div><div class="tabular text-ink font-medium">~<!-- -->$4,969.54<!-- -->/month (<!-- -->$59,634.45<!-- -->/year)</div></div><button class="text-sm text-accent hover:text-accent-strong font-medium text-left mb-3">View<!-- --> balance by age →</button></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">Why contributing early matters so much</h2><p class="text-ink-soft leading-relaxed">Retirement projections are compound interest played out over decades, so money contributed in your 20s and 30s has far longer to grow than money contributed in your 50s. This calculator lets you test that directly — try shifting the current age slider and watch how much the projected balance moves for the same monthly contribution.</p></section><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">Starting at age 30 with <span class="tabular">$20,000</span> <!-- -->saved, contributing <span class="tabular">$500</span> a month plus a <span class="tabular">$200</span> employer match, at a<!-- --> <span class="tabular">7%</span> annual return, projects to roughly <span class="tabular">$1.49 million</span> by age 65. Of that, only about <span class="tabular">$314,000</span> was actually contributed — the remaining<!-- --> <span class="tabular">$1.18 million</span> is growth. At a 4% withdrawal rate, that supports about<!-- --> <span class="tabular">$4,970</span> a month in retirement income.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">What is the 4% withdrawal guideline?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It&#x27;s a commonly cited rule of thumb suggesting that withdrawing about 4% of a retirement portfolio in the first year, then adjusting for inflation each year after, has historically had a strong chance of lasting 30 years without running out. It&#x27;s a planning heuristic, not a guarantee — actual safe withdrawal rates depend on market conditions and how long retirement lasts.</p></div><div><h3 class="font-medium text-ink mb-1.5">Should I count my employer match separately?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Yes — it&#x27;s free money on top of your own contribution, and including it gives a much more realistic growth projection. If you&#x27;re not sure of your exact match, a conservative estimate is still more useful than leaving it out entirely.</p></div><div><h3 class="font-medium text-ink mb-1.5">What return rate is realistic to assume?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Long-run stock market averages are often cited in the 6-10% range before inflation, though a single year can swing sharply either direction. A diversified portfolio that shifts toward bonds closer to retirement typically assumes something lower than an all-stock portfolio.</p></div><div><h3 class="font-medium text-ink mb-1.5">Does this account for inflation or taxes on withdrawal?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">No — the projected balance is in today&#x27;s-dollars terms only if your return assumption is already inflation-adjusted (a &#x27;real&#x27; return), and withdrawals from accounts like a traditional 401(k) are taxed as ordinary income, which isn&#x27;t factored in here.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not financial advice. Actual investment returns are not guaranteed and will vary — consult a licensed financial advisor for retirement planning specific to your situation.</p></article></div><!--$--><!--/$--></main><footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="/">
-          <span class="logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
-              <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
-              <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
-            </svg>
-          </span>
-          Calculator Boss
-        </a>
-        <p>A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p>
-        
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the 4% withdrawal guideline?","acceptedAnswer":{"@type":"Answer","text":"It's a commonly cited rule of thumb suggesting that withdrawing about 4% of a retirement portfolio in the first year, then adjusting for inflation each year after, has historically had a strong chance of lasting 30 years without running out. It's a planning heuristic, not a guarantee — actual safe withdrawal rates depend on market conditions and how long retirement lasts."}},{"@type":"Question","name":"Should I count my employer match separately?","acceptedAnswer":{"@type":"Answer","text":"Yes — it's free money on top of your own contribution, and including it gives a much more realistic growth projection. If you're not sure of your exact match, a conservative estimate is still more useful than leaving it out entirely."}},{"@type":"Question","name":"What return rate is realistic to assume?","acceptedAnswer":{"@type":"Answer","text":"Long-run stock market averages are often cited in the 6-10% range before inflation, though a single year can swing sharply either direction. A diversified portfolio that shifts toward bonds closer to retirement typically assumes something lower than an all-stock portfolio."}},{"@type":"Question","name":"Does this account for inflation or taxes on withdrawal?","acceptedAnswer":{"@type":"Answer","text":"No — the projected balance is in today's-dollars terms only if your return assumption is already inflation-adjusted (a 'real' return), and withdrawals from accounts like a traditional 401(k) are taxed as ordinary income, which isn't factored in here."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Retirement Calculator","url":"https://calculatorboss.com/retirement-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Retirement Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Four tools in one — project your savings at retirement, find how much to save, estimate a safe withdrawal, and see how long your money will last.</p>
+<style>
+.ret-wrap{max-width:100%;font-family:var(--font-body);color:var(--ink);font-size:14px}
+.ret-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.ret-bar-text{display:flex;align-items:center;gap:10px}
+.ret-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.ret-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+
+.ret-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.ret-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.ret-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.ret-panel{display:none}
+.ret-panel.active{display:block}
+
+.ret-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+  grid-template-areas:"form result sidebar"}
+.ret-area-form{grid-area:form}
+.ret-area-result{grid-area:result}
+.ret-area-sidebar{grid-area:sidebar}
+@media(max-width:860px){
+  .ret-grid{grid-template-columns:1fr;grid-template-areas:"form" "result" "sidebar"}
+}
+
+.ret-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.ret-card-pad{padding:24px}
+
+.ret-field{display:flex;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap}
+.ret-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.ret-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.ret-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.ret-input-group span{padding:0 8px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.ret-input-group input,.ret-input-group select{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.ret-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+
+.ret-btn-row{display:flex;gap:8px;padding-top:14px}
+.ret-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.ret-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.ret-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.ret-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.ret-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.ret-result-head .bignum{font-size:26px;font-weight:700;line-height:1.2;margin-top:2px}
+.ret-result-body{padding:16px 20px 20px}
+.ret-result-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
+.ret-result-row:first-child{border-top:none}
+.ret-result-row span:last-child{font-weight:600;color:var(--ink)}
+.ret-note{font-size:11.5px;color:var(--ink-faint);margin-top:12px;line-height:1.6}
+.ret-chart-box{padding:0 20px 20px}
+
+.ret-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.ret-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.ret-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.ret-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ret-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.ret-bottom-full{margin-top:20px}
+.ret-amort-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.ret-amort-head{padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.ret-amort-head .t{font-size:15px;font-weight:700;color:var(--ink)}
+.ret-amort-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
+.ret-amort-table{min-width:480px;width:100%;font-size:12.5px;border-collapse:collapse}
+.ret-amort-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:11px;text-transform:uppercase}
+.ret-amort-table th:first-child,.ret-amort-table td:first-child{text-align:left}
+.ret-amort-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.ret-amort-table td:last-child{font-weight:600;color:#16A34A}
+
+@media(max-width:520px){
+  .ret-field{flex-wrap:wrap}
+  .ret-field-label{width:100%}
+  .ret-amort-table{min-width:0;font-size:11px}
+  .ret-amort-table th,.ret-amort-table td{padding:7px 6px}
+}
+</style>
+
+<div class="ret-wrap">
+
+<div class="ret-bar">
+  <span class="ret-bar-text"><span class="ret-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
+  <button type="button" class="ret-bar-pdf-btn" id="ret-pdfBtn">💾 Save as PDF</button>
+</div>
+
+<div class="ret-tabs">
+  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
+  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
+  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
+  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
+</div>
+
+<!-- ===== TAB 1: HOW MUCH TO RETIRE ===== -->
+<div class="ret-panel active" id="ret-panel-need">
+<div class="ret-grid">
+  <div class="ret-card ret-area-form">
+    <div class="ret-card-pad">
+      <div class="ret-field"><span class="ret-field-label">Current Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-age" type="number" min="18" max="80" value="30"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Retirement Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-retAge" type="number" min="30" max="90" value="65"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Life Expectancy</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-lifeExp" type="number" min="60" max="110" value="90"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Current Income</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retn-income" type="number" min="0" step="500" value="80000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Income Increase</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-incInc" type="number" step="0.1" value="3"><span>%/yr</span></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Income Needed</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-incNeeded" type="number" min="0" max="150" step="1" value="80"><span>% of final</span></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Investment Return</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-return" type="number" step="0.1" value="6"><span>%/yr</span></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Inflation Rate</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-inflation" type="number" step="0.1" value="3"><span>%/yr</span></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Other Monthly Income</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retn-otherIncome" type="number" min="0" step="50" value="0"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Current Savings</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retn-savings" type="number" min="0" step="500" value="20000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Savings Rate</span><div class="ret-field-control"><div class="ret-input-group"><input id="retn-saveRate" type="number" min="0" max="100" step="0.5" value="10"><span>% of income</span></div></div></div>
+      <div class="ret-btn-row">
+        <button type="button" class="ret-btn-calc" id="retn-calcBtn">Calculate ▸</button>
+        <button type="button" class="ret-btn-clear" id="retn-clearBtn">Clear</button>
       </div>
-      <div class="foot-col">
-        <h4>Popular</h4>
-        <a href="/money-markets/">Money Markets 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
-      </div>
-      <div class="foot-col">
-        <h4>Categories</h4>
-        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/money-markets/">Crypto &amp; Trading</a><a href="/money-markets/">Stocks &amp; Investing</a><a href="/money-markets/">Forex &amp; Metals</a>
-      </div>
-      <div class="foot-col">
-        <h4>Company</h4>
-        <a href="/about/">About</a><a href="/sitemap/">Sitemap</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2026 Calculator Boss. All calculations are estimates — not financial, legal, or medical advice.</p>
-      <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
-.cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
-.cf-search-overlay.open{display:flex}
-.cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
-.cf-search-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #eee}
-.cf-search-box svg{color:#9a9a9a;flex-shrink:0}
-.cf-search-box input{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#181A1F}
-.cf-search-esc{font-size:11px;color:#9a9a9a;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
-.cf-search-results{max-height:56vh;overflow-y:auto;padding:8px}
-.cf-search-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;text-decoration:none;color:#181A1F;font-size:14.5px;font-weight:500}
-.cf-search-item:hover,.cf-search-item.active{background:#F3F1EA}
-.cf-search-item span.arrow{color:#9a9a9a;font-size:13px}
-.cf-search-empty{padding:30px 14px;text-align:center;color:#9a9a9a;font-size:14px}
+
+  <div class="ret-result-card ret-area-result">
+    <div class="ret-result-head">
+      <div class="label">Projected Balance at Retirement</div>
+      <div class="bignum" id="retn-balance">$0</div>
+    </div>
+    <div class="ret-result-body" id="retn-resultRows"></div>
+    <div class="ret-chart-box">
+      <svg viewBox="0 0 300 150" id="retn-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+
+  <div class="ret-sidecol ret-area-sidebar">
+    <div class="ret-calc-card">
+      <div class="h">Retirement Calculators</div>
+      <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+      <a href="/401k-calculator">401(k) <span class="arrow">→</span></a>
+      <a href="/roth-ira-calculator">Roth IRA <span class="arrow">→</span></a>
+      <a href="/ira-calculator">IRA <span class="arrow">→</span></a>
+      <a href="/pension-calculator">Pension <span class="arrow">→</span></a>
+      <a href="/annuity-calculator">Annuity <span class="arrow">→</span></a>
+      <a href="/social-security-calculator">Social Security <span class="arrow">→</span></a>
+      <a href="/investment-calculator">Investment <span class="arrow">→</span></a>
+      <a href="/inflation-calculator">Inflation <span class="arrow">→</span></a>
+      <a href="/" class="ret-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="ret-bottom-full">
+  <div class="ret-amort-card">
+    <div class="ret-amort-head"><span class="t">Year-by-Year Balance Growth</span></div>
+    <div class="ret-amort-scroll">
+      <table class="ret-amort-table">
+        <thead><tr><th>Age</th><th>Income</th><th>Contribution</th><th>Balance</th></tr></thead>
+        <tbody id="retn-schedBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== TAB 2: HOW TO SAVE ===== -->
+<div class="ret-panel" id="ret-panel-save">
+<div class="ret-grid">
+  <div class="ret-card ret-area-form">
+    <div class="ret-card-pad">
+      <div class="ret-field"><span class="ret-field-label">Current Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="rets-age" type="number" min="18" max="80" value="30"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Retirement Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="rets-retAge" type="number" min="30" max="90" value="65"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Amount Needed</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="rets-target" type="number" min="0" step="1000" value="1500000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Savings Now</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="rets-current" type="number" min="0" step="500" value="20000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Investment Return</span><div class="ret-field-control"><div class="ret-input-group"><input id="rets-return" type="number" step="0.1" value="6"><span>%/yr</span></div></div></div>
+      <div class="ret-btn-row">
+        <button type="button" class="ret-btn-calc" id="rets-calcBtn">Calculate ▸</button>
+        <button type="button" class="ret-btn-clear" id="rets-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ret-result-card ret-area-result">
+    <div class="ret-result-head">
+      <div class="label">Required Monthly Savings</div>
+      <div class="bignum" id="rets-monthly">$0</div>
+    </div>
+    <div class="ret-result-body" id="rets-resultRows"></div>
+  </div>
+
+  <div class="ret-sidecol ret-area-sidebar">
+    <div class="ret-calc-card">
+      <div class="h">Retirement Calculators</div>
+      <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+      <a href="/401k-calculator">401(k) <span class="arrow">→</span></a>
+      <a href="/roth-ira-calculator">Roth IRA <span class="arrow">→</span></a>
+      <a href="/savings-calculator">Savings <span class="arrow">→</span></a>
+      <a href="/" class="ret-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== TAB 3: WITHDRAWAL AMOUNT ===== -->
+<div class="ret-panel" id="ret-panel-withdraw">
+<div class="ret-grid">
+  <div class="ret-card ret-area-form">
+    <div class="ret-card-pad">
+      <div class="ret-field"><span class="ret-field-label">Current Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="retw-age" type="number" min="18" max="80" value="30"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Retirement Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="retw-retAge" type="number" min="30" max="90" value="65"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Life Expectancy</span><div class="ret-field-control"><div class="ret-input-group"><input id="retw-lifeExp" type="number" min="60" max="110" value="90"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Savings Today</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retw-savings" type="number" min="0" step="500" value="20000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Annual Contribution</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retw-annualContrib" type="number" min="0" step="500" value="6000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Monthly Contribution</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retw-monthlyContrib" type="number" min="0" step="50" value="0"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Investment Return</span><div class="ret-field-control"><div class="ret-input-group"><input id="retw-return" type="number" step="0.1" value="6"><span>%/yr</span></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Inflation Rate</span><div class="ret-field-control"><div class="ret-input-group"><input id="retw-inflation" type="number" step="0.1" value="3"><span>%/yr</span></div></div></div>
+      <div class="ret-btn-row">
+        <button type="button" class="ret-btn-calc" id="retw-calcBtn">Calculate ▸</button>
+        <button type="button" class="ret-btn-clear" id="retw-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ret-result-card ret-area-result">
+    <div class="ret-result-head">
+      <div class="label">Sustainable Monthly Withdrawal</div>
+      <div class="bignum" id="retw-monthly">$0</div>
+    </div>
+    <div class="ret-result-body" id="retw-resultRows"></div>
+  </div>
+
+  <div class="ret-sidecol ret-area-sidebar">
+    <div class="ret-calc-card">
+      <div class="h">Retirement Calculators</div>
+      <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+      <a href="/401k-calculator">401(k) <span class="arrow">→</span></a>
+      <a href="/annuity-payout-calculator">Annuity Payout <span class="arrow">→</span></a>
+      <a href="/rmd-calculator">RMD <span class="arrow">→</span></a>
+      <a href="/" class="ret-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== TAB 4: HOW LONG IT LASTS ===== -->
+<div class="ret-panel" id="ret-panel-last">
+<div class="ret-grid">
+  <div class="ret-card ret-area-form">
+    <div class="ret-card-pad">
+      <div class="ret-field"><span class="ret-field-label">Amount You Have</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retl-amount" type="number" min="0" step="1000" value="1000000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Monthly Withdrawal</span><div class="ret-field-control"><div class="ret-input-group"><span>$</span><input id="retl-withdraw" type="number" min="0" step="100" value="5000"></div></div></div>
+      <div class="ret-field"><span class="ret-field-label">Investment Return</span><div class="ret-field-control"><div class="ret-input-group"><input id="retl-return" type="number" step="0.1" value="5"><span>%/yr</span></div></div></div>
+      <div class="ret-btn-row">
+        <button type="button" class="ret-btn-calc" id="retl-calcBtn">Calculate ▸</button>
+        <button type="button" class="ret-btn-clear" id="retl-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ret-result-card ret-area-result">
+    <div class="ret-result-head">
+      <div class="label">Your Money Will Last</div>
+      <div class="bignum" id="retl-duration">0 years</div>
+    </div>
+    <div class="ret-result-body" id="retl-resultRows"></div>
+  </div>
+
+  <div class="ret-sidecol ret-area-sidebar">
+    <div class="ret-calc-card">
+      <div class="h">Retirement Calculators</div>
+      <a href="/retirement-calculator">Retirement <span class="arrow">→</span></a>
+      <a href="/401k-calculator">401(k) <span class="arrow">→</span></a>
+      <a href="/annuity-payout-calculator">Annuity Payout <span class="arrow">→</span></a>
+      <a href="/" class="ret-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+(function(){
+  function $(id){return document.getElementById(id);}
+  function val(id){var el=$(id);return el?(parseFloat(el.value)||0):0;}
+  function money(n,dec){dec=dec===undefined?0:dec;var neg=n<0;n=Math.abs(n);var s=n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return (neg?'-$':'$')+s;}
+
+  // ===== TAB SWITCHING =====
+  var tabs = document.querySelectorAll('.ret-tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){t.classList.remove('active');});
+      tab.classList.add('active');
+      document.querySelectorAll('.ret-panel').forEach(function(p){p.classList.remove('active');});
+      $('ret-panel-'+tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // ===== TAB 1: HOW MUCH TO RETIRE =====
+  function calcNeed(){
+    var age=val('retn-age'), retAge=val('retn-retAge'), lifeExp=val('retn-lifeExp');
+    var income=val('retn-income'), incInc=val('retn-incInc')/100;
+    var incNeededPct=val('retn-incNeeded')/100;
+    var ret=val('retn-return')/100, inflation=val('retn-inflation')/100;
+    var otherIncomeMo=val('retn-otherIncome');
+    var savings=val('retn-savings'), saveRate=val('retn-saveRate')/100;
+
+    var years=Math.max(0,retAge-age);
+    var balance=savings, curIncome=income;
+    var schedule=[];
+    var totalContrib=0;
+    for(var y=0;y<years;y++){
+      var contrib=curIncome*saveRate;
+      balance=balance*(1+ret)+contrib;
+      totalContrib+=contrib;
+      curIncome*=(1+incInc);
+      schedule.push({age:age+y+1, income:curIncome, contrib:contrib, balance:balance});
+    }
+    var totalGrowth=balance-savings-totalContrib;
+
+    var incomeNeeded=curIncome*incNeededPct;
+    var otherAnnual=otherIncomeMo*12;
+    var netIncomeNeededFromSavings=Math.max(0,incomeNeeded-otherAnnual);
+    var requiredNestEgg=netIncomeNeededFromSavings/0.04;
+
+    var retirementYears=Math.max(1,lifeExp-retAge);
+    var realReturn=Math.max(0,(1+ret)/(1+inflation)-1);
+    var sustainableAnnual = realReturn>0.0001
+      ? balance*realReturn/(1-Math.pow(1+realReturn,-retirementYears))
+      : balance/retirementYears;
+
+    return {balance:balance, savings:savings, totalContrib:totalContrib, totalGrowth:totalGrowth, schedule:schedule,
+      incomeNeeded:incomeNeeded, requiredNestEgg:requiredNestEgg, shortSurplus:balance-requiredNestEgg,
+      sustainableAnnual:sustainableAnnual, sustainableMonthly:sustainableAnnual/12, otherAnnual:otherAnnual, retirementYears:retirementYears};
+  }
+
+  function renderNeedChart(r){
+    var chartLeft=45,chartRight=280,chartTop=20,chartBottom=115;
+    var barSpacing=(chartRight-chartLeft)/3, barW=48;
+    var cats=[{label:'Initial+Contrib',val:r.savings+r.totalContrib,color:'#3B82F6'},{label:'Growth',val:r.totalGrowth,color:'#22C55E'},{label:'Target Need',val:r.requiredNestEgg,color:'#F97316'}];
+    var maxV=Math.max.apply(null,cats.map(function(c){return c.val;}))||1;
+    var svg='';
+    [10,20,30,40,50,60,70,80,90,100].forEach(function(pct){
+      var y=chartBottom-(pct/100)*(chartBottom-chartTop);
+      svg+='<line x1="'+chartLeft+'" y1="'+y+'" x2="'+chartRight+'" y2="'+y+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+    });
+    cats.forEach(function(c,i){
+      var cx=chartLeft+barSpacing*(i+0.5);
+      var barX=cx-barW/2;
+      var h=Math.max(2,(c.val/maxV)*(chartBottom-chartTop));
+      var y=chartBottom-h;
+      svg+='<text x="'+cx+'" y="'+(y-7)+'" font-size="9.5" font-weight="700" text-anchor="middle" fill="var(--ink)">'+money(c.val,0)+'</text>';
+      svg+='<rect x="'+barX+'" y="'+y.toFixed(1)+'" width="'+barW+'" height="'+h.toFixed(1)+'" fill="'+c.color+'" rx="3"/>';
+      svg+='<text x="'+cx+'" y="'+(chartBottom+16)+'" font-size="9.5" text-anchor="middle" fill="var(--ink-soft)">'+c.label+'</text>';
+    });
+    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    $('retn-barSvg').innerHTML=svg;
+  }
+
+  function renderNeed(){
+    var r=calcNeed();
+    $('retn-balance').textContent=money(r.balance);
+    var statusText = r.shortSurplus>=0
+      ? '<span style="color:#16A34A">On track — surplus of '+money(r.shortSurplus)+'</span>'
+      : '<span style="color:#DC2626">Shortfall of '+money(Math.abs(r.shortSurplus))+'</span>';
+    $('retn-resultRows').innerHTML=
+      '<div class="ret-result-row"><span>Your Contributions</span><span>'+money(r.totalContrib)+'</span></div>'+
+      '<div class="ret-result-row"><span>Investment Growth</span><span>'+money(r.totalGrowth)+'</span></div>'+
+      '<div class="ret-result-row"><span>Est. Sustainable Income</span><span>'+money(r.sustainableMonthly)+'/mo</span></div>'+
+      '<div class="ret-result-row"><span>Nest Egg Needed (4% rule)</span><span>'+money(r.requiredNestEgg)+'</span></div>'+
+      '<div class="ret-result-row"><span>Status</span><span>'+statusText+'</span></div>'+
+      '<div class="ret-note">The 4% rule estimates the nest egg needed by dividing your annual income need (after subtracting other income like Social Security) by 4%. Your sustainable income figure instead spreads your actual projected balance evenly across retirement, adjusted for inflation.</div>';
+    $('retn-schedBody').innerHTML=r.schedule.map(function(s){
+      return '<tr><td>'+s.age+'</td><td>'+money(s.income,0)+'</td><td>'+money(s.contrib,0)+'</td><td>'+money(s.balance,0)+'</td></tr>';
+    }).join('');
+    renderNeedChart(r);
+  }
+  var needIds=['retn-age','retn-retAge','retn-lifeExp','retn-income','retn-incInc','retn-incNeeded','retn-return','retn-inflation','retn-otherIncome','retn-savings','retn-saveRate'];
+  needIds.forEach(function(id){$(id).addEventListener('input', renderNeed);});
+  $('retn-calcBtn').addEventListener('click', renderNeed);
+  $('retn-clearBtn').addEventListener('click', function(){needIds.forEach(function(id){$(id).value=0;}); renderNeed();});
+
+  // ===== TAB 2: HOW TO SAVE =====
+  function calcSave(){
+    var age=val('rets-age'), retAge=val('rets-retAge'), target=val('rets-target');
+    var current=val('rets-current'), ret=val('rets-return')/100;
+    var n=Math.max(1,retAge-age);
+    var fvCurrent=current*Math.pow(1+ret,n);
+    var remaining=Math.max(0,target-fvCurrent);
+    var annualPmt = remaining>0 ? remaining*ret/(Math.pow(1+ret,n)-1) : 0;
+    return {annualPmt:annualPmt, monthlyPmt:annualPmt/12, fvCurrent:fvCurrent, target:target, years:n};
+  }
+  function renderSave(){
+    var r=calcSave();
+    $('rets-monthly').textContent=money(r.monthlyPmt,2);
+    $('rets-resultRows').innerHTML=
+      '<div class="ret-result-row"><span>Required Annual Savings</span><span>'+money(r.annualPmt,2)+'</span></div>'+
+      '<div class="ret-result-row"><span>Your Current Savings Grows To</span><span>'+money(r.fvCurrent,0)+'</span></div>'+
+      '<div class="ret-result-row"><span>Target Amount</span><span>'+money(r.target,0)+'</span></div>'+
+      '<div class="ret-result-row"><span>Years to Save</span><span>'+r.years+'</span></div>'+
+      '<div class="ret-note">This is the level monthly/annual amount needed, assuming a constant return, to grow your current savings plus new contributions to your target by retirement age.</div>';
+  }
+  var saveIds=['rets-age','rets-retAge','rets-target','rets-current','rets-return'];
+  saveIds.forEach(function(id){$(id).addEventListener('input', renderSave);});
+  $('rets-calcBtn').addEventListener('click', renderSave);
+  $('rets-clearBtn').addEventListener('click', function(){saveIds.forEach(function(id){$(id).value=0;}); renderSave();});
+
+  // ===== TAB 3: WITHDRAWAL AMOUNT =====
+  function calcWithdraw(){
+    var age=val('retw-age'), retAge=val('retw-retAge'), lifeExp=val('retw-lifeExp');
+    var savings=val('retw-savings'), annualContrib=val('retw-annualContrib'), monthlyContrib=val('retw-monthlyContrib');
+    var ret=val('retw-return')/100, inflation=val('retw-inflation')/100;
+
+    var years=Math.max(0,retAge-age);
+    var balance=savings;
+    for(var y=0;y<years;y++){
+      balance=balance*(1+ret)+annualContrib+monthlyContrib*12;
+    }
+    var retirementYears=Math.max(1,lifeExp-retAge);
+    var realReturn=Math.max(0,(1+ret)/(1+inflation)-1);
+    var annualW = realReturn>0.0001
+      ? balance*realReturn/(1-Math.pow(1+realReturn,-retirementYears))
+      : balance/retirementYears;
+    return {balance:balance, annualW:annualW, monthlyW:annualW/12, retirementYears:retirementYears};
+  }
+  function renderWithdraw(){
+    var r=calcWithdraw();
+    $('retw-monthly').textContent=money(r.monthlyW,2);
+    $('retw-resultRows').innerHTML=
+      '<div class="ret-result-row"><span>Balance at Retirement</span><span>'+money(r.balance,0)+'</span></div>'+
+      '<div class="ret-result-row"><span>Annual Withdrawal</span><span>'+money(r.annualW,2)+'</span></div>'+
+      '<div class="ret-result-row"><span>Years in Retirement</span><span>'+r.retirementYears+'</span></div>'+
+      '<div class="ret-note">This spreads your projected balance evenly across your retirement years, adjusted for inflation using your real (inflation-adjusted) return, so purchasing power stays roughly level throughout retirement.</div>';
+  }
+  var withdrawIds=['retw-age','retw-retAge','retw-lifeExp','retw-savings','retw-annualContrib','retw-monthlyContrib','retw-return','retw-inflation'];
+  withdrawIds.forEach(function(id){$(id).addEventListener('input', renderWithdraw);});
+  $('retw-calcBtn').addEventListener('click', renderWithdraw);
+  $('retw-clearBtn').addEventListener('click', function(){withdrawIds.forEach(function(id){$(id).value=0;}); renderWithdraw();});
+
+  // ===== TAB 4: HOW LONG IT LASTS =====
+  function calcLast(){
+    var amount=val('retl-amount'), withdraw=val('retl-withdraw'), ret=val('retl-return')/100;
+    var rMo=ret/12;
+    if(withdraw<=0) return {months:0, forever:false, neverEnough:true};
+    if(withdraw<=amount*rMo) return {months:Infinity, forever:true};
+    var months=-Math.log(1-rMo*amount/withdraw)/Math.log(1+rMo);
+    return {months:months, forever:false};
+  }
+  function renderLast(){
+    var r=calcLast();
+    if(r.forever){
+      $('retl-duration').textContent='Forever';
+      $('retl-resultRows').innerHTML='<div class="ret-note">Your monthly withdrawal is less than or equal to the interest your balance earns each month, so at this rate the principal never depletes.</div>';
+      return;
+    }
+    var years=Math.floor(r.months/12), months=Math.round(r.months%12);
+    $('retl-duration').textContent=years+' yr '+months+' mo';
+    $('retl-resultRows').innerHTML=
+      '<div class="ret-result-row"><span>Total Months</span><span>'+Math.round(r.months)+'</span></div>'+
+      '<div class="ret-result-row"><span>Total Years</span><span>'+(r.months/12).toFixed(1)+'</span></div>'+
+      '<div class="ret-note">Assumes withdrawals happen at a constant monthly amount while the remaining balance continues to earn the entered rate of return each month.</div>';
+  }
+  var lastIds=['retl-amount','retl-withdraw','retl-return'];
+  lastIds.forEach(function(id){$(id).addEventListener('input', renderLast);});
+  $('retl-calcBtn').addEventListener('click', renderLast);
+  $('retl-clearBtn').addEventListener('click', function(){lastIds.forEach(function(id){$(id).value=0;}); renderLast();});
+
+  function generatePdf(){
+    if(!window.jspdf){alert('PDF library is still loading, please try again in a moment.');return;}
+    try{
+      var jsPDFCtor=window.jspdf.jsPDF;
+      var doc=new jsPDFCtor({unit:'pt',format:'letter'});
+      var margin=40,y=50;
+      doc.setFont('helvetica','bold');doc.setFontSize(18);doc.setTextColor(30,58,95);
+      doc.text('Retirement Report',margin,y);y+=18;
+      doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(120,120,120);
+      doc.text('Generated by CalculatorBoss.com  ·  '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),margin,y);
+      y+=22;
+      doc.setDrawColor(220,220,220);doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y);y+=22;
+      var activePanel = document.querySelector('.ret-panel.active').id;
+      var headMap={'ret-panel-need':['Projected Balance: ','retn-balance','retn-resultRows'],'ret-panel-save':['Required Monthly Savings: ','rets-monthly','rets-resultRows'],'ret-panel-withdraw':['Sustainable Withdrawal: ','retw-monthly','retw-resultRows'],'ret-panel-last':['Money Lasts: ','retl-duration','retl-resultRows']};
+      var m=headMap[activePanel];
+      doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(22,163,74);
+      doc.text(m[0]+$(m[1]).textContent,margin,y);y+=26;
+      var rows=Array.from(document.querySelectorAll('#'+m[2]+' .ret-result-row')).map(function(row){var s=row.querySelectorAll('span');return [s[0].textContent,s[1].textContent];});
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},styles:{fontSize:10,cellPadding:5},columnStyles:{1:{halign:'right'}},body:rows});
+      doc.save('retirement-report-'+new Date().toISOString().slice(0,10)+'.pdf');
+    }catch(e){
+      alert('Sorry, there was a problem generating the PDF: '+e.message);
+    }
+  }
+  $('ret-pdfBtn').addEventListener('click',generatePdf);
+
+  renderNeed();
+  renderSave();
+  renderWithdraw();
+  renderLast();
+})();
+</script>
+<style>
+.ret-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.ret-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink)}
+.ret-seo-article h2:first-child{margin-top:0}
+.ret-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.ret-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.ret-seo-article strong{color:var(--ink);font-weight:600}
+.ret-seo-article ul,.ret-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.ret-seo-article ul li strong{color:var(--ink)}
+.ret-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.ret-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.ret-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
 </style>
+<article class="ret-seo-article">
+<div class="ret-byline">Written by the Calculator Boss Finance Team · Reviewed for accuracy · Last updated July 2026</div>
+
+<nav class="ret-toc">
+<a href="#rt-how">How the Four Tools Work</a>
+<a href="#rt-worked">A Worked Example</a>
+<a href="#rt-rules">How Much Should You Save? Three Rules of Thumb</a>
+<a href="#rt-sources">Common Sources of Retirement Income</a>
+<a href="#rt-inflation">Why Inflation Matters More Than You'd Think</a>
+<a href="#rt-mistakes">Common Retirement Planning Mistakes</a>
+<a href="#rt-faq">Frequently Asked Questions</a>
+</nav>
+
+<h2 id="rt-how">How the Four Tools Work</h2>
+<p>Retirement planning isn't one calculation — it's several related questions people ask at different points in life. This page bundles four of them into one place. <strong>How Much to Retire</strong> projects your balance forward from today given your current savings and contribution rate, then checks it against what you'll likely need. <strong>How to Save</strong> works backward from a target number to tell you the monthly contribution required to hit it. <strong>Withdrawal Amount</strong> estimates a sustainable monthly income once you've actually reached retirement. <strong>How Long It Lasts</strong> answers the question people ask when they already have a lump sum and a spending rate in mind: will it outlive me, or will I outlive it?</p>
+
+<h2 id="rt-worked">A Worked Example</h2>
+<p>Take a 30-year-old earning $80,000, saving 10% of income annually, with $20,000 already saved, expecting 3% raises and a 6% average investment return. Run those numbers through the "How Much to Retire" tab and the projected balance at 65 lands around <strong>$1.45 million</strong> — of which roughly $1.1 million came from contributions and the rest from investment growth compounding over 35 years. That's the core lesson of retirement math: the earlier money goes in, the more of the final balance comes from growth rather than your own contributions.</p>
+
+<h2 id="rt-rules">How Much Should You Save? Three Rules of Thumb</h2>
+<h3>The 10% Rule</h3>
+<p>Save 10–15% of pre-tax income throughout your working years. Starting at age 25, consistently saving 10% can realistically build toward a seven-figure balance by traditional retirement age, purely through the combination of contributions and compounding.</p>
+<h3>The 80% Rule</h3>
+<p>Plan for retirement income equal to roughly 70–80% of your pre-retirement income. Many expenses (commuting, retirement account contributions themselves, payroll taxes) disappear or shrink in retirement, which is why most people need somewhat less than their working income to maintain a similar lifestyle — though this varies a lot based on individual plans.</p>
+<h3>The 4% Rule</h3>
+<p>Divide your desired annual retirement income by 4% to estimate the nest egg required to sustain it — for example, needing $80,000/year implies a target of roughly $2 million. This widely-cited guideline comes from historical research on how large a withdrawal rate a diversified portfolio can typically sustain over a multi-decade retirement without running out, though it's a planning heuristic, not a guarantee.</p>
+
+<h2 id="rt-sources">Common Sources of Retirement Income</h2>
+<ul>
+<li><strong>Social Security</strong> — designed to replace roughly 40% of a typical worker's income, not the whole thing. Benefits scale with lifetime earnings but not proportionally — lower earners get a bigger percentage replacement than higher earners.</li>
+<li><strong>Employer plans (401(k), 403(b))</strong> — pre-tax contributions that grow tax-deferred, often with an employer match that amounts to free money on top of your own savings.</li>
+<li><strong>IRAs and Roth IRAs</strong> — individual accounts with their own tax treatment: traditional IRAs defer tax until withdrawal, Roth IRAs are taxed going in but withdrawals in retirement are generally tax-free.</li>
+<li><strong>Pensions</strong> — less common than a generation ago outside the public sector, but still a meaningful income source for some retirees, typically paid as a fixed monthly amount for life.</li>
+<li><strong>Personal investments and savings</strong> — brokerage accounts, real estate, and other assets that aren't tax-advantaged but have no contribution limits.</li>
+</ul>
+
+<h2 id="rt-inflation">Why Inflation Matters More Than You'd Think</h2>
+<p>At just 3% annual inflation, prices roughly double every 24 years — meaning a retiree who plans a 30-year retirement needs their income to more than double in nominal terms just to maintain the same purchasing power by the end. This calculator's withdrawal-phase tools account for this by using a <em>real</em> (inflation-adjusted) return rather than the raw nominal return, so the sustainable income figure reflects actual buying power staying roughly level throughout retirement, not just a flat dollar amount that quietly loses value each year.</p>
+
+<h2 id="rt-mistakes">Common Retirement Planning Mistakes</h2>
+<ul>
+<li><strong>Underestimating life expectancy</strong> — running out of money at 82 because you planned to 80 is a real risk; padding your life-expectancy estimate by a few years is cheap insurance.</li>
+<li><strong>Ignoring employer match</strong> — not contributing enough to capture a full 401(k) match is leaving guaranteed, immediate return on the table.</li>
+<li><strong>Front-loading risk near retirement</strong> — a market downturn in the years right before or after retiring can do outsized damage to a portfolio, since there's less time to recover before withdrawals begin.</li>
+<li><strong>Treating Social Security as a full replacement</strong> — at roughly 40% income replacement, Social Security alone is rarely enough for a comparable standard of living.</li>
+<li><strong>Not adjusting the plan over time</strong> — a projection made at 30 should be revisited periodically as income, savings rate, and market returns actually unfold.</li>
+</ul>
+
+<h2 id="rt-faq">Frequently Asked Questions</h2>
+<h3>What return rate should I assume?</h3>
+<p>A commonly used long-run assumption for a diversified stock-heavy portfolio is in the 6–8% nominal range, though this varies with asset allocation, time horizon, and risk tolerance — more conservative portfolios (bonds, cash) should use a lower assumption, and returns closer to retirement are often assumed to be lower as portfolios shift toward safety.</p>
+<h3>Is the 4% rule still considered accurate?</h3>
+<p>It remains a widely referenced starting point, though it's been debated — some research suggests a somewhat lower rate is more conservative for very long retirements, while others argue a dynamic (variable) withdrawal strategy that adjusts with market performance can sustain a higher initial rate. Treat 4% as a reasonable planning anchor, not a fixed rule.</p>
+<h3>Should I include Social Security in my projection?</h3>
+<p>Yes — the "Other Monthly Income" field in the first tab is built for this. Leaving it out will overstate how much your personal savings alone need to cover, which can lead to either overly conservative spending in retirement or unnecessary anxiety about the numbers.</p>
+<h3>Why does my required monthly savings look so high?</h3>
+<p>Starting later or targeting a larger nest egg both increase the required contribution significantly, since there's less time for compounding to do the work — a target that's easy to hit starting at 25 can look daunting starting at 45 for the exact same eventual goal.</p>
+<h3>What if I'm already retired — is this calculator still useful?</h3>
+<p>Yes — the "Withdrawal Amount" and "How Long It Lasts" tabs are built specifically for people already at or near retirement, helping answer whether a current balance and spending rate are sustainable for the years ahead.</p>
+
+<p style="font-size:12px;color:var(--ink-faint);margin-top:20px">This calculator is provided for educational and estimation purposes only and does not constitute financial advice. Consult a licensed financial advisor for guidance specific to your retirement situation.</p>
+</article>
+
+</div>
+</main>
 <div class="cf-search-overlay" id="cfSearchOverlay">
   <div class="cf-search-modal">
     <div class="cf-search-box">
