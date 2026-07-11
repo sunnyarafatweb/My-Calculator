@@ -299,7 +299,7 @@
 .ret-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 .ret-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 
-.ret-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.ret-tabs{display:flex;gap:8px;flex-wrap:wrap}
 .ret-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
 .ret-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
@@ -307,8 +307,9 @@
 .ret-panel.active{display:block}
 
 .ret-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar"}
 .ret-area-bar{grid-area:bar}
+.ret-area-tabs{grid-area:tabs}
 .ret-area-form{grid-area:form}
 .ret-area-result{grid-area:result}
 .ret-area-sidebar{grid-area:sidebar}
@@ -369,19 +370,19 @@
 
 <div class="ret-wrap">
 
-<div class="ret-tabs">
-  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
-  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
-  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
-  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
-</div>
-
 <!-- ===== TAB 1: HOW MUCH TO RETIRE ===== -->
 <div class="ret-panel active" id="ret-panel-need">
 <div class="ret-grid">
 <div class="ret-bar ret-area-bar">
   <span class="ret-bar-text"><span class="ret-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
   <button type="button" class="ret-bar-pdf-btn ret-pdf-btn-class">💾 Save as PDF</button>
+</div>
+
+<div class="ret-tabs ret-area-tabs">
+  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
+  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
+  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
+  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
 </div>
 
   <div class="ret-card ret-area-form">
@@ -453,6 +454,13 @@
   <button type="button" class="ret-bar-pdf-btn ret-pdf-btn-class">💾 Save as PDF</button>
 </div>
 
+<div class="ret-tabs ret-area-tabs">
+  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
+  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
+  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
+  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
+</div>
+
   <div class="ret-card ret-area-form">
     <div class="ret-card-pad">
       <div class="ret-field"><span class="ret-field-label">Current Age</span><div class="ret-field-control"><div class="ret-input-group"><input id="rets-age" type="number" min="18" max="80" value="30"></div></div></div>
@@ -494,6 +502,13 @@
 <div class="ret-bar ret-area-bar">
   <span class="ret-bar-text"><span class="ret-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
   <button type="button" class="ret-bar-pdf-btn ret-pdf-btn-class">💾 Save as PDF</button>
+</div>
+
+<div class="ret-tabs ret-area-tabs">
+  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
+  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
+  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
+  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
 </div>
 
   <div class="ret-card ret-area-form">
@@ -540,6 +555,13 @@
 <div class="ret-bar ret-area-bar">
   <span class="ret-bar-text"><span class="ret-bar-badge">▾</span>Just enter your values below — results update automatically.</span>
   <button type="button" class="ret-bar-pdf-btn ret-pdf-btn-class">💾 Save as PDF</button>
+</div>
+
+<div class="ret-tabs ret-area-tabs">
+  <button type="button" class="ret-tab active" data-panel="need">How Much to Retire</button>
+  <button type="button" class="ret-tab" data-panel="save">How to Save</button>
+  <button type="button" class="ret-tab" data-panel="withdraw">Withdrawal Amount</button>
+  <button type="button" class="ret-tab" data-panel="last">How Long It Lasts</button>
 </div>
 
   <div class="ret-card ret-area-form">
@@ -589,10 +611,10 @@
   var tabs = document.querySelectorAll('.ret-tab');
   tabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      tabs.forEach(function(t){t.classList.remove('active');});
-      tab.classList.add('active');
+      var target = tab.dataset.panel;
+      tabs.forEach(function(t){t.classList.toggle('active', t.dataset.panel===target);});
       document.querySelectorAll('.ret-panel').forEach(function(p){p.classList.remove('active');});
-      $('ret-panel-'+tab.dataset.panel).classList.add('active');
+      $('ret-panel-'+target).classList.add('active');
     });
   });
 
