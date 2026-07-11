@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>try{if(localStorage.getItem('cf-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
+
 <title>Break-Even Calculator | Calculator Boss</title>
 <meta name="description" content="Free break-even calculator — find break-even units, revenue, contribution margin, and units needed for a target profit.">
 <meta name="robots" content="index, follow">
@@ -25,22 +25,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0A0C11;
-    --panel:#12151D;
-    --panel-2:#171B26;
-    --line:rgba(255,255,255,.08);
-    --line-2:rgba(255,255,255,.14);
-    --text:#EDEEF2;
-    --text-soft:#AEB2BC;
-    --muted:#71757F;
+    --bg:#F3F1EA;
+    --panel:#FFFFFF;
+    --panel-2:#FBFAF6;
+    --line:#E4E2D8;
+    --line-2:#D8D5C8;
+    --text:#181A1F;
+    --text-soft:#474C55;
+    --muted:#787D86;
 
-    --mint:#33C266;
-    --mint-deep:#1BA94C;
+    --mint:#16A34A;
+    --mint-deep:#128A3D;
 
-    --cx:#E5A93A;  --cx-tint:rgba(229,169,58,.12);   /* crypto - amber */
-    --sx:#8489FF;  --sx-tint:rgba(132,137,255,.12);  /* stocks - indigo */
-    --fx:#5B96F5;  --fx-tint:rgba(91,150,245,.12);   /* forex - blue */
-    --au:#E3C15E;  --au-tint:rgba(227,193,94,.12);   /* gold */
+    --cx:#B0790F;  --cx-tint:#FAF0D6;   /* crypto - amber */
+    --sx:#4B4ED8;  --sx-tint:#E7E7FB;   /* stocks - indigo */
+    --fx:#22417A;  --fx-tint:#E8EDF6;   /* forex - blue */
+    --au:#9C7A16;  --au-tint:#F5EDD6;   /* gold */
 
     --r:14px; --r-lg:22px; --r-xl:30px;
     --maxw:1180px;
@@ -48,8 +48,8 @@
     --f-body:"IBM Plex Sans",system-ui,sans-serif;
     --f-mono:"IBM Plex Mono",ui-monospace,monospace;
 
-    --page-gradient:none;
-    --tile-shadow-hover:0 20px 40px -24px rgba(0,0,0,.6);
+    --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
+    --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
   }
 
   /* ===== LIGHT MODE OVERRIDES ===== */
@@ -73,7 +73,7 @@
   }
 
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:hidden}
   body{font-family:var(--f-body);background-color:var(--bg);background-image:var(--page-gradient);background-repeat:no-repeat;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
   a{color:inherit;text-decoration:none}
   ::selection{background:var(--mint);color:#04240f}
