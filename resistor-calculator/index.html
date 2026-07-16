@@ -314,7 +314,7 @@
 #cb-ultimate-resistor-calc-wrapper .rc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
 #cb-ultimate-resistor-calc-wrapper .rc-grid{display:grid;grid-template-columns:minmax(340px,1.15fr) minmax(300px,1fr) 260px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar bar" "tabs tabs tabs" "form result sidebar"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar"}
 #cb-ultimate-resistor-calc-wrapper .rc-area-bar{grid-area:bar}
 #cb-ultimate-resistor-calc-wrapper .rc-area-form{grid-area:form;min-width:0}
 #cb-ultimate-resistor-calc-wrapper .rc-area-result{grid-area:result;min-width:0}
@@ -854,70 +854,146 @@
 <div class="rc-byline">Written by the Calculator Boss Electronics Team &middot; Reviewed for accuracy &middot; Last updated July 2026</div>
 
 <nav class="rc-toc">
-<a href="#rc-why">Why Color Codes Matter</a>
-<a href="#rc-howto">How to Read the Bands</a>
+<a href="#rc-how">How This Calculator Works</a>
+<a href="#rc-anatomy4">Anatomy of a 4-Band Resistor</a>
+<a href="#rc-anatomy56">5-Band &amp; 6-Band Resistors</a>
 <a href="#rc-chart">Color Code Chart</a>
 <a href="#rc-math">The Math</a>
 <a href="#rc-bandcounts">3 vs 4 vs 5 vs 6-Band</a>
 <a href="#rc-reverse">Reverse Lookup</a>
-<a href="#rc-more-tools">Series, Parallel &amp; Conductor Resistance</a>
+<a href="#rc-seriesparallel">Series &amp; Parallel Resistors</a>
+<a href="#rc-conductor">Conductor Resistance</a>
 <a href="#rc-faq">FAQ</a>
 </nav>
 
-<h2 id="rc-why">Why Resistor Color Codes Still Matter</h2>
-<p>Most through-hole resistors are too small to print a legible number on, so manufacturers switched decades ago to a system of painted color bands that stays readable at any orientation and doesn't wear off from handling. Anyone who builds circuits — electrical engineers double-checking a bill of materials, students working through a lab assignment, or hobbyists prototyping on a breadboard — eventually needs to translate those bands into an actual resistance value, and doing it wrong by even one band can mean a circuit that draws too much current or simply doesn't work. This calculator handles that translation instantly in both directions: pick the colors you see and read off the resistance, or start from a target resistance and get back the exact color sequence to look for on the shelf.</p>
+<h2 id="rc-how">How This Calculator Works</h2>
+<p>Pick a band count above, then click the color that matches each stripe on your physical resistor &mdash; the SVG resistor and the result panel redraw the instant you change a color, with no calculate button to press. Behind the scenes, each color you select maps to a digit, a multiplier, or a percentage using the same IEC 60062 color code standard printed in the reference chart further down this page, and the calculator runs the appropriate formula for whichever band count is active (two significant digits for 3 and 4-band parts, three for 5 and 6-band parts). Switch to the <strong>Reverse Lookup</strong> tab to work in the opposite direction: type in a target resistance and desired tolerance, and the calculator works out which colors to look for, rounding to the nearest valid significant-figure combination for the band count you choose.</p>
+<p>Everything runs client-side in your browser using JavaScript &mdash; nothing you type is sent to a server, logged, or stored.</p>
 
-<h2 id="rc-howto">How to Read Resistor Color Codes: Step by Step</h2>
-<p>Every color band system reads in the same general order, but knowing which end to start from trips up beginners more than the color meanings themselves.</p>
-<h3>1. Find the starting side</h3>
-<p>Turn the resistor so the bands are grouped tightly toward one end, with a noticeably wider gap before the final band. That wider gap almost always precedes the tolerance band, so you read left to right <em>toward</em> it, not away from it. If two ends look similarly spaced, check for gold or silver — those colors are reserved for the multiplier or tolerance roles and essentially never appear as a first significant-digit band, so a gold or silver band near one end confirms that end comes last.</p>
-<h3>2. Read the significant digit bands</h3>
-<p>The first two bands (or first three, on 5 and 6-band resistors) are significant digits, read directly as numbers using the color-to-digit chart below. Black is 0, brown is 1, and the sequence continues through white as 9.</p>
-<h3>3. Apply the multiplier</h3>
-<p>The next band is a multiplier — it tells you how many zeros to add, or in the case of gold and silver, a fractional multiplier for resistors under 10Ω. Multiply the digits you just read by this value to get the base resistance in ohms.</p>
-<h3>4. Read the tolerance</h3>
-<p>The final band (on 4, 5, and 6-band resistors) states how far the real-world resistance is allowed to drift from the printed value, expressed as a percentage. A resistor with no distinguishable fourth band is assumed to carry a wide ±20% tolerance.</p>
-<h3>5. Check for a temperature coefficient</h3>
-<p>Only 6-band resistors carry this extra band, positioned last. It's given in parts per million per degree Celsius (ppm/K) and describes how much the resistance shifts as temperature changes — relevant for precision instrumentation, largely ignorable for general electronics work.</p>
+<h2 id="rc-anatomy4">Anatomy of a 4-Band Resistor</h2>
+<p>A standard four-band resistor is the configuration most people encounter in general electronics, and it packs three pieces of information into four painted stripes. The first two bands are <strong>significant figures</strong> &mdash; read together as a two-digit number using the color-to-digit chart below, where black is 0 and white is 9. The third band is the <strong>multiplier</strong>, which tells you how many powers of ten to scale that two-digit number by; in the example below, a red third band multiplies by 100. The fourth and final band is <strong>tolerance</strong>, printed as a percentage that states how far the actual resistance is allowed to deviate from the nominal value on the label &mdash; gold means &plusmn;5%, silver means &plusmn;10%, and if there's no fourth band at all, the part is assumed to carry a loose &plusmn;20% tolerance.</p>
+<svg viewBox="0 0 600 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:560px;display:block;margin:18px auto">
+<defs>
+<linearGradient id="dgBody4" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#F3DDB0"/><stop offset="55%" stop-color="#D8AE6C"/><stop offset="100%" stop-color="#B8874A"/>
+</linearGradient>
+</defs>
+<line x1="150" y1="30" x2="205" y2="78" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="148" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">1st Band</text>
+<line x1="235" y1="20" x2="238" y2="78" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="235" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">2nd Band</text>
+<line x1="325" y1="20" x2="272" y2="78" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="330" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Multiplier</text>
+<line x1="440" y1="30" x2="368" y2="78" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="450" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Tolerance</text>
+<rect x="20" y="107" width="150" height="6" rx="3" fill="#b8b8b8"/>
+<rect x="430" y="107" width="150" height="6" rx="3" fill="#b8b8b8"/>
+<rect x="150" y="80" width="280" height="60" rx="16" fill="url(#dgBody4)"/>
+<rect x="205" y="80" width="10" height="60" fill="#F5821F"/>
+<rect x="238" y="80" width="10" height="60" fill="#F5821F"/>
+<rect x="272" y="80" width="10" height="60" fill="#E4372B"/>
+<rect x="368" y="80" width="10" height="60" fill="#C9A24B"/>
+<text x="215" y="165" text-anchor="middle" font-size="11.5" fill="#787D86" font-family="IBM Plex Mono,monospace">3</text>
+<text x="248" y="165" text-anchor="middle" font-size="11.5" fill="#787D86" font-family="IBM Plex Mono,monospace">3</text>
+<text x="282" y="165" text-anchor="middle" font-size="11.5" fill="#787D86" font-family="IBM Plex Mono,monospace">&times;100</text>
+<text x="378" y="165" text-anchor="middle" font-size="11.5" fill="#787D86" font-family="IBM Plex Mono,monospace">&plusmn;5%</text>
+<text x="300" y="195" text-anchor="middle" font-size="12.5" font-weight="600" fill="#181A1F" font-family="IBM Plex Sans,sans-serif">Orange-Orange-Red-Gold = 3,300 &Omega; &plusmn;5%</text>
+</svg>
+<p>Reading the example above: orange (3) and orange (3) give the digits "33," the red multiplier band scales that to 3,300, and the gold tolerance band means the true resistance sits anywhere from 3,135&Omega; to 3,465&Omega;. That's exactly what the 4-Band tab of the calculator above will show you if you select those same four colors.</p>
+
+<h2 id="rc-anatomy56">5-Band and 6-Band Resistors: Extra Precision</h2>
+<p>Coded components have at least three bands: two significant-figure bands and a multiplier. But other variations are common, particularly on components built to tighter specifications. Adding a third significant-figure band &mdash; making five bands total &mdash; lets the resistor encode a more precise value before it gets rounded by the multiplier, which is why precision resistors rated at &plusmn;1% or &plusmn;2% almost always use five bands rather than four. This shifts the multiplier and tolerance bands one position to the right compared to a standard four-band part, into the 4th and 5th positions instead of the 3rd and 4th.</p>
+<p>On the most precise resistors, a sixth band appears after the tolerance band: the <strong>temperature coefficient</strong>, measured in parts per million per degree Celsius (ppm/K). This describes how much the resistance drifts as the component heats up or cools down during operation &mdash; a real concern in precision analog circuits, calibration equipment, and measurement instruments, where a resistor that shifts value with temperature can throw off an entire circuit's accuracy. General-purpose electronics work can safely ignore this band, since standard 4 and 5-band resistors are typically stable enough for non-critical applications.</p>
+<svg viewBox="0 0 620 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:580px;display:block;margin:18px auto">
+<defs>
+<linearGradient id="dgBody56" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#F3DDB0"/><stop offset="55%" stop-color="#D8AE6C"/><stop offset="100%" stop-color="#B8874A"/>
+</linearGradient>
+</defs>
+<line x1="130" y1="34" x2="190" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="128" y="28" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">1st Band</text>
+<line x1="210" y1="20" x2="222" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="210" y="14" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">2nd Band</text>
+<line x1="290" y1="14" x2="255" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="292" y="10" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">3rd Band</text>
+<line x1="370" y1="20" x2="288" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="378" y="14" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Multiplier</text>
+<line x1="460" y1="34" x2="388" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="470" y="28" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Tolerance</text>
+<line x1="540" y1="52" x2="425" y2="82" stroke="#1E3A5F" stroke-width="1.5"/>
+<text x="552" y="48" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Temp.</text>
+<text x="552" y="62" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A5F" font-family="IBM Plex Sans,sans-serif">Coefficient</text>
+<rect x="20" y="111" width="140" height="6" rx="3" fill="#b8b8b8"/>
+<rect x="450" y="111" width="150" height="6" rx="3" fill="#b8b8b8"/>
+<rect x="160" y="84" width="290" height="60" rx="16" fill="url(#dgBody56)"/>
+<rect x="190" y="84" width="10" height="60" fill="#F5821F"/>
+<rect x="222" y="84" width="10" height="60" fill="#F5821F"/>
+<rect x="255" y="84" width="10" height="60" fill="#232323"/>
+<rect x="288" y="84" width="10" height="60" fill="#8B4A2B"/>
+<rect x="388" y="84" width="10" height="60" fill="#8B4A2B"/>
+<rect x="425" y="84" width="10" height="60" fill="#2266D6"/>
+<text x="200" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">3</text>
+<text x="232" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">3</text>
+<text x="265" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">0</text>
+<text x="298" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">&times;10</text>
+<text x="398" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">&plusmn;1%</text>
+<text x="435" y="168" text-anchor="middle" font-size="11" fill="#787D86" font-family="IBM Plex Mono,monospace">10ppm</text>
+<text x="310" y="200" text-anchor="middle" font-size="12.5" font-weight="600" fill="#181A1F" font-family="IBM Plex Sans,sans-serif">Orange-Orange-Black-Brown-Brown-Blue = 3,300 &Omega; &plusmn;1%, 10 ppm/K</text>
+</svg>
+<p>Reading the example above: three significant-figure bands give "330," the brown multiplier scales that by 10 to reach 3,300&Omega; again, the second brown band tightens the tolerance to &plusmn;1% (a range of just 3,267&Omega; to 3,333&Omega;), and the blue temperature coefficient band specifies a drift of 10 ppm/K &mdash; meaning the resistance shifts by only 0.001% per degree Celsius of temperature change, tight enough for precision instrumentation.</p>
 
 <h2 id="rc-chart">Complete Resistor Color Code Chart</h2>
 <table class="rc-color-table">
 <tr><th>Color</th><th>1st / 2nd / 3rd Digit</th><th>Multiplier</th><th>Tolerance</th><th>Temp. Coefficient</th></tr>
-<tr><td><span class="rc-swab" style="background:#232323"></span>Black</td><td>0</td><td>&times;1</td><td>—</td><td>250 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#8B4A2B"></span>Brown</td><td>1</td><td>&times;10</td><td>±1%</td><td>100 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#E4372B"></span>Red</td><td>2</td><td>&times;100</td><td>±2%</td><td>50 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#F5821F"></span>Orange</td><td>3</td><td>&times;1,000</td><td>—</td><td>15 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#FCD116"></span>Yellow</td><td>4</td><td>&times;10,000</td><td>—</td><td>25 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#2E9E4F"></span>Green</td><td>5</td><td>&times;100,000</td><td>±0.5%</td><td>20 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#2266D6"></span>Blue</td><td>6</td><td>&times;1,000,000</td><td>±0.25%</td><td>10 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#7B3FA0"></span>Violet</td><td>7</td><td>&times;10,000,000</td><td>±0.1%</td><td>5 ppm/K</td></tr>
-<tr><td><span class="rc-swab" style="background:#9C9C9C"></span>Grey</td><td>8</td><td>&times;100,000,000</td><td>±0.05%</td><td>—</td></tr>
-<tr><td><span class="rc-swab" style="background:#F5F5F0;border-color:#ccc"></span>White</td><td>9</td><td>&times;1,000,000,000</td><td>—</td><td>—</td></tr>
-<tr><td><span class="rc-swab" style="background:#C9A24B"></span>Gold</td><td>—</td><td>&times;0.1</td><td>±5%</td><td>—</td></tr>
-<tr><td><span class="rc-swab" style="background:#B9BCC0"></span>Silver</td><td>—</td><td>&times;0.01</td><td>±10%</td><td>—</td></tr>
-<tr><td>No band</td><td>—</td><td>—</td><td>±20%</td><td>—</td></tr>
+<tr><td><span class="rc-swab" style="background:#232323"></span>Black</td><td>0</td><td>&times;1</td><td>&mdash;</td><td>250 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#8B4A2B"></span>Brown</td><td>1</td><td>&times;10</td><td>&plusmn;1%</td><td>100 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#E4372B"></span>Red</td><td>2</td><td>&times;100</td><td>&plusmn;2%</td><td>50 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#F5821F"></span>Orange</td><td>3</td><td>&times;1,000</td><td>&mdash;</td><td>15 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#FCD116"></span>Yellow</td><td>4</td><td>&times;10,000</td><td>&mdash;</td><td>25 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#2E9E4F"></span>Green</td><td>5</td><td>&times;100,000</td><td>&plusmn;0.5%</td><td>20 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#2266D6"></span>Blue</td><td>6</td><td>&times;1,000,000</td><td>&plusmn;0.25%</td><td>10 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#7B3FA0"></span>Violet</td><td>7</td><td>&times;10,000,000</td><td>&plusmn;0.1%</td><td>5 ppm/K</td></tr>
+<tr><td><span class="rc-swab" style="background:#9C9C9C"></span>Grey</td><td>8</td><td>&times;100,000,000</td><td>&plusmn;0.05%</td><td>&mdash;</td></tr>
+<tr><td><span class="rc-swab" style="background:#F5F5F0;border-color:#ccc"></span>White</td><td>9</td><td>&times;1,000,000,000</td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td><span class="rc-swab" style="background:#C9A24B"></span>Gold</td><td>&mdash;</td><td>&times;0.1</td><td>&plusmn;5%</td><td>&mdash;</td></tr>
+<tr><td><span class="rc-swab" style="background:#B9BCC0"></span>Silver</td><td>&mdash;</td><td>&times;0.01</td><td>&plusmn;10%</td><td>&mdash;</td></tr>
+<tr><td>No band</td><td>&mdash;</td><td>&mdash;</td><td>&plusmn;20%</td><td>&mdash;</td></tr>
 </table>
 
 <h2 id="rc-math">The Math Behind Each Band Count</h2>
-<p>All resistor color code math follows the same basic shape — read the significant digits as one number, then scale it by the multiplier — but the number of significant digits changes with the band count.</p>
+<p>All resistor color code math follows the same basic shape &mdash; read the significant digits as one number, then scale it by the multiplier &mdash; but the number of significant digits changes with the band count.</p>
 <p class="rc-formula">4-band: Resistance = (10 &times; Digit1 + Digit2) &times; Multiplier</p>
 <p class="rc-formula">5-band and 6-band: Resistance = (100 &times; Digit1 + 10 &times; Digit2 + Digit3) &times; Multiplier</p>
-<p>For example, a resistor with bands Orange-Orange-Red-Gold reads as digits 3 and 3, multiplied by ×100 (red), giving 3,300Ω or 3.3kΩ, with a gold tolerance band meaning the actual value falls anywhere between 3.135kΩ and 3.465kΩ. Add a third digit for a 5-band part — say Orange-Orange-Black-Brown-Brown — and you get digits 3, 3, 0 multiplied by ×10 (brown), landing on 3,300Ω again but now specified to a tighter ±1%.</p>
+<p>For example, a resistor with bands Orange-Orange-Red-Gold reads as digits 3 and 3, multiplied by &times;100 (red), giving 3,300&Omega; or 3.3k&Omega;, with a gold tolerance band meaning the actual value falls anywhere between 3.135k&Omega; and 3.465k&Omega;. Add a third digit for a 5-band part &mdash; say Orange-Orange-Black-Brown-Brown &mdash; and you get digits 3, 3, 0 multiplied by &times;10 (brown), landing on 3,300&Omega; again but now specified to a tighter &plusmn;1%.</p>
 
 <h2 id="rc-bandcounts">3-Band, 4-Band, 5-Band, and 6-Band: What Changes</h2>
 <ul>
-<li><strong>3-band</strong> — two significant digits and a multiplier, no tolerance band at all. Treated as a wide ±20% tolerance by convention. Uncommon on modern parts but still shows up on older or ultra-low-cost components.</li>
-<li><strong>4-band</strong> — the most common configuration on general-purpose resistors: two digits, a multiplier, and a tolerance band, typically gold (±5%) or brown (±1%).</li>
-<li><strong>5-band</strong> — adds a third significant digit for finer resolution, standard on precision resistors rated ±1% or ±2%.</li>
-<li><strong>6-band</strong> — everything in a 5-band resistor plus a temperature coefficient band, used where resistance needs to stay stable across a temperature range, such as in measurement instruments or high-precision analog circuits.</li>
+<li><strong>3-band</strong> &mdash; two significant digits and a multiplier, no tolerance band at all. Treated as a wide &plusmn;20% tolerance by convention. Uncommon on modern parts but still shows up on older or ultra-low-cost components.</li>
+<li><strong>4-band</strong> &mdash; the most common configuration on general-purpose resistors: two digits, a multiplier, and a tolerance band, typically gold (&plusmn;5%) or brown (&plusmn;1%).</li>
+<li><strong>5-band</strong> &mdash; adds a third significant digit for finer resolution, standard on precision resistors rated &plusmn;1% or &plusmn;2%.</li>
+<li><strong>6-band</strong> &mdash; everything in a 5-band resistor plus a temperature coefficient band, used where resistance needs to stay stable across a temperature range, such as in measurement instruments or high-precision analog circuits.</li>
 </ul>
 
 <h2 id="rc-reverse">Reverse Lookup: From Ohms to Colors</h2>
-<p>Going the other direction is just as common — you know you need a 4.7kΩ resistor for a design and want to confirm which bands to look for in a parts bin. The reverse lookup tab above takes your target resistance, unit, desired tolerance, and band count, then works out the matching digit and multiplier colors automatically. This is especially useful when sorting through mixed resistor kits where the printed labels have worn off or the parts were never labeled to begin with.</p>
+<p>Going the other direction is just as common &mdash; you know you need a 4.7k&Omega; resistor for a design and want to confirm which bands to look for in a parts bin. The reverse lookup tab above takes your target resistance, unit, desired tolerance, and band count, then works out the matching digit and multiplier colors automatically. This is especially useful when sorting through mixed resistor kits where the printed labels have worn off or the parts were never labeled to begin with.</p>
 
-<h2 id="rc-more-tools">Series, Parallel &amp; Conductor Resistance</h2>
-<p>Real circuits rarely use a single resistor in isolation, so this page also includes three companion tools beyond the color-code decoder. The <strong>series calculator</strong> adds resistances directly — wiring resistors end-to-end always increases total resistance, since current has to push through each one in turn. The <strong>parallel calculator</strong> does the reciprocal-sum math for resistors wired side-by-side across the same two nodes, which always lowers total resistance below the smallest individual resistor, since current gets multiple paths to flow through. The <strong>conductor resistance tool</strong> goes a level deeper, calculating the resistance of a plain wire from its length, cross-sectional diameter, and material — useful for estimating voltage drop over long cable runs or comparing copper against aluminum for a given gauge.</p>
-<p>All three use standard, textbook formulas: series resistance is R₁ + R₂ + … + Rₙ; parallel resistance solves 1/R = 1/R₁ + 1/R₂ + … + 1/Rₙ; and conductor resistance follows R = ρL/A, where ρ is the material's resistivity in ohm-meters, L is length, and A is the wire's cross-sectional area.</p>
+<h2 id="rc-seriesparallel">Resistors in Series &amp; Parallel</h2>
+<p>Resistors are circuit elements that impart electrical resistance, and real circuits rarely use just one in isolation. How several resistors combine into a single effective resistance depends entirely on whether they're wired in series or in parallel &mdash; the two are opposites, and mixing them up is one of the most common mistakes in circuit analysis.</p>
+<h3>Resistors in series</h3>
+<svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:440px;display:block;margin:18px auto"><circle cx="30" cy="55" r="5" fill="#1E3A5F"/><text x="14" y="40" font-size="14" font-weight="700" fill="#1E3A5F">+</text><line x1="30" y1="55" x2="90" y2="55" stroke="#1E3A5F" stroke-width="2.5"/><polyline points="90,55 98,45 106,65 114,45 122,65 130,45 138,55" fill="none" stroke="#2266D6" stroke-width="2.5"/><text x="114" y="81" text-anchor="middle" font-size="13" font-weight="600" fill="#181A1F" font-family='IBM Plex Mono,monospace'>R1</text><line x1="138" y1="55" x2="178" y2="55" stroke="#1E3A5F" stroke-width="2.5"/><polyline points="178,55 186,45 194,65 202,45 210,65 218,45 226,55" fill="none" stroke="#2E9E4F" stroke-width="2.5"/><text x="202" y="81" text-anchor="middle" font-size="13" font-weight="600" fill="#181A1F" font-family='IBM Plex Mono,monospace'>R2</text><line x1="226" y1="55" x2="266" y2="55" stroke="#1E3A5F" stroke-width="2.5"/><polyline points="266,55 274,45 282,65 290,45 298,65 306,45 314,55" fill="none" stroke="#E4372B" stroke-width="2.5"/><text x="290" y="81" text-anchor="middle" font-size="13" font-weight="600" fill="#181A1F" font-family='IBM Plex Mono,monospace'>R3</text><line x1="314" y1="55" x2="340" y2="55" stroke="#1E3A5F" stroke-width="2.5"/><text x="352" y="60" font-size="16" font-weight="700" fill="#1E3A5F">&#8943;</text><line x1="368" y1="55" x2="410" y2="55" stroke="#1E3A5F" stroke-width="2.5"/><circle cx="440" cy="55" r="5" fill="#1E3A5F"/><text x="430" y="40" font-size="14" font-weight="700" fill="#1E3A5F">&minus;</text><text x="235" y="95" text-anchor="middle" font-size="12.5" fill="#787D86" font-family="IBM Plex Sans,sans-serif">Same current flows through every resistor &mdash; resistances add directly</text></svg>
+<p>When resistors are connected end-to-end along a single path, the same current has to flow through every one of them in turn, and the total resistance is simply the sum of each individual resistance:</p>
+<p class="rc-formula">R<sub>total</sub> = R<sub>1</sub> + R<sub>2</sub> + R<sub>3</sub> + &hellip; + R<sub>n</sub></p>
+<p>Adding a resistor in series always increases total resistance, since current now has one more obstacle to push through. The <strong>Resistors in Series</strong> tool above this article does this addition instantly for any list of values you enter.</p>
+<h3>Resistors in parallel</h3>
+<svg viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:380px;display:block;margin:18px auto"><line x1="40" y1="30" x2="40" y2="170" stroke="#1E3A5F" stroke-width="2.5"/><line x1="360" y1="30" x2="360" y2="170" stroke="#1E3A5F" stroke-width="2.5"/><text x="20" y="26" font-size="14" font-weight="700" fill="#1E3A5F">+</text><text x="368" y="26" font-size="14" font-weight="700" fill="#1E3A5F">&minus;</text><line x1="40" y1="40" x2="150" y2="40" stroke="#1E3A5F" stroke-width="2"/><polyline points="160,32 150,40 170,48 150,56 170,64 150,72 160,80" fill="none" stroke="#2266D6" stroke-width="2.5"/><text x="205" y="45" font-size="13" font-weight="600" fill="#181A1F" font-family="IBM Plex Mono,monospace">R1</text><line x1="230" y1="40" x2="360" y2="40" stroke="#1E3A5F" stroke-width="2"/><line x1="40" y1="95" x2="150" y2="95" stroke="#1E3A5F" stroke-width="2"/><polyline points="160,87 150,95 170,103 150,111 170,119 150,127 160,135" fill="none" stroke="#2E9E4F" stroke-width="2.5"/><text x="205" y="100" font-size="13" font-weight="600" fill="#181A1F" font-family="IBM Plex Mono,monospace">R2</text><line x1="230" y1="95" x2="360" y2="95" stroke="#1E3A5F" stroke-width="2"/><line x1="40" y1="150" x2="150" y2="150" stroke="#1E3A5F" stroke-width="2"/><polyline points="160,142 150,150 170,158 150,166 170,174 150,182 160,190" fill="none" stroke="#E4372B" stroke-width="2.5"/><text x="205" y="155" font-size="13" font-weight="600" fill="#181A1F" font-family="IBM Plex Mono,monospace">R3</text><line x1="230" y1="150" x2="360" y2="150" stroke="#1E3A5F" stroke-width="2"/><text x="210" y="198" text-anchor="middle" font-size="12.5" fill="#787D86" font-family="IBM Plex Sans,sans-serif">Same voltage across each resistor &mdash; current splits between paths</text></svg>
+<p>When resistors are wired side-by-side across the same two nodes, each one offers current a separate path, and the full voltage is applied across every branch simultaneously. Total resistance is the reciprocal of the sum of reciprocals:</p>
+<p class="rc-formula">1 / R<sub>total</sub> = 1/R<sub>1</sub> + 1/R<sub>2</sub> + 1/R<sub>3</sub> + &hellip; + 1/R<sub>n</sub></p>
+<p>Adding a resistor in parallel always <em>decreases</em> total resistance below the smallest individual resistor in the group, since current gains an additional path to flow through. The <strong>Resistors in Parallel</strong> tool above runs this reciprocal-sum calculation automatically &mdash; just enter your values separated by commas.</p>
+
+<h2 id="rc-conductor">Resistance of a Conductor</h2>
+<p>Beyond discrete resistors, any length of wire has some resistance of its own, which becomes significant over long cable runs or with thin gauges. The <strong>Resistance of a Conductor</strong> tool above calculates this directly from a wire's physical dimensions and material using the standard formula:</p>
+<p class="rc-formula">R = &rho; &times; L / A</p>
+<p>Here &rho; (rho) is the material's electrical resistivity in ohm-meters, L is the wire's length, and A is its cross-sectional area, calculated from the diameter you enter. Copper and silver have very low resistivity and dominate general wiring; nichrome, at the opposite extreme, has high resistivity on purpose and is the standard choice for resistive heating elements. This tool is useful for estimating voltage drop over a long run of speaker cable, extension cord, or hookup wire before you commit to a gauge.</p>
 
 <h2 id="rc-faq">Frequently Asked Questions</h2>
 <h3>How do I know which side to start reading a resistor from?</h3>
@@ -929,7 +1005,9 @@
 <h3>What is the 6th band on a resistor used for?</h3>
 <p>The sixth band specifies the temperature coefficient, measured in parts per million per degree Celsius (ppm/K). It tells you how much the resistance drifts as the resistor heats up or cools down, which matters in precision analog circuits, measurement equipment, and anywhere stable resistance over a temperature range is critical. Everyday electronics projects can usually ignore this band.</p>
 <h3>Why do two resistors with the same color bands sometimes measure slightly different resistance?</h3>
-<p>That's exactly what the tolerance band accounts for — manufacturing isn't perfect, so a resistor marked as 1kΩ with a 5% gold tolerance band could genuinely measure anywhere from 950Ω to 1,050Ω and still be within spec. For circuits sensitive to exact resistance, use a multimeter to measure the actual value rather than relying on the color-coded nominal figure alone.</p>
+<p>That's exactly what the tolerance band accounts for &mdash; manufacturing isn't perfect, so a resistor marked as 1k&Omega; with a 5% gold tolerance band could genuinely measure anywhere from 950&Omega; to 1,050&Omega; and still be within spec. For circuits sensitive to exact resistance, use a multimeter to measure the actual value rather than relying on the color-coded nominal figure alone.</p>
+<h3>Why does adding resistors in parallel lower the total resistance?</h3>
+<p>Because each additional resistor opens up another path for current to flow through, and more available paths means less overall opposition to current &mdash; the same reason opening a second checkout lane at a store reduces the total wait, even though each individual lane didn't get any faster.</p>
 
 <p style="font-size:12px;color:var(--ink-faint);margin-top:20px">This calculator is provided for educational and reference purposes. While the color code standard used here matches industry conventions (IEC 60062), always verify critical circuit components with a multimeter before soldering.</p>
 </article>
