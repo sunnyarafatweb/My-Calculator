@@ -305,14 +305,40 @@
 #cb-ultimate-resistor-calc-wrapper .rc-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 #cb-ultimate-resistor-calc-wrapper .rc-bar-text{display:flex;align-items:center;gap:10px}
 #cb-ultimate-resistor-calc-wrapper .rc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+#cb-ultimate-resistor-calc-wrapper .rc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:var(--f-body)}
+#cb-ultimate-resistor-calc-wrapper .rc-bar-pdf-btn:hover{background:#f0f0f0}
 
-#cb-ultimate-resistor-calc-wrapper .rc-tabs{display:flex;gap:6px;margin-top:20px;background:var(--surface-sunken);border-radius:12px;padding:5px;flex-wrap:wrap}
-#cb-ultimate-resistor-calc-wrapper .rc-tab{flex:1;min-width:100px;background:none;border:none;color:var(--ink-soft);border-radius:9px;padding:11px 10px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--f-body);transition:.15s}
+#cb-ultimate-resistor-calc-wrapper .rc-tabs{display:flex;gap:8px;flex-wrap:wrap;grid-area:tabs}
+#cb-ultimate-resistor-calc-wrapper .rc-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--f-body);transition:.15s}
 #cb-ultimate-resistor-calc-wrapper .rc-tab:hover{color:var(--ink)}
-#cb-ultimate-resistor-calc-wrapper .rc-tab.active{background:#1E3A5F;color:#fff}
+#cb-ultimate-resistor-calc-wrapper .rc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
-#cb-ultimate-resistor-calc-wrapper .rc-grid{display:grid;grid-template-columns:minmax(340px,1.15fr) minmax(300px,1fr) 260px;gap:20px;align-items:start;margin-top:20px}
-@media(max-width:980px){#cb-ultimate-resistor-calc-wrapper .rc-grid{grid-template-columns:1fr}}
+#cb-ultimate-resistor-calc-wrapper .rc-grid{display:grid;grid-template-columns:minmax(340px,1.15fr) minmax(300px,1fr) 260px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar bar" "tabs tabs tabs" "form result sidebar"}
+#cb-ultimate-resistor-calc-wrapper .rc-area-bar{grid-area:bar}
+#cb-ultimate-resistor-calc-wrapper .rc-area-form{grid-area:form;min-width:0}
+#cb-ultimate-resistor-calc-wrapper .rc-area-result{grid-area:result;min-width:0}
+#cb-ultimate-resistor-calc-wrapper .rc-area-sidebar{grid-area:sidebar;min-width:0}
+@media(max-width:980px){#cb-ultimate-resistor-calc-wrapper .rc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "sidebar"}}
+
+#cb-ultimate-resistor-calc-wrapper .rc-extra-tools{margin-top:34px}
+#cb-ultimate-resistor-calc-wrapper .rc-extra-title{font-size:19px;font-weight:700;color:var(--ink);margin:0 0 14px;letter-spacing:-.01em}
+#cb-ultimate-resistor-calc-wrapper .rc-extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){#cb-ultimate-resistor-calc-wrapper .rc-extra-grid{grid-template-columns:1fr}}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:4px}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-desc{font-size:12.5px;color:var(--ink-faint);margin-bottom:12px;line-height:1.5}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-textarea{width:100%;border:1px solid var(--border-fine);background:var(--surface-sunken);border-radius:9px;padding:10px 12px;font-size:13.5px;font-family:var(--f-mono);color:var(--ink);resize:vertical;min-height:56px}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-btn{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-btn:hover{background:#128A3D}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-result{margin-top:12px;background:var(--surface-sunken);border-radius:9px;padding:12px 14px;font-family:var(--f-mono);font-size:14px;font-weight:700;color:#1E3A5F;min-height:20px}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-field{flex:1;min-width:110px}
+#cb-ultimate-resistor-calc-wrapper .rc-mini-field label{display:block;font-size:11.5px;color:var(--ink-faint);margin-bottom:4px}
+
+#cb-ultimate-resistor-calc-wrapper .rc-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:14px;padding:16px 20px;margin:22px 0 32px;display:flex;flex-wrap:wrap;gap:6px 18px}
+#cb-ultimate-resistor-calc-wrapper .rc-toc a{font-size:13px;font-weight:600;color:#1E3A5F;text-decoration:none}
+#cb-ultimate-resistor-calc-wrapper .rc-toc a:hover{text-decoration:underline}
 
 #cb-ultimate-resistor-calc-wrapper .rc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 #cb-ultimate-resistor-calc-wrapper .rc-card-pad{padding:22px}
@@ -371,7 +397,9 @@
 </style>
 <div id="cb-ultimate-resistor-calc-wrapper">
 
-<div class="rc-bar"><span class="rc-bar-text"><span class="rc-bar-badge">▾</span>Just enter your values below — results update automatically.</span></div>
+<div class="rc-grid">
+
+<div class="rc-bar rc-area-bar"><span class="rc-bar-text"><span class="rc-bar-badge">▾</span>Just enter your values below — results update automatically.</span><button class="rc-bar-pdf-btn" id="rcPdfBtn">⬇ Save as PDF</button></div>
 
 <div class="rc-tabs" id="rcTabs">
   <button class="rc-tab" data-tab="3">3-Band</button>
@@ -381,9 +409,7 @@
   <button class="rc-tab" data-tab="rev">Reverse Lookup</button>
 </div>
 
-<div class="rc-grid">
-
-  <div class="rc-card rc-card-pad" id="rcFormPanel">
+  <div class="rc-card rc-card-pad rc-area-form" id="rcFormPanel">
     <div id="rcBandForm"></div>
     <div class="rc-reverse-row" id="rcReverseForm" style="display:none;flex-direction:column">
       <div class="rc-reverse-field">
@@ -431,8 +457,8 @@
     </div>
   </div>
 
-  <div class="rc-card">
-    <div class="rc-svg-wrap"><svg id="rcSvg" width="280" height="130" viewBox="0 0 280 130"></svg></div>
+  <div class="rc-card rc-area-result">
+    <div class="rc-svg-wrap"><svg id="rcSvg" width="280" height="140" viewBox="0 0 280 140"></svg></div>
     <div class="rc-result">
       <div class="rc-result-value" id="rcValue">3.3 kΩ</div>
       <div class="rc-result-tol" id="rcTol">±5% tolerance</div>
@@ -441,7 +467,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="rc-area-sidebar">
     <div class="rc-side-card">
       <div class="h">Related Calculators</div>
       <a href="/ohms-law-calculator/">Ohm's Law Calculator<span>→</span></a>
@@ -537,21 +563,76 @@
   }
 
   function drawResistor(colors){
-    var w=280,h=130,bodyX=60,bodyW=160,bodyY=40,bodyH=50;
-    var svg='<rect x="0" y="62" width="'+bodyX+'" height="6" fill="#c9c9c9"/>';
-    svg+='<rect x="'+(bodyX+bodyW)+'" y="62" width="'+(w-bodyX-bodyW)+'" height="6" fill="#c9c9c9"/>';
-    svg+='<rect x="'+bodyX+'" y="'+bodyY+'" width="'+bodyW+'" height="'+bodyH+'" rx="22" fill="#E9CFA0" stroke="#c9a86a" stroke-width="1.5"/>';
+    var w=280,cy=68,bodyX=54,bodyW=172,bodyH=54,rx=bodyH/2;
+    var bodyY=cy-bodyH/2, capW=14;
+
+    var defs='<defs>'+
+      '<linearGradient id="rcBodyGrad" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0%" stop-color="#F3DDB0"/>'+
+        '<stop offset="18%" stop-color="#EACB93"/>'+
+        '<stop offset="50%" stop-color="#D8AE6C"/>'+
+        '<stop offset="82%" stop-color="#C79955"/>'+
+        '<stop offset="100%" stop-color="#B8874A"/>'+
+      '</linearGradient>'+
+      '<linearGradient id="rcCapGrad" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0%" stop-color="#E7C68C"/>'+
+        '<stop offset="50%" stop-color="#C89A55"/>'+
+        '<stop offset="100%" stop-color="#A87B3D"/>'+
+      '</linearGradient>'+
+      '<linearGradient id="rcLeadGrad" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0%" stop-color="#F2F2F2"/>'+
+        '<stop offset="45%" stop-color="#B8B8B8"/>'+
+        '<stop offset="55%" stop-color="#9A9A9A"/>'+
+        '<stop offset="100%" stop-color="#DADADA"/>'+
+      '</linearGradient>'+
+      '<radialGradient id="rcShadow" cx="50%" cy="50%" r="50%">'+
+        '<stop offset="0%" stop-color="rgba(20,20,20,.28)"/>'+
+        '<stop offset="100%" stop-color="rgba(20,20,20,0)"/>'+
+      '</radialGradient>';
+
     var n=colors.length;
-    var pad=22, usable=bodyW-pad*2-14;
-    var lastGap = n>=4 ? 16 : 0;
-    var slots=n, step=(usable-lastGap)/(slots-1<=0?1:slots-1);
+    var pad=rx+12, usable=bodyW-pad*2-capW*0.6;
+    var lastGap = n>=4 ? 14 : 0;
+    var step=(usable-lastGap)/((n-1)<=0?1:(n-1));
+    var bandXs=[];
     for(var i=0;i<n;i++){
-      var x=bodyX+pad+i*step + (i===n-1 && lastGap ? lastGap : 0);
-      var col=colors[i];
-      var fill = col==='none' ? 'transparent' : HEX[col];
-      if(col==='none') continue;
-      svg+='<rect x="'+x.toFixed(1)+'" y="'+bodyY+'" width="9" height="'+bodyH+'" fill="'+fill+'" stroke="rgba(0,0,0,.12)" stroke-width="0.5"/>';
+      bandXs.push(bodyX+pad+i*step + (i===n-1 && lastGap ? lastGap : 0));
     }
+    bandXs.forEach(function(x,i){
+      defs+='<linearGradient id="rcBand'+i+'" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0%" stop-color="rgba(255,255,255,.55)"/>'+
+        '<stop offset="22%" stop-color="rgba(255,255,255,0)"/>'+
+        '<stop offset="78%" stop-color="rgba(0,0,0,0)"/>'+
+        '<stop offset="100%" stop-color="rgba(0,0,0,.42)"/>'+
+      '</linearGradient>';
+    });
+    defs+='</defs>';
+
+    var svg=defs;
+    // drop shadow
+    svg+='<ellipse cx="'+w/2+'" cy="'+(cy+rx+14)+'" rx="'+(bodyW/2+8)+'" ry="9" fill="url(#rcShadow)"/>';
+
+    // leads
+    svg+='<rect x="0" y="'+(cy-3)+'" width="'+bodyX+'" height="6" rx="3" fill="url(#rcLeadGrad)"/>';
+    svg+='<rect x="'+(bodyX+bodyW)+'" y="'+(cy-3)+'" width="'+(w-bodyX-bodyW)+'" height="6" rx="3" fill="url(#rcLeadGrad)"/>';
+
+    // body (rounded capsule)
+    svg+='<rect x="'+bodyX+'" y="'+bodyY+'" width="'+bodyW+'" height="'+bodyH+'" rx="'+rx+'" fill="url(#rcBodyGrad)"/>';
+    // end caps (slightly darker, to read as rounded 3D ends)
+    svg+='<ellipse cx="'+bodyX+'" cy="'+cy+'" rx="'+(rx*0.62)+'" ry="'+rx+'" fill="url(#rcCapGrad)"/>';
+    svg+='<ellipse cx="'+(bodyX+bodyW)+'" cy="'+cy+'" rx="'+(rx*0.62)+'" ry="'+rx+'" fill="url(#rcCapGrad)"/>';
+    // top specular highlight for glossy cylinder feel
+    svg+='<rect x="'+(bodyX+6)+'" y="'+(bodyY+4)+'" width="'+(bodyW-12)+'" height="'+(bodyH*0.28)+'" rx="'+(bodyH*0.14)+'" fill="rgba(255,255,255,.45)"/>';
+
+    // color bands wrapped around cylinder
+    bandXs.forEach(function(x,i){
+      var col=colors[i];
+      if(col==='none') return;
+      var fill = HEX[col];
+      svg+='<rect x="'+x.toFixed(1)+'" y="'+(bodyY+1)+'" width="10" height="'+(bodyH-2)+'" fill="'+fill+'"/>';
+      svg+='<rect x="'+x.toFixed(1)+'" y="'+(bodyY+1)+'" width="10" height="'+(bodyH-2)+'" fill="url(#rcBand'+i+')"/>';
+    });
+
     $('rcSvg').innerHTML=svg;
   }
 
@@ -658,16 +739,135 @@
 
   buildForm();
   render();
+
+  $('rcPdfBtn').addEventListener('click', function(){
+    if(!window.jspdf){ alert('PDF library is still loading, please try again in a moment.'); return; }
+    try{
+      var jsPDFCtor=window.jspdf.jsPDF;
+      var doc=new jsPDFCtor({unit:'pt',format:'letter'});
+      var margin=40,y=50;
+      doc.setFont('helvetica','bold');doc.setFontSize(18);doc.setTextColor(30,58,95);
+      doc.text('Resistor Color Code Report',margin,y);y+=18;
+      doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(120,120,120);
+      doc.text('Generated by Calculator Boss.com  ·  '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),margin,y);
+      y+=22;
+      doc.setDrawColor(220,220,220);doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y);y+=24;
+      doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(22,163,74);
+      doc.text($('rcValue').textContent+'  ('+$('rcTol').textContent+')',margin,y);
+      y+=22;
+      doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,60,60);
+      doc.text($('rcRange').textContent,margin,y);
+      y+=18;
+      var extraText=$('rcExtraRows').textContent.trim();
+      if(extraText){ doc.text(extraText,margin,y); }
+      doc.save('resistor-report-'+new Date().toISOString().slice(0,10)+'.pdf');
+    }catch(e){
+      alert('Sorry, there was a problem generating the PDF: '+e.message);
+    }
+  });
+})();
+</script>
+
+<div class="rc-extra-tools">
+<h2 class="rc-extra-title">More Resistor Tools</h2>
+<div class="rc-extra-grid">
+
+  <div class="rc-mini-card">
+    <div class="rc-mini-title">Resistors in Series</div>
+    <div class="rc-mini-desc">Enter resistance values separated by commas (Ω). Total resistance is simply the sum.</div>
+    <textarea class="rc-mini-textarea" id="rcSeriesInput">220, 330, 1000</textarea>
+    <div class="rc-mini-row"><button class="rc-mini-btn" id="rcSeriesBtn">Calculate</button></div>
+    <div class="rc-mini-result" id="rcSeriesResult">Total: 1,550 Ω</div>
+  </div>
+
+  <div class="rc-mini-card">
+    <div class="rc-mini-title">Resistors in Parallel</div>
+    <div class="rc-mini-desc">Enter resistance values separated by commas (Ω). 1/R = 1/R1 + 1/R2 + …</div>
+    <textarea class="rc-mini-textarea" id="rcParallelInput">220, 330, 1000</textarea>
+    <div class="rc-mini-row"><button class="rc-mini-btn" id="rcParallelBtn">Calculate</button></div>
+    <div class="rc-mini-result" id="rcParallelResult">Total: 122.6 Ω</div>
+  </div>
+
+  <div class="rc-mini-card" style="grid-column:1 / -1">
+    <div class="rc-mini-title">Resistance of a Conductor</div>
+    <div class="rc-mini-desc">Calculate the resistance of a wire from its length, cross-sectional diameter, and material (R = ρL/A).</div>
+    <div class="rc-mini-row">
+      <div class="rc-mini-field"><label>Length</label><input type="number" class="rc-input" id="rcCondLen" value="10"></div>
+      <div class="rc-mini-field"><label>Length Unit</label><select class="rc-select" id="rcCondLenUnit"><option value="1">meters</option><option value="0.01">centimeters</option><option value="0.3048">feet</option></select></div>
+      <div class="rc-mini-field"><label>Diameter</label><input type="number" class="rc-input" id="rcCondDia" value="1.5" step="any"></div>
+      <div class="rc-mini-field"><label>Diameter Unit</label><select class="rc-select" id="rcCondDiaUnit"><option value="0.001">mm</option><option value="0.0001">cm</option><option value="0.0000254">inch</option></select></div>
+      <div class="rc-mini-field"><label>Material</label>
+        <select class="rc-select" id="rcCondMaterial">
+          <option value="1.68e-8">Copper</option>
+          <option value="2.65e-8">Aluminum</option>
+          <option value="2.44e-8">Gold</option>
+          <option value="1.59e-8">Silver</option>
+          <option value="9.71e-8">Iron</option>
+          <option value="1.10e-6">Nichrome</option>
+        </select>
+      </div>
+    </div>
+    <div class="rc-mini-row"><button class="rc-mini-btn" id="rcCondBtn">Calculate</button></div>
+    <div class="rc-mini-result" id="rcCondResult">Resistance: —</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  function parseList(str){
+    return str.split(',').map(function(s){return parseFloat(s.trim());}).filter(function(n){return !isNaN(n)&&n>0;});
+  }
+  function fmt(v){
+    if(v>=1e6) return (v/1e6).toFixed(3).replace(/\.?0+$/,'')+' MΩ';
+    if(v>=1e3) return (v/1e3).toFixed(3).replace(/\.?0+$/,'')+' kΩ';
+    return (Math.round(v*1000)/1000).toLocaleString()+' Ω';
+  }
+  $('rcSeriesBtn').addEventListener('click', function(){
+    var vals=parseList($('rcSeriesInput').value);
+    if(!vals.length){ $('rcSeriesResult').textContent='Enter at least one valid resistance.'; return; }
+    var total=vals.reduce(function(a,b){return a+b;},0);
+    $('rcSeriesResult').textContent='Total: '+fmt(total);
+  });
+  $('rcParallelBtn').addEventListener('click', function(){
+    var vals=parseList($('rcParallelInput').value);
+    if(!vals.length){ $('rcParallelResult').textContent='Enter at least one valid resistance.'; return; }
+    var invSum=vals.reduce(function(a,b){return a+1/b;},0);
+    $('rcParallelResult').textContent='Total: '+fmt(1/invSum);
+  });
+  $('rcCondBtn').addEventListener('click', function(){
+    var L=parseFloat($('rcCondLen').value)*parseFloat($('rcCondLenUnit').value);
+    var d=parseFloat($('rcCondDia').value)*parseFloat($('rcCondDiaUnit').value);
+    var rho=parseFloat($('rcCondMaterial').value);
+    if(!L || !d || L<=0 || d<=0){ $('rcCondResult').textContent='Enter valid length and diameter.'; return; }
+    var r=d/2;
+    var A=Math.PI*r*r;
+    var R=rho*L/A;
+    $('rcCondResult').textContent='Resistance: '+fmt(R);
+  });
 })();
 </script>
 
 <article class="rc-seo-article">
 <div class="rc-byline">Written by the Calculator Boss Electronics Team &middot; Reviewed for accuracy &middot; Last updated July 2026</div>
 
-<h2>Why Resistor Color Codes Still Matter</h2>
+<nav class="rc-toc">
+<a href="#rc-why">Why Color Codes Matter</a>
+<a href="#rc-howto">How to Read the Bands</a>
+<a href="#rc-chart">Color Code Chart</a>
+<a href="#rc-math">The Math</a>
+<a href="#rc-bandcounts">3 vs 4 vs 5 vs 6-Band</a>
+<a href="#rc-reverse">Reverse Lookup</a>
+<a href="#rc-more-tools">Series, Parallel &amp; Conductor Resistance</a>
+<a href="#rc-faq">FAQ</a>
+</nav>
+
+<h2 id="rc-why">Why Resistor Color Codes Still Matter</h2>
 <p>Most through-hole resistors are too small to print a legible number on, so manufacturers switched decades ago to a system of painted color bands that stays readable at any orientation and doesn't wear off from handling. Anyone who builds circuits — electrical engineers double-checking a bill of materials, students working through a lab assignment, or hobbyists prototyping on a breadboard — eventually needs to translate those bands into an actual resistance value, and doing it wrong by even one band can mean a circuit that draws too much current or simply doesn't work. This calculator handles that translation instantly in both directions: pick the colors you see and read off the resistance, or start from a target resistance and get back the exact color sequence to look for on the shelf.</p>
 
-<h2>How to Read Resistor Color Codes: Step by Step</h2>
+<h2 id="rc-howto">How to Read Resistor Color Codes: Step by Step</h2>
 <p>Every color band system reads in the same general order, but knowing which end to start from trips up beginners more than the color meanings themselves.</p>
 <h3>1. Find the starting side</h3>
 <p>Turn the resistor so the bands are grouped tightly toward one end, with a noticeably wider gap before the final band. That wider gap almost always precedes the tolerance band, so you read left to right <em>toward</em> it, not away from it. If two ends look similarly spaced, check for gold or silver — those colors are reserved for the multiplier or tolerance roles and essentially never appear as a first significant-digit band, so a gold or silver band near one end confirms that end comes last.</p>
@@ -680,7 +880,7 @@
 <h3>5. Check for a temperature coefficient</h3>
 <p>Only 6-band resistors carry this extra band, positioned last. It's given in parts per million per degree Celsius (ppm/K) and describes how much the resistance shifts as temperature changes — relevant for precision instrumentation, largely ignorable for general electronics work.</p>
 
-<h2>Complete Resistor Color Code Chart</h2>
+<h2 id="rc-chart">Complete Resistor Color Code Chart</h2>
 <table class="rc-color-table">
 <tr><th>Color</th><th>1st / 2nd / 3rd Digit</th><th>Multiplier</th><th>Tolerance</th><th>Temp. Coefficient</th></tr>
 <tr><td><span class="rc-swab" style="background:#232323"></span>Black</td><td>0</td><td>&times;1</td><td>—</td><td>250 ppm/K</td></tr>
@@ -698,13 +898,13 @@
 <tr><td>No band</td><td>—</td><td>—</td><td>±20%</td><td>—</td></tr>
 </table>
 
-<h2>The Math Behind Each Band Count</h2>
+<h2 id="rc-math">The Math Behind Each Band Count</h2>
 <p>All resistor color code math follows the same basic shape — read the significant digits as one number, then scale it by the multiplier — but the number of significant digits changes with the band count.</p>
 <p class="rc-formula">4-band: Resistance = (10 &times; Digit1 + Digit2) &times; Multiplier</p>
 <p class="rc-formula">5-band and 6-band: Resistance = (100 &times; Digit1 + 10 &times; Digit2 + Digit3) &times; Multiplier</p>
 <p>For example, a resistor with bands Orange-Orange-Red-Gold reads as digits 3 and 3, multiplied by ×100 (red), giving 3,300Ω or 3.3kΩ, with a gold tolerance band meaning the actual value falls anywhere between 3.135kΩ and 3.465kΩ. Add a third digit for a 5-band part — say Orange-Orange-Black-Brown-Brown — and you get digits 3, 3, 0 multiplied by ×10 (brown), landing on 3,300Ω again but now specified to a tighter ±1%.</p>
 
-<h2>3-Band, 4-Band, 5-Band, and 6-Band: What Changes</h2>
+<h2 id="rc-bandcounts">3-Band, 4-Band, 5-Band, and 6-Band: What Changes</h2>
 <ul>
 <li><strong>3-band</strong> — two significant digits and a multiplier, no tolerance band at all. Treated as a wide ±20% tolerance by convention. Uncommon on modern parts but still shows up on older or ultra-low-cost components.</li>
 <li><strong>4-band</strong> — the most common configuration on general-purpose resistors: two digits, a multiplier, and a tolerance band, typically gold (±5%) or brown (±1%).</li>
@@ -712,10 +912,14 @@
 <li><strong>6-band</strong> — everything in a 5-band resistor plus a temperature coefficient band, used where resistance needs to stay stable across a temperature range, such as in measurement instruments or high-precision analog circuits.</li>
 </ul>
 
-<h2>Reverse Lookup: From Ohms to Colors</h2>
+<h2 id="rc-reverse">Reverse Lookup: From Ohms to Colors</h2>
 <p>Going the other direction is just as common — you know you need a 4.7kΩ resistor for a design and want to confirm which bands to look for in a parts bin. The reverse lookup tab above takes your target resistance, unit, desired tolerance, and band count, then works out the matching digit and multiplier colors automatically. This is especially useful when sorting through mixed resistor kits where the printed labels have worn off or the parts were never labeled to begin with.</p>
 
-<h2>Frequently Asked Questions</h2>
+<h2 id="rc-more-tools">Series, Parallel &amp; Conductor Resistance</h2>
+<p>Real circuits rarely use a single resistor in isolation, so this page also includes three companion tools beyond the color-code decoder. The <strong>series calculator</strong> adds resistances directly — wiring resistors end-to-end always increases total resistance, since current has to push through each one in turn. The <strong>parallel calculator</strong> does the reciprocal-sum math for resistors wired side-by-side across the same two nodes, which always lowers total resistance below the smallest individual resistor, since current gets multiple paths to flow through. The <strong>conductor resistance tool</strong> goes a level deeper, calculating the resistance of a plain wire from its length, cross-sectional diameter, and material — useful for estimating voltage drop over long cable runs or comparing copper against aluminum for a given gauge.</p>
+<p>All three use standard, textbook formulas: series resistance is R₁ + R₂ + … + Rₙ; parallel resistance solves 1/R = 1/R₁ + 1/R₂ + … + 1/Rₙ; and conductor resistance follows R = ρL/A, where ρ is the material's resistivity in ohm-meters, L is length, and A is the wire's cross-sectional area.</p>
+
+<h2 id="rc-faq">Frequently Asked Questions</h2>
 <h3>How do I know which side to start reading a resistor from?</h3>
 <p>Start from the side where the bands are grouped closer together, leaving a wider gap before the last band. That last, more-isolated band is almost always the tolerance band (commonly gold or silver), so reading toward it confirms you're going the correct direction. If the tolerance color is ambiguous, the multiplier band is also a clue since black, gold, and silver multipliers are rare as a first band.</p>
 <h3>What is the difference between a 4-band and a 5-band resistor?</h3>
@@ -863,4 +1067,5 @@
   input.addEventListener('input', function(){ renderResults(input.value); });
 })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body></html>
