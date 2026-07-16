@@ -38,6 +38,7 @@
     --hea:#0C9268;   --hea-tint:#DEF3EC;
     --mat:#4B4ED8;   --mat-tint:#E7E7FB;
     --oth:#CF3F53;   --oth-tint:#FBE4E7;
+    --cry:#B7621A;   --cry-tint:#FBEADA;
 
     --r-sm:12px; --r:16px; --r-lg:24px; --r-xl:32px;
     --maxw:1180px;
@@ -281,7 +282,7 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
-      <a href="/money-markets/" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Stocks<span class="rc-full"> Calculator</span></a>
+      <a href="/all-calculators/#cry" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Trading</a>
       <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -365,12 +366,12 @@
     <div class="cta reveal">
       <div class="cta-main">
         <div class="cta-txt">
-          <div class="eyebrow"><span class="ld"></span> Coming soon · Live Markets</div>
-          <h3>Crypto, stocks, gold &amp; forex —<br>live on Calculator Boss.</h3>
-          <p>Bitcoin on Binance, Ethereum, gold, world indices and currency rates — live prices and charts, landing here soon.</p>
+          <div class="eyebrow"><span class="ld"></span> Now Live · Crypto &amp; Trading</div>
+          <h3>Crypto &amp; trading calculators —<br>now live on Calculator Boss.</h3>
+          <p>Position sizing, P&amp;L, leverage, liquidation price, mining, staking, DCA and risk/reward — nine free tools for traders. Stocks, gold &amp; forex tools landing soon.</p>
         </div>
         <div class="cta-actions">
-          <a href="/money-markets/" class="btn btn-crypto">💹 Crypto &amp; Stocks Calculators →</a>
+          <a href="/all-calculators/#cry" class="btn btn-crypto">💹 Crypto &amp; Trading Calculators →</a>
         </div>
       </div>
       <div class="mkt-hints">
@@ -405,11 +406,11 @@
       </div>
       <div class="foot-col">
         <h4>Popular</h4>
-        <a href="/money-markets/">Money Markets 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
+        <a href="/all-calculators/#cry">Crypto &amp; Trading 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
       </div>
       <div class="foot-col">
         <h4>Categories</h4>
-        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/money-markets/">Crypto &amp; Trading</a><a href="/money-markets/">Stocks &amp; Investing</a><a href="/money-markets/">Forex &amp; Metals</a>
+        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/all-calculators/#cry">Crypto &amp; Trading</a><a href="/all-calculators/">Stocks &amp; Investing</a><a href="/all-calculators/">Forex &amp; Metals</a>
       </div>
       <div class="foot-col">
         <h4>Company</h4>
@@ -442,7 +443,8 @@
     coins:'<circle cx="8" cy="8" r="5"/><path d="M15.5 5a5 5 0 1 1 0 10"/><path d="M8 6v4M6 8h4"/>',
     heart:'<path d="M12 21C7 17 3 13.5 3 9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 9 2.5C21 13.5 17 17 12 21Z"/>',
     pi:'<path d="M4 7h16M8 7v10M16 7v7a2 2 0 0 0 2 2M6 17a2 2 0 0 0 2-2"/>',
-    grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+    crypto:'<circle cx="12" cy="12" r="9"/><path d="M9.3 8h4a2 2 0 0 1 0 4h-4m0 0h4.4a2 2 0 0 1 0 4H9.3M10.5 6v2M10.5 16v2M13 6v2M13 16v2"/>'
   };
 
   var CG = {fin:{ac:'var(--fin)',tint:'var(--fin-tint)'},hea:{ac:'var(--hea)',tint:'var(--hea-tint)'},mat:{ac:'var(--mat)',tint:'var(--mat-tint)'},oth:{ac:'var(--oth)',tint:'var(--oth-tint)'}};
@@ -515,6 +517,19 @@
        ['Ratio Calculator','ratio-calculator/','Simplify ratios or solve proportions.'],
        ['GPA Calculator','gpa-calculator/','GPA from courses, credits and letter grades.']
      ]},
+    {key:'cry',ac:'var(--cry)',tint:'var(--cry-tint)',ic:IC.crypto,name:'Crypto & Trading',count:9,anchor:'all-calculators/#cry',
+     desc:'Position sizing, P&L, leverage, mining, staking and trade risk.',
+     items:[
+       ['Crypto Position Size','crypto-position-size-calculator/','Risk-based trade size, margin and R:R ratio.'],
+       ['Crypto Profit / Loss','crypto-profit-loss-calculator/','Exact P&L, ROI, breakeven price and fees.'],
+       ['Crypto Tax Calculator','crypto-tax-calculator/','Capital gains, cost basis and income tax on crypto.'],
+       ['Liquidation Price','liquidation-price-calculator/','Exact liquidation price for isolated or cross margin.'],
+       ['Leverage Calculator','leverage-calculator/','Margin, position size and ROI at any leverage.'],
+       ['Mining Profit','mining-profit-calculator/','Daily, monthly and yearly mining profit projection.'],
+       ['Staking Reward','staking-reward-calculator/','Project staking rewards from APY, APR and compounding.'],
+       ['DCA Calculator','dca-calculator/','Backtest dollar-cost averaging vs. a lump-sum buy.'],
+       ['Risk/Reward Calculator','risk-reward-calculator/','R:R ratio, breakeven win rate and trade expectancy.']
+     ]},
     {key:'oth',ac:'var(--oth)',tint:'var(--oth-tint)',ic:IC.grid,name:'Other',count:51,anchor:'all-calculators/#oth',
      desc:'Date & time, housing, units, tools and everyday life.',
      items:[
@@ -572,7 +587,8 @@
     'mortgage-calculator/':'home','loan-calculator/':'note','auto-loan-calculator/':'car','income-tax-calculator/':'doc','compound-interest-calculator/':'trend','retirement-calculator/':'umbrella','salary-calculator/':'wallet','sales-tax-calculator/':'tag','currency-calculator/':'swap','investment-calculator/':'bars',
     'bmi-calculator/':'scale','calorie-calculator/':'fire','body-fat-calculator/':'ruler','bmr-calculator/':'zap','tdee-calculator/':'activity','ideal-weight-calculator/':'target','macro-calculator/':'pie','pregnancy-calculator/':'heart','due-date-calculator/':'calendar','pace-calculator/':'timer',
     'scientific-calculator/':'calc','percentage-calculator/':'percent','fraction-calculator/':'divide','standard-deviation-calculator/':'curve','triangle-calculator/':'triangle','random-number-generator/':'dice','gcf-calculator/':'hash','lcm-calculator/':'layers','ratio-calculator/':'ratio','gpa-calculator/':'cap',
-    'age-calculator/':'clock','date-calculator/':'calendar','time-calculator/':'timer','hours-calculator/':'clock','concrete-calculator/':'cube','conversion-calculator/':'swap','fuel-cost-calculator/':'fuel','password-generator/':'key','tip-calculator/':'coin','sleep-calculator/':'moon'
+    'age-calculator/':'clock','date-calculator/':'calendar','time-calculator/':'timer','hours-calculator/':'clock','concrete-calculator/':'cube','conversion-calculator/':'swap','fuel-cost-calculator/':'fuel','password-generator/':'key','tip-calculator/':'coin','sleep-calculator/':'moon',
+    'crypto-position-size-calculator/':'target','crypto-profit-loss-calculator/':'bars','crypto-tax-calculator/':'tag','liquidation-price-calculator/':'fire','leverage-calculator/':'zap','mining-profit-calculator/':'pie','staking-reward-calculator/':'coin','dca-calculator/':'curve','risk-reward-calculator/':'scale'
   };
 
   var cw = document.getElementById('catWrap');
@@ -658,7 +674,7 @@
   <div class="cf-search-modal">
     <div class="cf-search-box">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="cfSearchInput" placeholder="Search 194 calculators…" autocomplete="off">
+      <input type="text" id="cfSearchInput" placeholder="Search 203 calculators…" autocomplete="off">
       <span class="cf-search-esc">ESC</span>
     </div>
     <div class="cf-search-results" id="cfSearchResults"></div>

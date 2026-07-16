@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head><!-- Google tag (gtag.js) -->
+<!DOCTYPE html><html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -9,13 +9,12 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Liquidation Price Calculator — Crypto Futures | Calculator Boss</title>
+<meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Liquidation Price Calculator — Crypto Futures &amp; Margin | Calculator Boss</title>
 <meta name="description" content="Free crypto liquidation price calculator — enter entry price, leverage and maintenance margin rate to find your exact liquidation price for isolated or cross margin. Includes a leverage comparison table and a max-safe-leverage solver.">
+<meta name="author" content="Calculator Boss"/>
 <meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/>
 <link rel="canonical" href="https://calculatorboss.com/liquidation-price-calculator/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Calculator Boss">
@@ -29,40 +28,137 @@
 <meta name="twitter:image" content="https://calculatorboss.com/og/liquidation-price-calculator-og.png">
 <meta name="twitter:title" content="Liquidation Price Calculator — Crypto Futures &amp; Margin">
 <meta name="twitter:description" content="Find your exact crypto futures liquidation price for isolated or cross margin, long or short — plus a leverage comparison table and a max-safe-leverage solver.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
+:root{
     --bg:#F3F1EA;
-    --panel:#FFFFFF;
-    --panel-2:#FBFAF6;
-    --line:#E4E2D8;
-    --line-2:#D8D5C8;
-    --text:#181A1F;
-    --text-soft:#474C55;
+    --surface:#FFFFFF;
+    --surface-sunken:#F3F1EA;
+    --border:rgba(22,27,38,.12);
+    --border-fine:rgba(22,27,38,.08);
+    --ink-faint:#A6AAB1;
+    --shadow-sm:0 1px 2px rgba(46,40,26,.05);
+
+    --bg-2:#ECEAE1;
+    --card:#FFFFFF;
+    --ink:#181A1F;
+    --ink-soft:#474C55;
     --muted:#787D86;
+    --muted-2:#A6AAB1;
+    --line:#E4E2D8;
+    --line-soft:#EEEDE6;
 
-    --mint:#16A34A;
-    --mint-deep:#128A3D;
+    --gold:#1BA94C;
+    --gold-deep:#128A3D;
+    --gold-hi:#33C266;
+    --gold-tint:#E4F5EA;
 
-    --cx:#B0790F;  --cx-tint:#FAF0D6;   /* crypto - amber */
-    --sx:#4B4ED8;  --sx-tint:#E7E7FB;   /* stocks - indigo */
-    --fx:#22417A;  --fx-tint:#E8EDF6;   /* forex - blue */
-    --au:#9C7A16;  --au-tint:#F5EDD6;   /* gold */
+    --fin:#22417A;   --fin-tint:#E8EDF6;
+    --hea:#0C9268;   --hea-tint:#DEF3EC;
+    --mat:#4B4ED8;   --mat-tint:#E7E7FB;
+    --oth:#CF3F53;   --oth-tint:#FBE4E7;
+
+    --r-sm:12px; --r:16px; --r-lg:24px; --r-xl:32px;
+    --maxw:1180px;
+
+    --sh-sm:0 1px 2px rgba(46,40,26,.05);
+    --sh:0 2px 5px rgba(46,40,26,.05),0 16px 34px -16px rgba(46,40,26,.18);
+    --sh-lg:0 4px 10px rgba(46,40,26,.06),0 36px 66px -26px rgba(46,40,26,.26);
+    --hi:inset 0 1px 0 rgba(255,255,255,.7);
+
+    --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f-body);background-color:var(--bg);background-image:linear-gradient(180deg,rgba(27,169,76,.05),transparent 620px);background-repeat:no-repeat;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.005em}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:#04240f}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono)}
+  .eyebrow{font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ===== BLOCK LAYOUT ===== */
+  .sec{padding:11px 0}
+  .sec-hero{padding:24px 0 11px}
+  .panel{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(253,252,248,.5));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.55);border-radius:30px;box-shadow:var(--sh)}
+  .sec-panel{padding:48px 50px}
+
+  
+/* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:#FFFFFF;-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid rgba(22,27,38,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:19.5px;letter-spacing:-.03em;color:#181A1F}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#fff,#f1efe6);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--sh-sm),var(--hi)}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{position:relative;font-size:14.5px;font-weight:500;color:#474C55;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#181A1F;background:rgba(22,27,38,.05)}
+  .soon{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold-deep);background:var(--gold-tint);border:1px solid #ecd9a6;padding:1px 5px;border-radius:100px;margin-left:6px;vertical-align:middle}
+  .nav-spacer{flex:1;max-width:180px}
+  .nav-cta{display:flex;align-items:center;gap:11px;margin-left:auto}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#181A1F;background:rgba(22,27,38,.08);transform:translateY(-1px)}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));color:#04240f;box-shadow:0 10px 22px -10px rgba(18,138,61,.7),var(--hi)}
+  .btn-gold:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(18,138,61,.8),var(--hi)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+  .menu-btn{display:none}
+
+  
+/* ===== FOOTER ===== */
+  footer{background:#FFFFFF;border-top:1px solid rgba(22,27,38,.08);padding:62px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand .brand{margin-bottom:16px}
+  .foot-brand p{font-size:14px;color:#787D86;max-width:290px;line-height:1.65}
+  .foot-social{display:flex;gap:9px;margin-top:18px}
+  .foot-social a{width:38px;height:38px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#787D86;transition:.2s}
+  .foot-social a:hover{color:var(--gold-hi);border-color:var(--gold);transform:translateY(-2px)}
+  .foot-col h4{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#82868E;margin-bottom:16px;font-weight:600}
+  .foot-col a{display:block;font-size:14px;color:#474C55;padding:6px 0;transition:.2s}
+  .foot-col a:hover{color:#181A1F;transform:translateX(2px)}
+  .foot-bottom{margin-top:46px;padding-top:24px;border-top:1px solid rgba(22,27,38,.08);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12.5px;color:#787C84}
+  .foot-bottom .fb-links{display:flex;gap:18px}
+  .foot-bottom a{font-size:12.5px;color:#787C84;transition:.2s}
+  .foot-bottom a:hover{color:#181A1F}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:.75s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  
+
+  :root{
+    --bg:#0A0C11;
+    --panel:#12151D;
+    --panel-2:#171B26;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --text:#EDEEF2;
+    --text-soft:#AEB2BC;
+    --muted:#7B7F89;
+
+    --mint:#33C266; --mint-deep:#1BA94C;
+    --up:#2ED67F; --up-bg:rgba(46,214,127,.1);
+    --down:#F0546A; --down-bg:rgba(240,84,106,.1);
+
+    --cx:#E5A93A; --cx-tint:rgba(229,169,58,.12);
 
     --r:14px; --r-lg:22px; --r-xl:30px;
     --maxw:1180px;
     --f-head:"IBM Plex Sans",system-ui,sans-serif;
     --f-body:"IBM Plex Sans",system-ui,sans-serif;
-    --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+    --f-mono:"IBM Plex Sans",system-ui,sans-serif;
 
-    --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
-    --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
-  }
+    --page-gradient:none;
+    --tile-shadow-hover:0 20px 40px -24px rgba(0,0,0,.6);
+  
+/* --- forced light theme overrides --- */
 
-  /* ===== LIGHT MODE OVERRIDES ===== */
-  [data-theme="light"]{
     --bg:#F3F1EA;
     --panel:#FFFFFF;
     --panel-2:#FBFAF6;
@@ -70,201 +166,301 @@
     --line-2:#D8D5C8;
     --text:#181A1F;
     --text-soft:#474C55;
-    --muted:#787D86;
-
-    --cx:#B0790F;  --cx-tint:#FAF0D6;
-    --sx:#4B4ED8;  --sx-tint:#E7E7FB;
-    --fx:#22417A;  --fx-tint:#E8EDF6;
-    --au:#9C7A16;  --au-tint:#F5EDD6;
-
+    --muted:#686D76;
+    --up:#0E9F6E; --up-bg:#E1F6EE;
+    --down:#D33249; --down-bg:#FBE4E8;
+    --cx:#B0790F; --cx-tint:#FAF0D6;
     --page-gradient:linear-gradient(180deg,rgba(27,169,76,.08),transparent 620px);
     --tile-shadow-hover:0 16px 34px -16px rgba(46,40,26,.18);
   }
 
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;overflow-x:hidden}
+  
+  html{scroll-behavior:smooth}
   body{font-family:var(--f-body);background-color:var(--bg);background-image:var(--page-gradient);background-repeat:no-repeat;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
   a{color:inherit;text-decoration:none}
   ::selection{background:var(--mint);color:#04240f}
   :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+  
+  
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-  .mono{font-family:var(--f-mono)}
+  .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+  body{font-variant-numeric:tabular-nums}
 
   /* ===== HEADER ===== */
-  header{position:sticky;top:0;z-index:60;background:rgba(10,12,17,.9);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.08)}
-  .nav{display:flex;align-items:center;gap:34px;height:70px}
-  .brand{display:flex;align-items:center;gap:12px;font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em;color:#fff}
-  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#1c202b,#12151d);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center}
-  .nav-links{display:flex;gap:2px;margin-left:4px}
-  .nav-links a{font-size:14px;font-weight:500;color:#AEB2BC;padding:8px 15px;border-radius:10px;transition:.2s}
-  .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
-  .nav-spacer{flex:1}
-  .nav-cta{display:flex;align-items:center;gap:11px}
-  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);display:grid;place-items:center;color:#C7CACF;cursor:pointer;transition:.2s}
-  .icon-btn:hover{color:#fff;background:rgba(255,255,255,.09)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px}
-  .live-blink{width:8px;height:8px;border-radius:50%;background:#EAFFF0;display:inline-block;box-shadow:0 0 0 0 rgba(234,255,240,.7);animation:liveBlink 1.6s ease-in-out infinite}
-  @keyframes liveBlink{0%,100%{box-shadow:0 0 0 0 rgba(234,255,240,.6);opacity:1}50%{box-shadow:0 0 0 5px rgba(234,255,240,0);opacity:.65}}
-  .btn-live{color:#eafff0;border:1px solid rgba(120,230,160,.4);background:linear-gradient(120deg,#0E7A34,#1BA94C 45%,#33C266 75%,#1BA94C);background-size:220% 220%;animation:liveBreathe 3.2s ease-in-out infinite}
-  @keyframes liveBreathe{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  .menu-btn{display:none}
+  .btn-accent{color:#1a1400;background:linear-gradient(120deg,var(--cx),#F2C158);}
+  .btn-accent:hover{filter:brightness(1.06)}
+  
 
-  /* ===== TICKER RAIL (signature) ===== */
-  .rail-wrap{border-bottom:1px solid var(--line);background:var(--panel);overflow:hidden}
-  .rail{display:flex;white-space:nowrap;animation:railScroll 50s linear infinite;width:max-content}
-  .rail:hover{animation-play-state:paused}
-  @keyframes railScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .rail-item{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;font-family:var(--f-mono);font-size:12px;color:var(--text-soft);border-right:1px solid var(--line)}
-  .rail-item .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-  .rail-item b{color:var(--text);font-weight:600}
+  /* ===== BREADCRUMB ===== */
+  .crumb{padding:16px 0;font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .crumb a{color:var(--text-soft);transition:.2s}
+  .crumb a:hover{color:var(--mint)}
+  .crumb .sep{opacity:.5}
+  .crumb .cur{color:var(--text)}
 
   /* ===== HERO ===== */
-  .hero{padding:56px 0 40px;position:relative}
-  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:900px;height:420px;background:radial-gradient(ellipse,rgba(51,194,102,.10),transparent 65%);pointer-events:none}
-  .hero-inner{position:relative;z-index:1;max-width:760px}
-  .eyebrow{font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(51,194,102,.28);background:rgba(51,194,102,.07);padding:7px 14px;border-radius:100px}
-  h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(36px,5.2vw,58px);line-height:1.04;letter-spacing:-.03em;margin:20px 0 0}
-  .hero-sub{font-size:17px;color:var(--text-soft);max-width:600px;margin:18px 0 0;line-height:1.65}
+  .hero{padding:10px 0 30px;position:relative}
+  .hero-inner{position:relative;z-index:1;max-width:720px}
+  .sym-badge{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--cx);background:var(--cx-tint);border-radius:7px;padding:5px 11px;display:inline-flex;align-items:center;gap:8px}
+  h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:16px 0 0}
+  .hero-sub{font-size:15.5px;color:var(--text-soft);max-width:640px;margin:14px 0 0;line-height:1.65}
 
-  .search-wrap{margin-top:28px;position:relative;max-width:520px}
-  .search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-  #toolSearch{width:100%;font-family:var(--f-mono);font-size:14.5px;color:var(--text);background:var(--panel);border:1px solid var(--line-2);border-radius:13px;padding:14px 16px 14px 44px;outline:none;transition:.2s}
-  #toolSearch::placeholder{color:var(--muted)}
-  #toolSearch:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(51,194,102,.15)}
+  /* ===== BENCHMARK QUICK BAR ===== */
+  .bench-bar{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:18px}
+  .bench-chip{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px;padding:11px 14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);cursor:pointer;transition:.18s}
+  .bench-chip:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .bench-chip .bc-lbl{font-size:11.5px;color:var(--text-soft)}
+  .bench-chip .bc-rate{font-family:var(--f-mono);font-weight:700;font-size:19px;color:var(--cx)}
 
-  .stat-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-  .schip{font-family:var(--f-mono);font-size:12px;color:var(--text-soft);border:1px solid var(--line);border-radius:100px;padding:7px 14px;display:flex;align-items:center;gap:7px}
-  .schip b{color:var(--text);font-weight:600}
-  .schip .sep{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+  /* ===== CALCULATOR ===== */
+  .calc-section{padding:10px 0 46px}
+  .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
 
-  /* ===== SECTION HEAD ===== */
-  section.msec{padding:52px 0}
-  .sec-head{display:flex;align-items:center;gap:16px;margin-bottom:26px}
-  .sec-ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:var(--tint);color:var(--ac);flex-shrink:0}
-  .sec-ic svg{width:24px;height:24px}
-  .sec-meta{flex:1;min-width:0}
-  .sec-kick{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
-  .sec-name{font-family:var(--f-head);font-weight:700;font-size:clamp(21px,2.6vw,27px);letter-spacing:-.02em;margin-top:3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .sec-count{font-family:var(--f-mono);font-size:11.5px;font-weight:500;color:var(--ac);background:var(--tint);padding:3px 10px;border-radius:100px}
-  .sec-desc{font-size:13.5px;color:var(--muted);margin-top:4px;max-width:520px}
+  .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs::-webkit-scrollbar{display:none}
+  .ctab-btn{flex-shrink:0;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:100px;padding:7px 13px;cursor:pointer;transition:.18s}
+  .ctab-btn:hover{border-color:var(--cx)}
+  .ctab-btn.on{background:var(--cx);color:#1a1400;border-color:var(--cx)}
 
-  /* ===== MOST POPULAR ===== */
-  .pop-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .seg-row{display:flex;gap:8px;margin-bottom:18px}
+  .seg-btn{flex:1;font-family:var(--f-mono);font-size:12.5px;font-weight:600;text-align:center;padding:10px 8px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--text-soft);cursor:pointer;transition:.18s}
+  .seg-btn.on-neutral{background:var(--cx-tint);color:var(--cx);border-color:var(--cx)}
 
-  /* ===== TOOL TILE (signature card) ===== */
-  .tool-tile{position:relative;display:block;background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--ac,var(--mint));border-radius:var(--r);padding:18px;transition:.22s cubic-bezier(.2,.7,.3,1);overflow:hidden}
-  .tool-tile:hover{transform:translateY(-4px);background:var(--panel-2);border-color:var(--line-2);box-shadow:var(--tile-shadow-hover)}
-  .tt-sym{display:inline-flex;font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--ac,var(--mint));background:var(--tint,rgba(51,194,102,.1));border-radius:7px;padding:4px 9px}
-  .tt-name{font-family:var(--f-head);font-weight:600;font-size:15.5px;letter-spacing:-.015em;margin-top:12px;line-height:1.25}
-  .tt-desc{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.55}
-  .tt-arrow{margin-top:14px;display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;color:var(--muted);transition:.2s}
-  .tool-tile:hover .tt-arrow{color:var(--ac,var(--mint));gap:9px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .advanced-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:11px 14px;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;margin-bottom:0;transition:.18s}
+  .advanced-toggle:hover{border-color:var(--cx);color:var(--text)}
+  .advanced-toggle svg{transition:.25s;flex-shrink:0}
+  .advanced-toggle[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--cx)}
+  .advanced-fields{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .advanced-fields.open{max-height:300px;margin-top:14px}
+  .atr-preview{font-size:12.5px;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.5}
+  .fld{margin-bottom:15px}
+  .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
+  .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
+  .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
 
-  .no-results{display:none;text-align:center;padding:40px 20px;color:var(--muted);font-family:var(--f-mono);font-size:13px}
-  .cat-hidden{display:none}
+  /* ===== RESULTS ===== */
+  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden}
+  .result-hero.up{background:linear-gradient(155deg,var(--up-bg),transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
+  .result-hero.neutral{background:linear-gradient(155deg,var(--cx-tint),transparent);border:1px solid color-mix(in srgb,var(--cx) 30%,transparent)}
+  .result-hero.risk{background:linear-gradient(155deg,var(--down-bg),transparent);border:1px solid color-mix(in srgb,var(--down) 30%,transparent)}
+  .rh-label{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px}
+  .rh-value.up{color:var(--up)} .rh-value.neutral{color:var(--cx)} .rh-value.risk{color:var(--down)}
+  .rh-roi{font-family:var(--f-mono);font-size:14px;font-weight:600;margin-top:6px}
+  .rh-roi.up{color:var(--up)} .rh-roi.neutral{color:var(--cx)} .rh-roi.risk{color:var(--down)}
 
-  /* ===== CTA ===== */
-  .cta-band{padding:20px 0 50px}
-  .cta{position:relative;overflow:hidden;border-radius:var(--r-xl);background:linear-gradient(155deg,#12151D,#0A0C11);border:1px solid rgba(255,255,255,.14);padding:44px 48px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
-  .cta::before{content:"";position:absolute;right:-100px;top:-100px;width:340px;height:340px;background:radial-gradient(circle,rgba(51,194,102,.16),transparent 65%)}
-  .cta-txt{position:relative;z-index:1}
-  .cta h3{font-family:var(--f-head);font-weight:700;font-size:clamp(22px,2.8vw,29px);letter-spacing:-.02em;line-height:1.15;color:#fff}
-  .cta p{font-size:14.5px;color:#c3c6cd;margin-top:10px;max-width:440px}
-  .cta-actions{position:relative;z-index:1;display:flex;gap:12px;flex-shrink:0}
-  .btn-mint{background:linear-gradient(180deg,#3fd67a,#1BA94C);color:#04240f;font-weight:600;box-shadow:0 10px 22px -10px rgba(27,169,76,.6)}
-  .btn-mint:hover{transform:translateY(-1.5px)}
-  .btn-outline{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);color:#EDEEF2}
-  .btn-outline:hover{background:rgba(255,255,255,.08)}
+  .pl-bar{height:12px;border-radius:100px;background:var(--line-2);margin-top:18px;position:relative;overflow:hidden}
+  .pl-bar-fill,.pl-bar-fill2{height:100%;position:absolute;top:0}
+  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+  .leg-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
 
-  /* ===== FOOTER ===== */
-  footer{background:#15171D;border-top:1px solid rgba(255,255,255,.08);padding:50px 0 26px}
-  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px}
-  .foot-brand .brand{margin-bottom:14px}
-  .foot-brand p{font-size:13.5px;color:#9A9EA6;max-width:290px;line-height:1.65}
-  .foot-col h4{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:#82868E;margin-bottom:14px;font-weight:500}
-  .foot-col a{display:block;font-size:13.5px;color:#B4B8BF;padding:5px 0;transition:.2s}
-  .foot-col a:hover{color:#fff;transform:translateX(2px)}
-  .foot-bottom{margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
-  .foot-bottom p{font-size:12px;color:#787C84;max-width:640px}
+  .stat-list{margin-top:20px;display:flex;flex-direction:column;gap:0}
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--line);font-size:13.5px;gap:10px}
+  .stat-row:first-child{border-top:none}
+  .stat-lbl{color:var(--muted)}
+  .stat-val{font-family:var(--f-mono);font-weight:600;text-align:right}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:.6s cubic-bezier(.2,.7,.3,1)}
+  .share-row{display:flex;gap:10px;margin-top:20px}
+  .share-row .btn{flex:1;justify-content:center;background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .share-row .btn:hover{color:var(--text);border-color:var(--cx)}
+
+  .note{font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 13px;margin-top:14px;line-height:1.55}
+  .note.risk-note{color:var(--down);background:var(--down-bg);border-color:transparent}
+
+  /* ===== CONTENT / SEO ===== */
+  .content-section{padding:20px 0 48px}
+  .content-section h2{font-family:var(--f-head);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:36px 0 14px}
+  .content-section h2:first-child{margin-top:0}
+  .content-section h3{font-family:var(--f-head);font-weight:600;font-size:17px;letter-spacing:-.01em;margin:22px 0 8px}
+  .content-section p{font-size:14.5px;color:var(--text-soft);line-height:1.75;margin-bottom:12px;max-width:760px}
+  .content-section .formula{font-family:var(--f-mono);font-size:13.5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:inline-block;margin:8px 0 16px;color:var(--cx)}
+  .content-section ul{margin:0 0 16px 20px;color:var(--text-soft);font-size:14.5px;line-height:1.8}
+  .byline{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+  .faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;max-width:780px}
+  .faq-item{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .faq-q{width:100%;text-align:left;font-family:var(--f-body);font-weight:600;font-size:14.5px;color:var(--text);background:none;border:none;padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .faq-q svg{flex-shrink:0;transition:.25s;color:var(--muted)}
+  .faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--cx)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 18px 16px;font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
+
+  .disclaimer{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:30px;line-height:1.6}
+
+  /* ===== AD SLOTS ===== */
+  .ad{margin:26px 0;border:1px dashed var(--line-2);border-radius:16px;background:var(--panel);min-height:96px;display:grid;place-items:center;text-align:center;color:var(--muted)}
+  .ad .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .ad .hint{font-size:11.5px;margin-top:4px;color:var(--muted)}
+
+  /* ===== RELATED ===== */
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .rel-card{border:1px solid var(--line);border-top:2px solid var(--cx);border-radius:12px;padding:15px;background:var(--panel);transition:.2s}
+  .rel-card:hover{transform:translateY(-3px);background:var(--panel-2)}
+  .rel-sym{font-family:var(--f-mono);font-size:10.5px;font-weight:700;color:var(--cx);background:var(--cx-tint);border-radius:6px;padding:3px 8px;display:inline-block}
+  .rel-name{font-family:var(--f-head);font-weight:600;font-size:13.5px;margin-top:9px}
+
+  /* ===== CHART ===== */
+  .chart-panel{padding:22px}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .chart-box{width:100%;height:280px}
+  .chart-loading{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+
+  /* ===== STATS GRID ===== */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .mstat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .mstat .k{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .mstat .v{font-family:var(--f-mono);font-weight:700;font-size:16.5px;margin-top:6px}
+  .mstat .v.up{color:var(--up)} .mstat .v.down{color:var(--down)}
+
+  /* ===== TABLES (year-by-year + benchmark) ===== */
+  .coins-table{width:100%;border-collapse:collapse;margin-top:16px}
+  .coins-table th{text-align:left;font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .coins-table td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  .coins-table tr:last-child td{border-bottom:none}
+  .ct-use{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:7px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+  .ct-use:hover{background:var(--cx);color:#1a1400}
+  .ct-use:disabled{opacity:.35;cursor:not-allowed}
+  .table-scroll{overflow-x:auto}
+  .table-scroll-y{max-height:0;overflow-y:hidden;transition:max-height .35s ease}
+  .table-scroll-y.open{max-height:480px;overflow-y:auto}
+  .show-more{margin-top:12px;font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--cx);background:var(--cx-tint);border:none;border-radius:9px;padding:8px 14px;cursor:pointer}
+
+  /* ===== GAUGE ===== */
+  .gauge-card{display:flex;align-items:center;gap:26px;padding:22px;flex-wrap:wrap}
+  .gauge-wrap{position:relative;width:200px;flex-shrink:0}
+  .gauge-svg{width:100%;height:auto}
+  .gauge-val{position:absolute;bottom:0;left:0;right:0;text-align:center}
+  .gv-num{font-family:var(--f-mono);font-weight:700;font-size:28px}
+  .gv-lbl{font-family:var(--f-mono);font-size:11.5px;font-weight:600;text-transform:uppercase;color:var(--cx)}
+  .gauge-desc{flex:1;min-width:220px;font-size:13.5px;color:var(--text-soft);line-height:1.7}
+
+  
+  
+  .foot-bottom p{font-size:12px;color:#9297A0}
+  .foot-bottom a{font-size:12px;color:#9A9EA6}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
 
-  @media(max-width:1080px){.pop-row{grid-template-columns:repeat(3,1fr)}.tool-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:900px){.nav-links{display:none}}
   @media(max-width:680px){
     .wrap{padding:0 18px}
-    .pop-row{grid-template-columns:repeat(2,1fr)}
-    .tool-grid{grid-template-columns:1fr}
+    .panel{padding:20px}
+    .row2{grid-template-columns:1fr 1fr}
+    .related-grid{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .bench-bar{flex-direction:column}
+    .takeaways{padding:16px 18px}
+    .btn-accent{display:none}
+    .gauge-card{flex-direction:column;text-align:center}
     .menu-btn{display:grid}
-    .cta{padding:32px 22px;flex-direction:column;align-items:flex-start}
-    .foot-grid{grid-template-columns:1fr 1fr}
+    .calc-tabs{margin:0 -20px 20px;padding:0 20px 16px;width:calc(100% + 40px)}
+    .ctab-btn{font-size:11px;padding:6px 11px}
   }
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.rail{animation:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* ===== TOC / QUICK NAV ===== */
+  .toc{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-top:16px}
+  .toc a{font-size:12.5px;font-weight:600;color:var(--text-soft);padding:6px 11px;border-radius:8px;transition:.18s;white-space:nowrap}
+  .toc a:hover{color:var(--text);background:var(--panel-2)}
+
+  /* ===== KEY TAKEAWAYS ===== */
+  .takeaways{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cx);border-radius:14px;padding:20px 24px;margin-top:18px}
+  .takeaways h2{font-family:var(--f-head);font-size:15px;font-weight:700;margin:0 0 12px;letter-spacing:-.01em}
+  .takeaways ul{margin:0;padding:0;list-style:none;font-size:13.5px;color:var(--text-soft);line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+  .takeaways li{position:relative;padding-left:16px}
+  .takeaways li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--cx)}
+
+  /* ===== BYLINE / E-E-A-T ===== */
+  .page-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+  .review-box{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:24px}
+  .review-avatar{width:38px;height:38px;border-radius:50%;background:var(--cx-tint);color:var(--cx);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;flex-shrink:0}
+  .review-box .rb-name{font-weight:600;font-size:13.5px}
+  .review-box .rb-role{font-size:12px;color:var(--muted)}
+  .review-box p{margin-top:6px !important}
+
+  /* ===== GLOSSARY ===== */
+  .glossary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .gloss-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .gloss-item dt{font-family:var(--f-head);font-weight:600;font-size:14px;margin-bottom:4px}
+  .gloss-item dd{font-size:13px;color:var(--text-soft);line-height:1.6;margin:0}
+
+  /* ===== HOW-TO STEPS ===== */
+  .steps{counter-reset:step;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .step-num{counter-increment:step;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--cx-tint);color:var(--cx);font-family:var(--f-mono);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .step-num::before{content:counter(step)}
+  .step-body h3{margin:0 0 4px !important;font-size:14.5px !important}
+  .step-body p{margin:0 !important;font-size:13.5px !important}
+
+  /* ===== GOAL SCENARIO CARDS ===== */
+  .goal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .goal-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:.2s;text-align:left}
+  .goal-card:hover{transform:translateY(-3px);border-color:var(--cx)}
+  .goal-card .g-name{font-family:var(--f-head);font-weight:700;font-size:14.5px}
+  .goal-card .g-detail{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
+  .goal-card .g-cta{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--cx);margin-top:10px;display:inline-block}
+
+  /* ===== EXPORT / PRINT / FEEDBACK ===== */
+  .export-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .export-row .btn{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);font-size:13px}
+  .export-row .btn:hover{color:var(--text);border-color:var(--cx)}
+  .feedback-box{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:30px}
+  .feedback-box p{margin-bottom:12px !important}
+  .fb-btns{display:flex;gap:10px;justify-content:center}
+  .fb-btn{font-size:20px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:12px;padding:10px 18px;cursor:pointer;transition:.18s}
+  .fb-btn:hover{border-color:var(--cx);transform:translateY(-2px)}
+  .fb-thanks{font-size:13px;color:var(--up);margin-top:10px;display:none}
+
+  @media(max-width:980px){.goal-grid{grid-template-columns:repeat(2,1fr)}.glossary{grid-template-columns:1fr}}
+  @media(max-width:680px){.takeaways ul{grid-template-columns:1fr}}
+  @media print{
+    header,.toc,.bench-bar,.ad,.share-row,.export-row,footer,.menu-btn,.nav-cta,.calc-tabs,#showMoreYears,.feedback-box{display:none !important}
+    body{background:#fff !important;color:#111 !important}
+    .panel{border:1px solid #ccc !important;background:#fff !important}
+    a{color:#111 !important}
+  }
+
+  /* ===== CALCULATE / CLEAR BUTTONS ===== */
+  .calc-btn-row{display:flex;gap:10px;margin:20px 0 2px}
+  .calc-btn-row .btn{flex:1;justify-content:center;font-size:14.5px;padding:13px 16px}
+  .btn-clear{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft)}
+  .btn-clear:hover{border-color:var(--down);color:var(--down);background:var(--down-bg)}
+  .btn-calc-pulse{animation:calcPulse .5s ease}
+  @keyframes calcPulse{0%{transform:scale(1)}30%{transform:scale(1.015)}100%{transform:scale(1)}}
+  .save-row{display:flex;gap:8px;margin-top:10px}
+  .save-row .in{flex:1}
+  .btn-save{background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-soft);white-space:nowrap;font-size:13px}
+  .btn-save:hover{border-color:var(--cx);color:var(--text)}
+
+  /* ===== LONG / SHORT DIRECTION TOGGLE ===== */
+  .seg-btn.on-long{background:var(--up-bg);color:var(--up);border-color:var(--up)}
+  .seg-btn.on-short{background:var(--down-bg);color:var(--down);border-color:var(--down)}
+
+  /* ===== TRADE RISK MAP ===== */
+  .tradebar-wrap{padding:8px 4px 4px}
+  .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
+
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type":"Question","name":"What is a liquidation price?","acceptedAnswer":{"@type":"Answer","text":"The liquidation price is the price at which an exchange automatically closes a leveraged futures position because the remaining margin can no longer cover further losses. It's a forced closure, not a choice \u2014 it happens whether or not you're watching the market."}},
-    {"@type":"Question","name":"How is liquidation price calculated?","acceptedAnswer":{"@type":"Answer","text":"For an isolated-margin position, the simplified formula is Entry Price \u00d7 (1 \u2212 1/Leverage + Maintenance Margin Rate) for a long, or Entry Price \u00d7 (1 + 1/Leverage \u2212 Maintenance Margin Rate) for a short. It comes from the point where your losses exactly consume the difference between your initial margin and the maintenance margin the exchange requires you to keep."}},
-    {"@type":"Question","name":"Why does higher leverage move my liquidation price closer to entry?","acceptedAnswer":{"@type":"Answer","text":"Higher leverage means a smaller initial margin for the same position size, so there's less of a buffer between what you've posted and the maintenance margin the exchange requires. A smaller buffer means a smaller price move is needed to consume it, which is exactly what the formula's 1/Leverage term captures."}},
-    {"@type":"Question","name":"What's the difference between isolated and cross margin liquidation?","acceptedAnswer":{"@type":"Answer","text":"With isolated margin, only the margin allocated to that specific position backs it, and losing it doesn't touch the rest of your account. With cross margin, your entire account balance backs the position, which typically pushes the liquidation price further away, but a bad move can draw down your whole balance rather than just one position's margin."}},
-    {"@type":"Question","name":"Does the maintenance margin rate differ between exchanges?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each exchange sets its own maintenance margin rate, and that rate typically increases in tiers as position size grows \u2014 a small BTC position and a very large one on the same exchange can have different rates. Check your exchange's specific margin tier table for your exact position size rather than assuming a flat number."}},
-    {"@type":"Question","name":"Is liquidation based on the last traded price or the mark price?","acceptedAnswer":{"@type":"Answer","text":"Most exchanges trigger liquidation off the mark price, not the last traded price. Mark price is typically an index-based average designed to resist short-lived spikes or thin-liquidity wicks, which is meant to make liquidations harder to trigger by manipulating one exchange's order book alone."}},
-    {"@type":"Question","name":"Does the funding rate affect my liquidation price?","acceptedAnswer":{"@type":"Answer","text":"Yes, indirectly. Perpetual futures charge or pay a funding rate periodically, and if it's working against you and your available balance can't cover it, the payment is deducted from your position margin \u2014 which nudges your liquidation price closer to the current price over time, even without the market moving against you."}},
-    {"@type":"Question","name":"Can I add margin to move my liquidation price further away?","acceptedAnswer":{"@type":"Answer","text":"On isolated margin, yes \u2014 adding margin increases the buffer above the maintenance margin requirement, pushing the liquidation price further from your entry. Use the \"Add Margin to Target\" tab above to see exactly how much you'd need to add to reach a specific liquidation price."}},
-    {"@type":"Question","name":"How far should my liquidation price be from my stop-loss?","acceptedAnswer":{"@type":"Answer","text":"A commonly cited guideline is to keep meaningful distance \u2014 often cited as your liquidation price sitting well beyond your stop-loss, not just barely past it \u2014 so that ordinary volatility or a brief wick can't skip past your stop and liquidate you directly. Use the \"Max Safe Leverage\" tab to solve for a leverage level that keeps a buffer between the two."}},
-    {"@type":"Question","name":"What happens if the market gaps straight through my liquidation price?","acceptedAnswer":{"@type":"Answer","text":"The position is closed at the best available price, which in a fast-moving or illiquid market can be worse than your calculated liquidation price. Exchanges maintain an insurance fund to absorb the difference in most cases, which is why traders generally don't end up owing money beyond their margin \u2014 but the exact outcome isn't guaranteed and depends on market conditions and the exchange's rules."}},
-    {"@type":"Question","name":"Is this calculator exact for every exchange?","acceptedAnswer":{"@type":"Answer","text":"This calculator uses the standard simplified formula used across major exchanges and is accurate for estimating your liquidation price. Exact figures can differ slightly because of exchange-specific fee handling, funding rate accrual, and precise maintenance margin tiers for your specific position size \u2014 always confirm the exact number your exchange shows before trading."}},
-    {"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes \u2014 use \"Print / Save as PDF\" for a printable summary of your current setup, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Calculator Boss","item":"https://calculatorboss.com/"},
-    {"@type":"ListItem","position":2,"name":"Money Tools","item":"https://calculatorboss.com/money-tools/"},
-    {"@type":"ListItem","position":3,"name":"Crypto","item":"https://calculatorboss.com/money-tools/#cat-crypto"},
-    {"@type":"ListItem","position":4,"name":"Liquidation Price Calculator","item":"https://calculatorboss.com/liquidation-price-calculator/"}
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Liquidation Price Calculator",
-  "url": "https://calculatorboss.com/liquidation-price-calculator/",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Any (web browser)",
-  "datePublished": "2026-07-01",
-  "dateModified": "2026-07-01",
-  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
-  "publisher": {"@type":"Organization","name":"Calculator Boss"}
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to use the Liquidation Price Calculator",
-  "step": [
-    {"@type":"HowToStep","name":"Choose direction and margin mode","text":"Pick Long or Short, then choose Isolated or Cross margin depending on how you plan to trade."},
-    {"@type":"HowToStep","name":"Enter your entry price and leverage","text":"Type in the price you're entering at and the leverage multiplier you plan to use."},
-    {"@type":"HowToStep","name":"Set the maintenance margin rate","text":"Use a preset for a major exchange or enter your exchange's exact rate for your position size."},
-    {"@type":"HowToStep","name":"Add your stop-loss to check your buffer","text":"Optionally enter your planned stop-loss price to see how much room sits between it and your liquidation price."},
-    {"@type":"HowToStep","name":"Read your liquidation price","text":"Review the liquidation price, the distance from entry, and the leverage comparison table to see safer alternatives."}
-  ]
-}
-</script>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png">
 </head>
 <body>
 
@@ -290,7 +486,7 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
-      <a href="/money-markets/" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Stocks</a>
+      <a href="/all-calculators/#cry" class="btn btn-crypto" style="font-size:13px;padding:9px 15px;border-radius:10px;text-decoration:none">💹 Crypto &amp; Trading</a>
       <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -300,8 +496,8 @@
 
 <div class="wrap">
   <nav class="crumb" aria-label="Breadcrumb">
-    <a href="../index.html">Calculator Boss</a><span class="sep">/</span>
-    <a href="../index.html#cat-crypto">Crypto</a><span class="sep">/</span>
+    <a href="/">Calculator Boss</a><span class="sep">/</span>
+    <a href="/all-calculators/#cry">Crypto &amp; Trading</a><span class="sep">/</span>
     <span class="cur">Liquidation Price Calculator</span>
   </nav>
 </div>
@@ -755,11 +951,11 @@
       </div>
       <div class="foot-col">
         <h4>Popular</h4>
-        <a href="/money-markets/">Money Markets 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
+        <a href="/all-calculators/#cry">Crypto &amp; Trading 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
       </div>
       <div class="foot-col">
         <h4>Categories</h4>
-        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/money-markets/">Crypto &amp; Trading</a><a href="/money-markets/">Stocks &amp; Investing</a><a href="/money-markets/">Forex &amp; Metals</a>
+        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/all-calculators/#cry">Crypto &amp; Trading</a><a href="/all-calculators/">Stocks &amp; Investing</a><a href="/all-calculators/">Forex &amp; Metals</a>
       </div>
       <div class="foot-col">
         <h4>Company</h4>
@@ -796,20 +992,6 @@
         try{ var data=JSON.parse(s.textContent); if(data['@type']==='WebApplication'){ data.dateModified=iso; s.textContent=JSON.stringify(data); } }catch(e){}
       });
     }catch(e){}
-  })();
-
-  /* ---------- theme toggle ---------- */
-  (function(){
-    var html=document.documentElement;
-    var toggle=$('themeToggle'), iconSun=$('iconSun'), iconMoon=$('iconMoon'); if(!toggle||!iconSun||!iconMoon) return;
-    function syncIcons(){ var isLight=html.getAttribute('data-theme')==='light'; iconSun.style.display=isLight?'none':''; iconMoon.style.display=isLight?'':'none'; }
-    syncIcons();
-    toggle.addEventListener('click', function(){
-      var isLight = html.getAttribute('data-theme')==='light';
-      if(isLight){ html.removeAttribute('data-theme'); } else { html.setAttribute('data-theme','light'); }
-      try{ localStorage.setItem('cf-theme', isLight?'dark':'light'); }catch(e){}
-      syncIcons();
-    });
   })();
 
   /* ---------- state ---------- */
