@@ -357,13 +357,14 @@
 #cb-ultimate-resistor-calc-wrapper .rc-band-label{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:8px}
 #cb-ultimate-resistor-calc-wrapper .rc-band-sub{font-size:11.5px;color:var(--ink-faint);font-weight:400}
 
-#cb-ultimate-resistor-calc-wrapper .rc-svg-wrap{display:flex;align-items:center;justify-content:center;padding:26px 10px 10px;background:linear-gradient(180deg,var(--surface-sunken),var(--surface));border-radius:14px 14px 0 0}
-#cb-ultimate-resistor-calc-wrapper .rc-result{padding:22px;text-align:center;border-top:1px solid var(--border-fine)}
-#cb-ultimate-resistor-calc-wrapper .rc-result-value{font-family:var(--f-mono);font-weight:700;font-size:clamp(28px,4vw,36px);color:#1E3A5F;letter-spacing:-.01em;line-height:1.1}
-#cb-ultimate-resistor-calc-wrapper .rc-result-tol{font-size:14px;color:var(--ink-soft);margin-top:4px}
-#cb-ultimate-resistor-calc-wrapper .rc-result-range{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-faint);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
-#cb-ultimate-resistor-calc-wrapper .rc-result-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);padding:6px 0}
-#cb-ultimate-resistor-calc-wrapper .rc-result-row b{color:var(--ink);font-weight:600}
+#cb-ultimate-resistor-calc-wrapper .rc-right-stack{display:flex;flex-direction:column;gap:20px;min-width:0}
+#cb-ultimate-resistor-calc-wrapper .rc-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+#cb-ultimate-resistor-calc-wrapper .rc-result-head{padding:16px 20px;background:#16A34A;color:#fff}
+#cb-ultimate-resistor-calc-wrapper .rc-result-head .label{font-size:16px;font-weight:700}
+#cb-ultimate-resistor-calc-wrapper .rc-result-body{padding:20px}
+#cb-ultimate-resistor-calc-wrapper .rc-result-row{display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
+#cb-ultimate-resistor-calc-wrapper .rc-result-row:first-child{border-top:none}
+#cb-ultimate-resistor-calc-wrapper .rc-result-row span:last-child{font-weight:600;color:var(--ink);font-family:var(--f-body)}
 
 #cb-ultimate-resistor-calc-wrapper .rc-side-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 #cb-ultimate-resistor-calc-wrapper .rc-side-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
@@ -457,13 +458,15 @@
     </div>
   </div>
 
-  <div class="rc-card rc-area-result">
-    <div class="rc-svg-wrap"><svg id="rcSvg" width="280" height="140" viewBox="0 0 280 140"></svg></div>
-    <div class="rc-result">
-      <div class="rc-result-value" id="rcValue">3.3 kΩ</div>
-      <div class="rc-result-tol" id="rcTol">±5% tolerance</div>
-      <div class="rc-result-range" id="rcRange">Range: 3.135 kΩ – 3.465 kΩ</div>
-      <div id="rcExtraRows"></div>
+  <div class="rc-right-stack rc-area-result">
+    <div class="rc-result-card">
+      <div class="rc-result-head"><div class="label" id="rcResultHeadline">Resistance: 3.3 kΩ</div></div>
+      <div class="rc-result-body" id="rcResultRows"></div>
+    </div>
+    <div class="rc-card">
+      <div class="rc-card-pad" style="padding-top:16px;padding-bottom:16px">
+        <svg id="rcSvg" width="280" height="140" viewBox="0 0 280 140" style="display:block;margin:0 auto"></svg>
+      </div>
     </div>
   </div>
 
@@ -659,15 +662,14 @@
       colorsForSvg=[b.b1,b.b2,b.b3,b.mult,b.tol,b.tempco];
     }
 
-    $('rcValue').textContent=fmtOhms(val);
-    $('rcTol').textContent='±'+tolPct+'% tolerance';
     var lo=val*(1-tolPct/100), hi=val*(1+tolPct/100);
-    $('rcRange').textContent='Range: '+fmtOhms(lo)+' – '+fmtOhms(hi);
-    var extra='';
+    $('rcResultHeadline').textContent='Resistance: '+fmtOhms(val);
+    var rows='<div class="rc-result-row"><span>Tolerance</span><span>±'+tolPct+'%</span></div>';
+    rows+='<div class="rc-result-row"><span>Min &ndash; Max Range</span><span>'+fmtOhms(lo)+' &ndash; '+fmtOhms(hi)+'</span></div>';
     if(mode==='6'){
-      extra='<div class="rc-result-row"><span>Temp. Coefficient</span><b>'+TEMPCO[b.tempco]+' ppm/K</b></div>';
+      rows+='<div class="rc-result-row"><span>Temp. Coefficient</span><span>'+TEMPCO[b.tempco]+' ppm/K</span></div>';
     }
-    $('rcExtraRows').innerHTML=extra;
+    $('rcResultRows').innerHTML=rows;
     drawResistor(colorsForSvg);
   }
 
@@ -680,7 +682,7 @@
     var ohms=raw*unit;
     $('rcRevTempcoField').style.display = bandsN==='6' ? 'block' : 'none';
 
-    if(ohms<=0){ $('rcValue').textContent='—'; $('rcTol').textContent=''; $('rcRange').textContent=''; $('rcExtraRows').innerHTML=''; drawResistor([]); return; }
+    if(ohms<=0){ $('rcResultHeadline').textContent='Resistance: —'; $('rcResultRows').innerHTML=''; drawResistor([]); return; }
 
     var sig = bandsN==='4' ? 2 : 3;
     var exp=Math.floor(Math.log10(ohms))-(sig-1);
@@ -705,13 +707,13 @@
 
     var val=mantissa*Math.pow(10,exp);
     var tolPct=TOL[tol];
-    $('rcValue').textContent=fmtOhms(val);
-    $('rcTol').textContent='±'+tolPct+'% tolerance ('+bandsN+'-band)';
     var lo=val*(1-tolPct/100), hi=val*(1+tolPct/100);
-    $('rcRange').textContent='Range: '+fmtOhms(lo)+' – '+fmtOhms(hi);
-    var extra='<div class="rc-result-row"><span>Color Sequence</span><b>'+colors.map(function(c){return c.charAt(0).toUpperCase()+c.slice(1);}).join(' – ')+'</b></div>';
-    if(bandsN==='6') extra+='<div class="rc-result-row"><span>Temp. Coefficient</span><b>'+TEMPCO[tempco]+' ppm/K</b></div>';
-    $('rcExtraRows').innerHTML=extra;
+    $('rcResultHeadline').textContent='Resistance: '+fmtOhms(val);
+    var rows='<div class="rc-result-row"><span>Tolerance</span><span>±'+tolPct+'% ('+bandsN+'-band)</span></div>';
+    rows+='<div class="rc-result-row"><span>Min &ndash; Max Range</span><span>'+fmtOhms(lo)+' &ndash; '+fmtOhms(hi)+'</span></div>';
+    rows+='<div class="rc-result-row"><span>Color Sequence</span><span>'+colors.map(function(c){return c.charAt(0).toUpperCase()+c.slice(1);}).join(' &ndash; ')+'</span></div>';
+    if(bandsN==='6') rows+='<div class="rc-result-row"><span>Temp. Coefficient</span><span>'+TEMPCO[tempco]+' ppm/K</span></div>';
+    $('rcResultRows').innerHTML=rows;
     drawResistor(colors);
   }
 
@@ -752,13 +754,11 @@
       y+=22;
       doc.setDrawColor(220,220,220);doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y);y+=24;
       doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(22,163,74);
-      doc.text($('rcValue').textContent+'  ('+$('rcTol').textContent+')',margin,y);
+      doc.text($('rcResultHeadline').textContent,margin,y);
       y+=22;
       doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,60,60);
-      doc.text($('rcRange').textContent,margin,y);
-      y+=18;
-      var extraText=$('rcExtraRows').textContent.trim();
-      if(extraText){ doc.text(extraText,margin,y); }
+      var rowsText=$('rcResultRows').textContent.trim().replace(/\s+/g,' ');
+      if(rowsText){ doc.text(rowsText,margin,y,{maxWidth:doc.internal.pageSize.getWidth()-margin*2}); }
       doc.save('resistor-report-'+new Date().toISOString().slice(0,10)+'.pdf');
     }catch(e){
       alert('Sorry, there was a problem generating the PDF: '+e.message);
