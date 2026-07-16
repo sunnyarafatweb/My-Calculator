@@ -830,19 +830,19 @@
     if(v>=1e3) return (v/1e3).toFixed(3).replace(/\.?0+$/,'')+' kΩ';
     return (Math.round(v*1000)/1000).toLocaleString()+' Ω';
   }
-  $('rcSeriesBtn').addEventListener('click', function(){
+  function calcSeries(){
     var vals=parseList($('rcSeriesInput').value);
     if(!vals.length){ $('rcSeriesResult').textContent='Enter at least one valid resistance.'; return; }
     var total=vals.reduce(function(a,b){return a+b;},0);
     $('rcSeriesResult').textContent='Total: '+fmt(total);
-  });
-  $('rcParallelBtn').addEventListener('click', function(){
+  }
+  function calcParallel(){
     var vals=parseList($('rcParallelInput').value);
     if(!vals.length){ $('rcParallelResult').textContent='Enter at least one valid resistance.'; return; }
     var invSum=vals.reduce(function(a,b){return a+1/b;},0);
     $('rcParallelResult').textContent='Total: '+fmt(1/invSum);
-  });
-  $('rcCondBtn').addEventListener('click', function(){
+  }
+  function calcConductor(){
     var L=parseFloat($('rcCondLen').value)*parseFloat($('rcCondLenUnit').value);
     var d=parseFloat($('rcCondDia').value)*parseFloat($('rcCondDiaUnit').value);
     var rho=parseFloat($('rcCondMaterial').value);
@@ -851,7 +851,23 @@
     var A=Math.PI*r*r;
     var R=rho*L/A;
     $('rcCondResult').textContent='Resistance: '+fmt(R);
+  }
+
+  $('rcSeriesBtn').addEventListener('click', calcSeries);
+  $('rcSeriesInput').addEventListener('input', calcSeries);
+
+  $('rcParallelBtn').addEventListener('click', calcParallel);
+  $('rcParallelInput').addEventListener('input', calcParallel);
+
+  $('rcCondBtn').addEventListener('click', calcConductor);
+  ['rcCondLen','rcCondLenUnit','rcCondDia','rcCondDiaUnit','rcCondMaterial'].forEach(function(id){
+    $(id).addEventListener('input', calcConductor);
+    $(id).addEventListener('change', calcConductor);
   });
+
+  calcSeries();
+  calcParallel();
+  calcConductor();
 })();
 </script>
 
