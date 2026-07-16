@@ -479,9 +479,11 @@
       <a href="/voltage-drop-calculator/">Voltage Drop Calculator<span>→</span></a>
       <a href="/electricity-calculator/">Electricity Cost Calculator<span>→</span></a>
       <a href="/molecular-weight-calculator/">Molecular Weight Calculator<span>→</span></a>
+      <a href="/binary-calculator/">Binary Calculator<span>→</span></a>
+      <a href="/hex-calculator/">Hex Calculator<span>→</span></a>
+      <a href="/bandwidth-calculator/">Bandwidth Calculator<span>→</span></a>
       <a href="/all-calculators/" class="rc-viewmore">View More <span class="arrow">→</span></a>
     </div>
-    <div class="rc-side-note"><b>Tip:</b> The tolerance band is usually gold or silver and sits slightly apart from the other bands — reading toward it, left to right, is almost always the correct direction.</div>
   </div>
 
 </div>
@@ -531,17 +533,17 @@
     var b=state.bands[mode];
     var html='';
     if(mode==='3'||mode==='4'||mode==='5'||mode==='6'){
-      html+='<div class="rc-pill">Band 1 &middot; 1st Digit</div><div class="rc-band-row"><div id="rowB1"></div></div>';
-      html+='<div class="rc-pill">Band 2 &middot; 2nd Digit</div><div class="rc-band-row"><div id="rowB2"></div></div>';
+      html+='<div class="rc-pill">Band 1 &middot; 1st Digit</div><div class="rc-band-row"><div id="rowB1" class="rc-swatches"></div></div>';
+      html+='<div class="rc-pill">Band 2 &middot; 2nd Digit</div><div class="rc-band-row"><div id="rowB2" class="rc-swatches"></div></div>';
       if(mode==='5'||mode==='6'){
-        html+='<div class="rc-pill">Band 3 &middot; 3rd Digit</div><div class="rc-band-row"><div id="rowB3"></div></div>';
+        html+='<div class="rc-pill">Band 3 &middot; 3rd Digit</div><div class="rc-band-row"><div id="rowB3" class="rc-swatches"></div></div>';
       }
-      html+='<div class="rc-pill">Multiplier</div><div class="rc-band-row"><div id="rowMult"></div></div>';
+      html+='<div class="rc-pill">Multiplier</div><div class="rc-band-row"><div id="rowMult" class="rc-swatches"></div></div>';
       if(mode!=='3'){
-        html+='<div class="rc-pill">Tolerance</div><div class="rc-band-row"><div id="rowTol"></div></div>';
+        html+='<div class="rc-pill">Tolerance</div><div class="rc-band-row"><div id="rowTol" class="rc-swatches"></div></div>';
       }
       if(mode==='6'){
-        html+='<div class="rc-pill">Temp. Coefficient</div><div class="rc-band-row"><div id="rowTempco"></div></div>';
+        html+='<div class="rc-pill">Temp. Coefficient</div><div class="rc-band-row"><div id="rowTempco" class="rc-swatches"></div></div>';
       }
     }
     $('rcBandForm').innerHTML=html;
