@@ -16,7 +16,8 @@
 <meta name="description" content="Free online calculators for finance, health, math, and everyday life. No sign-up, no popups, instant answers. Mortgage, BMI, income tax, age, percentage, and more.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root{
     --bg:#F3F1EA;
@@ -79,7 +80,7 @@
   .soon{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold-deep);background:var(--gold-tint);border:1px solid #ecd9a6;padding:1px 5px;border-radius:100px;margin-left:6px;vertical-align:middle}
   .nav-spacer{flex:1;max-width:180px}
   .nav-cta{display:flex;align-items:center;gap:11px;margin-left:auto}
-  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
+  .icon-btn{width:44px;height:44px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
   .icon-btn:hover{color:#181A1F;background:rgba(22,27,38,.08);transform:translateY(-1px)}
   .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
   .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));color:#04240f;box-shadow:0 10px 22px -10px rgba(18,138,61,.7),var(--hi)}
@@ -100,13 +101,13 @@
   .hero-sub{font-size:18px;color:var(--ink-soft);max-width:466px;margin:22px 0 0;line-height:1.6}
   .searchbar{margin-top:30px;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 18px;max-width:520px;box-shadow:var(--sh-lg);transition:.22s}
   .searchbar:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(27,169,76,.15),var(--sh-lg)}
-  .searchbar svg{flex-shrink:0;color:var(--muted-2)}
+  .searchbar svg{flex-shrink:0;color:var(--muted)}
   .searchbar input{flex:1;background:none;border:none;color:var(--ink);font-family:var(--f-body);font-size:15.5px;outline:none;letter-spacing:-.01em}
-  .searchbar input::placeholder{color:var(--muted-2)}
+  .searchbar input::placeholder{color:#686D76}
   .search-go{background:#1E3A63;color:#fff;border:none;border-radius:11px;padding:12px 20px;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--f-body);transition:.2s}
   .search-go:hover{background:#16294A}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
-  .chips .cl{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2);margin-right:4px}
+  .chips .cl{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#686D76;margin-right:4px}
   .chip{font-size:13px;font-weight:500;color:var(--ink-soft);background:linear-gradient(180deg,#fff,#fbfaf6);border:1px solid var(--line);border-radius:100px;padding:7px 14px;transition:.2s;cursor:pointer;box-shadow:var(--sh-sm)}
   .chip:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-1px);box-shadow:var(--sh)}
 
@@ -123,12 +124,9 @@
   .pv-legend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
   .pv-legend .lg i{width:11px;height:11px;border-radius:3px;display:block}
   .pv-legend .lg .dt{width:9px;height:9px;border-radius:50%;display:block}
-  .mbar{transform:scaleY(0);transform-box:fill-box;transform-origin:center bottom;transition:transform .7s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--i)*16ms)}
-  .mbar.in{transform:scaleY(1)}
-  .mline{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.5s ease .35s}
-  .mline.in{stroke-dashoffset:0}
-  .mdot{opacity:0;transition:opacity .3s}
-  .mdot.in{opacity:1}
+  .mbar{transform:scaleY(1);transform-box:fill-box;transform-origin:center bottom}
+  .mline{stroke-dashoffset:0}
+  .mdot{opacity:1}
 
   /* ===== SECTION HEAD ===== */
   section.block{padding:82px 0}
@@ -218,7 +216,7 @@
   .foot-bottom a{font-size:12.5px;color:#787C84;transition:.2s}
   .foot-bottom a:hover{color:#181A1F}
 
-  .reveal{opacity:0;transform:translateY(22px);transition:.75s cubic-bezier(.2,.7,.3,1)}
+  .reveal{opacity:1;transform:none}
   .reveal.in{opacity:1;transform:none}
 
   /* ===== RESPONSIVE ===== */
@@ -640,20 +638,8 @@
     s+='<text x="'+(W-11)+'" y="'+(T+ph/2)+'" transform="rotate(90 '+(W-11)+' '+(T+ph/2)+')" text-anchor="middle" font-size="9.5" fill="#B4B8BF">Payments</text>';
     s+='</svg>';
     el.innerHTML=s;
-    var line=el.querySelector('.mline');
-    if(line){try{line.style.setProperty('--len',line.getTotalLength());}catch(e){}}
-    requestAnimationFrame(function(){requestAnimationFrame(function(){
-      el.querySelectorAll('.mbar').forEach(function(b){b.classList.add('in');});
-      if(line) line.classList.add('in');
-      el.querySelectorAll('.mdot').forEach(function(dt){dt.classList.add('in');});
-    });});
   }
   renderMortgage();
-
-  if(!reduce && 'IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
-    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-  } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
 <style id="cf-search-style">
@@ -674,7 +660,7 @@
   <div class="cf-search-modal">
     <div class="cf-search-box">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="cfSearchInput" placeholder="Search 203 calculators…" autocomplete="off">
+      <input type="text" id="cfSearchInput" placeholder="Search 203 calculators…" autocomplete="off" aria-label="Search calculators">
       <span class="cf-search-esc">ESC</span>
     </div>
     <div class="cf-search-results" id="cfSearchResults"></div>
