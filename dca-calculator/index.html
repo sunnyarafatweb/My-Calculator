@@ -232,12 +232,12 @@
 
   /* ===== CALCULATOR ===== */
   .calc-section{padding:10px 0 46px;overflow-x:hidden}
-  .calc-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;align-items:start}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
+  .calc-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;align-items:start}.calc-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}.calc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}.calc-bar-pdf-btn:hover{background:#f0f0f0}
+  .panel{background:var(--panel);border:1px solid var(--border-fine);border-radius:var(--r-lg);padding:26px}
   .fld{margin-bottom:15px}
   .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
   .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
-  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--border-fine);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
   .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
   .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -449,6 +449,10 @@
 <!-- ===== CALCULATOR ===== -->
 <section class="calc-section">
   <div class="wrap">
+    <div class="calc-bar">
+      <span>Just enter your values below — results update automatically.</span>
+      <button type="button" class="calc-bar-pdf-btn" id="calc-pdfBtn">💾 Save as PDF</button>
+    </div>
     <div class="calc-grid reveal">
 
       <!-- INPUTS -->
@@ -1227,5 +1231,6 @@
   } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
+<script>(function(){var b=document.getElementById('calc-pdfBtn');if(b){b.addEventListener('click',function(){window.print();});}})();</script>
 </body>
 </html>

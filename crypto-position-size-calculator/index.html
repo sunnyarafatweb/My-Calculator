@@ -227,22 +227,22 @@
 
   /* ===== CALCULATOR ===== */
   .calc-section{padding:10px 0 46px;overflow-x:hidden}
-  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr 260px;gap:20px;align-items:start;grid-template-areas:"form result sidebar";min-width:0}
+  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr 260px;gap:20px;align-items:start;grid-template-areas:"bar bar bar" "form result sidebar";min-width:0}
   .calc-area-form{grid-area:form;min-width:0}
   .calc-area-result{grid-area:result;min-width:0}
-  .calc-area-sidebar{grid-area:sidebar;min-width:0}
+  .calc-area-sidebar{grid-area:sidebar;min-width:0}.calc-area-bar{grid-area:bar}.calc-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.calc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}.calc-bar-pdf-btn:hover{background:#f0f0f0}
   .calc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
   .calc-side-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
   .calc-side-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.15)}
   .calc-side-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
   .calc-side-card a:hover{background:rgba(255,255,255,.06)}
-  .calc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#16A34A;text-decoration:none;border-bottom:none!important}
+  .calc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none!important}
   .calc-viewmore:hover{background:#128A3D}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 2px rgba(22,27,38,.04)}
+  .panel{background:var(--panel);border:1px solid var(--border-fine);border-radius:16px;padding:26px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 2px rgba(22,27,38,.04)}
 
   .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .calc-tabs::-webkit-scrollbar{display:none}
-  .ctab-btn{flex-shrink:0;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);background:var(--panel);border:1px solid var(--line-2);border-radius:10px;padding:9px 16px;cursor:pointer;transition:.18s}
+  .ctab-btn{flex-shrink:0;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-soft);background:var(--panel);border:1px solid var(--border-fine);border-radius:10px;padding:9px 16px;cursor:pointer;transition:.18s}
   .ctab-btn:hover{border-color:#1E3A5F}
   .ctab-btn.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
@@ -262,7 +262,7 @@
   .fld{margin-bottom:15px}
   .fld label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:7px}
   .fld label .hint{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);font-weight:500}
-  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
+  .in,.sel{width:100%;font-family:var(--f-mono);font-size:15px;color:var(--text);background:var(--panel-2);border:1px solid var(--border-fine);border-radius:11px;padding:12px 13px;outline:none;transition:.18s}
   .in:focus,.sel:focus{border-color:var(--cx);box-shadow:0 0 0 3px var(--cx-tint)}
   .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
 
@@ -370,7 +370,7 @@
   .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
 
-  @media(max-width:980px){.calc-grid{grid-template-columns:1fr;grid-template-areas:"form" "result" "sidebar"}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "sidebar"}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:900px){.nav-links{display:none}}
   @media(max-width:680px){
     .wrap{padding:0 18px}
@@ -518,6 +518,10 @@
 <section class="calc-section" id="calculator">
   <div class="wrap">
     <div class="calc-grid reveal">
+      <div class="calc-bar calc-area-bar">
+        <span>Just enter your values below — results update automatically.</span>
+        <button type="button" class="calc-bar-pdf-btn" id="calc-pdfBtn">💾 Save as PDF</button>
+      </div>
 
       <!-- INPUTS -->
       <div class="panel calc-area-form">
@@ -1776,5 +1780,6 @@
   } else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
 })();
 </script>
+<script>(function(){var b=document.getElementById('calc-pdfBtn');if(b){b.addEventListener('click',function(){window.print();});}})();</script>
 </body>
 </html>
