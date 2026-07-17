@@ -231,7 +231,7 @@
   .calc-area-form{grid-area:form}
   .calc-area-result{grid-area:result}
   .calc-area-sidebar{grid-area:sidebar}
-  .calc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+  .calc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%;position:sticky;top:20px}
   .calc-side-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
   .calc-side-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.15)}
   .calc-side-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -513,15 +513,6 @@
     <div class="page-meta"><span id="lastUpdated">Last updated: July 2026</span><span>·</span><span>Reviewed by the Calculator Boss finance team</span><span>·</span><span>~6 min read</span></div>
   </div>
   <div class="bench-bar reveal" id="benchBar"></div>
-  <div class="takeaways reveal">
-    <h2>Key takeaways</h2>
-    <ul>
-      <li>Position size = risk amount ÷ distance between entry and stop-loss. The stop distance decides the size, not the other way around.</li>
-      <li>Leverage changes the margin you need to post, not your dollar risk — your loss at the stop is set by position size and stop distance alone.</li>
-      <li>A fixed dollar position size makes your real risk swing wildly between a tight stop and a wide stop; risk-based sizing keeps it constant.</li>
-      <li>This tool also works backwards: find the stop-loss a target position size implies, or check the risk % on a trade you've already sized.</li>
-    </ul>
-  </div>
   </div>
 </section>
 <!-- ===== CALCULATOR ===== -->
@@ -717,6 +708,18 @@
     </div>
   </div>
 </section>
+
+<div class="wrap">
+  <div class="takeaways reveal">
+    <h2>Key takeaways</h2>
+    <ul>
+      <li>Position size = risk amount ÷ distance between entry and stop-loss. The stop distance decides the size, not the other way around.</li>
+      <li>Leverage changes the margin you need to post, not your dollar risk — your loss at the stop is set by position size and stop distance alone.</li>
+      <li>A fixed dollar position size makes your real risk swing wildly between a tight stop and a wide stop; risk-based sizing keeps it constant.</li>
+      <li>This tool also works backwards: find the stop-loss a target position size implies, or check the risk % on a trade you've already sized.</li>
+    </ul>
+  </div>
+</div>
 
 <!-- ===== MILESTONE STATS ===== -->
 <section class="content-section" id="milestones" style="padding-top:0">
