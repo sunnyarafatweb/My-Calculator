@@ -227,7 +227,7 @@
 
   /* ===== CALCULATOR ===== */
   .calc-section{padding:10px 0 46px;overflow-x:hidden}
-  .calc-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;align-items:start}.calc-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}.calc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}.calc-bar-pdf-btn:hover{background:#f0f0f0}
+  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr 260px;grid-template-areas:"bar bar ." "form result sidebar";gap:22px;align-items:start}.calc-area-bar{grid-area:bar}.calc-area-form{grid-area:form;min-width:0}.calc-area-result{grid-area:result;min-width:0}.calc-area-sidebar{grid-area:sidebar;min-width:0}.calc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}.calc-side-card{background:#1E3A5F;border-radius:16px;overflow:hidden}.calc-side-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.15)}.calc-side-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}.calc-side-card a:hover{background:rgba(255,255,255,.06)}.calc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none!important}.calc-viewmore:hover{background:#128A3D}.calc-bar{width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.calc-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}.calc-bar-pdf-btn:hover{background:#f0f0f0}
   .panel{background:var(--panel);border:1px solid var(--border-fine);border-radius:var(--r-lg);padding:26px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 2px rgba(22,27,38,.04)}
 
   .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -360,7 +360,7 @@
   .reveal{opacity:0;transform:translateY(16px);transition:.55s cubic-bezier(.2,.7,.3,1)}
   .reveal.in{opacity:1;transform:none}
 
-  @media(max-width:980px){.calc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:980px){.calc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "sidebar"}.related-grid{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:900px){.nav-links{display:none}}
   @media(max-width:680px){
     .wrap{padding:0 18px}
@@ -461,6 +461,7 @@
   .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
 
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Staking Reward Calculator","item":"https://calculatorboss.com/staking-reward-calculator/"}]}</script>
 </head>
 <body>
 
@@ -505,7 +506,6 @@
 <section class="hero">
   <div class="wrap">
   <div class="hero-inner">
-    <span class="sym-badge">STK</span>
     <h1 class="hero-title">Staking Reward Calculator</h1>
     <p class="hero-sub">Enter your stake amount, APY or APR, and how long you plan to stake to project your total rewards — with compounding frequency and validator commission factored in. Convert between APR and APY on equal footing, and check your real (inflation-adjusted) yield to see how much of a headline rate is actually growth versus network dilution.</p>
     <div class="page-meta"><span id="lastUpdated">Last updated: July 2026</span><span>·</span><span>Reviewed by the Calculator Boss finance team</span><span>·</span><span>~7 min read</span></div>
@@ -519,20 +519,20 @@
       <li>This tool also converts APR to APY (or back) at any compounding frequency, and checks your inflation-adjusted real yield separately.</li>
     </ul>
   </div>
-  <div class="bench-bar reveal" id="benchBar"></div>
   </div>
 </section>
 <!-- ===== CALCULATOR ===== -->
 <section class="calc-section" id="calculator">
   <div class="wrap">
-    <div class="calc-bar">
-      <span>Just enter your values below — results update automatically.</span>
-      <button type="button" class="calc-bar-pdf-btn" id="calc-pdfBtn">💾 Save as PDF</button>
-    </div>
     <div class="calc-grid reveal">
 
+      <div class="calc-bar calc-area-bar">
+        <span>Just enter your values below — results update automatically.</span>
+        <button type="button" class="calc-bar-pdf-btn" id="calc-pdfBtn">💾 Save as PDF</button>
+      </div>
+
       <!-- INPUTS -->
-      <div class="panel">
+      <div class="panel calc-area-form">
         <div class="calc-tabs" id="calcTabs" role="tablist" aria-label="Calculation mode">
           <button class="ctab-btn on" data-tab="rewards" role="tab" aria-selected="true" id="tab-rewards" aria-controls="panel-rewards">Staking Rewards</button>
           <button class="ctab-btn" data-tab="convert" role="tab" aria-selected="false" id="tab-convert" aria-controls="panel-convert">APR ↔ APY</button>
@@ -629,7 +629,7 @@
       </div>
 
       <!-- RESULTS -->
-      <div>
+      <div class="calc-area-result">
         <div class="result-hero up" id="resultHero" aria-live="polite" role="status">
           <div class="rh-label" id="rhLabel">Total Staking Rewards</div>
           <div class="rh-value up" id="rhValue">$0.00</div>
@@ -651,9 +651,30 @@
           </div>
         </div>
       </div>
+      <div class="calc-area-sidebar">
+        <div class="calc-sidecol">
+          <div class="calc-side-card">
+            <div class="h">Crypto &amp; Trading Calculators</div>
+            <a href="/crypto-position-size-calculator/">Position Size <span class="arrow">→</span></a>
+            <a href="/crypto-profit-loss-calculator/">Profit / Loss <span class="arrow">→</span></a>
+            <a href="/crypto-tax-calculator/">Crypto Tax <span class="arrow">→</span></a>
+            <a href="/liquidation-price-calculator/">Liquidation Price <span class="arrow">→</span></a>
+            <a href="/leverage-calculator/">Leverage <span class="arrow">→</span></a>
+            <a href="/mining-profit-calculator/">Mining Profit <span class="arrow">→</span></a>
+            <a href="/staking-reward-calculator/">Staking Reward <span class="arrow">→</span></a>
+            <a href="/dca-calculator/">DCA <span class="arrow">→</span></a>
+            <a href="/risk-reward-calculator/">Risk/Reward <span class="arrow">→</span></a>
+            <a href="/all-calculators/#cry" class="calc-viewmore">View More <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="wrap">
+  <div class="bench-bar reveal" id="benchBar" style="margin-top:0"></div>
+</div>
 
 <div class="wrap">
   <div class="ad">
