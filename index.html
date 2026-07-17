@@ -290,6 +290,7 @@
   </div>
 </header>
 
+<main>
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-bg"><div class="glow-a"></div><div class="glow-b"></div></div>
@@ -387,6 +388,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -623,8 +626,8 @@
     var bt=[0,80000,160000,240000,320000],pt=[0,9000,18000,27000,36000];
     for(var g=0;g<bt.length;g++){var y=yBal(bt[g]);
       s+='<line x1="'+L+'" y1="'+y+'" x2="'+(L+pw)+'" y2="'+y+'" stroke="#EBEAE3"/>';
-      s+='<text x="'+(L-8)+'" y="'+(y+3.5)+'" text-anchor="end" font-size="10" fill="#9A9EA6">$'+(bt[g]/1000)+'k</text>';
-      s+='<text x="'+(L+pw+8)+'" y="'+(y+3.5)+'" font-size="10" fill="#9A9EA6">$'+(pt[g]/1000)+'k</text>';
+      s+='<text x="'+(L-8)+'" y="'+(y+3.5)+'" text-anchor="end" font-size="10" fill="#686D76">$'+(bt[g]/1000)+'k</text>';
+      s+='<text x="'+(L+pw+8)+'" y="'+(y+3.5)+'" font-size="10" fill="#686D76">$'+(pt[g]/1000)+'k</text>';
     }
     for(var i=0;i<N;i++){var cx=L+step*i+step/2,x=cx-bw/2,base=T+ph;
       var hT=ph*(d[i].taxes/payMax),hI=ph*(d[i].interest/payMax),hP=ph*(d[i].principal/payMax);
@@ -634,12 +637,12 @@
         '<rect x="'+x+'" y="'+yI+'" width="'+bw+'" height="'+hI+'" fill="#1BA94C"/>'+
         '<rect x="'+x+'" y="'+yP+'" width="'+bw+'" height="'+hP+'" fill="#22417A"/></g>';
     }
-    for(var i=0;i<N;i+=5){var cx=L+step*i+step/2;s+='<text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle" font-size="10" fill="#9A9EA6">'+d[i].y+'</text>';}
+    for(var i=0;i<N;i+=5){var cx=L+step*i+step/2;s+='<text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle" font-size="10" fill="#686D76">'+d[i].y+'</text>';}
     var pts=d.map(function(p,i){return (L+step*i+step/2)+','+yBal(p.bal);});
     s+='<path class="mline" d="M'+pts.join(' L')+'" stroke="#15294A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
     d.forEach(function(p,i){s+='<circle class="mdot" style="transition-delay:'+(0.4+i*0.028).toFixed(2)+'s" cx="'+(L+step*i+step/2)+'" cy="'+yBal(p.bal)+'" r="2.2" fill="#15294A"/>';});
-    s+='<text x="13" y="'+(T+ph/2)+'" transform="rotate(-90 13 '+(T+ph/2)+')" text-anchor="middle" font-size="9.5" fill="#B4B8BF">Balance</text>';
-    s+='<text x="'+(W-11)+'" y="'+(T+ph/2)+'" transform="rotate(90 '+(W-11)+' '+(T+ph/2)+')" text-anchor="middle" font-size="9.5" fill="#B4B8BF">Payments</text>';
+    s+='<text x="13" y="'+(T+ph/2)+'" transform="rotate(-90 13 '+(T+ph/2)+')" text-anchor="middle" font-size="9.5" fill="#686D76">Balance</text>';
+    s+='<text x="'+(W-11)+'" y="'+(T+ph/2)+'" transform="rotate(90 '+(W-11)+' '+(T+ph/2)+')" text-anchor="middle" font-size="9.5" fill="#686D76">Payments</text>';
     s+='</svg>';
     el.innerHTML=s;
   }
@@ -653,12 +656,12 @@
 .cf-search-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #eee}
 .cf-search-box svg{color:#9a9a9a;flex-shrink:0}
 .cf-search-box input{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#181A1F}
-.cf-search-esc{font-size:11px;color:#9a9a9a;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
+.cf-search-esc{font-size:11px;color:#686D76;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
 .cf-search-results{max-height:56vh;overflow-y:auto;padding:8px}
 .cf-search-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;text-decoration:none;color:#181A1F;font-size:14.5px;font-weight:500}
 .cf-search-item:hover,.cf-search-item.active{background:#F3F1EA}
 .cf-search-item span.arrow{color:#9a9a9a;font-size:13px}
-.cf-search-empty{padding:30px 14px;text-align:center;color:#9a9a9a;font-size:14px}
+.cf-search-empty{padding:30px 14px;text-align:center;color:#686D76;font-size:14px}
 </style>
 <div class="cf-search-overlay" id="cfSearchOverlay">
   <div class="cf-search-modal">
