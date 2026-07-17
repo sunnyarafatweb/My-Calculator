@@ -227,10 +227,10 @@
 
   /* ===== CALCULATOR ===== */
   .calc-section{padding:10px 0 46px}
-  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr 260px;gap:20px;align-items:start;grid-template-areas:"form result sidebar"}
-  .calc-area-form{grid-area:form}
-  .calc-area-result{grid-area:result}
-  .calc-area-sidebar{grid-area:sidebar}
+  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr 260px;gap:20px;align-items:start;grid-template-areas:"form result sidebar";min-width:0}
+  .calc-area-form{grid-area:form;min-width:0}
+  .calc-area-result{grid-area:result;min-width:0}
+  .calc-area-sidebar{grid-area:sidebar;min-width:0}
   .calc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%;position:sticky;top:20px}
   .calc-side-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
   .calc-side-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.15)}
