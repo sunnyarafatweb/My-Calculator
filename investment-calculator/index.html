@@ -333,6 +333,8 @@
 .inv-input-group.is-target{background:#E4F5EA;border-color:#B9E2C4}
 .inv-input-group.is-target input{background:#E4F5EA;color:#128A3D;font-weight:700;cursor:default}
 .inv-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.inv-field-control-stack{flex-direction:column;align-items:stretch;gap:8px}
+.inv-field-control-stack select{width:100%}
 .inv-divider{border-top:1px solid var(--border-fine);margin:12px 0}
 .inv-subnote{font-size:11.5px;color:var(--ink-faint);margin-top:-2px;line-height:1.5}
 
@@ -458,7 +460,7 @@
     </div>
     <div class="inv-field">
       <span class="inv-field-label">Contribute</span>
-      <div class="inv-field-control">
+      <div class="inv-field-control inv-field-control-stack">
         <select id="inv-contribFreq" class="inv-select-plain">
           <option value="monthly" selected>Monthly</option>
           <option value="yearly">Yearly</option>
