@@ -123,7 +123,18 @@ Pages like `sales-tax-calculator` and `salary-calculator` represent a **leaner e
 - Before pushing any page with live client-side data, run it through a local static server (`python3 -m http.server` from the repo root — note: background it with `setsid ... &` in its own command, since it must be started in the same tool invocation you use it in, or it gets killed) and a headless Playwright pass: check for zero console/page errors, confirm the result actually populates, and screenshot both desktop and a ~390px mobile width.
 - When splicing a shared head/footer into a rebuilt page programmatically, diff the final file's shared `:root{...}.menu-btn{display:none}` block against another untouched page's identical block (`a == b` string compare) to prove the protected section wasn't corrupted — don't eyeball it.
 
-## 7. Workflow / safety notes
+## 8. Standing directive: Tier-1 / USA-first SEO priority
+
+**As of July 2026, ~70% of this site's traffic is from the USA.** Until told otherwise, treat US search behavior as the primary optimization target for every page, with other Tier-1 English-speaking markets (Canada, UK, Australia) as the secondary consideration. Concretely, this means:
+
+- **Keyword choice**: don't assume the site's own brand terminology (e.g. "Calculator") is what searchers actually type. Before finalizing a title/H1 for any page, spot-check what the top-ranking US competitors call the same tool — if they consistently favor a different term (e.g. major finance sites overwhelmingly title currency pages "Currency **Converter**" over "Currency Calculator"), work that higher-volume term into the title tag and meta description even if the URL slug/brand keeps "Calculator" for consistency. Don't force a rename of the H1/URL for this alone — blend the terms naturally instead of replacing one with the other.
+- **Spelling & phrasing**: American English throughout (traveling, customize, color, etc. — not travelling/customise/colour). Numbers/currency formatting defaults to US convention ($1,234.56, comma thousands separator, period decimal).
+- **Dates**: never show a raw ISO date (`2026-07-19`) to the visitor — format it in a way a US reader parses instantly (e.g. `Jul 19, 2026`), since ISO dates read ambiguously to a non-technical US audience (day/month order confusion).
+- **Defaults**: where a calculator needs a default currency, unit, or region-specific assumption, default to USD / US units / US conventions unless the tool is explicitly region-specific (e.g. a UK-mortgage or VAT calculator).
+- **Content examples**: worked examples and sample numbers in body content should read naturally to a US reader (dollar amounts, US tax/finance conventions) unless the page is explicitly about another country's system.
+- This doesn't mean ignoring worldwide usability (the currency calculator's full 165-currency coverage stands, for instance) — it means that when a genuine trade-off comes up between "technically neutral/international" and "what a US searcher expects to see first," default to the latter.
+
+## 9. Workflow / safety notes
 
 - This repo is the **live production source** — every push deploys instantly via Cloudflare Pages. No draft/preview step exists in current practice.
 - Before pushing a change to the shared style block or header/footer partials, spot-check both a custom-built and a template-tier page.
