@@ -299,7 +299,7 @@
       <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
-</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How current is the exchange rate shown?","acceptedAnswer":{"@type":"Answer","text":"It comes from the European Central Bank's daily reference rates, published once each business day around 16:00 CET. There's no update on weekends or EU bank holidays — the most recent business day's rate is shown instead."}},{"@type":"Question","name":"Is this the same rate I'd get at a bank or when traveling?","acceptedAnswer":{"@type":"Answer","text":"No — banks, card networks, and currency exchange counters add their own margin on top of the reference rate, sometimes a substantial one. This calculator shows the underlying mid-market reference rate, which is a useful benchmark but not what you'll actually receive after fees."}},{"@type":"Question","name":"Why does it say the rate couldn't load sometimes?","acceptedAnswer":{"@type":"Answer","text":"This calculator only shows a rate it just fetched — it never falls back to a cached or guessed number, since a rate displayed as current should actually be current. If the rate provider is briefly unreachable, wait a moment and try again."}},{"@type":"Question","name":"Why isn't my local currency in the list?","acceptedAnswer":{"@type":"Answer","text":"Rates come from the European Central Bank, which publishes reference rates for around 30 major world currencies. Less widely traded currencies outside that list aren't available through this particular data source."}},{"@type":"Question","name":"Does this calculator support cryptocurrency conversions?","acceptedAnswer":{"@type":"Answer","text":"No — it converts between official fiat currencies only, using European Central Bank reference data. For crypto math, see the dedicated crypto profit and crypto tax calculators instead."}},{"@type":"Question","name":"Is there a cost or sign-up required to use this calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It's free, requires no account, and places no limit on how many conversions you run — the rate is simply fetched fresh from a public data source each time."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Calculator","url":"https://calculatorboss.com/currency-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free currency calculator that converts between 30+ world currencies using live European Central Bank reference rates, fetched fresh on every change."}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Currency Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Convert between 30+ world currencies using live European Central Bank reference rates — fetched fresh every time you change a value, never a cached guess.</p><style>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How current is the exchange rate shown?","acceptedAnswer":{"@type":"Answer","text":"It comes from the European Central Bank's daily reference rates, published once each business day around 16:00 CET. There's no update on weekends or EU bank holidays — the most recent business day's rate is shown instead."}},{"@type":"Question","name":"Is this the same rate I'd get at a bank or when traveling?","acceptedAnswer":{"@type":"Answer","text":"No — banks, card networks, and currency exchange counters add their own margin on top of the reference rate, sometimes a substantial one. This calculator shows the underlying mid-market reference rate, which is a useful benchmark but not what you'll actually receive after fees."}},{"@type":"Question","name":"Why does it say the rate couldn't load sometimes?","acceptedAnswer":{"@type":"Answer","text":"This calculator only shows a rate it just fetched — it never falls back to a cached or guessed number, since a rate displayed as current should actually be current. If the rate provider is briefly unreachable, wait a moment and try again."}},{"@type":"Question","name":"Why isn't my local currency in the list?","acceptedAnswer":{"@type":"Answer","text":"Rates come from the European Central Bank, which publishes reference rates for around 30 major world currencies. Less widely traded currencies outside that list aren't available through this particular data source."}},{"@type":"Question","name":"Does this calculator support cryptocurrency conversions?","acceptedAnswer":{"@type":"Answer","text":"No — it converts between official fiat currencies only, using European Central Bank reference data. For crypto math, see the dedicated crypto profit and crypto tax calculators instead."}},{"@type":"Question","name":"Is there a cost or sign-up required to use this calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It's free, requires no account, and places no limit on how many conversions you run — the rate is simply fetched fresh from a public data source each time."}},{"@type":"Question","name":"What's the \"Custom Exchange Rate Calculator\" for?","acceptedAnswer":{"@type":"Answer","text":"It's for when you already have a specific rate — quoted by your bank, a money-transfer service, or a specific offer — and want to see exactly what it works out to, instead of the live mid-market rate shown above. Enter that quoted rate and an amount to get an instant result, with no live data fetch involved."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Calculator","url":"https://calculatorboss.com/currency-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free currency calculator that converts between 30+ world currencies using live European Central Bank reference rates, fetched fresh on every change."}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Currency Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Convert between 30+ world currencies using live European Central Bank reference rates — fetched fresh every time you change a value, never a cached guess.</p><style>
 .cur-wrap{width:100%}
 .cur-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .cur-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
@@ -329,6 +329,9 @@
 .cur-swap-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface-sunken);color:var(--ink-soft);cursor:pointer;font-size:16px;display:grid;place-items:center;transition:.15s}
 .cur-swap-btn:hover{border-color:#1E3A5F;color:#1E3A5F;transform:rotate(180deg)}
 .cur-subnote{font-size:11.5px;color:var(--ink-faint);margin-top:8px;line-height:1.5}
+.cur-btn-row{display:flex;gap:8px;padding-top:14px;flex-wrap:wrap}
+.cur-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.cur-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
 .cur-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;height:100%}
 .cur-result-head{padding:18px 20px;background:#16A34A;color:#fff}
@@ -339,6 +342,8 @@
 .cur-result-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
 .cur-result-row:first-child{border-top:none}
 .cur-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.cur-reverse-row{font-size:13px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:8px;padding:9px 12px;margin:0 20px 14px}
+.cur-reverse-row b{color:var(--ink)}
 .cur-result-note{font-size:11.5px;color:var(--ink-faint);padding:0 20px 18px;line-height:1.55}
 
 .cur-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
@@ -347,16 +352,22 @@
 .cur-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
 .cur-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
-.cur-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
-@media(max-width:860px){.cur-bottom-grid{grid-template-columns:1fr}}
-.cur-pop-card,.cur-terms-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden}
-.cur-pop-card .t,.cur-terms-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
-.cur-pop-list,.cur-terms-list{display:flex;flex-direction:column;gap:8px}
+.cur-bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:1080px){.cur-bottom-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.cur-bottom-grid{grid-template-columns:1fr}}
+.cur-pop-card,.cur-terms-card,.cur-custom-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden}
+.cur-pop-card .t,.cur-terms-card .t,.cur-custom-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.cur-pop-list,.cur-terms-list{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto}
 .cur-pop-item{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--ink);background:var(--surface-sunken);border-radius:8px;padding:9px 12px}
 .cur-pop-item b{font-weight:700}
 .cur-term-item{font-size:13px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:8px;padding:9px 12px;line-height:1.5}
 .cur-term-item b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px;font-size:12.5px;letter-spacing:.01em}
 .cur-pop-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+
+.cur-custom-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.cur-custom-row .cur-input-group{flex:1}
+.cur-custom-row span.eq{color:var(--ink-faint);font-size:13px;flex-shrink:0}
+.cur-custom-result{font-size:14px;color:var(--ink);background:var(--gold-tint);border:1px solid #cfe9d8;border-radius:8px;padding:10px 12px;font-weight:600;margin-top:4px}
 
 @media(max-width:520px){
   .cur-pair-row{grid-template-columns:1fr;gap:10px}
@@ -453,7 +464,11 @@
         </select>
       </div>
     </div>
-    <p class="cur-subnote">The converted amount updates automatically as you type or change a currency — there's no separate calculate button to press.</p>
+    <p class="cur-subnote">The converted amount updates automatically as you type or change a currency. The buttons below are there if you'd rather trigger it manually.</p>
+    <div class="cur-btn-row">
+      <button type="button" class="cur-btn-calc" id="cur-calcBtn">Calculate</button>
+      <button type="button" class="cur-btn-clear" id="cur-clearBtn">Clear</button>
+    </div>
   </div>
 </div>
 
@@ -463,6 +478,7 @@
     <div class="bignum" id="cur-bignum">···</div>
   </div>
   <div class="cur-result-body" id="cur-resultRows"></div>
+  <div class="cur-reverse-row" id="cur-reverseRow"></div>
   <div class="cur-result-note">Rates from the European Central Bank via the Frankfurter API. Not a live trading rate, and not financial advice.</div>
 </div>
 
@@ -482,11 +498,25 @@
 
 <div class="cur-bottom-grid cur-area-bottomgrid">
   <div class="cur-pop-card">
-    <span class="t">Popular Conversions (1 USD)</span>
+    <span class="t" id="cur-popTitle">Live Rate Table (1 USD)</span>
     <div class="cur-pop-list" id="cur-popList">
       <div class="cur-pop-item"><span>Loading live rates…</span><span></span></div>
     </div>
     <p class="cur-pop-note">Based on the current mid-market rate — the amount you receive after fees will differ.</p>
+  </div>
+  <div class="cur-custom-card">
+    <span class="t">Custom Exchange Rate Calculator</span>
+    <div class="cur-custom-row">
+      <span>1 unit =</span>
+      <div class="cur-input-group"><input id="cur-customRate" type="number" min="0" step="any" value="0.92" inputmode="decimal"></div>
+      <span class="eq">units</span>
+    </div>
+    <div class="cur-custom-row">
+      <span>Amount to convert</span>
+      <div class="cur-input-group"><input id="cur-customAmount" type="number" min="0" step="any" value="100" inputmode="decimal"></div>
+    </div>
+    <div class="cur-custom-result" id="cur-customResult">= 92.00 units</div>
+    <p class="cur-pop-note">Already have a quoted rate from your bank or a transfer service? Enter it here to see exactly what it means, instead of the live mid-market rate above.</p>
   </div>
   <div class="cur-terms-card">
     <span class="t">Key Currency Terms</span>
@@ -494,6 +524,8 @@
       <div class="cur-term-item"><b>Exchange Rate</b>How much of one currency it takes to buy one unit of another.</div>
       <div class="cur-term-item"><b>Mid-Market Rate</b>The true midpoint rate, with no bank or broker markup added.</div>
       <div class="cur-term-item"><b>Base / Quote Currency</b>The currency you're converting from (base) and into (quote).</div>
+      <div class="cur-term-item"><b>Forex</b>The global market where currencies are bought and sold.</div>
+      <div class="cur-term-item"><b>Bid / Ask Spread</b>The gap between a dealer's buy and sell price — their built-in profit margin.</div>
       <div class="cur-term-item"><b>Pip</b>The smallest standard unit of change in an exchange rate quote.</div>
     </div>
   </div>
@@ -524,12 +556,13 @@
 <a href="#cur-factors">What Actually Moves Exchange Rates</a>
 <a href="#cur-travel">Getting a Better Rate When Traveling or Sending Money</a>
 <a href="#cur-mistakes">Common Currency Conversion Mistakes</a>
+<a href="#cur-moneyhistory">Where Money Itself Came From</a>
 <a href="#cur-history">A Brief History of Exchange Rate Systems</a>
 <a href="#cur-faq">Frequently Asked Questions</a>
 </nav>
 
 <h2 id="cur-how">How This Calculator Works</h2>
-<p>This calculator fetches the current reference rate directly from the European Central Bank's published data every time you change the amount, the "from" currency, or the "to" currency — it never falls back to a built-in table or a previously cached number. If a request to the rate provider fails, the calculator says so plainly rather than quietly displaying a stale figure. The amount, currencies, and swap button all trigger an automatic re-fetch, so there's no separate "Calculate" button to press.</p>
+<p>This calculator fetches the current reference rate directly from the European Central Bank's published data every time you change the amount, the "from" currency, or the "to" currency — it never falls back to a built-in table or a previously cached number. If a request to the rate provider fails, the calculator says so plainly rather than quietly displaying a stale figure. The amount, currencies, and swap button all trigger an automatic re-fetch; the "Calculate" and "Clear" buttons are there for anyone who prefers an explicit action over relying on the auto-update.</p>
 
 <h2 id="cur-mid">Mid-Market Rate vs. What You'll Actually Pay</h2>
 <p>The number this calculator shows is the <strong>mid-market rate</strong> — sometimes called the interbank rate — the midpoint between the price banks and large financial institutions are willing to buy and sell a currency for among themselves, with no markup attached. It's the most accurate benchmark for what a currency is "really" worth at a given moment, but it isn't the rate you'll be offered at a bank counter, an airport kiosk, or through most money-transfer services. Those providers add their own spread on top of the mid-market rate — sometimes a percent or two, sometimes far more — and many also charge a separate flat fee. A rate close to what this calculator shows, paired with a clearly disclosed fee, is usually a better deal than one that's noticeably worse than mid-market with "no fee" advertised, since the markup is often simply hidden inside the rate itself.</p>
@@ -542,6 +575,9 @@
 
 <h2 id="cur-mistakes">Common Currency Conversion Mistakes</h2>
 <p>The most common mistake is assuming the rate quoted anywhere — including on this calculator — is exactly what you'll receive after a real transaction; it rarely is, once a provider's spread and fees are factored in. A close second is comparing two offers by fee alone without checking the rate itself, since a "$0 fee" transfer at a poor exchange rate can cost far more than a small flat fee at a rate close to mid-market. It's also easy to forget that <strong>rates change continuously, including within the same day</strong> — a rate checked in the morning may no longer apply by the time a transfer is actually sent that evening. Finally, travelers sometimes convert far more cash than they'll need "just in case," which means paying a spread twice: once converting to the foreign currency, and again converting any leftover back home.</p>
+
+<h2 id="cur-moneyhistory">Where Money Itself Came From</h2>
+<p>Long before exchange rates existed, economies relied on barter — trading goods and services directly — which works only when both sides happen to want what the other has. Currency solved that problem, and it has taken remarkably varied physical forms over roughly 3,000 years of use, from coins and gold to barley, salt, cowrie shells, and even squirrel pelts. The first standardized coinage is generally credited to King Alyattes of Lydia (in present-day Turkey) in the seventh century BC, while paper currency developed separately in Asia centuries later. Nearly all modern currency is <strong>fiat money</strong> — valuable because a government declares it legal tender and people trust that declaration, rather than because it's backed by a physical commodity like gold. Most currency today never takes physical form at all, moving between accounts electronically; cryptocurrencies extend that idea further, existing as purely digital assets with no central issuing authority.</p>
 
 <h2 id="cur-history">A Brief History of Exchange Rate Systems</h2>
 <p>For most of recorded history, currencies were tied directly to a physical commodity, typically gold or silver, which fixed their relative values to each other. The modern floating-rate system is comparatively recent: the 1944 Bretton Woods agreement pegged major currencies to the US dollar, which was in turn pegged to gold, creating a fixed-but-adjustable system among the world's largest economies. That arrangement held until 1971, when the United States ended the dollar's direct convertibility to gold, and by the mid-1970s most major currencies had moved to the floating-rate system still used today — one where a currency's value is set continuously by supply and demand in the global foreign exchange market, rather than pegged to a fixed benchmark.</p>
@@ -559,6 +595,8 @@
 <p>No — it converts between official fiat currencies only, using European Central Bank reference data. For crypto math, see the dedicated <a href="/crypto-profit-calculator/">crypto profit</a> and <a href="/crypto-tax-calculator/">crypto tax</a> calculators instead.</p>
 <h3>Is there a cost or sign-up required to use this calculator?</h3>
 <p>No. It's free, requires no account, and places no limit on how many conversions you run — the rate is simply fetched fresh from a public data source each time.</p>
+<h3>What's the "Custom Exchange Rate Calculator" for?</h3>
+<p>It's for when you already have a specific rate — quoted by your bank, a money-transfer service, or a specific offer — and want to see exactly what it works out to, instead of the live mid-market rate shown above. Enter that quoted rate and an amount to get an instant result, with no live data fetch involved.</p>
 
 <p style="font-size:12px;color:var(--ink-faint);margin-top:20px">Exchange rates are provided by the European Central Bank via the Frankfurter API, for general informational purposes only. They are not a live trading quote, do not include any provider's markup or fees, and should not be relied on for an actual transaction — check with your bank or transfer provider for the rate you'll actually receive.</p>
 </article>
@@ -571,6 +609,7 @@
   var API = 'https://api.frankfurter.dev/v1/latest';
   var amountEl = $('cur-amount'), fromEl = $('cur-from'), toEl = $('cur-to');
   var head = $('cur-resultHead'), label = $('cur-resultLabel'), bignum = $('cur-bignum'), rows = $('cur-resultRows');
+  var reverseRow = $('cur-reverseRow');
   var debounceTimer = null;
   var reqSeq = 0;
 
@@ -585,6 +624,7 @@
     label.textContent = 'Couldn\u2019t load live rates';
     bignum.textContent = '—';
     rows.innerHTML = '<div class="cur-result-row"><span>'+msg+'</span><span></span></div>';
+    reverseRow.innerHTML = '';
   }
 
   function convert(){
@@ -596,6 +636,7 @@
       label.textContent = 'Converted Amount';
       bignum.textContent = fmt(amount, to);
       rows.innerHTML = '<div class="cur-result-row"><span>Exchange rate</span><span>1 '+from+' = 1 '+to+'</span></div>';
+      reverseRow.innerHTML = '<b>'+fmt(amount, to)+'</b> = '+fmt(amount, from);
       return;
     }
     var thisSeq = ++reqSeq;
@@ -614,6 +655,8 @@
       rows.innerHTML =
         '<div class="cur-result-row"><span>Exchange rate</span><span>1 '+from+' = '+unitRate.toFixed(4)+' '+to+'</span></div>'+
         '<div class="cur-result-row"><span>Rate date</span><span>'+(data.date || '—')+'</span></div>';
+      var reverseAmount = unitRate > 0 ? amount / unitRate : 0;
+      reverseRow.innerHTML = '<b>'+fmt(amount, to)+'</b> = '+fmt(reverseAmount, from);
     }).catch(function(){
       if(thisSeq !== reqSeq) return;
       showError('Couldn\u2019t reach the rate provider — try again in a moment.');
@@ -625,30 +668,65 @@
     debounceTimer = setTimeout(convert, 350);
   }
 
+  function loadRateTable(){
+    var base = sel('cur-from');
+    var targets = POP_TARGETS.filter(function(c){ return c !== base; }).slice(0, 6);
+    popTitle.textContent = 'Live Rate Table (1 ' + base + ')';
+    var thisSeq = ++popSeq;
+    fetch(API + '?from=' + encodeURIComponent(base) + '&to=' + targets.join(',')).then(function(r){
+      if(!r.ok) throw new Error('bad status');
+      return r.json();
+    }).then(function(data){
+      if(thisSeq !== popSeq) return;
+      if(!data || !data.rates) throw new Error('bad payload');
+      popList.innerHTML = targets.map(function(code){
+        var v = data.rates[code];
+        return '<div class="cur-pop-item"><span>'+base+' → '+code+'</span><b>'+(typeof v === 'number' ? v.toFixed(4) : '—')+'</b></div>';
+      }).join('');
+    }).catch(function(){
+      if(thisSeq !== popSeq) return;
+      popList.innerHTML = '<div class="cur-pop-item"><span>Couldn\u2019t load live rates right now.</span><span></span></div>';
+    });
+  }
+
   amountEl.addEventListener('input', debouncedConvert);
-  fromEl.addEventListener('change', convert);
+  fromEl.addEventListener('change', function(){ convert(); loadRateTable(); });
   toEl.addEventListener('change', convert);
   $('cur-swapBtn').addEventListener('click', function(){
     var f = fromEl.value; fromEl.value = toEl.value; toEl.value = f;
     convert();
+    loadRateTable();
+  });
+  $('cur-calcBtn').addEventListener('click', convert);
+  $('cur-clearBtn').addEventListener('click', function(){
+    amountEl.value = 100; fromEl.value = 'USD'; toEl.value = 'EUR';
+    convert();
+    loadRateTable();
   });
 
-  // Popular conversions card — one fetch on load, base = USD
+  // Live rate table — refetches whenever the "From" currency changes
   var popList = $('cur-popList');
-  var POP_TARGETS = ['EUR','GBP','JPY','CAD','AUD','INR'];
-  fetch(API + '?from=USD&to=' + POP_TARGETS.join(',')).then(function(r){
-    if(!r.ok) throw new Error('bad status');
-    return r.json();
-  }).then(function(data){
-    if(!data || !data.rates) throw new Error('bad payload');
-    popList.innerHTML = POP_TARGETS.map(function(code){
-      var v = data.rates[code];
-      return '<div class="cur-pop-item"><span>USD → '+code+'</span><b>'+(typeof v === 'number' ? v.toFixed(4) : '—')+'</b></div>';
-    }).join('');
-  }).catch(function(){
-    popList.innerHTML = '<div class="cur-pop-item"><span>Couldn\u2019t load live rates right now.</span><span></span></div>';
-  });
+  var popTitle = $('cur-popTitle');
+  var POP_TARGETS = ['EUR','GBP','JPY','CAD','AUD','INR','CNY','CHF'];
+  var popSeq = 0;
 
+  // Custom exchange rate calculator — pure client-side math, no API call
+  var customRateEl = $('cur-customRate'), customAmountEl = $('cur-customAmount'), customResultEl = $('cur-customResult');
+  function renderCustom(){
+    var rate = parseFloat(customRateEl.value);
+    var amt = parseFloat(customAmountEl.value);
+    if(!isFinite(rate) || !isFinite(amt) || rate < 0 || amt < 0){
+      customResultEl.textContent = 'Enter a valid rate and amount.';
+      return;
+    }
+    var result = amt * rate;
+    customResultEl.textContent = '= ' + new Intl.NumberFormat('en-US', {maximumFractionDigits: 4}).format(result) + ' units';
+  }
+  customRateEl.addEventListener('input', renderCustom);
+  customAmountEl.addEventListener('input', renderCustom);
+  renderCustom();
+
+  loadRateTable();
   convert();
 })();
 </script>
