@@ -305,14 +305,15 @@
 .cur-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 
 .cur-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "form result sidebar" "market market market" "bottomgrid bottomgrid bottomgrid"}
 .cur-area-bar{grid-area:bar}
 .cur-area-form{grid-area:form}
 .cur-area-result{grid-area:result}
 .cur-area-sidebar{grid-area:sidebar}
+.cur-area-market{grid-area:market}
 .cur-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .cur-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .cur-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "market" "bottomgrid" "sidebar"}
 }
 
 .cur-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
@@ -352,17 +353,29 @@
 .cur-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
 .cur-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
-.cur-bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;width:100%;align-items:stretch}
-@media(max-width:1080px){.cur-bottom-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.cur-bottom-grid{grid-template-columns:1fr}}
-.cur-pop-card,.cur-terms-card,.cur-custom-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden}
-.cur-pop-card .t,.cur-terms-card .t,.cur-custom-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
-.cur-pop-list,.cur-terms-list{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto}
-.cur-pop-item{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--ink);background:var(--surface-sunken);border-radius:8px;padding:9px 12px}
-.cur-pop-item b{font-weight:700}
+.cur-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:700px){.cur-bottom-grid{grid-template-columns:1fr}}
+.cur-terms-card,.cur-custom-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden}
+.cur-terms-card .t,.cur-custom-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.cur-terms-list{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto}
+.cur-custom-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
 .cur-term-item{font-size:13px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:8px;padding:9px 12px;line-height:1.5}
 .cur-term-item b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px;font-size:12.5px;letter-spacing:.01em}
-.cur-pop-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+.cur-market-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:24px;width:100%;overflow:hidden}
+.cur-market-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.cur-market-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.cur-market-asof{font-size:11.5px;color:var(--ink-faint)}
+.cur-market-sub{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 10px}
+.cur-market-sub:first-of-type{margin-top:16px}
+.cur-market-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:900px){.cur-market-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cur-market-grid{grid-template-columns:1fr}}
+.cur-market-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--ink);background:var(--surface-sunken);border-radius:8px;padding:8px 11px}
+.cur-market-row b{font-weight:700}
+.cur-market-all-wrap{max-height:420px;overflow-y:auto;margin-top:4px;border-top:1px solid var(--border-fine);padding-top:12px}
+.cur-market-toggle{margin-top:16px;background:#fff;border:1px solid var(--border);color:var(--ink-soft);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.cur-market-toggle:hover{border-color:#1E3A5F;color:#1E3A5F}
+.cur-market-note{font-size:11.5px;color:var(--ink-faint);margin-top:14px;line-height:1.55}
 
 .cur-custom-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .cur-custom-row .cur-input-group{flex:1}
@@ -764,14 +777,23 @@
   </div>
 </div>
 
-<div class="cur-bottom-grid cur-area-bottomgrid">
-  <div class="cur-pop-card">
-    <span class="t" id="cur-popTitle">Live Rate Table (1 USD)</span>
-    <div class="cur-pop-list" id="cur-popList">
-      <div class="cur-pop-item"><span>Loading live rates…</span><span></span></div>
-    </div>
-    <p class="cur-pop-note">Based on the current mid-market rate — the amount you receive after fees will differ.</p>
+<div class="cur-market-card cur-area-market">
+  <div class="cur-market-head">
+    <span class="t" id="cur-marketTitle">Market Exchange Rates Table (Base: USD)</span>
+    <span class="cur-market-asof" id="cur-marketAsOf"></span>
   </div>
+  <div class="cur-market-sub">Major Currencies</div>
+  <div class="cur-market-grid" id="cur-marketMajor">
+    <div class="cur-market-row"><span>Loading live rates…</span><span></span></div>
+  </div>
+  <button type="button" class="cur-market-toggle" id="cur-marketToggle">Show All 165 Currencies ▾</button>
+  <div class="cur-market-all-wrap" id="cur-marketAllWrap" style="display:none">
+    <div class="cur-market-grid" id="cur-marketAll"></div>
+  </div>
+  <p class="cur-market-note">Rates are fetched live and change whenever you pick a different "From" currency above. Each currency's own central bank publishes on its own schedule, so a small number of rows may reflect a slightly earlier date than others — this table never shows a guessed or averaged number.</p>
+</div>
+
+<div class="cur-bottom-grid cur-area-bottomgrid">
   <div class="cur-custom-card">
     <span class="t">Custom Exchange Rate Calculator</span>
     <div class="cur-custom-row">
@@ -784,7 +806,7 @@
       <div class="cur-input-group"><input id="cur-customAmount" type="number" min="0" step="any" value="100" inputmode="decimal"></div>
     </div>
     <div class="cur-custom-result" id="cur-customResult">= 92.00 units</div>
-    <p class="cur-pop-note">Already have a quoted rate from your bank or a transfer service? Enter it here to see exactly what it means, instead of the live mid-market rate above.</p>
+    <p class="cur-custom-note">Already have a quoted rate from your bank or a transfer service? Enter it here to see exactly what it means, instead of the live mid-market rate above.</p>
   </div>
   <div class="cur-terms-card">
     <span class="t">Key Currency Terms</span>
@@ -946,25 +968,40 @@
 
   function loadRateTable(){
     var base = sel('cur-from');
-    var targets = POP_TARGETS.filter(function(c){ return c !== base; }).slice(0, 6);
-    popTitle.textContent = 'Live Rate Table (1 ' + base + ')';
-    var thisSeq = ++popSeq;
-    fetch(API + '?base=' + encodeURIComponent(base) + '&quotes=' + targets.join(',')).then(function(r){
+    marketTitle.textContent = 'Market Exchange Rates Table (Base: ' + base + ')';
+    marketAsOf.textContent = 'Live — refreshes when you change the currency above';
+    var thisSeq = ++marketSeq;
+    // No 'quotes' filter -> Frankfurter returns every available rate for this base in one call
+    fetch(API + '?base=' + encodeURIComponent(base)).then(function(r){
       if(!r.ok) throw new Error('bad status');
       return r.json();
     }).then(function(data){
-      if(thisSeq !== popSeq) return;
+      if(thisSeq !== marketSeq) return;
       if(!Array.isArray(data)) throw new Error('bad payload');
       var byCode = {};
       data.forEach(function(d){ byCode[d.quote] = d.rate; });
-      popList.innerHTML = targets.map(function(code){
-        var v = byCode[code];
-        return '<div class="cur-pop-item"><span>'+base+' → '+code+'</span><b>'+(typeof v === 'number' ? v.toFixed(4) : '—')+'</b></div>';
+      allRatesByCode = byCode;
+      allRatesBase = base;
+
+      var majorCodes = MAJOR_CODES.filter(function(c){ return c !== base && byCode[c] !== undefined; });
+      marketMajor.innerHTML = majorCodes.map(function(code){
+        return '<div class="cur-market-row"><span>' + base + ' → ' + code + '</span><b>' + byCode[code].toFixed(4) + '</b></div>';
       }).join('');
+
+      // If "Show All" is already open, refresh it in place with the new base
+      if(marketAllWrap.style.display !== 'none'){ renderAllCurrencies(); }
     }).catch(function(){
-      if(thisSeq !== popSeq) return;
-      popList.innerHTML = '<div class="cur-pop-item"><span>Couldn\u2019t load live rates right now.</span><span></span></div>';
+      if(thisSeq !== marketSeq) return;
+      marketMajor.innerHTML = '<div class="cur-market-row"><span>Couldn\u2019t load live rates right now.</span><span></span></div>';
     });
+  }
+
+  function renderAllCurrencies(){
+    if(!allRatesByCode){ return; }
+    var codes = Object.keys(allRatesByCode).sort();
+    marketAll.innerHTML = codes.map(function(code){
+      return '<div class="cur-market-row"><span>' + allRatesBase + ' → ' + code + '</span><b>' + allRatesByCode[code].toFixed(4) + '</b></div>';
+    }).join('');
   }
 
   amountEl.addEventListener('input', debouncedConvert);
@@ -982,11 +1019,28 @@
     loadRateTable();
   });
 
-  // Live rate table — refetches whenever the "From" currency changes
-  var popList = $('cur-popList');
-  var popTitle = $('cur-popTitle');
-  var POP_TARGETS = ['EUR','GBP','JPY','CAD','AUD','INR','CNY','CHF'];
-  var popSeq = 0;
+  // Market exchange rates table — one fetch per "From" change covers both Major and All views
+  var marketTitle = $('cur-marketTitle');
+  var marketAsOf = $('cur-marketAsOf');
+  var marketMajor = $('cur-marketMajor');
+  var marketAllWrap = $('cur-marketAllWrap');
+  var marketAll = $('cur-marketAll');
+  var marketToggle = $('cur-marketToggle');
+  var MAJOR_CODES = ['USD','EUR','GBP','JPY','CHF','CAD','AUD','NZD','CNY','HKD','SGD','INR','KRW','MXN','BRL','ZAR','SEK','NOK','RUB','TRY','AED','SAR'];
+  var marketSeq = 0;
+  var allRatesByCode = null, allRatesBase = null, allCurrenciesBuilt = false;
+
+  marketToggle.addEventListener('click', function(){
+    var isHidden = marketAllWrap.style.display === 'none';
+    if(isHidden){
+      if(!allCurrenciesBuilt || allRatesBase !== sel('cur-from')){ renderAllCurrencies(); allCurrenciesBuilt = true; }
+      marketAllWrap.style.display = '';
+      marketToggle.textContent = 'Hide All Currencies ▴';
+    } else {
+      marketAllWrap.style.display = 'none';
+      marketToggle.textContent = 'Show All 165 Currencies ▾';
+    }
+  });
 
   // Custom exchange rate calculator — pure client-side math, no API call
   var customRateEl = $('cur-customRate'), customAmountEl = $('cur-customAmount'), customResultEl = $('cur-customResult');
