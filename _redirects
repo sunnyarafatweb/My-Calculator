@@ -1,0 +1,62 @@
+# Money Markets section restructure (moved from /money-markets/* to site root).
+# 301 = permanent redirect: passes Google's existing impressions/clicks/ranking
+# signal from the old indexed URL to the new URL, and sends any visitor still
+# landing on the old link straight to the right page instead of a 404.
+# Order doesn't matter here since none of these old paths exist as real pages anymore.
+
+# --- Calculators that moved to the same slug at the site root ---
+/money-markets/compound-interest-calculator/       /compound-interest-calculator/         301
+/money-markets/compound-interest-calculator        /compound-interest-calculator/         301
+/money-markets/crypto-position-size-calculator/    /crypto-position-size-calculator/      301
+/money-markets/crypto-position-size-calculator     /crypto-position-size-calculator/      301
+/money-markets/crypto-profit-loss-calculator/      /crypto-profit-loss-calculator/        301
+/money-markets/crypto-profit-loss-calculator       /crypto-profit-loss-calculator/        301
+/money-markets/crypto-tax-calculator/              /crypto-tax-calculator/                301
+/money-markets/crypto-tax-calculator               /crypto-tax-calculator/                301
+/money-markets/dca-calculator/                     /dca-calculator/                       301
+/money-markets/dca-calculator                      /dca-calculator/                       301
+/money-markets/investment-calculator/              /investment-calculator/                301
+/money-markets/investment-calculator               /investment-calculator/                301
+/money-markets/leverage-calculator/                /leverage-calculator/                  301
+/money-markets/leverage-calculator                 /leverage-calculator/                  301
+/money-markets/liquidation-price-calculator/       /liquidation-price-calculator/         301
+/money-markets/liquidation-price-calculator        /liquidation-price-calculator/         301
+/money-markets/mining-profit-calculator/           /mining-profit-calculator/             301
+/money-markets/mining-profit-calculator            /mining-profit-calculator/             301
+/money-markets/risk-reward-calculator/             /risk-reward-calculator/               301
+/money-markets/risk-reward-calculator              /risk-reward-calculator/               301
+/money-markets/roi-calculator/                     /roi-calculator/                       301
+/money-markets/roi-calculator                      /roi-calculator/                       301
+/money-markets/staking-reward-calculator/          /staking-reward-calculator/            301
+/money-markets/staking-reward-calculator           /staking-reward-calculator/            301
+
+# --- Calculators that moved to the root under a renamed slug ---
+/money-markets/currency-converter/                 /currency-calculator/                  301
+/money-markets/currency-converter                  /currency-calculator/                  301
+
+# --- Calculators discontinued in the restructure (no live equivalent) ---
+# Sent to the Crypto & Trading category so visitors land on a relevant list
+# of live tools instead of a dead page.
+/money-markets/break-even-calculator/              /all-calculators/#cry                  301
+/money-markets/break-even-calculator               /all-calculators/#cry                  301
+/money-markets/cagr-calculator/                    /all-calculators/#cry                  301
+/money-markets/cagr-calculator                     /all-calculators/#cry                  301
+/money-markets/dividend-yield-calculator/          /all-calculators/#cry                  301
+/money-markets/dividend-yield-calculator           /all-calculators/#cry                  301
+/money-markets/gold-value-calculator/              /all-calculators/#cry                  301
+/money-markets/gold-value-calculator               /all-calculators/#cry                  301
+/money-markets/pe-ratio-calculator/                /all-calculators/#cry                  301
+/money-markets/pe-ratio-calculator                 /all-calculators/#cry                  301
+/money-markets/portfolio-allocation-calculator/    /all-calculators/#cry                  301
+/money-markets/portfolio-allocation-calculator     /all-calculators/#cry                  301
+/money-markets/sip-calculator/                     /all-calculators/#cry                  301
+/money-markets/sip-calculator                      /all-calculators/#cry                  301
+/money-markets/stock-average-price-calculator/     /all-calculators/#cry                  301
+/money-markets/stock-average-price-calculator      /all-calculators/#cry                  301
+
+# --- The old hub page itself ---
+/money-markets/                                    /all-calculators/#cry                  301
+/money-markets                                     /all-calculators/#cry                  301
+
+# --- Catch-all safety net for any other old money-markets URL we missed ---
+/money-markets/*                                   /all-calculators/#cry                  301
