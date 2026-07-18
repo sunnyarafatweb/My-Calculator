@@ -109,7 +109,7 @@ Pages like `sales-tax-calculator` and `salary-calculator` represent a **leaner e
 
 - Simple header: `<h1>` + one-sentence subhead directly in the content wrapper (`<div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px">`) — no big split hero/chart-preview section. Faster to ship, less CSS/markup weight, still on-brand.
 - A CSS grid (`grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"`) with a page-specific class prefix (`tax-`, `cur-`, etc. — pick a short prefix per page to keep styles self-contained and easy to reason about):
-  1. **bar** — thin navy status bar across the top (context line for the tool).
+  1. **bar** — thin navy status bar across the top (context line for the tool), with a white "💾 Save as PDF" button on the right (`justify-content:space-between`). This is now a standing pattern for every page — see loan-calculator and sales-tax-calculator for the reference implementation (jsPDF + jspdf-autotable via CDN, loaded with `defer`). Keep the bar's status text short enough to stay on one line next to the button at the bar's actual width (it spans 2 of the 3 grid columns, not the full page width) — a too-long sentence wraps the button onto its own line, which still works but doesn't match the reference layout.
   2. **form card** — inputs.
   3. **result card** — big-number output + supporting rows.
   4. **sidebar card** — a navy "related calculators" card (this *is* the visible internal-linking module — the earlier-noted gap is solved by this pattern; older hero-style pages still lack it and should get one when next touched).

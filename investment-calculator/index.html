@@ -301,7 +301,10 @@
   </div>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is \"Return Rate\" different from APY or APR?","acceptedAnswer":{"@type":"Answer","text":"Return rate here means the actual annual rate this calculator compounds at the frequency you choose — not necessarily an advertised APY or APR, which can already bake in their own compounding assumptions. If a bank or fund quotes you an APY, that already reflects compounding, so it's usually simplest to enter it directly with annual compounding selected. If you have a nominal APR that compounds on a specific schedule, match the compounding frequency setting to that schedule instead."}},{"@type":"Question","name":"What return rate should I use for stocks, bonds, or savings?","acceptedAnswer":{"@type":"Answer","text":"There's no single right answer since it depends on what you actually hold. As a rough historical guide, the S&P 500 has averaged roughly 10% annually over the long run before inflation, diversified bond funds have historically averaged closer to 4-5%, and high-yield savings accounts or CDs typically run 3-5% depending on the rate environment. Many financial planners suggest a more conservative 6-8% for long-term stock-heavy projections, since future returns are never guaranteed to match past averages."}},{"@type":"Question","name":"What's the difference between contributing at the beginning vs. end of each period?","acceptedAnswer":{"@type":"Answer","text":"A contribution made at the beginning of a period gets one extra period to grow compared to the same contribution made at the end — over many years this compounds into a noticeably larger ending balance, even though the total amount contributed is identical either way."}},{"@type":"Question","name":"Does compounding frequency make a big difference to my results?","acceptedAnswer":{"@type":"Answer","text":"Usually a modest difference, not a dramatic one. Moving from annual to monthly compounding on the same nominal rate typically changes the ending balance by a percent or two over long periods, and daily versus monthly compounding makes an even smaller difference than that. It matters far more when comparing two genuinely different rates than when fine-tuning the compounding frequency of a single rate."}},{"@type":"Question","name":"What happens if my starting amount alone already exceeds my goal?","acceptedAnswer":{"@type":"Answer","text":"When solving for the required additional contribution, the calculator will show that no further contribution is needed rather than displaying a confusing negative number."}},{"@type":"Question","name":"Does this calculator account for taxes, fees, or inflation?","acceptedAnswer":{"@type":"Answer","text":"No. Every figure here is nominal, pre-tax, and before any account fees or fund expense ratios — real-world results will typically be lower once those are factored in, and inflation will reduce what a given ending balance can actually purchase in the future. Treat this as a planning estimate, not a guarantee."}},{"@type":"Question","name":"Why can't \"Return Rate\" and \"Investment Length\" be solved instantly like the other options?","acceptedAnswer":{"@type":"Answer","text":"Because once regular contributions are involved, the rate and the time period both sit inside an exponent alongside the contribution math, so there's no simple algebraic rearrangement of the formula to isolate them. This calculator solves those two numerically instead — testing values until it finds the one that produces your target amount — which is why the answer appears instantly but isn't a plain formula plug-in behind the scenes."}},{"@type":"Question","name":"Is a higher return rate always better?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily once risk is considered. A higher return rate on paper usually comes with wider year-to-year swings in actual performance, which matters if the money might be needed on a specific timeline. A lower, steadier return can sometimes be the better fit for a goal even though the raw number looks smaller."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Investment Calculator","url":"https://calculatorboss.com/investment-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free investment calculator that solves for end amount, starting amount, return rate, investment length, or required contribution — with a full year-by-year accumulation schedule."}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Investment Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">Solve for any one of five things — end amount, starting amount, return rate, investment length, or the contribution needed to hit your goal — and see the full year-by-year breakdown.</p><style>
 .inv-wrap{width:100%}
-.inv-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.inv-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.inv-bar-text{display:flex;align-items:center;gap:10px}
+.inv-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.inv-bar-pdf-btn:hover{background:#f0f0f0}
 .inv-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 
 .inv-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
@@ -406,7 +409,8 @@
 <div class="inv-grid">
 
 <div class="inv-bar inv-area-bar">
-  <span class="inv-bar-badge">▾</span>Choose what to solve for below — the highlighted field fills in automatically.
+  <span class="inv-bar-text"><span class="inv-bar-badge">▾</span>Choose what to solve for below — the highlighted field fills in automatically.</span>
+  <button type="button" class="inv-bar-pdf-btn" id="inv-pdfBtn">💾 Save as PDF</button>
 </div>
 
 <div class="inv-tabs inv-area-tabs">
@@ -641,6 +645,8 @@
 <p style="font-size:12px;color:var(--ink-faint);margin-top:20px">This calculator provides estimates for general informational purposes only and is not financial, tax, or investment advice. Actual investment returns are never guaranteed and past performance does not predict future results — consult a licensed financial professional before making investment decisions.</p>
 </article>
 </div><!--$--><!--/$--></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
 <script>
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -989,6 +995,48 @@
     updateFieldStates('end');
     calculate();
   });
+
+  function generatePdf(){
+    if(!window.jspdf){ alert('PDF library is still loading, please try again in a moment.'); return; }
+    try{
+      var r = lastResult;
+      if(!r){ alert('Nothing to export yet — enter some values first.'); return; }
+      var jsPDFCtor = window.jspdf.jsPDF;
+      var doc = new jsPDFCtor({unit:'pt', format:'letter'});
+      var margin=40, y=50;
+      doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+      doc.text('Investment Calculator Report', margin, y); y+=18;
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+      doc.text('Generated by Calculator Boss.com  \u00b7  '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), margin, y);
+      y+=22;
+      doc.setDrawColor(220,220,220); doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y); y+=22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(22,163,74);
+      doc.text(LABELS[r.solveFor]+': '+bignum.textContent, margin, y);
+      y += 26;
+      var rows = [
+        ['Starting Amount', money(r.PV,2)],
+        ['Total Contributions', money(r.totalContrib,2)],
+        ['Total Interest', money(r.totalInterest,2)],
+        ['End Balance', money(r.FV,2)]
+      ];
+      doc.autoTable({startY:y, margin:{left:margin,right:margin}, styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:rows});
+      var afterY = doc.lastAutoTable.finalY + 24;
+      doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(30,58,95);
+      doc.text('Year-by-Year Accumulation Schedule', margin, afterY);
+      doc.autoTable({
+        startY: afterY+10,
+        margin:{left:margin,right:margin},
+        head: [['Year','Contributions','Interest','Ending Balance']],
+        body: lastYearlyRows.map(function(row){ return [row.year, money(row.contrib,2), money(row.interest,2), money(row.balance,2)]; }),
+        styles:{fontSize:9,cellPadding:4},
+        columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'}}
+      });
+      doc.save('investment-report-'+new Date().toISOString().slice(0,10)+'.pdf');
+    }catch(e){
+      alert('Sorry, there was a problem generating the PDF: '+e.message);
+    }
+  }
+  $('inv-pdfBtn').addEventListener('click', generatePdf);
 
   updateFieldStates('end');
   calculate();

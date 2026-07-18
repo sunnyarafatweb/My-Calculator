@@ -301,7 +301,10 @@
   </div>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How current is the exchange rate shown?","acceptedAnswer":{"@type":"Answer","text":"It comes from Frankfurter, which aggregates daily reference rates from roughly 80 central banks worldwide. Most major currencies update once each business day; a few less-traded currencies may update slightly less often if their central bank publishes less frequently. The \"Rate date\" shown with every result is the exact date that specific rate was last published."}},{"@type":"Question","name":"Is this the same rate I'd get at a bank or when traveling?","acceptedAnswer":{"@type":"Answer","text":"No — banks, card networks, and currency exchange counters add their own margin on top of the reference rate, sometimes a substantial one. This calculator shows the underlying mid-market reference rate, which is a useful benchmark but not what you'll actually receive after fees."}},{"@type":"Question","name":"Why does it say the rate couldn't load sometimes?","acceptedAnswer":{"@type":"Answer","text":"This calculator only shows a rate it just fetched — it never falls back to a cached or guessed number, since a rate displayed as current should actually be current. If the rate provider is briefly unreachable, wait a moment and try again."}},{"@type":"Question","name":"Why isn't my local currency in the list?","acceptedAnswer":{"@type":"Answer","text":"This calculator now covers around 165 currencies — most of the world's actively traded national currencies. A small number of currencies aren't included, typically because they don't have a published daily reference rate, are formally pegged 1:1 to another major currency, or see very limited international trading."}},{"@type":"Question","name":"Does this calculator support cryptocurrency conversions?","acceptedAnswer":{"@type":"Answer","text":"No — it converts between official fiat currencies only, using Frankfurter's reference data. For crypto math, see the dedicated crypto profit and crypto tax calculators instead."}},{"@type":"Question","name":"Is there a cost or sign-up required to use this calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It's free, requires no account, and places no limit on how many conversions you run — the rate is simply fetched fresh from a public data source each time."}},{"@type":"Question","name":"What's the \"Custom Exchange Rate Calculator\" for?","acceptedAnswer":{"@type":"Answer","text":"It's for when you already have a specific rate — quoted by your bank, a money-transfer service, or a specific offer — and want to see exactly what it works out to, instead of the live mid-market rate shown above. Enter that quoted rate and an amount to get an instant result, with no live data fetch involved."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Calculator","url":"https://calculatorboss.com/currency-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free currency converter and calculator for 165+ world currencies, using live daily rates from Frankfurter, sourced from central banks worldwide."}</script><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Currency Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-10">A free currency converter and calculator for 165+ world currencies, using live daily rates sourced from central banks worldwide — fetched fresh every time you change a value, never a cached guess.</p><style>
 .cur-wrap{width:100%}
-.cur-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cur-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.cur-bar-text{display:flex;align-items:center;gap:10px}
+.cur-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.cur-bar-pdf-btn:hover{background:#f0f0f0}
 .cur-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 
 .cur-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
@@ -393,7 +396,8 @@
 <div class="cur-grid">
 
 <div class="cur-bar cur-area-bar">
-  <span class="cur-bar-badge">$</span>Live mid-market rate — fetched fresh from Frankfurter, sourced from central banks worldwide, not cached.
+  <span class="cur-bar-text"><span class="cur-bar-badge">$</span>Live mid-market rate — fetched fresh, never cached.</span>
+  <button type="button" class="cur-bar-pdf-btn" id="cur-pdfBtn">💾 Save as PDF</button>
 </div>
 
 <div class="cur-card cur-area-form">
@@ -891,6 +895,8 @@
 <p style="font-size:12px;color:var(--ink-faint);margin-top:20px">Exchange rates are provided by Frankfurter, aggregating daily reference data from roughly 80 central banks worldwide, for general informational purposes only. They are not a live trading quote, do not include any provider's markup or fees, and should not be relied on for an actual transaction — check with your bank or transfer provider for the rate you'll actually receive.</p>
 </article>
 </div><!--$--><!--/$--></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
 <script>
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -1057,6 +1063,37 @@
   customRateEl.addEventListener('input', renderCustom);
   customAmountEl.addEventListener('input', renderCustom);
   renderCustom();
+
+  function generatePdf(){
+    if(!window.jspdf){ alert('PDF library is still loading, please try again in a moment.'); return; }
+    try{
+      var jsPDFCtor = window.jspdf.jsPDF;
+      var doc = new jsPDFCtor({unit:'pt', format:'letter'});
+      var margin=40, y=50;
+      doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+      doc.text('Currency Conversion Report', margin, y); y+=18;
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+      doc.text('Generated by Calculator Boss.com  \u00b7  '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), margin, y);
+      y+=22;
+      doc.setDrawColor(220,220,220); doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y); y+=22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(22,163,74);
+      doc.text(amountEl.value+' '+sel('cur-from')+' = '+bignum.textContent, margin, y);
+      y += 26;
+      var rateRow = rows.querySelector('.cur-result-row:first-child span:last-child');
+      var dateRow = rows.querySelectorAll('.cur-result-row span:last-child')[1];
+      var rowsData = [
+        ['Amount', amountEl.value + ' ' + sel('cur-from')],
+        ['Converted amount', bignum.textContent],
+        ['Exchange rate', rateRow ? rateRow.textContent : '\u2014'],
+        ['Rate date', dateRow ? dateRow.textContent : '\u2014']
+      ];
+      doc.autoTable({startY:y, margin:{left:margin,right:margin}, styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:rowsData});
+      doc.save('currency-conversion-'+new Date().toISOString().slice(0,10)+'.pdf');
+    }catch(e){
+      alert('Sorry, there was a problem generating the PDF: '+e.message);
+    }
+  }
+  $('cur-pdfBtn').addEventListener('click', generatePdf);
 
   loadRateTable();
   convert();
