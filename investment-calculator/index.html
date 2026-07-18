@@ -305,16 +305,21 @@
 .inv-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
 
 .inv-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
 .inv-area-bar{grid-area:bar}
+.inv-area-tabs{grid-area:tabs}
 .inv-area-form{grid-area:form}
 .inv-area-result{grid-area:result}
 .inv-area-sidebar{grid-area:sidebar}
 .inv-area-schedule{grid-area:schedule}
 .inv-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .inv-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "schedule" "sidebar"}
+  .inv-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "schedule" "sidebar"}
 }
+
+.inv-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.inv-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.inv-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
 .inv-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .inv-card-pad{padding:24px}
@@ -344,13 +349,13 @@
 .inv-result-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
 .inv-result-row:first-child{border-top:none}
 .inv-result-row span:last-child{font-weight:600;color:var(--ink)}
-.inv-compose-box{padding:0 20px 20px}
-.inv-composebar{display:flex;height:34px;border-radius:8px;overflow:hidden;width:100%;background:var(--surface-sunken)}
-.inv-composebar span{height:100%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#fff}
-.inv-composelegend{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
-.inv-composelegend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
-.inv-composelegend .lg i{width:11px;height:11px;border-radius:3px;display:block}
-.inv-composelegend .lg b{color:var(--ink)}
+.inv-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.inv-donut-svg{width:150px;height:150px;flex-shrink:0}
+.inv-donut-seg{transition:stroke-dasharray .6s ease}
+.inv-donut-legend{display:flex;flex-direction:column;gap:10px;flex:1;min-width:140px}
+.inv-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
+.inv-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
+.inv-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:10px}
 
 .inv-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .inv-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -359,11 +364,22 @@
 .inv-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
 .inv-schedule-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:24px;width:100%;overflow:hidden}
-.inv-schedule-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.inv-schedule-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .inv-schedule-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.inv-schedule-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .inv-schedule-sub{font-size:11.5px;color:var(--ink-faint)}
-.inv-table-wrap{max-height:420px;overflow-y:auto;border:1px solid var(--border-fine);border-radius:10px}
-.inv-table{width:100%;border-collapse:collapse;font-size:13px}
+.inv-schedule-toggle{display:flex;gap:6px}
+.inv-schedule-toggle button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:6px}
+.inv-schedule-toggle button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.inv-schedule-body-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+@media(max-width:800px){.inv-schedule-body-grid{grid-template-columns:1fr}}
+.inv-chart-col{display:flex;flex-direction:column;gap:10px}
+.inv-chart-svg{width:100%;height:auto;display:block}
+.inv-chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.inv-chart-legend .lg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)}
+.inv-chart-legend .lg i{width:10px;height:10px;border-radius:3px;display:block}
+.inv-table-wrap{max-height:420px;overflow-y:auto;overflow-x:auto;border:1px solid var(--border-fine);border-radius:10px}
+.inv-table{width:100%;min-width:420px;border-collapse:collapse;font-size:13px}
 .inv-table th{position:sticky;top:0;background:var(--surface-sunken);text-align:right;padding:9px 12px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border-fine);z-index:1}
 .inv-table th:first-child,.inv-table td:first-child{text-align:left}
 .inv-table td{text-align:right;padding:8px 12px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
@@ -390,23 +406,17 @@
 <div class="inv-bar inv-area-bar">
   <span class="inv-bar-badge">▾</span>Choose what to solve for below — the highlighted field fills in automatically.
 </div>
+
+<div class="inv-tabs inv-area-tabs">
+  <button type="button" class="inv-tab active" data-mode="end">End Amount</button>
+  <button type="button" class="inv-tab" data-mode="contrib">Additional Contribution</button>
+  <button type="button" class="inv-tab" data-mode="rate">Return Rate</button>
+  <button type="button" class="inv-tab" data-mode="start">Starting Amount</button>
+  <button type="button" class="inv-tab" data-mode="time">Investment Length</button>
+</div>
+
 <div class="inv-card inv-area-form">
   <div class="inv-card-pad">
-    <div class="inv-field">
-      <span class="inv-field-label">Solve for</span>
-      <div class="inv-field-control">
-        <select id="inv-solveFor" class="inv-select-plain">
-          <option value="end" selected>End Amount</option>
-          <option value="contrib">Additional Contribution</option>
-          <option value="rate">Return Rate</option>
-          <option value="start">Starting Amount</option>
-          <option value="time">Investment Length</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="inv-divider"></div>
-
     <div class="inv-field">
       <span class="inv-field-label">End Amount</span>
       <div class="inv-field-control"><div class="inv-input-group" id="inv-endGroup"><span>$</span><input id="inv-end" type="number" min="0" step="100" value="500000"></div></div>
@@ -474,9 +484,9 @@
     <div class="bignum" id="inv-bignum">$0</div>
   </div>
   <div class="inv-result-body" id="inv-resultRows"></div>
-  <div class="inv-compose-box">
-    <div class="inv-composebar" id="inv-composeBar"></div>
-    <div class="inv-composelegend" id="inv-composeLegend"></div>
+  <div class="inv-donut-box">
+    <svg viewBox="0 0 150 150" class="inv-donut-svg" id="inv-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="inv-donut-legend" id="inv-donutLegend"></div>
   </div>
 </div>
 
@@ -496,13 +506,29 @@
 <div class="inv-schedule-card inv-area-schedule">
   <div class="inv-schedule-head">
     <span class="t">Year-by-Year Accumulation Schedule</span>
-    <span class="inv-schedule-sub" id="inv-scheduleSub"></span>
+    <div class="inv-schedule-right">
+      <span class="inv-schedule-sub" id="inv-scheduleSub"></span>
+      <div class="inv-schedule-toggle">
+        <button type="button" id="inv-scheduleAnnualBtn" class="active">Annual</button>
+        <button type="button" id="inv-scheduleMonthlyBtn">Monthly</button>
+      </div>
+    </div>
   </div>
-  <div class="inv-table-wrap">
-    <table class="inv-table" id="inv-scheduleTable">
-      <thead><tr><th>Year</th><th>Contributions</th><th>Interest</th><th>Ending Balance</th></tr></thead>
-      <tbody id="inv-scheduleBody"><tr><td colspan="4" style="text-align:center;color:var(--ink-faint)">Calculating…</td></tr></tbody>
-    </table>
+  <div class="inv-schedule-body-grid">
+    <div class="inv-table-wrap">
+      <table class="inv-table" id="inv-scheduleTable">
+        <thead><tr><th id="inv-scheduleColHead">Year</th><th>Contributions</th><th>Interest</th><th>Ending Balance</th></tr></thead>
+        <tbody id="inv-scheduleBody"><tr><td colspan="4" style="text-align:center;color:var(--ink-faint)">Calculating…</td></tr></tbody>
+      </table>
+    </div>
+    <div class="inv-chart-col">
+      <svg viewBox="0 0 320 240" class="inv-chart-svg" id="inv-chartSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="inv-chart-legend">
+        <div class="lg"><i style="background:#1E3A5F"></i>Starting</div>
+        <div class="lg"><i style="background:#4B4ED8"></i>Contributions</div>
+        <div class="lg"><i style="background:#16A34A"></i>Interest</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -684,7 +710,8 @@
     return (lo+hi)/2;
   }
 
-  var solveForEl = $('inv-solveFor');
+  var tabEls = document.querySelectorAll('.inv-tab');
+  var currentSolveFor = 'end';
   var endGroup = $('inv-endGroup'), startGroup = $('inv-startGroup'), rateGroup = $('inv-rateGroup'),
       timeGroup = $('inv-timeGroup'), contribGroup = $('inv-contribGroup');
   var endEl = $('inv-end'), startEl = $('inv-start'), rateEl = $('inv-rate'), timeEl = $('inv-time'), contribEl = $('inv-contrib');
@@ -706,15 +733,16 @@
     label.textContent = 'Check your inputs';
     bignum.textContent = '—';
     rows.innerHTML = '<div class="inv-result-row"><span>'+msg+'</span><span></span></div>';
-    $('inv-composeBar').innerHTML = '';
-    $('inv-composeLegend').innerHTML = '';
+    $('inv-donutSvg').innerHTML = '';
+    $('inv-donutLegend').innerHTML = '';
     $('inv-scheduleBody').innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--ink-faint)">—</td></tr>';
+    $('inv-chartSvg').innerHTML = '';
   }
 
   var lastResult = null;
 
   function calculate(){
-    var solveFor = sel('inv-solveFor');
+    var solveFor = currentSolveFor;
     var PV = parseFloat(startEl.value);
     var PMT = parseFloat(contribEl.value);
     var rPct = parseFloat(rateEl.value);
@@ -793,26 +821,39 @@
       '<div class="inv-result-row"><span>Total Interest</span><span>'+money(r.totalInterest,2)+'</span></div>'+
       '<div class="inv-result-row"><span>End Balance</span><span>'+money(r.FV,2)+'</span></div>';
 
-    renderCompose(r);
+    renderDonut(r);
     renderSchedule(r);
   }
 
-  function renderCompose(r){
-    var total = Math.max(r.FV, 0.0001);
-    var pctStart = Math.max(0, r.PV/total*100);
-    var pctContrib = Math.max(0, r.totalContrib/total*100);
-    var pctInterest = Math.max(0, r.totalInterest/total*100);
-    $('inv-composeBar').innerHTML =
-      '<span style="width:'+pctStart+'%;background:#1E3A5F">'+(pctStart>10?pctStart.toFixed(0)+'%':'')+'</span>'+
-      '<span style="width:'+pctContrib+'%;background:#4B4ED8">'+(pctContrib>10?pctContrib.toFixed(0)+'%':'')+'</span>'+
-      '<span style="width:'+pctInterest+'%;background:#16A34A">'+(pctInterest>10?pctInterest.toFixed(0)+'%':'')+'</span>';
-    $('inv-composeLegend').innerHTML =
-      '<div class="lg"><i style="background:#1E3A5F"></i>Starting: <b>'+money(r.PV,0)+'</b></div>'+
-      '<div class="lg"><i style="background:#4B4ED8"></i>Contributions: <b>'+money(r.totalContrib,0)+'</b></div>'+
-      '<div class="lg"><i style="background:#16A34A"></i>Interest: <b>'+money(r.totalInterest,0)+'</b></div>';
+  function renderDonut(r){
+    var total = Math.max(r.PV + r.totalContrib + r.totalInterest, 0.0001);
+    var segs = [
+      {val: Math.max(0,r.PV), color:'#1E3A5F', label:'Starting Amount'},
+      {val: Math.max(0,r.totalContrib), color:'#4B4ED8', label:'Total Contributions'},
+      {val: Math.max(0,r.totalInterest), color:'#16A34A', label:'Total Interest'}
+    ];
+    var cx=75, cy=75, radius=58, strokeW=26;
+    var circumference = 2*Math.PI*radius;
+    var offset = 0;
+    var svg = '<circle cx="'+cx+'" cy="'+cy+'" r="'+radius+'" fill="none" stroke="var(--surface-sunken)" stroke-width="'+strokeW+'"/>';
+    segs.forEach(function(s){
+      var frac = s.val/total;
+      var len = frac*circumference;
+      svg += '<circle class="inv-donut-seg" cx="'+cx+'" cy="'+cy+'" r="'+radius+'" fill="none" stroke="'+s.color+'" stroke-width="'+strokeW+'" '+
+             'stroke-dasharray="'+len.toFixed(2)+' '+(circumference-len).toFixed(2)+'" stroke-dashoffset="'+(-offset).toFixed(2)+'" '+
+             'transform="rotate(-90 '+cx+' '+cy+')"/>';
+      offset += len;
+    });
+    $('inv-donutSvg').innerHTML = svg;
+    $('inv-donutLegend').innerHTML = segs.map(function(s){
+      return '<div class="lg"><i style="background:'+s.color+'"></i>'+s.label+'<b>'+money(s.val,0)+'</b></div>';
+    }).join('');
   }
 
-  function renderSchedule(r){
+  var lastYearlyRows = [];
+  var scheduleView = 'annual';
+
+  function computeYearlyRows(r){
     var years = Math.max(1, Math.round(r.t));
     var rows2 = [];
     var prevBalance = r.PV;
@@ -820,23 +861,116 @@
     for(var y=1; y<=years; y++){
       var yearFrac = Math.min(y, r.t);
       var bal = futureValue(r.PV, r.PMT, r.r, r.compFreq, r.contribFreq, yearFrac, r.beginning).FV;
-      var yearsElapsedPrev = y-1;
-      var contribSoFarPrev = r.PMT * m * Math.min(yearsElapsedPrev, r.t);
+      var contribSoFarPrev = r.PMT * m * Math.min(y-1, r.t);
       var contribSoFar = r.PMT * m * yearFrac;
       var contribThisYear = contribSoFar - contribSoFarPrev;
       var interestThisYear = bal - prevBalance - contribThisYear;
-      rows2.push({year:y, contrib:contribThisYear, interest:interestThisYear, balance:bal});
+      rows2.push({year:y, contrib:contribThisYear, interest:interestThisYear, balance:bal, cumContrib:contribSoFar});
       prevBalance = bal;
     }
-    $('inv-scheduleSub').textContent = years + ' year' + (years===1?'':'s') + ' shown';
-    $('inv-scheduleBody').innerHTML = rows2.map(function(row){
-      return '<tr><td>'+row.year+'</td><td>'+money(row.contrib,2)+'</td><td>'+money(row.interest,2)+'</td><td>'+money(row.balance,2)+'</td></tr>';
-    }).join('');
+    return rows2;
   }
 
-  solveForEl.addEventListener('change', function(){
-    updateFieldStates(this.value);
-    calculate();
+  function computeMonthlyRows(r){
+    var m = r.contribFreq === 'monthly' ? 12 : 1;
+    var totalMonths = Math.max(1, Math.round(r.t*12));
+    var rows2 = [];
+    var prevBalance = r.PV;
+    var prevContrib = 0;
+    for(var mo=1; mo<=totalMonths; mo++){
+      var yearFrac = Math.min(mo/12, r.t);
+      var bal = futureValue(r.PV, r.PMT, r.r, r.compFreq, r.contribFreq, yearFrac, r.beginning).FV;
+      var contribSoFar = r.PMT * m * yearFrac;
+      var contribThisMonth = contribSoFar - prevContrib;
+      var interestThisMonth = bal - prevBalance - contribThisMonth;
+      rows2.push({period:mo, contrib:contribThisMonth, interest:interestThisMonth, balance:bal});
+      prevBalance = bal; prevContrib = contribSoFar;
+    }
+    return rows2;
+  }
+
+  function renderScheduleTable(){
+    var body = $('inv-scheduleBody');
+    var colHead = $('inv-scheduleColHead');
+    if(scheduleView === 'annual'){
+      colHead.textContent = 'Year';
+      body.innerHTML = lastYearlyRows.map(function(row){
+        return '<tr><td>'+row.year+'</td><td>'+money(row.contrib,2)+'</td><td>'+money(row.interest,2)+'</td><td>'+money(row.balance,2)+'</td></tr>';
+      }).join('');
+    } else {
+      colHead.textContent = 'Month';
+      var monthly = computeMonthlyRows(lastResult);
+      body.innerHTML = monthly.map(function(row){
+        return '<tr><td>'+row.period+'</td><td>'+money(row.contrib,2)+'</td><td>'+money(row.interest,2)+'</td><td>'+money(row.balance,2)+'</td></tr>';
+      }).join('');
+    }
+  }
+
+  function renderScheduleChart(rows2){
+    var W=320,H=240,padL=52,padR=10,padT=10,padB=26;
+    var chartLeft=padL, chartRight=W-padR, chartTop=padT, chartBottom=H-padB;
+    var sample = rows2;
+    if(rows2.length > 24){
+      var step = Math.ceil(rows2.length/24);
+      sample = rows2.filter(function(row,idx){ return idx % step === 0 || idx === rows2.length-1; });
+    }
+    var maxVal = Math.max.apply(null, sample.map(function(row){ return row.balance; })) || 1;
+    var n = sample.length;
+    var slot = (chartRight-chartLeft)/n;
+    var barW = Math.min(26, slot*0.6);
+    function Y(v){ return chartBottom - (chartBottom-chartTop)*(v/maxVal); }
+    var svg = '';
+    var yTicks=4;
+    for(var ti=0; ti<=yTicks; ti++){
+      var v = maxVal/yTicks*ti, y=Y(v);
+      svg += '<line x1="'+chartLeft+'" y1="'+y.toFixed(1)+'" x2="'+chartRight+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      svg += '<text x="'+(chartLeft-6)+'" y="'+(y+3).toFixed(1)+'" font-size="9" text-anchor="end" fill="var(--ink-faint)">$'+Math.round(v/1000)+'k</text>';
+    }
+    sample.forEach(function(row,idx){
+      var cx = chartLeft + slot*(idx+0.5);
+      var x = cx - barW/2;
+      var pv = Math.max(0, Math.min(row.balance, lastResult.PV));
+      var contrib = Math.max(0, Math.min(row.cumContrib || 0, row.balance - pv));
+      var interest = Math.max(0, row.balance - pv - contrib);
+      var yPv = Y(pv), yContrib = Y(pv+contrib), yInterest = Y(pv+contrib+interest);
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+yPv.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+(chartBottom-yPv).toFixed(1)+'" fill="#1E3A5F"/>';
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+yContrib.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+(yPv-yContrib).toFixed(1)+'" fill="#4B4ED8"/>';
+      svg += '<rect x="'+x.toFixed(1)+'" y="'+yInterest.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+(yContrib-yInterest).toFixed(1)+'" fill="#16A34A"/>';
+      if(idx===0 || idx===sample.length-1 || idx%Math.ceil(n/6)===0){
+        svg += '<text x="'+cx.toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="9" text-anchor="middle" fill="var(--ink-faint)">'+row.year+'</text>';
+      }
+    });
+    svg += '<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg += '<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    $('inv-chartSvg').innerHTML = svg;
+  }
+
+  function renderSchedule(r){
+    lastYearlyRows = computeYearlyRows(r);
+    $('inv-scheduleSub').textContent = lastYearlyRows.length + ' year' + (lastYearlyRows.length===1?'':'s') + ' shown';
+    renderScheduleTable();
+    renderScheduleChart(lastYearlyRows);
+  }
+
+  $('inv-scheduleAnnualBtn').addEventListener('click', function(){
+    scheduleView = 'annual';
+    this.classList.add('active'); $('inv-scheduleMonthlyBtn').classList.remove('active');
+    renderScheduleTable();
+  });
+  $('inv-scheduleMonthlyBtn').addEventListener('click', function(){
+    scheduleView = 'monthly';
+    this.classList.add('active'); $('inv-scheduleAnnualBtn').classList.remove('active');
+    renderScheduleTable();
+  });
+
+  tabEls.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabEls.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      currentSolveFor = tab.dataset.mode;
+      updateFieldStates(currentSolveFor);
+      calculate();
+    });
   });
 
   var liveIds = ['inv-end','inv-start','inv-rate','inv-time','inv-contrib'];
@@ -845,7 +979,9 @@
 
   $('inv-calcBtn').addEventListener('click', calculate);
   $('inv-clearBtn').addEventListener('click', function(){
-    solveForEl.value = 'end';
+    tabEls.forEach(function(t){ t.classList.remove('active'); });
+    tabEls[0].classList.add('active');
+    currentSolveFor = 'end';
     endEl.value = 500000; startEl.value = 20000; rateEl.value = 7; timeEl.value = 10; contribEl.value = 1000;
     $('inv-compFreq').value = 'monthly'; $('inv-contribFreq').value = 'monthly'; $('inv-contribTiming').value = 'beginning';
     updateFieldStates('end');
