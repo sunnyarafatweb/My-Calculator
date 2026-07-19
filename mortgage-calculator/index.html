@@ -372,7 +372,7 @@
 .mc-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
 .mc-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
 .mc-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
-.mc-rates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mc-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mc-rates-grid>div{text-align:center;border-radius:12px;padding:14px;background:var(--surface-sunken)}
 .mc-rates-grid .lbl{font-size:11px;color:var(--ink-soft);margin-bottom:4px}
 .mc-rates-grid .val{font-size:22px;font-weight:600;font-family:var(--font-body);color:#22C55E}
@@ -730,15 +730,22 @@
   </div>
 </div>
 
+<!-- MAINTENANCE NOTE: These rate figures are static text, not a live feed --
+     there is no CORS-friendly, key-free API a static site can safely call
+     for real-time mortgage rates (see commit history for why). Re-check
+     and update these numbers roughly every 4-8 weeks, or whenever this
+     page is next touched for other reasons, using freddiemac.com/pmms
+     (30/15-yr) and bankrate.com/mortgages/arm-loan-rates (5/1 ARM). -->
 <div class="mc-rates-card area-rates">
   <div class="mc-rates-head">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="t">National Average Mortgage Rates</span><span class="u">Week of Jul 16, 2026</span></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="t">National Average Mortgage Rates</span><span class="u">Mid-July 2026</span></div>
   </div>
   <div class="mc-rates-grid">
     <div><div class="lbl">30-Year Fixed</div><div class="val">6.55%</div></div>
     <div><div class="lbl">15-Year Fixed</div><div class="val">5.93%</div></div>
+    <div><div class="lbl">5/1 ARM</div><div class="val">6.32%</div></div>
   </div>
-  <p class="mc-rates-note">Source: Freddie Mac's Primary Mortgage Market Survey&reg; (PMMS&reg;), published weekly. These are national averages for well-qualified borrowers — your actual rate depends on your credit score, down payment, loan type, and lender, and can differ meaningfully from the survey average. This figure is updated periodically, not in real time; always confirm today's rate with a lender before relying on it.</p>
+  <p class="mc-rates-note">Sources: 30- and 15-year figures from Freddie Mac's Primary Mortgage Market Survey&reg; (PMMS&reg;), week of Jul 16, 2026. 5/1 ARM figure from Bankrate's daily lender survey, Jul 18, 2026. These are national averages for well-qualified borrowers — your actual rate depends on your credit score, down payment, loan type, and lender, and can differ meaningfully from these averages. Rates for FHA, VA, USDA, and jumbo loans typically differ from conventional rates too; ask your lender for the specific program you're considering. This figure is updated periodically, not in real time — always confirm today's rate with a lender before relying on it.</p>
 </div>
 
 <div class="mc-bottom-grid area-bottomgrid">
