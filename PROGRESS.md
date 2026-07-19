@@ -57,6 +57,26 @@ assume this exact order still holds after a few weeks of new data.
   reset, and lazy PDF export triggering a real download with zero
   console errors; protected shared style block re-verified byte-
   identical to bmi-calculator and body-fat-calculator.
+  **Same-day follow-ups**: (1) user asked to double-check the build —
+  re-verified the formula against calculator.net's own published worked
+  example (exact match to the penny, $517.63) as a second independent
+  confirmation, did a full SEO re-audit (all clean), and confirmed the
+  field set is appropriately scoped (a justified superset of
+  calculator.net's, not bloat); gave "Monthly payment (before tax)" and
+  "Total of N payments" their own individual result rows per feedback
+  (previously the before-tax figure was buried in the subline). (2) added
+  the one genuine gap found during the double-check: a "Solve for Max
+  Price" reverse mode (calculator.net has this, the original build
+  didn't) — given a target monthly budget, solves for the highest
+  negotiated price that fits it. Reverse formula derived algebraically
+  from the forward engine and round-trip verified in Node (feeding a
+  known forward result back in recovers the original price to the
+  penny). Caught and fixed a degenerate edge case in testing: an
+  unrealistically low target payment could solve for a price implying
+  negative depreciation (residual worth more than what's financed) —
+  added a validation check with a clear error message for this in both
+  modes. Scratch build source re-synced from the deployed file after all
+  changes and confirmed to rebuild byte-identical.
 
 - **Site-wide performance investigation** (ad-hoc user request, Jul 20, 2026):
   user reported the site feeling slow in real use despite a 99/100
