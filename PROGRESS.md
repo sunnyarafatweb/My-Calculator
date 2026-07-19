@@ -40,6 +40,27 @@ assume this exact order still holds after a few weeks of new data.
   live web search (Freddie Mac PMMS, Bankrate, WalletHub/LendingTree/Forbes)
   rather than relying on training-data figures, since rates move. 8 H2
   content sections + 6 FAQs, new OG image.
+  **Same-day follow-up** after the user pointed at calculator.net's
+  two-stacked-calculator page (General + Mortgage APR) and asked for a
+  gap check: added a "Fees Financed Into Loan" field (distinct from
+  upfront fees — verified independently that financing a fee produces a
+  slightly *lower* APR than paying the same dollar amount upfront, an
+  interesting but correct result), an "Annual PMI/Insurance" field that
+  inflates the payment stream used in the APR solve (verified monotonic:
+  APR rises as PMI rises), and a "This is a mortgage" toggle that swaps
+  the Loan Amount field for House Price + Down Payment (loan amount
+  auto-derived). Deliberately did **not** clone calculator.net's second,
+  fully separate Mortgage APR Calculator as a duplicate stacked tool, and
+  did **not** add its Compound-Frequency-vs-Payment-Frequency matrix
+  (9×8 options) — both would have meaningfully bloated the page's DOM/JS
+  weight for a rare real-world need (nearly all US consumer loans compound
+  and pay monthly), so the mortgage use case was folded into the existing
+  lightweight tool via a toggle instead. Also added a "Fixed APR vs.
+  Variable APR" content section, a worked 10%→10.47% APR-to-APY numeric
+  example, and a 7th FAQ (PMI's effect on APR) that were present on the
+  competitor page and genuinely missing here. Re-verified the full
+  regression suite (original 7.201% scenario, comparison feature,
+  invalid-input handling) still passes byte-for-byte after the additions.
 - **Mortgage Calculator**: fixed a misleading "Live" rates badge that was
   showing 15-day-stale hardcoded numbers (now honestly labeled, sourced from
   Freddie Mac PMMS + Bankrate 5/1 ARM, both dated); added visible TOC; added
