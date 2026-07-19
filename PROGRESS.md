@@ -24,6 +24,22 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **APR Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt from a
+  thin ~434-line single-metric page to the full 3-card pattern. Computes
+  the real actuarial APR (loan amount, rate, term, discount points, other
+  fees) via bisection-solved level-payment formula — verified independently
+  in Node against a cited Bankrate example ($300k/7%/30yr/$6,000 fees →
+  7.197% published vs. 7.201% computed here) plus zero-fee, monotonicity,
+  and invalid-input edge cases. Adds an optional side-by-side second-offer
+  comparison (same amount/term, different rate+fees) with a win/lose
+  verdict that explicitly flags the early-payoff nuance rather than just
+  naming the lower APR the automatic winner. Full amortization schedule +
+  chart, principal/interest/fees donut, PDF export, quick presets spanning
+  mortgage/auto/personal-loan use cases. Current (Jul 2026) typical-APR-
+  range figures for mortgage/auto/personal-loan/credit-card sourced via
+  live web search (Freddie Mac PMMS, Bankrate, WalletHub/LendingTree/Forbes)
+  rather than relying on training-data figures, since rates move. 8 H2
+  content sections + 6 FAQs, new OG image.
 - **Mortgage Calculator**: fixed a misleading "Live" rates badge that was
   showing 15-day-stale hardcoded numbers (now honestly labeled, sourced from
   Freddie Mac PMMS + Bankrate 5/1 ARM, both dated); added visible TOC; added
