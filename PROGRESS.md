@@ -24,6 +24,35 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Boat Loan Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt
+  from a thin ~434-line page (basic loan-amount/rate/term only) into the
+  full tabbed pattern established by Auto Lease Calculator — **Solve for
+  Payment** and **Solve for Max Boat Price** (reverse mode). Standard
+  amortizing-loan formula verified against two independent, real worked
+  examples from competitor sites: boats.com's own published example
+  ($76,000 loan, 5.49% APR, 240 months → $522.37/mo, exact match to the
+  penny) and BoatTrader's example ($70,000 loan, 120mo, comparing 7% vs.
+  9.5% APR → $812.76/$905.78, matching their rounded $813/$906). Sales
+  tax and fees are financed into the loan by default (matching how most
+  boat buyers actually pay them), with a trade-in tax credit assumption
+  clearly disclosed since it varies by state. Reverse-solve formula
+  (target payment → max boat price) derived algebraically and round-trip
+  verified (feeding a forward result back in recovers the original boat
+  price to the penny). Full year-by-year amortization schedule + stacked
+  bar chart + principal/interest donut, reused from the established loan-
+  calculator pattern. Researched current (Jul 2026) rate context: secured
+  boat loans ~7-10% for well-qualified borrowers (best rates ~6.5%,
+  average ~8.4% per LendingTree Q4 2025 data), unsecured/personal-loan-
+  style boat loans a much wider 7-36%, plus the secured-vs-unsecured
+  distinction as its own content section since several competitor pages
+  treat this as an important, underexplained nuance. 8 H2 sections + 6
+  FAQs, new OG image, PDF export lazy-loaded from the start per the
+  standing convention. Full Playwright pass (desktop + mobile): correct
+  default calculation, tab switching, reverse-solve round-trip, chip
+  presets, invalid-input handling, Clear-button reset, 15-row amortization
+  schedule for a 15-year term, lazy PDF export, zero console errors.
+  Protected shared style block re-verified byte-identical to bmi-
+  calculator.
 - **Average Return Calculator** (ad-hoc user request, Jul 20, 2026,
   reference: calculator.net/average-return-calculator.html): rebuilt from
   a thin page (arithmetic-vs-geometric-mean content only, fixed 5-year
