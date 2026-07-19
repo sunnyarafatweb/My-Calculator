@@ -763,27 +763,32 @@
         if(!isFinite(torque) || torque < 0){ showError('Enter a valid, non-negative torque value.'); return; }
         if(!isFinite(rpm) || rpm <= 0){ showError('Enter a valid RPM greater than zero.'); return; }
         hp = hpFromTorqueRpm(torque, rpm);
-        hpInput.value = hp.toFixed(1);
+        // Store with enough precision that re-solving a different field from this
+        // one doesn't compound visible rounding error -- the bignum below still
+        // displays a clean, human-readable rounded figure.
+        hpInput.value = hp.toFixed(2);
       } else if(solveFor === 'torque'){
         if(!isFinite(hp) || hp < 0){ showError('Enter a valid, non-negative horsepower value.'); return; }
         if(!isFinite(rpm) || rpm <= 0){ showError('Enter a valid RPM greater than zero.'); return; }
         torque = torqueFromHpRpm(hp, rpm);
-        torqueInput.value = torque.toFixed(1);
+        torqueInput.value = torque.toFixed(2);
       } else {
         if(!isFinite(hp) || hp < 0){ showError('Enter a valid, non-negative horsepower value.'); return; }
         if(!isFinite(torque) || torque <= 0){ showError('Enter a valid torque greater than zero.'); return; }
         rpm = rpmFromHpTorque(hp, torque);
-        rpmInput.value = rpm.toFixed(0);
+        rpmInput.value = rpm.toFixed(1);
       }
 
       label.textContent = (solveFor === 'hp') ? 'Horsepower' : (solveFor === 'torque') ? 'Torque' : 'RPM';
       bignum.textContent = (solveFor === 'hp') ? num(hp,1)+' HP' : (solveFor === 'torque') ? num(torque,1)+' lb-ft' : num(rpm,0)+' RPM';
 
-      var rowsHtml =
-        '<div class="hp-result-row"><span>Horsepower</span><span>'+num(hp,1)+' HP</span></div>'+
-        '<div class="hp-result-row"><span>Torque</span><span>'+num(torque,1)+' lb-ft</span></div>'+
-        '<div class="hp-result-row"><span>RPM</span><span>'+num(rpm,0)+'</span></div>'+
-        '<div class="hp-result-row"><span>In Kilowatts</span><span>'+num(convertPower(hp,'mechanical_hp','kilowatt'),2)+' kW</span></div>';
+      // Only show the two fields you supplied, not the one already shown as the
+      // headline number above -- repeating it below was pure duplication.
+      var rowsHtml = '';
+      if(solveFor !== 'hp'){ rowsHtml += '<div class="hp-result-row"><span>Horsepower</span><span>'+num(hp,1)+' HP</span></div>'; }
+      if(solveFor !== 'torque'){ rowsHtml += '<div class="hp-result-row"><span>Torque</span><span>'+num(torque,1)+' lb-ft</span></div>'; }
+      if(solveFor !== 'rpm'){ rowsHtml += '<div class="hp-result-row"><span>RPM</span><span>'+num(rpm,0)+'</span></div>'; }
+      rowsHtml += '<div class="hp-result-row"><span>In Kilowatts</span><span>'+num(convertPower(hp,'mechanical_hp','kilowatt'),2)+' kW</span></div>';
       if(isFinite(weight) && weight > 0 && hp > 0){
         rowsHtml += '<div class="hp-result-row"><span>Power-to-Weight</span><span>'+num(weight/hp,2)+' lb/hp</span></div>';
       }
