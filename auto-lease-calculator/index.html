@@ -308,16 +308,21 @@
 .alc-bar-pdf-btn:hover{background:#f2f2f2}
 
 .alc-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "compare compare compare" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "compare compare compare" "bottomgrid bottomgrid bottomgrid"}
 .alc-area-bar{grid-area:bar}
+.alc-area-tabs{grid-area:tabs}
 .alc-area-form{grid-area:form}
 .alc-area-result{grid-area:result}
 .alc-area-sidebar{grid-area:sidebar}
 .alc-area-compare{grid-area:compare}
 .alc-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .alc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "compare" "bottomgrid" "sidebar"}
+  .alc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "compare" "bottomgrid" "sidebar"}
 }
+
+.alc-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.alc-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.alc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
 .alc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .alc-card-pad{padding:24px}
@@ -421,15 +426,29 @@
   <button type="button" class="alc-bar-pdf-btn" id="alc-pdfBtn">💾 Save as PDF</button>
 </div>
 
+<div class="alc-tabs alc-area-tabs">
+  <button type="button" class="alc-tab active" data-mode="payment">Solve for Payment</button>
+  <button type="button" class="alc-tab" data-mode="price">Solve for Max Price</button>
+</div>
+
 <div class="alc-card alc-area-form">
   <div class="alc-card-pad">
     <div class="alc-field">
       <span class="alc-field-label">MSRP</span>
       <div class="alc-field-control"><div class="alc-input-group"><span>$</span><input id="alc-msrp" type="number" min="0" step="500" value="34000"></div></div>
     </div>
-    <div class="alc-field">
-      <span class="alc-field-label">Negotiated Price</span>
-      <div class="alc-field-control"><div class="alc-input-group"><span>$</span><input id="alc-negPrice" type="number" min="0" step="500" value="32000"></div></div>
+    <div id="alc-negPriceRow">
+      <div class="alc-field">
+        <span class="alc-field-label">Negotiated Price</span>
+        <div class="alc-field-control"><div class="alc-input-group"><span>$</span><input id="alc-negPrice" type="number" min="0" step="500" value="32000"></div></div>
+      </div>
+    </div>
+    <div id="alc-targetPmtRow" style="display:none">
+      <div class="alc-field">
+        <span class="alc-field-label">Target Monthly Payment</span>
+        <div class="alc-field-control"><div class="alc-input-group"><span>$</span><input id="alc-targetPmt" type="number" min="0" step="10" value="400"></div></div>
+      </div>
+      <p class="alc-subnote">With tax included. We'll solve for the highest negotiated price that fits this budget.</p>
     </div>
     <div class="alc-field">
       <span class="alc-field-label">Down Payment</span>
@@ -486,7 +505,7 @@
 
 <div class="alc-result-card alc-area-result">
   <div class="alc-result-head" id="alc-resultHead">
-    <div class="label">Monthly Payment (with tax)</div>
+    <div class="label" id="alc-resultLabel">Monthly Payment (with tax)</div>
     <div class="bignum" id="alc-bignum">$0</div>
     <div class="subline" id="alc-subline"></div>
   </div>
@@ -596,10 +615,35 @@
             totalPmt:totalPmt, totalOfPayments:totalOfPayments, down:down, termMonths:termMonths, taxPct:taxPct};
   }
 
+  // ---- Reverse-solve: given a target monthly payment (with tax), find the max negotiated price ----
+  // Derivation verified independently in Node against the forward engine before shipping.
+  function solveNegPriceForTarget(targetTotalPmt, msrp, down, tradein, acqFee, residualPct, termMonths, rateVal, isMF, taxPct){
+    var R = msrp*(residualPct/100);
+    var MF = isMF ? rateVal : (rateVal/100)/24;
+    var n = termMonths;
+    var B = targetTotalPmt/(1+taxPct/100);
+    var k = (1/n)+MF;
+    var X = (B + R/n - R*MF) / k;
+    return X + down + tradein - acqFee;
+  }
+
   var msrpEl=$('alc-msrp'), negPriceEl=$('alc-negPrice'), downEl=$('alc-down'), tradeinEl=$('alc-tradein'),
       acqFeeEl=$('alc-acqfee'), residualEl=$('alc-residual'), termEl=$('alc-term'),
-      rateEl=$('alc-rate'), rateUnitEl=$('alc-rateUnit'), taxEl=$('alc-tax');
-  var head=$('alc-resultHead'), bignum=$('alc-bignum'), subline=$('alc-subline'), rows=$('alc-resultRows');
+      rateEl=$('alc-rate'), rateUnitEl=$('alc-rateUnit'), taxEl=$('alc-tax'), targetPmtEl=$('alc-targetPmt');
+  var head=$('alc-resultHead'), bignum=$('alc-bignum'), subline=$('alc-subline'), rows=$('alc-resultRows'), resultLabel=$('alc-resultLabel');
+  var negPriceRow=$('alc-negPriceRow'), targetPmtRow=$('alc-targetPmtRow');
+
+  var solveMode = 'payment';
+  var tabEls = document.querySelectorAll('.alc-tab');
+  function setSolveMode(m){
+    solveMode = m;
+    negPriceRow.style.display = (m==='price') ? 'none' : 'block';
+    targetPmtRow.style.display = (m==='price') ? 'block' : 'none';
+    tabEls.forEach(function(t){ t.classList.toggle('active', t.dataset.mode===m); });
+  }
+  tabEls.forEach(function(tab){
+    tab.addEventListener('click', function(){ setSolveMode(tab.dataset.mode); calculate(); });
+  });
 
   var lastResult=null;
 
@@ -612,13 +656,12 @@
   }
 
   function calculate(){
-    var msrp=parseFloat(msrpEl.value), negPrice=parseFloat(negPriceEl.value), down=parseFloat(downEl.value),
+    var msrp=parseFloat(msrpEl.value), down=parseFloat(downEl.value),
         tradein=parseFloat(tradeinEl.value), acqFee=parseFloat(acqFeeEl.value), residualPct=parseFloat(residualEl.value),
         termMonths=parseFloat(termEl.value), rateVal=parseFloat(rateEl.value), taxPct=parseFloat(taxEl.value);
     var isMF = rateUnitEl.value==='mf';
 
     if(!isFinite(msrp)||msrp<=0){ showError('Enter a valid MSRP greater than zero.'); return; }
-    if(!isFinite(negPrice)||negPrice<=0){ showError('Enter a valid negotiated price greater than zero.'); return; }
     if(!isFinite(down)||down<0){ showError('Enter a valid, non-negative down payment.'); return; }
     if(!isFinite(tradein)||tradein<0){ showError('Enter a valid, non-negative trade-in value.'); return; }
     if(!isFinite(acqFee)||acqFee<0){ showError('Enter a valid, non-negative acquisition fee.'); return; }
@@ -627,17 +670,43 @@
     if(!isFinite(rateVal)||rateVal<0){ showError('Enter a valid, non-negative rate.'); return; }
     if(!isFinite(taxPct)||taxPct<0){ showError('Enter a valid, non-negative tax rate.'); return; }
 
+    var negPrice;
+    if(solveMode==='price'){
+      var targetPmt = parseFloat(targetPmtEl.value);
+      if(!isFinite(targetPmt)||targetPmt<=0){ showError('Enter a valid target monthly payment greater than zero.'); return; }
+      negPrice = solveNegPriceForTarget(targetPmt, msrp, down, tradein, acqFee, residualPct, termMonths, rateVal, isMF, taxPct);
+      if(negPrice<=0){ showError('That target payment is too low to reach on any negotiated price with these terms — raise the budget or adjust the other inputs.'); return; }
+    } else {
+      negPrice = parseFloat(negPriceEl.value);
+      if(!isFinite(negPrice)||negPrice<=0){ showError('Enter a valid negotiated price greater than zero.'); return; }
+    }
+
     var r = calcLease(msrp,negPrice,down,tradein,acqFee,residualPct,termMonths,rateVal,isMF,taxPct);
     if(r.adjCapCost<=0){ showError('Down payment + trade-in exceed the capitalized cost — reduce them.'); return; }
+    if(r.depFee<0){ showError('This combination implies the residual value is worth more than what you\'d be financing, which isn\'t realistic for a lease — try a lower residual %, a higher price/target payment, or a smaller down payment.'); return; }
 
     head.classList.remove('is-error');
     lastResult = r;
+    r.negPrice = negPrice;
+    r.solveMode = solveMode;
 
-    bignum.textContent = money(r.totalPmt,2);
-    subline.textContent = r.termMonths+'-month lease · '+r.aprEquivalent.toFixed(2)+'% APR equivalent';
+    if(solveMode==='price'){
+      resultLabel.textContent = 'Max Negotiated Price';
+      bignum.textContent = money(negPrice,2);
+      subline.textContent = 'max negotiated price for '+money(parseFloat(targetPmtEl.value),0)+'/mo · '+r.termMonths+' months';
+    } else {
+      resultLabel.textContent = 'Monthly Payment (with tax)';
+      bignum.textContent = money(r.totalPmt,2);
+      subline.textContent = r.termMonths+'-month lease · '+r.aprEquivalent.toFixed(2)+'% APR equivalent';
+    }
 
-    rows.innerHTML =
+    var rowsHtml = '';
+    if(solveMode==='price'){
+      rowsHtml += '<div class="alc-result-row"><span>Max negotiated price</span><span>'+money(negPrice,2)+'</span></div>';
+    }
+    rowsHtml +=
       '<div class="alc-result-row"><span>Monthly payment (before tax)</span><span>'+money(r.basePmt,2)+'</span></div>'+
+      '<div class="alc-result-row"><span>Monthly payment (with tax)</span><span>'+money(r.totalPmt,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Depreciation fee</span><span>'+money(r.depFee,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Finance (rent) fee</span><span>'+money(r.financeFee,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Monthly sales tax</span><span>'+money(r.monthlyTax,2)+'</span></div>'+
@@ -646,6 +715,7 @@
       '<div class="alc-result-row"><span>Adjusted cap cost</span><span>'+money(r.adjCapCost,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Total of '+r.termMonths+' payments (with tax)</span><span>'+money(r.totalOfPayments,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Est. due at signing</span><span>'+money(r.down+r.totalPmt,2)+'</span></div>';
+    rows.innerHTML = rowsHtml;
 
     renderDonut(r);
     renderCompare(r, negPrice, down, tradein);
@@ -688,7 +758,7 @@
     $('alc-compareNote').innerHTML = 'Financing this car costs <b>'+money(Math.abs(diff),2)+'</b> '+(diff>=0?'more':'less')+' per month than leasing it — but a loan pays off the entire vehicle, so you own it outright at the end, while a lease payment only covers the depreciation and you hand the car back (or buy it for the residual value of '+money(r.residualValue,0)+') when the term is up.';
   }
 
-  var liveIds = ['alc-msrp','alc-negPrice','alc-down','alc-tradein','alc-acqfee','alc-residual','alc-term','alc-rate','alc-rateUnit','alc-tax'];
+  var liveIds = ['alc-msrp','alc-negPrice','alc-targetPmt','alc-down','alc-tradein','alc-acqfee','alc-residual','alc-term','alc-rate','alc-rateUnit','alc-tax'];
   liveIds.forEach(function(id){
     $(id).addEventListener('input', calculate);
     $(id).addEventListener('change', calculate);
@@ -696,13 +766,15 @@
 
   $('alc-calcBtn').addEventListener('click', calculate);
   $('alc-clearBtn').addEventListener('click', function(){
-    msrpEl.value=34000; negPriceEl.value=32000; downEl.value=2000; tradeinEl.value=0; acqFeeEl.value=695;
+    setSolveMode('payment');
+    msrpEl.value=34000; negPriceEl.value=32000; targetPmtEl.value=400; downEl.value=2000; tradeinEl.value=0; acqFeeEl.value=695;
     residualEl.value=55; termEl.value=36; rateEl.value=4; rateUnitEl.value='apr'; taxEl.value=7;
     calculate();
   });
 
   document.querySelectorAll('.alc-chip').forEach(function(chip){
     chip.addEventListener('click', function(){
+      setSolveMode('payment');
       msrpEl.value=this.getAttribute('data-msrp');
       negPriceEl.value=this.getAttribute('data-neg');
       downEl.value=this.getAttribute('data-down');
@@ -750,18 +822,24 @@
       y+=22;
       doc.setDrawColor(220,220,220); doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y); y+=22;
       doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(22,163,74);
-      doc.text('Monthly Payment (with tax): '+money(r.totalPmt,2), margin, y);
+      if(r.solveMode==='price'){
+        doc.text('Max Negotiated Price: '+money(r.negPrice,2), margin, y);
+      } else {
+        doc.text('Monthly Payment (with tax): '+money(r.totalPmt,2), margin, y);
+      }
       y += 26;
-      var summaryRows = [
-        ['Depreciation Fee', money(r.depFee,2)],
-        ['Finance (Rent) Fee', money(r.financeFee,2)],
-        ['Monthly Sales Tax', money(r.monthlyTax,2)],
-        ['Money Factor', r.moneyFactor.toFixed(5)+' ('+r.aprEquivalent.toFixed(2)+'% APR)'],
-        ['Residual Value', money(r.residualValue,2)],
-        ['Adjusted Cap Cost', money(r.adjCapCost,2)],
-        ['Total of '+r.termMonths+' Payments', money(r.totalOfPayments,2)],
-        ['Est. Due at Signing', money(r.down+r.totalPmt,2)]
-      ];
+      var summaryRows = [];
+      if(r.solveMode==='price'){ summaryRows.push(['Max Negotiated Price', money(r.negPrice,2)]); }
+      summaryRows.push(['Monthly Payment (before tax)', money(r.basePmt,2)]);
+      summaryRows.push(['Monthly Payment (with tax)', money(r.totalPmt,2)]);
+      summaryRows.push(['Depreciation Fee', money(r.depFee,2)]);
+      summaryRows.push(['Finance (Rent) Fee', money(r.financeFee,2)]);
+      summaryRows.push(['Monthly Sales Tax', money(r.monthlyTax,2)]);
+      summaryRows.push(['Money Factor', r.moneyFactor.toFixed(5)+' ('+r.aprEquivalent.toFixed(2)+'% APR)']);
+      summaryRows.push(['Residual Value', money(r.residualValue,2)]);
+      summaryRows.push(['Adjusted Cap Cost', money(r.adjCapCost,2)]);
+      summaryRows.push(['Total of '+r.termMonths+' Payments', money(r.totalOfPayments,2)]);
+      summaryRows.push(['Est. Due at Signing', money(r.down+r.totalPmt,2)]);
       doc.autoTable({startY:y, margin:{left:margin,right:margin}, styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:summaryRows});
       doc.save('auto-lease-report-'+new Date().toISOString().slice(0,10)+'.pdf');
     }catch(e){
