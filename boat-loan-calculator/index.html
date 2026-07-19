@@ -371,7 +371,13 @@
 .blc-schedule-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .blc-schedule-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
 .blc-schedule-sub{font-size:12px;color:var(--muted)}
-.blc-schedule-table-wrap{overflow-x:auto}
+.blc-schedule-table-wrap{overflow-x:auto;max-height:420px;overflow-y:auto}
+.blc-sched-toggle{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:7px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.blc-sched-toggle.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.blc-schedule-table thead th{position:sticky;top:0;background:var(--surface);z-index:1}
+.blc-chart-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.blc-chart-legend .lg{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft)}
+.blc-chart-legend .lg i{width:16px;height:3px;border-radius:2px;display:block;flex-shrink:0}
 .blc-schedule-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
 .blc-schedule-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);padding:0 10px 8px;font-weight:700}
 .blc-schedule-table th:first-child{text-align:left}
@@ -516,15 +522,22 @@
 <div class="blc-schedule-card blc-area-schedule">
   <div class="blc-schedule-head">
     <span class="t">Amortization Schedule</span>
-    <span class="blc-schedule-sub" id="blc-scheduleSub"></span>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span class="blc-schedule-sub" id="blc-scheduleSub"></span>
+      <div style="display:flex;gap:4px">
+        <button type="button" class="blc-sched-toggle active" id="blc-schedYearlyBtn" data-view="yearly">Yearly</button>
+        <button type="button" class="blc-sched-toggle" id="blc-schedMonthlyBtn" data-view="monthly">Monthly</button>
+      </div>
+    </div>
   </div>
-  <div class="blc-schedule-table-wrap">
+  <div class="blc-schedule-table-wrap" id="blc-scheduleTableWrap">
     <table class="blc-schedule-table">
-      <thead><tr><th>Year</th><th>Beginning Balance</th><th>Principal</th><th>Interest</th><th>Ending Balance</th></tr></thead>
+      <thead><tr><th id="blc-schedPeriodHead">Year</th><th>Beginning Balance</th><th>Principal</th><th>Interest</th><th>Ending Balance</th></tr></thead>
       <tbody id="blc-scheduleBody"></tbody>
     </table>
   </div>
-  <svg viewBox="0 0 700 200" class="blc-chart-svg" id="blc-chartSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+  <svg viewBox="0 0 700 220" class="blc-chart-svg" id="blc-chartSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="blc-chart-legend" id="blc-chartLegend"></div>
 </div>
 
 <div class="blc-bottom-grid blc-area-bottomgrid">
@@ -651,7 +664,17 @@
     tab.addEventListener('click', function(){ setSolveMode(tab.dataset.mode); calculate(); });
   });
 
-  var lastResult=null, lastYearlyRows=[];
+  var lastResult=null, lastYearlyRows=[], lastMonthlyRows=[];
+  var scheduleView='yearly';
+  var schedYearlyBtn=$('blc-schedYearlyBtn'), schedMonthlyBtn=$('blc-schedMonthlyBtn');
+  schedYearlyBtn.addEventListener('click', function(){
+    scheduleView='yearly'; schedYearlyBtn.classList.add('active'); schedMonthlyBtn.classList.remove('active');
+    renderScheduleTable();
+  });
+  schedMonthlyBtn.addEventListener('click', function(){
+    scheduleView='monthly'; schedMonthlyBtn.classList.add('active'); schedYearlyBtn.classList.remove('active');
+    renderScheduleTable();
+  });
 
   function showError(msg){
     head.classList.add('is-error');
@@ -659,7 +682,7 @@
     rows.innerHTML='<div class="blc-result-row"><span>'+msg+'</span><span></span></div>';
     $('blc-donutSvg').innerHTML=''; $('blc-donutLegend').innerHTML='';
     $('blc-scheduleBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--ink-faint)">—</td></tr>';
-    $('blc-chartSvg').innerHTML=''; $('blc-scheduleSub').textContent='';
+    $('blc-chartSvg').innerHTML=''; $('blc-chartLegend').innerHTML=''; $('blc-scheduleSub').textContent='';
   }
 
   function calculate(){
@@ -723,8 +746,9 @@
     renderDonut(r.loanAmount, r.totalInterest);
 
     var sim = simulateSchedule(r.loanAmount, ratePct, termMonths, r.pmt);
+    lastMonthlyRows = sim;
     lastYearlyRows = rollupToYears(sim);
-    renderSchedule(lastYearlyRows, termYears);
+    renderSchedule(termYears);
   }
 
   function renderDonut(principal, interest){
@@ -751,27 +775,75 @@
     }).join('');
   }
 
-  function renderSchedule(yearlyRows, termYears){
+  function renderSchedule(termYears){
     $('blc-scheduleSub').textContent = termYears+' years shown';
-    $('blc-scheduleBody').innerHTML = yearlyRows.map(function(row){
-      return '<tr><td>'+row.year+'</td><td>'+money(row.beginning,2)+'</td><td>'+money(row.principal,2)+'</td><td>'+money(row.interest,2)+'</td><td>'+money(row.ending,2)+'</td></tr>';
-    }).join('');
+    renderScheduleTable();
+    renderScheduleChart();
+  }
 
-    var W=700,H=200,padL=10,padR=10,padT=10,padB=20;
-    var maxVal = Math.max.apply(null, yearlyRows.map(function(r){return r.principal+r.interest;}).concat([0.0001]));
-    var barW = (W-padL-padR)/yearlyRows.length*0.62;
-    var gap = (W-padL-padR)/yearlyRows.length*0.38;
+  function renderScheduleTable(){
+    var rows = (scheduleView==='monthly') ? lastMonthlyRows : lastYearlyRows;
+    $('blc-schedPeriodHead').textContent = (scheduleView==='monthly') ? 'Month' : 'Year';
+    $('blc-scheduleBody').innerHTML = rows.map(function(row){
+      var label = (scheduleView==='monthly') ? row.period : row.year;
+      return '<tr><td>'+label+'</td><td>'+money(row.beginning,2)+'</td><td>'+money(row.principal,2)+'</td><td>'+money(row.interest,2)+'</td><td>'+money(row.ending,2)+'</td></tr>';
+    }).join('');
+  }
+
+  function renderScheduleChart(){
+    var monthly = lastMonthlyRows;
+    var n = monthly.length;
+    if(!n){ $('blc-chartSvg').innerHTML=''; $('blc-chartLegend').innerHTML=''; return; }
+    var loanAmount = monthly[0].beginning;
+    var pmt = monthly[0].principal + monthly[0].interest;
+
+    var balancePts=[loanAmount], cumInterestPts=[0], cumPaymentPts=[0];
+    var runningInterest=0;
+    for(var i=0;i<n;i++){
+      runningInterest += monthly[i].interest;
+      cumInterestPts.push(runningInterest);
+      cumPaymentPts.push(pmt*(i+1));
+      balancePts.push(monthly[i].ending);
+    }
+
+    var maxVal = Math.max(loanAmount, cumPaymentPts[cumPaymentPts.length-1]) * 1.04;
+    var W=700, H=220, padL=48, padR=14, padT=14, padB=30;
+    var plotW = W-padL-padR, plotH = H-padT-padB;
+
+    function xAt(i){ return padL + plotW*(i/n); }
+    function yAt(v){ return padT + plotH*(1-(v/maxVal)); }
+
+    function toPath(pts){
+      return pts.map(function(v,i){ return (i===0?'M':'L')+xAt(i).toFixed(1)+','+yAt(v).toFixed(1); }).join(' ');
+    }
+
     var svg = '';
-    yearlyRows.forEach(function(row,i){
-      var x = padL + i*(barW+gap);
-      var totalH = (H-padT-padB) * ((row.principal+row.interest)/maxVal);
-      var prinH = (H-padT-padB) * (row.principal/maxVal);
-      var intH = totalH-prinH;
-      var yTop = H-padB-totalH;
-      svg += '<rect x="'+x.toFixed(1)+'" y="'+(yTop+intH).toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+prinH.toFixed(1)+'" fill="#1E3A5F"/>';
-      svg += '<rect x="'+x.toFixed(1)+'" y="'+yTop.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+intH.toFixed(1)+'" fill="#16A34A"/>';
-    });
+    // gridlines + y labels (4 bands)
+    var gridSteps=4;
+    for(var g=0; g<=gridSteps; g++){
+      var val = maxVal*g/gridSteps;
+      var y = yAt(val);
+      svg += '<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" stroke="var(--border-fine)" stroke-width="1"/>';
+      svg += '<text x="'+(padL-6)+'" y="'+(y+3).toFixed(1)+'" font-size="10.5" text-anchor="end" fill="var(--ink-faint)">'+money(val,0)+'</text>';
+    }
+    // x-axis labels (5 ticks across the term)
+    var xTicks=5;
+    for(var t=0;t<=xTicks;t++){
+      var mi = Math.round(n*t/xTicks);
+      var x = xAt(mi);
+      svg += '<text x="'+x.toFixed(1)+'" y="'+(H-8)+'" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">'+mi+'</text>';
+    }
+    svg += '<text x="'+(W/2)+'" y="'+(H-1)+'" font-size="0" text-anchor="middle"></text>';
+
+    svg += '<path d="'+toPath(balancePts)+'" fill="none" stroke="#2563EB" stroke-width="2.5"/>';
+    svg += '<path d="'+toPath(cumInterestPts)+'" fill="none" stroke="#65A30D" stroke-width="2.5"/>';
+    svg += '<path d="'+toPath(cumPaymentPts)+'" fill="none" stroke="#9F1239" stroke-width="2.5"/>';
+
     $('blc-chartSvg').innerHTML = svg;
+    $('blc-chartLegend').innerHTML =
+      '<div class="lg"><i style="background:#2563EB"></i>Balance</div>'+
+      '<div class="lg"><i style="background:#65A30D"></i>Interest (cumulative)</div>'+
+      '<div class="lg"><i style="background:#9F1239"></i>Payment (cumulative)</div>';
   }
 
   var liveIds = ['blc-price','blc-targetPmt','blc-down','blc-tradein','blc-tax','blc-fees','blc-rate','blc-term','blc-financeFees'];
