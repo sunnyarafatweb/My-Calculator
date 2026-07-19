@@ -506,9 +506,6 @@
 </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-
 <script>
 (function(){
   function $(id){return document.getElementById(id);}
@@ -711,6 +708,27 @@
   renderWorldClock();
   setInterval(renderWorldClock, 30000);
 
+  // ---- Lazy-load jsPDF + autotable only when the user actually asks for a PDF ----
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = function(){ reject(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){
+        if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+      })
+      .then(function(){
+        if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+      });
+    return pdfLibsPromise;
+  }
+
   // ---- PDF export ----
   function generatePdf(){
     if(!window.jspdf){alert('PDF library is still loading, please try again in a moment.');return;}
@@ -746,7 +764,17 @@
       alert('Sorry, there was a problem generating the PDF: '+e.message);
     }
   }
-  $('tz-pdfBtn').addEventListener('click',generatePdf);
+  $('tz-pdfBtn').addEventListener('click',function(){
+    var btn = this, original = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.textContent = original; btn.disabled = false;
+      generatePdf();
+    }).catch(function(){
+      btn.textContent = original; btn.disabled = false;
+      alert('Could not load the PDF library — check your connection and try again.');
+    });
+  });
 
   setNow();
   render();

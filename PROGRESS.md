@@ -24,6 +24,39 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Site-wide performance investigation** (ad-hoc user request, Jul 20, 2026):
+  user reported the site feeling slow in real use despite a 99/100
+  PageSpeed score. Diagnosed via live `curl -I`/timing checks rather than
+  guessing: (1) confirmed no Cloudflare outage (Dhaka PoP operational,
+  checked cloudflarestatus.com directly); (2) found `_headers`' specific
+  asset rules (`/_next/static/*`, `*.svg`, `*.ico`, `*.png`) were being
+  **merged** with the general `/*` no-store rule rather than overriding
+  it — Cloudflare joins duplicate headers with a comma rather than
+  letting the more specific rule win — so the shared CSS/JS every single
+  page depends on was never actually cached at the edge
+  (`cf-cache-status: BYPASS`) despite the `_headers` file's evident
+  intent. Fixed with `! Cache-Control` (Cloudflare's documented
+  header-reset syntax) before each specific rule; verified live
+  (`BYPASS`→`MISS`→`HIT`) and confirmed zero visual/console regressions
+  on several pages before and after. Left the HTML `/*` no-store rule
+  itself untouched (intentional from the Jul 11 session, and HTML has no
+  ETag to make `no-cache` behave differently in practice anyway) to keep
+  the fix minimal and zero-risk. Real navigation timing improved
+  noticeably (789ms → 546ms → 322ms across three sequential page loads
+  in one browser session) since shared assets no longer re-download on
+  every navigation.
+  **Follow-up, same day**: lazy-loaded jsPDF + jspdf-autotable
+  (~403KB combined) on apr-calculator, annuity-payout-calculator, and
+  time-zone-calculator — previously loaded unconditionally on every page
+  view for a feature most visitors never use. Now loaded only when the
+  Save-as-PDF button is clicked (button shows disabled "Loading…" during
+  the one-time fetch); verified via Playwright that zero jspdf-related
+  requests fire on page load, `window.jspdf` is undefined until clicked,
+  and both first- and second-click PDF generation still work correctly.
+  This is now the standing convention for PDF export on **all future
+  calculator pages** — documented in `DESIGN_AND_SEO_GUIDE.md` section 5
+  and as a hard-won lesson in section 6; do not add unconditional
+  `<script src="...jspdf...">` tags to any new page going forward.
 - **APR Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt from a
   thin ~434-line single-metric page to the full 3-card pattern. Computes
   the real actuarial APR (loan amount, rate, term, discount points, other
