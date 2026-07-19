@@ -12,8 +12,8 @@ re-explained.
 |---|---|---|---|
 | 1 | Horsepower Calculator | Upgrade | ✅ DONE — 4 tabs: Torque & RPM (with Solve For + power-to-weight), Force/Distance/Time, Power Unit Converter, Wheel ↔ Crank HP (drivetrain loss) |
 | 2 | Engine Horsepower Calculator | Upgrade | ✅ DONE — 4 tabs: Elapsed Time (ET), Trap Speed, Predict My Run (reverse), 1/8-Mile Converter |
-| 3 | Time Zone Calculator | Upgrade (thin, ~434 lines) | ⬅️ NEXT |
-| 4 | IRA Calculator | Upgrade (thin) | pending |
+| 3 | Time Zone Calculator | Upgrade (thin, ~434 lines) | ✅ DONE — rebuilt to 3-card pattern: city-to-city converter (33 cities, DST-aware via Intl/browser tz database, verified independently in Node + Playwright before shipping), day-shift + hour-difference readout, dual 24h business-hours timeline, live auto-updating World Clock (9 cities), Time Zone Abbreviations reference table, PDF export, 6 H2 content sections + 6 FAQs, new OG image |
+| 4 | IRA Calculator | Upgrade (thin) | ⬅️ NEXT |
 | 5 | Roth IRA Calculator | Upgrade (thin) | pending — sibling of #4, do together if convenient |
 | 6 | Annuity Payout Calculator | Upgrade (thin) | pending — sequel to Annuity Calculator, reuse its patterns |
 | 7 | P/E Ratio Calculator | **New page** (doesn't exist yet) | pending |
@@ -45,7 +45,12 @@ assume this exact order still holds after a few weeks of new data.
 - **Security**: the GitHub PAT used in past sessions was pasted in plaintext
   in chat multiple times and should be treated as burned — rotate it on
   GitHub and use a fresh token when resuming work, rather than reusing one
-  from an old conversation transcript.
+  from an old conversation transcript. As of this session (Jul 20, 2026),
+  this happened again — treat that token as burned too and rotate before
+  the next session. Consider setting up a way to authenticate that doesn't
+  require pasting the raw token into chat each time (e.g. the user storing
+  it outside the conversation and Claude Code/CLI picking it up from local
+  environment instead).
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
