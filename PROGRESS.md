@@ -24,6 +24,40 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Auto Lease Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt
+  from a ~434-line thin page to the full 3-card pattern. Formula verified
+  independently in Node against the explicit methodology published by
+  Edmunds, Kelley Blue Book, and GoodCalculators (all describe the same
+  depreciation-fee-plus-money-factor approach): residual value is based
+  on **MSRP** (not the negotiated price — leasing companies set it that
+  way, a real accuracy fix vs. the old thin page, which conflated the
+  two), adjusted cap cost = negotiated price + acquisition fee − down
+  payment − trade-in, depreciation fee = (adj cap cost − residual) ÷
+  term, finance fee = (adj cap cost + residual) × money factor. Ran a
+  regression check confirming that with MSRP forced equal to negotiated
+  price (matching the old page's implicit assumption), the new formula
+  reproduces the old page's numbers almost exactly. Added a rate-unit
+  toggle (APR % / raw money factor) with verified equivalence (0.00125
+  MF and its 3% APR equivalent produce identical finance fees). Adds a
+  **Lease vs. Financing comparison card** — reuses the standard loan PMT
+  formula already verified elsewhere on the site to show what buying the
+  same car would cost instead, since a flat lease payment doesn't have a
+  naturally interesting month-by-month amortization schedule the way a
+  loan does, so this replaces that grid area with something more useful.
+  Bottom grid: Key Lease Terms glossary (cap cost, disposition fee,
+  excess mileage fee, gap insurance) + a Money Factor ↔ APR quick-
+  reference table. Current (Jul 2026) money-factor/residual-value
+  figures and the "good rate" benchmarks (≤0.0015, ≈3.6% APR) sourced
+  via live search (Capital One, CarWhere, KBB, Vantage Auto Group) rather
+  than relying on training-data figures. PDF export built lazy-loaded
+  from the start (this session's new standing convention — see
+  DESIGN_AND_SEO_GUIDE.md). 8 H2 content sections + 6 FAQs, new OG image.
+  Full Playwright pass (desktop + mobile) confirmed correct calculation,
+  chip presets, rate-unit toggle, invalid-input handling, Clear-button
+  reset, and lazy PDF export triggering a real download with zero
+  console errors; protected shared style block re-verified byte-
+  identical to bmi-calculator and body-fat-calculator.
+
 - **Site-wide performance investigation** (ad-hoc user request, Jul 20, 2026):
   user reported the site feeling slow in real use despite a 99/100
   PageSpeed score. Diagnosed via live `curl -I`/timing checks rather than
