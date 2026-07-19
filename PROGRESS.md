@@ -24,6 +24,46 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Average Return Calculator** (ad-hoc user request, Jul 20, 2026,
+  reference: calculator.net/average-return-calculator.html): rebuilt from
+  a thin page (arithmetic-vs-geometric-mean content only, fixed 5-year
+  input) into the full 2-tab pattern, covering both scenarios calculator.net's
+  version does. **Tab 1 (Cash Flow Method)**: solves for the Money-
+  Weighted Rate of Return (MWRR) — same concept as Excel's XIRR — from a
+  starting balance, ending balance, and a dynamically add/remove-able
+  list of dated deposits/withdrawals. This is a genuinely new UI pattern
+  for the site (no prior calculator here needed dynamic row lists); used
+  `document.createElement` + event delegation per row rather than a fixed
+  field set. Solved via the same bisection approach used elsewhere on the
+  site, but **independently cross-verified against Python's
+  `scipy.optimize.brentq`** (a different algorithm, different language)
+  across four scenarios including a 5-cash-flow case — exact match to
+  4 decimal places every time, giving high confidence beyond the site's
+  usual single-method Node verification. **Tab 2 (Multiple Period
+  Returns)**: geometric vs. arithmetic average and cumulative return
+  across a variable number of periods with independent holding lengths
+  (years + months each, properly time-weighted rather than assuming
+  equal-length periods) — extends the old page's good arithmetic/
+  geometric/volatility-drag content (kept and expanded) with dynamic rows
+  and an explicit cumulative-return figure the old page lacked. Verified
+  against the classic +50%/−50% textbook example (arithmetic mean exactly
+  0%, but real cumulative result is −25%, geometric mean ≈ −13.4%/yr).
+  Researched and used correct CFA-level terminology throughout (MWRR vs.
+  TWRR, why they diverge, which one applies to personal vs. fund-manager
+  performance) as a genuine content differentiator — calculator.net's own
+  page doesn't explain this distinction. **Caught and fixed two bugs
+  during Playwright testing** before shipping: (1) the static starting/
+  ending balance and date fields had no live-recalculation listeners
+  attached (only the dynamic rows did), so editing them required an
+  explicit Calculate click; (2) clicking "+ Add row" didn't trigger an
+  immediate recalculation, so a freshly-added empty row silently showed
+  a stale prior result instead of the expected validation prompt. Both
+  fixed and re-verified. PDF export lazy-loaded from the start per the
+  standing convention. 6 H2 sections + 6 FAQs, new OG image, sidebar
+  links to Investment/ROI/IRR/Present Value/Compound Interest/Interest
+  calculators. Protected shared style block re-verified byte-identical
+  to bmi-calculator; scratch build source re-synced from the deployed
+  file and confirmed to rebuild byte-identical.
 - **Auto Lease Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt
   from a ~434-line thin page to the full 3-card pattern. Formula verified
   independently in Node against the explicit methodology published by
