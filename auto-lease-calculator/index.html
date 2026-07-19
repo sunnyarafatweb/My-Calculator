@@ -634,16 +634,17 @@
     lastResult = r;
 
     bignum.textContent = money(r.totalPmt,2);
-    subline.textContent = money(r.basePmt,2)+' before tax · '+r.termMonths+' months';
+    subline.textContent = r.termMonths+'-month lease · '+r.aprEquivalent.toFixed(2)+'% APR equivalent';
 
     rows.innerHTML =
+      '<div class="alc-result-row"><span>Monthly payment (before tax)</span><span>'+money(r.basePmt,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Depreciation fee</span><span>'+money(r.depFee,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Finance (rent) fee</span><span>'+money(r.financeFee,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Monthly sales tax</span><span>'+money(r.monthlyTax,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Money factor</span><span>'+r.moneyFactor.toFixed(5)+' ('+r.aprEquivalent.toFixed(2)+'% APR)</span></div>'+
       '<div class="alc-result-row"><span>Residual value</span><span>'+money(r.residualValue,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Adjusted cap cost</span><span>'+money(r.adjCapCost,2)+'</span></div>'+
-      '<div class="alc-result-row"><span>Total of '+r.termMonths+' payments</span><span>'+money(r.totalOfPayments,2)+'</span></div>'+
+      '<div class="alc-result-row"><span>Total of '+r.termMonths+' payments (with tax)</span><span>'+money(r.totalOfPayments,2)+'</span></div>'+
       '<div class="alc-result-row"><span>Est. due at signing</span><span>'+money(r.down+r.totalPmt,2)+'</span></div>';
 
     renderDonut(r);
