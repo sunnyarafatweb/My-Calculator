@@ -308,16 +308,21 @@
 .apr-bar-pdf-btn:hover{background:#f2f2f2}
 
 .apr-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
 .apr-area-bar{grid-area:bar}
+.apr-area-tabs{grid-area:tabs}
 .apr-area-form{grid-area:form}
 .apr-area-result{grid-area:result}
 .apr-area-sidebar{grid-area:sidebar}
 .apr-area-schedule{grid-area:schedule}
 .apr-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .apr-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "schedule" "sidebar"}
+  .apr-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "schedule" "sidebar"}
 }
+
+.apr-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.apr-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.apr-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
 .apr-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .apr-card-pad{padding:24px}
@@ -445,14 +450,13 @@
   <button type="button" class="apr-bar-pdf-btn" id="apr-pdfBtn">💾 Save as PDF</button>
 </div>
 
+<div class="apr-tabs apr-area-tabs">
+  <button type="button" class="apr-tab active" data-mode="general">General APR Calculator</button>
+  <button type="button" class="apr-tab" data-mode="mortgage">Mortgage APR Calculator</button>
+</div>
+
 <div class="apr-card apr-area-form">
   <div class="apr-card-pad">
-    <label class="apr-compare-toggle" style="padding-top:0">
-      <input type="checkbox" id="apr-mortgageCheck">
-      <span>This is a mortgage (enter house price + down payment)</span>
-    </label>
-    <div class="apr-divider" style="margin:10px 0"></div>
-
     <div id="apr-simpleAmountRow">
       <div class="apr-field">
         <span class="apr-field-label">Loan Amount</span>
@@ -500,11 +504,13 @@
       <span class="apr-field-label">Fees Financed</span>
       <div class="apr-field-control"><div class="apr-input-group"><span>$</span><input id="apr-financedFees" type="number" min="0" step="50" value="0"></div></div>
     </div>
-    <div class="apr-field">
-      <span class="apr-field-label">Annual PMI / Insurance</span>
-      <div class="apr-field-control"><div class="apr-input-group"><span>$</span><input id="apr-pmi" type="number" min="0" step="25" value="0"></div></div>
+    <div id="apr-pmiRow" style="display:none">
+      <div class="apr-field">
+        <span class="apr-field-label">Annual PMI / Insurance</span>
+        <div class="apr-field-control"><div class="apr-input-group"><span>$</span><input id="apr-pmi" type="number" min="0" step="25" value="0"></div></div>
+      </div>
     </div>
-    <p class="apr-subnote"><strong>Upfront fees</strong> are paid out of pocket and reduce the amount financed. <strong>Fees financed</strong> get added to the loan balance instead — you borrow and pay interest on them too. <strong>PMI</strong> is a recurring annual cost (typically required under a 20% down payment) added to every monthly payment.</p>
+    <p class="apr-subnote"><strong>Upfront fees</strong> are paid out of pocket and reduce the amount financed. <strong>Fees financed</strong> get added to the loan balance instead — you borrow and pay interest on them too.<span id="apr-pmiSubnote"> <strong>PMI</strong> is a recurring annual cost (typically required under a 20% down payment) added to every monthly payment.</span></p>
 
     <div class="apr-chips" id="apr-chips">
       <span class="apr-chip" data-amt="300000" data-rate="7" data-term="30" data-unit="years" data-pts="1" data-fees="3000">$300k Mortgage, 1pt</span>
@@ -721,16 +727,29 @@
 
   var amountEl=$('apr-amount'), rateEl=$('apr-rate'), termEl=$('apr-term'), termUnitEl=$('apr-termUnit'),
       pointsEl=$('apr-points'), feesEl=$('apr-fees'), financedFeesEl=$('apr-financedFees'), pmiEl=$('apr-pmi');
-  var mortgageCheck=$('apr-mortgageCheck'), simpleAmountRow=$('apr-simpleAmountRow'), mortgageAmountRows=$('apr-mortgageAmountRows');
+  var simpleAmountRow=$('apr-simpleAmountRow'), mortgageAmountRows=$('apr-mortgageAmountRows'), pmiRow=$('apr-pmiRow');
   var housePriceEl=$('apr-housePrice'), downPaymentEl=$('apr-downPayment');
   var head=$('apr-resultHead'), bignum=$('apr-bignum'), subline=$('apr-subline'), rows=$('apr-resultRows');
   var compareCheck=$('apr-compareCheck'), compareFields=$('apr-compareFields'), compareBox=$('apr-compareBox');
   var rateBEl=$('apr-rateB'), pointsBEl=$('apr-pointsB'), feesBEl=$('apr-feesB');
 
-  mortgageCheck.addEventListener('change', function(){
-    simpleAmountRow.style.display = this.checked ? 'none' : 'block';
-    mortgageAmountRows.style.display = this.checked ? 'block' : 'none';
-    calculate();
+  var loanMode = 'general';
+  var tabEls = document.querySelectorAll('.apr-tab');
+
+  function setLoanMode(newMode){
+    loanMode = newMode;
+    simpleAmountRow.style.display = (loanMode==='mortgage') ? 'none' : 'block';
+    mortgageAmountRows.style.display = (loanMode==='mortgage') ? 'block' : 'none';
+    pmiRow.style.display = (loanMode==='mortgage') ? 'block' : 'none';
+    tabEls.forEach(function(t){ t.classList.toggle('active', t.dataset.mode===loanMode); });
+    if(loanMode!=='mortgage'){ pmiEl.value = 0; }
+  }
+
+  tabEls.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      setLoanMode(tab.dataset.mode);
+      calculate();
+    });
   });
 
   var lastA=null, lastYearlyRows=[];
@@ -748,7 +767,7 @@
   function calculate(){
     var P;
     var housePrice, downPayment;
-    if(mortgageCheck.checked){
+    if(loanMode==='mortgage'){
       housePrice = parseFloat(housePriceEl.value);
       downPayment = parseFloat(downPaymentEl.value);
       if(!isFinite(housePrice) || housePrice<=0){ showError('Enter a valid house price greater than zero.'); return; }
@@ -789,7 +808,7 @@
     subline.textContent = 'vs. '+ratePct.toFixed(3)+'% stated rate';
 
     var rowsHtml = '';
-    if(mortgageCheck.checked){
+    if(loanMode==='mortgage'){
       rowsHtml += '<div class="apr-result-row"><span>Loan amount (price − down)</span><span>'+money(P,2)+'</span></div>';
     }
     rowsHtml +=
@@ -944,8 +963,7 @@
 
   $('apr-calcBtn').addEventListener('click', calculate);
   $('apr-clearBtn').addEventListener('click', function(){
-    mortgageCheck.checked=false; simpleAmountRow.style.display='block'; mortgageAmountRows.style.display='none';
-    amountEl.value=300000; rateEl.value=7; termEl.value=30; termUnitEl.value='years';
+    setLoanMode('general'); amountEl.value=300000; rateEl.value=7; termEl.value=30; termUnitEl.value='years';
     pointsEl.value=1; feesEl.value=3000; financedFeesEl.value=0; pmiEl.value=0;
     housePriceEl.value=350000; downPaymentEl.value=70000;
     compareCheck.checked=false; compareFields.classList.remove('show');
@@ -955,7 +973,7 @@
 
   document.querySelectorAll('.apr-chip').forEach(function(chip){
     chip.addEventListener('click', function(){
-      mortgageCheck.checked=false; simpleAmountRow.style.display='block'; mortgageAmountRows.style.display='none';
+      setLoanMode('general');
       amountEl.value=this.getAttribute('data-amt');
       rateEl.value=this.getAttribute('data-rate');
       termEl.value=this.getAttribute('data-term');
