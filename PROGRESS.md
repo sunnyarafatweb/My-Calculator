@@ -121,6 +121,56 @@ assume this exact order still holds after a few weeks of new data.
   Re-verified after both edits: zero duplicate IDs, zero console errors,
   all 3 tabs' default calculations unchanged, Clear button still resets
   correctly.
+  **Second same-day follow-up** (user asked to think as an actual loan
+  candidate would, and pushed further on the "biggest sites" comparison
+  specifically to find real behavioral gaps, not just field-parity gaps):
+  fetched Bankrate/NerdWallet/calculator.net/SCORE loan-calculator pages
+  directly (mostly basic amount+rate+term) and researched Fundera/Lendio
+  (the major loan marketplaces) -- confirmed they're lead-gen application
+  funnels rather than calculators, but their core value prop of
+  "compare up to 4 lenders side-by-side" validated a genuine feature gap.
+  Cross-referenced our own site's existing Debt Payoff Calculator, which
+  already has a proven "extra payment" UX concept -- extended that idea
+  into this page rather than inventing a new pattern. Added two features
+  to the Loan Payment tab:
+  - **Extra monthly payment** field: re-runs the amortization with that
+    amount applied to principal every month and reports the accelerated
+    payoff time and interest saved. Verified in Node first (baseline 84mo/
+    \$93,224 interest -> \$500/mo extra: 72mo/\$78,519, saves 12mo/\$14,704;
+    \$2,000/mo extra: 50mo, saves more; \$50,000/mo edge case: 5mo, doesn't
+    crash), then confirmed the live page matches every one of those
+    figures exactly. The on-screen amortization schedule and chart switch
+    to the accelerated version when this is used, and the PDF export was
+    updated to match (it was silently ignoring the field before the fix --
+    caught and corrected before shipping).
+  - **Compare to a second loan offer**: reused the exact proven toggle
+    pattern from apr-calculator (checkbox reveals Rate/Term/Fees for
+    Offer B, same assumed loan amount as Offer A) rather than designing a
+    new one. Verified in Node with a deliberately counter-intuitive
+    example -- a higher-rate, shorter-term, lower-fee offer that actually
+    has a *lower* total cost than the lower-rate offer -- confirmed the
+    live comparison surfaces exactly that "the higher rate is actually
+    cheaper" verdict, which is the genuinely useful insight this feature
+    exists to catch. Only appears in "I know the loan amount" mode (hidden
+    in reverse-solve mode, where there's no fixed loan amount to compare
+    against).
+  - Caught and fixed two cross-cutting bugs *before* they shipped, found
+    by deliberately tracing state across tab switches and error states
+    rather than only testing the new feature in isolation: switching to
+    the DSCR or MCA tab while the compare box was open left it visibly
+    stuck on screen (Tab 2/3's calculate functions never touched it), and
+    triggering an input error on the Loan Payment tab left a stale compare
+    box showing alongside the error message. Both fixed by explicitly
+    hiding the compare box in the tab-switch handler and in showError().
+  - Added a short paragraph on both features to "How This Calculator
+    Works" and two new FAQs (extra payments, comparing offers), bringing
+    the total to 8 -- ran the schema-vs-visible-text diff check before
+    testing this time and it matched cleanly on the first attempt (all 8
+    entries), the first build session where that's happened.
+  - Final full regression after all changes: zero duplicate IDs, all 23
+    internal links and all in-page anchors resolve, PDF export verified
+    from all 3 tabs again, zero console errors, both original tabs (DSCR,
+    MCA) and their default calculations unaffected.
 
 - **Budget Calculator** (ad-hoc user request, Jul 20, 2026, reference:
   calculator.net/budget-calculator.html): rebuilt from a minimal 3-input
