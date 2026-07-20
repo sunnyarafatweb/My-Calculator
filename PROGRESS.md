@@ -24,6 +24,62 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **IRA Calculator — cross-check against major competitors + on-page SEO audit**
+  (ad-hoc user request, Jul 20, 2026, same day as the build above): user asked
+  to cross-check the just-built IRA Calculator against big competing sites and
+  verify on-page SEO is genuinely top-class, and separately asked that **every
+  future calculator, starting now, get real keyword research (short-tail +
+  long-tail, competition-aware) before its title/meta/content are written**,
+  plus ongoing **Google AdSense policy compliance** given the site monetizes
+  via AdSense. Concretely this session:
+  - Compared the page against calculator.net, NerdWallet, SoFi, Vanguard,
+    Fidelity, Forbes Advisor, and AARP's IRA/Traditional-IRA/Roth-IRA/IRA-
+    contribution calculators. Findings: this page's tabbed
+    growth-projection + deduction-eligibility-checker + Traditional-vs-Roth
+    comparison + RMD reference already covers more ground in one page than
+    any single competitor does (most split growth vs. contribution-
+    eligibility vs. Roth-vs-Traditional into separate tools/pages); confirmed
+    "IRA contribution calculator" and "traditional IRA deduction calculator"
+    are genuine, distinct, dedicated-tool-worthy query clusters at Vanguard/
+    SoFi/Fifth Third/nationaltaxtools.com — already reflected in this page's
+    meta keywords and its dedicated H2 + interactive checker, so no gap there.
+  - On-page SEO checklist re-verified: title/meta/OG/canonical/robots/
+    googlebot all correct; sitemap.xml and calculators-index.json both list
+    the page correctly (no accidental duplicate entries — the earlier grep
+    match was just "roth-ira-calculator" also containing the substring
+    "ira-calculator"); robots.txt allows crawling site-wide.
+  - **Caught and fixed a real accuracy issue during the cross-check**: an
+    inline sentence pointed readers to the site's separate `/rmd-calculator/`
+    page and claimed it covered "multi-year RMD planning, penalty rules, and
+    inherited-IRA scenarios" — checking that page's actual content showed
+    it's itself still a thin, generic template-tier page (bare 3-H2 pattern,
+    no penalty/72(t) content) that doesn't yet cover any of that. Corrected
+    the sentence to a neutral, accurate pointer instead of an overclaim.
+    Flagging `/rmd-calculator/` to the user as another thin page worth a
+    future queue slot — not added to the numbered queue unilaterally, since
+    that ranking should stay GSC-data-driven per the existing process.
+  - Improved internal linking: swapped the sidebar's "Annuity Calculator"
+    link for "RMD Calculator" (more topically relevant to an IRA page) and
+    added a contextual in-article link to `/rmd-calculator/` from the RMD H2
+    section. Re-ran a Playwright pass after the edits — zero console errors,
+    links resolve correctly.
+  - **`DESIGN_AND_SEO_GUIDE.md` updated** (see sections 4 and 10 in that
+    file) to make keyword research a mandatory, non-skippable step before
+    writing title/meta/content for every future calculator — short-tail head
+    term + 5-10 long-tail variants + a "high-volume, lower-competition
+    middle ground" callout + a competitor cross-check against 3-4 major
+    sites — with an honest note that this environment has no paid keyword
+    tool or GSC connection, so the method is web-search-based competitive
+    proxy research, not guessing. Also added a new Google AdSense compliance
+    section (sourced from `support.google.com/adsense`, not third-party
+    "how to get approved" blogs, which invent numeric rules Google doesn't
+    actually publish) covering original-content/no-thin-pages, no doorway/
+    keyword-stuffed pages, no claiming features a linked page doesn't
+    actually have (the exact mistake just caught and fixed above), trust
+    pages, YMYL disclaimers, future ad-placement spacing, and the `ads.txt`
+    file that will need to be added once the user has a real AdSense
+    publisher ID (none exists in this repo yet — flagged, not invented).
+
 - **Boat Loan Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt
   from a thin ~434-line page (basic loan-amount/rate/term only) into the
   full tabbed pattern established by Auto Lease Calculator — **Solve for
