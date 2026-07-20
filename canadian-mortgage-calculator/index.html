@@ -482,7 +482,28 @@
         <span class="cad-field-label">Interest rate (nominal)</span>
         <div class="cad-field-control"><div class="cad-input-group"><input id="cad-rate" type="number" min="0" max="20" step="0.01" value="4.09"><span>%</span></div></div>
       </div>
-      <p class="cad-subnote">Compounded semi-annually, per the Interest Act — this is the rate your lender quotes, not the effective rate.</p>
+      <div class="cad-field">
+        <span class="cad-field-label">Rate type</span>
+        <div class="cad-field-control">
+          <select id="cad-rateType" class="cad-select-plain">
+            <option value="fixed" selected>Fixed</option>
+            <option value="variable">Variable</option>
+          </select>
+        </div>
+      </div>
+      <p class="cad-subnote" id="cad-rateTypeNote">Fixed-rate mortgages are legally required to compound semi-annually (Interest Act) — this is the rate your lender quotes, not the effective rate.</p>
+      <div id="cad-compoundingField" style="display:none">
+        <div class="cad-field">
+          <span class="cad-field-label">Compounding</span>
+          <div class="cad-field-control">
+            <select id="cad-compounding" class="cad-select-plain">
+              <option value="semiAnnual" selected>Semi-Annual</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+        </div>
+        <p class="cad-subnote" style="margin:-4px 0 8px">Variable rates aren't legally required to compound semi-annually like fixed rates — many still do, but some lenders compound monthly instead. Check your specific contract and select the matching option; it changes your payment slightly either way.</p>
+      </div>
       <div class="cad-field">
         <span class="cad-field-label">Payment frequency</span>
         <div class="cad-field-control">
@@ -584,12 +605,12 @@
 <div class="cad-sidecol cad-area-sidebar">
   <div class="cad-calc-card">
     <div class="h">Home &amp; Mortgage</div>
+    <a href="/land-transfer-tax-calculator/">Land Transfer Tax <span class="arrow">→</span></a>
     <a href="/mortgage-calculator/">US Mortgage Calculator <span class="arrow">→</span></a>
     <a href="/house-affordability-calculator/">House Affordability <span class="arrow">→</span></a>
     <a href="/rent-vs-buy-calculator/">Rent vs. Buy <span class="arrow">→</span></a>
     <a href="/refinance-calculator/">Refinance <span class="arrow">→</span></a>
     <a href="/heloc-calculator/">HELOC <span class="arrow">→</span></a>
-    <a href="/debt-to-income-calculator/">Debt-to-Income <span class="arrow">→</span></a>
     <a href="/all-calculators/" class="cad-viewmore">View More <span class="arrow">→</span></a>
   </div>
 </div>
@@ -657,6 +678,14 @@
     var effectiveAnnualRate = Math.pow(1+semiAnnualRate, 2) - 1;
     return Math.pow(1+effectiveAnnualRate, 1/periodsPerYear) - 1;
   }
+  // General version: converts a nominal rate compounded `compoundingPeriodsPerYear` times a year
+  // into the periodic rate for `periodsPerYear` payments a year. compoundingPeriodsPerYear=2 (semi-annual)
+  // reproduces nominalSemiAnnualToPeriodicRate exactly; =12 models monthly-compounding variable-rate mortgages.
+  function nominalToPeriodicRate(nominalPct, periodsPerYear, compoundingPeriodsPerYear){
+    var compoundingRate = (nominalPct/100)/compoundingPeriodsPerYear;
+    var effectiveAnnualRate = Math.pow(1+compoundingRate, compoundingPeriodsPerYear) - 1;
+    return Math.pow(1+effectiveAnnualRate, 1/periodsPerYear) - 1;
+  }
   function payment(P, periodicRate, n){
     if(Math.abs(periodicRate)<1e-9) return P/n;
     return P*periodicRate/(1-Math.pow(1+periodicRate,-n));
@@ -694,12 +723,13 @@
     acceleratedBiweekly:'Accelerated Bi-Weekly', weekly:'Weekly', acceleratedWeekly:'Accelerated Weekly'
   };
 
-  function computePaymentForFrequency(P, nominalRatePct, amortYears, freqKey){
+  function computePaymentForFrequency(P, nominalRatePct, amortYears, freqKey, compoundingPeriodsPerYear){
+    compoundingPeriodsPerYear = compoundingPeriodsPerYear || 2; // default: semi-annual (fixed-rate legal standard)
     var config = FREQ_CONFIG[freqKey];
-    var periodicRate = nominalSemiAnnualToPeriodicRate(nominalRatePct, config.periodsPerYear);
+    var periodicRate = nominalToPeriodicRate(nominalRatePct, config.periodsPerYear, compoundingPeriodsPerYear);
     var pmt;
     if(config.accelerated){
-      var monthlyRate = nominalSemiAnnualToPeriodicRate(nominalRatePct, 12);
+      var monthlyRate = nominalToPeriodicRate(nominalRatePct, 12, compoundingPeriodsPerYear);
       var monthlyPmt = payment(P, monthlyRate, Math.round(amortYears*12));
       pmt = monthlyPmt / config.divisor;
     } else {
@@ -789,6 +819,16 @@
 
   $('cad-isFirstTimeOrNewBuild').addEventListener('change', calculate);
 
+  $('cad-rateType').addEventListener('change', function(){
+    var isVariable = this.value==='variable';
+    $('cad-compoundingField').style.display = isVariable ? 'block' : 'none';
+    $('cad-rateTypeNote').textContent = isVariable
+      ? 'Variable rates float with prime and aren\'t legally required to compound semi-annually like fixed rates — pick the compounding your specific contract uses below.'
+      : 'Fixed-rate mortgages are legally required to compound semi-annually (Interest Act) — this is the rate your lender quotes, not the effective rate.';
+    if(!isVariable) $('cad-compounding').value = 'semiAnnual';
+    calculate();
+  });
+
   function calculate(){
     if(currentMode==='payment') calculatePayment();
     else calculateStressTest();
@@ -861,23 +901,27 @@
     if(!isFinite(annualPrepay) || annualPrepay<0) annualPrepay = 0;
 
     var freqKey = $('cad-freq').value;
-    var freqResult = computePaymentForFrequency(mortgageAmount, rate, amortYears, freqKey);
+    var rateType = $('cad-rateType').value;
+    var compoundingChoice = $('cad-compounding').value;
+    var compoundingPeriodsPerYear = (rateType==='variable' && compoundingChoice==='monthly') ? 12 : 2;
+    var freqResult = computePaymentForFrequency(mortgageAmount, rate, amortYears, freqKey, compoundingPeriodsPerYear);
     var termYears = Math.min(termYearsInput, amortYears);
     var balAtTerm = balanceAtTerm(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, termYears);
-    var effectiveAnnualRate = (Math.pow(1+rate/100/2,2)-1)*100;
+    var effectiveAnnualRate = (Math.pow(1+rate/100/compoundingPeriodsPerYear,compoundingPeriodsPerYear)-1)*100;
 
     var schedule = buildAmortSchedule(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, amortYears, annualPrepay);
     var actualYearsToPayoff = schedule.totalPeriods/freqResult.periodsPerYear;
 
     lastResult = {mode:'payment', homePrice:homePrice, downPaymentDollar:downPaymentDollar, downPaymentPct:downPaymentPct,
-      mortgageAmount:mortgageAmount, cmhcAmount:cmhcAmount, cmhcPct:cmhcPct, rate:rate, amortYears:amortYears,
+      mortgageAmount:mortgageAmount, cmhcAmount:cmhcAmount, cmhcPct:cmhcPct, rate:rate, rateType:rateType, compoundingPeriodsPerYear:compoundingPeriodsPerYear, amortYears:amortYears,
       termYears:termYears, freqKey:freqKey, pmt:freqResult.pmt, balAtTerm:balAtTerm, effectiveAnnualRate:effectiveAnnualRate,
       totalInterestPaid:schedule.totalInterestPaid, actualYearsToPayoff:actualYearsToPayoff, annualPrepay:annualPrepay};
 
     $('cad-resultLabel').textContent = FREQ_LABEL[freqKey]+' Payment';
     $('cad-bignum').textContent = money(freqResult.pmt,2);
     var acceleratedNote = FREQ_CONFIG[freqKey].accelerated ? ' — pays off in ~'+actualYearsToPayoff.toFixed(1)+' yrs, faster than the '+amortYears+'-yr amortization' : '';
-    $('cad-subline').textContent = 'Effective annual rate '+pct(effectiveAnnualRate,3)+' on '+money(mortgageAmount,0)+' mortgage'+acceleratedNote+amortClampedNote;
+    var compoundingNote = compoundingPeriodsPerYear===12 ? ' (monthly compounding)' : '';
+    $('cad-subline').textContent = 'Effective annual rate '+pct(effectiveAnnualRate,3)+' on '+money(mortgageAmount,0)+' mortgage'+compoundingNote+acceleratedNote+amortClampedNote;
 
     var rowsHtml =
       '<div class="cad-result-row"><span>Down payment</span><span>'+money(downPaymentDollar,0)+' ('+pct(downPaymentPct,1)+')</span></div>'+
@@ -902,7 +946,7 @@
       {val:cmhcAmount, color:'#B08900', label:'CMHC Premium'}
     ]);
 
-    renderDownPaymentScenarios(homePrice, rate, amortYears, downPaymentPct);
+    renderDownPaymentScenarios(homePrice, rate, amortYears, downPaymentPct, compoundingPeriodsPerYear);
 
     $('cad-scheduleTitle').textContent = 'Amortization Schedule'+(FREQ_CONFIG[freqKey].accelerated || annualPrepay>0 ? ' (with acceleration)' : '');
     $('cad-scheduleHead').innerHTML = '<tr><th>Year</th><th>Beginning Balance</th><th>Principal</th><th>Interest</th><th>Ending Balance</th></tr>';
@@ -917,7 +961,8 @@
   // Shows how mortgage amount and payment change at the standard down-payment tiers
   // (5/10/15/20%) for the current home price, rate, and amortization -- Ratehub-style
   // side-by-side comparison, independent of whatever down payment is currently entered.
-  function renderDownPaymentScenarios(homePrice, rate, amortYears, currentDownPct){
+  function renderDownPaymentScenarios(homePrice, rate, amortYears, currentDownPct, compoundingPeriodsPerYear){
+    compoundingPeriodsPerYear = compoundingPeriodsPerYear || 2;
     var minDown = minDownPayment(homePrice);
     var tiers = [5, 10, 15, 20];
     var rowsHtml = tiers.map(function(tierPct){
@@ -927,7 +972,7 @@
       var cmhcPct = cmhcPremiumPct(tierPct);
       var cmhcAmt = mortgageBeforePremium*cmhcPct/100;
       var mortgageAmt = mortgageBeforePremium+cmhcAmt;
-      var r = nominalSemiAnnualToPeriodicRate(rate, 12);
+      var r = nominalToPeriodicRate(rate, 12, compoundingPeriodsPerYear);
       var pmt = payment(mortgageAmt, r, Math.round(amortYears*12));
       var isCurrent = Math.abs(tierPct-currentDownPct) < 2.5;
       return '<tr'+(isCurrent?' class="is-current"':'')+'><td>'+tierPct+'% ('+money(down,0)+')</td><td>'+money(mortgageAmt,0)+'</td><td>'+money(pmt,2)+'/mo</td></tr>';
@@ -1091,7 +1136,7 @@
   }
 
   // =============== Wire up live listeners ===============
-  var paymentLiveIds = ['cad-homePrice','cad-downPayment','cad-amortYears','cad-termYears','cad-rate','cad-freq','cad-annualPrepay'];
+  var paymentLiveIds = ['cad-homePrice','cad-downPayment','cad-amortYears','cad-termYears','cad-rate','cad-freq','cad-annualPrepay','cad-compounding'];
   paymentLiveIds.forEach(function(id){ $(id).addEventListener('input', calculate); $(id).addEventListener('change', calculate); });
   var stressLiveIds = ['cad-income','cad-otherDebt','cad-stDownPayment','cad-propertyTax','cad-heating','cad-condoFees','cad-stRate','cad-stAmortYears'];
   stressLiveIds.forEach(function(id){ $(id).addEventListener('input', calculate); $(id).addEventListener('change', calculate); });
@@ -1106,6 +1151,8 @@
     $('cad-downPayment').previousElementSibling.textContent='$';
     $('cad-amortYears').value=25; $('cad-termYears').value=5; $('cad-rate').value=4.09; $('cad-freq').value='monthly';
     $('cad-annualPrepay').value=0;
+    $('cad-rateType').value='fixed'; $('cad-compounding').value='semiAnnual'; $('cad-compoundingField').style.display='none';
+    $('cad-rateTypeNote').textContent = 'Fixed-rate mortgages are legally required to compound semi-annually (Interest Act) — this is the rate your lender quotes, not the effective rate.';
     $('cad-isFirstTimeOrNewBuild').checked=false;
     calculate();
   });
@@ -1153,7 +1200,8 @@
         summaryRows = [
           ['Home Price', money(r.homePrice,2)], ['Down Payment', money(r.downPaymentDollar,2)+' ('+pct(r.downPaymentPct,1)+')'],
           ['CMHC Premium', money(r.cmhcAmount,2)], ['Total Mortgage Amount', money(r.mortgageAmount,2)],
-          ['Interest Rate (nominal)', r.rate+'%'], ['Effective Annual Rate', pct(r.effectiveAnnualRate,3)],
+          ['Interest Rate (nominal)', r.rate+'%'], ['Rate Type', r.rateType==='variable' ? 'Variable' : 'Fixed'],
+          ['Compounding', r.compoundingPeriodsPerYear===12 ? 'Monthly' : 'Semi-Annual'], ['Effective Annual Rate', pct(r.effectiveAnnualRate,3)],
           ['Amortization', r.amortYears+' years'], ['Term', r.termYears+' years'],
           ['Total Interest', money(r.totalInterestPaid,2)], ['Balance at End of Term', money(r.balAtTerm,2)]
         ];
@@ -1162,7 +1210,7 @@
           summaryRows.push(['Actual Payoff Time', r.actualYearsToPayoff.toFixed(1)+' years']);
           summaryRows.push(['Interest Saved by Prepaying', money(r.interestSaved||0,2)]);
         }
-        scheduleRows = buildAmortSchedule(r.mortgageAmount, nominalSemiAnnualToPeriodicRate(r.rate, FREQ_CONFIG[r.freqKey].periodsPerYear), r.pmt, FREQ_CONFIG[r.freqKey].periodsPerYear, r.amortYears, r.annualPrepay).rows.map(function(row){
+        scheduleRows = buildAmortSchedule(r.mortgageAmount, nominalToPeriodicRate(r.rate, FREQ_CONFIG[r.freqKey].periodsPerYear, r.compoundingPeriodsPerYear||2), r.pmt, FREQ_CONFIG[r.freqKey].periodsPerYear, r.amortYears, r.annualPrepay).rows.map(function(row){
           return [row.year, money(row.begin,2), money(row.principal,2), money(row.interest,2), money(row.end,2)];
         });
       } else {
@@ -1255,7 +1303,7 @@ Periodic Rate (for your payment frequency) &nbsp;=&nbsp; (1 + Effective Annual R
 <p>The stress test and down payment rules are the same for every applicant at a given lender, but approval and pricing still depend on the individual file: <strong>credit score</strong> (most lenders want 680+ for the best rates, though insured mortgages can sometimes work with less), <strong>employment stability</strong> (2+ years at a job or in a field, or a longer track record if self-employed), <strong>the property itself</strong> (condos, rural properties, and unique builds sometimes face extra scrutiny or lower maximum LTVs), and <strong>existing debt</strong> beyond what shows up in TDS, like a spouse's obligations if they're not on the mortgage. A mortgage broker who can shop your file across multiple lenders — rather than a single bank only offering its own products — is often worth the conversation specifically because qualifying criteria vary more between lenders than the headline rate does.</p>
 
 <h2 id="cad-doesnt">What This Calculator Doesn't Cover</h2>
-<p>This tool calculates payment, insurance, and stress-test affordability accurately for a standard fixed-rate insured or uninsured mortgage — it doesn't replace an actual lender's underwriting or a mortgage broker's file review. It doesn't include <strong>land transfer tax</strong> (which varies significantly by province and, in Toronto's case, includes an additional municipal tax on top of Ontario's provincial one) or other closing costs like legal fees and title insurance. <strong>Variable-rate mortgages</strong> aren't required to compound semi-annually the way fixed-rate mortgages are — some do, some compound monthly to match payments, and the actual terms are in the fine print of your specific contract, so treat this calculator's compounding assumption as accurate for fixed rates specifically. The Annual Prepayment field assumes your lender's prepayment privilege comfortably covers the amount you enter — actual privileges are typically capped at 10-20% of the original principal per year, so check your specific contract before counting on a larger lump sum, and this tool also doesn't model the penalty for breaking a fixed-rate term early, which can be substantial. Treat every figure here as a solid planning estimate to bring into a conversation with an actual lender or mortgage broker, not a substitute for one.</p>
+<p>This tool calculates payment, insurance, and stress-test affordability accurately for a standard fixed-rate insured or uninsured mortgage — it doesn't replace an actual lender's underwriting or a mortgage broker's file review. <strong>Land transfer tax</strong> (which varies significantly by province and, in Toronto's case, includes an additional municipal tax on top of Ontario's provincial one) isn't part of this calculation — use our dedicated <a href="/land-transfer-tax-calculator/">Land Transfer Tax Calculator</a> for that, since it's a separate, one-time closing cost that can't be financed into the mortgage anyway. <strong>Variable-rate mortgages</strong> aren't legally required to compound semi-annually the way fixed-rate mortgages are — select "Variable" as the rate type and choose the compounding your specific contract uses (semi-annual is still common, but some lenders compound monthly instead) for an accurate payment either way. The Annual Prepayment field assumes your lender's prepayment privilege comfortably covers the amount you enter — actual privileges are typically capped at 10-20% of the original principal per year, so check your specific contract before counting on a larger lump sum, and this tool also doesn't model the penalty for breaking a fixed-rate term early, which can be substantial, or other closing costs like legal fees and title insurance. Treat every figure here as a solid planning estimate to bring into a conversation with an actual lender or mortgage broker, not a substitute for one.</p>
 
 <h2 id="cad-faq">Frequently Asked Questions</h2>
 <h3>Why is my Canadian mortgage payment different from a US mortgage calculator with the same rate?</h3>

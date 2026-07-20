@@ -494,6 +494,23 @@
       <p class="ltt-subnote">A separate mortgage registration fee applies on the same sliding scale if you're financing the purchase.</p>
     </div>
 
+    <div class="ltt-divider"></div>
+    <label class="ltt-toggle">
+      <input type="checkbox" id="ltt-includeClosing">
+      <span>Include legal/notary fees &amp; title insurance</span>
+    </label>
+    <p class="ltt-subnote" style="margin:-4px 0 8px">Rough national averages, not a quote — every firm prices differently. Adjust either number if you have an actual estimate.</p>
+    <div id="ltt-closingFields" style="display:none">
+      <div class="ltt-field">
+        <span class="ltt-field-label" id="ltt-legalFeeLabel">Legal / notary fees</span>
+        <div class="ltt-field-control"><div class="ltt-input-group"><span>$</span><input id="ltt-legalFee" type="number" min="0" step="50" value="1500"></div></div>
+      </div>
+      <div class="ltt-field">
+        <span class="ltt-field-label">Title insurance</span>
+        <div class="ltt-field-control"><div class="ltt-input-group"><span>$</span><input id="ltt-titleInsurance" type="number" min="0" step="25" value="350"></div></div>
+      </div>
+    </div>
+
     <div class="ltt-btn-row">
       <button type="button" class="ltt-btn-calc" id="ltt-calcBtn">Calculate</button>
       <button type="button" class="ltt-btn-clear" id="ltt-clearBtn">Clear</button>
@@ -654,6 +671,7 @@
     $('ltt-montrealField').style.display = (prov==='QC') ? 'block' : 'none';
     $('ltt-nsRateField').style.display = (prov==='NS') ? 'block' : 'none';
     $('ltt-mortgageField').style.display = (prov==='AB') ? 'block' : 'none';
+    $('ltt-legalFeeLabel').textContent = (prov==='QC') ? 'Notary fees' : 'Legal fees';
   }
   // (first-time buyer toggle is always shown; its container is the top-level label, always visible.
   // We just hide the *note* text for provinces where it does nothing, to avoid implying false hope.)
@@ -666,6 +684,11 @@
   $('ltt-province').addEventListener('change', function(){
     updateConditionalFields();
     updateFirstTimeNote();
+    calculate();
+  });
+
+  $('ltt-includeClosing').addEventListener('change', function(){
+    $('ltt-closingFields').style.display = this.checked ? 'block' : 'none';
     calculate();
   });
 
@@ -969,10 +992,29 @@
     if(isForeignBuyer && NO_FOREIGN_SURCHARGE.indexOf(prov)!==-1){
       $('ltt-resultRows').innerHTML += '<div class="ltt-result-row"><span style="font-size:11.5px;color:var(--ink-faint)">No additional foreign buyer / non-resident surcharge is currently known for '+PROVINCES[prov].name+' beyond the standard tax shown above — confirm with a local lawyer or notary, as rules do change.</span><span></span></div>';
     }
+
+    if(prov==='QC' && isFirstTime){
+      $('ltt-resultRows').innerHTML += '<div class="ltt-result-row"><span style="font-size:11.5px;color:var(--ink-faint)">Quebec has no direct rebate on the welcome tax itself, but a separate refundable tax credit of up to $5,875 may be available to first-time buyers, claimed on your tax return rather than at signing.</span><span></span></div>';
+    }
+
+    var includeClosing = $('ltt-includeClosing').checked;
+    if(includeClosing){
+      var legalFee = parseFloat($('ltt-legalFee').value);
+      var titleInsurance = parseFloat($('ltt-titleInsurance').value);
+      if(!isFinite(legalFee) || legalFee<0) legalFee = 0;
+      if(!isFinite(titleInsurance) || titleInsurance<0) titleInsurance = 0;
+      var closingTotal = legalFee + titleInsurance;
+      var grandTotal = lastResult.total + closingTotal;
+      lastResult.legalFee = legalFee; lastResult.titleInsurance = titleInsurance; lastResult.grandTotal = grandTotal;
+      $('ltt-resultRows').innerHTML +=
+        '<div class="ltt-result-row" style="border-top:2px solid var(--border)"><span>'+(prov==='QC'?'Notary fees':'Legal fees')+'</span><span>'+money(legalFee,2)+'</span></div>'+
+        '<div class="ltt-result-row"><span>Title insurance</span><span>'+money(titleInsurance,2)+'</span></div>'+
+        '<div class="ltt-result-row"><span><b>Total cash needed at closing</b></span><span><b>'+money(grandTotal,2)+'</b></span></div>';
+    }
   }
 
   // =============== Wire up listeners ===============
-  ['ltt-price','ltt-firstTime','ltt-foreignBuyer','ltt-toronto','ltt-newBuild','ltt-montreal','ltt-nsRate','ltt-mortgageAmount'].forEach(function(id){
+  ['ltt-price','ltt-firstTime','ltt-foreignBuyer','ltt-toronto','ltt-newBuild','ltt-montreal','ltt-nsRate','ltt-mortgageAmount','ltt-legalFee','ltt-titleInsurance'].forEach(function(id){
     $(id).addEventListener('input', calculate);
     $(id).addEventListener('change', calculate);
   });
@@ -983,6 +1025,8 @@
     $('ltt-firstTime').checked=false; $('ltt-foreignBuyer').checked=false; $('ltt-toronto').checked=false;
     $('ltt-newBuild').checked=false; $('ltt-montreal').checked=false;
     $('ltt-nsRate').value=1.5; $('ltt-mortgageAmount').value=560000;
+    $('ltt-includeClosing').checked=false; $('ltt-closingFields').style.display='none';
+    $('ltt-legalFee').value=1500; $('ltt-titleInsurance').value=350;
     updateConditionalFields(); updateFirstTimeNote();
     calculate();
   });
@@ -1038,6 +1082,10 @@
         summaryRows.push(['First-Time Buyer', r.isFirstTime?'Yes':'No']);
       } else if(r.prov==='NS'){
         if(r.isForeignBuyer) summaryRows.push(['Non-Resident Deed Transfer Tax (10%)', money(r.nsSurtax,2)]);
+      }
+      if(r.grandTotal!==undefined){
+        summaryRows.push([(r.prov==='QC'?'Notary Fees':'Legal Fees'), money(r.legalFee,2)], ['Title Insurance', money(r.titleInsurance,2)],
+          ['Total Cash Needed at Closing', money(r.grandTotal,2)]);
       }
       doc.autoTable({startY:y, margin:{left:margin,right:margin}, styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:summaryRows});
 
@@ -1116,7 +1164,7 @@
 </table>
 
 <h2 id="ltt-doesnt">What This Calculator Doesn't Cover</h2>
-<p>This tool calculates the core provincial and municipal land transfer tax accurately for a standard resale or new-build residential purchase — it doesn't replace your lawyer's or notary's final statement of adjustments. The Foreign Buyer / Non-Resident checkbox covers Ontario's Non-Resident Speculation Tax, Toronto's own additional foreign-buyer tax, BC's Additional Property Transfer Tax, and Nova Scotia's non-resident surtax, but two things are worth knowing: BC's surcharge only applies in specified regions (Metro Vancouver, the Capital Regional District, and a handful of others), not province-wide, so confirm your specific area applies before relying on that number; and a federal law currently restricts most non-Canadians from buying residential property in major urban areas until January 1, 2027, regardless of what any of these provincial taxes calculate. It also doesn't model other closing costs (legal or notary fees, title insurance, home inspection) that sit alongside land transfer tax on your cash-to-close total, or municipality-specific variations beyond Toronto, Montreal, and Halifax's own explicit rates. Treat every figure here as an accurate estimate of the tax itself, brought into a conversation with your lawyer or notary who will confirm the exact number at closing.</p>
+<p>This tool calculates the core provincial and municipal land transfer tax accurately for a standard resale or new-build residential purchase — it doesn't replace your lawyer's or notary's final statement of adjustments. The Foreign Buyer / Non-Resident checkbox covers Ontario's Non-Resident Speculation Tax, Toronto's own additional foreign-buyer tax, BC's Additional Property Transfer Tax, and Nova Scotia's non-resident surtax, but two things are worth knowing: BC's surcharge only applies in specified regions (Metro Vancouver, the Capital Regional District, and a handful of others), not province-wide, so confirm your specific area applies before relying on that number; and a federal law currently restricts most non-Canadians from buying residential property in major urban areas until January 1, 2027, regardless of what any of these provincial taxes calculate. Checking "Include legal/notary fees & title insurance" adds a rough national-average estimate for those two costs to give you a fuller cash-to-close picture — but they're genuinely rough, since actual quotes vary by firm, province, and property complexity, so adjust the two numbers if you have a real quote. A home inspection, appraisal, and moving costs still aren't included, since they vary too widely (and an inspection is optional) to give a meaningful default. Treat every figure here as an accurate estimate of the tax itself, brought into a conversation with your lawyer or notary who will confirm the exact number at closing.</p>
 
 <h2 id="ltt-faq">Frequently Asked Questions</h2>
 <h3>Which provinces don't charge land transfer tax?</h3>

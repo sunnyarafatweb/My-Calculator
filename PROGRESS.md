@@ -22,6 +22,86 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Cross-calculator gap-closing pass** (ad-hoc user request, Jul 20, 2026,
+  directly following the "is everything 100% ok?" exchange): user pushed
+  back on the honest "here's what's disclosed as not covered" answer with
+  a fair challenge — if a gap stops a visitor from actually solving their
+  problem, disclosing it isn't enough, it should be closed. Went back
+  through both pages' own disclosed limitations and closed the ones that
+  were genuinely fixable in scope, rather than leaving them as permanent
+  disclaimers.
+  - **Cross-link fix**: found Land Transfer Tax Calculator already linked
+    to Canadian Mortgage Calculator in its sidebar, but not the reverse —
+    added it, positioned first since it's the most directly relevant
+    companion tool.
+  - **Canadian Mortgage Calculator — Rate Type (Fixed/Variable) +
+    Compounding selector**: the page previously assumed semi-annual
+    compounding unconditionally, correct for fixed-rate (legally mandated,
+    Interest Act) but only sometimes correct for variable-rate, which
+    genuinely isn't standardized. Research turned up an authoritative
+    single data point worth citing directly — the Government of Canada's
+    own FCAC template "Credit Agreement for a Variable Interest Loan"
+    example states its own variable-rate product is "compounded twice per
+    year but charged monthly," i.e. semi-annual, same as fixed — but this
+    doesn't generalize to every lender, several of which compound monthly
+    instead. Rather than guessing one convention and risking being wrong
+    for an unknown fraction of variable-rate users, added a rate-type
+    selector that locks Fixed to semi-annual (no ambiguity, no choice
+    needed) and, for Variable, exposes an explicit Semi-Annual/Monthly
+    compounding choice so the user can match their own contract instead of
+    the tool guessing for them.
+    - Generalized the core rate-conversion function to accept any
+      compounding frequency rather than duplicating it; verified in Node
+      that the general form is bit-for-bit identical to the original
+      semi-annual-only version at compoundingPeriodsPerYear=2 across
+      multiple rates and payment frequencies before wiring it in anywhere.
+    - Caught and fixed a real consistency bug before it shipped: the Down
+      Payment Scenarios table (added in an earlier follow-up this session)
+      computed its own rate conversion independently and would have kept
+      showing semi-annual-based numbers even when Variable+Monthly was
+      selected, silently mismatching the highlighted "current" row against
+      the main displayed payment. Passed the compounding choice through to
+      that function too and verified the two now agree exactly at
+      Variable+Monthly (both show $2,966.42 for the current 10% tier where
+      they'd previously have shown two different numbers).
+    - Fixed the PDF export's schedule regeneration, which also called the
+      semi-annual-only conversion directly and would have quietly exported
+      a fixed-rate schedule for a variable-rate calculation.
+    - Verified: Fixed unchanged ($2,955.79); Variable+Semi-Annual identical
+      to Fixed (correct, since it's the same math); Variable+Monthly
+      produces a small, correctly-higher payment ($2,966.42); switching
+      back to Fixed restores the original exactly; Stress Test tab (Tab 2)
+      unaffected; zero duplicate IDs; PDF export verified with
+      Variable+Monthly active; zero console errors.
+  - **Land Transfer Tax Calculator — Closing Costs estimate**: added an
+    optional "Include legal/notary fees & title insurance" section with
+    editable defaults ($1,500 / $350), researched against 8+ sources
+    clustering around $900–$3,000 for legal/notarial fees and a very
+    consistent $250–$500 for title insurance. Labeled correctly per
+    province ("Notary fees" for Quebec, "Legal fees" elsewhere, switching
+    automatically). Explicitly framed as rough national averages the user
+    should override with a real quote, not a precise number -- avoiding
+    the false-precision trap of presenting a guess as a fact.
+  - **Land Transfer Tax Calculator — Quebec first-time buyer tax credit**:
+    surfaces the $5,875 credit (already researched earlier this session
+    but never displayed) as an explicit informational line when Quebec +
+    first-time buyer is selected, correctly described as a separate
+    refundable credit claimed on the tax return rather than subtracted
+    from the welcome tax itself, since it doesn't work as a point-of-sale
+    exemption the way Ontario's or BC's rebates do.
+  - Fixed both pages' "what this doesn't cover" paragraphs, which
+    described these exact features as absent -- both were the actual
+    limitations these additions closed, so leaving the old wording would
+    have been actively wrong now rather than just outdated.
+  - Full regression after all changes: all 10 provinces' previously-
+    verified LTT values unchanged; closing-costs math exact at both
+    default and adjusted values; Quebec credit note appears/disappears
+    correctly with the first-time-buyer checkbox; both pages' FAQ schemas
+    re-confirmed matching; zero duplicate IDs on either page; all links
+    (including the new cross-links, checked both directions) resolve;
+    both PDF exports verified with the new features active; zero console
+    errors across both pages.
+
 - **Land Transfer Tax Calculator** (ad-hoc user request, Jul 20, 2026,
   following up directly on the Canadian Mortgage Calculator's "what this
   doesn't cover" disclosure and this session's competitive research, which
