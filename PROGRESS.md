@@ -13,8 +13,8 @@ re-explained.
 | 1 | Horsepower Calculator | Upgrade | ✅ DONE — 4 tabs: Torque & RPM (with Solve For + power-to-weight), Force/Distance/Time, Power Unit Converter, Wheel ↔ Crank HP (drivetrain loss) |
 | 2 | Engine Horsepower Calculator | Upgrade | ✅ DONE — 4 tabs: Elapsed Time (ET), Trap Speed, Predict My Run (reverse), 1/8-Mile Converter |
 | 3 | Time Zone Calculator | Upgrade (thin, ~434 lines) | ✅ DONE — rebuilt to 3-card pattern: city-to-city converter (33 cities, DST-aware via Intl/browser tz database, verified independently in Node + Playwright before shipping), day-shift + hour-difference readout, dual 24h business-hours timeline, live auto-updating World Clock (9 cities), Time Zone Abbreviations reference table, PDF export, 6 H2 content sections + 6 FAQs, new OG image |
-| 4 | IRA Calculator | Upgrade (thin) | ⬅️ NEXT |
-| 5 | Roth IRA Calculator | Upgrade (thin) | pending — sibling of #4, do together if convenient |
+| 4 | IRA Calculator | Upgrade (thin) | ✅ DONE — rebuilt to 3-card pattern: 2 tabs — Grow My IRA (age/balance/contribution/return growth projection with 2026 contribution-limit chips, plus an optional 2026 Traditional-deduction eligibility checker by filing status/workplace-plan coverage/MAGI) and Traditional vs. Roth (same-pretax-dollar comparison driven by tax-rate-now vs. tax-rate-in-retirement, verified to correctly flip winners in both directions and tie when rates are equal); year-by-year growth schedule + stacked contributions/growth chart + 2-segment donut; bottomgrid reference cards for 2026 contribution/deduction-limit ranges and a live RMD quick-reference tool (Uniform Lifetime Table lookup, age-73-vs-75 birth-year toggle); PDF export lazy-loaded from the start. 8 H2 sections + 6 FAQs, new OG image. See "Also completed" below for verification detail. |
+| 5 | Roth IRA Calculator | Upgrade (thin) | pending — sibling of #4, do next |
 | 6 | Annuity Payout Calculator | Upgrade (thin) | ✅ DONE (done out of order, ad-hoc user request Jul 20, 2026) — rebuilt to 3-card pattern, reusing Annuity Calculator's visual/JS conventions (apo- prefix): two tabs — Fixed Length (solve for payout amount) and Fixed Payment (solve for how long a chosen payment lasts, with automatic perpetuity detection when payment ≤ periodic interest); Payout Frequency selector (Monthly/Quarterly/Semiannual/Annual); level-payment annuitization formula verified independently in Node before shipping; year-by-year schedule table + stacked interest-vs-principal chart + 2-segment donut; PDF export; competitor research (calculator.net, annuity.org, catalinastructuredfunding, CBS/SmartAsset $100k-annuity coverage) folded into a "what real lifetime annuities pay vs. this calculator's period-certain math" section; 7 H2 sections + 6 FAQs; new OG image.
 | 7 | P/E Ratio Calculator | **New page** (doesn't exist yet) | pending |
 | 8 | Gold Calculator | **New page** (doesn't exist yet) | pending |
@@ -240,10 +240,14 @@ assume this exact order still holds after a few weeks of new data.
   GitHub and use a fresh token when resuming work, rather than reusing one
   from an old conversation transcript. As of this session (Jul 20, 2026),
   this happened again — treat that token as burned too and rotate before
-  the next session. Consider setting up a way to authenticate that doesn't
-  require pasting the raw token into chat each time (e.g. the user storing
-  it outside the conversation and Claude Code/CLI picking it up from local
-  environment instead).
+  the next session. **Update, same day, later session**: it happened again
+  (a third time) — a new PAT was pasted directly in chat to start this
+  session. Treat that token as burned too. This is now a recurring pattern
+  across at least three sessions; strongly consider setting up a way to
+  authenticate that doesn't require pasting the raw token into chat each
+  time (e.g. the user storing it outside the conversation and Claude Code/
+  CLI picking it up from local environment instead) before the next session,
+  rather than repeating this note a fourth time.
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
