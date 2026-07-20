@@ -456,11 +456,11 @@
     </div>
     <div class="bnd-field" id="bnd-maturityDateRow" style="display:none">
       <span class="bnd-field-label">Maturity date</span>
-      <div class="bnd-field-control"><div class="bnd-input-group"><input id="bnd-maturityDate" type="date" value="2036-07-15"></div></div>
+      <div class="bnd-field-control"><div class="bnd-input-group"><input id="bnd-maturityDate" type="date"></div></div>
     </div>
     <div class="bnd-field" id="bnd-settlementDateRow" style="display:none">
       <span class="bnd-field-label">Settlement date</span>
-      <div class="bnd-field-control"><div class="bnd-input-group"><input id="bnd-settlementDate" type="date" value="2026-07-20"></div></div>
+      <div class="bnd-field-control"><div class="bnd-input-group"><input id="bnd-settlementDate" type="date"></div></div>
     </div>
     <div class="bnd-field" id="bnd-daycountRow" style="display:none;align-items:flex-start">
       <span class="bnd-field-label" style="padding-top:6px">Day-count convention</span>
@@ -895,7 +895,8 @@
   $('bnd-clearBtn').addEventListener('click', function(){
     $('bnd-face').value=1000; $('bnd-coupon').value=5; $('bnd-yield').value=6; $('bnd-price').value=925.61;
     $('bnd-years').value=10; $('bnd-freq').value=2;
-    $('bnd-maturityDate').value='2036-07-15'; $('bnd-settlementDate').value='2026-07-20';
+    $('bnd-maturityDate').value=''; $('bnd-settlementDate').value='';
+    setDefaultAccruedDates();
     document.querySelector('input[name="bnd-daycount"][value="30360"]').checked = true;
     calculate();
   });
@@ -993,6 +994,24 @@
       alert('Could not load the PDF library — check your connection and try again.');
     });
   });
+
+  // ---- Dynamic defaults for the Accrued Interest tab: always "today" for the
+  // actual visitor, not a date baked in at build time ----
+  function isoDate(d){
+    var mm = String(d.getMonth()+1).padStart(2,'0');
+    var dd = String(d.getDate()).padStart(2,'0');
+    return d.getFullYear()+'-'+mm+'-'+dd;
+  }
+  function setDefaultAccruedDates(){
+    var today = new Date();
+    // Offset by 10 years + 4 months (not an exact multiple of the 6-month coupon
+    // interval) so a first-time visitor sees a real, non-zero accrued-interest
+    // example instead of happening to land exactly on a coupon date.
+    var tenYearsOut = new Date(today.getFullYear()+10, today.getMonth()+4, today.getDate());
+    $('bnd-settlementDate').value = isoDate(today);
+    $('bnd-maturityDate').value = isoDate(tenYearsOut);
+  }
+  setDefaultAccruedDates();
 
   calculate();
 })();
