@@ -24,6 +24,61 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Budget Calculator** (ad-hoc user request, Jul 20, 2026, reference:
+  calculator.net/budget-calculator.html): rebuilt from a minimal 3-input
+  page (Needs/Wants/Savings entered manually by the user, static 45/30/15
+  example) into a full itemized budget tool matching every income/expense
+  line item calculator.net's reference calculator has -- 4 income lines +
+  tax rate + 37 expense line items across 8 categories (Housing &
+  Utilities, Transportation, Other Debt & Loan Payments, Living Expenses,
+  Healthcare, Children & Education, Savings & Investments, Miscellaneous
+  Expenses), each with an independent Monthly/Yearly toggle per the
+  reference site's own UX, per explicit user instruction to match its
+  value-entry fields one-for-one while keeping our own design and our own
+  unique SEO article content (not copying any of its text).
+  - Categories are collapsible (first one open by default, Expand/Collapse
+    All toggle) given the sheer number of fields; income and category
+    fields are rendered from a single JS data model rather than 40+
+    hand-duplicated HTML blocks, keeping the page maintainable.
+  - Verified the full calculation chain in Node with a realistic worked
+    example before locking in the page's default values: gross $6,200/mo
+    -> 22% tax -> $4,836 net -> $4,720 total expenses -> +$116/mo left
+    over, landing at a 51.5/26.5/19.6 needs/wants/savings split (close to
+    the classic 50/30/20 target) and a 22.6% debt-to-income ratio
+    ("Excellent" tier) -- a deliberately realistic, illustrative default
+    rather than arbitrary round numbers.
+  - Built two differentiators beyond the reference site's plain category
+    list: an automatic **50/30/20 classification** (each line item
+    pre-assigned to needs/wants/savings, with the "Living Expenses"
+    category split field-by-field since food/household-supplies are needs
+    but clothing/meals-out/other are wants) rendered as target-marked bar
+    charts, and a **debt-to-income ratio** card (housing + auto loan +
+    credit card + student loan + other loans + child support, divided by
+    gross income) with standard lender-tier thresholds (Excellent ≤36%,
+    Good/Manageable 36-43%, High 43-50%, Very High >50%) verified via live
+    web search against Fannie Mae/FHA/conventional-lending guidance rather
+    than assumed from memory.
+  - Category-breakdown donut (8 segments) + table (category, monthly $,
+    % of after-tax income); PDF export includes the full summary,
+    category breakdown, and 50/30/20 + DTI figures.
+  - 8 H2 content sections + 6 FAQs, explicitly disclosing Calculator
+    Boss's own needs-vs-wants classification methodology as a judgment
+    call (not a regulatory standard) rather than presenting it as
+    definitive, and citing the 50/30/20 rule's actual origin (Elizabeth
+    Warren & Amelia Warren Tyagi, *All Your Worth*, 2005) correctly.
+  - Full Playwright pass: default calculation matches the verified Node
+    example exactly, all 41 input fields + 8 category sections render,
+    expand/collapse-all works, the Monthly/Yearly toggle correctly
+    re-normalizes a category total when switched, deficit scenarios
+    correctly flip the result card to a warning state, all 23 internal
+    links on the page resolve (none broken), lazy PDF export verified,
+    mobile layout verified. Caught and fixed the same
+    em-dash-vs-double-hyphen FAQ schema mismatch as both prior sessions
+    (now the fourth occurrence across four calculator builds) plus a new
+    variant this time -- a straight-vs-curly quote mismatch around `"need"`
+    / `"want"` in one question's title -- both caught by the same
+    schema-vs-visible-text diff check. New OG image.
+
 - **Bond Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt from a
   static/non-functional 434-line thin page (hardcoded example, no live
   recalculation, price-only) into the full 3-card pattern with 2 tabs,

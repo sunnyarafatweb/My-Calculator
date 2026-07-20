@@ -78,7 +78,7 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
 
 ### Structured data (JSON-LD) — required on every page
 - [ ] `BreadcrumbList` (Home → Category → This calculator)
-- [ ] `FAQPage` with every FAQ question/answer that's also visibly rendered on the page (schema must match visible content — mismatches risk manual action / rich-result loss)
+- [ ] `FAQPage` with every FAQ question/answer that's also visibly rendered on the page (schema must match visible content — mismatches risk manual action / rich-result loss). **Known recurring failure mode (hit on all four calculator rebuilds so far — IRA, Bond, and now Budget Calculator):** the schema JSON tends to get typed with a plain double-hyphen (`--`) or straight quotes (`'`/`"`) where the visible article text uses an em dash (`—`) or curly/HTML-escaped quotes, since the two are written in separate passes. **Do not rely on writing them consistently by hand** — after finalizing both the schema and the visible FAQ HTML, run the same automated diff check used in every session so far (extract each schema Q/A, extract each visible `<h3>`/`<p>` pair, assert exact string equality) before shipping, every single time, regardless of how careful the authoring felt in the moment.
 - [ ] `WebApplication` with `applicationCategory` (FinanceApplication / HealthApplication / etc.), `offers: {price: 0, priceCurrency: USD}`, and a one-line description
 - [ ] Add visible `BreadcrumbList` HTML (not just schema) to the page itself, per the design gap noted above.
 
