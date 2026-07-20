@@ -365,6 +365,14 @@
 .cad-badge.fail{background:#FBE4E7;color:#B3261E}
 
 .cad-donut-box{padding:6px 20px 20px;display:flex;align-items:center;gap:16px}
+
+.cad-scenario-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.cad-scenario-table th{text-align:right;padding:6px 8px;font-weight:700;color:var(--ink-faint);border-bottom:1px solid var(--border-fine)}
+.cad-scenario-table th:first-child,.cad-scenario-table td:first-child{text-align:left}
+.cad-scenario-table td{text-align:right;padding:6px 8px;color:var(--ink-soft);border-bottom:1px solid var(--border-fine)}
+.cad-scenario-table tr:last-child td{border-bottom:none}
+.cad-scenario-table tr.is-current{background:var(--surface-sunken);font-weight:700;color:var(--ink)}
+.cad-scenario-title{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;display:block}
 .cad-donut-svg{width:96px;height:96px;flex-shrink:0}
 .cad-donut-legend{display:flex;flex-direction:column;gap:8px;font-size:12.5px}
 .cad-donut-legend .lg{display:flex;align-items:center;gap:7px;color:var(--ink-soft)}
@@ -488,6 +496,11 @@
           </select>
         </div>
       </div>
+      <div class="cad-field">
+        <span class="cad-field-label">Annual prepayment</span>
+        <div class="cad-field-control"><div class="cad-input-group"><span>$</span><input id="cad-annualPrepay" type="number" min="0" step="500" value="0"></div></div>
+      </div>
+      <p class="cad-subnote">Optional lump sum applied to principal once a year, on top of regular payments — most Canadian mortgages allow 10-20% of the original principal annually without penalty.</p>
 
       <div class="cad-divider" id="cad-cmhcDivider" style="display:none"></div>
       <div id="cad-cmhcSection" style="display:none">
@@ -561,6 +574,7 @@
     <div class="subline" id="cad-subline"></div>
   </div>
   <div class="cad-result-body" id="cad-resultRows"></div>
+  <div id="cad-scenarioBox" style="padding:0 20px 16px"></div>
   <div class="cad-donut-box" id="cad-donutBox">
     <svg viewBox="0 0 96 96" class="cad-donut-svg" id="cad-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="cad-donut-legend" id="cad-donutLegend"></div>
@@ -696,7 +710,8 @@
 
   // Period-by-period simulation, aggregated into yearly rows; stops early if balance clears
   // (relevant for accelerated frequencies, which pay off faster than the stated amortization)
-  function buildAmortSchedule(P, periodicRate, pmt, periodsPerYear, maxYears){
+  function buildAmortSchedule(P, periodicRate, pmt, periodsPerYear, maxYears, annualPrepay){
+    annualPrepay = annualPrepay || 0;
     var bal = P;
     var rows = [];
     var maxPeriods = Math.ceil(maxYears*periodsPerYear)+periodsPerYear; // small safety buffer
@@ -710,6 +725,11 @@
       bal -= pp;
       yearPrincipal += pp; yearInterest += ip; totalInterestPaid += ip;
       periodsElapsed++; periodsThisYear++;
+      if(annualPrepay>0 && periodsElapsed % periodsPerYear === 0 && bal>0.005){
+        var extra = Math.min(annualPrepay, bal);
+        bal -= extra;
+        yearPrincipal += extra;
+      }
       if(periodsThisYear >= periodsPerYear || bal<=0.005){
         rows.push({year:rows.length+1, begin:yearBegin, principal:yearPrincipal, interest:yearInterest, end:bal});
         yearBegin = bal; yearPrincipal=0; yearInterest=0; periodsThisYear=0;
@@ -743,6 +763,7 @@
       $('cad-payment-fields').style.display = (currentMode==='payment') ? 'block' : 'none';
       $('cad-stress-fields').style.display = (currentMode==='stress') ? 'block' : 'none';
       document.querySelector('.cad-schedule-card').style.display = (currentMode==='payment') ? 'block' : 'none';
+      if(currentMode!=='payment') $('cad-scenarioBox').innerHTML = '';
       calculate();
     });
   });
@@ -782,6 +803,7 @@
     $('cad-donutSvg').innerHTML=''; $('cad-donutLegend').innerHTML='';
     $('cad-scheduleBody').innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--ink-faint)">—</td></tr>';
     $('cad-chartSvg').innerHTML=''; $('cad-scheduleSub').textContent='';
+    $('cad-scenarioBox').innerHTML = '';
     lastResult = null;
   }
 
@@ -835,31 +857,44 @@
     }
     var mortgageAmount = mortgageBeforePremium + cmhcAmount;
 
+    var annualPrepay = parseFloat($('cad-annualPrepay').value);
+    if(!isFinite(annualPrepay) || annualPrepay<0) annualPrepay = 0;
+
     var freqKey = $('cad-freq').value;
     var freqResult = computePaymentForFrequency(mortgageAmount, rate, amortYears, freqKey);
     var termYears = Math.min(termYearsInput, amortYears);
     var balAtTerm = balanceAtTerm(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, termYears);
     var effectiveAnnualRate = (Math.pow(1+rate/100/2,2)-1)*100;
 
-    var schedule = buildAmortSchedule(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, amortYears);
+    var schedule = buildAmortSchedule(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, amortYears, annualPrepay);
     var actualYearsToPayoff = schedule.totalPeriods/freqResult.periodsPerYear;
 
     lastResult = {mode:'payment', homePrice:homePrice, downPaymentDollar:downPaymentDollar, downPaymentPct:downPaymentPct,
       mortgageAmount:mortgageAmount, cmhcAmount:cmhcAmount, cmhcPct:cmhcPct, rate:rate, amortYears:amortYears,
       termYears:termYears, freqKey:freqKey, pmt:freqResult.pmt, balAtTerm:balAtTerm, effectiveAnnualRate:effectiveAnnualRate,
-      totalInterestPaid:schedule.totalInterestPaid, actualYearsToPayoff:actualYearsToPayoff};
+      totalInterestPaid:schedule.totalInterestPaid, actualYearsToPayoff:actualYearsToPayoff, annualPrepay:annualPrepay};
 
     $('cad-resultLabel').textContent = FREQ_LABEL[freqKey]+' Payment';
     $('cad-bignum').textContent = money(freqResult.pmt,2);
     var acceleratedNote = FREQ_CONFIG[freqKey].accelerated ? ' — pays off in ~'+actualYearsToPayoff.toFixed(1)+' yrs, faster than the '+amortYears+'-yr amortization' : '';
     $('cad-subline').textContent = 'Effective annual rate '+pct(effectiveAnnualRate,3)+' on '+money(mortgageAmount,0)+' mortgage'+acceleratedNote+amortClampedNote;
 
-    $('cad-resultRows').innerHTML =
+    var rowsHtml =
       '<div class="cad-result-row"><span>Down payment</span><span>'+money(downPaymentDollar,0)+' ('+pct(downPaymentPct,1)+')</span></div>'+
       '<div class="cad-result-row"><span>CMHC insurance premium</span><span>'+money(cmhcAmount,0)+'</span></div>'+
       '<div class="cad-result-row"><span>Total mortgage amount</span><span>'+money(mortgageAmount,0)+'</span></div>'+
-      '<div class="cad-result-row"><span>Total interest ('+amortYears+' yrs)</span><span>'+money(schedule.totalInterestPaid,0)+'</span></div>'+
+      '<div class="cad-result-row"><span>Total interest</span><span>'+money(schedule.totalInterestPaid,0)+'</span></div>'+
       '<div class="cad-result-row"><span>Balance at end of '+termYears+'-yr term</span><span>'+money(balAtTerm,0)+'</span></div>';
+    if(annualPrepay>0){
+      var baselineSchedule = buildAmortSchedule(mortgageAmount, freqResult.periodicRate, freqResult.pmt, freqResult.periodsPerYear, amortYears, 0);
+      var yearsSaved = baselineSchedule.totalPeriods/freqResult.periodsPerYear - actualYearsToPayoff;
+      var interestSaved = baselineSchedule.totalInterestPaid - schedule.totalInterestPaid;
+      lastResult.yearsSaved = yearsSaved; lastResult.interestSaved = interestSaved;
+      rowsHtml +=
+        '<div class="cad-result-row"><span>New payoff time</span><span>'+actualYearsToPayoff.toFixed(1)+' yrs <span style="color:var(--ink-faint);font-weight:400">(was '+amortYears+')</span></span></div>'+
+        '<div class="cad-result-row"><span>Interest saved by prepaying</span><span>'+money(Math.max(0,interestSaved),0)+'</span></div>';
+    }
+    $('cad-resultRows').innerHTML = rowsHtml;
 
     renderDonut([
       {val:mortgageAmount-cmhcAmount, color:'#1E3A5F', label:'Principal'},
@@ -867,7 +902,9 @@
       {val:cmhcAmount, color:'#B08900', label:'CMHC Premium'}
     ]);
 
-    $('cad-scheduleTitle').textContent = 'Amortization Schedule'+(FREQ_CONFIG[freqKey].accelerated ? ' (accelerated)' : '');
+    renderDownPaymentScenarios(homePrice, rate, amortYears, downPaymentPct);
+
+    $('cad-scheduleTitle').textContent = 'Amortization Schedule'+(FREQ_CONFIG[freqKey].accelerated || annualPrepay>0 ? ' (with acceleration)' : '');
     $('cad-scheduleHead').innerHTML = '<tr><th>Year</th><th>Beginning Balance</th><th>Principal</th><th>Interest</th><th>Ending Balance</th></tr>';
     $('cad-scheduleSub').textContent = schedule.rows.length+' year'+(schedule.rows.length===1?'':'s')+' shown';
     $('cad-scheduleBody').innerHTML = schedule.rows.map(function(row){
@@ -875,6 +912,29 @@
     }).join('');
     $('cad-chartLegend').innerHTML = '<div class="lg"><i style="background:#1E3A5F"></i>Principal</div><div class="lg"><i style="background:#16A34A"></i>Interest</div>';
     renderBarChart(schedule.rows);
+  }
+
+  // Shows how mortgage amount and payment change at the standard down-payment tiers
+  // (5/10/15/20%) for the current home price, rate, and amortization -- Ratehub-style
+  // side-by-side comparison, independent of whatever down payment is currently entered.
+  function renderDownPaymentScenarios(homePrice, rate, amortYears, currentDownPct){
+    var minDown = minDownPayment(homePrice);
+    var tiers = [5, 10, 15, 20];
+    var rowsHtml = tiers.map(function(tierPct){
+      var down = homePrice*tierPct/100;
+      if(down < minDown-0.01) return null; // below legal minimum for this price, skip
+      var mortgageBeforePremium = homePrice-down;
+      var cmhcPct = cmhcPremiumPct(tierPct);
+      var cmhcAmt = mortgageBeforePremium*cmhcPct/100;
+      var mortgageAmt = mortgageBeforePremium+cmhcAmt;
+      var r = nominalSemiAnnualToPeriodicRate(rate, 12);
+      var pmt = payment(mortgageAmt, r, Math.round(amortYears*12));
+      var isCurrent = Math.abs(tierPct-currentDownPct) < 2.5;
+      return '<tr'+(isCurrent?' class="is-current"':'')+'><td>'+tierPct+'% ('+money(down,0)+')</td><td>'+money(mortgageAmt,0)+'</td><td>'+money(pmt,2)+'/mo</td></tr>';
+    }).filter(Boolean).join('');
+    $('cad-scenarioBox').innerHTML =
+      '<span class="cad-scenario-title">Down Payment Scenarios (Monthly)</span>'+
+      '<table class="cad-scenario-table"><thead><tr><th>Down Payment</th><th>Mortgage</th><th>Payment</th></tr></thead><tbody>'+rowsHtml+'</tbody></table>';
   }
 
   // =============== TAB 2: Stress Test Affordability ===============
@@ -1031,7 +1091,7 @@
   }
 
   // =============== Wire up live listeners ===============
-  var paymentLiveIds = ['cad-homePrice','cad-downPayment','cad-amortYears','cad-termYears','cad-rate','cad-freq'];
+  var paymentLiveIds = ['cad-homePrice','cad-downPayment','cad-amortYears','cad-termYears','cad-rate','cad-freq','cad-annualPrepay'];
   paymentLiveIds.forEach(function(id){ $(id).addEventListener('input', calculate); $(id).addEventListener('change', calculate); });
   var stressLiveIds = ['cad-income','cad-otherDebt','cad-stDownPayment','cad-propertyTax','cad-heating','cad-condoFees','cad-stRate','cad-stAmortYears'];
   stressLiveIds.forEach(function(id){ $(id).addEventListener('input', calculate); $(id).addEventListener('change', calculate); });
@@ -1045,6 +1105,7 @@
     document.querySelectorAll('.cad-unit-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-unit')==='dollar'); });
     $('cad-downPayment').previousElementSibling.textContent='$';
     $('cad-amortYears').value=25; $('cad-termYears').value=5; $('cad-rate').value=4.09; $('cad-freq').value='monthly';
+    $('cad-annualPrepay').value=0;
     $('cad-isFirstTimeOrNewBuild').checked=false;
     calculate();
   });
@@ -1096,7 +1157,12 @@
           ['Amortization', r.amortYears+' years'], ['Term', r.termYears+' years'],
           ['Total Interest', money(r.totalInterestPaid,2)], ['Balance at End of Term', money(r.balAtTerm,2)]
         ];
-        scheduleRows = buildAmortSchedule(r.mortgageAmount, nominalSemiAnnualToPeriodicRate(r.rate, FREQ_CONFIG[r.freqKey].periodsPerYear), r.pmt, FREQ_CONFIG[r.freqKey].periodsPerYear, r.amortYears).rows.map(function(row){
+        if(r.annualPrepay>0){
+          summaryRows.push(['Annual Prepayment', money(r.annualPrepay,2)]);
+          summaryRows.push(['Actual Payoff Time', r.actualYearsToPayoff.toFixed(1)+' years']);
+          summaryRows.push(['Interest Saved by Prepaying', money(r.interestSaved||0,2)]);
+        }
+        scheduleRows = buildAmortSchedule(r.mortgageAmount, nominalSemiAnnualToPeriodicRate(r.rate, FREQ_CONFIG[r.freqKey].periodsPerYear), r.pmt, FREQ_CONFIG[r.freqKey].periodsPerYear, r.amortYears, r.annualPrepay).rows.map(function(row){
           return [row.year, money(row.begin,2), money(row.principal,2), money(row.interest,2), money(row.end,2)];
         });
       } else {
@@ -1161,6 +1227,7 @@
 <div class="cad-formula">Effective Annual Rate &nbsp;=&nbsp; (1 + Nominal Rate &divide; 2)<sup>2</sup> &minus; 1<br>
 Periodic Rate (for your payment frequency) &nbsp;=&nbsp; (1 + Effective Annual Rate)<sup>1&frasl;periods-per-year</sup> &minus; 1</div>
 <p>For monthly payments, that means raising to the 1/12 power; for the bi-weekly options, 1/26; for weekly, 1/52. Once the periodic rate is set, payment amount uses the same fixed-payment annuity formula every amortizing loan uses — the compounding convention is what's uniquely Canadian, not the payment formula itself. If your down payment is under 20%, the CMHC premium (below) is calculated and added directly to the mortgage balance before that payment is computed, since that's what actually happens: you don't pay the premium separately, you finance it.</p>
+<p>Two more things update automatically as you adjust the main fields. Entering an <strong>Annual Prepayment</strong> re-runs the amortization with that lump sum applied to principal once a year, on top of your regular payments, and reports the shorter payoff time and the interest that saves — the same mechanism behind your lender's prepayment privilege, just calculated for you instead of left to a rule of thumb. The <strong>Down Payment Scenarios</strong> table below your results recalculates the mortgage amount and payment at the standard 10%/15%/20% tiers for whatever home price and rate you've entered, so you can see the real cost of a smaller down payment (higher CMHC premium, higher payment) against a larger one without re-entering numbers three separate times.</p>
 
 <h2 id="cad-cmhc">CMHC Mortgage Insurance: What It Costs and When You Need It</h2>
 <p>Any mortgage with less than 20% down is legally required to carry mortgage default insurance — commonly called CMHC insurance after Canada Mortgage and Housing Corporation, though Sagen and Canada Guaranty also underwrite it on identical terms. Your lender picks the insurer; you don't. The premium is a percentage of your mortgage amount (not the home price), tiered by how much you're putting down:</p>
@@ -1188,7 +1255,7 @@ Periodic Rate (for your payment frequency) &nbsp;=&nbsp; (1 + Effective Annual R
 <p>The stress test and down payment rules are the same for every applicant at a given lender, but approval and pricing still depend on the individual file: <strong>credit score</strong> (most lenders want 680+ for the best rates, though insured mortgages can sometimes work with less), <strong>employment stability</strong> (2+ years at a job or in a field, or a longer track record if self-employed), <strong>the property itself</strong> (condos, rural properties, and unique builds sometimes face extra scrutiny or lower maximum LTVs), and <strong>existing debt</strong> beyond what shows up in TDS, like a spouse's obligations if they're not on the mortgage. A mortgage broker who can shop your file across multiple lenders — rather than a single bank only offering its own products — is often worth the conversation specifically because qualifying criteria vary more between lenders than the headline rate does.</p>
 
 <h2 id="cad-doesnt">What This Calculator Doesn't Cover</h2>
-<p>This tool calculates payment, insurance, and stress-test affordability accurately for a standard fixed-rate insured or uninsured mortgage — it doesn't replace an actual lender's underwriting or a mortgage broker's file review. It doesn't include <strong>land transfer tax</strong> (which varies significantly by province and, in Toronto's case, includes an additional municipal tax on top of Ontario's provincial one) or other closing costs like legal fees and title insurance. <strong>Variable-rate mortgages</strong> aren't required to compound semi-annually the way fixed-rate mortgages are — some do, some compound monthly to match payments, and the actual terms are in the fine print of your specific contract, so treat this calculator's compounding assumption as accurate for fixed rates specifically. It also doesn't model prepayment privileges (many Canadian mortgages allow 10-20% of the original principal in lump-sum prepayments annually without penalty) or the penalty for breaking a fixed-rate term early, which can be substantial. Treat every figure here as a solid planning estimate to bring into a conversation with an actual lender or mortgage broker, not a substitute for one.</p>
+<p>This tool calculates payment, insurance, and stress-test affordability accurately for a standard fixed-rate insured or uninsured mortgage — it doesn't replace an actual lender's underwriting or a mortgage broker's file review. It doesn't include <strong>land transfer tax</strong> (which varies significantly by province and, in Toronto's case, includes an additional municipal tax on top of Ontario's provincial one) or other closing costs like legal fees and title insurance. <strong>Variable-rate mortgages</strong> aren't required to compound semi-annually the way fixed-rate mortgages are — some do, some compound monthly to match payments, and the actual terms are in the fine print of your specific contract, so treat this calculator's compounding assumption as accurate for fixed rates specifically. The Annual Prepayment field assumes your lender's prepayment privilege comfortably covers the amount you enter — actual privileges are typically capped at 10-20% of the original principal per year, so check your specific contract before counting on a larger lump sum, and this tool also doesn't model the penalty for breaking a fixed-rate term early, which can be substantial. Treat every figure here as a solid planning estimate to bring into a conversation with an actual lender or mortgage broker, not a substitute for one.</p>
 
 <h2 id="cad-faq">Frequently Asked Questions</h2>
 <h3>Why is my Canadian mortgage payment different from a US mortgage calculator with the same rate?</h3>

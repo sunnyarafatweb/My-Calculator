@@ -100,6 +100,69 @@ assume this exact order still holds after a few weeks of new data.
     PDF export verified from both tabs; mobile layout checked; zero
     console errors throughout. New OG image; title/description tightened
     to fit standard SERP length after drafting.
+  **Same-day follow-up #1** (user asked to cross-check colors specifically):
+  the page had been deliberately themed red (Canada's flag color) rather
+  than the site's own navy finance-category accent every other calculator
+  uses -- user correctly pushed back that a site should keep one consistent
+  brand identity rather than chasing a per-country color scheme. Reverted
+  all 15 page-specific red instances to navy, restored red specifically
+  for the error state (it had been swapped to gray to avoid clashing with
+  the red theme, which was itself a symptom of the theme being wrong),
+  removed the flag emoji from the status bar badge and OG image to match
+  every other calculator's plain \$/% badge convention. Full log in the
+  commit message; not duplicated here.
+  **Same-day follow-up #2** (user asked for a fresh cross-check plus
+  deeper keyword research, with instructions to implement any real
+  improvement found): re-examined Ratehub.ca, NerdWallet Canada, and the
+  official Canada.ca/FCAC calculator specifically for *feature* gaps
+  rather than just field-parity. Found two with enough independent
+  corroboration to justify building:
+  - **Annual Prepayment**: the official Government of Canada mortgage
+    calculator itself has a prepayment feature (one-time/yearly/matching
+    regular payment) -- this page had no equivalent despite already
+    discussing prepayment privileges in its content as something *not*
+    covered. Implemented an annual lump-sum prepayment field, verified in
+    Node against the existing amortization engine (\$5,000/yr on the
+    \$556,740 default: saves 4.67 years and \$67,946 in interest; a 10%-of-
+    principal annual prepayment -- a realistic privilege amount --
+    collapses a 25-year amortization to 7.3 years), then confirmed the
+    live page matches those figures exactly, including the combined case
+    of prepayment stacked with an accelerated payment frequency (both
+    accelerating simultaneously, correctly compounding the effect further
+    without conflict). Fixed the now-contradictory "doesn't model
+    prepayment" line in the What This Calculator Doesn't Cover section,
+    which the new feature made false, and added a paragraph on both new
+    features to How This Calculator Works.
+  - **Down Payment Scenarios table**: Ratehub.ca's stated signature
+    differentiator is automatically showing multiple down-payment options
+    side by side rather than requiring the visitor to re-enter values
+    three times. Added a compact table (10%/15%/20% tiers, 5% auto-hidden
+    when below the legal minimum for the entered price) inside the result
+    card, dynamically recalculated from the current home price/rate/
+    amortization, with the tier matching the currently-entered down
+    payment visually highlighted. Verified in Node against the existing
+    CMHC/payment engine before wiring up, matched exactly live.
+  - Proactively handled the same cross-tab and error-state visibility
+    issue caught after-the-fact in the Business Loan Calculator session
+    (a new result-card element left stale when switching tabs or hitting
+    an input error) *before* it could ship this time -- added the
+    scenario table to both the tab-switch handler's cleanup and
+    showError(), then verified both paths explicitly in the same test
+    pass rather than treating it as a one-off bug to catch later.
+  - Considered a third gap (Ratehub/multiple sources also flag land
+    transfer tax as commonly missing) but declined to add it this
+    session: an accurate implementation needs full province-by-province
+    tax brackets plus Toronto's separate municipal top-up, and a rough
+    placeholder risked being wrong in a way that's worse than the
+    existing honest disclosure that it's not covered. Left as a
+    documented limitation rather than risk a half-accurate addition
+    under time pressure -- candidate for its own dedicated calculator
+    in the future instead of being bolted onto this page.
+  - Full regression after both features: default calculations on both
+    tabs unchanged, FAQ schema still matches visible content (6/6, no new
+    mismatches introduced), zero duplicate IDs, all 23 internal links +
+    anchors resolve, PDF export (now including prepayment figures when
+    active) verified from both tabs, zero console errors.
 
 - **Site-wide consistency pass** (ad-hoc user request, Jul 20, 2026,
   following the Mortgage Calculator Share-button fix): user asked for the
