@@ -24,6 +24,84 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Business Loan Calculator** (ad-hoc user request, Jul 20, 2026 — flagged
+  by the user as a future priority-revenue page: planned affiliate
+  placements with banks/lenders and AdSense, aimed at business owners and
+  professionals, with an explicit "no bugs, no missing info, world-class"
+  bar). Rebuilt from a thin 434-line single-metric page into a 3-tab tool,
+  treated with the highest verification rigor of any build so far:
+  - **Keyword research first**: cross-checked NerdWallet (payment calc +
+    separate factor-rate-to-APR converter), Crestmont Capital, PrimeRates,
+    and a dedicated competitor (businessloancalculatorhub.com, which lists
+    payment/APR/affordability/DSCR/MCA as separate tools). Confirmed DSCR
+    and MCA-true-cost are genuine, distinct, high-value query clusters
+    the old page didn't touch at all — decided to fold all three into one
+    page as tabs (same beat-the-fragmented-competition strategy used for
+    IRA/Bond), rather than a single generic payment box.
+  - **Tab 1 (Loan Payment)**: standard amortizing payment/APR, with a
+    "solve for max loan amount given a target payment" reverse toggle, and
+    an SBA 7(a)-aware fee mode. SBA guarantee fee tiers for FY2026
+    (2%/3%/3.5%+3.75% on the guaranteed portion, tiered by loan size, with
+    a manufacturer NAICS 31-33 waiver up to $950k) were sourced from a
+    trade-association citation of the actual SBA fee notice (NAGGL) and
+    cross-verified against an independent worked example from a third
+    source (a $1.2M loan -> $900k guaranteed portion -> exact $31,500 fee
+    match). The reverse-solve mode uses iterative convergence (fee depends
+    on loan size, loan size depends on fee) verified to land on the exact
+    target payment to the penny in both the fee-financed and
+    fee-paid-upfront cases.
+  - **Tab 2 (DSCR Affordability)**: solves the actual number most
+    commercial lenders underwrite to — max new loan amount given monthly
+    net operating income, existing debt, and a target Debt Service
+    Coverage Ratio (1.25 default, the most commonly cited lender minimum,
+    confirmed across Fannie-Mae-adjacent and lending-industry sources).
+    Round-trip verified: feeding the computed max loan back through the
+    payment formula reproduces the exact target DSCR. Correctly handles
+    the "existing debt already exceeds capacity" edge case (shows $0,
+    error state) and the directional sanity check that a stricter target
+    DSCR produces a lower max loan.
+  - **Tab 3 (Merchant Cash Advance)**: converts a factor rate into both
+    the commonly-cited "simple annualized" cost AND a true,
+    remittance-schedule-adjusted effective APR, using the same bisection
+    technique this site already uses for reverse APR/YTM problems. This
+    second, more accurate number is the genuine differentiator — it
+    correctly comes out meaningfully higher than the simple figure (e.g.
+    202.9% effective vs. 60.8% simple for the same $50k/1.30-factor/
+    180-day example), which matches the qualitative "MCAs often exceed
+    150-350% APR when properly calculated" figures found during research,
+    rather than just repeating the naive calculation most competitor
+    tools stop at.
+  - Rate-range reference card (SBA 7(a), SBA 504, bank term, online term,
+    bank/online line of credit, equipment financing, MCA factor range) and
+    a business-financing glossary (DSCR, factor rate, guarantee fee,
+    personal guarantee), all sourced from live research (SoFi, Crestmont
+    Capital, Xero, LendingValley, Bankrate) rather than assumed figures.
+  - 9 H2 content sections (including a loan-type comparison table) + 6
+    FAQs, written for both first-time entrepreneurs and established
+    business owners per the user's explicit brief. Proactively ran the
+    FAQ-schema-vs-visible-text diff check *before* assembling the page for
+    the first time (rather than after, as in every prior session) —
+    caught the same em-dash mismatch pattern again (2 of 6 answers) and
+    fixed it pre-emptively, confirming this is now a reliable, repeatable
+    step regardless of how carefully the content is authored.
+  - Given the stakes called out for this specific page, ran a
+    substantially heavier-than-usual Playwright pass: default calculation
+    on all 3 tabs cross-verified against independent Node calculations
+    (exact matches, including the $1.2M SBA worked-example cross-check);
+    reverse-solve round-trips in both fee-financed and fee-upfront modes;
+    zero-fee sanity check (APR collapses to exactly the stated rate);
+    manufacturer-waiver edge case tested both just-under and just-over the
+    $950k threshold; DSCR edge case and directional check; MCA daily vs.
+    weekly remittance and invalid-factor-rate handling; a dedicated
+    duplicate-ID sweep (none found, direct carry-over of the lesson from
+    the Budget Calculator session); all 23 internal links and all in-page
+    TOC anchors resolve; PDF export verified from all 3 tabs individually;
+    mobile layout checked; zero console errors across every round. New OG
+    image; title/meta description tightened after drafting to fit
+    standard SERP display length for maximum click-through, per the
+    user's explicit ask to write it the way a business owner would
+    actually want to click.
+
 - **Budget Calculator** (ad-hoc user request, Jul 20, 2026, reference:
   calculator.net/budget-calculator.html): rebuilt from a minimal 3-input
   page (Needs/Wants/Savings entered manually by the user, static 45/30/15
