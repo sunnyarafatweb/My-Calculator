@@ -24,6 +24,75 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Bond Calculator** (ad-hoc user request, Jul 20, 2026): rebuilt from a
+  static/non-functional 434-line thin page (hardcoded example, no live
+  recalculation, price-only) into the full 3-card pattern with 2 tabs,
+  following the new mandatory keyword-research process (section 4 of
+  `DESIGN_AND_SEO_GUIDE.md`) for the first time end-to-end:
+  - **Keyword research first**: short-tail "bond calculator" (calculator.net
+    ranks with a combined price + off-coupon-date clean/dirty-price tool);
+    long-tail cross-check found Omnicalculator runs *separate* dedicated
+    pages for "bond price calculator", "bond yield calculator", and "bond
+    YTM calculator" -- strong signal that solving for **yield given price**
+    is a distinct, high-value query cluster the old page didn't serve at
+    all (it only ever solved for price given yield). Decided to fold both
+    directions into one page as 2 tabs, beating the fragmented-across-pages
+    competitor approach (same strategy that worked for the IRA Calculator).
+    Also found Investor.gov/TreasuryDirect's "Savings Bond Calculator" is a
+    completely different product (non-marketable EE/I savings bonds) that
+    a meaningful slice of "bond calculator" search traffic is actually
+    looking for -- added an explicit disambiguation paragraph + FAQ so
+    those visitors aren't misled, rather than silently losing them to a
+    bounce.
+  - **Tab 1 (Bond Price)**: face value/coupon/market yield/years/frequency
+    (annual, semi-annual, quarterly) -> standard PV-of-cash-flows bond
+    pricing formula. Verified independently in Node against the old thin
+    page's own stated example (face $1,000, 5% coupon, 6% yield, 10yr,
+    semi-annual -> $925.61, current yield 5.40%, exact match), plus
+    zero-coupon, at-par, and premium sanity checks, all passing.
+  - **Tab 2 (Yield to Maturity)**: face value/coupon/current price/years/
+    frequency -> YTM solved by bisection (same iterative-solve pattern
+    used elsewhere on this site for APR and other reverse calculations).
+    Round-trip verified across 4 varied scenarios (feed a Tab-1 price back
+    into Tab 2 and recover the exact original yield every time).
+  - PV-of-coupons vs. PV-of-face-value 2-segment donut; a genuinely novel
+    (for this site) **price-vs-yield sensitivity chart** -- an SVG line
+    curve plotting price across a yield range around the current point,
+    with the bond's own price/yield marked -- directly illustrating the
+    core "price and yield move opposite directions" concept rather than
+    reusing the stacked-bar amortization-chart pattern, since a bond isn't
+    an amortizing loan.
+  - Cash-flow & present-value breakdown table (every coupon period plus
+    the discount factor and PV, summing to the price) instead of a
+    year-by-year amortization schedule, since a bond isn't paid down like
+    a loan.
+  - Bottomgrid: bond-terms glossary card, and a "Typical Yield Ranges (Jul
+    2026)" reference card (10-yr Treasury ~4.5%, investment-grade corporate
+    ~5.0-5.5%, high-yield/junk ~7.5-8%, AAA municipal ~3.0%) sourced via
+    live web search (Treasury/FRED, corporate credit spread commentary,
+    muni market data) rather than training-data figures, matching the
+    existing site convention for rate-reference cards.
+  - New H2 content section on **municipal bonds and tax-equivalent yield**
+    (with the actual formula and a worked example at the top federal
+    bracket, 40.8% combined) as a genuine differentiator competitors'
+    plain price-calculator pages don't cover. 8 H2 sections + 6 FAQs.
+  - **Caught and fixed the same schema/visible-text mismatch class as the
+    IRA Calculator session**: 4 of 6 FAQ schema answers used a plain
+    double-hyphen where the visible paragraph used an em dash, caught by
+    the same JSON-LD diff check and fixed before shipping. Worth watching
+    for on every future page -- schema and visible copy are written in the
+    same pass but the schema JSON apparently keeps reverting to a
+    double-hyphen habit; a final diff check is now clearly a
+    standing-required step, not an optional extra.
+  - Full Playwright pass (desktop + mobile): zero console errors, price/YTM
+    round-trip exact, zero-coupon/at-par/premium scenarios all correct,
+    invalid-input error state, frequency-switch row-count changes correctly
+    (20 semi-annual vs. 10 annual periods for the same 10-year bond), lazy
+    PDF export (zero jspdf requests before click, correct download after).
+    New OG image. Sidebar links to Investment/Interest Rate/Present Value/
+    Future Value/CD/IRR calculators (all verified against
+    `calculators-index.json`).
+
 - **IRA Calculator — cross-check against major competitors + on-page SEO audit**
   (ad-hoc user request, Jul 20, 2026, same day as the build above): user asked
   to cross-check the just-built IRA Calculator against big competing sites and
