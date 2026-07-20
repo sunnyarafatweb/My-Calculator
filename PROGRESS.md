@@ -24,6 +24,55 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Site-wide consistency pass** (ad-hoc user request, Jul 20, 2026,
+  following the Mortgage Calculator Share-button fix): user asked for the
+  same fix across every already-developed page, plus separately noticed
+  the H1 title ("Loan Calculator", "BMI Calculator", etc.) renders bold on
+  some pages and regular on others, asked to make all of them bold.
+  - Surveyed all 44 already-rebuilt calculator pages (identified by line
+    count != 434, the untouched static template's exact length) via a
+    batch Playwright script checking each page's actual computed H1
+    `font-weight` and Share-button presence, rather than guessing from
+    source or class names.
+  - **H1 bold fix**: found 33 pages (all built across this and earlier
+    sessions, including this session's own IRA/Bond/Budget/Business Loan
+    builds) rendering at `font-weight: 400` because their H1 used
+    `font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3` --
+    `font-display` only sets font-family, not weight, so it silently
+    fell back to regular. Confirmed `.font-bold{font-weight:700}` is a
+    globally available utility class (same external stylesheet loaded on
+    every page, bold pages like mortgage-calculator already used it
+    successfully) before touching anything. Added `font-bold` to the class
+    list on all 33 pages via a script (each matched the identical class
+    pattern, one clean substitution per file, zero "unexpected pattern"
+    or "matched N times" flags), plus ira-calculator by hand as the first
+    test case. Verified via a second batch Playwright pass: all 34 pages
+    now report `getComputedStyle(h1).fontWeight === '700'`, zero console
+    errors introduced. DESIGN_AND_SEO_GUIDE.md updated with this as a
+    mandatory standing check for all future builds (H1 must explicitly
+    include `font-bold`; don't assume `font-display` implies it).
+  - **Share-button fix**: found 7 pages (crypto-position-size,
+    crypto-tax, leverage, liquidation-price, mining-profit, risk-reward,
+    staking-reward calculators) that matched on "Share" text in an initial
+    scan. Investigated each individually rather than assuming they had
+    Mortgage Calculator's exact problem -- found they're a *different*,
+    older design system entirely (`.calc-btn-row`, `.share-row`,
+    `.export-row` classes vs. this session's `{prefix}-btn-row` pattern).
+    Their actual Calculate/Clear row (`.calc-btn-row`) is already a clean,
+    equal-width 2-button pair with no Share button mixed in -- the "Share"
+    match was a separate "Copy shareable link" button living in a
+    different `export-row` alongside "Print / Save as PDF" and "Download
+    as CSV", confirmed structurally identical across all 7 pages by
+    directly checking each file rather than assuming from the first one.
+    This is a different feature in a different context, not the same
+    crowding problem, so **did not touch it** -- flagged it back to the
+    user for an explicit decision rather than silently removing a working
+    export feature grouped with tools they likely still want.
+  DESIGN_AND_SEO_GUIDE.md's 3-card pattern section now documents both the
+  no-Share-button/Calculate-wider-than-Clear convention and this
+  crypto-batch distinction explicitly, so future sessions don't have to
+  re-derive either finding from scratch.
+
 - **Business Loan Calculator** (ad-hoc user request, Jul 20, 2026 — flagged
   by the user as a future priority-revenue page: planned affiliate
   placements with banks/lenders and AdSense, aimed at business owners and
