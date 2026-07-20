@@ -448,6 +448,12 @@
     </label>
     <p class="ltt-subnote" id="ltt-firstTimeNote" style="margin:-4px 0 8px">Never owned a home anywhere, Canadian citizen/PR, moving in as your principal residence.</p>
 
+    <label class="ltt-toggle">
+      <input type="checkbox" id="ltt-foreignBuyer">
+      <span>Foreign buyer / non-resident</span>
+    </label>
+    <p class="ltt-subnote" id="ltt-foreignBuyerNote" style="margin:-4px 0 8px">Ontario (25% province-wide + Toronto's own 10%), BC (20%, specified regions only), and Nova Scotia (10%) charge a separate, large surcharge on top of the standard tax — this is not the same tax as above. Note: a federal ban currently restricts most non-Canadians from buying residential property in major urban areas until January 1, 2027, regardless of these provincial taxes.</p>
+
     <div id="ltt-torontoField" style="display:none">
       <label class="ltt-toggle">
         <input type="checkbox" id="ltt-toronto">
@@ -725,6 +731,7 @@
     var price = parseFloat($('ltt-price').value);
     if(!isFinite(price) || price<=0){ showError('Enter a purchase price greater than zero.'); return; }
     var isFirstTime = $('ltt-firstTime').checked;
+    var isForeignBuyer = $('ltt-foreignBuyer').checked;
 
     renderProvinceFacts(prov);
 
@@ -747,8 +754,11 @@
         }
       }
 
+      var nrst = isForeignBuyer ? price*0.25 : 0;
+      var torontoNrst = (isForeignBuyer && isToronto) ? price*0.10 : 0;
+
       var totalRebate = provRebate + mlttRebate;
-      var totalNet = provNet + mlttNet;
+      var totalNet = provNet + mlttNet + nrst + torontoNrst;
 
       $('ltt-resultLabel').textContent = 'Total Land Transfer Tax';
       $('ltt-bignum').textContent = money(totalNet,0);
@@ -761,51 +771,61 @@
         rows += '<div class="ltt-result-row"><span>Toronto municipal LTT</span><span>'+money(mltt,2)+'</span></div>';
         if(mlttRebate>0) rows += '<div class="ltt-result-row ltt-rebate"><span>First-time buyer rebate (Toronto)</span><span>-'+money(mlttRebate,2)+'</span></div>';
       }
+      if(isForeignBuyer){
+        rows += '<div class="ltt-result-row"><span>Non-Resident Speculation Tax (25%)</span><span>'+money(nrst,2)+'</span></div>';
+        if(isToronto) rows += '<div class="ltt-result-row"><span>Toronto foreign buyer tax (10%)</span><span>'+money(torontoNrst,2)+'</span></div>';
+      }
       rows += '<div class="ltt-result-row"><span><b>Total payable</b></span><span><b>'+money(totalNet,2)+'</b></span></div>';
       $('ltt-resultRows').innerHTML = rows;
 
       renderDonut(isToronto ? [
         {val:provNet, color:'#1E3A5F', label:'ON Provincial (net)'},
         {val:mlttNet, color:'#16A34A', label:'Toronto Municipal (net)'},
+        {val:nrst+torontoNrst, color:'#B3261E', label:'Foreign Buyer Surcharge'},
         {val:totalRebate, color:'#128A3D', label:'Rebate Applied'}
       ] : [
         {val:provNet, color:'#1E3A5F', label:'Net Payable'},
+        {val:nrst, color:'#B3261E', label:'Foreign Buyer Surcharge'},
         {val:provRebate, color:'#128A3D', label:'Rebate Applied'}
       ]);
 
       var allRows = provResult.rows.slice();
       renderBracketBreakdown(allRows, isToronto ? 'Ontario Bracket Breakdown (Toronto mirrors these same brackets)' : 'Ontario Bracket Breakdown');
 
-      lastResult = {prov:prov, price:price, isFirstTime:isFirstTime, isToronto:isToronto, provTax:provTax, provRebate:provRebate,
-        mltt:mltt, mlttRebate:mlttRebate, total:totalNet, breakdownRows:allRows};
+      lastResult = {prov:prov, price:price, isFirstTime:isFirstTime, isToronto:isToronto, isForeignBuyer:isForeignBuyer, provTax:provTax, provRebate:provRebate,
+        mltt:mltt, mlttRebate:mlttRebate, nrst:nrst, torontoNrst:torontoNrst, total:totalNet, breakdownRows:allRows};
 
     } else if(prov==='BC'){
       var isNewBuild = $('ltt-newBuild').checked;
       var pttResult = marginalTax(price, BC_BRACKETS);
+
       var ptt = pttResult.tax;
 
       var fthbExemption = isFirstTime ? bcFTHBExemption(price, ptt) : 0;
       var nbhExemption = isNewBuild ? bcNewlyBuiltExemption(price, ptt) : 0;
       var exemption = Math.max(fthbExemption, nbhExemption);
       var exemptionLabel = (nbhExemption>fthbExemption) ? 'Newly Built Home exemption' : 'First-time buyer exemption';
-      var net = ptt - exemption;
+      var aptt = isForeignBuyer ? price*0.20 : 0;
+      var net = ptt - exemption + aptt;
 
       $('ltt-resultLabel').textContent = 'Property Transfer Tax';
       $('ltt-bignum').textContent = money(net,0);
-      $('ltt-subline').textContent = exemption>0 ? 'After the '+exemptionLabel : 'BC Property Transfer Tax';
+      $('ltt-subline').textContent = (exemption>0 ? 'After the '+exemptionLabel : 'BC Property Transfer Tax')+(isForeignBuyer ? ' + Additional PTT (specified regions only)' : '');
 
       var rows2 = '<div class="ltt-result-row"><span>BC Property Transfer Tax</span><span>'+money(ptt,2)+'</span></div>';
       if(exemption>0) rows2 += '<div class="ltt-result-row ltt-rebate"><span>'+exemptionLabel+'</span><span>-'+money(exemption,2)+'</span></div>';
+      if(isForeignBuyer) rows2 += '<div class="ltt-result-row"><span>Additional Property Transfer Tax (20%)</span><span>'+money(aptt,2)+'</span></div>';
       rows2 += '<div class="ltt-result-row"><span><b>Net payable</b></span><span><b>'+money(net,2)+'</b></span></div>';
       $('ltt-resultRows').innerHTML = rows2;
 
       renderDonut([
-        {val:net, color:'#1E3A5F', label:'Net Payable'},
+        {val:ptt-exemption, color:'#1E3A5F', label:'Net PTT'},
+        {val:aptt, color:'#B3261E', label:'Foreign Buyer Surcharge'},
         {val:exemption, color:'#128A3D', label:'Exemption Applied'}
       ]);
       renderBracketBreakdown(pttResult.rows, 'BC Bracket Breakdown');
 
-      lastResult = {prov:prov, price:price, isFirstTime:isFirstTime, isNewBuild:isNewBuild, ptt:ptt, exemption:exemption, total:net, breakdownRows:pttResult.rows};
+      lastResult = {prov:prov, price:price, isFirstTime:isFirstTime, isNewBuild:isNewBuild, isForeignBuyer:isForeignBuyer, ptt:ptt, exemption:exemption, aptt:aptt, total:net, breakdownRows:pttResult.rows};
 
     } else if(prov==='QC'){
       var isMontreal = $('ltt-montreal').checked;
@@ -881,18 +901,21 @@
       var nsRate = parseFloat($('ltt-nsRate').value);
       if(!isFinite(nsRate) || nsRate<0) nsRate = 1.5;
       var nsTax = price*nsRate/100;
+      var nsSurtax = isForeignBuyer ? price*0.10 : 0;
+      var nsTotal = nsTax + nsSurtax;
 
       $('ltt-resultLabel').textContent = 'Deed Transfer Tax';
-      $('ltt-bignum').textContent = money(nsTax,0);
-      $('ltt-subline').textContent = pct(nsRate,2)+' municipal rate — no first-time buyer rebate';
+      $('ltt-bignum').textContent = money(nsTotal,0);
+      $('ltt-subline').textContent = pct(nsRate,2)+' municipal rate — no first-time buyer rebate'+(isForeignBuyer ? ' + non-resident surtax' : '');
 
       $('ltt-resultRows').innerHTML =
         '<div class="ltt-result-row"><span>Deed Transfer Tax ('+pct(nsRate,2)+')</span><span>'+money(nsTax,2)+'</span></div>'+
-        '<div class="ltt-result-row"><span><b>Total payable</b></span><span><b>'+money(nsTax,2)+'</b></span></div>';
-      renderDonut([{val:nsTax, color:'#1E3A5F', label:'Deed Transfer Tax'}]);
+        (isForeignBuyer ? '<div class="ltt-result-row"><span>Non-Resident Deed Transfer Tax (10%)</span><span>'+money(nsSurtax,2)+'</span></div>' : '')+
+        '<div class="ltt-result-row"><span><b>Total payable</b></span><span><b>'+money(nsTotal,2)+'</b></span></div>';
+      renderDonut([{val:nsTax, color:'#1E3A5F', label:'Deed Transfer Tax'},{val:nsSurtax, color:'#B3261E', label:'Non-Resident Surtax'}]);
       renderBracketBreakdown([], 'No Marginal Brackets — Nova Scotia Uses a Flat Municipal Rate');
 
-      lastResult = {prov:prov, price:price, nsRate:nsRate, total:nsTax, breakdownRows:[]};
+      lastResult = {prov:prov, price:price, nsRate:nsRate, isForeignBuyer:isForeignBuyer, nsSurtax:nsSurtax, total:nsTotal, breakdownRows:[]};
 
     } else if(prov==='NB'){
       var nbTax = price*0.01;
@@ -941,10 +964,15 @@
 
       lastResult = {prov:prov, price:price, total:nlFee, breakdownRows:[]};
     }
+
+    var NO_FOREIGN_SURCHARGE = ['QC','MB','AB','SK','NB','PE','NL'];
+    if(isForeignBuyer && NO_FOREIGN_SURCHARGE.indexOf(prov)!==-1){
+      $('ltt-resultRows').innerHTML += '<div class="ltt-result-row"><span style="font-size:11.5px;color:var(--ink-faint)">No additional foreign buyer / non-resident surcharge is currently known for '+PROVINCES[prov].name+' beyond the standard tax shown above — confirm with a local lawyer or notary, as rules do change.</span><span></span></div>';
+    }
   }
 
   // =============== Wire up listeners ===============
-  ['ltt-price','ltt-firstTime','ltt-toronto','ltt-newBuild','ltt-montreal','ltt-nsRate','ltt-mortgageAmount'].forEach(function(id){
+  ['ltt-price','ltt-firstTime','ltt-foreignBuyer','ltt-toronto','ltt-newBuild','ltt-montreal','ltt-nsRate','ltt-mortgageAmount'].forEach(function(id){
     $(id).addEventListener('input', calculate);
     $(id).addEventListener('change', calculate);
   });
@@ -952,7 +980,7 @@
   $('ltt-calcBtn').addEventListener('click', calculate);
   $('ltt-clearBtn').addEventListener('click', function(){
     $('ltt-province').value='ON'; $('ltt-price').value=700000;
-    $('ltt-firstTime').checked=false; $('ltt-toronto').checked=false;
+    $('ltt-firstTime').checked=false; $('ltt-foreignBuyer').checked=false; $('ltt-toronto').checked=false;
     $('ltt-newBuild').checked=false; $('ltt-montreal').checked=false;
     $('ltt-nsRate').value=1.5; $('ltt-mortgageAmount').value=560000;
     updateConditionalFields(); updateFirstTimeNote();
@@ -996,15 +1024,20 @@
         summaryRows.push(['First-Time Buyer', r.isFirstTime?'Yes':'No'], ['In Toronto', r.isToronto?'Yes':'No'],
           ['Ontario Provincial LTT', money(r.provTax,2)], ['Ontario Rebate', money(r.provRebate,2)]);
         if(r.isToronto) summaryRows.push(['Toronto Municipal LTT', money(r.mltt,2)], ['Toronto Rebate', money(r.mlttRebate,2)]);
+        if(r.isForeignBuyer) summaryRows.push(['Non-Resident Speculation Tax (25%)', money(r.nrst,2)]);
+        if(r.isForeignBuyer && r.isToronto) summaryRows.push(['Toronto Foreign Buyer Tax (10%)', money(r.torontoNrst,2)]);
       } else if(r.prov==='BC'){
         summaryRows.push(['First-Time Buyer', r.isFirstTime?'Yes':'No'], ['Newly Built Home', r.isNewBuild?'Yes':'No'],
           ['BC Property Transfer Tax', money(r.ptt,2)], ['Exemption Applied', money(r.exemption,2)]);
+        if(r.isForeignBuyer) summaryRows.push(['Additional PTT (20%, specified regions)', money(r.aptt,2)]);
       } else if(r.prov==='QC'){
         summaryRows.push(['In Montreal', r.isMontreal?'Yes':'No']);
       } else if(r.prov==='AB'){
         summaryRows.push(['Mortgage Amount', money(r.mortgageAmt,2)]);
       } else if(r.prov==='PE'){
         summaryRows.push(['First-Time Buyer', r.isFirstTime?'Yes':'No']);
+      } else if(r.prov==='NS'){
+        if(r.isForeignBuyer) summaryRows.push(['Non-Resident Deed Transfer Tax (10%)', money(r.nsSurtax,2)]);
       }
       doc.autoTable({startY:y, margin:{left:margin,right:margin}, styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:summaryRows});
 
@@ -1083,7 +1116,7 @@
 </table>
 
 <h2 id="ltt-doesnt">What This Calculator Doesn't Cover</h2>
-<p>This tool calculates the core provincial and municipal land transfer tax accurately for a standard resale or new-build residential purchase — it doesn't replace your lawyer's or notary's final statement of adjustments. It doesn't include the <strong>Non-Resident Speculation Tax</strong> (Ontario, an additional 25% for foreign buyers), BC's <strong>Additional Property Transfer Tax</strong> for foreign buyers (20% in specified regions), or Nova Scotia's non-resident surtax — all of which apply on top of the standard tax calculated here for buyers who don't qualify as Canadian residents. It also doesn't model other closing costs (legal or notary fees, title insurance, home inspection) that sit alongside land transfer tax on your cash-to-close total, or municipality-specific variations beyond Toronto, Montreal, and Halifax's own explicit rates. Treat every figure here as an accurate estimate of the tax itself, brought into a conversation with your lawyer or notary who will confirm the exact number at closing.</p>
+<p>This tool calculates the core provincial and municipal land transfer tax accurately for a standard resale or new-build residential purchase — it doesn't replace your lawyer's or notary's final statement of adjustments. The Foreign Buyer / Non-Resident checkbox covers Ontario's Non-Resident Speculation Tax, Toronto's own additional foreign-buyer tax, BC's Additional Property Transfer Tax, and Nova Scotia's non-resident surtax, but two things are worth knowing: BC's surcharge only applies in specified regions (Metro Vancouver, the Capital Regional District, and a handful of others), not province-wide, so confirm your specific area applies before relying on that number; and a federal law currently restricts most non-Canadians from buying residential property in major urban areas until January 1, 2027, regardless of what any of these provincial taxes calculate. It also doesn't model other closing costs (legal or notary fees, title insurance, home inspection) that sit alongside land transfer tax on your cash-to-close total, or municipality-specific variations beyond Toronto, Montreal, and Halifax's own explicit rates. Treat every figure here as an accurate estimate of the tax itself, brought into a conversation with your lawyer or notary who will confirm the exact number at closing.</p>
 
 <h2 id="ltt-faq">Frequently Asked Questions</h2>
 <h3>Which provinces don't charge land transfer tax?</h3>

@@ -107,6 +107,63 @@ assume this exact order still holds after a few weeks of new data.
     detour needed). Added to all-calculators/index.html (Finance count
     77→78) and calculators-index.json, both placed immediately after
     Canadian Mortgage Calculator per explicit request.
+  **Same-day follow-up** (user directly questioned whether the page was
+  a real, complete tool or just a thin demo, pointedly noting how few
+  input fields were visible): checked the live default view honestly
+  rather than just reassuring -- on Ontario/default, the form really did
+  show only province + price + 2 checkboxes, which is legitimately
+  sparse compared to every other calculator built this session. Rather
+  than defending the sparseness as "correctly scoped for the domain"
+  without evidence, re-examined the page's own "what this doesn't cover"
+  disclosure and found a genuine, substantial gap already flagged there
+  but never built: foreign buyer / non-resident surcharges, which are
+  large enough (20-25%) to be the single biggest number on the page for
+  an affected buyer, not a minor edge case.
+  - Re-verified current rates before implementing, given how much these
+    percentages matter: Ontario's Non-Resident Speculation Tax, 25%
+    province-wide (confirmed directly against the Government of
+    Ontario's own page); a previously-unknown-to-this-build detail
+    surfaced in the same research pass -- Toronto itself charges a
+    *separate* 10% Municipal NRST on foreign buyers (effective Jan 1,
+    2025), on top of the provincial 25%, for a combined 35% in Toronto
+    specifically; BC's 20% Additional Property Transfer Tax, confirmed
+    as regionally restricted (Metro Vancouver, the Capital Regional
+    District, and a few other designated areas) rather than province-
+    wide, a distinction the UI now discloses explicitly rather than
+    over-applying it; Nova Scotia's 10% non-resident surtax (increased
+    from 5% in April 2025). Also surfaced and disclosed the federal
+    Prohibition on the Purchase of Residential Property by Non-Canadians
+    Act, which bans most non-Canadians from buying in major urban areas
+    until January 1, 2027 regardless of what any provincial tax
+    calculates -- important context a purely-provincial-tax calculator
+    would otherwise miss entirely.
+  - Verified all figures in Node against independent published examples
+    before wiring up (\$1M ON NRST = \$250,000; \$700k Toronto-combined
+    foreign buyer surcharge = \$245,000; BC/NS equivalents) -- all exact
+    matches -- then confirmed the live page matches exactly, including
+    the combined ON+Toronto+foreign-buyer case (\$265,950 on \$700k).
+  - Added an explicit "Foreign buyer / non-resident" checkbox with the
+    rate and regional/federal-ban caveats stated directly in its own
+    subnote (not just buried in the article), so a user encounters the
+    limitation at the point of decision rather than only in a footnote.
+    For the 7 provinces with no currently-known equivalent surcharge,
+    added a single centralized check (rather than duplicating the same
+    conditional 7 times) that surfaces an explicit "no known surcharge"
+    note when checked, so the box silently doing nothing doesn't read as
+    a bug.
+  - Fixed the "what this doesn't cover" paragraph, which had described
+    this exact feature as *not* covered -- now accurately describes what
+    is modeled and what its real limits are (BC's regional restriction,
+    the federal ban's practical override of all of this for many buyers).
+  - Full regression: default and all previously-verified per-province
+    values unchanged; new foreign-buyer calculations verified exactly
+    for ON (plain and Toronto-combined), BC, and NS; the no-surcharge
+    note verified showing correctly for Manitoba without changing the
+    total; FAQ schema re-confirmed still matching (unaffected by this
+    change, but checked rather than assumed); zero duplicate IDs; all
+    23 links/anchors resolve; PDF export (now including foreign-buyer
+    line items) verified; zero console errors.
+
   - Confirmed the Next.js RSC payload files present in every previously-
     rebuilt page's directory (__next.*.txt) are stale artifacts from the
     original build, already mismatched with hand-edited content on every
