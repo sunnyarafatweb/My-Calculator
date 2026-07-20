@@ -101,6 +101,26 @@ assume this exact order still holds after a few weeks of new data.
     standard SERP display length for maximum click-through, per the
     user's explicit ask to write it the way a business owner would
     actually want to click.
+  **Same-day follow-up** (user asked for a cross-check specifically
+  against the biggest/highest-traffic sites in this space): fetched and
+  reviewed Bankrate, NerdWallet, calculator.net, SCORE.org (SBA-affiliated
+  nonprofit), and Citizens Bank's own business loan calculators. Finding:
+  every one of them is meaningfully thinner than what's already built here
+  -- most ask only for loan amount/rate/term (Bankrate, SCORE), NerdWallet
+  asks for loan amount/term/APR directly without a fee breakdown, and none
+  of the five combine a payment calculator with DSCR affordability or an
+  MCA true-cost calculator in one tool. No missing calculation coverage
+  found. Did find two real UX clarity gaps worth fixing, both addressed:
+  (1) borrowed NerdWallet's own good practice of reminding users to
+  subtract any down payment before entering the loan amount -- added as a
+  subnote under the Loan Amount field, correctly toggled off in
+  target-payment reverse-solve mode where that field is hidden; (2) the
+  "Manufacturing business (NAICS 31-33)" checkbox assumed the visitor
+  already knows what a NAICS code is -- added a plain-English subnote
+  ("you make a physical product... rather than provide a service").
+  Re-verified after both edits: zero duplicate IDs, zero console errors,
+  all 3 tabs' default calculations unchanged, Clear button still resets
+  correctly.
 
 - **Budget Calculator** (ad-hoc user request, Jul 20, 2026, reference:
   calculator.net/budget-calculator.html): rebuilt from a minimal 3-input

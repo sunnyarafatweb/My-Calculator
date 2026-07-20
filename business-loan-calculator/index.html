@@ -459,6 +459,7 @@
         <span class="biz-field-label">Loan amount</span>
         <div class="biz-field-control"><div class="biz-input-group"><span>$</span><input id="biz-loanAmount" type="number" min="1000" step="1000" value="250000"></div></div>
       </div>
+      <p class="biz-subnote" id="biz-loanAmountNote">This is what you're actually borrowing — if a purchase involves a down payment, subtract that first and enter only the financed amount.</p>
       <div class="biz-field" id="biz-targetPaymentRow" style="display:none">
         <span class="biz-field-label">Target monthly payment</span>
         <div class="biz-field-control"><div class="biz-input-group"><span>$</span><input id="biz-targetPayment" type="number" min="1" step="50" value="4000"></div></div>
@@ -483,6 +484,7 @@
           <input type="checkbox" id="biz-isManufacturer">
           <span style="font-weight:500;font-size:12px">Manufacturing business (NAICS 31-33)</span>
         </label>
+        <p class="biz-subnote" style="margin:-4px 0 8px 25px">In plain terms: you make a physical product (or sit in the food-supply chain), rather than provide a service.</p>
         <label class="biz-toggle" style="padding:4px 0">
           <input type="checkbox" id="biz-financeSbaFee" checked>
           <span style="font-weight:500;font-size:12px">Finance the guarantee fee into the loan</span>
@@ -747,6 +749,7 @@
       this.classList.add('active');
       solveDirection = this.getAttribute('data-solve');
       $('biz-loanAmountRow').style.display = (solveDirection==='amount') ? 'flex' : 'none';
+      $('biz-loanAmountNote').style.display = (solveDirection==='amount') ? 'block' : 'none';
       $('biz-targetPaymentRow').style.display = (solveDirection==='payment') ? 'flex' : 'none';
       calculate();
     });
@@ -1099,7 +1102,7 @@
     $('biz-origFeePct').value=2; $('biz-otherFees').value=0; $('biz-financeGenericFee').checked=false;
     $('biz-sbaFields').classList.remove('show'); $('biz-genericFeeFields').style.display='block';
     document.querySelectorAll('.biz-mode-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-solve')==='amount'); });
-    solveDirection='amount'; $('biz-loanAmountRow').style.display='flex'; $('biz-targetPaymentRow').style.display='none';
+    solveDirection='amount'; $('biz-loanAmountRow').style.display='flex'; $('biz-loanAmountNote').style.display='block'; $('biz-targetPaymentRow').style.display='none';
     calculate();
   });
   $('biz-clearBtn2').addEventListener('click', function(){
