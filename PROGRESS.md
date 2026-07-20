@@ -24,6 +24,83 @@ assume this exact order still holds after a few weeks of new data.
 
 ## Also completed (ad-hoc audit requests, outside the numbered queue above)
 
+- **Canadian Mortgage Calculator** (ad-hoc user request, Jul 20, 2026,
+  reference: calculator.net/canadian-mortgage-calculator.html as first
+  priority, cross-checked against Ratehub.ca, WOWA.ca, the official CMHC
+  and Canada.ca/FCAC calculators, and OSFI directly): rebuilt from the
+  434-line static template into a 2-tab tool covering the genuine
+  regulatory/mathematical differences between Canadian and US mortgages,
+  not a relabeled US calculator.
+  - **Core formula verified independently, twice, to the penny**: the
+    semi-annual-compounding-to-monthly-rate conversion (nominal/2, square
+    it, then take the 12th root) was cross-checked against two unrelated
+    published worked examples (a York University finance course's 6%
+    example: predicted monthly rate 0.493862%, matched to 6 decimal
+    places; a mortgage-education site's $500,000-at-5%-first-month-
+    interest example: predicted $2,061.96, matched exactly). A third
+    source (mortgagecalculator.org) gave a conflicting example, but its
+    own numbers were internally inconsistent ($400k home - $320k loan
+    claimed as a "$20,000" down payment, when it's actually $80,000) --
+    disregarded as unreliable rather than treated as a formula error.
+  - **CMHC insurance**: down payment tiers (5% under $500k, 5%+10% up to
+    $1.5M, 20% at $1.5M+) and premium tiers (4.00%/3.10%/2.80% for 5%/10%/
+    15% down) cross-verified against 8+ independent sources including
+    WOWA.ca's own $19,000-premium worked example (exact match), plus the
+    Dec-2024 federal reform details (30-year insured amortization for
+    first-time buyers/new builds, +0.20% surcharge; $1.5M insured-price
+    ceiling, up from $1M).
+  - **Payment frequency**: all 6 standard Canadian schedules (monthly,
+    semi-monthly, bi-weekly, accelerated bi-weekly, weekly, accelerated
+    weekly). The two "accelerated" modes needed a genuinely different
+    calculation (monthly-payment/2 or /4, not a fresh annuity formula at
+    26 or 52 periods) plus a period-by-period acceleration simulation to
+    find the new, shorter actual payoff time -- verified against a third
+    independent published example (efunda.com's $200k/7.5%/15yr case:
+    regular bi-weekly $848.30 and accelerated bi-weekly $920.51, both
+    matched exactly), then confirmed internally consistent: accelerated
+    bi-weekly and accelerated weekly both represent the same "13 monthly-
+    equivalent payments/year" effect and, as expected, produced the same
+    ~21.8-year payoff time on the live page independently.
+  - **Stress Test Affordability tab**: the mortgage qualifying rate
+    (greater of contract rate + 2%, or a 5.25% floor) confirmed directly
+    against the OSFI regulator's own page plus 8 other sources; GDS/TDS
+    debt-service ratios (39%/44% limits, condo fees counted at 50%)
+    reverse-solved into a max mortgage amount and max home price, with the
+    binding constraint (GDS or TDS) reported explicitly. This is the
+    single feature that most differentiates this build from every
+    "calculator.net-tier" competitor checked, none of which combine a
+    payment calculator with a stress-test affordability check in one page.
+  - Caught a real self-inflicted issue during testing: the page's own
+    default down payment ($30,000 on a $600,000 home) was actually *below*
+    Canada's legal minimum ($35,000) for that price, so the auto-adjust-
+    to-minimum logic correctly fired but produced a confusing "adjusted"
+    note on a completely default, untouched page load. Fixed by choosing
+    a legitimate default (10% down, above every applicable minimum) rather
+    than leaving the correct-but-confusing behavior in place for a first-
+    time visitor.
+  - 8 H2 content sections (semi-annual compounding, CMHC, amortization-
+    vs-term, stress test, payment frequency/acceleration mechanics,
+    what lenders look at, what's not covered) + 6 FAQs. Ran the FAQ
+    schema-vs-visible-text diff check before assembly as now-standard
+    practice -- caught the em-dash mismatch pattern in 5 of 6 answers on
+    the first pass, then found *two more* instances of the same issue
+    within answers that already had one instance fixed (multiple em-dashes
+    per answer, not always caught by fixing just the first one) -- fixed
+    all 7 total occurrences and reconfirmed a clean match before moving on.
+  - Full Playwright pass: default calculation cross-verified against the
+    independent Node math exactly; down payment $/% toggle round-trips
+    correctly; below-minimum auto-adjustment and 20%+-down CMHC-section
+    hiding both verified; 30-year amortization gating (locked at 25 unless
+    the first-time-buyer/new-build box is checked, correctly adds the
+    0.20% surcharge) verified; all 6 payment frequencies produce sane,
+    internally-consistent numbers; accelerated schedules correctly
+    terminate early with a $0.00 final balance; stress-test edge case
+    (debts exceeding capacity) correctly shows $0 and an error state;
+    zero duplicate IDs; all 23 internal links and in-page anchors resolve;
+    PDF export verified from both tabs; mobile layout checked; zero
+    console errors throughout. New OG image; title/description tightened
+    to fit standard SERP length after drafting.
+
 - **Site-wide consistency pass** (ad-hoc user request, Jul 20, 2026,
   following the Mortgage Calculator Share-button fix): user asked for the
   same fix across every already-developed page, plus separately noticed
