@@ -22,7 +22,98 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
-## Also completed (ad-hoc audit requests, outside the numbered queue above)
+- **Land Transfer Tax Calculator** (ad-hoc user request, Jul 20, 2026,
+  following up directly on the Canadian Mortgage Calculator's "what this
+  doesn't cover" disclosure and this session's competitive research, which
+  had already surfaced land transfer tax repeatedly as a real, distinct
+  gap): built as a genuinely new, separate page rather than folding it
+  into the mortgage calculator, and placed immediately after Canadian
+  Mortgage Calculator in All Calculators' Finance section per explicit
+  request (breaking strict alphabetical order intentionally, since
+  they're companion Canada-specific tools).
+  - **Scope: all 10 provinces**, each researched and verified
+    independently rather than assumed from a single source:
+    - **Ontario**: 5-bracket marginal LTT (0.5%-2.5%), verified against
+      3 independent worked examples ($300k/$750k/$800k, all exact
+      matches). Toronto's municipal LTT mirrors the same brackets up to
+      $3M (April 2026 luxury tiers above that noted but not modeled in
+      full, given the smaller affected population); combined Toronto+ON
+      on $700k matched an independent source's $20,950 figure exactly.
+      First-time buyer rebates (ON $4,000 cap, Toronto $4,475 cap,
+      $8,475 combined) verified via the well-documented $368k full-
+      coverage threshold.
+    - **British Columbia**: 4-bracket PTT (1%-5%, with the 5% top tier
+      confirmed as a residential-specific surcharge via a more detailed
+      source after an initial simpler source gave a different, less
+      precise structure), verified against an independent $1M/$18,000
+      example. Two separate, non-stacking exemptions modeled with their
+      exact linear phase-out math -- First-Time Buyer ($500k full,
+      $8,000 flat to $835k, phase-out to $860k) and Newly Built Home
+      ($1.1M full, phase-out to $1.15M) -- verified in Node at multiple
+      points including the phase-out midpoints (e.g. $847,500 correctly
+      returns exactly half the $8,000 exemption).
+    - **Quebec**: standard 3-bracket "welcome tax" plus Montreal's 2
+      additional tiers, calculated correctly (confirmed via independent
+      manual verification matching the live tool to the penny at
+      $700k/Montreal: $9,471) -- Montreal's own official example gave a
+      slightly different $9,349 for the same price point, attributed to
+      year-to-year threshold indexation and disclosed as such rather
+      than silently treated as a match. The new 2026 refundable tax
+      credit (up to $5,875) and Montreal's own rebate program are
+      surfaced as informational notes rather than subtracted directly,
+      since both work through different mechanisms (tax filing / separate
+      program) than a point-of-sale exemption this calculator can model.
+    - **Manitoba**: 5-bracket LTT (0%-2%) + flat $70 registration fee, no
+      first-time buyer rebate -- verified exactly ($300k: tax $3,650 +
+      fee $70 = $3,720).
+    - **Alberta & Saskatchewan**: correctly modeled as having NO land
+      transfer tax (registration fees only), a distinction the page makes
+      explicit in its labeling rather than implying a tax exists.
+      Alberta's sliding-scale title + mortgage registration fees verified
+      exactly ($500k property + $400k mortgage = $550+$450=$1,000);
+      Saskatchewan's 0.4%-above-$6,300 fee verified exactly ($300k=$1,200).
+    - **Nova Scotia**: municipal-set Deed Transfer Tax, defaulted to
+      Halifax's 1.5% (the largest market, confirmed directly against
+      Halifax's own official page) with an editable rate field and
+      explicit disclosure that other municipalities set their own rate.
+    - **New Brunswick & PEI**: flat 1%, with PEI's full exemption for
+      first-time buyers under $200,000 correctly modeled (verified at
+      $150k=exempt vs $250k=$2,500, the boundary behaving correctly).
+    - **Newfoundland & Labrador**: correctly modeled as having no real
+      transfer tax, just an approximated modest registration fee,
+      explicitly labeled as an approximation rather than an exact figure.
+  - Every province's core formula was verified in Node against an
+    independent published worked example BEFORE being wired into the
+    page, then re-verified live via Playwright after assembly -- the same
+    two-pass discipline used throughout this session.
+  - Conditional UI: only the fields relevant to the selected province
+    show (Toronto checkbox for ON, newly-built checkbox for BC, Montreal
+    checkbox for QC, editable rate for NS, mortgage amount for AB) --
+    verified explicitly that switching provinces correctly shows/hides
+    each field and that the first-time-buyer note itself hides for
+    provinces where it does nothing (avoiding implying false hope).
+  - FAQ schema-vs-visible-text check caught the em-dash mismatch pattern
+    again (4 of 6 answers on the first pass, then one more hidden
+    instance within an already-partially-fixed answer) -- all 5 total
+    instances fixed and reconfirmed clean before assembly, consistent
+    with every other build this session.
+  - Full regression: all 10 provinces' default and edge-case
+    calculations verified against independent Node math; province-switch
+    conditional field visibility verified for ON/BC/QC/NS/AB and for the
+    NL case (nothing relevant shown); zero duplicate IDs; all 23 internal
+    links + anchors resolve; PDF export verified; mobile layout checked;
+    zero console errors throughout. New OG image (navy theme, matching
+    the site convention from the start this time -- no country-color
+    detour needed). Added to all-calculators/index.html (Finance count
+    77→78) and calculators-index.json, both placed immediately after
+    Canadian Mortgage Calculator per explicit request.
+  - Confirmed the Next.js RSC payload files present in every previously-
+    rebuilt page's directory (__next.*.txt) are stale artifacts from the
+    original build, already mismatched with hand-edited content on every
+    page touched this session, and evidently non-critical for the live
+    site (every rebuild has worked correctly in production despite this)
+    -- created only index.html for this brand-new page rather than
+    attempting to regenerate them.
 
 - **Canadian Mortgage Calculator** (ad-hoc user request, Jul 20, 2026,
   reference: calculator.net/canadian-mortgage-calculator.html as first
