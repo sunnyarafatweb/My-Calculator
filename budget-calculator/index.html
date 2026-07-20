@@ -686,7 +686,7 @@
     INCOME_FIELDS.forEach(function(f){ gross += monthlyVal(f.key); });
     var taxRate = parseFloat($('bud-taxRate').value);
     if(!isFinite(taxRate) || taxRate<0) taxRate = 0;
-    if(taxRate>80) taxRate = 80;
+    if(taxRate>60) taxRate = 60;
     var estTax = gross*taxRate/100;
     var net = gross - estTax;
 
@@ -899,7 +899,7 @@
 <nav class="bud-toc">
 <a href="#bud-how">Building a Budget That Actually Works</a>
 <a href="#bud-formula">How This Calculator Works</a>
-<a href="#bud-categories">What Each Category Covers</a>
+<a href="#bud-catinfo">What Each Category Covers</a>
 <a href="#bud-503020">The 50/30/20 Rule</a>
 <a href="#bud-dti">Understanding Your Debt-to-Income Ratio</a>
 <a href="#bud-needswants">Needs vs. Wants: Where We Draw the Line</a>
@@ -918,7 +918,7 @@ After-Tax Income &nbsp;=&nbsp; Gross Monthly Income &times; (1 &minus; Tax Rate)
 Left Over Each Month &nbsp;=&nbsp; After-Tax Income &minus; Total Expenses</div>
 <p>"Total Expenses" here includes every category on this page, including Savings &amp; Investments — money you direct into a 401(k), IRA, or brokerage account still leaves your monthly cash flow even though it's building your net worth rather than being spent, so it's counted as an outflow for this calculation, exactly the way it would show up on a bank statement.</p>
 
-<h2 id="bud-categories">What Each Category Covers</h2>
+<h2 id="bud-catinfo">What Each Category Covers</h2>
 <p><strong>Housing & Utilities</strong> covers your mortgage or rent plus the recurring costs of keeping a home running. <strong>Transportation</strong> covers a vehicle and everything that keeps it moving. <strong>Other Debt & Loan Payments</strong> is for anything not already captured elsewhere — credit cards, student loans, personal loans (don't double-count a balance here and again under a spending category it created, like a dinner charged to a credit card you're also paying off monthly). <strong>Living Expenses</strong> covers groceries, clothing, and day-to-day household costs. <strong>Healthcare</strong> covers insurance premiums and out-of-pocket medical spending. <strong>Children & Education</strong> covers child care, tuition, and related costs. <strong>Savings & Investments</strong> covers retirement contributions, other investing, and emergency fund building. <strong>Miscellaneous Expenses</strong> catches everything genuinely discretionary — pets, gifts, hobbies, entertainment, and travel.</p>
 
 <h2 id="bud-503020">The 50/30/20 Rule</h2>
