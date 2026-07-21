@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Amortization Calculator","item":"https://calculatorboss.com/amortization-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the difference between this and the Loan Calculator?","acceptedAnswer":{"@type":"Answer","text":"The Loan Calculator gives you the headline numbers for a fixed-payment, deferred, or bond scenario. This tool is built specifically around modeling extra payments against a standard amortized loan and showing the full schedule, month by month, so you can see exactly how much sooner you'd be debt-free and how much interest that saves."}},{"@type":"Question","name":"How do extra payments actually save money?","acceptedAnswer":{"@type":"Answer","text":"Every extra dollar applied to principal stops accruing interest for the rest of the loan, not just for one month — pay down principal a year early and you skip an entire year of interest on that amount. That compounding effect is why even modest, consistent extra payments can cut years off a loan and save far more in interest than the extra payments themselves add up to."}},{"@type":"Question","name":"Should I make extra payments monthly, yearly, or as one-time lump sums?","acceptedAnswer":{"@type":"Answer","text":"Consistency matters more than the specific schedule. A smaller extra amount every month compounds the earliest and typically saves the most interest per dollar committed; a once-a-year lump sum, like a bonus or tax refund, is easier for many people to budget; one-time payments work well for a specific windfall. Try a few combinations in this calculator to see which fits your situation."}},{"@type":"Question","name":"Does my lender need to know about extra payments?","acceptedAnswer":{"@type":"Answer","text":"Usually yes, and it matters how the payment is applied. Confirm with your lender that extra payments go directly to principal — not held as a credit toward next month's payment or applied to future interest first — otherwise you won't get the acceleration this calculator projects. Also check for prepayment penalties, though these are uncommon on most modern consumer loans."}},{"@type":"Question","name":"Why does the principal portion of each payment grow over time?","acceptedAnswer":{"@type":"Answer","text":"Interest is charged on the remaining balance, which shrinks every month. Since the scheduled payment stays fixed, whatever isn't consumed by interest goes to principal — as the balance falls, interest's share of the payment falls too, so principal's share rises. Early payments are interest-heavy; late payments are principal-heavy."}},{"@type":"Question","name":"What's the difference between amortization for a loan and amortization in accounting?","acceptedAnswer":{"@type":"Answer","text":"Both describe spreading something over time, but they apply to different things. Paying down a loan in scheduled installments — what this calculator does — is loan amortization. Businesses also use the term for spreading the cost of an intangible asset, like a patent or acquired customer list, across its useful life for accounting purposes, which is a completely different calculation with its own tax rules."}},{"@type":"Question","name":"Are all loans amortized?","acceptedAnswer":{"@type":"Answer","text":"No. Revolving debt like credit cards isn't amortized — the balance and required payment can change month to month rather than following a fixed schedule. Interest-only loans and balloon loans also aren't fully amortized, since they don't steadily reduce the principal the way this calculator assumes."}},{"@type":"Question","name":"Can I see what happens partway through the loan, not just the start?","acceptedAnswer":{"@type":"Answer","text":"Yes — switch to the monthly schedule view and scroll to any point, or check the annual summary for a specific year. It's useful for checking your balance at a specific future date, for example before a planned refinance, sale, or extra-payment decision."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Amortization Calculator","url":"https://calculatorboss.com/amortization-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free amortization calculator with a complete payment schedule, chart, and extra-payment support to see how much time and interest extra payments save."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Amortization Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Amortization Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">See your full loan payment schedule, month by month — plus exactly how much time and interest extra payments would save you.</p><style>
 .am-wrap{width:100%}
 .am-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

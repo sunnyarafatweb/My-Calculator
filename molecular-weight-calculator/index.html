@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why do parentheses matter in a formula like Ca(OH)2?","acceptedAnswer":{"@type":"Answer","text":"The subscript outside the parentheses multiplies everything inside — Ca(OH)2 means one calcium atom plus two full hydroxide (OH) groups, not just two oxygen atoms. Parsing the parentheses correctly is essential for an accurate molecular weight."}},{"@type":"Question","name":"What's the difference between molecular weight and molar mass?","acceptedAnswer":{"@type":"Answer","text":"In practice, they're used interchangeably and refer to the same number — the mass of one mole of a substance, expressed in grams per mole (g/mol)."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Molecular Weight Calculator","url":"https://calculatorboss.com/molecular-weight-calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#oth">Other</a><span class="sep">/</span><span class="cur">Molecular Weight Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Molecular Weight Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Type any chemical formula — get its molecular weight, element by element.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><label class="text-sm text-ink-soft mb-2 block">Chemical formula</label><input class="w-full text-lg bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border font-mono" placeholder="e.g. H2O, C6H12O6, Ca(OH)2" value="C6H12O6"/><div class="flex flex-wrap gap-2"><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent font-mono">H2O</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent font-mono">C6H12O6</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent font-mono">NaCl</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent font-mono">Ca(OH)2</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent font-mono">C2H5OH</button></div><p class="text-xs text-ink-faint">Use standard chemical notation — capital letters start each element symbol, numbers indicate counts, and parentheses group repeated units.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Molecular weight</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">180.156<!-- --> g/mol</div><div class="flex flex-wrap gap-2"><span class="text-xs tabular px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink">C<!-- -->×<!-- -->6<!-- -->: <!-- -->72.066</span><span class="text-xs tabular px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink">H<!-- -->×<!-- -->12<!-- -->: <!-- -->12.096</span><span class="text-xs tabular px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink">O<!-- -->×<!-- -->6<!-- -->: <!-- -->95.994</span></div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Molecular weight is the sum of each element&#x27;s atomic weight, multiplied by how many atoms of it appear in the formula.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">Glucose, <span class="tabular">C6H12O6</span>, has a molecular weight of <span class="tabular">180.156 g/mol</span> — 6 carbons, 12 hydrogens, and 6 oxygens summed together.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Why do parentheses matter in a formula like Ca(OH)2?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The subscript outside the parentheses multiplies everything inside — Ca(OH)2 means one calcium atom plus two full hydroxide (OH) groups, not just two oxygen atoms. Parsing the parentheses correctly is essential for an accurate molecular weight.</p></div><div><h3 class="font-medium text-ink mb-1.5">What&#x27;s the difference between molecular weight and molar mass?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">In practice, they&#x27;re used interchangeably and refer to the same number — the mass of one mole of a substance, expressed in grams per mole (g/mol).</p></div></div></section></article></div><!--$--><!--/$--></main><footer>
   <div class="wrap">
     <div class="foot-grid">

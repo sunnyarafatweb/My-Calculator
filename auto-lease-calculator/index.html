@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a 'money factor' and how does it relate to APR?","acceptedAnswer":{"@type":"Answer","text":"A money factor is the lease-world equivalent of an interest rate, expressed as a small decimal like 0.00125 instead of a percentage. Multiply a money factor by 2,400 to get its approximate APR -- so 0.00125 works out to about 3% APR. This calculator lets you enter whichever one your lease worksheet or dealer quoted, and converts between them automatically."}},{"@type":"Question","name":"Why is my residual value based on MSRP instead of the negotiated price?","acceptedAnswer":{"@type":"Answer","text":"Because that's how leasing companies actually set it. The manufacturer's captive finance arm assigns a residual percentage to a specific model and trim based on its MSRP, independent of whatever price you negotiate at the dealership -- so a lower negotiated price doesn't change your residual value at all, it only changes the depreciation you're financing."}},{"@type":"Question","name":"Can I negotiate the money factor or residual value?","acceptedAnswer":{"@type":"Answer","text":"The residual value is set by the manufacturer's finance arm and generally isn't negotiable. The money factor is different -- dealers often mark up the manufacturer's base 'buy rate' by 0.0005 to 0.0015 and keep the difference, so asking for the buy rate directly can meaningfully lower your payment even though dealers may claim it's fixed."}},{"@type":"Question","name":"Is a large down payment a good idea on a lease?","acceptedAnswer":{"@type":"Answer","text":"Often not as beneficial as it looks. A down payment (capitalized cost reduction) lowers your monthly payment, but if the car is totaled or stolen early in the lease, that money is typically gone -- insurance pays the leasing company, not you. Many advisors suggest keeping upfront cash on a lease as low as possible for this reason."}},{"@type":"Question","name":"Is leasing or financing (buying) cheaper overall?","acceptedAnswer":{"@type":"Answer","text":"Financing almost always costs more per month, since a loan payment pays off the entire vehicle while a lease payment only covers its depreciation plus a finance charge. But financing builds equity in a car you'll own outright, while a lease payment builds no equity at all -- so 'cheaper' depends on whether you value the lower payment or the ownership you end up with."}},{"@type":"Question","name":"What is due at lease signing?","acceptedAnswer":{"@type":"Answer","text":"Typically the first month's payment, any capitalized cost reduction (down payment), the acquisition fee if it isn't rolled into the lease, and any title, registration, or documentation fees -- plus upfront tax in states that don't fold sales tax into the monthly payment."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Auto Lease Calculator","url":"https://calculatorboss.com/auto-lease-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free auto lease calculator that computes your true monthly lease payment using the same depreciation-fee-plus-money-factor formula dealers use, with a money factor/APR toggle and a side-by-side lease vs. loan comparison."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Auto Lease Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Auto Lease Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">See your true monthly lease payment using the same money factor and residual value formula dealers use — plus how it compares to financing the same car.</p><style>
 .alc-wrap{width:100%}
 .alc-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

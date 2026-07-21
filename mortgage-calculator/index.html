@@ -297,9 +297,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main">
 <div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much house can I afford?", "acceptedAnswer": {"@type": "Answer", "text": "A common guideline is keeping your total housing payment — principal, interest, taxes, insurance, and HOA combined — under 28% of your gross monthly income, and total debt payments under 36%. Use this calculator with different home prices to see how the monthly payment shifts, then compare that figure against your budget."}}, {"@type": "Question", "name": "When does PMI go away?", "acceptedAnswer": {"@type": "Answer", "text": "Typically once your loan balance falls to 80% of the home's original appraised value you can request cancellation in writing; lenders must automatically remove it at 78%, provided payments are current."}}, {"@type": "Question", "name": "What credit score do I need for a mortgage?", "acceptedAnswer": {"@type": "Answer", "text": "Conventional loans often require a minimum score in the high 500s to low 600s, though the best interest rates are usually reserved for borrowers with scores above 740. Government-backed loans (FHA, VA, USDA) may allow lower scores with additional requirements."}}, {"@type": "Question", "name": "Is it better to choose a 15-year or 30-year mortgage?", "acceptedAnswer": {"@type": "Answer", "text": "A 15-year loan builds equity faster and costs far less in total interest, but the monthly payment is significantly higher. A 30-year loan offers lower, more flexible payments — many borrowers choose the 30-year term and then make extra principal payments when they can, combining flexibility with long-term interest savings."}}, {"@type": "Question", "name": "Does this calculator account for property tax and insurance increases?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — under \"More Options\" you can set an annual percentage increase for property taxes, home insurance, HOA fees, and other costs, so the amortization schedule reflects realistic, inflation-adjusted totals over the life of the loan."}}, {"@type": "Question", "name": "How much can biweekly payments actually save me?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your loan amount, rate, and term, but the effect is always the same shape: paying half your monthly payment every two weeks works out to 13 monthly-equivalent payments a year instead of 12, so you're steadily paying down extra principal all year instead of waiting for a single year-end lump sum. Check the Compare Biweekly Payment Option box above to see the exact time and interest saved for your own numbers — on a typical 30-year loan it's common to save several years and tens of thousands of dollars in interest."}}, {"@type": "Question", "name": "What's the difference between recasting and refinancing?", "acceptedAnswer": {"@type": "Answer", "text": "Recasting keeps your existing loan, rate, and term exactly as they are — a lump-sum payment just lowers your required monthly payment by re-spreading the remaining balance over the same remaining time. Refinancing replaces the loan entirely with a new one, which can change your rate and term but requires a new application, credit check, and closing costs. Recasting is cheaper and faster when you already have a good rate; refinancing makes more sense when today's rates are meaningfully better than what you're currently paying."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Mortgage Calculator","url":"https://calculatorboss.com/mortgage-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free mortgage calculator with taxes, insurance, PMI, HOA, extra payments, and full amortization schedule."}</script>
 <div class="mb-6"><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Mortgage Calculator</span></nav><h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2" style="color:var(--ink);letter-spacing:-0.025em">Mortgage Calculator</h1><p class="text-base leading-relaxed max-w-3xl" style="color:var(--ink-soft)">Enter the home price and down payment, then add taxes and insurance to see the payment you&#x27;ll actually owe each month — not just the loan portion.</p></div>

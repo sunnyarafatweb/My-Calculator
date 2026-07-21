@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this gross pay or take-home pay?","acceptedAnswer":{"@type":"Answer","text":"This calculator shows gross pay — before federal and state tax, Social Security, Medicare, insurance premiums, retirement contributions, or any other withholding. Your actual take-home pay will be lower and depends on your tax bracket, state, filing status, and benefit elections, which vary too much for a single formula to estimate precisely. Use a take-home paycheck calculator to estimate net pay after typical deductions."}},{"@type":"Question","name":"What's the difference between biweekly and semi-monthly pay?","acceptedAnswer":{"@type":"Answer","text":"Biweekly means you're paid every two weeks, which comes out to 26 paychecks a year — two months each year will have three paydays instead of two. Semi-monthly means twice a month, typically on the 15th and the last day, for exactly 24 paychecks a year. Because 26 doesn't divide evenly into 12 months the way 24 does, a biweekly paycheck for the same annual salary is slightly smaller than a semi-monthly one, even though the yearly total is identical."}},{"@type":"Question","name":"Why doesn't 40 hours × 52 weeks always equal my actual working hours?","acceptedAnswer":{"@type":"Answer","text":"The '2,080 hours a year' shortcut (40 hours times 52 weeks) assumes a full-time schedule with zero unpaid time off. Real schedules often differ because of holidays, vacation days, part-time hours, or a compressed work week — which is why this calculator lets you enter your actual hours per week, days per week, holidays, and vacation days rather than assuming the standard figure."}},{"@type":"Question","name":"What's the difference between the unadjusted and adjusted figures?","acceptedAnswer":{"@type":"Answer","text":"Unadjusted figures assume you work every scheduled working day of the year with no time off at all. Adjusted figures subtract your holidays and vacation days from that total, showing what each pay period is actually worth once those non-working days are accounted for. Comparing job offers is usually more accurate using adjusted figures, since paid-time-off policies can differ significantly between employers."}},{"@type":"Question","name":"How do I convert my salary to an hourly rate?","acceptedAnswer":{"@type":"Answer","text":"Select 'Year' as the pay period, enter your annual salary, and set your hours per week and days per week to match your actual schedule — the Hourly row in the results table will show your equivalent hourly rate, both unadjusted and adjusted for any holidays or vacation days you enter."}},{"@type":"Question","name":"How many working days are there in a year?","acceptedAnswer":{"@type":"Answer","text":"A standard 5-day work week gives 260 working days a year (52 weeks times 5 days), which this calculator uses as its unadjusted baseline. Subtracting roughly 10 federal holidays and any vacation days you take typically brings the real number of working days closer to 235 to 245, depending on your specific employer's policies."}},{"@type":"Question","name":"Does this calculator estimate my take-home pay after taxes?","acceptedAnswer":{"@type":"Answer","text":"Yes — scroll to the Take-Home Pay section, choose your filing status, and optionally add pre-tax deductions and a state tax rate. It applies the official 2026 federal tax brackets and FICA (Social Security and Medicare) rates to estimate your net annual and monthly pay. State tax uses a simple percentage you enter yourself, since exact state brackets vary too much for one universal formula."}},{"@type":"Question","name":"Can I use this to compare two job offers?","acceptedAnswer":{"@type":"Answer","text":"Yes — the Compare Two Job Offers section lets you enter base salary, bonus percentage, 401(k) match, employer-paid insurance value, and PTO days for two offers side by side. It calculates total effective compensation for each and also normalizes by working days, since an offer with more paid time off can be worth more per day even with a lower headline total."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Salary Calculator","url":"https://calculatorboss.com/salary-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free salary calculator that converts pay between hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual — adjusted for holidays and vacation days, with overtime, take-home pay, and job offer comparison tools."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Salary Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Salary Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Enter your pay at any frequency — hourly to annual and back — with overtime, take-home pay, and job-offer comparison built in.</p><style>
 .sal-wrap{width:100%}
 .sal-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

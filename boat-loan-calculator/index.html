@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why can boat loan terms run longer than typical auto loans?","acceptedAnswer":{"@type":"Answer","text":"Boats are often financed more like a secondary home than a car -- secured marine lenders commonly offer terms of 10 to 20 years for larger boats, which lowers the monthly payment but meaningfully increases total interest paid over the life of the loan."}},{"@type":"Question","name":"Does a longer term always make sense just because the payment is lower?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily -- try a few different term lengths and compare the total interest row, not just the monthly payment. Boats also depreciate, so a long loan term risks owing more than the boat is worth (being 'underwater' on the loan) for years at a stretch."}},{"@type":"Question","name":"What's the difference between a secured and an unsecured boat loan?","acceptedAnswer":{"@type":"Answer","text":"A secured boat loan uses the boat itself as collateral, similar to a mortgage or auto loan, and typically carries lower rates (roughly 7-10% for well-qualified borrowers in 2026). An unsecured boat loan is really just a personal loan by another name -- no collateral, faster approval, but a much wider and generally higher rate range, commonly 7-36% depending on credit."}},{"@type":"Question","name":"How much should I put down on a boat?","acceptedAnswer":{"@type":"Answer","text":"Most marine lenders ask for 10-20% down, with 10% being the most common single figure -- though some lenders go as low as 0% down for very well-qualified borrowers, and larger or older boats sometimes require 20% or more. A bigger down payment lowers both your monthly payment and your total interest, and reduces the odds of owing more than the boat is worth."}},{"@type":"Question","name":"Does sales tax get added to the loan, or paid separately?","acceptedAnswer":{"@type":"Answer","text":"Most boat buyers finance the sales tax into the loan rather than paying it separately out of pocket, which is what this calculator assumes. Fees work the same way by default, though you can uncheck 'Finance fees into the loan' to pay them upfront instead and see how that shifts your monthly payment and cash due at signing. Some states also give a tax credit for a trade-in's value, reducing the taxable amount -- check your specific state's rule, since this varies."}},{"@type":"Question","name":"Can I use this calculator for a used boat?","acceptedAnswer":{"@type":"Answer","text":"Yes -- the loan math is identical for new and used boats. The main real-world difference is the interest rate: lenders typically charge somewhat higher rates for older or used boats, so check current rates for the specific boat's age before finalizing your numbers."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Boat Loan Calculator","url":"https://calculatorboss.com/boat-loan-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free boat loan calculator that computes your monthly payment with sales tax, fees, and trade-in factored in, plus a reverse mode to find the maximum boat price a target monthly budget affords."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Boat Loan Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Boat Loan Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">See your true monthly boat payment with tax, fees, and trade-in factored in — or work backward from your budget to the max boat price you can afford.</p><style>
 .blc-wrap{width:100%}
 .blc-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

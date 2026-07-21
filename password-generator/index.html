@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it safe to generate a password on a website?","acceptedAnswer":{"@type":"Answer","text":"This one is — the password is generated entirely in your browser using JavaScript and never transmitted anywhere. That said, generating sensitive passwords offline or with a dedicated password manager is always a reasonable extra precaution."}},{"@type":"Question","name":"What does 'entropy' mean here?","acceptedAnswer":{"@type":"Answer","text":"It measures how many possible passwords could be generated with your chosen settings, expressed in bits — each additional bit doubles the search space an attacker would need to brute-force, so higher entropy means exponentially harder to guess."}},{"@type":"Question","name":"Why exclude ambiguous characters?","acceptedAnswer":{"@type":"Answer","text":"Characters like I, l, 1, O, and 0 can look nearly identical in some fonts — excluding them makes a generated password easier to read and manually retype correctly, at a small cost to the total character pool."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Password Generator","url":"https://calculatorboss.com/password-generator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#oth">Other</a><span class="sep">/</span><span class="cur">Password Generator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Password Generator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">A strong, random password — generated locally, never sent anywhere.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-5"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Length</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="16"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:20%;background:var(--accent)"></div><input type="range" min="4" max="64" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Length" value="16"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(20% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div class="space-y-2"><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent" checked=""/>Uppercase (A-Z)</label><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent" checked=""/>Lowercase (a-z)</label><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent" checked=""/>Numbers (0-9)</label><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent" checked=""/>Symbols (!@#$...)</label><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent"/>Exclude ambiguous characters (I, l, 1, O, 0)</label></div><button class="text-sm font-medium px-4 py-2.5 rounded-lg bg-accent text-white hover:bg-accent-strong transition-colors disabled:opacity-50">Generate new password</button></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Your password</div><button class="text-left tabular text-xl sm:text-2xl font-medium text-accent-strong value-transition mb-2 font-mono break-all hover:text-accent transition-colors" title="Click to copy"></button><dl class="grid grid-cols-2 gap-3 text-sm mt-2"><div><dt class="text-ink-faint mb-1">Entropy</dt><dd class="tabular text-ink font-medium">103.4<!-- --> bits</dd></div><div><dt class="text-ink-faint mb-1">Strength</dt><dd class="tabular text-ink font-medium">Strong</dd></div></dl><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Generated locally in your browser using a cryptographically secure random source — the password is never sent anywhere.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Is it safe to generate a password on a website?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">This one is — the password is generated entirely in your browser using JavaScript and never transmitted anywhere. That said, generating sensitive passwords offline or with a dedicated password manager is always a reasonable extra precaution.</p></div><div><h3 class="font-medium text-ink mb-1.5">What does &#x27;entropy&#x27; mean here?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It measures how many possible passwords could be generated with your chosen settings, expressed in bits — each additional bit doubles the search space an attacker would need to brute-force, so higher entropy means exponentially harder to guess.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why exclude ambiguous characters?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Characters like I, l, 1, O, and 0 can look nearly identical in some fonts — excluding them makes a generated password easier to read and manually retype correctly, at a small cost to the total character pool.</p></div></div></section></article></div><!--$--><!--/$--></main><footer>
   <div class="wrap">
     <div class="foot-grid">

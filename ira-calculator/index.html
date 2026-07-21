@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the 2026 IRA contribution limit?","acceptedAnswer":{"@type":"Answer","text":"$7,500 for 2026, or $8,600 including the $1,100 catch-up if you're 50 or older. This is a combined limit across all your Traditional and Roth IRAs together, not a separate limit for each."}},{"@type":"Question","name":"Are Traditional IRA contributions always tax-deductible?","acceptedAnswer":{"@type":"Answer","text":"Not always. If neither you nor your spouse has access to a workplace retirement plan, your contribution is fully deductible no matter your income. If you (or your spouse) are covered by a workplace plan, the deduction phases out over a specific income range that depends on your filing status — above that range you can still contribute, just without the deduction."}},{"@type":"Question","name":"What's the difference between a Traditional IRA and a 401(k)?","acceptedAnswer":{"@type":"Answer","text":"A 401(k) is employer-sponsored, has a much higher contribution limit ($24,500 for 2026), and its investment menu is chosen by your employer. A Traditional IRA is opened independently at any broker, has a lower contribution limit, but usually offers far more investment choice — and the two aren't mutually exclusive; many people use both."}},{"@type":"Question","name":"Traditional IRA or Roth IRA — which is better for me?","acceptedAnswer":{"@type":"Answer","text":"It comes down to whether your tax rate is higher today or is likely to be higher in retirement. If you expect to be in a lower tax bracket in retirement than you are now, Traditional generally comes out ahead. If you expect a similar or higher bracket in retirement, Roth generally wins. Since nobody can know future tax law with certainty, many people split contributions between both to hedge that risk."}},{"@type":"Question","name":"What happens when I withdraw from a Traditional IRA in retirement?","acceptedAnswer":{"@type":"Answer","text":"Withdrawals are taxed as ordinary income, since the contributions (if deducted) and all the growth along the way were never taxed. This is different from a Roth IRA, where qualified withdrawals are entirely tax-free."}},{"@type":"Question","name":"When do I have to start taking money out (RMDs)?","acceptedAnswer":{"@type":"Answer","text":"Required Minimum Distributions start at age 73 if you were born between 1951 and 1959, or age 75 if you were born in 1960 or later. The amount is your prior year-end balance divided by an IRS life-expectancy divisor that shrinks every year, so the required percentage rises with age. Roth IRAs have no RMDs during the original owner's lifetime."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Traditional IRA Calculator","url":"https://calculatorboss.com/ira-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free Traditional IRA calculator that projects tax-deferred growth to retirement, checks 2026 deduction eligibility by income and filing status, and compares after-tax outcomes against a Roth IRA."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Traditional IRA Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Traditional IRA Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Project tax-deferred growth to retirement, check this year's deduction eligibility, and see how a Traditional IRA stacks up against a Roth.</p><style>
 .ira-wrap{width:100%}
 .ira-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the difference between the network address and the first usable address?","acceptedAnswer":{"@type":"Answer","text":"The network address (all host bits zero) identifies the subnet itself and isn't assignable to a device. The first usable address is one number higher — the first address actually available to assign to a host."}},{"@type":"Question","name":"Why does the broadcast address get reserved too?","acceptedAnswer":{"@type":"Answer","text":"The broadcast address (all host bits set to one) is used to send a single packet to every host on the subnet at once — because it has this special purpose, it's excluded from the assignable host range, just like the network address."}},{"@type":"Question","name":"What does CIDR notation like /24 mean?","acceptedAnswer":{"@type":"Answer","text":"It's shorthand for the subnet mask — the number after the slash tells you how many of the 32 bits in an IPv4 address are fixed as the network portion. /24 means 24 network bits and 8 host bits, equivalent to a 255.255.255.0 mask."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"IP Subnet Calculator","url":"https://calculatorboss.com/ip-subnet-calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#oth">Other</a><span class="sep">/</span><span class="cur">IP Subnet Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">IP Subnet Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">An IP address and CIDR prefix — the full subnet breakdown.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div><label class="text-sm text-ink-soft mb-2 block">IP address</label><input class="w-full text-lg bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular font-mono" placeholder="192.168.1.100" value="192.168.1.100"/></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">CIDR prefix (/n)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="24"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:75%;background:var(--accent)"></div><input type="range" min="0" max="32" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="CIDR prefix (/n)" value="24"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(75% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Network address</div><div class="tabular text-3xl sm:text-4xl font-medium text-accent-strong value-transition mb-6 font-mono">192.168.1.0<!-- -->/<!-- -->24</div><dl class="grid grid-cols-2 gap-3 text-sm"><div><dt class="text-ink-faint mb-1">Subnet mask</dt><dd class="tabular text-ink font-medium font-mono">255.255.255.0</dd></div><div><dt class="text-ink-faint mb-1">Wildcard mask</dt><dd class="tabular text-ink font-medium font-mono">0.0.0.255</dd></div><div><dt class="text-ink-faint mb-1">Broadcast address</dt><dd class="tabular text-ink font-medium font-mono">192.168.1.255</dd></div><div><dt class="text-ink-faint mb-1">Usable hosts</dt><dd class="tabular text-ink font-medium">254</dd></div><div><dt class="text-ink-faint mb-1">First usable</dt><dd class="tabular text-ink font-medium font-mono">192.168.1.1</dd></div><div><dt class="text-ink-faint mb-1">Last usable</dt><dd class="tabular text-ink font-medium font-mono">192.168.1.254</dd></div></dl><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">A /31 or /32 subnet has no separate network/broadcast address reserved — every address in the range is usable, which is common for point-to-point links.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed"><span class="tabular">192.168.1.100/24</span> belongs to the network <span class="tabular">192.168.1.0</span>, with a broadcast address of <span class="tabular">192.168.1.255</span> and <span class="tabular">254</span> usable host addresses from <span class="tabular">192.168.1.1</span> to <span class="tabular">192.168.1.254</span>.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">What&#x27;s the difference between the network address and the first usable address?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The network address (all host bits zero) identifies the subnet itself and isn&#x27;t assignable to a device. The first usable address is one number higher — the first address actually available to assign to a host.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why does the broadcast address get reserved too?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The broadcast address (all host bits set to one) is used to send a single packet to every host on the subnet at once — because it has this special purpose, it&#x27;s excluded from the assignable host range, just like the network address.</p></div><div><h3 class="font-medium text-ink mb-1.5">What does CIDR notation like /24 mean?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It&#x27;s shorthand for the subnet mask — the number after the slash tells you how many of the 32 bits in an IPv4 address are fixed as the network portion. /24 means 24 network bits and 8 host bits, equivalent to a 255.255.255.0 mask.</p></div></div></section></article></div><!--$--><!--/$--></main><footer>
   <div class="wrap">
     <div class="foot-grid">

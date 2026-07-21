@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which provinces don't charge land transfer tax?","acceptedAnswer":{"@type":"Answer","text":"Alberta and Saskatchewan don't charge a land transfer tax at all — they charge a much smaller land title registration fee instead, typically a few hundred dollars rather than the thousands a marginal-bracket tax would produce on the same purchase. Newfoundland and Labrador is similar, with just a modest deed registration fee. Every other province and the City of Toronto do charge a real land transfer tax."}},{"@type":"Question","name":"Do I have to pay land transfer tax if I'm a first-time buyer?","acceptedAnswer":{"@type":"Answer","text":"Yes, but several provinces reduce or eliminate it for qualifying first-time buyers. Ontario refunds up to $4,000 provincially and Toronto refunds up to $4,475 municipally, together covering the full tax on more modest homes. BC exempts the first $500,000 of value entirely and phases out a partial exemption up to $860,000. PEI exempts purchases under $200,000 completely. Manitoba, Quebec, Nova Scotia, and New Brunswick don't offer a first-time buyer rebate on the tax itself."}},{"@type":"Question","name":"Why is Toronto's land transfer tax so much higher than everywhere else in Ontario?","acceptedAnswer":{"@type":"Answer","text":"Toronto is the only municipality in Ontario that charges its own municipal land transfer tax on top of the provincial one, using a nearly identical bracket structure — so buying in Toronto effectively doubles your land transfer tax bill compared to an identical purchase just outside the city limits. As of April 2026, Toronto also added steeper luxury brackets for properties over $3 million."}},{"@type":"Question","name":"Can land transfer tax be added to my mortgage?","acceptedAnswer":{"@type":"Answer","text":"No. Land transfer tax is due in cash at closing, paid to your lawyer or notary along with your down payment and other closing costs — it cannot be financed into your mortgage the way CMHC insurance premiums can. Budget for it as a separate cash requirement, not as part of your monthly payment."}},{"@type":"Question","name":"Is land transfer tax based on the purchase price or the assessed value?","acceptedAnswer":{"@type":"Answer","text":"Generally the purchase price, but most provinces calculate it on whichever is higher: the purchase price or the property's assessed/fair market value. This mainly matters for non-arm's-length transfers (like a family transfer at a discounted price), where tax authorities use the higher figure to prevent underpaying tax through an artificially low sale price."}},{"@type":"Question","name":"Does Quebec's welcome tax work the same way as Ontario's land transfer tax?","acceptedAnswer":{"@type":"Answer","text":"The mechanics are similar — both use marginal brackets on the purchase price — but Quebec's version, officially called land transfer duties and nicknamed the welcome tax, is billed separately by your municipality several months after closing rather than collected at the notary. Montreal also applies extra brackets on higher-value properties that don't exist in the rest of Quebec."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Land Transfer Tax Calculator","url":"https://calculatorboss.com/land-transfer-tax-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free land transfer tax calculator covering all 10 Canadian provinces, including Ontario with Toronto's municipal tax, British Columbia's Property Transfer Tax, Quebec's welcome tax, and first-time home buyer rebates and exemptions."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Land Transfer Tax Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Land Transfer Tax Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Every Canadian province and territory, including Toronto's municipal tax and first-time buyer rebates — pick your province and see the real number.</p><style>
 .ltt-wrap{width:100%}
 .ltt-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

@@ -296,9 +296,59 @@
     <div class="nav-spacer"></div>
     <div class="nav-cta">
       <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
-      <button class="menu-btn icon-btn" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is my Canadian mortgage payment different from a US mortgage calculator with the same rate?","acceptedAnswer":{"@type":"Answer","text":"By law, Canadian fixed-rate mortgages compound semi-annually rather than monthly. A 6% Canadian mortgage actually works out to a 6.09% effective annual rate, then gets converted to a monthly rate for payment purposes — which is slightly lower than simply dividing 6% by 12 the way a US calculator would. The difference is small per payment but real over the life of the loan, and it always favors the Canadian borrower."}},{"@type":"Question","name":"What's the difference between amortization and term?","acceptedAnswer":{"@type":"Answer","text":"Amortization is the total time to pay off the mortgage completely (typically 25 years, up to 30 for some insured buyers). Term is how long your current interest rate is locked in before you have to renew (commonly 5 years). You'll renew your mortgage 4-6 times over a 25-30 year amortization, and your rate can change at every renewal — this is the single most confusing part of a Canadian mortgage for anyone used to US 30-year fixed loans, where the rate never changes."}},{"@type":"Question","name":"Do I have to pay CMHC insurance?","acceptedAnswer":{"@type":"Answer","text":"Only if your down payment is less than 20% of the purchase price (and the home is priced under $1.5 million, above which insured mortgages aren't available at all). The premium is added to your mortgage balance rather than paid in cash, so you finance it — and pay interest on it — over the life of the loan. Some provinces also charge sales tax on the premium itself, due in cash at closing."}},{"@type":"Question","name":"What is the mortgage stress test and do I have to pass it?","acceptedAnswer":{"@type":"Answer","text":"Federally regulated lenders (all the major banks) must qualify you at the higher of your contract rate plus 2%, or a 5.25% floor — not the rate you'll actually pay. This is mandatory for new mortgages, refinances, and switches to a new lender, though it doesn't apply when you renew and stay with your current lender. It typically reduces the mortgage amount you qualify for by 15-25% compared to what your actual rate would suggest."}},{"@type":"Question","name":"What's an accelerated bi-weekly payment and is it worth it?","acceptedAnswer":{"@type":"Answer","text":"An accelerated bi-weekly payment is exactly half your monthly payment, paid every two weeks — which works out to 26 half-payments a year, the equivalent of 13 full monthly payments instead of 12. That one extra payment per year, applied entirely to principal, meaningfully shortens your amortization and cuts total interest — with no change to your rate or terms, just a different payment schedule."}},{"@type":"Question","name":"How much mortgage can I actually qualify for?","acceptedAnswer":{"@type":"Answer","text":"It's whichever is lower: what you want to borrow, or what the stress test allows based on your income, debts, and the qualifying rate (not your actual contract rate). The Stress Test Affordability tab above estimates that second number directly from your income, existing debts, and property costs, using the same 39% GDS / 44% TDS limits federally regulated lenders apply."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Canadian Mortgage Calculator","url":"https://calculatorboss.com/canadian-mortgage-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free Canadian mortgage calculator with correct semi-annual compounding, CMHC mortgage default insurance, all standard payment frequencies including accelerated bi-weekly/weekly, and a mortgage stress test (GDS/TDS) affordability check."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Canadian Mortgage Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Canadian Mortgage Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Get the payment right with true semi-annual compounding and CMHC insurance, then check what you actually qualify for under the stress test.</p><style>
 .cad-wrap{width:100%}
 .cad-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}

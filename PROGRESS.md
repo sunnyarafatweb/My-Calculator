@@ -22,6 +22,83 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Site-wide mobile menu fix + search-modal gap fix** (ad-hoc user request,
+  Jul 21, 2026, first mobile-optimization pass): user reported the mobile
+  hamburger button (top-right, visible ≤680px) did nothing when tapped, and
+  asked search to be functional everywhere too, explicitly asking to keep
+  the existing header design/markup unchanged and only fix behavior.
+  - **Root cause (menu): the hamburger button had zero JS wiring anywhere
+    on the site.** `.menu-btn` existed purely as CSS-toggled markup — no
+    click handler, no drawer/panel, no nav-open state existed on any of the
+    ~212 pages (confirmed via `grep` site-wide before touching anything).
+    On mobile, `.nav-links` is `display:none` below 900px with the button
+    as the only way to reach Home/Calculators/Categories/About, so this
+    meant mobile visitors had **zero way to navigate the site header at
+    all** below that breakpoint.
+  - **Fix:** added a small dropdown nav panel + backdrop overlay, entirely
+    new markup (no existing element renamed/removed/restyled — confirmed
+    via diff that desktop is byte-identical to before), inserted inside the
+    canonical `<header>` in `index.html` so it propagates automatically via
+    the existing `scripts/sync_header_footer.py` (same sync mechanism this
+    repo already uses for header/footer, no new tooling introduced). Icon
+    swaps hamburger↔X on toggle; closes on backdrop click, Escape, nav-link
+    click, or resize past 900px; `aria-expanded`/`aria-controls` set.
+  - **Bug caught during Playwright verification, not left for the user to
+    find:** first implementation used `top:70px;bottom:0` for the overlay,
+    which computed to a **0px-tall box** — `header` has
+    `backdrop-filter:blur(16px)`, and per the CSS spec any ancestor with
+    `filter`/`backdrop-filter`/`transform` becomes the *containing block*
+    for `position:fixed` descendants, so the overlay's `bottom:0` was
+    resolving against header's own 70px box, not the viewport. Confirmed
+    via an isolated minimal-HTML repro before/after to pin the exact cause
+    rather than guessing. Fixed by switching to an explicit
+    `height:calc(100vh - 70px)` (`100dvh` fallback), which is viewport-unit
+    based and unaffected by the containing-block substitution.
+  - **Root cause (search): 9 crypto/trading-tier pages** (leverage,
+    staking-reward, liquidation-price, crypto-profit-loss, risk-reward,
+    mining-profit, dca, crypto-position-size, crypto-tax calculators) were
+    **entirely missing** the `#cfSearchOverlay` modal + its script (found
+    via a site-wide `grep` sweep) — the search icon button rendered but
+    had nothing to open, since that block lives after `</footer>` and
+    isn't covered by the header/footer sync. Every other page already had
+    a working search (confirmed independently in Playwright: opens on
+    click, loads `/calculators-index.json`, filters correctly). Fixed by
+    inserting the identical, byte-for-byte modal block (style + overlay +
+    script) used on every other page into these 9 files, right before
+    `</body>`, with the placeholder count normalized to the real total
+    (204, per `calculators-index.json`, vs. the stale count some pages
+    already carry as pre-existing drift — left that pre-existing minor
+    inconsistency alone since it's cosmetic and out of scope for this fix).
+  - **Verification:** Chromium/Playwright at a 390×844 mobile viewport
+    against a local static server. Menu tested (open/close via button,
+    backdrop click, Escape, real navigation) on all **211/211** pages
+    site-wide — zero failures, zero duplicate IDs, zero console/page
+    errors attributable to this change (the only console errors seen were
+    pre-existing `net::ERR_CERT_AUTHORITY_INVALID` on Google Fonts/GTM
+    calls, an artifact of this sandbox's network, unrelated). Search
+    re-verified working (opens, loads index, filters, keyboard nav) on the
+    9 previously-broken pages plus a spot-check of already-working pages.
+    Desktop (1440px) screenshotted before/after and confirmed pixel-
+    identical — menu button hidden, `.nav-links` visible, no layout shift.
+  - Files touched: `index.html` (canonical header edit) +
+    `scripts/sync_header_footer.py` run to propagate to 210 other pages +
+    manual insertion of the search block into the 9 crypto-tier pages.
+    Two commits: one for the menu fix (header sync, all pages), one for
+    the search-modal gap fix (9 pages) — kept separate since they're two
+    distinct root causes even though delivered in the same session.
+  - **Not done (flagged, not fixed):** discovered a separate, smaller,
+    pre-existing responsive gap while testing — `.nav-links` hides at
+    ≤900px but `.menu-btn` only appears at ≤680px, so a window/tablet in
+    the 681–900px range currently shows neither the nav links nor the
+    menu button. Didn't touch it this session: that CSS lives in the
+    protected shared `<style>` block in `<head>` (not covered by the
+    header/footer sync script), so fixing it site-wide means hand-editing
+    the protected block across ~212 files — real phones are almost always
+    under 680px so this doesn't affect the reported bug, and the guide's
+    own rule is to propagate + spot-check protected-block changes
+    carefully rather than do it as a drive-by. Flagging for a deliberate
+    follow-up pass rather than bundling it into this fix.
+
 - **Cross-calculator gap-closing pass** (ad-hoc user request, Jul 20, 2026,
   directly following the "is everything 100% ok?" exchange): user pushed
   back on the honest "here's what's disclosed as not covered" answer with
