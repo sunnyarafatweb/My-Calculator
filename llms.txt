@@ -61,7 +61,7 @@
 - [Real Estate Calculator — Cap Rate](https://calculatorboss.com/real-estate-calculator/)
 - [Refinance Calculator](https://calculatorboss.com/refinance-calculator/)
 - [Rent Calculator](https://calculatorboss.com/rent-calculator/)
-- [Rent vs. Buy Calculator](https://calculatorboss.com/rent-vs-buy-calculator/)
+- [Rent vs. Buy Calculator — Break-Even Year](https://calculatorboss.com/rent-vs-buy-calculator/)
 - [Rental Property Calculator](https://calculatorboss.com/rental-property-calculator/)
 - [Repayment Calculator](https://calculatorboss.com/repayment-calculator/)
 - [Retirement Calculator — Savings, Income](https://calculatorboss.com/retirement-calculator/)

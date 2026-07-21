@@ -115,6 +115,58 @@ assume this exact order still holds after a few weeks of new data.
     unrelated to this specific integration the same way as the leverage
     calculator's live-price feature — so this is the correct verification
     ceiling here; will work normally on the real production site).
+  - **Same-day follow-up: design + SEO/GEO audit and fix pass** (ad-hoc user
+    request, Jul 21, 2026, later same session). User reported "design
+    structure" and "SEO" problems on the just-shipped page; found via a
+    fresh Playwright viewport sweep (the original verification above only
+    spot-checked 1280px/390px, which both happen to sit outside the broken
+    range) that `.rvb-grid`'s three fixed-ish columns (380px / minmax(370px,1fr)
+    / 300px) genuinely overflow the `max-w-5xl` content wrapper across
+    **~861px-1220px** viewport width — a real, reproducible horizontal-scroll/
+    squish bug (confirmed 0px→210px→0px overflow curve by sweeping viewport
+    width in Playwright), not a false alarm. **Note for future sessions:**
+    the identical grid pattern (same three column widths) is also used by
+    `salary-calculator` and `sales-tax-calculator`, and measurement confirms
+    they have the exact same overflow bug — this is a site-wide characteristic
+    of the current 3-card grid convention, not unique to this page. Only
+    this page was fixed this session (scope was this page specifically);
+    the other two are a flagged follow-up, not yet done. Fix applied here:
+    extended the single-column collapse breakpoint from `860px` to `1220px`
+    (verified safe margin — real overflow stopped at 1200px measured, no
+    overflow from 1221px up through 1920px with the original 3-column
+    layout intact). Re-verified after the fix: 0px overflow at every
+    tested width from 390px to 1920px (one negligible 4px blip at exactly
+    1000px, well under any visible threshold), Calculate button and live
+    recalculation still functional, zero new console errors.
+  - **SEO gaps found and fixed:** `og:image`/`og:image:width/height`/
+    `og:type` were completely missing from `<head>` (no image existed at
+    `/og/rent-vs-buy-calculator.png` either) — generated a new 1200×630 OG
+    image matching the site's established template (brand mark, category
+    badge, H1, subhead, trust line) and added the full tag set. Separately,
+    `twitter:title`/`twitter:description` were still the generic homepage
+    copy ("CalculatorBoss — Free Online Calculators...") instead of mirroring
+    this page's own title/description per section 3's checklist — fixed to
+    match. `WebApplication` JSON-LD was missing the checklist's required
+    one-line `description` field (confirmed by diffing against `ira-calculator`
+    and `annuity-payout-calculator`'s already-correct schema shape) — added.
+    Also fixed a stale `calculators-index.json` entry ("Rent Vs Buy
+    Calculator" → "Rent vs. Buy Calculator", matching the page's actual H1
+    and site capitalization convention — this feeds the header search
+    modal) and a stale `sitemap.xml` `<lastmod>` still dated Jul 3 despite
+    today's full rebuild. Re-ran the FAQ schema-vs-visible-content diff
+    check as a regression guard — still 7/7 exact, untouched by this pass.
+  - **GEO / AI-citation pass:** confirmed `robots.txt` (`Allow: /` for all
+    user-agents) doesn't block AI crawlers (GPTBot, ClaudeBot, PerplexityBot,
+    Google-Extended, etc.) — no change needed. `llms.txt` already listed
+    this page but as a bare link with no descriptor, unlike most sibling
+    entries — added a short descriptive suffix ("— Break-Even Year") to
+    match convention and give AI-answer crawlers a clearer one-line summary
+    without a full page fetch. Confirmed the page already had the stronger
+    GEO signals (transparent formula section, FAQ phrased as literal
+    search queries, a standalone quotable break-even definition, static
+    server-rendered HTML with no JS-rendering barrier for crawlers) from
+    the original build — this pass only added the missing metadata layer
+    around content that was already sound.
 
 - **Leverage Calculator — round 3: live price feed** (ad-hoc user
   request, Jul 21, 2026, direct follow-up to the round-2 "one honest
