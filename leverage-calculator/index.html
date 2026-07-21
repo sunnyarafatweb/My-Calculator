@@ -185,7 +185,7 @@
   .crumb .cur{color:var(--text)}
 
   /* ===== HERO ===== */
-  .hero{padding:6px 0 16px;position:relative}
+  .hero{padding:32px 0 16px;position:relative}
   .hero-inner{position:relative;z-index:1;max-width:720px}
   .sym-badge{font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--cx);background:var(--cx-tint);border-radius:7px;padding:5px 11px;display:inline-flex;align-items:center;gap:8px}
   h1.hero-title{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.025em;margin:16px 0 0}
@@ -237,17 +237,17 @@
   .sel{font-family:var(--f-body);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB2BC' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
 
   /* ===== RESULTS ===== */
-  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden}
-  .result-hero.up{background:linear-gradient(155deg,var(--up-bg),transparent);border:1px solid color-mix(in srgb,var(--up) 30%,transparent)}
-  .result-hero.neutral{background:linear-gradient(155deg,var(--cx-tint),transparent);border:1px solid color-mix(in srgb,var(--cx) 30%,transparent)}
-  .result-hero.risk{background:linear-gradient(155deg,var(--down-bg),transparent);border:1px solid color-mix(in srgb,var(--down) 30%,transparent)}
-  .rh-label{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
-  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px}
-  .rh-value.up{color:var(--up)} .rh-value.neutral{color:var(--cx)} .rh-value.risk{color:var(--down)}
-  .rh-roi{font-family:var(--f-mono);font-size:14px;font-weight:600;margin-top:6px}
-  .rh-roi.up{color:var(--up)} .rh-roi.neutral{color:var(--cx)} .rh-roi.risk{color:var(--down)}
+  .result-hero{padding:24px 26px;border-radius:var(--r-lg);position:relative;overflow:hidden;border:1px solid var(--border-fine)}
+  .result-hero.up{background:#16A34A}
+  .result-hero.neutral{background:#1E3A5F}
+  .result-hero.risk{background:#D33249}
+  .rh-label{font-family:var(--f-body);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.78)}
+  .rh-value{font-family:var(--f-head);font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin-top:6px;color:#fff}
+  .rh-value.up,.rh-value.neutral,.rh-value.risk{color:#fff}
+  .rh-roi{font-family:var(--f-body);font-size:14px;font-weight:600;margin-top:6px}
+  .rh-roi.up,.rh-roi.neutral,.rh-roi.risk{color:rgba(255,255,255,.85)}
 
-  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-soft);flex-wrap:wrap}
+  .pl-legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.85);flex-wrap:wrap}
   .leg-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
 
   .stat-list{margin-top:20px;display:flex;flex-direction:column;gap:0}
@@ -431,7 +431,7 @@
 
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Leverage Calculator","item":"https://calculatorboss.com/leverage-calculator/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does leverage mean in crypto trading?","acceptedAnswer":{"@type":"Answer","text":"Leverage lets you control a position larger than the cash (margin) you actually put up, by borrowing the rest from the exchange. At 10x leverage, $1,000 of your own money controls a $10,000 position — you’re trading with ten times your capital, and both gains and losses scale accordingly."}},{"@type":"Question","name":"How is position size calculated from margin and leverage?","acceptedAnswer":{"@type":"Answer","text":"Position Value = Margin × Leverage. With $1,000 margin at 10x leverage, you control a $10,000 position. Rearranged, Margin = Position Value ÷ Leverage, and Leverage = Position Value ÷ Margin — any one of the three can be solved from the other two."}},{"@type":"Question","name":"How does leverage amplify my ROI?","acceptedAnswer":{"@type":"Answer","text":"Your return on margin is the price change percentage multiplied by your leverage. A 5% price move with 10x leverage produces a 50% swing in your margin — in either direction. The dollar amount at risk is capped at your margin, but the percentage swing relative to that margin scales directly with leverage."}},{"@type":"Question","name":"Is a leveraged position riskier than the same dollar amount unleveraged?","acceptedAnswer":{"@type":"Answer","text":"Leverage itself doesn’t change your dollar risk if you keep the position size the same — it changes how much margin you need to post for that size. The real danger is that leverage makes it easy to open a much larger position than your capital would otherwise allow, and that larger position is what amplifies the dollar risk."}},{"@type":"Question","name":"How much leverage is considered safe?","acceptedAnswer":{"@type":"Answer","text":"There’s no single safe number — it depends on your stop-loss distance and risk tolerance. A common rule of thumb is that your leverage shouldn’t exceed roughly 1 divided by your stop-loss distance as a percentage, so your planned exit happens well before liquidation. Many experienced traders rarely exceed 5–10x even after years of experience."}},{"@type":"Question","name":"Why does a losing trade at high leverage reach -100% ROI so quickly?","acceptedAnswer":{"@type":"Answer","text":"Because ROI on margin equals price move percentage times leverage. At 10x leverage, just a 10% adverse price move produces a -100% ROI on your margin — in practice, liquidation kicks in slightly before that point because exchanges require a small maintenance margin buffer even at the point of forced closure."}},{"@type":"Question","name":"What’s the difference between margin, leverage and position size?","acceptedAnswer":{"@type":"Answer","text":"Margin is the cash you put up. Leverage is the multiplier applied to that cash. Position size (or notional value) is the total exposure you control, equal to margin multiplied by leverage. All three are linked by one equation, so fixing any two determines the third."}},{"@type":"Question","name":"Does this calculator show my exact liquidation price?","acceptedAnswer":{"@type":"Answer","text":"It shows a quick estimate using the standard simplified formula. For a full breakdown — including isolated vs. cross margin, a leverage comparison table, and a max-safe-leverage solver — use the dedicated Liquidation Price Calculator."}},{"@type":"Question","name":"Does funding rate affect leveraged positions?","acceptedAnswer":{"@type":"Answer","text":"Yes, for perpetual futures. Funding is exchanged periodically between longs and shorts to keep the contract price anchored to spot, and it’s a real ongoing cost (or occasional benefit) on top of the price-move return this calculator shows — factor it in separately for positions held over multiple funding periods."}},{"@type":"Question","name":"Can I compare leveraged returns against a spot (unleveraged) position?","acceptedAnswer":{"@type":"Answer","text":"Yes — the price-move scenario table on this page shows the leveraged return next to the equivalent 1x (spot) return for the same price move, so you can see exactly how much leverage is amplifying the outcome in both directions."}},{"@type":"Question","name":"What’s a common mistake people make with leverage?","acceptedAnswer":{"@type":"Answer","text":"Sizing the position by how much leverage \"feels\" comfortable rather than by a fixed dollar risk and a chosen stop-loss. Two traders using the same leverage can have very different actual risk depending on their position size — leverage sets the margin requirement, not the risk amount on its own."}},{"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes — use \"Print / Save as PDF\" for a printable summary of your current setup, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}},{"@type":"Question","name":"Can I use this as a 10x leverage calculator specifically?","acceptedAnswer":{"@type":"Answer","text":"Yes — enter 10 in the leverage field on any tab, or pick 10x directly from the Common Leverage Levels Compared table to see its position value, required margin, and ROI at your price move alongside every other common multiple."}},{"@type":"Question","name":"Where does the live price come from?","acceptedAnswer":{"@type":"Answer","text":"The \"Use live price\" button pulls a public spot price from CoinGecko — a widely used crypto market data provider — for BTC and 7 other major coins, in your selected currency, along with the 24-hour change for context. It’s a market reference for planning, not a guaranteed execution price, so always confirm the exact number on your exchange before trading."}},{"@type":"Question","name":"Is this a margin calculator or a leverage calculator?","acceptedAnswer":{"@type":"Answer","text":"Both, since margin, leverage, and position size are three sides of the same equation — Position Value = Margin × Leverage. Whichever one you’re missing, enter the other two on the matching tab and this tool solves for it."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does leverage mean in crypto trading?","acceptedAnswer":{"@type":"Answer","text":"Leverage lets you control a position larger than the cash (margin) you actually put up, by borrowing the rest from the exchange. At 10x leverage, $1,000 of your own money controls a $10,000 position — you’re trading with ten times your capital, and both gains and losses scale accordingly."}},{"@type":"Question","name":"How is position size calculated from margin and leverage?","acceptedAnswer":{"@type":"Answer","text":"Position Value = Margin × Leverage. With $1,000 margin at 10x leverage, you control a $10,000 position. Rearranged, Margin = Position Value ÷ Leverage, and Leverage = Position Value ÷ Margin — any one of the three can be solved from the other two."}},{"@type":"Question","name":"How does leverage amplify my ROI?","acceptedAnswer":{"@type":"Answer","text":"Your return on margin is the price change percentage multiplied by your leverage. A 5% price move with 10x leverage produces a 50% swing in your margin — in either direction. The dollar amount at risk is capped at your margin, but the percentage swing relative to that margin scales directly with leverage."}},{"@type":"Question","name":"Is a leveraged position riskier than the same dollar amount unleveraged?","acceptedAnswer":{"@type":"Answer","text":"Leverage itself doesn’t change your dollar risk if you keep the position size the same — it changes how much margin you need to post for that size. The real danger is that leverage makes it easy to open a much larger position than your capital would otherwise allow, and that larger position is what amplifies the dollar risk."}},{"@type":"Question","name":"How much leverage is considered safe?","acceptedAnswer":{"@type":"Answer","text":"There’s no single safe number — it depends on your stop-loss distance and risk tolerance. A common rule of thumb is that your leverage shouldn’t exceed roughly 1 divided by your stop-loss distance as a percentage, so your planned exit happens well before liquidation. Many experienced traders rarely exceed 5–10x even after years of experience."}},{"@type":"Question","name":"Why does a losing trade at high leverage reach -100% ROI so quickly?","acceptedAnswer":{"@type":"Answer","text":"Because ROI on margin equals price move percentage times leverage. At 10x leverage, just a 10% adverse price move produces a -100% ROI on your margin — in practice, liquidation kicks in slightly before that point because exchanges require a small maintenance margin buffer even at the point of forced closure."}},{"@type":"Question","name":"What’s the difference between margin, leverage and position size?","acceptedAnswer":{"@type":"Answer","text":"Margin is the cash you put up. Leverage is the multiplier applied to that cash. Position size (or notional value) is the total exposure you control, equal to margin multiplied by leverage. All three are linked by one equation, so fixing any two determines the third."}},{"@type":"Question","name":"Does this calculator show my exact liquidation price?","acceptedAnswer":{"@type":"Answer","text":"It shows a quick estimate using the standard simplified formula. For a full breakdown — including isolated vs. cross margin, a leverage comparison table, and a max-safe-leverage solver — use the dedicated Liquidation Price Calculator."}},{"@type":"Question","name":"Does funding rate affect leveraged positions?","acceptedAnswer":{"@type":"Answer","text":"Yes, for perpetual futures. Funding is exchanged periodically between longs and shorts to keep the contract price anchored to spot, and it’s a real ongoing cost (or occasional benefit) on top of the price-move return this calculator shows — factor it in separately for positions held over multiple funding periods."}},{"@type":"Question","name":"Can I compare leveraged returns against a spot (unleveraged) position?","acceptedAnswer":{"@type":"Answer","text":"Yes — the price-move scenario table on this page shows the leveraged return next to the equivalent 1x (spot) return for the same price move, so you can see exactly how much leverage is amplifying the outcome in both directions."}},{"@type":"Question","name":"What’s a common mistake people make with leverage?","acceptedAnswer":{"@type":"Answer","text":"Sizing the position by how much leverage \"feels\" comfortable rather than by a fixed dollar risk and a chosen stop-loss. Two traders using the same leverage can have very different actual risk depending on their position size — leverage sets the margin requirement, not the risk amount on its own."}},{"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes — use \"Print / Save as PDF\" for a printable summary of your current setup, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}},{"@type":"Question","name":"Can I use this as a 10x leverage calculator specifically?","acceptedAnswer":{"@type":"Answer","text":"Yes — enter 10 in the leverage field on any tab, or pick 10x directly from the Common Leverage Levels Compared table to see its position value, required margin, and ROI at your price move alongside every other common multiple."}},{"@type":"Question","name":"Where does the live price come from?","acceptedAnswer":{"@type":"Answer","text":"The \"Use live price\" button pulls a public spot price from CoinGecko — a widely used crypto market data provider — for BTC and 7 other major coins, in your selected currency, along with the 24-hour change for context. It’s a market reference for planning, not a guaranteed execution price, so always confirm the exact number on your exchange before trading."}},{"@type":"Question","name":"Is this a margin calculator or a leverage calculator?","acceptedAnswer":{"@type":"Answer","text":"Both, since margin, leverage, and position size are three sides of the same equation — Position Value = Margin × Leverage. Whichever one you’re missing, enter the other two on the matching tab and this tool solves for it."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use the Crypto Leverage Calculator","description":"Find your position size, required margin, or required leverage, plus a liquidation price estimate, using the Crypto Leverage Calculator.","step":[{"@type":"HowToStep","position":1,"name":"Choose what to solve for","text":"Use Position Value to find what leverage gives you, Required Margin to find what a position costs, or Required Leverage to find what multiplier you need."},{"@type":"HowToStep","position":2,"name":"Enter your margin and leverage (or position size)","text":"Fill in the two known values for the tab you picked."},{"@type":"HowToStep","position":3,"name":"Add entry price and direction for a liquidation estimate","text":"Optionally enter your entry price and Long or Short to see a quick liquidation price estimate."},{"@type":"HowToStep","position":4,"name":"Read your results","text":"Review position size, required margin, and the price-move scenario table showing how leverage amplifies your ROI."},{"@type":"HowToStep","position":5,"name":"Compare leverage levels","text":"Use the leverage comparison table to see how margin and liquidation distance change at different leverage levels, then click Calculate to lock in the numbers or Clear to start fresh."}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Leverage Calculator","url":"https://calculatorboss.com/leverage-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </head>
@@ -639,10 +639,6 @@
           <button type="button" class="btn btn-accent" id="calcBtn">Calculate</button>
           <button type="button" class="btn btn-clear" id="clearBtn">Clear</button>
         </div>
-        <div class="save-row">
-          <input class="in" id="presetName" type="text" placeholder="Name this setup (optional)" maxlength="40">
-          <button type="button" class="btn btn-save" id="savePresetBtn">💾 Save setup</button>
-        </div>
       </div>
 
       <!-- RESULTS -->
@@ -661,7 +657,6 @@
           </div>
           <div class="export-row">
             <button class="btn" id="printResult"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print / Save as PDF</button>
-            <button class="btn" id="downloadCsv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Download as CSV</button>
             <button class="btn" id="copyShareLink"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Copy shareable link</button>
           </div>
         </div>
@@ -799,7 +794,6 @@
       <a href="#how-to">How to Use</a>
       <a href="#mistakes">Common Mistakes</a>
       <a href="#goals">Example Setups</a>
-      <a href="#saved-setups">Saved Setups</a>
       <a href="#vs-spot">Leveraged vs. Spot</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -885,15 +879,6 @@
     <h2 style="margin-top:0">Example setups</h2>
     <p>A few realistic margin and leverage combinations — click one to load it into the Position Value tab above.</p>
     <div class="goal-grid reveal" id="goalGrid"></div>
-  </div>
-</section>
-
-<!-- ===== SAVED SETUPS ===== -->
-<section class="content-section" id="saved-setups" style="padding-top:0">
-  <div class="wrap">
-    <h2 style="margin-top:0">Your saved setups</h2>
-    <p>Click "💾 Save setup" above to keep the trade you're currently checking — it's stored privately in this browser, not sent anywhere, so it'll be here next time you visit on this device.</p>
-    <div class="goal-grid reveal" id="savedPresetsList"></div>
   </div>
 </section>
 
@@ -1524,33 +1509,6 @@
   /* ---------- print ---------- */
   $('printResult').addEventListener('click', function(){ window.print(); });
 
-  /* ---------- CSV export ---------- */
-  $('downloadCsv').addEventListener('click', function(){
-    if(!EFF){ return; }
-    var pnl=pnlOf(EFF.positionValue,EFF.priceMove,EFF.direction);
-    var roi=roiPct(EFF.priceMove,EFF.leverage,EFF.direction);
-    var rows = [
-      ['Field','Value'],
-      ['Tab', EFF.tabKey],
-      ['Direction', EFF.direction],
-      ['Margin', EFF.margin.toFixed(2)],
-      ['Leverage', EFF.leverage],
-      ['Position value', EFF.positionValue.toFixed(2)],
-      ['Preview price move %', EFF.priceMove],
-      ['PnL at preview move', pnl.toFixed(2)],
-      ['ROI at preview move %', roi.toFixed(2)],
-      ['Entry price', EFF.entry||''],
-      ['Maintenance margin rate %', EFF.mmrPct||'']
-    ];
-    var csv = rows.map(function(r){ return r.join(','); }).join('\n');
-    var blob = new Blob([csv], {type:'text/csv'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = 'leverage-calculator.csv';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
-
   /* ---------- example setup cards ---------- */
   var GOALS = [
     {name:'Conservative 3x BTC long', detail:'$2,000 margin \u00b7 3x \u00b7 Long', margin:2000, leverage:3, entry:67500, mmr:0.4, dir:'long'},
@@ -1576,74 +1534,6 @@
     });
   });
 
-  /* ---------- saved setups (stored locally in this browser only) ---------- */
-  var PRESET_KEY = 'cb-leverage-presets';
-  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-  function loadPresets(){ try{ var v=JSON.parse(localStorage.getItem(PRESET_KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
-  function savePresetsToStorage(arr){ try{ localStorage.setItem(PRESET_KEY, JSON.stringify(arr)); }catch(e){} }
-  var TAB_LABEL = {value:'Position Value', margin:'Required Margin', leverage:'Required Leverage'};
-  function buildPresetSummary(tab, fields, dir){
-    if(tab==='value') return money(parseFloat(fields.margin)||0)+' margin \u00b7 '+(fields.leverage||'?')+'x \u00b7 '+(dir==='long'?'Long':'Short');
-    if(tab==='margin') return money(parseFloat(fields.mPositionValue)||0)+' position \u00b7 '+(fields.mLeverage||'?')+'x';
-    return money(parseFloat(fields.lMargin)||0)+' margin \u00b7 target '+money(parseFloat(fields.lPositionValue)||0);
-  }
-  function renderSavedPresets(){
-    var wrap=$('savedPresetsList');
-    if(!wrap) return;
-    var arr=loadPresets();
-    if(!arr.length){
-      wrap.innerHTML = '<p class="mono" style="grid-column:1/-1;color:var(--muted);font-size:12.5px">No saved setups yet \u2014 fill in a trade above and click "\ud83d\udcbe Save setup" to keep it here for next time.</p>';
-      return;
-    }
-    wrap.innerHTML = arr.map(function(p,i){
-      return '<div class="goal-card" style="cursor:default">'+
-        '<div class="g-name">'+escapeHtml(p.name || (TAB_LABEL[p.tab]+' setup'))+'</div>'+
-        '<div class="g-detail">'+escapeHtml(p.summary)+' \u00b7 '+escapeHtml(TAB_LABEL[p.tab]||'')+'</div>'+
-        '<div style="display:flex;gap:8px;margin-top:10px">'+
-          '<button type="button" class="ct-use" data-load="'+i+'">Load</button>'+
-          '<button type="button" class="ct-use" data-del="'+i+'" style="background:var(--down-bg);color:var(--down)">Delete</button>'+
-        '</div>'+
-      '</div>';
-    }).join('');
-    Array.prototype.forEach.call(wrap.querySelectorAll('[data-load]'), function(btn){
-      btn.addEventListener('click', function(){
-        var i=parseInt(btn.dataset.load,10);
-        var p=loadPresets()[i];
-        if(!p) return;
-        document.querySelector('.ctab-btn[data-tab="'+p.tab+'"]').click();
-        setDirection(p.tab, p.dir||'long');
-        Object.keys(p.fields||{}).forEach(function(id){ var el=$(id); if(el) el.value=p.fields[id]; });
-        calc();
-        syncShareUrl();
-        document.getElementById('calculator').scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
-      });
-    });
-    Array.prototype.forEach.call(wrap.querySelectorAll('[data-del]'), function(btn){
-      btn.addEventListener('click', function(){
-        var i=parseInt(btn.dataset.del,10);
-        var arr2=loadPresets();
-        arr2.splice(i,1);
-        savePresetsToStorage(arr2);
-        renderSavedPresets();
-      });
-    });
-  }
-  $('savePresetBtn').addEventListener('click', function(){
-    var tab=STATE.activeTab;
-    var fields={};
-    TAB_FIELDS[tab].forEach(function(id){ var el=$(id); if(el) fields[id]=el.value; });
-    var dir = STATE[tab] ? STATE[tab].dir : 'long';
-    var name = $('presetName').value.trim();
-    var arr = loadPresets();
-    arr.unshift({ name:name, tab:tab, fields:fields, dir:dir, summary:buildPresetSummary(tab,fields,dir), savedAt:Date.now() });
-    if(arr.length>12) arr = arr.slice(0,12);
-    savePresetsToStorage(arr);
-    $('presetName').value='';
-    renderSavedPresets();
-    var btn=$('savePresetBtn'); var old=btn.innerHTML;
-    btn.innerHTML='Saved \u2713'; setTimeout(function(){ btn.innerHTML=old; }, 1400);
-  });
-
   /* ---------- FAQ ---------- */
   var FAQ=[
     ['What does leverage mean in crypto trading?','Leverage lets you control a position larger than the cash (margin) you actually put up, by borrowing the rest from the exchange. At 10x leverage, $1,000 of your own money controls a $10,000 position \u2014 you\u2019re trading with ten times your capital, and both gains and losses scale accordingly.'],
@@ -1657,7 +1547,7 @@
     ['Does funding rate affect leveraged positions?','Yes, for perpetual futures. Funding is exchanged periodically between longs and shorts to keep the contract price anchored to spot, and it\u2019s a real ongoing cost (or occasional benefit) on top of the price-move return this calculator shows \u2014 factor it in separately for positions held over multiple funding periods.'],
     ['Can I compare leveraged returns against a spot (unleveraged) position?','Yes \u2014 the price-move scenario table on this page shows the leveraged return next to the equivalent 1x (spot) return for the same price move, so you can see exactly how much leverage is amplifying the outcome in both directions.'],
     ['What\u2019s a common mistake people make with leverage?','Sizing the position by how much leverage "feels" comfortable rather than by a fixed dollar risk and a chosen stop-loss. Two traders using the same leverage can have very different actual risk depending on their position size \u2014 leverage sets the margin requirement, not the risk amount on its own.'],
-    ['Can I download, print or share my results?','Yes \u2014 use "Print / Save as PDF" for a printable summary of your current setup, "Download as CSV" to export the full breakdown, or "Copy shareable link" to send a URL that reloads your exact inputs for someone else.'],
+    ['Can I download, print or share my results?','Yes \u2014 use "Print / Save as PDF" for a printable summary of your current setup, or "Copy shareable link" to send a URL that reloads your exact inputs for someone else.'],
     ['Can I use this as a 10x leverage calculator specifically?','Yes \u2014 enter 10 in the leverage field on any tab, or pick 10x directly from the Common Leverage Levels Compared table to see its position value, required margin, and ROI at your price move alongside every other common multiple.'],
     ['Where does the live price come from?','The "Use live price" button pulls a public spot price from CoinGecko \u2014 a widely used crypto market data provider \u2014 for BTC and 7 other major coins, in your selected currency, along with the 24-hour change for context. It\u2019s a market reference for planning, not a guaranteed execution price, so always confirm the exact number on your exchange before trading.'],
     ['Is this a margin calculator or a leverage calculator?','Both, since margin, leverage, and position size are three sides of the same equation \u2014 Position Value = Margin \u00d7 Leverage. Whichever one you\u2019re missing, enter the other two on the matching tab and this tool solves for it.']
@@ -1672,7 +1562,6 @@
 
   /* ---------- init ---------- */
   renderBenchBar();
-  renderSavedPresets();
   applyShareParamsFromUrl();
   calc();
 
