@@ -1,11 +1,11 @@
-# Calculator Boss
+# CalculatorBoss
 
-> Calculator Boss (calculatorboss.com) is a free online calculator library covering finance, health, math, crypto/markets, and everyday conversions. No sign-up, no popups, instant answers.
+> CalculatorBoss (calculatorboss.com) is a free online calculator library covering finance, health, math, crypto/markets, and everyday conversions. No sign-up, no popups, instant answers.
 
 ## Site
 - [Homepage](https://calculatorboss.com/): Full calculator directory and popular tools.
 - [All Calculators](https://calculatorboss.com/all-calculators/): Complete browsable list of every calculator on the site.
-- [About](https://calculatorboss.com/about/): About Calculator Boss.
+- [About](https://calculatorboss.com/about/): About CalculatorBoss.
 
 ## Finance & Loans
 - [401(k) Calculator](https://calculatorboss.com/401k-calculator/)
@@ -193,7 +193,7 @@
 ## Other
 - [Average Return Calculator](https://calculatorboss.com/average-return-calculator/)
 - [Bond Calculator — Fair Price From Coupon](https://calculatorboss.com/bond-calculator/)
-- [Calculator Boss — Crypto, Stocks, Forex & Gold Tools](https://calculatorboss.com/money-markets/)
+- [CalculatorBoss — Crypto, Stocks, Forex & Gold Tools](https://calculatorboss.com/money-markets/)
 - [Commission Calculator — Flat or Tiered Rates](https://calculatorboss.com/commission-calculator/)
 - [Confidence Interval Calculator — For a Mean](https://calculatorboss.com/confidence-interval-calculator/)
 - [Contact](https://calculatorboss.com/contact/)

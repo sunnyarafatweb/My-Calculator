@@ -1,4 +1,4 @@
-# Calculator Boss — Design & SEO Build Guide
+# CalculatorBoss — Design & SEO Build Guide
 *Last updated: 2026-07-18. This file is the persistent reference for how every calculator page on this site must be designed, written, and SEO-optimized. Read this in full before building or upgrading any page.*
 
 ---
@@ -7,11 +7,11 @@
 
 - **Stack:** Next.js, statically exported (`next export`-style output). The **built HTML/CSS/JS output lives directly in the repo root** — there is no `src/` or `package.json` in this repo. You edit the exported `index.html` files directly.
 - **Hosting:** Cloudflare Pages, connected directly to this GitHub repo. **Any push to `main` deploys live instantly** — there is no staging/preview step in the normal workflow. Treat every commit as a production release.
-- **Brand name:** Calculator Boss (`calculatorboss.com`).
+- **Brand name:** CalculatorBoss (`calculatorboss.com`).
 - **Total calculator pages:** ~199 folders as of this writing.
 - **Two tiers of pages currently exist:**
   1. **Custom-built pages** (e.g. `mortgage-calculator`, `bmi-calculator`, `savings-calculator`, `tip-calculator`) — deep content, bespoke interactive calculator UI (charts, multi-field forms), full SEO treatment. ~1000–2000 lines of HTML.
-  2. **Template/generic pages** (e.g. `body-fat-calculator`) — thinner content, simpler generic title tag (`X Calculator | Calculator Boss`), fewer FAQ items, less topical depth. ~400–600 lines.
+  2. **Template/generic pages** (e.g. `body-fat-calculator`) — thinner content, simpler generic title tag (`X Calculator | CalculatorBoss`), fewer FAQ items, less topical depth. ~400–600 lines.
   - **The goal going forward: bring every template-tier page up to custom-built tier**, using the pattern below.
 
 ---
@@ -69,7 +69,7 @@ Template-tier pages (body-fat-calculator) currently only have ~3 H2s before FAQ.
 This is the standing SEO spec. Follow this for every page whether new or upgraded, written for 2026 search behavior (answer-engine + AI Overviews + traditional SERP all matter now):
 
 ### Meta / head
-- [ ] `<title>`: **"[Calculator Name] — [specific benefit/outcome, not just a keyword restate]"**. Pattern from reference pages: *"Mortgage Calculator — See Your True Monthly Payment"*, *"BMI Calculator – See Your Healthy Weight Range"*, *"Savings Calculator – See When You'll Reach Your Goal"*. Write for **click-through**, not just impression — it should promise a specific outcome the searcher gets, not just name the tool. Avoid the generic `X Calculator | Calculator Boss` pattern found on template pages — replace it during upgrades.
+- [ ] `<title>`: **"[Calculator Name] — [specific benefit/outcome, not just a keyword restate]"**. Pattern from reference pages: *"Mortgage Calculator — See Your True Monthly Payment"*, *"BMI Calculator – See Your Healthy Weight Range"*, *"Savings Calculator – See When You'll Reach Your Goal"*. Write for **click-through**, not just impression — it should promise a specific outcome the searcher gets, not just name the tool. Avoid the generic `X Calculator | CalculatorBoss` pattern found on template pages — replace it during upgrades.
 - [ ] `meta description`: benefit-first sentence + trust/friction-removal cues (free / instant / no signup) + a specifics hook (what it accounts for, e.g. "principal, interest, taxes, insurance and PMI"). ~150–160 characters.
 - [ ] `meta keywords`: include primary term + 4–6 close variants (harmless legacy tag, keep for consistency with existing pages).
 - [ ] `canonical` URL set to the trailing-slash production URL.
@@ -122,7 +122,7 @@ Pages like `sales-tax-calculator` and `salary-calculator` represent a **leaner e
   3. **result card** — big-number output + supporting rows.
   4. **sidebar card** — a navy "related calculators" card (this *is* the visible internal-linking module — the earlier-noted gap is solved by this pattern; older hero-style pages still lack it and should get one when next touched).
   5. **bottomgrid** — two supporting cards (e.g. a breakdown/comparison card + a reference/glossary or fact-list card).
-- Below the grid: `.{prefix}-seo-article` with a byline (`Written by the Calculator Boss Finance Team · Reviewed for accuracy · Last updated [Month Year]`), a table-of-contents nav linking to `<h2 id="...">` anchors, then the H2 sections + FAQ H3s, then a small disclaimer paragraph.
+- Below the grid: `.{prefix}-seo-article` with a byline (`Written by the CalculatorBoss Finance Team · Reviewed for accuracy · Last updated [Month Year]`), a table-of-contents nav linking to `<h2 id="...">` anchors, then the H2 sections + FAQ H3s, then a small disclaimer paragraph.
 - Responsive: grid collapses to a single column under 860px; test both breakpoints.
 - **The form card's button row is Calculate + Clear only — no Share button.** A prior version of several pages had a 3rd "🔗 Share" button crowding the row; this is now removed sitewide (kept only the harmless, independent URL-param pre-fill logic where it existed, since that's not tied to a visible button and costs nothing to leave dormant). Both buttons flex to fill the full row width (`flex:1.3` on Calculate, `flex:1` on Clear — Calculate ends up visibly but not dramatically wider, ~1.28x in practice, as the primary action), not a fixed-width pair with empty space where the 3rd button used to be. (Note: the separate, older "crypto/trading batch" design system — position-size/leverage/liquidation-price/mining-profit/risk-reward/staking-reward/crypto-tax calculators — has a *different*, already-clean 2-button 50/50 `calc-btn-row`, plus a distinct "Copy shareable link" button grouped with Print/CSV export tools in a separate `export-row`. That's a different feature in a different context, not the same crowding issue — don't touch it as part of this convention without a separate, explicit decision to do so.)
 - **The page's `<h1>` must render bold.** The common `font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3` class combo does *not* include a bold weight on its own — `font-display` only sets the font-family, not weight, so it silently renders at regular (400) unless `font-bold` is explicitly added to the class list. Always include `font-bold` in the H1's classes (e.g. `font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3`) and confirm with `getComputedStyle(h1).fontWeight === '700'` in a Playwright check — don't assume the class name alone guarantees the rendered weight.
