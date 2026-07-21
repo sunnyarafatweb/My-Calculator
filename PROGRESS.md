@@ -22,6 +22,141 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Leverage Calculator — full audit + rebuild to current design system**
+  (ad-hoc user request, Jul 21, 2026, framed as "act as an expert Leverage
+  Calculator auditor"): user asked for real verification of the math, a
+  visual migration off the page's old crypto-tier theme onto the same
+  look as mortgage/bmi/savings-calculator, removal of the yellow/gold
+  accent in favor of the site's navy `#1E3A5F` bar color, Calculate/Clear
+  buttons matching the site convention, and better title/meta for CTR —
+  plus four specific issues shown via screenshot. Scope was this one page
+  only (explicitly, not site-wide).
+  - **Math verification (the actual audit):** hand-checked every formula
+    against the visible worked example before touching any code —
+    Position Value = Margin × Leverage, ROI% = Price Move% × Leverage,
+    and the isolated-margin liquidation estimate
+    `Entry × (1 − 1/Leverage + MMR)` (long) / mirrored for short — all
+    confirmed correct and internally consistent (the page's own "$67,500
+    entry, 10x, 0.5% MMR → ~$61,087.50, 9.5% away, -95% ROI" example
+    reproduces exactly). Then re-verified live in Playwright across all
+    3 tabs plus edge cases (short-direction sign flip, the "your margin
+    already covers this, no leverage needed" case, and the 125x realistic
+    cap) — 6/6 automated checks passed against independently computed
+    expected values. The math was never the problem; everything below
+    was UI/UX and content.
+  - **Found and fixed 3 real bugs during verification, not just the ones
+    in the screenshots:**
+    - The mobile Calculate button was hidden entirely below 680px
+      (`.btn-accent{display:none}` inside a mobile media query) — no
+      plausible reason for this, and it directly contradicted matching
+      the site's Calculate/Clear convention. Removed; Calculate now
+      shows on every breakpoint like every other page.
+    - Three "Hypothetical price move" hint labels had a literal
+      `\u2014` sitting in raw HTML text (not inside a JS string, where
+      it would have been interpreted) — rendered on the live page as
+      the literal 6 characters `\u2014` instead of an em dash. Fixed to
+      an actual "—" in all three tabs.
+    - A confirmed-dead "P&L bar" element inside the result card
+      (`#plBarWrap`/`#plBarFill`/`#plBarFill2`, plus a `setPlBar()`
+      function) was called with `(0,0)` at all 4 call sites, site-wide,
+      always — meaning it never rendered anything in any state. Removed
+      the markup, the function, and all 4 calls.
+  - **Image 2 (empty white bar):** root-caused, not guessed at — the
+    "Price-move scenario table" was wrapped in `.table-scroll-y`, a
+    collapse/expand pattern (`max-height:0` → `.open{max-height:480px}`)
+    with a matching but entirely unused `.show-more` button style. No
+    JS anywhere on the page ever added `.open` to it — confirmed via
+    `grep`, zero references outside the CSS itself. The table's data was
+    always fully correct (verified 10 real rows in the DOM via
+    Playwright) and was just permanently collapsed to zero height by
+    dead CSS. Fixed by removing the collapse system entirely, matching
+    how the page's other data table already displays (fully expanded,
+    no toggle) — per the user's own framing, the data existed, so it
+    now shows.
+  - **Image 3 (chart/legend overlap):** root-caused via computed-style
+    inspection rather than CSS guessing — `.chart-box` had a fixed
+    `height:280px`, but the SVG inside it only had `viewBox="0 0 900
+    280"` with no matching CSS height, so the browser auto-sized it to
+    900:280 aspect-ratio-correct height at its actual rendered width
+    (~1078px wide in practice → ~335px tall), and `overflow:visible` let
+    that extra ~55px spill downward directly into the legend below.
+    Fixed by making the container height auto (no more fixed/actual
+    mismatch) and the SVG `display:block;width:100%;height:auto`, then
+    re-verified zero overlap (a positive 13–14px gap instead) at every
+    leverage from 2x to 100x.
+    - While in there, also fixed something the chart was quietly getting
+      wrong: the leveraged-return line used a fixed `yMin/yMax:±150`
+      clamp, so it flattened at an arbitrary point tied to that constant
+      rather than to real liquidation — meaning the "cliff" appeared in
+      a different, disconnected place than the page's own "-100% ROI
+      (margin wiped)" annotation, and gains got an equally arbitrary
+      artificial ceiling with no real-world meaning (leveraged upside
+      isn't capped, only the downside is, at liquidation). Rebuilt the
+      chart's Y-axis to scale to the actual leverage
+      (`yMax = xMax × leverage`) and explicitly floored the loss line at
+      exactly -100% ROI, so the flat cutoff now always lines up with the
+      dashed annotation and the chart is mathematically honest at any
+      leverage (spot-checked 2x/10x/25x/50x/100x).
+  - **Image 4 (voting widget):** removed entirely — CSS, HTML, and its
+    JS click handlers — and fixed the one sentence in the review box that
+    referenced "the feedback widget below."
+  - **Image 5 (brand color) + general re-theme:** the page carried a
+    second, entirely separate `:root` block — dark-theme variable values
+    immediately overridden by a duplicate "forced light theme" block
+    directly beneath it (dead weight; no dark-mode toggle exists anywhere
+    on the page, confirmed via `grep`), including its own slightly-off
+    variant of the site's gradient (`0.08` opacity vs. the standard
+    `0.05`) and an orange/amber `--cx` accent (`#B0790F`) used for the
+    chart line, the "Key takeaways" card border, and the Calculate
+    button's yellow gradient — sampled the color the user marked as
+    "our brand color" directly from the screenshot pixel (`#1E3A5F`,
+    exact) and confirmed it's the same navy already used elsewhere on
+    this exact page for the calculator-bar and active-tab state.
+    Replaced the whole second `:root` with a minimal alias block pointing
+    the handful of genuinely-needed variable names (`--panel`, `--text`,
+    `--text-soft`, etc.) at the site's real tokens, changed `--cx` to the
+    navy, and deleted the duplicate gradient/body rule outright — the
+    page now inherits the one standard site-wide gradient (matching
+    mortgage/bmi/savings-calculator) with no separate treatment, exactly
+    as requested. Calculate button rebuilt to the exact convention used
+    on bmi/sales-tax/salary-calculator (`#16A34A` solid, not flex-stretched
+    to fill the row); Clear button matched to the same reference.
+  - **SEO title/meta, informed by the user's own GSC screenshot:** the
+    dominant query for this page is the bare "leverage calculator" (42
+    impressions) but only 1 click — a CTR problem, not a visibility
+    problem. Long-tail rows in the same screenshot ("leverage trade
+    calculator," "leverage trading calculator," "leverage profit
+    calculator," plus international "leverage rechner"/"leverage
+    berekenen" signal) confirmed real demand beyond the crypto-specific
+    framing the old title led with ("Crypto Leverage Calculator...").
+    Cross-checked against 8+ competitor pages (cryptocalk.com,
+    gaspntrader.com, stockcalculators.org, leverage.trading,
+    flicker.finance, pineify.app, miniwebtool.com, investknow.io) — most
+    ranking pages for the bare term aren't crypto-exclusive. Rewrote the
+    title to lead with the proven head term and a concrete 3-output
+    benefit hook ("Leverage Calculator — Position Size, Margin &
+    Liquidation Price"), meta description to add the free/no-signup
+    friction-removal cue and broaden to "crypto, forex or futures" ,
+    added a `meta keywords` tag (previously missing on this page,
+    present on every reference page) populated with the actual
+    researched long-tail terms, and mirrored all of it to og:/twitter:
+    tags. H1, URL, and category placement left untouched, per the
+    guide's own "blend, don't force a rename" rule.
+  - **GEO / AI-citation:** added a one-line "Quick answer: Position Value
+    = Margin × Leverage, and ROI on Margin = Price Move % × Leverage"
+    callout directly under the hero subhead, matching the direct-answer
+    style the strongest competitor pages already lead with — the page
+    already had strong foundations here (FAQPage with 14 Qs, HowTo,
+    WebApplication, BreadcrumbList schema all present and left as-is).
+  - **Verification before shipping:** Playwright across 1280px, 1024px,
+    and 390px mobile; zero console/page errors (the only errors seen
+    were the sandbox's pre-existing Google Fonts/GTM cert issue,
+    unrelated); math re-verified after every structural change; menu and
+    search re-confirmed still functional (header wasn't touched this
+    session); full before/after screenshots at every fixed section.
+  - Net diff: -63 lines (dead-code removal outweighed the additions).
+    Touched only `leverage-calculator/index.html`, per explicit scope.
+
 - **Site-wide brand name rename: "Calculator Boss" → "CalculatorBoss"**
   (ad-hoc user request, Jul 21, 2026): user asked for the spaced brand
   name to become one word everywhere, explicitly excluding any text
