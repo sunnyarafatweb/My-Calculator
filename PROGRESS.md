@@ -202,6 +202,31 @@ assume this exact order still holds after a few weeks of new data.
     checked across custom-built and template pages before pushing, which
     is a separate task). Flagging for a future session rather than
     touching the shared header inside a single-page fix.
+  - **Same-day follow-up #3: byline + TOC didn't match the established
+    pattern** (user sent two screenshots — mortgage-calculator's plain
+    jump-link list vs. this page's boxed two-column card with an avatar
+    circle — and asked for this page to match the former). Checked the
+    actual byline/TOC CSS on every already-rebuilt page (mortgage-
+    calculator, ira, apr, budget, time-zone, salary, sales-tax, annuity-
+    payout, bond — 9+ pages) and every single one uses the identical
+    `.{prefix}-byline{font-size:12.5px;color:var(--ink-faint);
+    padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid
+    var(--border-fine)}` (plain text, no avatar) and `.{prefix}-toc
+    {background:var(--surface-sunken);border-radius:10px;padding:16px
+    20px;margin-bottom:28px}` with bare `<a>` links directly in the
+    `<nav>` (no `<ul>`/`<li>`, no header label) — `--surface-sunken` is
+    the same color as the page background, so it renders with no visible
+    box border at all, just indented text, matching the screenshots
+    exactly. Rent vs. Buy was built with a one-off avatar-circle byline
+    (also inconsistently classed `rb-byline` instead of this page's own
+    `rvb-` prefix) and a bordered white two-column TOC card with an "ON
+    THIS PAGE" label — this was the one outlier across the whole site,
+    not a case of an old page lagging behind a newer pattern. Replaced
+    both to match the universal convention exactly (including the exact
+    verbatim byline copy and "Jul 2026" abbreviation every other page
+    uses instead of this page's custom wording). Verified: TOC links
+    still scroll to the correct sections (all 8 checked programmatically),
+    FAQ schema still 7/7 exact, zero console errors.
 
 - **Leverage Calculator — round 3: live price feed** (ad-hoc user
   request, Jul 21, 2026, direct follow-up to the round-2 "one honest
