@@ -22,6 +22,103 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Leverage Calculator — round 2: gradient/font/spacing parity + tab
+  layout fix** (ad-hoc user request, Jul 21, 2026, immediately following
+  the round-1 audit above): user pointed at two screenshots — this
+  page's calculator card vs. Loan Calculator's — and asked for the
+  background gradient gone, "wired" fonts replaced with something
+  professional, spacing tightened, and the mode tabs moved from inside
+  the form card to their own row above it, all to match Loan Calculator
+  specifically. Also asked for another full math re-check and a
+  competitive feature-parity check against calculator.net, Omni
+  Calculator, and similar large sites.
+  - **Background gradient — root-caused properly this time.** Round 1
+    kept the standard site-wide 0.05-opacity gradient on the theory that
+    every calculator page shares it. Direct pixel/computed-style
+    comparison against `loan-calculator` proved that theory wrong:
+    `getComputedStyle(document.body).backgroundImage` returns `"none"`
+    on loan-calculator despite the identical gradient rule sitting in
+    its stylesheet, because its actual `<body>` tag carries an inline
+    `style="background:var(--bg)"` — the shorthand `background` property
+    resets `background-image` to its initial value, silently cancelling
+    the stylesheet's gradient. Confirmed this exact inline style is
+    present verbatim on mortgage/bmi/savings/sales-tax/salary-calculator
+    too (5/5 checked) — it's the real, consistent site convention, not
+    the gradient rule itself. Added the identical inline style to this
+    page's `<body>` tag; `backgroundImage` now correctly resolves to
+    `"none"` here too.
+  - **Fonts — found a real, previously-unnoticed typography mismatch.**
+    Systematically compared computed `font-family` across every text
+    role on both pages rather than eyeballing it: loan-calculator's H1,
+    tab labels, and all numeric/result values compute to `Inter,
+    ui-sans-serif, system-ui, sans-serif` (loaded via the shared Tailwind
+    bundle every page already includes, just never applied outside
+    Tailwind's own utility classes), while this page's equivalents were
+    IBM Plex Sans (H1) and IBM Plex Mono (tab labels, stat values,
+    milestone numbers, table cells) — a monospace, code-editor-style
+    font sitting under every number on the page, which is almost
+    certainly what read as "wired." Repointed `--f-head` and `--f-mono`
+    to the same Inter stack, verified via computed style afterward that
+    H1/tabs/stat-rows/milestones/table-cells all now match
+    loan-calculator exactly.
+  - **Spacing — removed the GEO callout added in round 1** (it was
+    contributing to the extra height and, via the `.mono` class, part of
+    the font complaint too — moot now that `--f-mono` itself changed,
+    but removed anyway since loan-calculator's hero has no equivalent
+    element) **and found the real structural cause**: this page stacks
+    independent section-level paddings (`.crumb`, `.hero`,
+    `.calc-section` each contributing their own top/bottom padding) where
+    loan-calculator uses one flat outer wrapper with no such stacking.
+    Measured the actual gap (subhead-bottom to bar-top: 40px here vs.
+    24px there) and trimmed `.crumb`, `.hero`, and `.calc-section`
+    padding to bring it to 16px — closer to the reference than not
+    touching it, without a full structural rewrite. H1 top position also
+    moved from 27px-lower than reference to within 7px of it.
+  - **Tabs moved to their own row, matching Loan Calculator's grid
+    exactly.** Read loan-calculator's actual grid definition rather than
+    guessing: `grid-template-areas:"bar bar ." "tabs tabs ." "form
+    result sidebar"` with `.ln-tabs{grid-area:tabs}` as an independent
+    row spanning the form+result columns (not the sidebar column, and
+    not nested inside any card). This page's tabs previously lived
+    inside `.calc-area-form` as the first thing in that card. Added a
+    matching `"tabs tabs ."` grid row, moved the tab markup out to its
+    own `.calc-area-tabs` sibling in the HTML, and restyled the buttons
+    off the old small-pill/mono-font/horizontal-scroll treatment onto
+    loan-calculator's actual button convention (larger, `border-radius:
+    10px`, flex-wrap instead of scroll). Updated the ≤980px mobile grid
+    stack to include the new tabs row too.
+  - **Math re-verified after every structural change** — all 6
+    Playwright-driven checks from round 1 (worked example, short-
+    direction sign flip, required-margin tab, required-leverage tab,
+    the "already at spot" edge case, the 125x cap) re-run and still
+    passing after the font/spacing/gradient/grid changes; nothing here
+    touched calculation logic.
+  - **Competitive feature-parity check, done honestly rather than just
+    asserted:** searched specifically for what calculator.net and Omni
+    Calculator offer here. Calculator.net's own financial-calculator
+    index (Mortgage, Loan, Auto Loan, Retirement, Investment, 401k,
+    etc.) has no leverage or trading-margin calculator at all — nothing
+    to match. Omni Calculator does have a "Financial Leverage Ratio"
+    and a "Degree of Operating Leverage" calculator, but both compute a
+    *corporate* leverage concept (debt-to-equity / EBIT sensitivity for
+    analyzing a company's balance sheet) — a genuinely different tool
+    for a different audience than a trader sizing a margin position, not
+    a feature gap on this page. Checked against the specialized
+    trading-tool sites instead (gaspntrader, cryptocalk.com,
+    leverage.trading, pineify.app, flicker.finance — same set researched
+    in round 1): this page's existing feature set (solve for any of
+    3 variables, long/short, multi-currency, liquidation estimate,
+    leverage-vs-spot chart, scenario table, leverage-comparison table,
+    saved setups, PDF/CSV/share export) already matches or exceeds most
+    of them. One genuine, disclosed gap noted for a future session if
+    wanted: a live/real-time price feed for the entry-price field (a
+    couple of competitors fetch live crypto prices) — not added now
+    since it wasn't asked for this round and introduces an external API
+    dependency that would need its own CORS/reliability verification
+    pass per this repo's own hard-won-lessons section before shipping.
+  - Verified at 1280px and 390px after all changes; zero console/page
+    errors.
+
 - **Leverage Calculator — full audit + rebuild to current design system**
   (ad-hoc user request, Jul 21, 2026, framed as "act as an expert Leverage
   Calculator auditor"): user asked for real verification of the math, a
