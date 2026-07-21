@@ -167,6 +167,41 @@ assume this exact order still holds after a few weeks of new data.
     server-rendered HTML with no JS-rendering barrier for crawlers) from
     the original build — this pass only added the missing metadata layer
     around content that was already sound.
+  - **Same-day follow-up #2: real root cause of the "design structure"
+    complaint** (user sent a screenshot with red guide-lines showing the
+    whole calculator body sitting narrower/indented relative to the
+    header). The overflow-breakpoint fix above was real but was NOT what
+    the screenshot was showing — the actual cause was the page's content
+    wrapper div right after `<main>`: it used `class="mx-auto max-w-5xl
+    px-5 py-7 sm:py-9"` (Tailwind `max-w-5xl` = **1024px**), while every
+    other already-rebuilt 3-card page (ira-calculator, annuity-payout-
+    calculator, apr-calculator, time-zone-calculator, budget-calculator,
+    bond-calculator, loan-calculator, salary-calculator, sales-tax-
+    calculator — checked all of them) uses the exact same
+    `class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"`,
+    matching this guide's own section-5 spec. Rent vs. Buy was the one
+    page built against the wrong width, making its body ~136px narrower
+    than the 1180px header — visually "indented." Fixed by matching the
+    universal convention exactly. Re-verified in Playwright: header-wrap
+    vs. content-wrapper edges now differ by a consistent 10px on each
+    side (same small padding-convention gap every reference page has,
+    not a bug), full-page screenshot confirmed visually centered/aligned
+    at 1920px, FAQ schema diff still 7/7 exact, zero console errors.
+    **Re-ran the overflow sweep after this change** (the wrapper-width
+    fix changes the container size at every viewport, so the earlier
+    breakpoint math needed re-checking, not just left alone): the danger
+    zone shrank dramatically with the wider 1160px wrapper — clean at
+    every width tested except a 54px overflow at exactly 950px, which
+    traced (via a widest-element scan) to the **header's own search-bar
+    trigger** (`.icon-btn.cf-search-trigger`, a fixed 296px), not this
+    page's grid at all. Confirmed via the same test on salary-calculator
+    and mortgage-calculator (164px overflow on both, actually worse) —
+    this is a **pre-existing, site-wide header bug**, unrelated to this
+    session's page-specific work and out of scope here (the guide's own
+    rules require any shared-header change to be propagated + spot-
+    checked across custom-built and template pages before pushing, which
+    is a separate task). Flagging for a future session rather than
+    touching the shared header inside a single-page fix.
 
 - **Leverage Calculator — round 3: live price feed** (ad-hoc user
   request, Jul 21, 2026, direct follow-up to the round-2 "one honest
