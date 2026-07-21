@@ -22,6 +22,75 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Leverage Calculator — round 3: live price feed** (ad-hoc user
+  request, Jul 21, 2026, direct follow-up to the round-2 "one honest
+  gap" note about competitors fetching live crypto prices): user said
+  to add it and make the page as strong as possible.
+  - **API selection, verified rather than assumed.** This repo's own
+    hard-won-lessons section explicitly warns not to trust a live-data
+    integration on curl/Node output alone, since a broken-CORS domain
+    can silently fail in every real browser (the currency-calculator's
+    original frankfurter.app incident). Followed that instruction:
+    `curl -sI -H "Origin: https://calculatorboss.com"` against
+    CoinGecko's public `/simple/price` endpoint confirmed
+    `access-control-allow-origin: *`, and a direct multi-currency,
+    multi-coin request (`vs_currencies=usd,gbp,cad,aud,eur`) confirmed
+    one call returns every currency this page already supports, so
+    switching the existing currency dropdown doesn't require a second
+    request. Attempted the recommended in-browser Playwright fetch too;
+    it failed with `ERR_CERT_AUTHORITY_INVALID` — then proved that's a
+    sandbox-wide TLS interception issue, not a CoinGecko/CORS problem,
+    by fetching `api.github.com` (unrelated, definitely-fine domain)
+    from the same browser context and getting the identical failure.
+    The curl-based CORS header is the valid signal here; the sandbox
+    just can't make outbound HTTPS calls from its bundled Chromium at
+    all, which won't apply on the real production site.
+  - **Feature:** a coin selector (BTC, ETH, SOL, BNB, XRP, DOGE, ADA,
+    TRX) plus a "Use live price" button in the Position Value tab's
+    Advanced section. On click, fetches all 8 coins × 5 currencies in
+    one request, fills the Entry Price field in whichever currency is
+    currently selected, shows the 24h change (color-coded) and a
+    timestamp, attributes the source ("via CoinGecko"), and immediately
+    re-runs the liquidation-price calculation. Responses are cached for
+    20 seconds so switching the coin dropdown re-displays instantly
+    without a second network call, and switching currency then
+    re-fetching correctly re-reads from the same cached payload.
+    Manual entry remains the default and is untouched — this is a
+    convenience layered on top, not a replacement.
+  - **Error handling, tested rather than hoped for:** used Playwright's
+    request-mocking to test both paths without depending on this
+    sandbox's broken outbound HTTPS — (1) a mocked successful response
+    (verified the field populates, currency-awareness works, the cache
+    avoids a second call, and calc() + the liquidation estimate both
+    re-run correctly) and (2) a mocked aborted/failed request (verified
+    a clear inline message appears, the button re-enables, and the
+    entry-price field remains fully manually editable — the page never
+    breaks or gets stuck if the API is unreachable for any reason).
+    8-second timeout via `AbortController` so a hung request can't leave
+    the button stuck on "Fetching…" indefinitely.
+  - **Caught and fixed a real mobile overflow bug during testing:** the
+    coin-select + button row overflowed its own card by about 10px on a
+    390px viewport (button text visibly cut off at the edge) — the
+    combined natural widths of the two flex children didn't actually
+    fit the container at that width. Fixed by stacking them vertically
+    below 680px, matching how the page already handles other two-up
+    rows on mobile; confirmed zero overflow afterward.
+  - **FAQ + schema:** added a matching "Where does the live price come
+    from?" Q&A to both the visible FAQPage accordion and the JSON-LD
+    schema (attribution, coverage, and the "reference not a guaranteed
+    execution price" caveat). Ran this repo's own mandated schema/
+    visible-content diff check afterward and caught a real instance of
+    the exact failure mode the guide warns about: the schema had typed
+    "It's" with a straight apostrophe while the visible JS array had
+    the curly one, from writing the two in separate passes. Fixed to
+    match exactly; re-ran the diff — 15/15 questions and answers now
+    byte-for-byte identical between schema and visible content.
+  - Also updated the Advanced-section toggle label ("live price,
+    liquidation estimate") so the new capability is discoverable before
+    expanding it.
+  - Verified: all 6 round-1 math checks still pass; full FAQ diff
+    15/15 exact; zero console/page errors at 1280px and 390px.
+
 - **Leverage Calculator — round 2: gradient/font/spacing parity + tab
   layout fix** (ad-hoc user request, Jul 21, 2026, immediately following
   the round-1 audit above): user pointed at two screenshots — this
