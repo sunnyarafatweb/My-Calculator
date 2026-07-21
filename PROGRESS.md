@@ -22,6 +22,100 @@ re-explained.
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
 
+- **Rent vs. Buy Calculator — full rebuild from thin React/Tailwind-slider
+  shell to 3-card pattern** (ad-hoc user request, Jul 21, 2026, prompted by a
+  real Google Ads Keyword Planner screenshot showing 10K–100K monthly
+  searches, Low competition, $0.26–$1.65 CPC — a genuinely strong opportunity
+  the user found and shared directly, not sourced from web-search proxy data
+  this time).
+  - **Keyword research done before writing any copy, per section 4.**
+    Head-term competitive landscape: NYT (the canonical reference everyone
+    cites), NerdWallet, Zillow, Redfin, Freddie Mac, calculator.net — mixed
+    with smaller independent tools that still rank (rentingvsbuycalculator.com,
+    moneycalc.net, calcipedia.org, a state-specific variant on agoodlender.com).
+    That mix — Google ranking well-built smaller tools alongside giants, not
+    just the giants — is what makes this worth pursuing rather than a lost
+    cause against NYT specifically. Cross-checked math/content approach
+    against 6+ of these. **Differentiation angle found and built around:**
+    nearly every competitor treats the "money you didn't spend on a down
+    payment gets invested instead" return rate as a buried/fixed assumption;
+    one source states plainly that the break-even year moves from ~year 12
+    (at a 4% return) to never-within-30-years (at 6%+) purely from that one
+    number — most calculators don't surface this. Built the whole page around
+    making that assumption visible, adjustable in the core (non-advanced)
+    fields, and backed by a dedicated sensitivity table.
+  - **Told the user honestly, before building, that "definitely page 1" isn't
+    a promise anyone can make** — explained the Keyword-Planner "Low
+    competition" metric is paid-ad competition, not organic ranking
+    difficulty (different things), and set expectations around long-tail /
+    second-tier ranking as the realistic near-term target rather than
+    beating NYT outright.
+  - **Math independently verified in Python against a real, independently-published
+    competitor result before writing a line of page code** — a $400,000
+    home / 20% down / 6.5% rate / 4% investment return scenario, cross-checked
+    against rentingvsbuycalculator.com's stated "~year 12" break-even and
+    "$2,022.62/mo" payment: both matched exactly. Also verified the
+    sensitivity claim itself (2%→8% return sweep): break-even year moves from
+    Year 8 down through Year 12, Year 19, then never-within-30-years at 6%+,
+    matching the "6%+ and renting can win the whole 30 years" pattern found
+    in research. Re-verified twice more after the JS was built — once against
+    the page's actual default inputs (an initial discrepancy of ~$2,200 in
+    the renter's year-10 net worth turned out to be the Python spot-check
+    missing the $15/mo renters-insurance input the real page includes, not a
+    bug — re-ran Python with it included and got an exact match) and once
+    against a second, unrelated scenario ($250k home, 10% down, 7% rate, 5yr
+    horizon) — both matched the JS to the cent.
+  - **Full rebuild, not a patch.** The prior page was a React/Tailwind range-slider
+    component with 5 inputs, fixed hidden assumptions (3% appreciation, 3% rent
+    inflation, 6% return, 3%/7% transaction costs — none adjustable), no chart,
+    1 H2, and 3 FAQs — the generic template-tier pattern this repo has been
+    working through. Replaced the entire `<main>` with a hand-built vanilla-JS
+    3-card-pattern page (`rvb-` prefix), keeping the protected shared
+    style block and header/footer untouched. New calculator: 6 core inputs
+    (home price, down %, rate, rent, years to compare, investment return) +
+    an Advanced-assumptions toggle (loan term, property tax, insurance, PMI,
+    maintenance, HOA, renters insurance, closing %, selling %, appreciation %,
+    rent increase %) with 2026 US-average defaults; month-by-month simulation
+    of both paths (standard amortization + PMI phase-out at 20% equity on the
+    buy side, invest-the-monthly-difference compounding on the rent side);
+    break-even year, monthly P&I, upfront cash needed, and both sides' net
+    worth at the chosen horizon; a year-by-year net-worth line chart; a
+    sensitivity table (break-even year and winner at 6 different investment
+    return rates, current rate highlighted); a "5% rule" quick-reference
+    card; PDF export (jsPDF lazy-loaded on click, per section 6 — confirmed
+    zero bytes fetched before the button is clicked); a navy related-calculators
+    sidebar (mortgage, loan, house-affordability, mortgage-payoff, down-payment,
+    investment, compound-interest — all confirmed to actually exist before
+    linking). 8 H2 sections (understanding / how-it-works-and-formula /
+    input breakdown / real trade-offs / what-this-doesn't-cover / how-long-
+    to-stay decision help / worked example) + 7 FAQs + table of contents.
+  - **Fixed the existing breadcrumb/H1/title while rebuilding:** breadcrumb
+    schema already correctly said category "Finance", fixed the category
+    link to the `#fin` anchor convention and the crumb's schema name from
+    "Rent Vs Buy" to "Rent vs. Buy Calculator" to match the page's own H1;
+    added `font-bold` to the H1 classes (confirmed `fontWeight:700` via
+    Playwright, per the section-5 known failure mode); rewrote title
+    ("Rent vs. Buy Calculator — Find Your Break-Even Year") and meta
+    description around the break-even/investment-return angle instead of
+    the old generic `X Calculator | CalculatorBoss` pattern.
+  - **What this page deliberately doesn't model, disclosed on-page:** the
+    mortgage-interest tax deduction (most homeowners take the standard
+    deduction post-2018, so it's worth $0 to them in practice — modeling it
+    accurately would need itemization/filing-status data this calculator
+    doesn't collect), rent control caps, mid-horizon refinancing, and
+    state-specific transfer taxes. Called out explicitly in its own H2
+    section and an FAQ rather than silently ignored.
+  - Verified: FAQ schema vs. visible-content diff check (7/7 exact,
+    per the section-3 recurring-failure-mode warning); zero console/page
+    errors at 1280px and 390px mobile (no horizontal overflow); Advanced
+    toggle, Clear-to-defaults, and live recalculation on every input all
+    functional; PDF button confirmed lazy (no jsPDF request before click)
+    and fails gracefully with a clear message (this sandbox can't make
+    real outbound HTTPS calls from its browser at all — confirmed
+    unrelated to this specific integration the same way as the leverage
+    calculator's live-price feature — so this is the correct verification
+    ceiling here; will work normally on the real production site).
+
 - **Leverage Calculator — round 3: live price feed** (ad-hoc user
   request, Jul 21, 2026, direct follow-up to the round-2 "one honest
   gap" note about competitors fetching live crypto prices): user said
