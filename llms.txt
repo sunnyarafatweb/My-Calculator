@@ -185,7 +185,7 @@
 - [Ohm's Law Calculator — Voltage, Current](https://calculatorboss.com/ohms-law-calculator/)
 - [Roofing Calculator — Squares](https://calculatorboss.com/roofing-calculator/)
 - [Shoe Size Conversion — US, UK, EU](https://calculatorboss.com/shoe-size-conversion/)
-- [Speed Calculator — Distance, Time](https://calculatorboss.com/speed-calculator/)
+- [Speed Calculator — Speed, Distance, Time &amp; Unit Converter](https://calculatorboss.com/speed-calculator/)
 - [Stair Calculator — Risers, Treads](https://calculatorboss.com/stair-calculator/)
 - [Tire Size Calculator — Compare Diameter](https://calculatorboss.com/tire-size-calculator/)
 - [Wind Chill Calculator](https://calculatorboss.com/wind-chill-calculator/)
