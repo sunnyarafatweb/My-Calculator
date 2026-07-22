@@ -377,6 +377,9 @@
 .fi-unit-tabs{display:flex;gap:8px;flex-wrap:wrap}
 .fi-unit-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;min-height:44px}
 .fi-unit-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+#fi-other-toggle::after{content:" ▾";font-size:10px}
+#fi-other-toggle.fi-toggle-open{background:#EEF2F7;color:#1E3A5F;border-color:#1E3A5F}
+#fi-other-toggle.fi-toggle-open::after{content:" ▴"}
 
 .fi-other-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
 .fi-other-note{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-bottom:12px}
@@ -663,7 +666,7 @@
   // behavior: it shows a helper converter ON TOP of whichever US/Metric fields are already
   // active, it does NOT hide or replace them) ----------
   $('fi-other-toggle').addEventListener('click', function(){
-    var isOpen = $('fi-other-toggle').classList.toggle('active');
+    var isOpen = $('fi-other-toggle').classList.toggle('fi-toggle-open');
     $('fi-other-panel').style.display = isOpen ? '' : 'none';
   });
 
