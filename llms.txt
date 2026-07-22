@@ -210,7 +210,7 @@
 - [GPA Calculator — Standard 4.0 Scale](https://calculatorboss.com/gpa-calculator/)
 - [Gravel Calculator — Tons & Cubic Yards Needed](https://calculatorboss.com/gravel-calculator/)
 - [Greatest Common Factor (GCF) Calculator](https://calculatorboss.com/gcf-calculator/)
-- [Height Calculator](https://calculatorboss.com/height-calculator/)
+- [Height Calculator — Khamis-Roche Child Height Predictor](https://calculatorboss.com/height-calculator/)
 - [Horsepower Calculator — From Torque & RPM](https://calculatorboss.com/horsepower-calculator/)
 - [Hours Calculator — Elapsed Time & Pay](https://calculatorboss.com/hours-calculator/)
 - [IRR Calculator — Internal Rate of Return](https://calculatorboss.com/irr-calculator/)
