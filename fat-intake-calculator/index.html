@@ -458,7 +458,7 @@
 <div class="fi-unit-tabs fi-area-tabs" id="fi-units">
   <button type="button" class="fi-unit-tab active" data-unit="us">US (ft/in, lb)</button>
   <button type="button" class="fi-unit-tab" data-unit="metric">Metric (cm, kg)</button>
-  <button type="button" class="fi-unit-tab" data-unit="other">Other Units</button>
+  <button type="button" class="fi-unit-tab" id="fi-other-toggle">Other Units</button>
 </div>
 
 <div class="fi-card fi-area-form">
@@ -638,17 +638,16 @@
   function kgFromLb(lb){ return lb*0.453592; }
   function lbFromKg(kg){ return kg/0.453592; }
 
-  // ---------- Unit toggle ----------
-  document.querySelectorAll('#fi-units .fi-unit-tab').forEach(function(btn){
+  // ---------- Unit toggle (US / Metric are mutually exclusive; they control field format) ----------
+  document.querySelectorAll('#fi-units .fi-unit-tab[data-unit]').forEach(function(btn){
     btn.addEventListener('click', function(){
-      document.querySelectorAll('#fi-units .fi-unit-tab').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('#fi-units .fi-unit-tab[data-unit]').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       unit = btn.dataset.unit;
       $('fi-height-us').style.display = unit==='us' ? '' : 'none';
       $('fi-height-metric').style.display = unit==='metric' ? '' : 'none';
       $('fi-weight-us').style.display = unit==='us' ? '' : 'none';
       $('fi-weight-metric').style.display = unit==='metric' ? '' : 'none';
-      $('fi-other-panel').style.display = unit==='other' ? '' : 'none';
       if(unit==='metric'){
         $('fi-heightCm').value = cmFromFtIn($('fi-heightFt').value, $('fi-heightIn').value).toFixed(1);
         $('fi-weightKg').value = kgFromLb(+$('fi-weightLb').value||0).toFixed(1);
@@ -658,6 +657,14 @@
       }
       calculate();
     });
+  });
+
+  // ---------- Other Units (independent overlay toggle — matches calculator.net's actual
+  // behavior: it shows a helper converter ON TOP of whichever US/Metric fields are already
+  // active, it does NOT hide or replace them) ----------
+  $('fi-other-toggle').addEventListener('click', function(){
+    var isOpen = $('fi-other-toggle').classList.toggle('active');
+    $('fi-other-panel').style.display = isOpen ? '' : 'none';
   });
 
   // ---------- Other Units helper converter (Length / Temperature / Area / Volume / Weight) ----------
