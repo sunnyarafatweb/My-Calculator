@@ -467,9 +467,12 @@
     <p class="fi-form-desc">Based on your daily calorie needs and the 20–35% Acceptable Macronutrient Distribution Range for fat.</p>
 
     <div class="fi-other-panel" id="fi-other-panel" style="display:none">
-      <p class="fi-other-note">Convert your measurement to the unit this calculator accepts (cm or kg), then switch to the <strong>Metric</strong> tab above and enter it there.</p>
+      <p class="fi-other-note">A general unit converter for whatever measurement you're starting from. For <strong>height</strong> and <strong>weight</strong> specifically, convert to cm or kg here, then switch to the <strong>Metric</strong> tab above and enter it there.</p>
       <div class="fi-other-tabs" id="fi-other-cat-tabs">
         <button type="button" class="fi-other-tab active" data-cat="length">Length</button>
+        <button type="button" class="fi-other-tab" data-cat="temp">Temperature</button>
+        <button type="button" class="fi-other-tab" data-cat="area">Area</button>
+        <button type="button" class="fi-other-tab" data-cat="volume">Volume</button>
         <button type="button" class="fi-other-tab" data-cat="weight">Weight</button>
       </div>
       <div class="fi-other-row">
@@ -657,21 +660,54 @@
     });
   });
 
-  // ---------- Other Units helper converter (Length / Weight) ----------
+  // ---------- Other Units helper converter (Length / Temperature / Area / Volume / Weight) ----------
+  // Matches calculator.net's shared /converter/converter.php widget category-for-category, unit-for-unit.
+  var usGalL = 3.785411784, impGalL = 4.54609; // liters, both exact legal definitions
   var LENGTH_UNITS = [
-    ['mm','Millimeters [mm]',0.001], ['cm','Centimeters [cm]',0.01], ['m','Meters [m]',1], ['km','Kilometers [km]',1000],
-    ['in','Inches [in]',0.0254], ['ft','Feet [ft]',0.3048], ['yd','Yards [yd]',0.9144], ['mi','Miles [mi]',1609.344]
+    ['m','Meter',1], ['km','Kilometer',1000], ['cm','Centimeter',0.01], ['mm','Millimeter',0.001],
+    ['um','Micrometer',0.000001], ['nm','Nanometer',0.000000001], ['mi','Mile',1609.344],
+    ['yd','Yard',0.9144], ['ft','Foot',0.3048], ['in','Inch',0.0254], ['ly','Light Year',299792458*31557600]
+  ];
+  var AREA_UNITS = [
+    ['m2','Square Meter',1], ['km2','Square Kilometer',1000000], ['cm2','Square Centimeter',0.0001],
+    ['mm2','Square Millimeter',0.000001], ['um2','Square Micrometer',1e-12], ['hectare','Hectare',10000],
+    ['mi2','Square Mile',1609.344*1609.344], ['yd2','Square Yard',0.9144*0.9144],
+    ['ft2','Square Foot',0.3048*0.3048], ['in2','Square Inch',0.0254*0.0254], ['acre','Acre',4046.8564224]
+  ];
+  var VOLUME_UNITS = [
+    ['m3','Cubic Meter',1], ['km3','Cubic Kilometer',1e9], ['cm3','Cubic Centimeter',0.000001], ['mm3','Cubic Millimeter',1e-9],
+    ['l','Liter',0.001], ['ml','Milliliter',0.000001],
+    ['usgal','US Gallon',usGalL/1000], ['usqt','US Quart',usGalL/1000/4], ['uspt','US Pint',usGalL/1000/8],
+    ['uscup','US Cup',usGalL/1000/16], ['usfloz','US Fluid Ounce',usGalL/1000/128],
+    ['ustbsp','US Table Spoon',usGalL/1000/256], ['ustsp','US Tea Spoon',usGalL/1000/768],
+    ['impgal','Imperial Gallon',impGalL/1000], ['impqt','Imperial Quart',impGalL/1000/4], ['imppt','Imperial Pint',impGalL/1000/8],
+    ['impfloz','Imperial Fluid Ounce',impGalL/1000/160], ['imptbsp','Imperial Table Spoon',impGalL/1000/256], ['imptsp','Imperial Tea Spoon',impGalL/1000/768],
+    ['mi3','Cubic Mile',1609.344*1609.344*1609.344], ['yd3','Cubic Yard',0.9144*0.9144*0.9144],
+    ['ft3','Cubic Foot',0.3048*0.3048*0.3048], ['in3','Cubic Inch',0.0254*0.0254*0.0254]
   ];
   var WEIGHT_UNITS = [
-    ['mg','Milligrams [mg]',0.000001], ['g','Grams [g]',0.001], ['kg','Kilograms [kg]',1],
-    ['oz','Ounces [oz]',0.028349523125], ['lb','Pounds [lb]',0.45359237], ['stone','Stone [st]',6.35029318],
-    ['ton','US Ton [tn]',907.18474], ['tonne','Metric Tonne [t]',1000]
+    ['kg','Kilogram',1], ['g','Gram',0.001], ['mg','Milligram',0.000001], ['tonne','Metric Ton',1000],
+    ['longton','Long Ton',0.45359237*2240], ['shortton','Short Ton',0.45359237*2000],
+    ['lb','Pound',0.45359237], ['oz','Ounce',0.028349523125], ['carat','Carat',0.0002],
+    ['amu','Atomic Mass Unit',1.66053906660e-27]
   ];
+  var TEMP_UNITS = [['c','Celsius'], ['k','Kelvin'], ['f','Fahrenheit']];
+
+  function toKelvin(v, u){ return u==='c' ? v+273.15 : u==='f' ? (v-32)*5/9+273.15 : v; }
+  function fromKelvin(k, u){ return u==='c' ? k-273.15 : u==='f' ? (k-273.15)*9/5+32 : k; }
+
   var otherCat = 'length';
-  function otherUnitsFor(cat){ return cat==='length' ? LENGTH_UNITS : WEIGHT_UNITS; }
+  var OTHER_DEFAULTS = {
+    length:['ft','m'], temp:['f','c'], area:['ft2','m2'], volume:['usgal','l'], weight:['lb','kg']
+  };
+  var OTHER_STARTVAL = { length:5, temp:98.6, area:100, volume:1, weight:180 };
+  function otherUnitsFor(cat){
+    return cat==='length' ? LENGTH_UNITS : cat==='temp' ? TEMP_UNITS : cat==='area' ? AREA_UNITS :
+           cat==='volume' ? VOLUME_UNITS : WEIGHT_UNITS;
+  }
   function populateOtherSelects(){
     var list = otherUnitsFor(otherCat);
-    var defaults = otherCat==='length' ? ['ft','m'] : ['lb','kg'];
+    var defaults = OTHER_DEFAULTS[otherCat];
     [['fi-other-fromUnit', defaults[0]], ['fi-other-toUnit', defaults[1]]].forEach(function(pair){
       var sel = $(pair[0]);
       sel.innerHTML = list.map(function(u){ return '<option value="'+u[0]+'">'+u[1]+'</option>'; }).join('');
@@ -679,18 +715,24 @@
     });
   }
   function otherConvertFromChanged(){
-    var list = otherUnitsFor(otherCat);
-    var map = {}; list.forEach(function(u){ map[u[0]]=u[2]; });
-    var base = (+$('fi-other-fromVal').value||0) * map[$('fi-other-fromUnit').value];
-    var out = base / map[$('fi-other-toUnit').value];
-    $('fi-other-toVal').value = Math.round(out*10000)/10000;
+    var fromU = $('fi-other-fromUnit').value, toU = $('fi-other-toUnit').value;
+    var val = +$('fi-other-fromVal').value||0;
+    var out;
+    if(otherCat==='temp'){
+      out = fromKelvin(toKelvin(val, fromU), toU);
+    } else {
+      var list = otherUnitsFor(otherCat);
+      var map = {}; list.forEach(function(u){ map[u[0]]=u[2]; });
+      out = (val * map[fromU]) / map[toU];
+    }
+    $('fi-other-toVal').value = Math.round(out*1000000)/1000000;
   }
   $('fi-other-cat-tabs').querySelectorAll('.fi-other-tab').forEach(function(btn){
     btn.addEventListener('click', function(){
       $('fi-other-cat-tabs').querySelectorAll('.fi-other-tab').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       otherCat = btn.dataset.cat;
-      $('fi-other-fromVal').value = otherCat==='length' ? 5 : 180;
+      $('fi-other-fromVal').value = OTHER_STARTVAL[otherCat];
       populateOtherSelects();
       otherConvertFromChanged();
     });
