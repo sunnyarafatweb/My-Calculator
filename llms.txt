@@ -112,7 +112,7 @@
 - [Calorie Calculator](https://calculatorboss.com/calorie-calculator/)
 - [Calories Burned Calculator](https://calculatorboss.com/calories-burned-calculator/)
 - [Carbohydrate Calculator](https://calculatorboss.com/carbohydrate-calculator/)
-- [Fat Intake Calculator](https://calculatorboss.com/fat-intake-calculator/)
+- [Fat Intake Calculator — Daily Fat &amp; Saturated Fat Target](https://calculatorboss.com/fat-intake-calculator/)
 - [GFR Calculator](https://calculatorboss.com/gfr-calculator/)
 - [Healthy Weight Calculator](https://calculatorboss.com/healthy-weight-calculator/)
 - [Ideal Weight Calculator — Devine, Robinson](https://calculatorboss.com/ideal-weight-calculator/)
