@@ -377,6 +377,15 @@
 .fi-unit-tab{flex:1;background:none;border:none;color:var(--ink-soft);border-radius:8px;padding:9px 8px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center}
 .fi-unit-tab.active{background:#1E3A5F;color:#fff}
 
+.fi-other-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.fi-other-note{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-bottom:12px}
+.fi-other-tabs{display:flex;gap:6px;margin-bottom:12px}
+.fi-other-tab{background:#fff;border:1px solid var(--border);color:var(--ink-soft);border-radius:8px;padding:8px 16px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:44px}
+.fi-other-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.fi-other-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.fi-other-row label{font-size:11.5px;color:var(--ink-faint);width:36px;flex-shrink:0}
+.fi-other-row .fi-input-group{flex:1}
+
 .fi-sex-row{display:flex;gap:1px;background:var(--surface-sunken);border-radius:100px;padding:4px;width:fit-content;margin-bottom:16px}
 .fi-sex-btn{border:none;background:none;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:8px 20px;border-radius:100px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .fi-sex-btn.active{background:#1E3A5F;color:#fff}
@@ -453,6 +462,23 @@
     <div class="fi-unit-tabs" id="fi-units">
       <button type="button" class="fi-unit-tab active" data-unit="us">US (ft/in, lb)</button>
       <button type="button" class="fi-unit-tab" data-unit="metric">Metric (cm, kg)</button>
+      <button type="button" class="fi-unit-tab" data-unit="other">Other Units</button>
+    </div>
+
+    <div class="fi-other-panel" id="fi-other-panel" style="display:none">
+      <p class="fi-other-note">Convert your measurement to the unit this calculator accepts (cm or kg), then switch to the <strong>Metric</strong> tab above and enter it there.</p>
+      <div class="fi-other-tabs" id="fi-other-cat-tabs">
+        <button type="button" class="fi-other-tab active" data-cat="length">Length</button>
+        <button type="button" class="fi-other-tab" data-cat="weight">Weight</button>
+      </div>
+      <div class="fi-other-row">
+        <label>From</label>
+        <div class="fi-input-group"><input id="fi-other-fromVal" type="number" step="any" value="5"><select id="fi-other-fromUnit"></select></div>
+      </div>
+      <div class="fi-other-row">
+        <label>To</label>
+        <div class="fi-input-group"><input id="fi-other-toVal" type="number" step="any" value="1.5"><select id="fi-other-toUnit"></select></div>
+      </div>
     </div>
 
     <div class="fi-sex-row" id="fi-sex">
@@ -615,19 +641,65 @@
       btn.classList.add('active');
       unit = btn.dataset.unit;
       $('fi-height-us').style.display = unit==='us' ? '' : 'none';
-      $('fi-height-metric').style.display = unit==='us' ? 'none' : '';
+      $('fi-height-metric').style.display = unit==='metric' ? '' : 'none';
       $('fi-weight-us').style.display = unit==='us' ? '' : 'none';
-      $('fi-weight-metric').style.display = unit==='us' ? 'none' : '';
+      $('fi-weight-metric').style.display = unit==='metric' ? '' : 'none';
+      $('fi-other-panel').style.display = unit==='other' ? '' : 'none';
       if(unit==='metric'){
         $('fi-heightCm').value = cmFromFtIn($('fi-heightFt').value, $('fi-heightIn').value).toFixed(1);
         $('fi-weightKg').value = kgFromLb(+$('fi-weightLb').value||0).toFixed(1);
-      } else {
+      } else if(unit==='us'){
         var h = ftInFromCm(+$('fi-heightCm').value); $('fi-heightFt').value=h.ft; $('fi-heightIn').value=h.inch;
         $('fi-weightLb').value = Math.round(lbFromKg(+$('fi-weightKg').value||0));
       }
       calculate();
     });
   });
+
+  // ---------- Other Units helper converter (Length / Weight) ----------
+  var LENGTH_UNITS = [
+    ['mm','Millimeters [mm]',0.001], ['cm','Centimeters [cm]',0.01], ['m','Meters [m]',1], ['km','Kilometers [km]',1000],
+    ['in','Inches [in]',0.0254], ['ft','Feet [ft]',0.3048], ['yd','Yards [yd]',0.9144], ['mi','Miles [mi]',1609.344]
+  ];
+  var WEIGHT_UNITS = [
+    ['mg','Milligrams [mg]',0.000001], ['g','Grams [g]',0.001], ['kg','Kilograms [kg]',1],
+    ['oz','Ounces [oz]',0.028349523125], ['lb','Pounds [lb]',0.45359237], ['stone','Stone [st]',6.35029318],
+    ['ton','US Ton [tn]',907.18474], ['tonne','Metric Tonne [t]',1000]
+  ];
+  var otherCat = 'length';
+  function otherUnitsFor(cat){ return cat==='length' ? LENGTH_UNITS : WEIGHT_UNITS; }
+  function populateOtherSelects(){
+    var list = otherUnitsFor(otherCat);
+    var defaults = otherCat==='length' ? ['ft','m'] : ['lb','kg'];
+    [['fi-other-fromUnit', defaults[0]], ['fi-other-toUnit', defaults[1]]].forEach(function(pair){
+      var sel = $(pair[0]);
+      sel.innerHTML = list.map(function(u){ return '<option value="'+u[0]+'">'+u[1]+'</option>'; }).join('');
+      sel.value = pair[1];
+    });
+  }
+  function otherConvertFromChanged(){
+    var list = otherUnitsFor(otherCat);
+    var map = {}; list.forEach(function(u){ map[u[0]]=u[2]; });
+    var base = (+$('fi-other-fromVal').value||0) * map[$('fi-other-fromUnit').value];
+    var out = base / map[$('fi-other-toUnit').value];
+    $('fi-other-toVal').value = Math.round(out*10000)/10000;
+  }
+  $('fi-other-cat-tabs').querySelectorAll('.fi-other-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      $('fi-other-cat-tabs').querySelectorAll('.fi-other-tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      otherCat = btn.dataset.cat;
+      $('fi-other-fromVal').value = otherCat==='length' ? 5 : 180;
+      populateOtherSelects();
+      otherConvertFromChanged();
+    });
+  });
+  $('fi-other-fromVal').addEventListener('input', otherConvertFromChanged);
+  $('fi-other-fromUnit').addEventListener('change', otherConvertFromChanged);
+  $('fi-other-toUnit').addEventListener('change', otherConvertFromChanged);
+  populateOtherSelects();
+  otherConvertFromChanged();
+
 
   // ---------- Sex toggle ----------
   document.querySelectorAll('#fi-sex .fi-sex-btn').forEach(function(btn){
