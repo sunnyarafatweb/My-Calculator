@@ -1621,6 +1621,76 @@ assume this exact order still holds after a few weeks of new data.
   scrolling to the numbers that matter); added an Extra Payments vs.
   Refinancing vs. Recasting content section + 2 FAQs.
 - **Site-wide breadcrumb rollout**: all 193 pages that lacked one.
+- **Mining Profit Calculator — full rebuild from the older crypto/trading-batch
+  pattern to the current 3-card pattern** (ad-hoc user request, Jul 25, 2026,
+  reference: bitcoinfoundation.org/tools/mining-calculator/). **Explicit
+  design-pattern decision**, flagged and confirmed with the user before
+  starting: `DESIGN_AND_SEO_GUIDE.md` §5 names the crypto/trading batch
+  (position-size/leverage/liquidation-price/mining-profit/risk-reward/
+  staking-reward/crypto-tax) as a protected, intentionally-different pattern
+  not to be converted without a separate explicit decision — the user chose
+  to convert this one page anyway (accepting temporary inconsistency with its
+  7 siblings), modeled directly on `apr-calculator` (closest existing
+  reference for bar+lazy-PDF+tabs+donut+schedule+bottomgrid, and the correct
+  `loadScriptOnce`/`ensurePdfLibs` lazy-load pattern — NOT `loan-calculator`,
+  which still eager-loads jsPDF via a bare `<script src>` tag and should be
+  treated as a stale example, not a template, until someone fixes it).
+  - **Schema gap found and fixed**: the live page had `BreadcrumbList` only —
+    both `FAQPage` and `WebApplication` were completely missing despite 12
+    visible FAQs and a dead JS snippet that tried (and silently failed) to
+    stamp a `dateModified` onto a `WebApplication` block that didn't exist.
+    Same audit found this is a batch-wide gap, not unique to this page:
+    of the 7 siblings, only `leverage-calculator` and `crypto-profit-calculator`
+    currently have both schemas — worth a dedicated pass later.
+  - **FAQ schema/visible-copy match guaranteed by construction, not by manual
+    care**: extracted the 12 existing Q&A pairs programmatically into one
+    JSON source, then generated *both* the `FAQPage` schema and the visible
+    FAQ HTML from that same source, so the exact-match requirement in §3
+    can't drift the way the guide's own recurring-failure note describes.
+  - **Keyword research (§4)**: web-searched the head term alongside CoinWarz,
+    SimpleMining, HashrateIndex, and bitcoinfoundation.org. Finding: nearly
+    every serious competitor's biggest differentiator is *live* BTC price +
+    live network difficulty/hashrate pre-filled into the calculator, not a
+    static default — this page had neither (a stale hardcoded $95,000 coin
+    price default, when live BTC was actually ~$64,000 the day of this
+    session). Retitled from the generic `X | CalculatorBoss` pattern to
+    *"Mining Profit Calculator — Live BTC Price, Hashrate & ROI"* to match
+    that finding, kept the URL/H1 as-is per §8 (don't force a rename), and
+    rewrote every worked-example number in the article against the corrected
+    live-informed defaults (300 TH/s, 900 EH/s network, $64,000, $0.05/kWh).
+  - **New live-data feature**: a click-triggered (never automatic) "Use Live
+    Bitcoin Price & Network Hashrate" button pulling from
+    `api.coingecko.com/api/v3/simple/price` (BTC/USD) and
+    `mempool.space/api/v1/mining/hashrate/3d` (current network hashrate).
+    Per the CORS hard-lesson in §6: checked `access-control-allow-origin`
+    headers via curl+Origin first as triage, then confirmed for real with a
+    live Playwright browser-context fetch (succeeded: $63,994 · 912.2 EH/s,
+    zero console errors) before treating it as working.
+  - **Formula verification**: the existing hashrate-share formula, break-even
+    rate, payback period, and solo-odds math were already correct (re-derived
+    and hand-checked independently in Node against the new defaults before
+    reuse — all matched). The new 12-month schedule table reuses the same
+    daily-compounding difficulty/price growth model already used by the old
+    page's forecast table (`Math.pow(1+monthly/100, 1/30)-1`), re-verified in
+    Node for the new month-by-month (not 6-checkpoint) sampling, plus a
+    donut-segment sum-to-revenue check.
+  - Dropped from the old page (scope decision, not a bug): the circular
+    profit-margin gauge, the localStorage "saved setups" feature, and the
+    separate hardware-efficiency benchmark table — folded into the note/badge
+    text, the new quick-preset chips (apr-calculator convention), and the
+    article's existing efficiency discussion respectively, to match the
+    leaner 3-card pattern's shape rather than carrying over every prior
+    sub-feature 1:1.
+  - Verified before push: schema JSON validity (all 3 blocks), `node --check`
+    on all 6 script blocks, protected shared-style-block byte-for-byte
+    identical to `apr-calculator`'s (confirmed no drift), zero duplicate/
+    dangling element IDs, and a full Playwright pass (desktop + mobile) —
+    zero console errors on load/tab-switch/live-fetch, zero horizontal
+    overflow, jsPDF confirmed unfetched until the button click and fetched
+    correctly after, 3-column grid geometry confirmed non-overlapping,
+    12-row schedule + donut + stacked-bar chart all render, Clear button
+    resets correctly, and the Solo tab's bottom-grid/donut/PDF-export edge
+    cases all checked separately since they use a different EFF shape.
 
 ## Standing notes for next session
 
