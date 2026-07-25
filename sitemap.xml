@@ -1255,4 +1255,10 @@
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
+<url>
+<loc>https://calculatorboss.com/bitcoin-calculator</loc>
+<lastmod>2026-07-25T09:03:27.000Z</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
 </urlset>
