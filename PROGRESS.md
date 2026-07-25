@@ -1744,6 +1744,49 @@ assume this exact order still holds after a few weeks of new data.
     pill, advanced toggle, mobile 1-column collapse) and the pre-existing
     Advanced Tools section (22 checks, re-run twice — unaffected by the
     new widget).
+- **Mining Profit Calculator — same-day UX/SEO audit, user-requested Jul 25,
+  2026**: user asked directly whether the page was 100% confusion-free and
+  100% SEO-optimized given a low-competition/modest-demand niche (~20K/mo
+  traffic on top competitors per user). Actually audited rather than
+  reassured — found and fixed real gaps:
+  - **UX**: the new multi-coin widget had no heading/label at all, while
+    the pre-existing tool below it was clearly labeled "Advanced Tools" —
+    confirmed via DOM inspection (nothing but a `<style>` tag sat above the
+    widget). Added a matching "Quick Calculator" divider above it, and
+    rewrote both dividers' subtext so each explicitly names the other
+    section, so the two-tool structure explains itself. Also found the
+    currency pills were only 38px tall on mobile (Playwright
+    `getBoundingClientRect`), short of the 44px tap-target guideline —
+    bumped padding to fix.
+  - **SEO**: confirmed the title, meta description, WebApplication schema,
+    and every H2/FAQ were still 100% BTC-only despite the page now
+    genuinely supporting 7 coins — a real content-freshness gap, not
+    reassurance-worthy. Retitled to "Mining Profit Calculator — Multi-Coin
+    ROI, Live BTC Price," rewrote the meta description and WebApplication
+    schema to name the coins, added meta keywords for each coin's mining-
+    calculator long-tail, added a new H2 ("Mining Profit for BTC, LTC, ETC,
+    XMR, ZEC, DASH and Kaspa") with one accurate, sourced fact per coin
+    (algorithm, block-time character, reward-schedule quirk), and added 2
+    new FAQ entries about multi-coin support and defaults-vs-live-data
+    honesty. Validated market-opportunity claim via search: "crypto mining
+    calculator" (multi-coin framing) is a real, actively-targeted term
+    (CoinDCX, ValueHash, Minerset, CoinWarz, hashrate.no all run 2+ coin
+    calculators) that this page previously had zero content overlap with.
+  - FAQPage schema went from 12 to 14 questions; re-verified the
+    schema/visible-HTML match programmatically (not by eye) after the
+    edit, since hand-editing escaped JSON is error-prone — first attempt
+    at a targeted string-replace on the raw escaped JSON failed silently
+    (mismatched backslash-escaping), caught by an assertion, fixed by
+    parsing with `json.loads`/re-serializing with `json.dumps` instead of
+    string-patching.
+  - Re-verified after every edit: schema JSON validity (3 blocks, FAQPage
+    now 14 entities), all 7 script blocks pass `node --check`, div/ul/li
+    tag balance, zero duplicate ids, TOC-to-H2 anchor match, protected
+    style block still byte-identical, and a full Playwright re-run of both
+    prior test suites (only "failure" was a stale selector in an old test
+    script picking up the new divider instead of the old one — confirmed
+    both headings are present and correctly ordered via a fresh check, not
+    a real regression) plus a new 11-check pass covering every fix above.
 
 ## Standing notes for next session
 
