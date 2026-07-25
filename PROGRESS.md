@@ -1691,6 +1691,59 @@ assume this exact order still holds after a few weeks of new data.
     12-row schedule + donut + stacked-bar chart all render, Clear button
     resets correctly, and the Solo tab's bottom-grid/donut/PDF-export edge
     cases all checked separately since they use a different EFF shape.
+- **Mining Profit Calculator — same-day follow-up, ad-hoc user request Jul 25,
+  2026**: user shared a screenshot of bitcoinfoundation.org's mining
+  calculator (currency pills, coin icon + live price, 4 simple fields,
+  Profit Ratio/Day + Profit/Month cards, Day/Week/Month/Year 2x2 grid) and
+  asked for a "same to same" visual replica, with our existing extra
+  features (Break-Even & ROI, Solo vs Pool, 12-month schedule, PDF export)
+  kept below it rather than removed — confirmed this split explicitly before
+  building. Added a new, self-contained `.mcw-*`-prefixed widget as the
+  primary tool, with the existing `.min-*` widget relabeled under a new
+  "Advanced Tools" divider beneath it.
+  - **Multi-coin**: BTC/ETC/XMR/ZEC/DASH/LTC/KAS, all 7 CoinGecko IDs
+    verified in one batched price call. Live price fetch now runs
+    automatically on page load (not click-gated like the jsPDF/BTC-only
+    button in the Advanced Tools section) since a live price is this
+    widget's core displayed value, not an optional export feature — same
+    category as the site's existing currency-calculator precedent, not a
+    deviation from the lazy-load philosophy. Falls back to static per-coin
+    prices (verified to keep the widget fully functional) if the fetch
+    fails or CoinGecko rate-limits, which it did mid-session from repeated
+    test reloads — confirmed the fallback path directly rather than
+    assuming it.
+  - **Real bug caught before shipping, twice**: first pass's per-coin
+    default hashrate/network-hashrate pairs were not sanity-checked against
+    each other — ZEC's default had "your hashrate" numerically *exceeding*
+    network hashrate (a >100% share, nonsensical), and several others
+    produced absurd results (ZEC $680/day profit, ETC/DASH/KAS thousands-of-
+    percent negative margins) purely from mismatched magnitudes, not from
+    the (already-verified) formula itself. Fixed by hand-deriving every
+    coin's defaults from an explicit share-ratio check in Node until every
+    coin landed in a modest, plausible daily range. Second bug: the
+    electricity-rate and pool-fee fields had no default `value` in the HTML
+    and weren't set by the per-coin JS either, so the widget silently
+    computed profit as raw revenue (0% costs) until a Playwright check
+    caught the mismatch against the expected $5.36 BTC default.
+  - Block reward/block time for the 6 non-BTC coins are presented as
+    editable "Advanced" defaults, not live data — researched current
+    approximate values for each (ETC 2.048, about to reduce to 1.6384 per
+    ECIP-1017 around the time of this session; XMR 0.6 tail emission,
+    stable; ZEC 1.5625 gross / ~1.25 effective miner share after the
+    lockbox+grants split; DASH ~1.0, decreases continuously; LTC 6.25 until
+    the ~Jul 2027 halving; KAS ~2.5, decreases monthly) but deliberately did
+    **not** try to build 6 more live network-hashrate/difficulty
+    integrations to match — several of these coins' rewards are genuinely
+    too volatile (Kaspa monthly, Dash continuous, ETC mid-halving this
+    week) to respect as a hardcoded "live" figure, so the advanced panel
+    says so explicitly rather than overclaiming precision.
+  - Verified: schema still valid (3 blocks), all 7 script blocks pass
+    `node --check`, protected style block still byte-identical, zero
+    duplicate ids across 114 total, full Playwright pass on both the new
+    widget (24 checks: all 7 coins compute sane non-NaN results, live price
+    pill, advanced toggle, mobile 1-column collapse) and the pre-existing
+    Advanced Tools section (22 checks, re-run twice — unaffected by the
+    new widget).
 
 ## Standing notes for next session
 

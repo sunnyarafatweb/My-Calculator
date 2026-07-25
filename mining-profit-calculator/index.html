@@ -349,6 +349,54 @@
   })();
   </script>
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is crypto mining profit calculated?","acceptedAnswer":{"@type":"Answer","text":"Daily coins mined equals the block reward multiplied by the number of blocks found per day, multiplied by your share of the total network hashrate (your hashrate divided by network hashrate). Multiply that by the coin\u2019s price for revenue, subtract pool fees and electricity cost, and what\u2019s left is net profit."}},{"@type":"Question","name":"What\u2019s the difference between hashrate and difficulty?","acceptedAnswer":{"@type":"Answer","text":"Hashrate is the raw computing power devoted to mining, measured in hashes per second. Difficulty is a network-set target that adjusts (on Bitcoin, roughly every two weeks) to keep block times steady as total hashrate changes. Network hashrate can be derived directly from difficulty and average block time, which is what this calculator\u2019s ratio-based formula relies on."}},{"@type":"Question","name":"Why is electricity cost the most important factor in mining profitability?","acceptedAnswer":{"@type":"Answer","text":"Hardware is a fixed, one-time cost, but electricity is a continuous expense for as long as the miner runs. A small difference in your electricity rate compounds every single day, which is why industrial miners aggressively seek the cheapest reliable power rather than simply buying the newest hardware."}},{"@type":"Question","name":"What is break-even electricity rate?","acceptedAnswer":{"@type":"Answer","text":"It\u2019s the electricity price at which your mining revenue exactly equals your electricity cost, leaving zero profit. Paying anything below that rate is profitable before hardware costs; paying above it means you\u2019re losing money on every kWh regardless of how much you mine."}},{"@type":"Question","name":"How long does it take to pay back mining hardware?","acceptedAnswer":{"@type":"Answer","text":"Divide the hardware\u2019s purchase price by your daily net profit to get the payback period in days. This assumes network difficulty, coin price and your electricity rate all stay constant, which in practice they don\u2019t \u2014 rising difficulty and hardware depreciation both tend to push real payback periods longer than a static estimate."}},{"@type":"Question","name":"What is a mining pool and why do most miners use one?","acceptedAnswer":{"@type":"Answer","text":"A mining pool combines many miners\u2019 hashrate and distributes rewards proportionally to each participant\u2019s contribution, in exchange for a small fee. At today\u2019s network difficulty, an individual miner\u2019s odds of finding a block completely solo can be so low that it could take years or decades on average, so pools trade a small fee for steady, predictable income."}},{"@type":"Question","name":"What happens to mining profitability after a halving?","acceptedAnswer":{"@type":"Answer","text":"A halving cuts the block reward in half overnight, which cuts mining revenue in half at the same price and difficulty. Unless the coin\u2019s price rises enough to offset the smaller reward, less efficient hardware and higher electricity rates become unprofitable and are typically forced offline until difficulty adjusts downward."}},{"@type":"Question","name":"Does network difficulty only go up?","acceptedAnswer":{"@type":"Answer","text":"No, but it trends upward over time as more efficient hardware and more total hashrate join the network. Difficulty can and does drop when miners go offline \u2014 for example after a price crash or a halving \u2014 but the long-run trend for major networks has generally been growth, which erodes a fixed hashrate\u2019s revenue over time."}},{"@type":"Question","name":"Does a positive mining profit guarantee I\u2019ll come out ahead overall?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator projects profit at today\u2019s snapshot of difficulty, price and your costs. Over the time it takes to pay back hardware, difficulty tends to rise and hardware tends to become less competitive, both of which push real-world results below a static day-one projection."}},{"@type":"Question","name":"Should I mine solo or join a pool?","acceptedAnswer":{"@type":"Answer","text":"For the vast majority of individual miners, a pool is the practical choice \u2014 it converts a rare, unpredictable lottery-style payout into steady, proportional daily income, at the cost of a small fee. Solo mining only makes sense for operations with enough hashrate that the expected time to find a block is short enough to be a reasonable bet."}},{"@type":"Question","name":"What\u2019s a common mistake when estimating mining profitability?","acceptedAnswer":{"@type":"Answer","text":"Treating a day-one profitability snapshot as a guarantee over the hardware\u2019s full life. Difficulty tends to rise, coin prices are volatile, and hardware becomes relatively less efficient as newer models launch \u2014 all of which mean real returns usually underperform a static first-day estimate."}},{"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes \u2014 use \"Print / Save as PDF\" for a printable summary of your current setup, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Mining Profit Calculator","url":"https://calculatorboss.com/mining-profit-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free crypto mining profit calculator that projects daily, monthly and yearly profit from your hashrate, power draw and electricity rate, with break-even electricity rate, hardware payback period, a 12-month forecast, solo vs. pool mining odds, and optional live Bitcoin price and network hashrate data."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#cry">Crypto &amp; Trading</a><span class="sep">/</span><span class="cur">Mining Profit Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Mining Profit Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Enter your hashrate, power draw and electricity rate to see your projected mining profit — plus break-even rate, hardware payback and solo vs. pool odds.</p><style>
+.mcw-panel{background:var(--surface);border:1px solid var(--border-fine);border-radius:20px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.mcw-currency-row{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap}
+.mcw-currency-label{font-size:13px;font-weight:700;color:var(--ink-soft);flex-shrink:0}
+.mcw-pills{display:flex;gap:8px;flex-wrap:wrap}
+.mcw-pill{font-family:var(--f-body);font-size:13px;font-weight:700;padding:8px 18px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;transition:.15s}
+.mcw-pill:hover{border-color:var(--ink-faint)}
+.mcw-pill.active{border-color:#16A34A;color:#16A34A;background:#F0FDF4}
+.mcw-body{display:grid;grid-template-columns:220px 1fr;gap:28px;padding:28px 24px}
+@media(max-width:820px){.mcw-body{grid-template-columns:1fr}}
+.mcw-left{display:flex;flex-direction:column;align-items:stretch;gap:14px}
+.mcw-icon-wrap{display:flex;justify-content:center}
+.mcw-coin-icon{width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:30px;box-shadow:0 8px 20px -8px rgba(0,0,0,.35);font-family:var(--f-body)}
+.mcw-price-pill{background:var(--surface-sunken);border-radius:100px;padding:8px 14px;font-size:12px;color:var(--ink-soft);font-weight:600;text-align:center}
+.mcw-field{width:100%;text-align:left}
+.mcw-field label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px}
+.mcw-input-row{display:flex;gap:6px}
+.mcw-input-row select{flex:0 0 76px}
+.mcw-field input,.mcw-field select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 10px;font-size:13px;font-family:var(--f-body);background:#fff;color:var(--ink);width:100%;min-width:0}
+.mcw-advanced-toggle{width:100%;background:none;border:none;border-top:1px dashed var(--border);padding:12px 0 2px;font-size:11px;font-weight:600;color:var(--ink-faint);cursor:pointer;text-align:left}
+.mcw-advanced-toggle:hover{color:var(--ink-soft)}
+.mcw-advanced-fields{display:none;width:100%;gap:10px;flex-direction:column;padding-top:6px}
+.mcw-advanced-fields.show{display:flex}
+.mcw-subnote{font-size:10.5px;color:var(--ink-faint);line-height:1.55;margin:2px 0 0}
+.mcw-right{display:flex;flex-direction:column;gap:16px;min-width:0}
+.mcw-summary-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:480px){.mcw-summary-row{grid-template-columns:1fr}}
+.mcw-summary-card{border-radius:14px;padding:16px 20px;background:linear-gradient(135deg,#EFFBF3,#F3F1FC)}
+.mcw-summary-card.mcw-month{background:linear-gradient(135deg,#F3F1FC,#EEF2FF)}
+.mcw-summary-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--ink-faint);margin-bottom:8px}
+.mcw-summary-value{font-size:26px;font-weight:800;font-family:var(--f-mono);display:block}
+.mcw-summary-value.neg{color:#E0245E}
+.mcw-summary-value.pos{color:#128A3D}
+.mcw-period-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.mcw-period-grid{grid-template-columns:1fr}}
+.mcw-period-card{background:var(--surface-sunken);border-radius:14px;padding:16px 18px}
+.mcw-period-tag{display:inline-block;background:#14532D;color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:100px;margin-bottom:10px}
+.mcw-period-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-top:1px solid var(--border-fine);font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em}
+.mcw-period-row:first-of-type{border-top:none}
+.mcw-period-row b{font-family:var(--f-mono);font-size:14px;font-weight:800;color:var(--ink);text-transform:none;letter-spacing:0}
+.mcw-period-row b.neg{color:#E0245E}
+.mcw-period-row b.pos{color:#128A3D}
+.mcw-period-sub{font-size:10px;color:var(--ink-faint);text-align:right;margin-top:-4px;padding-bottom:2px;text-transform:none}
+.min-adv-divider{display:flex;align-items:baseline;gap:12px;margin:8px 0 18px;flex-wrap:wrap}
+.min-adv-divider .h{font-family:var(--f-mono);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.min-adv-divider .line{flex:1;height:1px;background:var(--border);min-width:20px}
+.min-adv-divider .sub{font-size:12.5px;color:var(--ink-faint);width:100%;margin-top:-6px}
+</style>
+<style>
 .min-wrap{width:100%}
 .min-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .min-bar-text{display:flex;align-items:center;gap:10px}
@@ -493,6 +541,104 @@
 .min-faq-item{border-bottom:1px solid var(--border-fine)}
 .min-faq-item:last-child{border-bottom:none}
 </style>
+<div class="mcw-panel">
+  <div class="mcw-currency-row">
+    <span class="mcw-currency-label">Currency</span>
+    <div class="mcw-pills" id="mcw-pills">
+      <button type="button" class="mcw-pill active" data-coin="BTC">BTC</button>
+      <button type="button" class="mcw-pill" data-coin="ETC">ETC</button>
+      <button type="button" class="mcw-pill" data-coin="XMR">XMR</button>
+      <button type="button" class="mcw-pill" data-coin="ZEC">ZEC</button>
+      <button type="button" class="mcw-pill" data-coin="DASH">DASH</button>
+      <button type="button" class="mcw-pill" data-coin="LTC">LTC</button>
+      <button type="button" class="mcw-pill" data-coin="KAS">KAS</button>
+    </div>
+  </div>
+  <div class="mcw-body">
+    <div class="mcw-left">
+      <div class="mcw-icon-wrap"><div class="mcw-coin-icon" id="mcw-coinIcon">&#8383;</div></div>
+      <div class="mcw-price-pill" id="mcw-pricePill">Loading price&hellip;</div>
+      <div class="mcw-field">
+        <label>Hashing Power</label>
+        <div class="mcw-input-row">
+          <input id="mcw-hashrate" type="number" min="0">
+          <select id="mcw-hashUnit">
+            <option value="1">H/s</option><option value="1e3">KH/s</option><option value="1e6">MH/s</option>
+            <option value="1e9">GH/s</option><option value="1e12">TH/s</option><option value="1e15">PH/s</option><option value="1e18">EH/s</option>
+          </select>
+        </div>
+      </div>
+      <div class="mcw-field"><label>Power Consumption (W)</label><input id="mcw-power" type="number" min="0"></div>
+      <div class="mcw-field"><label>Cost per kWh ($)</label><input id="mcw-elecRate" type="number" min="0" step="0.001" value="0.05"></div>
+      <div class="mcw-field"><label>Pool Fee (%)</label><input id="mcw-poolFee" type="number" min="0" max="100" step="0.1" value="1"></div>
+
+      <button type="button" class="mcw-advanced-toggle" id="mcw-advToggle" aria-expanded="false" aria-controls="mcw-advFields">&#9662; Advanced: network hashrate, block reward &amp; block time</button>
+      <div class="mcw-advanced-fields" id="mcw-advFields">
+        <div class="mcw-field">
+          <label>Network Hashrate</label>
+          <div class="mcw-input-row">
+            <input id="mcw-netHashrate" type="number" min="0">
+            <select id="mcw-netUnit">
+              <option value="1">H/s</option><option value="1e3">KH/s</option><option value="1e6">MH/s</option>
+              <option value="1e9">GH/s</option><option value="1e12">TH/s</option><option value="1e15">PH/s</option><option value="1e18">EH/s</option>
+            </select>
+          </div>
+        </div>
+        <div class="mcw-field"><label>Block Reward (coins)</label><input id="mcw-blockReward" type="number" min="0" step="0.0001"></div>
+        <div class="mcw-field"><label>Block Time (seconds)</label><input id="mcw-blockTime" type="number" min="0.01" step="0.01"></div>
+        <p class="mcw-subnote">Defaults are approximate as of Jul 2026 &mdash; several of these coins&rsquo; rewards change on a schedule (Dash reduces continuously, Kaspa monthly, ETC/Zcash/Litecoin at scheduled halvings), so treat these as a reasonable starting point rather than a live feed, and adjust if you know your coin&rsquo;s current numbers.</p>
+      </div>
+    </div>
+
+    <div class="mcw-right">
+      <div class="mcw-summary-row">
+        <div class="mcw-summary-card">
+          <span class="mcw-summary-label">PROFIT RATIO / DAY</span>
+          <span class="mcw-summary-value" id="mcw-ratioDay">0%</span>
+        </div>
+        <div class="mcw-summary-card mcw-month">
+          <span class="mcw-summary-label">PROFIT / MONTH</span>
+          <span class="mcw-summary-value" id="mcw-profitMonth">$0.00</span>
+        </div>
+      </div>
+      <div class="mcw-period-grid">
+        <div class="mcw-period-card">
+          <span class="mcw-period-tag">DAY</span>
+          <div class="mcw-period-row"><span>Profit</span><b id="mcw-day-profit">$0.00</b></div>
+          <div class="mcw-period-sub" id="mcw-day-fee">Pool fee $0.00</div>
+          <div class="mcw-period-row"><span>Mined</span><b id="mcw-day-mined">0</b></div>
+          <div class="mcw-period-row"><span>Power Cost</span><b id="mcw-day-power">$0.00</b></div>
+        </div>
+        <div class="mcw-period-card">
+          <span class="mcw-period-tag">WEEK</span>
+          <div class="mcw-period-row"><span>Profit</span><b id="mcw-week-profit">$0.00</b></div>
+          <div class="mcw-period-sub" id="mcw-week-fee">Pool fee $0.00</div>
+          <div class="mcw-period-row"><span>Mined</span><b id="mcw-week-mined">0</b></div>
+          <div class="mcw-period-row"><span>Power Cost</span><b id="mcw-week-power">$0.00</b></div>
+        </div>
+        <div class="mcw-period-card">
+          <span class="mcw-period-tag">MONTH</span>
+          <div class="mcw-period-row"><span>Profit</span><b id="mcw-month-profit">$0.00</b></div>
+          <div class="mcw-period-sub" id="mcw-month-fee">Pool fee $0.00</div>
+          <div class="mcw-period-row"><span>Mined</span><b id="mcw-month-mined">0</b></div>
+          <div class="mcw-period-row"><span>Power Cost</span><b id="mcw-month-power">$0.00</b></div>
+        </div>
+        <div class="mcw-period-card">
+          <span class="mcw-period-tag">YEAR</span>
+          <div class="mcw-period-row"><span>Profit</span><b id="mcw-year-profit">$0.00</b></div>
+          <div class="mcw-period-sub" id="mcw-year-fee">Pool fee $0.00</div>
+          <div class="mcw-period-row"><span>Mined</span><b id="mcw-year-mined">0</b></div>
+          <div class="mcw-period-row"><span>Power Cost</span><b id="mcw-year-power">$0.00</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="min-adv-divider">
+  <span class="h">Advanced Tools</span><span class="line"></span>
+  <span class="sub">Break-even electricity rate, hardware payback, solo-vs-pool odds, and a 12-month forecast &mdash; enter any coin&rsquo;s numbers manually below.</span>
+</div>
 <div class="min-wrap">
 <div class="min-grid">
 
@@ -703,6 +849,133 @@
 
 </div>
 </div>
+<script>
+(function(){
+  function $(id){return document.getElementById(id);}
+  function fmt(n,d){ if(d===undefined) d=2; if(!isFinite(n)) n=0; return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function money(n,d){ if(d===undefined) d=2; if(!isFinite(n)) n=0; var neg=n<0; return (neg?'-':'')+'$'+fmt(Math.abs(n),d); }
+  function dailyCoinsOf(yourH_Hs, netH_Hs, reward, blockTimeSec){
+    if(!(netH_Hs>0) || !(blockTimeSec>0)) return 0;
+    var blocksPerDay = 86400/blockTimeSec;
+    return reward * blocksPerDay * (yourH_Hs/netH_Hs);
+  }
+
+  var COINS = {
+    BTC:  {cgId:'bitcoin',           color:'#F7931A', symbol:'\u20BF', hashrate:300, hashUnit:'1e12', power:3450, netHashrate:900, netUnit:'1e18', reward:3.125,  blockTime:600},
+    ETC:  {cgId:'ethereum-classic',  color:'#328332', symbol:'E',      hashrate:3,   hashUnit:'1e9',  power:1200, netHashrate:180, netUnit:'1e12', reward:2.048,  blockTime:13.5},
+    XMR:  {cgId:'monero',            color:'#FF6600', symbol:'M',      hashrate:15,  hashUnit:'1e3',  power:250,  netHashrate:4,   netUnit:'1e9',  reward:0.6,    blockTime:120},
+    ZEC:  {cgId:'zcash',             color:'#F4B728', symbol:'Z',      hashrate:50,  hashUnit:'1e3',  power:1200, netHashrate:8,   netUnit:'1e9',  reward:1.25,   blockTime:75},
+    DASH: {cgId:'dash',              color:'#008CE7', symbol:'D',      hashrate:150, hashUnit:'1e9',  power:1200, netHashrate:3,   netUnit:'1e15', reward:1.0,    blockTime:157.5},
+    LTC:  {cgId:'litecoin',          color:'#345D9D', symbol:'L',      hashrate:50,  hashUnit:'1e9',  power:3450, netHashrate:1.2, netUnit:'1e15', reward:6.25,   blockTime:150},
+    KAS:  {cgId:'kaspa',             color:'#70C7BA', symbol:'K',      hashrate:8.3, hashUnit:'1e12', power:800,  netHashrate:900, netUnit:'1e15', reward:2.5,    blockTime:0.1}
+  };
+  var FALLBACK_PRICES = {BTC:64000, ETC:6.6, XMR:364, ZEC:478, DASH:32, LTC:46, KAS:0.0276};
+  var PRICES = {};
+  var state = { coin: 'BTC' };
+
+  function currentPrice(){ return PRICES[state.coin] || FALLBACK_PRICES[state.coin] || 0; }
+
+  function updatePricePill(){
+    var price = currentPrice();
+    var decimals = price < 1 ? 6 : 2;
+    $('mcw-pricePill').textContent = '1 '+state.coin+' \u2248 '+money(price, decimals);
+  }
+
+  function applyCoinDefaults(ticker){
+    var c = COINS[ticker];
+    $('mcw-hashrate').value = c.hashrate;
+    $('mcw-hashUnit').value = c.hashUnit;
+    $('mcw-power').value = c.power;
+    $('mcw-netHashrate').value = c.netHashrate;
+    $('mcw-netUnit').value = c.netUnit;
+    $('mcw-blockReward').value = c.reward;
+    $('mcw-blockTime').value = c.blockTime;
+    var icon = $('mcw-coinIcon');
+    icon.style.background = c.color;
+    icon.textContent = c.symbol;
+    updatePricePill();
+  }
+
+  document.querySelectorAll('.mcw-pill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      document.querySelectorAll('.mcw-pill').forEach(function(p){ p.classList.remove('active'); });
+      pill.classList.add('active');
+      state.coin = pill.getAttribute('data-coin');
+      applyCoinDefaults(state.coin);
+      mcwCalc();
+    });
+  });
+
+  $('mcw-advToggle').addEventListener('click', function(){
+    var open = $('mcw-advFields').classList.toggle('show');
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  function periodRow(prefix, profit, poolFeeAmt, mined, powerCost){
+    var pEl=$('mcw-'+prefix+'-profit'), fEl=$('mcw-'+prefix+'-fee'), mEl=$('mcw-'+prefix+'-mined'), cEl=$('mcw-'+prefix+'-power');
+    pEl.textContent = money(profit);
+    pEl.className = profit>=0 ? 'pos' : 'neg';
+    fEl.textContent = 'Pool fee '+money(poolFeeAmt);
+    mEl.textContent = state.coin+' '+mined.toFixed(8);
+    cEl.textContent = money(powerCost);
+  }
+
+  function mcwCalc(){
+    var yourH = (parseFloat($('mcw-hashrate').value)||0) * parseFloat($('mcw-hashUnit').value);
+    var power = parseFloat($('mcw-power').value)||0;
+    var elecRate = parseFloat($('mcw-elecRate').value)||0;
+    var poolFee = parseFloat($('mcw-poolFee').value)||0;
+    var netH = (parseFloat($('mcw-netHashrate').value)||0) * parseFloat($('mcw-netUnit').value);
+    var reward = parseFloat($('mcw-blockReward').value)||0;
+    var blockTime = parseFloat($('mcw-blockTime').value)||0;
+    var price = currentPrice();
+
+    var dailyCoins = dailyCoinsOf(yourH, netH, reward, blockTime);
+    var dailyRevenue = dailyCoins*price;
+    var dailyPoolFee = dailyRevenue*(poolFee/100);
+    var dailyPowerCost = (power/1000)*24*elecRate;
+    var dailyNetProfit = dailyRevenue - dailyPoolFee - dailyPowerCost;
+    var marginDay = dailyRevenue>0 ? (dailyNetProfit/dailyRevenue*100) : 0;
+
+    var ratioEl = $('mcw-ratioDay');
+    ratioEl.textContent = fmt(marginDay,0)+'%';
+    ratioEl.className = 'mcw-summary-value ' + (marginDay>=0?'pos':'neg');
+    var monthEl = $('mcw-profitMonth');
+    monthEl.textContent = money(dailyNetProfit*30);
+    monthEl.className = 'mcw-summary-value ' + (dailyNetProfit>=0?'pos':'neg');
+
+    periodRow('day',   dailyNetProfit,     dailyPoolFee,     dailyCoins,     dailyPowerCost);
+    periodRow('week',  dailyNetProfit*7,   dailyPoolFee*7,   dailyCoins*7,   dailyPowerCost*7);
+    periodRow('month', dailyNetProfit*30,  dailyPoolFee*30,  dailyCoins*30,  dailyPowerCost*30);
+    periodRow('year',  dailyNetProfit*365, dailyPoolFee*365, dailyCoins*365, dailyPowerCost*365);
+  }
+
+  var liveIds = ['mcw-hashrate','mcw-hashUnit','mcw-power','mcw-elecRate','mcw-poolFee','mcw-netHashrate','mcw-netUnit','mcw-blockReward','mcw-blockTime'];
+  liveIds.forEach(function(id){
+    var el=$(id);
+    el.addEventListener('input', mcwCalc);
+    el.addEventListener('change', mcwCalc);
+  });
+
+  applyCoinDefaults('BTC');
+  mcwCalc();
+
+  /* live prices for all 7 coins in a single request; falls back to static
+     defaults above (already rendered) if the request fails or is slow */
+  var ids = Object.keys(COINS).map(function(k){ return COINS[k].cgId; }).join(',');
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=usd')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      Object.keys(COINS).forEach(function(ticker){
+        var cg = COINS[ticker].cgId;
+        if(data[cg] && data[cg].usd > 0){ PRICES[ticker] = data[cg].usd; }
+      });
+      updatePricePill();
+      mcwCalc();
+    })
+    .catch(function(){ /* static fallback prices already shown; nothing to do */ });
+})();
+</script>
 <script>
 (function(){
   function $(id){return document.getElementById(id);}
