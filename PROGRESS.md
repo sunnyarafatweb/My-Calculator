@@ -1855,6 +1855,55 @@ assume this exact order still holds after a few weeks of new data.
     Node-verified numbers ($35,663.56 / $33,654.87 / $2,008.69 diff /
     $3,211.03 break-even) live in the browser.
 
+- **Cash Back or Low Interest Calculator — post-ship audit against calculator.net**
+  (ad-hoc user request, Jul 27, 2026, same-day follow-up to the initial
+  rebuild above). User asked to specifically cross-check the just-shipped
+  page against calculator.net's version for missing fields/result info.
+  - **Real bug found and fixed, not just a gap:** the initial build assumed
+    a cash-back rebate *never* reduces the sales-tax base, in any state.
+    Cross-checking calculator.net's own page content surfaced a claim that
+    ~20 states *do* let the rebate reduce the taxable amount — verified
+    independently via CarsDirect (citing Edmunds), which lists the same
+    ~21 states. **Texas — this page's default state — is on that list**,
+    meaning the bug affected the very first calculation every visitor saw.
+    Added a `REBATE_TAX_EXEMPT` state set (Alaska, Arizona, Delaware, Iowa,
+    Kansas, Kentucky, Louisiana, Massachusetts, Minnesota, Missouri,
+    Montana, Nebraska, New Hampshire, Oklahoma, Oregon, Pennsylvania, Rhode
+    Island, Texas, Utah, Vermont, Wyoming), independent of and combined
+    with the existing `NO_TRADE_REDUCTION` set (a different question).
+  - **The Break-Even reverse-solve formula needed re-deriving, not just a
+    constant swap** — in rebate-exempt states, increasing the rebate also
+    lowers the tax base, changing the linear coefficient in the closed-form
+    solution. Re-derived algebraically and re-verified in Node against
+    three independent scenarios (Texas/rebate-exempt, California/neither
+    exempt, Arizona/rebate-exempt-with-trade-in) — all matched to the cent.
+  - **Missing result fields found and added**: calculator.net shows 7 rows
+    per scenario (loan amount, sales tax, upfront payment, monthly payment,
+    total of N payments, total interest, total cost) — this page only had
+    3 (monthly, interest, total). Added the missing 4 rows to both
+    scenarios (now 14 result rows total) and to the PDF export.
+  - Corrected the worked example, the "Hidden Rule" article section (was
+    factually wrong — said "almost every state" taxes the full pre-rebate
+    price when it's really closer to 60/40), and the FAQ #3 answer to match
+    (FAQ schema and visible text updated identically, exact-match verified
+    again). Regenerated the OG image with the corrected savings figure
+    ($1,898.63, was showing the pre-fix $2,008.69).
+  - Verified again before push: schema valid + FAQ exact-match (0
+    mismatches), zero duplicate ids, `node --check` on all 6 script blocks,
+    protected `:root` block still byte-identical to bmi-calculator, zero
+    eager jsPDF requests, full Playwright pass desktop+mobile with the
+    corrected numbers cross-checked against Node for three different states
+    (Texas, California, Arizona), break-even re-verified live ($3,022.14),
+    PDF export re-tested with the new 14-row breakdown.
+  - **Process note for future sessions**: this is a good example of why the
+    §4 keyword-research/competitor cross-check should happen *before*
+    shipping, not just after a user asks for an audit — the same
+    calculator.net content that surfaced this bug was available during the
+    original build. Make the competitor content cross-check (not just
+    title/keyword research) a standard part of the pre-ship checklist for
+    every calculator with state-specific or jurisdiction-specific tax/legal
+    rules, not just an afterthought.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
