@@ -2020,6 +2020,60 @@ assume this exact order still holds after a few weeks of new data.
     tabs' live results re-confirmed against Node output, quick-select chips
     tested, cross-tab total-cost sync tested, PDF export tested.
 
+- **Credit Card Calculator — full rebuild from thin/template tier to the
+  3-card pattern** (ad-hoc user request, Jul 27, 2026, same "23 done / 55
+  old-style in Finance" push).
+  - **Significant scope-mismatch found during competitor cross-check, not
+    just a content-depth gap.** The old page only computed one thing --
+    this billing cycle's interest charge via the average-daily-balance
+    method. But calculator.net's own page at the identical URL slug/head
+    term ("Credit Card Calculator") is described as finding "the time it
+    will take to pay off a balance, or the amount necessary to pay it off
+    within a certain time frame" -- i.e. a payoff-time/payment calculator,
+    which matches the dominant search intent per SmartAsset, WalletHub, and
+    Bankrate too. The old page was answering a real but much narrower
+    question than what the term/title actually implies to searchers.
+  - **Checked the sibling Credit Card Payoff Calculator first to avoid
+    scope duplication** before deciding what to add: that page already
+    covers single-card balance/APR/fixed-payment -> payoff-date (the
+    forward direction only, no min-payment presets, no reverse mode).
+    Decided to keep this page's existing ADB content (genuinely different,
+    still useful) as Tab 1, and add the two things calculator.net's version
+    has that neither of our own pages had -- the reverse mode (target
+    payoff date -> required payment) and minimum-payment quick-select
+    presets -- as a new Tab 2, rather than duplicating the sibling's
+    forward-only calculation.
+  - **Math verified in Node against multiple independent authoritative
+    sources before writing any HTML**: the existing ADB formula re-verified
+    against calculator.net's own worked example (15% APR, 15 days @ $500 +
+    15 days @ $400 over 30 days -> $450 ADB, $5.54 interest, matched to the
+    cent allowing for their own rounding); the new payoff/reverse-solve
+    formulas verified against Bankrate's own two published examples ($7,000
+    @ 21%, $200/mo -> ~54.6 months / ~$3,929 interest, and the same balance
+    targeted for 24 months -> ~$359.70 required payment / ~$1,633 interest) --
+    both matched almost exactly. A forward/reverse round-trip cross-check
+    (solve required payment for a target, then solve months back from that
+    payment) also confirmed exactly 24 months both ways.
+  - Two tabs: **Interest Charge This Cycle** (kept from the old page: ADB,
+    APR, days in cycle) and **Payoff Time & Minimum Payment** (new: balance,
+    APR, a payment-vs-target-date mode toggle, and minimum-payment quick-
+    select chips modeling common "interest + 1-5% of balance" issuer
+    formulas) -- both with jsPDF lazy-loaded correctly from the start, and
+    a "this payment never pays it off" warning state when payment doesn't
+    cover monthly interest. 6 H2 sections + 8 FAQs covering the three
+    interest-calculation methods, minimum-payment reality, and common
+    interest-cost mistakes. New OG image.
+  - Verified before push: schema valid + FAQ exact-match, zero duplicate
+    ids (checked proactively during assembly), `node --check` on all 6
+    script blocks (after fixing three escaped-apostrophe syntax errors
+    caught by the same check), protected `:root` block byte-identical to
+    bmi-calculator, zero eager jsPDF requests, full Playwright pass
+    desktop+mobile (zero console errors, zero overflow, non-overlapping
+    grid geometry), both tabs' live results reconfirmed against Node
+    output including the Bankrate reproduction cases, minimum-payment chip
+    math checked by hand, the never-pays-off warning state tested, PDF
+    export tested.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
