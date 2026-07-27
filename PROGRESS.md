@@ -2184,6 +2184,71 @@ assume this exact order still holds after a few weeks of new data.
     once per tab, not once per page, as a standing part of the pre-push
     routine going forward.
 
+- **Credit Card Payoff Calculator: full rebuild, template-tier → custom-built**
+  (Jul 27, 2026). The existing page was worse than template-tier — it was a
+  dead static snapshot of a React SSR render (hardcoded input `value`
+  attributes, a hardcoded "2y 10m" result, zero calculator JS anywhere in
+  the file), so it never actually worked for a real visitor. Rebuilt from
+  scratch using the auto-loan-calculator 3-card pattern as the direct
+  reference (bar+lazy-PDF, tabs, form/result/sidebar/bottomgrid grid).
+  - **Keyword research** (mandatory step, done before writing title/meta):
+    web-searched the head term and confirmed "Credit Card Payoff Calculator"
+    is the term every major competitor uses verbatim (Bankrate, Experian,
+    KeyBank, calculator.net, Federal Reserve, Yahoo Finance) — no rename
+    needed. Confirmed via the same search that the two-mode pattern (given
+    payment → find payoff time; given a payoff-time goal → find required
+    payment) is the standard structure competitors use, which shaped the
+    two-tab design below. Long-tail variants worked into meta
+    keywords/content: "credit card debt payoff calculator", "how long to
+    pay off credit card", "credit card interest calculator", "credit card
+    repayment calculator".
+  - Two tabs: **Fixed Payment** (balance + APR + monthly payment → payoff
+    time, total interest, debt-free date, donut chart, Annual/Monthly
+    payoff schedule table, stacked bar chart of interest vs. principal by
+    year) and **Fixed Payoff Time** (balance + APR + payoff-goal-in-months
+    → required monthly payment, reverse-solved).
+  - **Formula verification in Node before embedding** (per standing
+    directive): forward month-by-month simulation cross-checked against
+    the analytic amortization-style formula, and both directions
+    cross-checked against each other and against Bankrate's own published
+    worked examples ($7,000/21%/$200mo ≈ 4.58yr/$3,930 interest vs.
+    Bankrate's stated "~4.5 years/~$4,000"; $7,000/21%/24mo-goal → $359.70
+    required payment/$1,632.79 interest vs. Bankrate's stated "$359/mo,
+    $1,632 interest" — both matched closely).
+  - **Real bug caught during verification, same pattern as the Annuity
+    Payout fractional-period lesson already logged in this file**: the
+    reverse "required payment" solve produces an exact fractional-cent
+    payment; naively rounding it to the *nearest* cent can round down by a
+    fraction of a cent, which is just enough to leave the balance
+    unpaid at the stated goal and silently push the real payoff one month
+    late (caught by simulating the rounded payment and finding it took 25
+    months instead of the requested 24). Fixed by always rounding the
+    reverse-solved payment **up** to the cent before simulating/displaying
+    it, never to nearest or down.
+  - Never-payoff case handled explicitly: if the entered payment doesn't
+    exceed the first month's interest charge, the result card switches to
+    a red/warning state instead of showing a misleading number.
+  - 8 FAQs, generated from a single Python source list so the FAQPage
+    schema and the visible `<h3>`/`<p>` HTML are built from the exact same
+    strings and can never drift apart (the recurring em-dash/quote-drift
+    failure mode already logged multiple times in this file for IRA/Bond/
+    Budget) — verified programmatically post-build that schema Q/A text
+    equals the visible Q/A text exactly, not just eyeballed.
+  - Verified before push: all 3 JSON-LD blocks parse; protected `:root`
+    style block byte-identical to auto-loan-calculator; header and footer
+    blocks byte-identical to auto-loan-calculator; `node --check` clean on
+    the extracted script; full Playwright pass at 1440px and 390px (zero
+    console errors, zero horizontal overflow at both widths, H1
+    `getComputedStyle` confirmed `fontWeight:'700'`); confirmed jsPDF/
+    autotable fetch zero bytes on page load and exactly once total across
+    two PDF-button clicks; both tabs' live results reconfirmed in-browser
+    against the Node-verified numbers (34 months/$1,749.88 interest on the
+    default $5,000/22%/$200 case; $259.40/$1,225.32 interest on the
+    reverse $5,000/22%/24-goal case) — exact match.
+  - No og image existed for this slug (same as auto-loan-calculator) — no
+    `og:image` tag shipped, consistent with that reference page rather
+    than shipping a broken image URL.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
@@ -2207,7 +2272,11 @@ assume this exact order still holds after a few weeks of new data.
   rather than repeating this note a fourth time. **Update, Jul 27, 2026
   session**: it happened again (a fourth time) — a PAT was pasted directly
   in chat at the very start of this session too. Treat that token as burned
-  and rotate it before the next session.
+  and rotate it before the next session. **Update, separate Jul 27, 2026
+  session (Credit Card Payoff Calculator rebuild)**: it happened again (a
+  fifth time) — a new PAT was pasted directly in the first message of this
+  session too. Treat that token as burned and rotate it before the next
+  session.
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
