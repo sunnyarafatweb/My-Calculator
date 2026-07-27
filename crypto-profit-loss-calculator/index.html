@@ -661,7 +661,7 @@
     <h2 style="margin-top:0">Live price chart</h2>
     <div class="panel chart-panel reveal">
       <div class="chart-head">
-        <span class="mono" style="font-size:12.5px;color:var(--muted)" id="chartCoinLabel">Bitcoin (BTC)</span>
+        <span class="mono" style="font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px" id="chartCoinLabel"><span id="chartCoinLabelText">Bitcoin (BTC)</span><span class="live-blink" style="background:#0E9F6E;width:6px;height:6px"></span><span style="color:#0E9F6E;font-weight:600">LIVE</span><span id="chartUpdated" style="color:var(--muted-2)"></span></span>
         <div class="chart-tf" id="chartTf">
           <button class="tf-btn" data-d="1">1D</button>
           <button class="tf-btn on" data-d="7">7D</button>
@@ -1165,27 +1165,71 @@
   }
 
   /* ---------- price chart ---------- */
+  /* Catmull-Rom -> cubic Bezier smoothing so real (often jagged, hourly-resolution)
+     market data renders as a smooth professional curve instead of a raw jagged
+     point-to-point polyline. Endpoints are clamped (duplicated) so the curve
+     doesn't overshoot before the first / after the last data point. */
+  function smoothPath(pts){
+    var d = 'M'+pts[0].x.toFixed(2)+','+pts[0].y.toFixed(2)+' ';
+    for(var i=0;i<pts.length-1;i++){
+      var p0 = pts[i-1<0?0:i-1];
+      var p1 = pts[i];
+      var p2 = pts[i+1];
+      var p3 = pts[i+2>pts.length-1?pts.length-1:i+2];
+      var cp1x = p1.x + (p2.x-p0.x)/6;
+      var cp1y = p1.y + (p2.y-p0.y)/6;
+      var cp2x = p2.x - (p3.x-p1.x)/6;
+      var cp2y = p2.y - (p3.y-p1.y)/6;
+      d += 'C'+cp1x.toFixed(2)+','+cp1y.toFixed(2)+' '+cp2x.toFixed(2)+','+cp2y.toFixed(2)+' '+p2.x.toFixed(2)+','+p2.y.toFixed(2)+' ';
+    }
+    return d;
+  }
+  var lastChartUpdateTs = null;
+  function touchChartUpdated(){
+    lastChartUpdateTs = Date.now();
+    renderChartUpdatedLabel();
+  }
+  function renderChartUpdatedLabel(){
+    var el = $('chartUpdated');
+    if(!el) return;
+    if(!lastChartUpdateTs){ el.textContent=''; return; }
+    var secs = Math.max(0, Math.round((Date.now()-lastChartUpdateTs)/1000));
+    var txt = secs<5 ? 'just now' : (secs<60 ? secs+'s ago' : Math.round(secs/60)+'m ago');
+    el.textContent = '· updated '+txt;
+  }
+  setInterval(renderChartUpdatedLabel, 5000);
+
   function drawChart(points){
     var box=$('chartBox');
     if(!points || points.length<2){ box.innerHTML='<div class="chart-loading">No chart data available.</div>'; return; }
-    var W=900,H=260,L=6,R=6,T=10,B=10, pw=W-L-R, ph=H-T-B;
+    var W=900,H=260,L=6,R=6,T=14,B=14, pw=W-L-R, ph=H-T-B;
     var prices = points.map(function(p){return p[1];});
     var min=Math.min.apply(null,prices), max=Math.max.apply(null,prices);
     var range=(max-min)||1;
     var up = prices[prices.length-1]>=prices[0];
     var col = up?'#0E9F6E':'#D33249';
     var pts = points.map(function(p,i){
-      var x=L+(i/(points.length-1))*pw;
-      var y=T+ph-((p[1]-min)/range)*ph;
-      return x+','+y;
+      return {
+        x: L+(i/(points.length-1))*pw,
+        y: T+ph-((p[1]-min)/range)*ph
+      };
     });
-    var areaPts = 'M'+pts[0]+' L'+pts.join(' L')+' L'+(L+pw)+','+(T+ph)+' L'+L+','+(T+ph)+' Z';
+    var linePath = smoothPath(pts);
+    var last = pts[pts.length-1];
+    var areaPath = linePath+' L'+(L+pw).toFixed(2)+','+(T+ph).toFixed(2)+' L'+pts[0].x.toFixed(2)+','+(T+ph).toFixed(2)+' Z';
     var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible">';
     s+='<defs><linearGradient id="chGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.22"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>';
-    s+='<path d="'+areaPts+'" fill="url(#chGrad)" stroke="none"/>';
-    s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    // subtle horizontal reference gridlines (professional-chart convention)
+    for(var g=1; g<4; g++){
+      var gy = T + (ph/4)*g;
+      s+='<line x1="'+L+'" y1="'+gy.toFixed(2)+'" x2="'+(L+pw)+'" y2="'+gy.toFixed(2)+'" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,4"/>';
+    }
+    s+='<path d="'+areaPath+'" fill="url(#chGrad)" stroke="none"/>';
+    s+='<path d="'+linePath+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    s+='<circle cx="'+last.x.toFixed(2)+'" cy="'+last.y.toFixed(2)+'" r="4" fill="'+col+'" stroke="#fff" stroke-width="1.5"/>';
     s+='</svg>';
     box.innerHTML=s;
+    touchChartUpdated();
   }
   /* ---------- resilient fetch helpers (protect against slow/rate-limited API under high traffic) ----------
      - fetchJson(): times out instead of hanging forever, so the UI never gets stuck "loading"
@@ -1231,7 +1275,7 @@
     currentChartDays=days;
     Array.prototype.forEach.call(document.querySelectorAll('.tf-btn'), function(b){ b.classList.toggle('on', b.dataset.d===days); });
     var c=coinBy(coinSel.value);
-    $('chartCoinLabel').textContent = c.n+' ('+c.s+') · '+(days==='1'?'1 Day':days==='7'?'7 Days':days==='30'?'1 Month':'1 Year');
+    $('chartCoinLabelText').textContent = c.n+' ('+c.s+') · '+(days==='1'?'1 Day':days==='7'?'7 Days':days==='30'?'1 Month':'1 Year');
     var key=c.s+':'+days;
     if(chartCache[key]){ drawChart(chartCache[key]); return; }
 
