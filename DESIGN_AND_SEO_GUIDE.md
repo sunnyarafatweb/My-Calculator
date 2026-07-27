@@ -93,6 +93,15 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
 
 ---
 
+## 3a. Feature-parity cross-check — MANDATORY, every calculator, from now on (added Jul 27, 2026)
+
+**Standing directive, applies to every calculator build or upgrade going forward, no exceptions:** before finalizing input fields or result rows, live-fetch calculator.net's equivalent page (and, where useful, one or two other majors already used for keyword research in section 4 — Bankrate, NerdWallet, Experian, etc.) and explicitly diff:
+- **Input fields**: does calculator.net let the visitor specify something ours doesn't (a payment-type toggle, an extra-payment field, a currency/unit choice, a compounding-frequency choice, etc.)? If it's a real, commonly-used scenario (verify via a quick search that it's a recognized real-world formula/practice, not just calculator.net's own quirk), add it — don't assume our first-draft field list is complete just because it covers the obvious case.
+- **Result rows / outputs**: does calculator.net show a number or breakdown ours doesn't (a schedule, a chart, a specific sub-total)? Same rule: add it if it's genuinely useful information, not just to mirror them for its own sake.
+- **Note calculator.net sometimes splits one query across two separate pages** (e.g. its "Credit Cards Payoff Calculator" is actually a multi-card debt-avalanche tool, while its single-card fixed-payment/fixed-time tool lives on a differently-named "Credit Card Calculator" page) — check both the exact-title-match page AND any sibling page it links to for "the other" scenario before concluding a feature is genuinely absent from their coverage.
+- Any new field this surfaces must be **verified in Node before being wired into the page**, same as every other formula (see section 4's math-verification standard and the hard-won-lessons section) — a feature-parity add is not exempt from that requirement just because it started as a "just add this field" request.
+- Log which competitor page was diffed and what (if anything) was added as a result, in the PROGRESS.md entry for that page — same evidentiary standard as the keyword-research note in section 4.
+
 ## 4. Keyword research — MANDATORY step before writing title/meta/content, every calculator, from now on
 
 **Standing directive (added Jul 2026, applies to every calculator build or upgrade going forward, no exceptions):** before drafting or finalizing the title tag, meta description, H1/subhead, or content outline for any calculator page, do real keyword research for that specific calculator first, and let the findings shape the copy — don't write the copy first and back-fill keywords into it.
@@ -108,6 +117,7 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
 8. **Every future calculator build in this repo must show this research happened** — briefly note in the PROGRESS.md entry for that page which head term(s) and long-tail variant(s) were targeted and why, the same way past entries note formula-verification steps.
 9. **Geography**: apply section 8 below (USA-first, then Tier-1 English markets, then worldwide) when choosing which regional phrasing/spelling/competitor set to prioritize — a term big US sites converge on beats a technically-correct but region-neutral phrasing.
 10. If/when the user connects Google Search Console (check `search_mcp_registry` for a connector, or the user exports GSC data manually) or a paid keyword tool becomes available, switch to that real query/impression/volume data as the primary signal for that page and treat the web-search method as the fallback it always was.
+11. **Explicit standing reminder (user directive, Jul 27, 2026 session, applies to every future calculator):** the title and meta description must be optimized to win the **click**, not just the impression — a searcher should want to tap the result, not just recognize the tool name. Cover both short-tail (head term) and long-tail keywords across title/meta/keywords/content, and always keep Google AdSense policy compliance (section 10 below) in mind while writing every page, not as an afterthought.
 
 ---
 

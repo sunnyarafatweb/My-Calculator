@@ -2249,6 +2249,60 @@ assume this exact order still holds after a few weeks of new data.
     `og:image` tag shipped, consistent with that reference page rather
     than shipping a broken image URL.
 
+- **Credit Card Payoff Calculator: post-build cross-check against calculator.net +
+  SEO/AdSense tightening** (Jul 27, 2026, same-day follow-up to the rebuild above,
+  per an explicit new standing user directive — see below). Live-fetched
+  calculator.net's "Credit Cards Payoff Calculator" (turned out to be a
+  *different* tool — multi-card debt-avalanche, not single-card) and its
+  actual single-card equivalent, "Credit Card Calculator", to diff fields.
+  - **Real gap found and fixed**: calculator.net's single-card tool offers an
+    "Interest + X% of Balance" payment mode (1-5% presets) modeling how most
+    real issuers actually define the minimum payment — ours only had fixed-
+    amount and fixed-time-goal modes. Verified the math in Node first
+    (confirmed it's geometric decay independent of APR: balance next =
+    balance × (1 − pct/100); at 2% on $5,000/22% APR it doesn't clear within
+    50 years, at 5% it clears in 270 months/$1,833.33 interest) before wiring
+    it in as a third **Payment Type** selector on the Fixed Payment tab, with
+    a "50+ years / capped" warning state distinct from the true
+    never-payoff state (payment ≤ interest).
+  - Added a new H2 ("How Your Card's Minimum Payment Is Actually Calculated")
+    and a 9th FAQ for this feature — same one-source-list generation +
+    programmatic Q/A exact-match verification as the original 8.
+  - **Real AdSense/honesty issue caught and fixed**: the original copy
+    claimed the Debt Payoff Calculator "handles multiple cards... and
+    compares" avalanche/snowball. Checking that page's actual live code
+    (per section 10's "verify claims about other pages are true" rule)
+    showed it's currently a dead template — same broken static-snapshot
+    pattern this page was in before its rebuild, not an interactive
+    multi-card tool. Reworded both mentions (one FAQ answer, one body
+    paragraph) to only claim the page *covers the topic*, not that it
+    computes anything, in both the FAQPage schema and the visible HTML
+    consistently.
+  - Tightened title (`Credit Card Payoff Calculator — Debt-Free Date &
+    Interest Cost`) and meta description for click-through, not just
+    keyword match; expanded `meta keywords` with more long-tail terms
+    tied to the new feature ("credit card minimum payment calculator",
+    "minimum payment credit card calculator").
+  - Re-verified everything after all edits: all 3 JSON-LD blocks valid,
+    FAQ schema/visible-HTML exact match re-confirmed with a corrected
+    (section-scoped, not whole-document) diff script after an earlier
+    false-alarm caused by footer `<p>` tags bleeding into a naive
+    "last N paragraphs" check, protected style block still byte-identical
+    to auto-loan-calculator, zero duplicate ids, all 6 inline `<script>`
+    blocks pass `node --check`, zero console errors and zero horizontal
+    overflow on a full Playwright re-run at 1440px/390px covering both
+    tabs and all three payment modes, PDF export still lazy and still
+    correct in each mode.
+  - **New standing directive this session, saved into
+    `DESIGN_AND_SEO_GUIDE.md` section 3a (not just here, since PROGRESS.md
+    entries aren't re-read the way the guide file is) — applies to every
+    future calculator build/upgrade**: live-diff calculator.net's
+    equivalent page (checking for a same-scope sibling page if the
+    exact-title match turns out to cover a different scope, as happened
+    here) for missing input fields or result rows before finalizing any
+    page, and keep title/meta optimized for click-through and AdSense
+    compliance explicitly in mind on every page, not as a one-off.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
