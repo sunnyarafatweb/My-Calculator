@@ -1959,6 +1959,67 @@ assume this exact order still holds after a few weeks of new data.
     tabs' results cross-checked live against Node output including the
     calculator.net reproduction case, PDF export tested on both tabs.
 
+- **College Cost Calculator — full rebuild from thin/template tier to the
+  3-card pattern** (ad-hoc user request, Jul 27, 2026, same "23 done / 55
+  old-style in Finance" push).
+  - **Competitor cross-check (calculator.net) done before writing any copy.**
+    Old page had only 4 inputs (annual cost today, years until enrollment,
+    tuition inflation rate, years of college) and one output (total cost) --
+    calculator.net's version additionally offers quick-select average costs
+    by school type, a savings-percentage/balance/return/tax model, and cross-
+    links to a Student Loan Calculator. Closed all of these gaps.
+  - **Math verified in Node before writing any HTML**, cross-checked against
+    two independent sources: the cost-projection formula reproduces this
+    page's own prior worked example exactly ($25k/yr, 10yr, 5%, 4yr ->
+    $40,722.37 first-year / $175,518.49 total, both to the cent); the
+    savings-growth and reverse-solve-required-contribution formulas were
+    checked against a hand-rolled step-by-step simulation (exact match) and
+    a third-party illustrative example (an Indiana University 529 explainer's
+    "$125/month for 18 years at 4%" scenario) -- close but not exact, which
+    on investigation is because that blog post's own numbers are an
+    approximate illustration, not a canonically-sourced worked example, so
+    the internal step-by-step cross-check (not the blog post) was treated as
+    the authoritative verification.
+  - **New feature not found on calculator.net**: a reverse-solve "monthly
+    contribution needed to fully close the gap" result, alongside the
+    forward projection -- verified by solving for the contribution, then
+    simulating forward with that exact value and confirming it reproduces
+    the target cost to the cent (including a zero-return-rate edge case).
+  - Two tabs: **Projected Cost** (annual cost today with 2025-26 College
+    Board quick-select chips for 4-year private/in-state public/out-of-state
+    public/2-year public, years until enrollment, increase rate, years of
+    college, year-by-year schedule + chart) and **Savings Gap** (current
+    balance, monthly contribution, years, return rate, tax rate with "0%
+    for a 529 plan" guidance, auto-synced with Tab 1's projected total unless
+    the user overrides it) -- both with jsPDF lazy-loaded correctly from the
+    start. 6 H2 sections + 8 FAQs covering the formula, 529 vs. prepaid
+    plans, and what a "cost of attendance" figure actually includes. New OG
+    image (none existed before).
+  - **Caught before push, by actually running the shipped numbers through
+    Playwright and diffing against Node rather than trusting hand-written
+    prose**: the article's own worked-example paragraph and the static
+    HTML placeholder in the Savings Gap result card both had wrong
+    illustrative numbers ($84,135 projected / $91,383 gap / $682/month --
+    an arithmetic slip made while drafting the prose, never actually run
+    through Node for that specific input combination before being written
+    down). The shipped JS itself was correct throughout; only the written
+    example numbers were wrong. Re-verified the real numbers in Node
+    ($58,260.79 projected / $117,257.70 gap / $1,015.51 required) and
+    corrected both the article text and the static placeholder to match.
+    **Process takeaway**: verifying a formula in the abstract does not
+    verify every specific example number written into the page's prose --
+    each concrete worked-example figure quoted in article copy needs its
+    own direct Node check against that exact input combination before
+    shipping, not just a general formula-correctness check.
+  - Verified before push (after the worked-example fix above): schema valid
+    + FAQ exact-match, zero duplicate ids (checked proactively during
+    assembly this time, not just after a failure), `node --check` on all 6
+    script blocks, protected `:root` block byte-identical to bmi-calculator,
+    zero eager jsPDF requests, full Playwright pass desktop+mobile (zero
+    console errors, zero overflow, non-overlapping grid geometry), both
+    tabs' live results re-confirmed against Node output, quick-select chips
+    tested, cross-tab total-cost sync tested, PDF export tested.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
