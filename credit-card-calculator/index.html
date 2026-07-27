@@ -364,8 +364,10 @@
 .ccc-area-result{grid-area:result}
 .ccc-area-sidebar{grid-area:sidebar}
 .ccc-area-bottomgrid{grid-area:bottomgrid}
+.ccc-grid-nobg{grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar"}
 @media(max-width:860px){
   .ccc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+  .ccc-grid-nobg{grid-template-areas:"bar" "tabs" "form" "result" "sidebar" !important}
 }
 
 .ccc-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -500,7 +502,7 @@
 </div>
 
 <div class="ccc-panel" id="ccc-panel-payoff">
-<div class="ccc-grid" style="grid-template-areas:'bar bar .' 'tabs tabs .' 'form result sidebar'">
+<div class="ccc-grid ccc-grid-nobg">
 
 <div class="ccc-area-bar ccc-bar">
   <div class="ccc-bar-text"><span class="ccc-bar-badge">$</span><span>See how long payoff really takes, or what payment gets you there faster</span></div>

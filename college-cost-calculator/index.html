@@ -364,8 +364,10 @@
 .cc-area-result{grid-area:result}
 .cc-area-sidebar{grid-area:sidebar}
 .cc-area-bottomgrid{grid-area:bottomgrid}
+.cc-grid-nobg{grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar"}
 @media(max-width:860px){
   .cc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+  .cc-grid-nobg{grid-template-areas:"bar" "tabs" "form" "result" "sidebar" !important}
 }
 
 .cc-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -521,7 +523,7 @@
 </div>
 
 <div class="cc-panel" id="cc-panel-savings">
-<div class="cc-grid" style="grid-template-areas:'bar bar .' 'tabs tabs .' 'form result sidebar'">
+<div class="cc-grid cc-grid-nobg">
 
 <div class="cc-area-bar cc-bar">
   <div class="cc-bar-text"><span class="cc-bar-badge">$</span><span>See if your current savings plan is on track to cover the gap</span></div>

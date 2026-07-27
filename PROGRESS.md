@@ -2156,6 +2156,34 @@ assume this exact order still holds after a few weeks of new data.
     results reconfirmed against Node/calculator.net reproduction cases,
     solve-for-any round-trip tested in the browser, PDF export tested.
 
+- **Site-wide mobile-overflow fix: the 4 pages flagged after the Commission
+  Calculator discovery** (Jul 27, 2026, same-day follow-up). Applied the
+  identical fix to Cash Back or Low Interest Calculator, CD Calculator,
+  College Cost Calculator, and Credit Card Calculator's second ("no
+  bottomgrid") tab: replaced each page's inline
+  `style="grid-template-areas:'bar bar .' 'tabs tabs .' 'form result
+  sidebar'"` with a dedicated `.{prefix}-grid-nobg` class carrying its own
+  desktop-width rule plus a proper mobile `@media(max-width:860px)` rule
+  -- no inline style involved, so the mobile media query can no longer be
+  silently overridden.
+  - Verified per page: brace-balanced CSS, zero remaining inline
+    `grid-template-areas` styles, zero duplicate ids, schema still valid.
+  - **Playwright re-run with the specific check that was missing before**:
+    switched to each page's second tab explicitly (not just checked the
+    page on load) at both 1440px and 390px widths -- all 4 pages now show
+    zero horizontal overflow on both the default and second tab, at both
+    widths. Also re-ran each second tab's live calculation as a regression
+    check (Cash Back break-even $3,022.14, CD withdrawal net $10,188.05,
+    College Cost savings gap $117,257.21, Credit Card payoff 54.6 months)
+    -- all matched their previously-verified values exactly, confirming
+    the CSS-only fix didn't disturb any calculation logic.
+  - **Process takeaway, reinforcing the one already logged under Commission
+    Calculator above**: a mobile-overflow check that only runs on page
+    load will not catch a bug confined to a non-default tab. Any page with
+    multiple tabs now needs the overflow (and console-error) check re-run
+    once per tab, not once per page, as a standing part of the pre-push
+    routine going forward.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498

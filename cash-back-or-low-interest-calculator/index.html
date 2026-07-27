@@ -365,8 +365,10 @@
 .cbl-area-result{grid-area:result}
 .cbl-area-sidebar{grid-area:sidebar}
 .cbl-area-bottomgrid{grid-area:bottomgrid}
+.cbl-grid-nobg{grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar"}
 @media(max-width:860px){
   .cbl-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+  .cbl-grid-nobg{grid-template-areas:"bar" "tabs" "form" "result" "sidebar" !important}
 }
 
 .cbl-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -529,7 +531,7 @@
 </div>
 
 <div class="cbl-panel" id="cbl-panel-breakeven">
-<div class="cbl-grid" style="grid-template-areas:'bar bar .' 'tabs tabs .' 'form result sidebar'">
+<div class="cbl-grid cbl-grid-nobg">
 
 <div class="cbl-area-bar cbl-bar">
   <div class="cbl-bar-text"><span class="cbl-bar-badge">$</span><span>Solving for the minimum rebate that would match your low-interest offer</span></div>
