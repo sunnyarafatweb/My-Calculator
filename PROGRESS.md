@@ -1904,6 +1904,61 @@ assume this exact order still holds after a few weeks of new data.
     every calculator with state-specific or jurisdiction-specific tax/legal
     rules, not just an afterthought.
 
+- **CD Calculator — full rebuild from thin/template tier to the 3-card
+  pattern** (ad-hoc user request, Jul 27, 2026, same "23 done / 55 old-style
+  in Finance" push).
+  - **Keyword research + competitor cross-check done before writing any
+    copy, per §4 and the process note from the Cash Back audit above.**
+    Checked calculator.net, Bankrate, NerdWallet, goodcalculators.com,
+    savingsinterestcalculator.com. Old page had only 3 compounding buttons
+    (Daily/Monthly/Quarterly), no tax consideration, no schedule/chart, and
+    no early-withdrawal-penalty feature — all four gaps closed in the
+    rebuild.
+  - **Math verified in Node against calculator.net's own published example**
+    before writing any HTML: $10,000 @ 5% APY, 3-year term, annual
+    compounding → their site shows exactly $11,576.25; this calculator's
+    formula reproduces that figure to the cent. Continuous compounding
+    cross-checked against the direct e^(rt) formula (exact match). Annual
+    tax-withholding-per-12-month-block model (matching how CD interest is
+    actually 1099-taxed each year it accrues, not just at maturity) checked
+    against a simple single-year hand calculation. Early-withdrawal penalty
+    formula (balance × (APY/12) × penalty months, sourced from
+    savingsinterestcalculator.com) verified exactly. After shipping, the
+    literal function from the live JS file was re-extracted and re-run in
+    Node directly (not just re-derived by hand) to confirm no transcription
+    drift between the verified formula and the shipped code.
+  - **New feature not found on any competitor checked**: a
+    "Compounding Frequency Compared" card that shows the same deposit/APY/
+    term's maturity value across all 6 compounding frequencies side by
+    side, live-updating with the user's own inputs — ties directly into
+    the FAQ answer about compounding frequency mattering less than people
+    assume once APY (not APR) is quoted.
+  - Two tabs: **CD Growth** (deposit/APY/term/6 compounding options/
+    marginal tax rate, year-by-year schedule + stacked bar chart) and
+    **Early Withdrawal Penalty** (current balance, interest earned so far,
+    penalty, net proceeds, profitability note) — both with jsPDF lazy-
+    loaded correctly from the start.
+  - 6 H2 sections + 8 FAQs, each grounded in an actual feature on the page
+    (formula, worked example cross-checked against calculator.net, APY vs.
+    APR, the withdrawal-penalty tab, the tax-rate field, CD vs. savings vs.
+    money market). New OG image (none existed before).
+  - **Two real bugs caught by the standard verification pass, not just a
+    style formality**: (1) a duplicate-id collision between the article's
+    "APY vs. APR" H2 anchor and the APY input field, both accidentally
+    named `cdg-apy` — renamed the anchor to `cdg-apy-vs-apr`; (2) a
+    leftover `cbl-formula-box` class reference copy-pasted from the Cash
+    Back Calculator build, which doesn't exist in this page's own
+    stylesheet — removed. Both would have been easy to miss without the
+    duplicate-id and byte-level checks being a standing part of the
+    pre-push routine.
+  - Verified before push: schema valid + FAQ exact-match (0 mismatches),
+    zero duplicate ids (after the fix above), `node --check` on all 6
+    script blocks, protected `:root` block byte-identical to bmi-calculator,
+    zero eager jsPDF requests, full Playwright pass desktop+mobile (zero
+    console errors, zero overflow, non-overlapping grid geometry), both
+    tabs' results cross-checked live against Node output including the
+    calculator.net reproduction case, PDF export tested on both tabs.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
