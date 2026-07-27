@@ -2303,6 +2303,50 @@ assume this exact order still holds after a few weeks of new data.
     page, and keep title/meta optimized for click-through and AdSense
     compliance explicitly in mind on every page, not as a one-off.
 
+- **Credit Card Payoff Calculator: added a genuine third tab (Multiple Cards /
+  Debt Avalanche) after the user pushed back on the calculator.net cross-check**
+  (Jul 27, 2026, same-day follow-up). The prior session's cross-check had
+  concluded calculator.net's exact-URL-match page ("credit-card-payoff-
+  calculator.html") was a different-scope tool (multi-card avalanche) and
+  left it at that -- the user correctly pointed out that since our URL slug
+  matches theirs exactly, visitors comparing the two would find ours simply
+  doesn't do what theirs does at all. Closed that gap for real instead of
+  just documenting the difference.
+  - Added a third tab: per-card rows (name/balance/min payment/APR, add up
+    to 10, remove any), one combined monthly budget, full debt-avalanche
+    simulation (pay every card's minimum, cascade all leftover budget to
+    the highest-APR active card, roll the payment forward the instant a
+    card clears), insufficient-budget warning, payoff-order table, a
+    stacked balance-by-card chart, an aggregate principal/interest donut,
+    and PDF export.
+  - **Avalanche algorithm verified in Node before wiring in** (per the
+    section 3a directive this exact session created): built a hand-checked
+    3-card scenario and confirmed the highest-APR card is paid off first
+    and total interest comes out lower than a snowball (balance-first)
+    ordering on the same cards -- $708.82 lower in the specific test case,
+    confirming the cascade logic is genuinely APR-priority and not
+    coincidentally matching balance-priority (the first test scenario used
+    happened to have the same order both ways and would have hidden a bug).
+  - Updated meta description, keywords, H1 subhead, added a new H2 section
+    with the exact Node-verified 3-card worked example (Card A/B/C, $500
+    budget -> 25 months, $2,421.01 total interest, payoff order C-then-A-
+    then-B), revised one now-outdated FAQ that used to point elsewhere for
+    multi-card support, and added a 10th FAQ clarifying this tab is
+    avalanche-only (not snowball) -- all done via the same one-source-list
+    generation + programmatic schema/visible-HTML exact-match verification
+    as every other FAQ batch on this page.
+  - Re-verified everything after the addition: all 3 JSON-LD blocks valid,
+    all 10 FAQs match exactly (schema vs. visible, section-scoped diff),
+    protected style/header/footer blocks still byte-identical to auto-
+    loan-calculator, zero duplicate ids, all 6 script blocks pass
+    `node --check`, full Playwright re-run (two separate test scripts, one
+    per existing/new feature set) at 1440px/390px: zero console errors,
+    zero horizontal overflow, add/remove-card-row interactions work,
+    insufficient-budget warning triggers correctly, PDF export works on
+    the new tab, and every displayed number (25 months, $2,421.01 interest,
+    Card C/A/B payoff dates of Apr 2027/Jan 2028/Aug 2028) matches the
+    Node-verified figures exactly.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
