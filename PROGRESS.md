@@ -2087,6 +2087,75 @@ assume this exact order still holds after a few weeks of new data.
   re-ran the full Playwright pass (desktop+mobile, zero errors/overflow,
   new field doesn't crowd the row).
 
+- **Commission Calculator — full rebuild from thin/template tier to the
+  3-card pattern, PLUS a real systemic bug discovered and fixed** (ad-hoc
+  user request, Jul 27, 2026).
+  - **Miscategorization caught first**: this page's title
+    ("Commission Calculator — Flat or Tiered Rates | CalculatorBoss")
+    slipped through the earlier automated "which Finance pages are done"
+    regex check as custom-tier, because the regex only flagged the fully
+    generic `X | CalculatorBoss` pattern with no dash. This page has a dash
+    before the CalculatorBoss suffix, so it was wrongly counted as done.
+    Actual content was thin: 484 lines, 2 hardcoded tiers, no PDF, no
+    schedule, no sidebar, 2 FAQs -- confirmed thin on inspection before
+    starting the rebuild. **Flag for later: re-audit the "done" Finance
+    list for other titles with a dash-before-suffix that may have slipped
+    through the same way.**
+  - **Competitor cross-check (calculator.net)**: their page actually offers
+    two tools -- a simple solve-for-any-of-3 calculator (sales price /
+    commission rate / commission amount, given any two) and a tiered
+    calculator supporting up to 8 tiers plus an optional base commission.
+    Our old page had neither the solve-for-any feature nor a base-commission
+    option, and only 2 tiers. Rebuilt with both: a Simple Commission tab
+    (solve for any of the 3 values) and a Tiered Commission tab (3 tiers +
+    base commission).
+  - **Math verified in Node against calculator.net's own three worked
+    examples** before writing any HTML: real-estate commission-only
+    ($500,000 @ 3% = $15,000, plus the round-trip solving each of the other
+    two variables back from that result); their tiered example ($27,000
+    sale, $0-20k@3%/20k-25k@5%/25k+@10% -> $1,050 exactly); and their
+    base-plus-commission example ($500 base + 1.5% of $25,000 = $875).
+    All three matched exactly, and the literal shipped JS functions were
+    re-extracted and re-run in Node directly to confirm no transcription
+    drift.
+  - **Real mobile-overflow bug found and fixed during the standard
+    Playwright pass, with likely implications for four other pages already
+    shipped this session.** The second tab's grid used an inline
+    `style="grid-template-areas:...三-column shape..."` override (a pattern
+    copied from every earlier build this session -- Cash Back, CD, College
+    Cost, Credit Card -- for the tab that has no bottomgrid row). Inline
+    styles always win over any external stylesheet rule for the same
+    property regardless of viewport, so the mobile media query's
+    single-column `grid-template-areas` was being silently overridden by
+    the inline 3-column area shape on every viewport, including mobile --
+    causing the grid to lay out with implicit 3-column tracks and overflow
+    horizontally. This went undetected in every earlier build because the
+    tab affected was never the *default* active tab in those pages, and
+    the standard mobile-overflow check ran on page load without switching
+    tabs first. Commission Calculator made the affected tab (Simple
+    Commission) the *default* tab, which is what surfaced the bug
+    immediately via the standard test. **Fixed here** by replacing the
+    inline style with a dedicated `.com-grid-nobg` class carrying its own
+    desktop-width and mobile-media-query rules, with no inline-style
+    involved at all. **Action item, not yet done**: re-check the
+    non-default ("reverse mode") tab on Cash Back or Low Interest
+    Calculator, CD Calculator, College Cost Calculator, and Credit Card
+    Calculator for the same latent bug -- switch to each page's second tab
+    specifically before running the mobile-overflow check, since checking
+    only the default tab will not catch it.
+  - Two tabs: **Simple Commission** (solve-for-any-of-3 with a "Solve for"
+    selector that disables the field being solved) and **Tiered Commission**
+    (3 tiers + base commission, tier breakdown table + chart) -- both with
+    jsPDF lazy-loaded correctly from the start. 6 H2 sections + 8 FAQs. New
+    OG image.
+  - Verified before push: schema valid + FAQ exact-match, zero duplicate
+    ids, `node --check` on all 6 script blocks, protected `:root` block
+    byte-identical to bmi-calculator, zero eager jsPDF requests, full
+    Playwright pass desktop+mobile re-run after the overflow fix (zero
+    console errors, zero overflow on both tabs this time), both tabs' live
+    results reconfirmed against Node/calculator.net reproduction cases,
+    solve-for-any round-trip tested in the browser, PDF export tested.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
