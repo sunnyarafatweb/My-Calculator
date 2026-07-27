@@ -859,17 +859,17 @@
   // ===== PANEL 1: FIXED PAYMENT =====
   var lastFixed = null;
   function renderFixedPayment(){
-    var balance = val('ccp-balance'), apr = val('ccp-apr');
+    var balance = Math.max(0, val('ccp-balance')), apr = Math.max(0, val('ccp-apr'));
     var mode = $('ccp-paymode').value;
     var head = $('ccp-resultHead'), bignum = $('ccp-bignum'), rows = $('ccp-resultRows'), donutBox = $('ccp-donutBox');
     var payment, r;
 
     if(mode==='percent'){
-      var pct = val('ccp-pct');
+      var pct = Math.max(0, val('ccp-pct'));
       r = simulatePercentSchedule(balance, apr, pct);
       payment = r.firstPayment;
     } else {
-      payment = val('ccp-payment');
+      payment = Math.max(0, val('ccp-payment'));
       r = simulateSchedule(balance, apr, payment);
     }
 
@@ -953,17 +953,26 @@
   }
 
   function renderFixedTime(){
-    var balance = val('ccpt-balance'), apr = val('ccpt-apr'), months = Math.max(1, Math.round(val('ccpt-months')));
+    var balance = Math.max(0, val('ccpt-balance')), apr = Math.max(0, val('ccpt-apr')), months = Math.max(1, Math.round(val('ccpt-months')));
+    var bignum = $('ccpt-bignum'), rows = $('ccpt-resultRows'), donutBox = $('ccpt-donutBox');
+
+    if(balance <= 0.005){
+      bignum.textContent = '$0.00';
+      rows.innerHTML = '<div class="ccp-note">A balance of $0 is already debt-free \u2014 no payment needed.</div>';
+      donutBox.style.display='none';
+      lastReverse = null;
+      return;
+    }
+
     // Round the exact analytic payment UP to the cent -- rounding down can leave the
     // balance a few cents short in the final month and silently push payoff a month late.
     var exactPayment = requiredPayment(balance, apr, months);
     var payment = Math.ceil(exactPayment*100)/100;
     var r = simulateSchedule(balance, apr, payment);
 
-    var bignum = $('ccpt-bignum'), rows = $('ccpt-resultRows'), donutBox = $('ccpt-donutBox');
     if(r.neverPaysOff){
       // Shouldn't normally trigger since we solved for the payment directly, but guard anyway.
-      bignum.textContent = '&mdash;';
+      bignum.textContent = '\u2014';
       rows.innerHTML = '<div class="ccp-warn-note">Enter a balance, APR and payoff goal above to see the payment you need.</div>';
       donutBox.style.display='none';
       lastReverse = null;
@@ -1019,8 +1028,8 @@
       return {
         name: row.querySelector('.ccpm-name').value || 'Card',
         balance: parseFloat(row.querySelector('.ccpm-balance').value) || 0,
-        minPayment: parseFloat(row.querySelector('.ccpm-minpay').value) || 0,
-        apr: parseFloat(row.querySelector('.ccpm-apr').value) || 0
+        minPayment: Math.max(0, parseFloat(row.querySelector('.ccpm-minpay').value) || 0),
+        apr: Math.max(0, parseFloat(row.querySelector('.ccpm-apr').value) || 0)
       };
     }).filter(function(c){ return c.balance > 0; });
   }
@@ -1118,7 +1127,7 @@
 
   var lastMulti = null;
   function renderMulti(){
-    var budget = val('ccpm-budget');
+    var budget = Math.max(0, val('ccpm-budget'));
     var cards = readCardRows();
     var head = $('ccpm-resultHead'), bignum = $('ccpm-bignum'), rows = $('ccpm-resultRows'), donutBox = $('ccpm-donutBox');
 
@@ -1142,22 +1151,26 @@
       return;
     }
 
-    head.classList.remove('warn');
     var totalOriginal = cards.reduce(function(s,c){ return s+c.balance; }, 0);
 
     if(r.capped){
+      head.classList.add('warn');
       bignum.textContent = '50+ years';
       donutBox.style.display='none';
+      rows.innerHTML = '<div class="ccp-warn-note">At this budget, at least one card won\u2019t clear within 50 years \u2014 the extra left over after minimums is too small to make real progress. Raise the monthly budget to see a realistic payoff plan.</div>'+
+        '<div class="ccp-result-row"><span>Monthly Budget</span><span>'+money(budget,2)+'</span></div>'+
+        '<div class="ccp-result-row"><span>Interest Paid in 50 Years</span><span>'+money(r.totalInterest,2)+'</span></div>';
     } else {
+      head.classList.remove('warn');
       bignum.textContent = monthsToText(r.months);
       donutBox.style.display='';
       renderDonut('ccpm-donutSvg','ccpm-donutLegend', totalOriginal, r.totalInterest, 'Principal (all cards)', 'Total Interest');
+      rows.innerHTML =
+        '<div class="ccp-result-row"><span>Monthly Budget</span><span>'+money(budget,2)+'</span></div>'+
+        '<div class="ccp-result-row"><span>Total Interest Paid</span><span>'+money(r.totalInterest,2)+'</span></div>'+
+        '<div class="ccp-result-row total"><span>Total Amount Paid</span><span>'+money(r.totalPaid,2)+'</span></div>'+
+        '<div class="ccp-result-row"><span>Debt-Free By</span><span>'+payoffDateText(r.months)+'</span></div>';
     }
-    rows.innerHTML =
-      '<div class="ccp-result-row"><span>Monthly Budget</span><span>'+money(budget,2)+'</span></div>'+
-      '<div class="ccp-result-row"><span>Total Interest Paid</span><span>'+money(r.totalInterest,2)+'</span></div>'+
-      '<div class="ccp-result-row total"><span>Total Amount Paid</span><span>'+money(r.totalPaid,2)+'</span></div>'+
-      '<div class="ccp-result-row"><span>Debt-Free By</span><span>'+(r.capped?'50+ years away':payoffDateText(r.months))+'</span></div>';
 
     var ordered = r.cards.slice().sort(function(a,b){ return (a.payoffMonth||CAP_MONTHS+1)-(b.payoffMonth||CAP_MONTHS+1); });
     $('ccpm-orderBody').innerHTML = ordered.map(function(c){

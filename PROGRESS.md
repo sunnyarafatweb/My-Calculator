@@ -2398,6 +2398,54 @@ assume this exact order still holds after a few weeks of new data.
     `currency-calculator/` confirmed both the sidebar and inline links
     updated with zero console errors.
 
+- **Credit Card Payoff Calculator: proactive edge-case bug hunt per user
+  request ("bug thakle fix kore felo" -- fix any bugs)** (Jul 27, 2026,
+  same-day follow-up). Rather than waiting for a bug report, ran a
+  systematic Playwright sweep across all three tabs feeding deliberately
+  hostile inputs (zero/negative balance, zero/negative APR, zero/negative
+  payment, empty fields, zero monthly budget, negative card balances,
+  APR=0 combined with min-payment=0, adding the 11th card, removing every
+  card, etc.) and found three real, confirmed bugs:
+  1. **Fixed Payoff Time tab, literal-entity display bug**: the "never
+     pays off" fallback branch set `bignum.textContent = '&mdash;'` --
+     `textContent` does not parse HTML entities, so visitors would have
+     seen the literal text "&mdash;" on the page instead of an em dash.
+     This specifically triggered whenever Current Balance was 0 (or
+     effectively 0), since the reverse-solved payment came out to exactly
+     $0, which the never-payoff guard (`payment <= balance*r`) treats as
+     true at the zero/zero boundary. Fixed by using the actual `\u2014`
+     character, and separately added a dedicated "balance is already $0,
+     no payment needed" message ahead of that guard so the common case
+     (someone testing with 0) gets an accurate, specific message instead
+     of routing through the generic never-payoff fallback at all.
+  2. **Negative balance/APR/payment not clamped** in the Fixed Payment
+     tab: typing a negative balance (e.g. -500) produced a nonsensical
+     "Total Amount Paid: -$500.00" instead of being treated as invalid/
+     zero. The Multiple Cards tab already correctly filtered non-positive
+     card balances via `readCardRows`, but the two single-card tabs had
+     no equivalent guard. Fixed by clamping balance/APR/payment/percent/
+     budget reads to `Math.max(0, ...)` at the point each render function
+     reads them, and hardened `readCardRows` to also clamp min-payment
+     and APR (previously only balance was implicitly filtered).
+  3. **Multiple Cards tab, missing warning banner on the 50-year-cap
+     state**: when the avalanche simulation hits the cap (budget too low
+     relative to the cards' needs) it correctly showed "50+ years" but,
+     unlike the single-card Fixed Payment tab's equivalent capped state,
+     displayed no explanatory warning banner -- a user would see a bare
+     "50+ years" with no indication of why or what to do. Added the same
+     warning-banner pattern used elsewhere on this page for consistency.
+  - Re-verified after fixes: all 3 JSON-LD blocks valid, all 10 FAQs still
+    exact-match (schema vs. visible), protected style/header/footer
+    blocks still byte-identical to auto-loan-calculator, zero duplicate
+    ids, all 6 script blocks pass `node --check`, zero remaining
+    `textContent = '&...'` entity bugs anywhere in the file (grepped for
+    the whole pattern, not just the one instance found), full Playwright
+    re-run of both existing regression suites confirms zero console
+    errors / zero horizontal overflow and every previously-verified
+    number (2y 10m, $259.40, 22y 6m, 25-month avalanche schedule, etc.)
+    is unchanged -- these were genuine bug fixes with no side effects on
+    the already-correct paths.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
