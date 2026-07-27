@@ -1788,6 +1788,73 @@ assume this exact order still holds after a few weeks of new data.
     both headings are present and correctly ordered via a fresh check, not
     a real regression) plus a new 11-check pass covering every fix above.
 
+- **Cash Back or Low Interest Calculator — full rebuild from thin/template
+  tier to the 3-card pattern** (ad-hoc user request, Jul 27, 2026; part of
+  the broader "23 done / 55 still old-style in Finance" push the user kicked
+  off this session).
+  - **Keyword research done before writing any copy, per §4.** Head term
+    ("cash back or low interest calculator") matches calculator.net directly.
+    Cross-checked against Edmunds, Kohler/Purdue credit unions, First
+    Citizens, autocheatsheet.com, findthebestcarprice.com, carclearance.com,
+    dinkytown.net, AAA. Finding: 5+ major sites converge on an alternate
+    framing — **"Low APR vs. Cash Back Calculator"** — blended naturally into
+    the title/meta per §8 without renaming the H1/URL.
+  - **Content/differentiation gap found:** the old page had no trade-in, no
+    sales tax, and no fees — every real competitor above has at least trade-in
+    + tax. Bigger find, confirmed across multiple independent sources
+    (dinkytown.net, autocheatsheet.com, lease-vs-buy.com): **sales tax is
+    calculated on the full pre-rebate price in almost every state** — a cash
+    rebate, unlike a trade-in, does not reduce the taxable amount. Built the
+    whole page around making this explicit and state-aware, reusing the
+    exact `NO_TRADE_REDUCTION` (CA, DC, HI, KY, MD, MI, MT, VA) /
+    `NO_SALES_TAX` (AK, DE, MT, NH, OR) state sets already verified and
+    shipped in Auto Loan Calculator.
+  - **New feature, not on any competitor site checked:** a second tab,
+    **Break-Even Cash Back**, reverse-solves the minimum rebate that would
+    make the cash-back option match the low-interest offer's total cost.
+    Closed-form (payment is linear in loan amount for a fixed rate/term, so
+    no iteration needed) — derived algebraically and verified against two
+    independent scenarios in Node (exact match both times), plus the
+    forward/reverse cross-check convention (§6) confirmed both modes agree.
+  - **Math independently verified in Node before any HTML was written**:
+    core comparison formula, the state trade-in/no-sales-tax branching, the
+    "cash back doesn't reduce taxable base" rule, and the break-even
+    reverse-solve — each checked against hand-computed expectations,
+    matched exactly.
+  - Built on the 3-card pattern (`cbl-`/`cblb-` prefixes), modeled on
+    Auto Loan Calculator's own tab/bar/PDF structure (each tab carries its
+    own full grid incl. its own PDF button with a distinct id — avoided the
+    duplicate-`id="...-pdfBtn"` bug that would otherwise occur from copying
+    the bar markup into both tabs verbatim). jsPDF lazy-loaded correctly
+    from the start via `loadScriptOnce`/`ensurePdfLibs` (no eager
+    `<script src>` regression this time).
+  - New OG image generated (none existed for this page before) matching the
+    site's real palette/typography (fonts pulled from Google Fonts' own
+    CDN to render it, since IBM Plex isn't installed locally).
+  - 6 H2 sections + 8 FAQs, written with direct-answer-first phrasing
+    ("Short answer: ...") for AI-Overview/GEO citability, plus a visible
+    formula block. FAQ schema and visible FAQ HTML generated from one
+    shared Python source list to guarantee exact-match by construction
+    (per the recurring-mismatch note in §3).
+  - Visible sidebar "Related Calculators" now genuinely topical (Auto Loan,
+    APR, Auto Lease, Loan, Down Payment) — not the site-wide generic
+    6-link copy-paste block flagged as a systemic bug earlier this session.
+  - Also updated the one-line card description on `all-calculators/index.html`
+    to match the new content (was a generic placeholder sentence).
+  - Verified before push: all 3 schema blocks parse + FAQ schema/visible
+    exact-match (0 mismatches), zero duplicate element ids site-page-wide,
+    `node --check` on all 6 inline script blocks, protected `:root` block
+    byte-identical to bmi-calculator, zero eager jsPDF requests (confirmed
+    lazy on first click, `window.jspdf` undefined until then), full
+    Playwright pass desktop (1440×900) + mobile (390×844): zero console/page
+    errors, zero horizontal overflow, non-overlapping grid geometry
+    (form/result/sidebar/bottomgrid bounding-box checked programmatically),
+    state selector verified across three real states (Texas/California/
+    Oregon, each hitting a different branch of the tax logic), Clear button
+    resets correctly, both tabs' Calculate buttons produce the exact
+    Node-verified numbers ($35,663.56 / $33,654.87 / $2,008.69 diff /
+    $3,211.03 break-even) live in the browser.
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
@@ -1808,7 +1875,10 @@ assume this exact order still holds after a few weeks of new data.
   authenticate that doesn't require pasting the raw token into chat each
   time (e.g. the user storing it outside the conversation and Claude Code/
   CLI picking it up from local environment instead) before the next session,
-  rather than repeating this note a fourth time.
+  rather than repeating this note a fourth time. **Update, Jul 27, 2026
+  session**: it happened again (a fourth time) — a PAT was pasted directly
+  in chat at the very start of this session too. Treat that token as burned
+  and rotate it before the next session.
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
