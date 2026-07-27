@@ -349,7 +349,11 @@
   .chart-tf{display:flex;gap:6px}
   .tf-btn{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line-2);border-radius:8px;padding:6px 12px;cursor:pointer;transition:.18s}
   .tf-btn.on{background:var(--cx);color:#1a1400;border-color:var(--cx)}
-  .chart-box{width:100%;height:260px}
+  .chart-box{width:100%;height:260px;position:relative}
+  .ch-tooltip{position:absolute;pointer-events:none;background:#1E2430;color:#fff;font-family:var(--f-mono);font-size:11px;line-height:1.5;padding:6px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-120%);opacity:0;transition:opacity .12s;z-index:5;box-shadow:0 6px 16px rgba(0,0,0,.28)}
+  .ch-tooltip.show{opacity:1}
+  .ch-tooltip b{font-size:12.5px}
+  .ch-axis-label{position:absolute;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);pointer-events:none}
   .chart-loading{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
 
   /* ===== STATS GRID ===== */
@@ -656,6 +660,7 @@
       <div class="chart-head">
         <span class="mono" style="font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px" id="chartCoinLabel"><span id="chartCoinLabelText">Bitcoin (BTC)</span><span class="live-blink" style="background:#0E9F6E;width:6px;height:6px"></span><span style="color:#0E9F6E;font-weight:600">LIVE</span><span id="chartUpdated" style="color:var(--muted-2)"></span></span>
         <div class="chart-tf" id="chartTf">
+          <button class="tf-btn" data-d="1h">1H</button>
           <button class="tf-btn" data-d="1">1D</button>
           <button class="tf-btn on" data-d="7">7D</button>
           <button class="tf-btn" data-d="30">1M</button>
@@ -1192,9 +1197,17 @@
   }
   setInterval(renderChartUpdatedLabel, 5000);
 
+  var lastChartMeta = null; // powers the hover crosshair/tooltip below
+  function fmtChartTime(ts, days){
+    var d = new Date(ts);
+    if(days==='1h' || days==='1'){ return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); }
+    if(days==='365'){ return d.toLocaleDateString('en-US',{month:'short',year:'numeric'}); }
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  }
+
   function drawChart(points){
     var box=$('chartBox');
-    if(!points || points.length<2){ box.innerHTML='<div class="chart-loading">No chart data available.</div>'; return; }
+    if(!points || points.length<2){ box.innerHTML='<div class="chart-loading">No chart data available.</div>'; lastChartMeta=null; return; }
     var W=900,H=260,L=6,R=6,T=14,B=14, pw=W-L-R, ph=H-T-B;
     var prices = points.map(function(p){return p[1];});
     var min=Math.min.apply(null,prices), max=Math.max.apply(null,prices);
@@ -1210,8 +1223,8 @@
     var linePath = smoothPath(pts);
     var last = pts[pts.length-1];
     var areaPath = linePath+' L'+(L+pw).toFixed(2)+','+(T+ph).toFixed(2)+' L'+pts[0].x.toFixed(2)+','+(T+ph).toFixed(2)+' Z';
-    var s='<svg width="100%" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible">';
-    s+='<defs><linearGradient id="chGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.22"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>';
+    var s='<svg width="100%" height="100%" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible" id="chSvg">';
+    s+='<defs><linearGradient id="chGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.26"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>';
     // subtle horizontal reference gridlines (professional-chart convention)
     for(var g=1; g<4; g++){
       var gy = T + (ph/4)*g;
@@ -1220,10 +1233,52 @@
     s+='<path d="'+areaPath+'" fill="url(#chGrad)" stroke="none"/>';
     s+='<path d="'+linePath+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
     s+='<circle cx="'+last.x.toFixed(2)+'" cy="'+last.y.toFixed(2)+'" r="4" fill="'+col+'" stroke="#fff" stroke-width="1.5"/>';
+    // crosshair + hover dot, hidden until pointer moves over the chart
+    s+='<line id="chCross" x1="0" y1="'+T+'" x2="0" y2="'+(T+ph)+'" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3,3" opacity="0"/>';
+    s+='<circle id="chHoverDot" cx="0" cy="0" r="4" fill="'+col+'" stroke="#fff" stroke-width="1.5" opacity="0"/>';
     s+='</svg>';
+    s+='<span class="ch-axis-label" style="top:'+T+'px;right:8px">'+usd(max, max<1?4:0)+'</span>';
+    s+='<span class="ch-axis-label" style="bottom:'+B+'px;right:8px">'+usd(min, min<1?4:0)+'</span>';
+    s+='<div class="ch-tooltip" id="chTooltip"></div>';
     box.innerHTML=s;
+    lastChartMeta = {W:W,H:H,L:L,T:T,pw:pw,ph:ph,pts:pts,points:points,days:currentChartDays,col:col};
     touchChartUpdated();
   }
+
+  /* ---------- hover crosshair (bound once — box.innerHTML changes on every redraw,
+     but the #chartBox element itself persists, so a single listener here keeps working) ---------- */
+  (function(){
+    var box = $('chartBox');
+    if(!box) return;
+    function hide(){
+      var cross=$('chCross'), dot=$('chHoverDot'), tip=$('chTooltip');
+      if(cross) cross.setAttribute('opacity','0');
+      if(dot) dot.setAttribute('opacity','0');
+      if(tip) tip.classList.remove('show');
+    }
+    box.addEventListener('mousemove', function(e){
+      if(!lastChartMeta) return;
+      var svg = $('chSvg'); if(!svg) return;
+      var rect = svg.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      relX = Math.max(0, Math.min(1, relX));
+      var m = lastChartMeta;
+      var idx = Math.round(relX * (m.pts.length-1));
+      idx = Math.max(0, Math.min(m.pts.length-1, idx));
+      var pt = m.pts[idx];
+      var raw = m.points[idx];
+      var cross=$('chCross'), dot=$('chHoverDot'), tip=$('chTooltip');
+      if(!cross || !dot || !tip) return;
+      cross.setAttribute('x1', pt.x); cross.setAttribute('x2', pt.x); cross.setAttribute('opacity','0.7');
+      dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); dot.setAttribute('opacity','1');
+      tip.innerHTML = '<b>'+usd(raw[1], raw[1]<1?4:2)+'</b><br>'+fmtChartTime(raw[0], m.days);
+      var leftPct = (pt.x/m.W*100);
+      tip.style.left = leftPct+'%';
+      tip.style.top = (pt.y/m.H*100)+'%';
+      tip.classList.add('show');
+    });
+    box.addEventListener('mouseleave', hide);
+  })();
   /* ---------- resilient fetch helpers (protect against slow/rate-limited API under high traffic) ----------
      - fetchJson(): times out instead of hanging forever, so the UI never gets stuck "loading"
      - cacheGet/cacheSet(): sessionStorage cache so repeat views within the same session/tab
@@ -1268,7 +1323,8 @@
     currentChartDays=days;
     Array.prototype.forEach.call(document.querySelectorAll('.tf-btn'), function(b){ b.classList.toggle('on', b.dataset.d===days); });
     var c=coinBy(coinSel.value);
-    $('chartCoinLabelText').textContent = c.n+' ('+c.s+') · '+(days==='1'?'1 Day':days==='7'?'7 Days':days==='30'?'1 Month':'1 Year');
+    var labelMap={'1h':'1 Hour','1':'1 Day','7':'7 Days','30':'1 Month','365':'1 Year'};
+    $('chartCoinLabelText').textContent = c.n+' ('+c.s+') · '+(labelMap[days]||days);
     var key=c.s+':'+days;
     if(chartCache[key]){ drawChart(chartCache[key]); return; }
 
@@ -1284,9 +1340,28 @@
     if(cached){ chartCache[key]=cached; drawChart(cached); return; }
 
     $('chartBox').innerHTML='<div class="chart-loading">Loading chart…</div>';
-    fetchJson('https://api.coingecko.com/api/v3/coins/'+c.id+'/market_chart?vs_currency=usd&days='+days, 6000)
+
+    // 1H reuses the 1D series (CoinGecko's free API tops out at ~5-minute resolution
+    // via days=1 — there's no finer "1 minute" granularity without a paid feed) and
+    // slices the trailing 60 minutes from it, so it's real data, not a fake tick chart.
+    var fetchDays = days==='1h' ? '1' : days;
+    var fetchKey = c.s+':'+fetchDays;
+
+    function finish(prices){
+      var out = prices;
+      if(days==='1h'){
+        var cutoff = Date.now() - 60*60*1000;
+        var sliced = prices.filter(function(p){ return p[0]>=cutoff; });
+        out = sliced.length>1 ? sliced : prices.slice(-13);
+      }
+      chartCache[key]=out; cacheSet(cacheKey, out); drawChart(out);
+    }
+
+    if(chartCache[fetchKey]){ finish(chartCache[fetchKey]); return; }
+
+    fetchJson('https://api.coingecko.com/api/v3/coins/'+c.id+'/market_chart?vs_currency=usd&days='+fetchDays, 6000)
       .then(function(d){
-        if(d && d.prices && d.prices.length>1){ chartCache[key]=d.prices; cacheSet(cacheKey, d.prices); drawChart(d.prices); }
+        if(d && d.prices && d.prices.length>1){ chartCache[fetchKey]=d.prices; cacheSet('cf_chart_'+fetchKey, d.prices); finish(d.prices); }
         else { fallbackChart(c); }
       })
       .catch(function(){ fallbackChart(c); });
