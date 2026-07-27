@@ -2347,8 +2347,68 @@ assume this exact order still holds after a few weeks of new data.
     Card C/A/B payoff dates of Apr 2027/Jan 2028/Aug 2028) matches the
     Node-verified figures exactly.
 
+- **Crypto Profit Calculator link consolidated into Crypto Profit / Loss
+  Calculator** (Jul 27, 2026). Per explicit user instruction: the Finance
+  category previously listed a separate, older "Crypto Profit Calculator"
+  entry pointing to `/crypto-profit-calculator/` (a thinner, earlier build),
+  while the Crypto & Trading category already listed the fully-built
+  "Crypto Profit / Loss Calculator" at `/crypto-profit-loss-calculator/`.
+  User wanted the same one calculator (same URL) to show up under both
+  categories, with the old separate link gone.
+  - Added a 301 redirect (`/crypto-profit-calculator/` and the no-slash
+    variant \u2192 `/crypto-profit-loss-calculator/`) to `_redirects`, same
+    convention as the existing money-markets migration block. Confirmed via
+    Cloudflare's own docs before relying on this: redirects are always
+    followed regardless of whether a static asset exists at that path, so
+    the old `/crypto-profit-calculator/` folder didn't need to be deleted
+    for the redirect to take effect -- left the folder in place (harmless,
+    never served once the redirect fires) rather than risk an unrelated
+    deletion.
+  - Updated every live reference to the old link to the new one, matching
+    name/description/icon to the existing Crypto & Trading card exactly so
+    both category listings show the literal same calculator: the Finance
+    section card in `all-calculators/index.html`, the Finance-section entry
+    in `calculators-index.json` (used by the site search modal -- now has
+    two identical-name/link entries by design, one per category, matching
+    how the card appears twice on `all-calculators`), the Finance-section
+    row in `sitemap/index.html`, one entry in `llms.txt`, and both the
+    sidebar link and an inline body-text mention on `currency-calculator`'s
+    related-calculators content.
+  - Removed the now-redundant `<url>` block for `/crypto-profit-calculator`
+    from `sitemap.xml` entirely (a sitemap shouldn't list a URL that only
+    301-redirects).
+  - **Found but deliberately did not touch** (out of scope for this
+    request, noted below instead): a large legacy Next.js JS chunk
+    (`_next/static/chunks/3jjeklmpxnvz6.js`) also contains an embedded
+    calculator-metadata array with a `crypto-profit-calculator` slug --
+    confirmed via grep that this chunk is only `<script>`-referenced by a
+    handful of not-yet-rebuilt legacy pages (bmi-calculator, loan-
+    calculator, grade-calculator, gpa-calculator, the 404 pages) and NOT by
+    any of the pages actually edited here, so it can't silently overwrite
+    today's static-HTML edits at runtime. Left as-is since editing a shared
+    minified bundle for an unrelated task is exactly the kind of scope
+    creep this repo's "one calculator/task per commit" convention warns
+    against.
+  - Verified: `sitemap.xml` still valid XML, `calculators-index.json` still
+    valid JSON, tag-balance check clean on all touched HTML files, and a
+    full Playwright pass on `all-calculators/` confirmed zero remaining
+    `/crypto-profit-calculator/` links, exactly two identical `/crypto-
+    profit-loss-calculator/` cards (one per category) with matching name/
+    description text, and zero console errors; same pass on
+    `currency-calculator/` confirmed both the sidebar and inline links
+    updated with zero console errors.
+
 ## Standing notes for next session
 
+- **`llms.txt` is generally stale**, found in passing while fixing the crypto-
+  profit-calculator link (Jul 27, 2026): it still contains old `/money-markets/`
+  -prefixed URLs for several Crypto & Trading calculators (e.g. a duplicate
+  "Crypto Profit / Loss Calculator" line still pointed at
+  `/money-markets/crypto-profit-loss-calculator/`), left over from before that
+  section's URL restructure. Only fixed the one entry directly relevant to
+  today's task; a full pass to re-generate/clean up `llms.txt` against the
+  current live URL set is still outstanding and worth doing as its own
+  focused task rather than folding it into an unrelated change.
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498
   impressions, avg. position 53.1. Only click-generating query was "leverage
   calculator" (already a custom-built page). Everything else is

@@ -197,7 +197,7 @@
 - [Commission Calculator — Flat or Tiered Rates](https://calculatorboss.com/commission-calculator/)
 - [Confidence Interval Calculator — For a Mean](https://calculatorboss.com/confidence-interval-calculator/)
 - [Contact](https://calculatorboss.com/contact/)
-- [Crypto Profit / Loss Calculator](https://calculatorboss.com/crypto-profit-calculator/)
+- [Crypto Profit / Loss Calculator](https://calculatorboss.com/crypto-profit-loss-calculator/)
 - [Currency Calculator — Live Exchange Rates](https://calculatorboss.com/currency-calculator/)
 - [Day Counter — Days Between Two Dates](https://calculatorboss.com/day-counter/)
 - [Day of the Week Calculator](https://calculatorboss.com/day-of-the-week-calculator/)

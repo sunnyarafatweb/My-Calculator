@@ -60,3 +60,9 @@
 
 # --- Catch-all safety net for any other old money-markets URL we missed ---
 /money-markets/*                                   /all-calculators/#cry                  301
+
+# --- Crypto Profit Calculator consolidated into Crypto Profit / Loss Calculator ---
+# (same tool now listed under both Finance and Crypto & Trading categories at
+# this one URL; the old separate /crypto-profit-calculator/ page is superseded)
+/crypto-profit-calculator/                         /crypto-profit-loss-calculator/        301
+/crypto-profit-calculator                          /crypto-profit-loss-calculator/        301
