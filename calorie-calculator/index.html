@@ -596,9 +596,6 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-
 <script>
 (function(){
   function $(id){return document.getElementById(id);}
@@ -749,6 +746,28 @@
     render();
   });
 
+  // ---- Lazy-load jsPDF + autotable only when the user actually asks for a PDF ----
+  // (previously loaded unconditionally on every page view; most visitors never click this)
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = function(){ reject(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){
+        if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+      })
+      .then(function(){
+        if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
+      });
+    return pdfLibsPromise;
+  }
+
   function generatePdf(){
     if(!window.jspdf){alert('PDF library is still loading, please try again in a moment.');return;}
     try{
@@ -781,7 +800,21 @@
       alert('Sorry, there was a problem generating the PDF: '+e.message);
     }
   }
-  $('cal-pdfBtn').addEventListener('click',generatePdf);
+  function bindPdfBtn(id){
+    var btn = $(id);
+    btn.addEventListener('click', function(){
+      var original = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Loading…';
+      ensurePdfLibs().then(function(){
+        btn.textContent = original; btn.disabled = false;
+        generatePdf();
+      }).catch(function(){
+        btn.textContent = original; btn.disabled = false;
+        alert('Could not load the PDF library — check your connection and try again.');
+      });
+    });
+  }
+  bindPdfBtn('cal-pdfBtn');
 
   // Food Energy Converter — exact factors based on 1 kcal = 4.1868 kJ (International Table calorie)
   var FEC_TO_J = { kcal: 4186.8, cal: 4.1868, kj: 1000, j: 1 };
