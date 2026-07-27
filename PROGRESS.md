@@ -2074,6 +2074,19 @@ assume this exact order still holds after a few weeks of new data.
     math checked by hand, the never-pays-off warning state tested, PDF
     export tested.
 
+- **Credit Card Calculator — same-day follow-up field-parity check** (Jul
+  27, 2026, user explicitly asked to re-cross-check against calculator.net
+  to confirm no input fields were missing). Found one minor gap: their
+  "pay off within a certain timeframe" mode accepts Years + Months as two
+  separate fields (summed internally), while ours only had Months. Not a
+  functional limitation (any duration is expressible in months alone), but
+  added a Years field alongside Months for exact convenience-parity anyway.
+  Verified the combined value is used correctly (2yr + 6mo -> 30 months,
+  cross-checked against calling the payment formula directly with n=30 --
+  matched to the cent), re-checked for duplicate ids and JS syntax, and
+  re-ran the full Playwright pass (desktop+mobile, zero errors/overflow,
+  new field doesn't crowd the row).
+
 ## Standing notes for next session
 
 - **GSC data** (9-day window ending ~Jul 18, 2026): 11 total clicks, 498

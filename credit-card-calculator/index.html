@@ -531,7 +531,7 @@
     <p class="ccc-note-inline">These presets fill in a typical issuer minimum-payment formula for your current balance -- tap one to see how long a minimum-only payoff really takes.</p>
   </div>
   <div id="cccp-targetFields" style="display:none">
-    <div class="ccc-field"><span class="ccc-field-label">Pay off within</span><div class="ccc-field-control"><div class="ccc-input-group"><input type="number" id="cccp-targetmonths" value="24" step="1"><span>months</span></div></div></div>
+    <div class="ccc-field"><span class="ccc-field-label">Pay off within</span><div class="ccc-field-control"><div class="ccc-input-group"><input type="number" id="cccp-targetyears" value="0" step="1"><span>years</span></div><div class="ccc-input-group"><input type="number" id="cccp-targetmonths" value="24" step="1"><span>months</span></div></div></div>
   </div>
   <div class="ccc-btn-row"><button type="button" class="ccc-btn-calc" id="cccp-calcBtn">Calculate ▸</button><button type="button" class="ccc-btn-clear" id="cccp-clearBtn">Clear</button></div>
 </div>
@@ -672,7 +672,7 @@
       $('cccp-warnNote').textContent = months > 60 ? 'That is over '+(months/12).toFixed(1)+' years -- increasing the monthly payment even modestly can cut this time dramatically since credit card APRs are high.' : '';
       renderDonut(balance, totalInterest);
     } else {
-      var targetMonths = Math.max(1, val('cccp-targetmonths'));
+      var targetMonths = Math.max(1, val('cccp-targetyears')*12 + val('cccp-targetmonths'));
       var requiredPmt = payment(balance, apr, targetMonths);
       var totalPaid2 = requiredPmt*targetMonths;
       var totalInterest2 = totalPaid2 - balance;
@@ -707,7 +707,7 @@
 
   $('cccp-calcBtn').addEventListener('click', renderPayoff);
   $('cccp-clearBtn').addEventListener('click', function(){
-    $('cccp-balance').value=7000; $('cccp-apr').value=21; $('cccp-payment').value=200; $('cccp-targetmonths').value=24;
+    $('cccp-balance').value=7000; $('cccp-apr').value=21; $('cccp-payment').value=200; $('cccp-targetyears').value=0; $('cccp-targetmonths').value=24;
     setMode('payment');
     renderPayoff();
   });
