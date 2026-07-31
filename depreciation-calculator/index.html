@@ -383,7 +383,7 @@
 .dep-input-group input{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
 .dep-select{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--font-body)}
 .dep-tip{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--border);color:var(--ink-soft);font-size:9.5px;font-weight:700;margin-left:4px;cursor:help;vertical-align:middle}
-.dep-hint{font-size:11px;color:var(--ink-faint);margin-top:2px;line-height:1.5}
+.dep-hint{font-size:12px;color:var(--ink-faint);margin-top:2px;line-height:1.5}
 
 .dep-btn-row{display:flex;gap:8px;padding-top:16px}
 .dep-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;flex:1.3}
@@ -420,7 +420,7 @@
 .dep-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .dep-sched-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
 .dep-sched-table{min-width:460px;width:100%;font-size:12.5px;border-collapse:collapse}
-.dep-sched-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:11px;text-transform:uppercase}
+.dep-sched-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:12px;text-transform:uppercase}
 .dep-sched-table th:first-child,.dep-sched-table td:first-child{text-align:left}
 .dep-sched-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
 .dep-sched-table td:last-child{font-weight:600;color:#16A34A}
@@ -431,15 +431,15 @@
 @media(max-width:520px){
   .dep-field{flex-wrap:wrap}
   .dep-field-label{width:100%}
-  .dep-sched-table{min-width:0;font-size:11px}
+  .dep-sched-table{min-width:0;font-size:12px}
   .dep-sched-table th,.dep-sched-table td{padding:7px 6px}
 }
 
 .dep-mrow{display:none}
 .dep-mrow.on{display:flex}
-.dep-checkrow{display:none;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
+.dep-checkrow{display:none;align-items:center;gap:10px;min-height:28px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
 .dep-checkrow.on{display:flex}
-.dep-checkrow input{width:16px;height:16px;flex-shrink:0}
+.dep-checkrow input{width:20px;height:20px;min-width:20px;min-height:20px;flex-shrink:0}
 
 .dep-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .dep-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
@@ -484,20 +484,20 @@
 
   <div class="dep-card dep-area-form">
     <div class="dep-card-pad">
-      <div class="dep-field dep-mrow on" data-modes="sl db syd units macrs"><span class="dep-field-label">Asset Cost</span><div class="dep-field-control"><div class="dep-input-group"><span>$</span><input id="dep-cost" type="number" min="0" step="100" value="10000"></div></div></div>
+      <div class="dep-field dep-mrow on" data-modes="sl db syd units macrs"><span class="dep-field-label">Asset Cost</span><div class="dep-field-control"><div class="dep-input-group"><span>$</span><input id="dep-cost" type="number" min="0" step="100" value="10000" aria-label="Asset Cost"></div></div></div>
 
-      <div class="dep-field dep-mrow on" data-modes="sl db syd units"><span class="dep-field-label">Salvage Value<span class="dep-tip" title="What you expect the asset to be worth at the end of its useful life. Enter 0 if you expect it to be worthless.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><span>$</span><input id="dep-salvage" type="number" min="0" step="100" value="1000"></div></div></div>
+      <div class="dep-field dep-mrow on" data-modes="sl db syd units"><span class="dep-field-label">Salvage Value<span class="dep-tip" title="What you expect the asset to be worth at the end of its useful life. Enter 0 if you expect it to be worthless.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><span>$</span><input id="dep-salvage" type="number" min="0" step="100" value="1000" aria-label="Salvage Value"></div></div></div>
 
-      <div class="dep-field dep-mrow on" data-modes="sl db syd"><span class="dep-field-label">Useful Life</span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-life" type="number" min="1" max="60" step="1" value="5"><span>years</span></div></div></div>
+      <div class="dep-field dep-mrow on" data-modes="sl db syd"><span class="dep-field-label">Useful Life</span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-life" type="number" min="1" max="60" step="1" value="5" aria-label="Useful Life, years"><span>years</span></div></div></div>
 
-      <div class="dep-field dep-mrow" data-modes="db"><span class="dep-field-label">Depreciation Factor<span class="dep-tip" title="A factor of 2 is the common 'double declining balance' method. 1.5 is also widely used.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-factor" type="number" min="1" max="3" step="0.1" value="2"><span>&times;</span></div></div></div>
+      <div class="dep-field dep-mrow" data-modes="db"><span class="dep-field-label">Depreciation Factor<span class="dep-tip" title="A factor of 2 is the common 'double declining balance' method. 1.5 is also widely used.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-factor" type="number" min="1" max="3" step="0.1" value="2" aria-label="Depreciation Factor"><span>&times;</span></div></div></div>
 
-      <div class="dep-field dep-mrow" data-modes="units"><span class="dep-field-label">Total Lifetime Units<span class="dep-tip" title="Total units, hours or miles you expect this asset to produce over its whole life.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-totalUnits" type="number" min="1" step="100" value="100000"><span>units</span></div></div></div>
+      <div class="dep-field dep-mrow" data-modes="units"><span class="dep-field-label">Total Lifetime Units<span class="dep-tip" title="Total units, hours or miles you expect this asset to produce over its whole life.">?</span></span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-totalUnits" type="number" min="1" step="100" value="100000" aria-label="Total Lifetime Units, units"><span>units</span></div></div></div>
 
-      <div class="dep-field dep-mrow" data-modes="units"><span class="dep-field-label">Units This Period</span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-periodUnits" type="number" min="0" step="100" value="12000"><span>units</span></div></div></div>
+      <div class="dep-field dep-mrow" data-modes="units"><span class="dep-field-label">Units This Period</span><div class="dep-field-control"><div class="dep-input-group"><input id="dep-periodUnits" type="number" min="0" step="100" value="12000" aria-label="Units This Period, units"><span>units</span></div></div></div>
 
       <div class="dep-field dep-mrow" data-modes="macrs"><span class="dep-field-label">Property Class<span class="dep-tip" title="The IRS recovery period for your asset type. Most equipment is 5-year or 7-year property.">?</span></span><div class="dep-field-control">
-        <select id="dep-macrsClass" class="dep-select">
+        <select id="dep-macrsClass" class="dep-select" aria-label="Property Class">
           <option value="3">3-year (tools, certain manufacturing)</option>
           <option value="5" selected>5-year (cars, computers, office equipment)</option>
           <option value="7">7-year (most machinery &amp; furniture)</option>
@@ -508,17 +508,17 @@
       </div></div>
 
       <div class="dep-checkrow dep-mrow on" data-modes="sl db syd units macrs">
-        <input type="checkbox" id="dep-round">
+        <input type="checkbox" id="dep-round" aria-label="Property Class">
         <label for="dep-round">Round results to whole dollars</label>
       </div>
 
       <div class="dep-checkrow dep-mrow on" data-modes="sl db syd">
-        <input type="checkbox" id="dep-partial">
+        <input type="checkbox" id="dep-partial" aria-label="Property Class">
         <label for="dep-partial">Partial-year depreciation (asset placed in service mid-year)</label>
       </div>
 
       <div class="dep-field dep-mrow" data-modes="partialrow"><span class="dep-field-label">Convention<span class="dep-tip" title="How much of the first accounting year the asset is treated as being in service.">?</span></span><div class="dep-field-control">
-        <select id="dep-convention" class="dep-select">
+        <select id="dep-convention" class="dep-select" aria-label="Property Class">
           <option value="day">Count Every Day</option>
           <option value="halfmonth" selected>Half-Month</option>
           <option value="fullmonth">Full-Month</option>
@@ -529,23 +529,23 @@
       </div></div>
 
       <div class="dep-field dep-mrow" data-modes="partialrow"><span class="dep-field-label">Start of Asset Service</span><div class="dep-field-control">
-        <select id="dep-svcMonth" class="dep-select" style="flex:1.4">
+        <select id="dep-svcMonth" class="dep-select" style="flex:1.4" aria-label="Property Class">
           <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
           <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
           <option value="7" selected>Jul</option><option value="8">Aug</option><option value="9">Sep</option>
           <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
         </select>
-        <div class="dep-input-group" style="flex:1"><input id="dep-svcDay" type="number" min="1" max="31" step="1" value="1"></div>
+        <div class="dep-input-group" style="flex:1"><input id="dep-svcDay" type="number" min="1" max="31" step="1" value="1" aria-label="Property Class"></div>
       </div></div>
 
       <div class="dep-field dep-mrow" data-modes="partialrow"><span class="dep-field-label">Start of Accounting Year<span class="dep-tip" title="Most businesses use a calendar year starting January 1. Change this if your fiscal year starts elsewhere.">?</span></span><div class="dep-field-control">
-        <select id="dep-acctMonth" class="dep-select" style="flex:1.4">
+        <select id="dep-acctMonth" class="dep-select" style="flex:1.4" aria-label="Start of Accounting Year">
           <option value="1" selected>Jan</option><option value="2">Feb</option><option value="3">Mar</option>
           <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
           <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
           <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
         </select>
-        <div class="dep-input-group" style="flex:1"><input id="dep-acctDay" type="number" min="1" max="31" step="1" value="1"></div>
+        <div class="dep-input-group" style="flex:1"><input id="dep-acctDay" type="number" min="1" max="31" step="1" value="1" aria-label="Start of Accounting Year"></div>
       </div></div>
 
       <div class="dep-btn-row">

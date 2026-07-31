@@ -383,7 +383,7 @@
 .fin-input-group input{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
 .fin-select{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--font-body)}
 .fin-tip{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--border);color:var(--ink-soft);font-size:9.5px;font-weight:700;margin-left:4px;cursor:help;vertical-align:middle}
-.fin-hint{font-size:11px;color:var(--ink-faint);margin-top:2px;line-height:1.5}
+.fin-hint{font-size:12px;color:var(--ink-faint);margin-top:2px;line-height:1.5}
 
 .fin-btn-row{display:flex;gap:8px;padding-top:16px}
 .fin-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;flex:1.3}
@@ -420,7 +420,7 @@
 .fin-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .fin-sched-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
 .fin-sched-table{min-width:460px;width:100%;font-size:12.5px;border-collapse:collapse}
-.fin-sched-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:11px;text-transform:uppercase}
+.fin-sched-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:12px;text-transform:uppercase}
 .fin-sched-table th:first-child,.fin-sched-table td:first-child{text-align:left}
 .fin-sched-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
 .fin-sched-table td:last-child{font-weight:600;color:#16A34A}
@@ -431,7 +431,7 @@
 @media(max-width:520px){
   .fin-field{flex-wrap:wrap}
   .fin-field-label{width:100%}
-  .fin-sched-table{min-width:0;font-size:11px}
+  .fin-sched-table{min-width:0;font-size:12px}
   .fin-sched-table th,.fin-sched-table td{padding:7px 6px}
 }
 
@@ -487,23 +487,23 @@
   <div class="fin-card fin-area-form" id="fin-form">
     <div class="fin-card-pad">
 
-      <div class="fin-field" id="fin-rowN"><span class="fin-field-label">N (# of periods)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-n" type="number" step="1" value="12"></div></div></div>
+      <div class="fin-field" id="fin-rowN"><span class="fin-field-label">N (# of periods)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-n" type="number" step="1" value="12" aria-label="N (# of periods)"></div></div></div>
 
-      <div class="fin-field" id="fin-rowI"><span class="fin-field-label">I/Y (Interest per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-iy" type="number" step="0.01" value="7"><span>%</span></div></div></div>
+      <div class="fin-field" id="fin-rowI"><span class="fin-field-label">I/Y (Interest per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-iy" type="number" step="0.01" value="7" aria-label="I/Y (Interest per year), %"><span>%</span></div></div></div>
 
-      <div class="fin-field" id="fin-rowPV"><span class="fin-field-label">PV (Present Value)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-pv" type="number" step="100" value="25000"></div></div></div>
+      <div class="fin-field" id="fin-rowPV"><span class="fin-field-label">PV (Present Value)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-pv" type="number" step="100" value="25000" aria-label="PV (Present Value)"></div></div></div>
 
-      <div class="fin-field" id="fin-rowPMT"><span class="fin-field-label">PMT (Periodic Payment)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-pmt" type="number" step="100" value="-2500"></div></div></div>
+      <div class="fin-field" id="fin-rowPMT"><span class="fin-field-label">PMT (Periodic Payment)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-pmt" type="number" step="100" value="-2500" aria-label="PMT (Periodic Payment)"></div></div></div>
 
-      <div class="fin-field" id="fin-rowFV"><span class="fin-field-label">FV (Future Value)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-fv" type="number" step="100" value="0"></div></div></div>
+      <div class="fin-field" id="fin-rowFV"><span class="fin-field-label">FV (Future Value)</span><div class="fin-field-control"><div class="fin-input-group"><span>$</span><input id="fin-fv" type="number" step="100" value="0" aria-label="FV (Future Value)"></div></div></div>
 
       <div class="fin-hint" style="padding-bottom:4px">Money you receive is positive, money you pay out is negative.</div>
 
       <div class="fin-morelink"><button type="button" id="fin-moreBtn">+ Settings</button></div>
 
       <div id="fin-advWrap" style="display:none">
-        <div class="fin-field"><span class="fin-field-label">P/Y (periods per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-py" type="number" min="1" max="365" step="1" value="1"></div></div></div>
-        <div class="fin-field"><span class="fin-field-label">C/Y (compounds per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-cy" type="number" min="1" max="365" step="1" value="1"></div></div></div>
+        <div class="fin-field"><span class="fin-field-label">P/Y (periods per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-py" type="number" min="1" max="365" step="1" value="1" aria-label="P/Y (periods per year)"></div></div></div>
+        <div class="fin-field"><span class="fin-field-label">C/Y (compounds per year)</span><div class="fin-field-control"><div class="fin-input-group"><input id="fin-cy" type="number" min="1" max="365" step="1" value="1" aria-label="C/Y (compounds per year)"></div></div></div>
         <div class="fin-field"><span class="fin-field-label">PMT made at</span><div class="fin-field-control">
           <div class="fin-seg" id="fin-timing">
             <button type="button" class="active" data-t="0">End of period</button><button type="button" data-t="1">Beginning</button>
