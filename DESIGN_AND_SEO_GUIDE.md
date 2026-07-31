@@ -93,6 +93,48 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
 
 ---
 
+## 3a-PRIME. CALCULATOR PARITY & CROSS-CHECK PROTOCOL — standing user directive (added Jul 31, 2026)
+
+**This supersedes and formalises section 3a below. It is a direct standing instruction from the site owner and applies to every calculator build or update, without being re-stated.** It exists because a batch of five calculators shipped in this session were reported as "done" while still missing large parts of calculator.net's field set and result layout — the owner found the gaps, not the automated checks.
+
+### The core rule
+
+**Must match calculator.net exactly:**
+- Every input field, dropdown, toggle, unit selector, "Advanced/More Options" section, and sub-tab/mode it has for this calculator.
+- Every output/result field, breakdown line item, chart, and summary metric it displays.
+- The underlying calculation logic — the same inputs must produce the same numbers.
+
+**Must stay different:**
+- Visual design, layout and UX — always this site's own 3-card system, never calculator.net's look.
+- All wording, field labels and copy — equivalent in meaning, never literal copy.
+- The SEO article — 100% original, 1000–1500+ words, AdSense-safe.
+- Default/example input values — must differ from calculator.net's reference examples.
+
+### Mandatory seven-step process, every calculator, every time
+
+1. **Live audit.** Fetch the live calculator.net page *now* — never work from memory. Tabulate every input: name, type, unit, default, and whether it sits inside an Advanced/optional section. Note every tab or mode variant.
+2. **Field map.** Two-column checklist, `calculator.net field ↔ our field`. Every one of their fields maps to something. Any deliberate omission, merge or rename is flagged with a reason — never dropped silently.
+3. **Build** using this site's established layout, components and CSS variables.
+4. **Numeric verification.** Pick 2–3 concrete inputs, derive calculator.net's expected output for those same inputs, confirm our code returns matching numbers, and show the test.
+5. **Result-field parity check.** List every output metric, line item and chart they display; mark each ✅ present or ❌ missing against our result card. Nothing ships with an ❌.
+6. **Final self cross-check.** Re-open the step-2 and step-5 checklists and re-verify them **against the code actually written, not against the plan** — the two drift. Only report completion after this pass is 100%.
+7. **Report** in exactly this format:
+   ```
+   Input fields:  X/X matched
+   Result fields: X/X matched
+   Test cases:    [input → expected → actual] x2-3
+   Intentional differences (if any): ...
+   ```
+
+### Standing rule
+
+Do not ask the owner to re-check fields one by one. That verification is the assistant's responsibility, every time, before reporting a calculator finished.
+
+### Two honest working notes on applying this protocol
+
+- **Verify in a browser, not just in the DOM/source.** A failure mode hit twice in the Jul 31 session: a `grep` or `querySelector` confirms an element "exists" while the rendered page still looks wrong. The card headings that vanished into the page background (identical `--surface-sunken` and `--bg`) passed every DOM check and were still visibly broken. Step 6 means screenshotting or measuring computed geometry, not just asserting the node is present.
+- **Where calculator.net is demonstrably wrong, match the field but not the error — and say so.** Their FHA page computes upfront MIP as 1.75% of the *home price*; HUD defines it as 1.75% of the *base loan amount*, which is also what real lender calculators produce. The correct figure was kept, the input was made editable so any quote can be reproduced, and the difference is explained on the page. Parity means covering every field and matching results where their maths is right — not replicating a bug into a YMYL page. Any such deviation must be flagged in the step-7 report under "Intentional differences", never made quietly.
+
 ## 3a. Feature-parity cross-check — MANDATORY, every calculator, from now on (added Jul 27, 2026)
 
 **Standing directive, applies to every calculator build or upgrade going forward, no exceptions:** before finalizing input fields or result rows, live-fetch calculator.net's equivalent page (and, where useful, one or two other majors already used for keyword research in section 4 — Bankrate, NerdWallet, Experian, etc.) and explicitly diff:
