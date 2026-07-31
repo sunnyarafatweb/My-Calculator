@@ -527,7 +527,7 @@
       <div class="dsc-steps" id="dsc-steps"></div>
       <div class="dsc-chart-box">
         <svg viewBox="0 0 320 120" class="dsc-svg" id="dsc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="dsc-chart-legend"><span><i style="background:#16A34A"></i>What you pay</span><span><i style="background:#F97316"></i>What you save</span></div>
+        <div class="dsc-chart-legend" id="dsc-barLegend"></div>
       </div>
     </div>
 
@@ -699,6 +699,15 @@
   }
 
   function renderBar(o){
+    var base = (o.original||0) > 0 ? o.original : 0;
+    var payPct  = base>0 ? Math.max(0,Math.min(100,(o.pay||0)/base*100))  : 0;
+    var savePct = base>0 ? Math.max(0,Math.min(100,(o.save||0)/base*100)) : 0;
+    var leg = $('dsc-barLegend');
+    if(leg){
+      leg.innerHTML =
+        '<span><i style="background:#16A34A"></i>What you pay <b style="color:var(--ink);margin-left:3px">'+payPct.toFixed(1)+'%</b></span>'+
+        '<span><i style="background:#F97316"></i>What you save <b style="color:var(--ink);margin-left:3px">'+savePct.toFixed(1)+'%</b></span>';
+    }
     var W=320,H=120,left=20,right=300,top=28,barH=34;
     var total = Math.max(o.original||0, 0.0001);
     var payW = Math.max(0, Math.min(1, (o.pay||0)/total))*(right-left);

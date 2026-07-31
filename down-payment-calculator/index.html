@@ -446,6 +446,7 @@
 
 .dpc-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .dpc-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dpc-chart-legend{gap:8px 9px !important}
 .dpc-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
 
 .dpc-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
@@ -527,7 +528,7 @@
       <div class="dpc-panel-head">Where the Money Goes</div>
       <div class="dpc-chart-box">
         <svg viewBox="0 0 320 120" class="dpc-svg" id="dpc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="dpc-chart-legend"><span><i style="background:#16A34A"></i>Down payment</span><span><i style="background:#F97316"></i>Closing costs</span><span><i style="background:#94A3B8"></i>Financed</span></div>
+        <div class="dpc-chart-legend" id="dpc-barLegend"></div>
       </div>
       <p class="dpc-note">Closing costs and PMI are estimates based on the rates you enter. Your Loan Estimate from the lender is the authoritative figure.</p>
     </div>
@@ -689,6 +690,15 @@
   }
 
   function renderBar(o){
+    var base = (o.price||0) > 0 ? o.price : 0;
+    function share(v){ return base>0 ? Math.max(0,Math.min(100,(v||0)/base*100)) : 0; }
+    var leg = $('dpc-barLegend');
+    if(leg){
+      leg.innerHTML =
+        '<span><i style="background:#16A34A"></i>Down <b style="color:var(--ink);margin-left:3px">'+share(o.down).toFixed(1)+'%</b></span>'+
+        '<span><i style="background:#F97316"></i>Closing <b style="color:var(--ink);margin-left:3px">'+share(o.closing).toFixed(1)+'%</b></span>'+
+        '<span><i style="background:#94A3B8"></i>Financed <b style="color:var(--ink);margin-left:3px">'+share(o.loan).toFixed(1)+'%</b></span>';
+    }
     var W=320,H=120,left=20,right=300,top=30,barH=34;
     var total = Math.max(o.price||0, 0.0001);
     var w = right-left;
