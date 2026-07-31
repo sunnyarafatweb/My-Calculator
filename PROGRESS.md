@@ -2446,6 +2446,52 @@ assume this exact order still holds after a few weeks of new data.
     is unchanged -- these were genuine bug fixes with no side effects on
     the already-correct paths.
 
+- **Debt Consolidation Calculator: further pass on top of the same-day
+  rebuild above** (Jul 31, 2026, separate session running in parallel with
+  the one that produced the "dead template to custom-built" rebuild
+  described in the commit this entry sits after). Both sessions
+  independently rebuilt this page to the 3-card pattern at the same time;
+  this pass fetched the other session's already-pushed version before
+  pushing its own, compared the two rather than blindly overwriting, and
+  kept that version as the base (it was already solid: weighted-average
+  rate, fee-adjusted real-APR bisection solver, 8 exact-match FAQs, lazy
+  PDF) while adding what a feature/content diff showed was genuinely
+  missing relative to the site's own standing pattern and this page's
+  keyword research:
+  - **Amortization Schedule (Annual/Monthly toggle) + a stacked
+    principal-vs-interest bar chart by year** for the new consolidation
+    loan — the base version had a single comparison chart but no schedule
+    table at all, and the Annual/Monthly-schedule-plus-stacked-chart
+    pairing is the site's own standing bottomgrid convention (see
+    auto-loan-calculator, apr-calculator) that every 3-card page is
+    expected to carry.
+  - **Break-even Point** output (months for the loan fee to be recovered
+    via lower monthly payments) — surfaced during this page's own keyword
+    research as a real, repeatedly-used concept on competitor pages
+    (calculatorbank.com, LendingTree's fee discussion), not present in the
+    base version.
+  - A debt-row cap (20, matching calculator.net's own limit) with a plain-
+    language warning once reached, rather than an unbounded list.
+  - Title/meta description merged: kept the base version's
+    APR-forward title (`— Compare Your Real Savings & APR`) since it
+    covers more of the researched keyword set than this session's
+    independently-drafted title, rather than reverting it.
+  - Re-verified everything after merging in the additions: all schema
+    blocks valid JSON, 8/8 FAQ schema-vs-visible exact match, zero
+    duplicate ids, inline script passes `node --check`, protected style
+    block confirmed byte-identical to a current reference page, full
+    Playwright pass (desktop 1400px + mobile 390px) shows zero console/
+    page errors, zero horizontal overflow, `h1` at font-weight 700, and
+    the new schedule/chart/break-even additions all populate correctly
+    alongside the base version's existing working features.
+  - **Process note for future sessions**: this is the second time in one
+    day two sessions have independently built out the same queued page
+    (see the token-reuse note below for the other recurring cross-session
+    issue). Worth considering whether the priority queue in this file
+    should be checked/claimed at the start of a session, or the user
+    confirms which page is "taken," before starting a full rebuild, to
+    avoid this doubled effort recurring.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
@@ -2482,7 +2528,17 @@ assume this exact order still holds after a few weeks of new data.
   session (Credit Card Payoff Calculator rebuild)**: it happened again (a
   fifth time) — a new PAT was pasted directly in the first message of this
   session too. Treat that token as burned and rotate it before the next
-  session.
+  session. **Update, Jul 31, 2026 session (Debt Consolidation Calculator
+  rebuild)**: happened a sixth time, and this time it was worse — the user
+  explicitly asked to reuse the same already-flagged-as-burned token from a
+  prior session's transcript rather than even generating a new one, and it
+  was still valid/functional — meaning it was never actually rotated
+  despite five prior notes saying to. Flagged again at the very start of
+  this session before doing any other work. Six notes in without the
+  underlying rotation happening; if a durable fix (the user storing the
+  token outside the chat and Claude Code/CLI reading it from local
+  environment instead) isn't in place before the next session, treat this
+  as a standing unresolved risk rather than a one-off reminder.
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
