@@ -1,5 +1,5 @@
 # CalculatorBoss — Design & SEO Build Guide
-*Last updated: 2026-07-18. This file is the persistent reference for how every calculator page on this site must be designed, written, and SEO-optimized. Read this in full before building or upgrading any page.*
+*Last updated: 2026-07-31. This file is the persistent reference for how every calculator page on this site must be designed, written, and SEO-optimized. Read this in full before building or upgrading any page. Section 3a-PRIME is a standing owner directive and governs every calculator build.*
 
 ---
 
