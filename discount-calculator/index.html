@@ -440,8 +440,11 @@
 .dsc-steps{margin:10px 20px 12px;font-size:12.5px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:10px;padding:12px 14px;line-height:1.75}
 .dsc-steps b{color:var(--ink)}
 
-.dsc-type-toggle{display:flex;flex:1;min-width:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
-.dsc-type-toggle button{flex:1;border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:600;padding:9px 6px;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+.dsc-type-toggle{display:flex;flex:1 1 100%;min-width:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.dsc-type-toggle button{flex:1;border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:600;padding:9px 4px;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+.dsc-typerow{flex-wrap:wrap}
+.dsc-typerow .dsc-field-label{width:100%;margin-bottom:6px}
+.dsc-typerow .dsc-field-control{width:100%;flex:1 1 100%}
 .dsc-type-toggle button.active{background:#1E3A5F;color:#fff}
 .dsc-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .dsc-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
@@ -475,40 +478,39 @@
 
   <div class="dsc-tabs dsc-area-tabs">
     <button type="button" class="dsc-tab active" data-mode="main">Discount</button>
-    <button type="button" class="dsc-tab" data-mode="stack">Extra % Off</button>
     <button type="button" class="dsc-tab" data-mode="bogo">Buy One Get One</button>
   </div>
 
-  <div class="dsc-card dsc-area-form">
+  <div class="dsc-card dsc-area-form" id="dsc-form">
     <div class="dsc-card-pad">
 
-      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Discount Type</span><div class="dsc-field-control">
+      <div class="dsc-field dsc-mrow on dsc-typerow" data-modes="main"><span class="dsc-field-label">Discount Type</span><div class="dsc-field-control">
         <div class="dsc-type-toggle" id="dsc-typeToggle">
-          <button type="button" class="active" data-t="pct">Percent off</button><button type="button" data-t="amt">Fixed amount off</button>
+          <button type="button" class="active" data-t="pct">Percent off</button><button type="button" data-t="amt">Amount off</button><button type="button" data-t="stack">Extra % off</button>
         </div>
       </div></div>
 
-      <div class="dsc-field dsc-mrow on" data-modes="main stack"><span class="dsc-field-label">Original Price</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-price" type="number" min="0" step="1" value="120"></div></div></div>
+      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Original Price</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-price" type="number" min="0" step="1" value="120"></div></div></div>
 
-      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label" id="dsc-discLabel">Discount</span><div class="dsc-field-control"><div class="dsc-input-group"><span id="dsc-discPre" style="display:none">$</span><input id="dsc-disc" type="number" min="0" step="1" value="25"><span id="dsc-discSuf">% off</span></div></div></div>
+      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label" id="dsc-discLabel">Discount</span><div class="dsc-field-control"><div class="dsc-input-group"><span id="dsc-discPre" style="display:none">$</span><input id="dsc-disc" data-grp="simple" type="number" min="0" step="1" value="25"><span id="dsc-discSuf">% off</span></div></div></div>
 
-      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Final Price <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-sale" type="number" min="0" step="1" value="0"></div></div></div>
+      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Final Price <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-sale" data-grp="simple" type="number" min="0" step="1" value="0"></div></div></div>
 
-      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Amount Saved <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-saved" type="number" min="0" step="1" value="0"></div></div></div>
+      <div class="dsc-field dsc-mrow on" data-modes="main"><span class="dsc-field-label">Amount Saved <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-saved" data-grp="simple" type="number" min="0" step="1" value="0"></div></div></div>
 
-      <div class="dsc-hint dsc-mrow on" data-modes="main" style="padding-bottom:6px">Fill in any <strong>two</strong> boxes and leave the rest at 0 &mdash; the others are worked out for you.</div>
+      <div class="dsc-hint dsc-mrow on" id="dsc-solveHint" data-modes="main" style="padding-bottom:6px">Fill in any <strong>two</strong> boxes and leave the rest at 0 &mdash; the others are worked out for you.</div>
 
-      <div class="dsc-field dsc-mrow" data-modes="stack"><span class="dsc-field-label">First Discount</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s1" type="number" min="0" max="100" step="1" value="20"><span>% off</span></div></div></div>
-      <div class="dsc-field dsc-mrow" data-modes="stack"><span class="dsc-field-label">Then Another</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s2" type="number" min="0" max="100" step="1" value="10"><span>% off</span></div></div></div>
-      <div class="dsc-field dsc-mrow" data-modes="stack"><span class="dsc-field-label">Then Another <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s3" type="number" min="0" max="100" step="1" value="0"><span>% off</span></div></div></div>
-      <div class="dsc-field dsc-mrow" data-modes="stack"><span class="dsc-field-label">Coupon Off <span style="color:var(--ink-faint)">(optional)</span><span class="dsc-tip" title="A fixed-dollar coupon applied after the percentage discounts.">?</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-scoupon" type="number" min="0" step="1" value="0"></div></div></div>
+      <div class="dsc-field dsc-mrow" data-modes="main"><span class="dsc-field-label">First Discount</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s1" data-grp="stackrow" type="number" min="0" max="100" step="1" value="20"><span>% off</span></div></div></div>
+      <div class="dsc-field dsc-mrow" data-modes="main"><span class="dsc-field-label">Then Another</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s2" data-grp="stackrow" type="number" min="0" max="100" step="1" value="10"><span>% off</span></div></div></div>
+      <div class="dsc-field dsc-mrow" data-modes="main"><span class="dsc-field-label">Then Another <span style="color:var(--ink-faint)">(optional)</span></span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-s3" data-grp="stackrow" type="number" min="0" max="100" step="1" value="0"><span>% off</span></div></div></div>
+      <div class="dsc-field dsc-mrow" data-modes="main"><span class="dsc-field-label">Coupon Off <span style="color:var(--ink-faint)">(optional)</span><span class="dsc-tip" title="A fixed-dollar coupon applied after the percentage discounts.">?</span></span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-scoupon" data-grp="stackrow" type="number" min="0" step="1" value="0"></div></div></div>
 
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Price Per Item</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-bprice" type="number" min="0" step="1" value="50"></div></div></div>
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Buy This Many</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-bbuy" type="number" min="1" step="1" value="1"><span>at full price</span></div></div></div>
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Get This Many</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-bfree" type="number" min="1" step="1" value="1"><span>discounted</span></div></div></div>
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Discount On Those</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-bpct" type="number" min="0" max="100" step="5" value="100"><span>% off</span></div></div></div>
 
-      <div class="dsc-field dsc-mrow on" data-modes="main stack bogo"><span class="dsc-field-label">Sales Tax <span style="color:var(--ink-faint)">(optional)</span><span class="dsc-tip" title="In the US, sales tax is normally applied to the discounted price, so a real discount lowers the tax too.">?</span></span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-tax" type="number" min="0" max="30" step="0.01" value="0"><span>%</span></div></div></div>
+      <div class="dsc-field dsc-mrow on" data-modes="main bogo"><span class="dsc-field-label">Sales Tax <span style="color:var(--ink-faint)">(optional)</span><span class="dsc-tip" title="In the US, sales tax is normally applied to the discounted price, so a real discount lowers the tax too.">?</span></span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-tax" type="number" min="0" max="30" step="0.01" value="0"><span>%</span></div></div></div>
 
       <div class="dsc-btn-row">
         <button type="button" class="dsc-btn-calc" id="dsc-calcBtn">Calculate &#9656;</button>
@@ -593,10 +595,38 @@
   //      against calculator.net's own published percent-off example) ----
   function clampPct(x){ return Math.min(100, Math.max(0, x)); }
 
+  function stackCompute(o, tax){
+
+      var price3 = Math.max(0, num('dsc-price'));
+      var ds = [clampPct(num('dsc-s1')), clampPct(num('dsc-s2')), clampPct(num('dsc-s3'))].filter(function(d){ return d>0; });
+      var coupon = Math.max(0, num('dsc-scoupon'));
+      var running = price3, parts = [];
+      ds.forEach(function(d){
+        var amt = running*d/100; running -= amt;
+        parts.push(d+'% off &rarr; &minus;'+money(amt)+' (now '+money(running)+')');
+      });
+      if(coupon > 0){
+        var c = Math.min(coupon, running); running -= c;
+        parts.push('$'+coupon.toFixed(2)+' coupon &rarr; &minus;'+money(c)+' (now '+money(running)+')');
+      }
+      o.original=price3; o.pay=running; o.save=price3-running;
+      o.pct = price3>0 ? o.save/price3*100 : 0;
+      o.steps = parts.length ? parts.join('<br>') : 'Add at least one discount above.';
+      var naive = ds.reduce(function(s,d){ return s+d; }, 0);
+      if(ds.length > 1) o.naiveNote = 'Added together those look like '+naive.toFixed(0)+'% off, but stacking them really gives '+o.pct.toFixed(1)+'%.';
+    
+    if(tax > 0){ o.taxAmt = o.pay*tax/100; o.withTax = o.pay + o.taxAmt; }
+    if(o.original === 0 && !o.warn) o.warn = 'Enter a price above to see your savings.';
+    return o;
+  }
+
   function compute(){
     var tax = Math.max(0, num('dsc-tax'));
     var o = {mode:mode, tax:tax, warn:'', steps:''};
 
+    if(mode === 'main' && discType === 'stack'){
+      return stackCompute(o, tax);
+    }
     if(mode === 'main'){
       // One section covering percent-off, fixed-amount-off and solving backwards.
       // The user fills any two boxes; whatever is missing is derived.
@@ -666,25 +696,6 @@
       }
       o.pct = (o.original > 0) ? o.save/o.original*100 : 0;
       o.solved = solvedFor;
-    }
-    else if(mode === 'stack'){
-      var price3 = Math.max(0, num('dsc-price'));
-      var ds = [clampPct(num('dsc-s1')), clampPct(num('dsc-s2')), clampPct(num('dsc-s3'))].filter(function(d){ return d>0; });
-      var coupon = Math.max(0, num('dsc-scoupon'));
-      var running = price3, parts = [];
-      ds.forEach(function(d){
-        var amt = running*d/100; running -= amt;
-        parts.push(d+'% off &rarr; &minus;'+money(amt)+' (now '+money(running)+')');
-      });
-      if(coupon > 0){
-        var c = Math.min(coupon, running); running -= c;
-        parts.push('$'+coupon.toFixed(2)+' coupon &rarr; &minus;'+money(c)+' (now '+money(running)+')');
-      }
-      o.original=price3; o.pay=running; o.save=price3-running;
-      o.pct = price3>0 ? o.save/price3*100 : 0;
-      o.steps = parts.length ? parts.join('<br>') : 'Add at least one discount above.';
-      var naive = ds.reduce(function(s,d){ return s+d; }, 0);
-      if(ds.length > 1) o.naiveNote = 'Added together those look like '+naive.toFixed(0)+'% off, but stacking them really gives '+o.pct.toFixed(1)+'%.';
     }
     else if(mode === 'bogo'){
       var up = Math.max(0, num('dsc-bprice'));
@@ -818,23 +829,35 @@
     renderCurve(o);
   }
 
+  var TYPE_HINT = {
+    pct:   'Enter any two boxes \u2014 price, percentage, final price or amount saved \u2014 and the rest is worked out.',
+    amt:   'Enter any two boxes \u2014 price, dollars off or final price \u2014 and the rest is worked out.',
+    stack: 'For \u201cX% off, plus an extra Y% off\u201d \u2014 the second discount comes off the reduced price, not the original.'
+  };
   var TAB_HINT = {
-    main:  'Percent off or a dollar amount off \u2014 fill any two boxes and the rest is worked out.',
-    stack: 'For \u201cX% off, plus an extra Y% off\u201d \u2014 the second discount comes off the reduced price, not the original.',
+    main:  'Percent off, dollars off, or one discount on top of another.',
     bogo:  'Buy one get one free, 3-for-2, or half off the second \u2014 see what the deal is really worth per item.'
   };
   function applyDiscType(){
-    var isPct = (discType === 'pct');
+    var isPct = (discType === 'pct'), isStack = (discType === 'stack');
     $('dsc-discLabel').textContent = isPct ? 'Discount' : 'Amount Off';
     $('dsc-discPre').style.display = isPct ? 'none' : '';
     $('dsc-discSuf').style.display = isPct ? '' : 'none';
-    // the saved box duplicates the amount-off box when the discount is a dollar figure
-    var savedRow = $('dsc-saved').closest('.dsc-field');
-    if(savedRow) savedRow.style.display = isPct ? '' : 'none';
+    document.querySelectorAll('#dsc-form [data-grp]').forEach(function(inp){
+      var row = inp.closest('.dsc-field');
+      if(!row) return;
+      var grp = inp.dataset.grp;
+      var show = isStack ? (grp === 'stackrow') : (grp === 'simple');
+      // the saved box duplicates the amount-off box when the discount is a dollar figure
+      if(show && !isStack && inp.id === 'dsc-saved' && !isPct) show = false;
+      row.style.display = show ? '' : 'none';
+    });
+    var hint = $('dsc-solveHint');
+    if(hint) hint.style.display = isStack ? 'none' : '';
   }
   function applyModeVisibility(){
     var hint = $('dsc-barHint');
-    if(hint) hint.textContent = TAB_HINT[mode] || '';
+    if(hint) hint.textContent = (mode === 'main') ? (TYPE_HINT[discType] || '') : (TAB_HINT[mode] || '');
     document.querySelectorAll('.dsc-mrow').forEach(function(el){
       var modes = (el.dataset.modes||'').split(' ');
       var show = modes.indexOf(mode) !== -1;
@@ -848,9 +871,10 @@
       discType = btn.dataset.t;
       document.querySelectorAll('#dsc-typeToggle button').forEach(function(x){ x.classList.remove('active'); });
       btn.classList.add('active');
-      $('dsc-disc').value = (discType === 'pct') ? 25 : 20;
+      if(discType === 'pct'){ $('dsc-disc').value = 25; }
+      else if(discType === 'amt'){ $('dsc-disc').value = 20; }
       $('dsc-sale').value = 0; $('dsc-saved').value = 0;
-      applyDiscType(); render();
+      applyDiscType(); applyModeVisibility(); render();
     });
   });
   document.querySelectorAll('.dsc-tab').forEach(function(tab){
