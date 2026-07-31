@@ -615,15 +615,26 @@
     var totalMonthlyNow = calc.debts.reduce(function(s,d){return s+d.pay;},0) + val('dp-extraMonthly');
     var extraMonthlyVal = val('dp-extraMonthly');
     $('dp-summarySentence').innerHTML = r.neverPaysOff
-      ? 'With the payments entered, at least one debt never gets paid off — its payment doesn\'t even cover the monthly interest. Increase that payment or add extra funds to see a real payoff date.'
+      ? 'With the payments entered, at least one debt never gets paid off within 50 years — its payment doesn\'t cover the monthly interest charged, so the balance grows instead of shrinking. Increase that debt\'s payment, or direct extra funds toward it, to see a real payoff date.'
       : 'You can pay off your debts in <b>'+fmtMonths(r.months)+'</b> ('+r.months+' months) by making fixed payments of <b>'+usd(totalMonthlyNow,2)+'</b> every month'+(extraMonthlyVal>0?', of which '+usd(extraMonthlyVal,2)+' is the extra monthly payment':'')+'. You will need to pay a total of <b>'+usd(totalPrincipal+r.totalInterest,2)+'</b>, of which the total interest is <b>'+usd(r.totalInterest,2)+'</b>.';
 
-    renderDpDonut('dp-donutSvg','dp-donutLegend', totalPrincipal, r.totalInterest);
+    var donutBox = $('dp-donutBox');
+    if(r.neverPaysOff){
+      donutBox.innerHTML = '<p style="font-size:12.5px;color:var(--ink-faint);margin:0">Principal/interest breakdown isn\'t shown while a debt is set to never pay off — fix the payment above to see it.</p>';
+    } else {
+      donutBox.innerHTML = '<svg viewBox="0 0 150 150" class="dp-donut-svg" id="dp-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg><div class="dp-donut-legend" id="dp-donutLegend"></div>';
+      renderDpDonut('dp-donutSvg','dp-donutLegend', totalPrincipal, r.totalInterest);
+    }
 
-    var interestSaved = baseline.totalInterest - r.totalInterest;
-    var timeSaved = baseline.months - r.months;
-    $('dp-interestSaved').textContent = usd(Math.max(0,interestSaved),0);
-    $('dp-timeSaved').textContent = fmtMonths(Math.max(0,timeSaved));
+    if(r.neverPaysOff || baseline.neverPaysOff){
+      $('dp-interestSaved').textContent = '—';
+      $('dp-timeSaved').textContent = '—';
+    } else {
+      var interestSaved = baseline.totalInterest - r.totalInterest;
+      var timeSaved = baseline.months - r.months;
+      $('dp-interestSaved').textContent = usd(Math.max(0,interestSaved),0);
+      $('dp-timeSaved').textContent = fmtMonths(Math.max(0,timeSaved));
+    }
 
     var order = r.debts.slice().sort(function(a,b){
       var am = a.paidOffMonth===null ? Infinity : a.paidOffMonth;
@@ -631,11 +642,11 @@
       return am-bm;
     });
     $('dp-orderList').innerHTML = order.map(function(x, i){
-      var meta = (x.paidOffMonth ? fmtMonths(x.paidOffMonth) : 'Never') + ' · ' + usd(x.totalInterest,0)+' interest';
-      var narrative = buildPayoffNarrative(x.payments);
+      var meta = (x.paidOffMonth ? fmtMonths(x.paidOffMonth) : 'Never') + ' · ' + (x.paidOffMonth ? usd(x.totalInterest,0)+' interest' : 'balance growing');
+      var narrative = x.paidOffMonth ? buildPayoffNarrative(x.payments) : 'This payment doesn\'t cover the monthly interest charged, so the balance keeps growing instead of shrinking. Raise the payment or add extra funds to make progress on this debt.';
       return '<details class="dp-debt-detail"'+(i===0?' open':'')+'>'+
         '<summary><span class="name">#'+(i+1)+': '+x.name+'</span><span class="meta">'+meta+'<span class="chev">▸</span></span></summary>'+
-        '<p class="narrative">'+(narrative||'—')+'</p>'+
+        '<p class="narrative">'+narrative+'</p>'+
         '</details>';
     }).join('');
 
@@ -663,17 +674,23 @@
   }
 
   function renderInterestBar(debts){
-    var total = debts.reduce(function(s,x){return s+x.totalInterest;},0);
+    var shown = debts.filter(function(x){ return x.paidOffMonth !== null; });
+    var excluded = debts.length - shown.length;
+    var total = shown.reduce(function(s,x){return s+x.totalInterest;},0);
     var colors = ['#22417A','#B0790F','#16A34A','#D33249','#4B4ED8','#0C9268'];
-    var segs = debts.map(function(x,i){ return {k:x.name, v:x.totalInterest, c:colors[i%colors.length]}; });
+    var segs = shown.map(function(x,i){ return {k:x.name, v:x.totalInterest, c:colors[i%colors.length]}; });
     $('dp-interestBar').innerHTML = segs.map(function(s){
       var pct = total>0 ? s.v/total*100 : 0;
       if(pct<=0) return '';
       return '<span style="width:'+pct.toFixed(2)+'%;background:'+s.c+'">'+(pct>12?pct.toFixed(0)+'%':'')+'</span>';
     }).join('');
-    $('dp-interestLegend').innerHTML = segs.map(function(s){
+    var legendHtml = segs.map(function(s){
       return '<span class="lg"><i style="background:'+s.c+'"></i>'+s.k+': <b>'+usd(s.v,0)+'</b></span>';
     }).join('');
+    if(excluded>0){
+      legendHtml += '<span class="lg" style="color:var(--ink-faint)">'+excluded+' debt'+(excluded>1?'s':'')+' never pays off — excluded above</span>';
+    }
+    $('dp-interestLegend').innerHTML = legendHtml;
   }
 
   $('dp-addDebt').addEventListener('click', function(){ addDebtRow('New debt', 0, 0, 15); render(); });
