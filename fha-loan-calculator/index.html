@@ -442,6 +442,25 @@
 .fha-checkrow{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
 .fha-checkrow input{width:16px;height:16px}
 .fha-sched-table td.hl{background:var(--gold-tint);font-weight:700}
+.fha-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.fha-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
+.fha-unit-toggle button.active{background:#1E3A5F;color:#fff}
+.fha-mt-table{width:100%;border-collapse:collapse;font-size:13px}
+.fha-mt-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);padding:0 0 8px;font-weight:700}
+.fha-mt-table th:first-child{text-align:left}
+.fha-mt-table td{padding:8px 0;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.fha-mt-table td:first-child{text-align:left;color:var(--ink-soft)}
+.fha-mt-table tr.head td{font-weight:700;color:var(--ink)}
+.fha-mt-table tr.grand td{font-weight:700;font-size:14px;border-top:2px solid var(--border);color:var(--ink)}
+.fha-sum-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.fha-sum-table td{padding:8px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft)}
+.fha-sum-table td:last-child{text-align:right;font-weight:600;color:var(--ink)}
+.fha-sum-table tr:first-child td{border-top:none;font-weight:700;color:var(--ink)}
+.fha-sec-title{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:18px 20px 2px}
+.fha-toggle-row{display:flex;gap:6px}
+.fha-toggle-row button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:6px}
+.fha-toggle-row button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.fha-sched-table tr.yearend td{background:var(--surface-sunken);font-weight:700}
 
 .fha-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .fha-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
@@ -477,33 +496,62 @@
 
   <div class="fha-card fha-area-form">
     <div class="fha-card-pad">
-      <div class="fha-field fha-mrow on" data-modes="pay cmp limit"><span class="fha-field-label">Home Price</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-price" type="number" min="0" step="5000" value="400000"></div></div></div>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp limit"><span class="fha-field-label">Home Price</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-price" type="number" min="0" step="5000" value="500000"></div></div></div>
 
-      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Down Payment<span class="fha-tip" title="FHA minimum is 3.5% with a credit score of 580+, or 10% for scores of 500-579.">?</span></span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-dp" type="number" min="0" max="100" step="0.5" value="3.5"><span>%</span></div></div></div>
-
-      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Interest Rate</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-rate" type="number" min="0" max="20" step="0.01" value="6.5"><span>%</span></div></div></div>
-
-      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Loan Term</span><div class="fha-field-control">
-        <select id="fha-term" class="fha-select">
-          <option value="30" selected>30 years</option>
-          <option value="15">15 years</option>
-          <option value="20">20 years</option>
-        </select>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Down Payment<span class="fha-tip" title="FHA minimum is 3.5% with a credit score of 580+, or 10% for scores of 500-579.">?</span></span><div class="fha-field-control">
+        <div class="fha-input-group"><input id="fha-dp" type="number" min="0" step="0.5" value="3.5"></div>
+        <div class="fha-unit-toggle" id="fha-dpUnit">
+          <button type="button" class="active" data-u="pct">%</button><button type="button" data-u="amt">$</button>
+        </div>
       </div></div>
 
-      <div class="fha-field fha-mrow on" data-modes="pay"><span class="fha-field-label">Property Tax</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-tax" type="number" min="0" max="10" step="0.01" value="1.1"><span>% / yr</span></div></div></div>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Loan Term</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-term" type="number" min="1" max="40" step="1" value="30"><span>years</span></div></div></div>
 
-      <div class="fha-field fha-mrow on" data-modes="pay"><span class="fha-field-label">Home Insurance</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-ins" type="number" min="0" step="100" value="1800"><span>/ yr</span></div></div></div>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Interest Rate</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-rate" type="number" min="0" max="20" step="0.001" value="6.66"><span>%</span></div></div></div>
+      <div class="fha-hint fha-mrow on" data-modes="pay cmp" style="padding-bottom:6px">Default is the Freddie Mac 30-year average of 6.66% for the week ending Jul 30, 2026. Rates move daily &mdash; replace this with your own lender quote.</div>
 
-      <div class="fha-field fha-mrow on" data-modes="pay"><span class="fha-field-label">HOA Fees</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-hoa" type="number" min="0" step="10" value="0"><span>/ mo</span></div></div></div>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Upfront FHA MIP<span class="fha-tip" title="A one-time premium of 1.75% of the base loan amount, normally financed into the mortgage.">?</span></span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-ufmip" type="number" min="0" max="5" step="0.05" value="1.75"><span>%</span></div></div></div>
 
-      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Annual MIP Rate<span class="fha-tip" title="Set automatically from your loan term and loan-to-value using the HUD schedule. Override it if your lender quoted a different rate.">?</span></span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-mip" type="number" min="0" max="2" step="0.05" value="0.55"><span>% / yr</span></div></div></div>
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Annual FHA MIP<span class="fha-tip" title="Set automatically from your loan term and loan-to-value using the HUD schedule. Override it if your lender quoted a different rate.">?</span></span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-mip" type="number" min="0" max="2" step="0.05" value="0.55"><span>%</span></div></div></div>
+
+      <div class="fha-field fha-mrow on" data-modes="pay cmp"><span class="fha-field-label">Annual MIP Duration<span class="fha-tip" title="With less than 10% down, FHA mortgage insurance runs for the life of the loan. With 10% or more, it ends after 11 years.">?</span></span><div class="fha-field-control">
+        <select id="fha-mipdur" class="fha-select">
+          <option value="term" selected>Loan Term (life of loan)</option>
+          <option value="11">11 Years</option>
+          <option value="5">5 Years</option>
+          <option value="78">Until 78% LTV</option>
+          <option value="none">No Annual MIP</option>
+        </select>
+      </div></div>
       <div class="fha-hint fha-mrow on" data-modes="pay cmp" style="padding-bottom:6px" id="fha-mipHint"></div>
 
-      <div class="fha-checkrow fha-mrow on" data-modes="pay cmp">
-        <input type="checkbox" id="fha-financeUf" checked>
-        <label for="fha-financeUf">Finance the 1.75% upfront MIP into the loan</label>
+      <div class="fha-checkrow fha-mrow on" data-modes="pay">
+        <input type="checkbox" id="fha-showOpt" checked>
+        <label for="fha-showOpt">Include taxes, insurance and other costs below</label>
       </div>
+
+      <div class="fha-field fha-mrow on fha-opt" data-modes="pay"><span class="fha-field-label">Property Taxes</span><div class="fha-field-control">
+        <div class="fha-input-group"><input id="fha-tax" type="number" min="0" step="0.01" value="1.2"></div>
+        <div class="fha-unit-toggle" id="fha-taxUnit">
+          <button type="button" class="active" data-u="pct">%</button><button type="button" data-u="amt">$</button>
+        </div>
+      </div></div>
+
+      <div class="fha-field fha-mrow on fha-opt" data-modes="pay"><span class="fha-field-label">Home Insurance</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-ins" type="number" min="0" step="100" value="2500"><span>/yr</span></div></div></div>
+
+      <div class="fha-field fha-mrow on fha-opt" data-modes="pay"><span class="fha-field-label">HOA Fee</span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-hoa" type="number" min="0" step="100" value="0"><span>/yr</span></div></div></div>
+
+      <div class="fha-field fha-mrow on fha-opt" data-modes="pay"><span class="fha-field-label">Other Costs<span class="fha-tip" title="Maintenance, utilities or anything else you want folded into the monthly running cost.">?</span></span><div class="fha-field-control"><div class="fha-input-group"><span>$</span><input id="fha-other" type="number" min="0" step="100" value="5000"><span>/yr</span></div></div></div>
+
+      <div class="fha-field fha-mrow on fha-opt" data-modes="pay"><span class="fha-field-label">Start Date</span><div class="fha-field-control">
+        <select id="fha-startMonth" class="fha-select" style="flex:1.2">
+          <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+          <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+          <option value="7" selected>Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+          <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+        </select>
+        <div class="fha-input-group" style="flex:1"><input id="fha-startYear" type="number" min="2000" max="2100" step="1" value="2026"></div>
+      </div></div>
 
       <div class="fha-field fha-mrow" data-modes="cmp"><span class="fha-field-label">Conventional Down</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-cdp" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></div></div>
       <div class="fha-field fha-mrow" data-modes="cmp"><span class="fha-field-label">Conventional PMI</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-cpmi" type="number" min="0" max="3" step="0.05" value="0.5"><span>% / yr</span></div></div></div>
@@ -520,17 +568,31 @@
 
   <div class="fha-result-card fha-area-result">
     <div class="fha-result-head" id="fha-resultHead">
-      <div class="label" id="fha-resultLabel">Monthly Payment</div>
+      <div class="label" id="fha-resultLabel">Monthly Pay</div>
       <div class="bignum" id="fha-bignum">$0</div>
       <div class="verdict-sub" id="fha-verdictSub"></div>
     </div>
     <div class="fha-warning" id="fha-warningBanner" style="display:none"></div>
-    <div class="fha-result-body" id="fha-resultRows"></div>
+
+    <div class="fha-result-body" id="fha-breakdownWrap">
+      <table class="fha-mt-table">
+        <thead><tr><th>&nbsp;</th><th>Monthly</th><th>Total</th></tr></thead>
+        <tbody id="fha-mtBody"></tbody>
+      </table>
+    </div>
+
     <div class="fha-chart-box">
       <svg viewBox="0 0 320 150" class="fha-svg" id="fha-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
       <div class="fha-chart-legend" id="fha-legend"></div>
     </div>
-    <p class="fha-note">Uses the FHA's 1.75% upfront MIP and the HUD annual MIP schedule. Estimates only — your lender's Loan Estimate is the authoritative figure.</p>
+
+    <div class="fha-sec-title" id="fha-sumTitle">Loan Summary</div>
+    <div class="fha-result-body" style="padding-top:6px">
+      <table class="fha-sum-table"><tbody id="fha-sumBody"></tbody></table>
+    </div>
+
+    <div class="fha-result-body" id="fha-resultRows" style="display:none"></div>
+    <p class="fha-note">Uses the FHA's upfront MIP on the base loan amount and the HUD annual MIP schedule. Estimates only &mdash; your lender's Loan Estimate is the authoritative figure.</p>
   </div>
 
   <div class="fha-sidecol fha-area-sidebar">
@@ -549,8 +611,11 @@
   <div class="fha-bottom-grid fha-area-bottomgrid">
     <div class="fha-sched-card">
       <div class="fha-sched-head">
-        <span class="t" id="fha-tblTitle">Down Payment Options on an FHA Loan</span>
-        <span class="t" style="font-size:11.5px;font-weight:600;color:var(--ink-faint)" id="fha-tblMeta"></span>
+        <span class="t" id="fha-tblTitle">Amortization Schedule</span>
+        <div class="fha-toggle-row" id="fha-schedToggle">
+          <button type="button" class="active" data-v="annual">Annual</button>
+          <button type="button" data-v="monthly">Monthly</button>
+        </div>
       </div>
       <div class="fha-sched-scroll">
         <table class="fha-sched-table">
@@ -560,7 +625,7 @@
       </div>
     </div>
     <div class="fha-chart-card">
-      <span class="t">Total Cost Over Time</span>
+      <span class="t" id="fha-chartTitle">Balance, Interest &amp; Payments</span>
       <div id="fha-costChart"></div>
     </div>
   </div>
@@ -579,20 +644,21 @@
     return neg?'-'+s:s;
   }
   function num(id){ var v=parseFloat($(id).value); return isFinite(v)?v:0; }
+  var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-  // 2026 FHA figures. Upfront MIP 1.75% of the base loan. Annual MIP from the
-  // HUD schedule. National single-family limits: floor $541,287, ceiling
-  // $1,249,125. Verified against multiple published sources and cross-checked
-  // against a worked example from a lender's own calculator.
-  var UFMIP_RATE = 1.75, FLOOR = 541287, CEILING = 1249125;
-  var mode = 'pay';
+  // 2026 FHA figures. Upfront MIP is 1.75% of the BASE loan amount (HUD's
+  // definition, and what a real lender calculator produces). Annual MIP from
+  // the HUD schedule. National single-family limits: floor $541,287,
+  // ceiling $1,249,125. All verified against published sources.
+  var FLOOR = 541287, CEILING = 1249125;
+  var mode = 'pay', schedView = 'annual';
+  var dpUnit = 'pct', taxUnit = 'pct', autoMip = true, autoDur = true;
 
   function pmt(P, rate, years){
     var i=rate/1200, n=Math.round(years*12);
     if(n<=0) return 0;
     return i===0 ? P/n : P*i/(1-Math.pow(1+i,-n));
   }
-  // HUD annual MIP schedule by term, loan size and LTV
   function scheduleMipRate(baseLoan, ltv, termYears){
     var big = baseLoan > 726200;
     if(termYears > 15){
@@ -604,91 +670,133 @@
     if(ltv > 78) return 0.40;
     return 0.15;
   }
-  function mipMonths(ltv, termYears){
-    // <10% down (LTV > 90%) -> life of loan; otherwise 11 years
-    return ltv > 90 ? Math.round(termYears*12) : Math.min(132, Math.round(termYears*12));
-  }
-  // months until a conventional loan reaches 78% of original value (PMI auto-cancel)
-  function monthsTo78(price, loan, rate, years){
-    var i=rate/1200, p=pmt(loan,rate,years), bal=loan, target=price*0.78, n=Math.round(years*12);
-    if(bal<=target) return 0;
-    for(var m=1;m<=n;m++){ bal -= (p - bal*i); if(bal<=target) return m; }
-    return n;
-  }
   function fmtMonths(m){
     if(m===null||m===undefined) return '\u2014';
     var y=Math.floor(m/12), mo=m%12;
     if(y<=0) return mo+' mo';
     return mo===0 ? y+(y===1?' year':' years') : y+'y '+mo+'m';
   }
+  function addMonths(y, m, add){          // m is 1-12
+    var t = (m-1) + add;
+    return {y: y + Math.floor(t/12), m: (t%12+12)%12 + 1};
+  }
 
-  var autoMip = true;
+  // Full month-by-month schedule. MIP is charged on the base loan for the
+  // number of months the chosen duration rule allows.
+  function buildSchedule(o){
+    var n = Math.round(o.term*12), i = o.rate/1200;
+    var bal = o.loan, rows = [], totalInterest = 0, totalMip = 0;
+    var d = {y:o.startYear, m:o.startMonth};
+    for(var k=1;k<=n && bal>0.005;k++){
+      var interest = bal*i;
+      var principal = Math.min(o.pi - interest, bal);
+      bal = Math.max(0, bal - principal);
+      totalInterest += interest;
+      var mipThisMonth = (k <= o.mipMonths) ? o.mipMo : 0;
+      totalMip += mipThisMonth;
+      rows.push({k:k, y:d.y, m:d.m, interest:interest, principal:principal, mip:mipThisMonth, balance:bal});
+      d = addMonths(d.y, d.m, 1);
+    }
+    return {rows:rows, totalInterest:totalInterest, totalMip:totalMip, months:rows.length};
+  }
+
   function computeFha(dpPctOverride){
     var price = Math.max(0, num('fha-price'));
-    var dpPct = Math.min(100, Math.max(0, dpPctOverride===undefined ? num('fha-dp') : dpPctOverride));
+    var term = Math.max(1, num('fha-term')||30);
     var rate = Math.max(0, num('fha-rate'));
-    var term = parseFloat($('fha-term').value)||30;
+    var dpPct;
+    if(dpPctOverride!==undefined) dpPct = dpPctOverride;
+    else if(dpUnit==='pct') dpPct = Math.min(100, Math.max(0, num('fha-dp')));
+    else dpPct = price>0 ? Math.min(100, Math.max(0, num('fha-dp'))/price*100) : 0;
+
     var down = price*dpPct/100;
     var base = Math.max(0, price-down);
     var ltv = price>0 ? base/price*100 : 0;
+    var ufmipRate = Math.max(0, num('fha-ufmip'));
+    var ufmip = base*ufmipRate/100;
+    var loan = base + ufmip;                       // upfront MIP financed
     var schedRate = scheduleMipRate(base, ltv, term);
     var mipRate = (dpPctOverride!==undefined || autoMip) ? schedRate : Math.max(0, num('fha-mip'));
-    var ufmip = base*UFMIP_RATE/100;
-    var financeUf = $('fha-financeUf').checked;
-    var loan = base + (financeUf ? ufmip : 0);
-    var pi = pmt(loan, rate, term);
     var mipMo = base*mipRate/100/12;
-    var months = mipMonths(ltv, term);
-    var mipTotal = mipMo*months;
-    var taxMo = price*Math.max(0,num('fha-tax'))/100/12;
-    var insMo = Math.max(0,num('fha-ins'))/12;
-    var hoaMo = Math.max(0,num('fha-hoa'));
-    return {price:price, dpPct:dpPct, down:down, base:base, ltv:ltv, ufmip:ufmip,
-            financeUf:financeUf, loan:loan, pi:pi, mipRate:mipRate, schedRate:schedRate,
-            mipMo:mipMo, mipMonths:months, mipTotal:mipTotal, lifeOfLoan: ltv>90,
-            taxMo:taxMo, insMo:insMo, hoaMo:hoaMo, term:term, rate:rate,
-            piti: pi+mipMo+taxMo+insMo+hoaMo,
-            cashAtClose: down + (financeUf?0:ufmip),
-            totalPaid: pi*Math.round(term*12) + mipTotal + (financeUf?0:ufmip)};
+    var pi = pmt(loan, rate, term);
+
+    // MIP duration
+    var durSel = $('fha-mipdur').value;
+    var autoDurVal = (ltv > 90) ? 'term' : '11';
+    var dur = (dpPctOverride!==undefined || autoDur) ? autoDurVal : durSel;
+    var n = Math.round(term*12), mipMonths;
+    if(dur==='none') mipMonths = 0;
+    else if(dur==='11') mipMonths = Math.min(132, n);
+    else if(dur==='5') mipMonths = Math.min(60, n);
+    else if(dur==='78'){
+      var i=rate/1200, b=loan, t=price*0.78; mipMonths=n;
+      for(var m=1;m<=n;m++){ b-=(pi-b*i); if(b<=t){ mipMonths=m; break; } }
+    } else mipMonths = n;
+
+    var taxYr = taxUnit==='pct' ? price*Math.max(0,num('fha-tax'))/100 : Math.max(0,num('fha-tax'));
+    var insYr = Math.max(0, num('fha-ins'));
+    var hoaYr = Math.max(0, num('fha-hoa'));
+    var otherYr = Math.max(0, num('fha-other'));
+    var showOpt = $('fha-showOpt').checked;
+    if(!showOpt){ taxYr=0; insYr=0; hoaYr=0; otherYr=0; }
+
+    var o = {price:price, dpPct:dpPct, down:down, base:base, ltv:ltv, ufmipRate:ufmipRate,
+             ufmip:ufmip, loan:loan, pi:pi, mipRate:mipRate, schedRate:schedRate, mipMo:mipMo,
+             mipMonths:mipMonths, dur:dur, autoDurVal:autoDurVal, term:term, rate:rate,
+             startMonth:parseInt($('fha-startMonth').value,10)||1,
+             startYear:parseInt($('fha-startYear').value,10)||new Date().getFullYear(),
+             taxMo:taxYr/12, insMo:insYr/12, hoaMo:hoaYr/12, otherMo:otherYr/12,
+             lifeOfLoan: ltv>90, showOpt:showOpt};
+
+    var s = buildSchedule(o);
+    o.sched = s.rows; o.totalInterest = s.totalInterest; o.totalMip = s.totalMip;
+    if(o.mipMonths <= 0) o.mipMo = 0;   // no annual MIP applies at all
+    o.nMonths = Math.round(term*12);
+    o.totalMortgage = o.pi*o.nMonths;
+    o.piti = o.pi + o.mipMo + o.taxMo + o.insMo + o.hoaMo + o.otherMo;
+    o.outOfPocketTotal = o.totalMortgage + o.totalMip + (o.taxMo+o.insMo+o.hoaMo+o.otherMo)*o.nMonths;
+    o.cashAtClose = o.down;
+    var end = addMonths(o.startYear, o.startMonth, o.nMonths);   // month after the final payment, matching the usual convention
+    o.payoff = MONTHS[end.m-1]+'. '+end.y;
+    return o;
   }
 
   function computeConv(){
     var price = Math.max(0, num('fha-price'));
     var dpPct = Math.min(100, Math.max(0, num('fha-cdp')));
     var rate = Math.max(0, num('fha-rate'));
-    var term = parseFloat($('fha-term').value)||30;
+    var term = Math.max(1, num('fha-term')||30);
     var pmiRate = Math.max(0, num('fha-cpmi'));
-    var down = price*dpPct/100;
-    var loan = Math.max(0, price-down);
+    var down = price*dpPct/100, loan = Math.max(0, price-down);
     var pi = pmt(loan, rate, term);
     var needsPmi = dpPct < 20 && loan > 0;
     var pmiMo = needsPmi ? loan*pmiRate/100/12 : 0;
-    var pmiEnd = needsPmi ? monthsTo78(price, loan, rate, term) : 0;
+    var pmiEnd = 0;
+    if(needsPmi){
+      var i=rate/1200,b=loan,t=price*0.78,n=Math.round(term*12); pmiEnd=n;
+      for(var m=1;m<=n;m++){ b-=(pi-b*i); if(b<=t){ pmiEnd=m; break; } }
+    }
     return {price:price, dpPct:dpPct, down:down, loan:loan, pi:pi, pmiMo:pmiMo,
             pmiMonths:pmiEnd, pmiTotal:pmiMo*pmiEnd, needsPmi:needsPmi, term:term,
-            monthly: pi+pmiMo, cashAtClose:down,
-            totalPaid: pi*Math.round(term*12) + pmiMo*pmiEnd};
+            monthly: pi+pmiMo, cashAtClose:down, totalPaid: pi*Math.round(term*12)+pmiMo*pmiEnd};
   }
 
   function renderDonut(parts, total){
     var W=320,H=150,cx=160,cy=75,rO=58,rI=37;
-    var svg='', start=0;
-    var t = total>0?total:1;
+    var svg='', start=0, t = total>0?total:1;
     parts.forEach(function(p){
-      var frac = p.v/t;
-      if(frac<=0) return;
-      var end = start+frac;
-      if(frac >= 0.9999){
+      var frac=p.v/t; if(frac<=0) return;
+      var end=start+frac;
+      if(frac>=0.9999){
         svg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+((rO+rI)/2)+'" fill="none" stroke="'+p.c+'" stroke-width="'+(rO-rI)+'"/>';
       } else {
-        var a0=start*2*Math.PI-Math.PI/2, a1=end*2*Math.PI-Math.PI/2;
-        var lg=(end-start)>0.5?1:0;
+        var a0=start*2*Math.PI-Math.PI/2,a1=end*2*Math.PI-Math.PI/2,lg=(end-start)>0.5?1:0;
         var x0=cx+rO*Math.cos(a0),y0=cy+rO*Math.sin(a0),x1=cx+rO*Math.cos(a1),y1=cy+rO*Math.sin(a1);
         var xi1=cx+rI*Math.cos(a1),yi1=cy+rI*Math.sin(a1),xi0=cx+rI*Math.cos(a0),yi0=cy+rI*Math.sin(a0);
         svg+='<path d="M'+x0.toFixed(2)+','+y0.toFixed(2)+' A'+rO+','+rO+' 0 '+lg+' 1 '+x1.toFixed(2)+','+y1.toFixed(2)+
              ' L'+xi1.toFixed(2)+','+yi1.toFixed(2)+' A'+rI+','+rI+' 0 '+lg+' 0 '+xi0.toFixed(2)+','+yi0.toFixed(2)+' Z" fill="'+p.c+'"/>';
       }
-      start = end;
+      start=end;
     });
     svg+='<text x="'+cx+'" y="'+(cy-1)+'" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">'+money(total,0)+'</text>';
     svg+='<text x="'+cx+'" y="'+(cy+15)+'" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">per month</text>';
@@ -698,161 +806,171 @@
     }).join('');
   }
 
-  var DP_OPTIONS = [3.5, 5, 10, 15, 20];
-  function renderTable(f){
-    if(mode === 'cmp'){
-      $('fha-tblTitle').textContent = 'FHA vs Conventional Side by Side';
-      $('fha-tblHead').innerHTML = '<th>&nbsp;</th><th>FHA</th><th>Conventional</th>';
-      var c = computeConv();
-      var rows = [
-        ['Down payment', money(f.down)+' ('+f.dpPct+'%)', money(c.down)+' ('+c.dpPct+'%)'],
-        ['Cash at closing', money(f.cashAtClose), money(c.cashAtClose)],
-        ['Upfront MIP added to loan', f.financeUf?money(f.ufmip):'paid in cash', '\u2014'],
-        ['Loan amount', money(f.loan), money(c.loan)],
-        ['Principal &amp; interest', money(f.pi,2), money(c.pi,2)],
-        ['Mortgage insurance', money(f.mipMo,2)+'/mo', c.needsPmi?money(c.pmiMo,2)+'/mo':'none'],
-        ['Insurance ends', f.lifeOfLoan?'never (life of loan)':fmtMonths(f.mipMonths), c.needsPmi?fmtMonths(c.pmiMonths):'n/a'],
-        ['Total mortgage insurance', money(f.mipTotal), money(c.pmiTotal)],
-        ['Monthly (P&amp;I + insurance)', money(f.pi+f.mipMo,2), money(c.monthly,2)],
-        ['Total paid over term', money(f.totalPaid), money(c.totalPaid)]
-      ];
-      $('fha-tblBody').innerHTML = rows.map(function(r,i){
-        var hl = (i===rows.length-1) ? ' class="hl"' : '';
-        return '<tr><td'+hl+'>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';
-      }).join('');
-      $('fha-tblMeta').textContent = 'on a '+money(f.price)+' home';
+  function renderAmort(o){
+    $('fha-tblTitle').textContent = 'Amortization Schedule';
+    if(schedView === 'monthly'){
+      $('fha-tblHead').innerHTML = '<th>Month</th><th>Date</th><th>Interest</th><th>Principal</th><th>Ending Balance</th>';
+      var out = [];
+      o.sched.forEach(function(r){
+        out.push('<tr><td>'+r.k+'</td><td>'+r.m+'/'+r.y+'</td><td>'+money(r.interest)+'</td><td>'+money(r.principal)+'</td><td>'+money(r.balance)+'</td></tr>');
+        if(r.k % 12 === 0) out.push('<tr class="yearend"><td colspan="5">End of year '+(r.k/12)+'</td></tr>');
+      });
+      $('fha-tblBody').innerHTML = out.join('') || '<tr><td colspan="5" style="text-align:center;color:var(--ink-faint);padding:20px">Enter a home price to see the schedule</td></tr>';
     } else {
-      $('fha-tblTitle').textContent = 'Down Payment Options on an FHA Loan';
-      $('fha-tblHead').innerHTML = '<th>Down</th><th>Cash at Close</th><th>Monthly MIP</th><th>MIP Ends</th><th>Monthly</th>';
-      $('fha-tblBody').innerHTML = DP_OPTIONS.map(function(d){
-        var x = computeFha(d);
-        var hl = Math.abs(d - f.dpPct) < 0.26 ? ' class="hl"' : '';
-        return '<tr><td'+hl+'>'+d+'%</td><td>'+money(x.cashAtClose)+'</td><td>'+money(x.mipMo,2)+'</td><td>'+
-               (x.lifeOfLoan?'Life of loan':fmtMonths(x.mipMonths))+'</td><td>'+money(x.pi+x.mipMo,2)+'</td></tr>';
-      }).join('');
-      $('fha-tblMeta').textContent = 'on a '+money(f.price)+' home';
+      $('fha-tblHead').innerHTML = '<th>Year</th><th>Date</th><th>Interest</th><th>Principal</th><th>Ending Balance</th>';
+      var years=[], yi=0, yInt=0, yPrin=0, first=null;
+      o.sched.forEach(function(r, idx){
+        if(first===null) first=r;
+        yInt+=r.interest; yPrin+=r.principal;
+        if((idx+1)%12===0 || idx===o.sched.length-1){
+          yi++;
+          years.push({y:yi, from:first, to:r, interest:yInt, principal:yPrin, balance:r.balance});
+          yInt=0; yPrin=0; first=null;
+        }
+      });
+      $('fha-tblBody').innerHTML = years.map(function(x){
+        var lbl = x.from.m+'/'+String(x.from.y).slice(2)+'-'+x.to.m+'/'+String(x.to.y).slice(2);
+        return '<tr><td>'+x.y+'</td><td>'+lbl+'</td><td>'+money(x.interest)+'</td><td>'+money(x.principal)+'</td><td>'+money(x.balance)+'</td></tr>';
+      }).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--ink-faint);padding:20px">Enter a home price to see the schedule</td></tr>';
     }
   }
 
-  function renderCostChart(f){
-    var W=400,H=220,padL=58,padR=15,padT=15,padB=30;
-    var chartTop=padT, chartBottom=H-padB, chartLeft=padL, chartRight=W-padR;
-    var years = [1,3,5,7,10,15,20,30].filter(function(y){ return y <= f.term; });
-    var c = computeConv();
-    var fhaVals = years.map(function(y){
-      var m = y*12;
-      return f.pi*m + f.mipMo*Math.min(m, f.mipMonths) + (f.financeUf?0:f.ufmip) + f.down;
+  function renderBalanceChart(o){
+    var W=400,H=220,padL=54,padR=15,padT=15,padB=30;
+    var top=padT, bot=H-padB, left=padL, right=W-padR;
+    var yrs=[], cumInt=0, cumPay=0;
+    o.sched.forEach(function(r, idx){
+      cumInt+=r.interest; cumPay+=r.principal+r.interest;
+      if((idx+1)%12===0 || idx===o.sched.length-1) yrs.push({y:Math.ceil((idx+1)/12), bal:r.balance, cumInt:cumInt, cumPay:cumPay});
     });
-    var convVals = years.map(function(y){
-      var m = y*12;
-      return c.pi*m + c.pmiMo*Math.min(m, c.pmiMonths) + c.down;
-    });
-    var maxVal = Math.max(1, Math.max.apply(null, fhaVals.concat(convVals)));
-    var n = years.length;
-    function X(i){ return chartLeft+(chartRight-chartLeft)*(n<=1?0:i/(n-1)); }
-    function Y(v){ return chartBottom-(chartBottom-chartTop)*(v/maxVal); }
+    if(!yrs.length){ $('fha-costChart').innerHTML=''; return; }
+    var maxVal = Math.max(1, yrs[yrs.length-1].cumPay, o.loan);
+    var n=yrs.length;
+    function X(i){ return left+(right-left)*(n<=1?0:i/(n-1)); }
+    function Y(v){ return bot-(bot-top)*(v/maxVal); }
     var svg='';
     for(var t=0;t<=4;t++){
       var v=maxVal/4*t, y=Y(v);
-      svg+='<line x1="'+chartLeft+'" y1="'+y.toFixed(1)+'" x2="'+chartRight+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
-      svg+='<text x="'+(chartLeft-8)+'" y="'+(y+3).toFixed(1)+'" font-size="10" text-anchor="end" fill="var(--ink-faint)">$'+Math.round(v/1000)+'k</text>';
+      svg+='<line x1="'+left+'" y1="'+y.toFixed(1)+'" x2="'+right+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      svg+='<text x="'+(left-8)+'" y="'+(y+3).toFixed(1)+'" font-size="10" text-anchor="end" fill="var(--ink-faint)">$'+Math.round(v/1000)+'k</text>';
     }
-    years.forEach(function(y,i){
-      svg+='<text x="'+X(i).toFixed(1)+'" y="'+(chartBottom+14)+'" font-size="9" text-anchor="middle" fill="var(--ink-faint)">'+y+'y</text>';
-    });
-    svg+='<line x1="'+chartLeft+'" y1="'+chartTop+'" x2="'+chartLeft+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
-    svg+='<line x1="'+chartLeft+'" y1="'+chartBottom+'" x2="'+chartRight+'" y2="'+chartBottom+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
-    function line(vals,color){
-      return '<path d="'+vals.map(function(v,i){ return (i===0?'M':'L')+X(i).toFixed(1)+','+Y(v).toFixed(1); }).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2"/>';
+    var step=Math.max(1, Math.round(n/6));
+    for(var i2=0;i2<n;i2+=step) svg+='<text x="'+X(i2).toFixed(1)+'" y="'+(bot+14)+'" font-size="9" text-anchor="middle" fill="var(--ink-faint)">'+yrs[i2].y+'</text>';
+    svg+='<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+bot+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg+='<line x1="'+left+'" y1="'+bot+'" x2="'+right+'" y2="'+bot+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    function line(key,color){
+      return '<path d="'+yrs.map(function(p,i){ return (i===0?'M':'L')+X(i).toFixed(1)+','+Y(p[key]).toFixed(1); }).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2"/>';
     }
-    svg += line(fhaVals,'#1E3A5F') + line(convVals,'#16A34A');
-    fhaVals.forEach(function(v,i){ svg+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="2.6" fill="#1E3A5F"/>'; });
-    convVals.forEach(function(v,i){ svg+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="2.6" fill="#16A34A"/>'; });
+    svg += line('cumPay','#7C3AED') + line('cumInt','#F97316') + line('bal','#1E3A5F');
     $('fha-costChart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" class="fha-svg" xmlns="http://www.w3.org/2000/svg">'+svg+'</svg>'+
-      '<div class="fha-chart-legend"><span><i style="background:#1E3A5F"></i>FHA cumulative</span><span><i style="background:#16A34A"></i>Conventional cumulative</span></div>';
+      '<div class="fha-chart-legend"><span><i style="background:#1E3A5F"></i>Balance</span><span><i style="background:#F97316"></i>Interest paid</span><span><i style="background:#7C3AED"></i>Total paid</span></div>';
   }
 
   function render(){
     var f = computeFha();
-    var warn='', rows='', label, big, sub;
-    var headEl = $('fha-resultHead');
-    headEl.classList.remove('negative');
+    var warn='', label, big, sub;
+    var headEl=$('fha-resultHead'); headEl.classList.remove('negative');
 
-    if(autoMip){ $('fha-mip').value = f.schedRate; }
+    if(autoMip) $('fha-mip').value = f.schedRate;
+    if(autoDur) $('fha-mipdur').value = f.autoDurVal;
     $('fha-mipHint').textContent = 'HUD schedule for a '+f.term+'-year loan at '+f.ltv.toFixed(1)+'% LTV: '+f.schedRate+'%. '+
-      (f.lifeOfLoan ? 'With under 10% down, MIP stays for the life of the loan.' : 'With 10% or more down, MIP ends after 11 years.');
+      (f.lifeOfLoan ? 'With under 10% down, MIP normally runs for the life of the loan.' : 'With 10% or more down, MIP normally ends after 11 years.');
 
-    if(f.price<=0) warn = 'Enter a home price above to see your FHA payment.';
-    else if(f.dpPct < 3.5) warn = 'FHA requires at least 3.5% down with a credit score of 580 or above, or 10% down for scores between 500 and 579.';
-    else if(f.base > CEILING) warn = 'This loan is above the 2026 FHA national ceiling of '+money(CEILING)+', so an FHA loan would not be available at this price. Check the Loan Limits tab.';
+    document.querySelectorAll('.fha-opt').forEach(function(el){ el.style.display = $('fha-showOpt').checked ? '' : 'none'; });
 
-    if(mode === 'limit'){
-      var limit = Math.max(0, num('fha-limit'));
-      var price = f.price;
-      var maxPrice35 = limit/0.965;
-      var base35 = price*0.965;
-      var eligible = base35 <= limit;
-      label='Max Home Price at 3.5% Down'; big=money(maxPrice35);
-      sub = eligible ? 'A '+money(price)+' home fits within this limit.'
-                     : 'A '+money(price)+' home needs a '+money(base35)+' loan, which is above your limit.';
-      headEl.classList.toggle('negative', !eligible);
-      rows+='<div class="fha-result-row"><span>Your County Limit</span><span>'+money(limit)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>2026 National Floor</span><span>'+money(FLOOR)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>2026 National Ceiling</span><span>'+money(CEILING)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Loan Needed at 3.5% Down</span><span>'+money(base35)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Max Price at 3.5% Down</span><span>'+money(maxPrice35)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Max Price at 10% Down</span><span>'+money(limit/0.90)+'</span></div>';
-      rows+='<div class="fha-result-row total"><span>FHA Eligible at '+money(price)+'?</span><span class="'+(eligible?'fha-good':'fha-bad')+'">'+(eligible?'Yes':'No \u2014 over the limit')+'</span></div>';
-      if(!eligible) warn = 'At '+money(price)+' the base loan exceeds your county limit. You would need a larger down payment, a lower price, or a conventional loan.';
-      renderDonut([{n:'Within limit',v:Math.min(base35,limit),c:'#16A34A'},{n:'Over limit',v:Math.max(0,base35-limit),c:'#DC2626'}], base35);
+    if(f.price<=0) warn='Enter a home price above to see your FHA payment.';
+    else if(f.dpPct < 3.5) warn='FHA requires at least 3.5% down with a credit score of 580 or above, or 10% down for scores between 500 and 579.';
+    else if(f.base > CEILING) warn='This loan is above the 2026 FHA national ceiling of '+money(CEILING)+', so an FHA loan would not be available at this price. Check the Loan Limits tab.';
+
+    $('fha-breakdownWrap').style.display = (mode==='pay') ? '' : 'none';
+    $('fha-sumTitle').style.display = (mode==='pay') ? '' : 'none';
+    $('fha-sumBody').parentNode.parentNode.style.display = (mode==='pay') ? '' : 'none';
+    $('fha-resultRows').style.display = (mode==='pay') ? 'none' : '';
+
+    if(mode === 'pay'){
+      label='Monthly Pay'; big=money(f.piti,2);
+      sub = 'Includes '+money(f.mipMo,2)+' of FHA mortgage insurance'+
+            (f.mipMonths===0 ? ' (none applied).' :
+             f.mipMonths>=f.nMonths ? ' that never comes off at this down payment.' :
+             ' that ends after '+fmtMonths(f.mipMonths)+'.');
+      var rows='';
+      rows+='<tr class="head"><td>Mortgage Payment</td><td>'+money(f.pi,2)+'</td><td>'+money(f.totalMortgage,2)+'</td></tr>';
+      if(f.taxMo>0) rows+='<tr><td>Property Tax</td><td>'+money(f.taxMo,2)+'</td><td>'+money(f.taxMo*f.nMonths,2)+'</td></tr>';
+      if(f.insMo>0) rows+='<tr><td>Home Insurance</td><td>'+money(f.insMo,2)+'</td><td>'+money(f.insMo*f.nMonths,2)+'</td></tr>';
+      rows+='<tr><td>Annual MIP</td><td>'+money(f.mipMo,2)+'</td><td>'+money(f.totalMip,2)+'</td></tr>';
+      if(f.hoaMo>0) rows+='<tr><td>HOA Fee</td><td>'+money(f.hoaMo,2)+'</td><td>'+money(f.hoaMo*f.nMonths,2)+'</td></tr>';
+      if(f.otherMo>0) rows+='<tr><td>Other Costs</td><td>'+money(f.otherMo,2)+'</td><td>'+money(f.otherMo*f.nMonths,2)+'</td></tr>';
+      rows+='<tr class="grand"><td>Total Out-of-Pocket</td><td>'+money(f.piti,2)+'</td><td>'+money(f.outOfPocketTotal,2)+'</td></tr>';
+      $('fha-mtBody').innerHTML=rows;
+
+      $('fha-sumBody').innerHTML =
+        '<tr><td>House Price</td><td>'+money(f.price,2)+'</td></tr>'+
+        '<tr><td>Loan Amount with Upfront MIP</td><td>'+money(f.loan,2)+'</td></tr>'+
+        '<tr><td>Down Payment</td><td>'+money(f.down,2)+'</td></tr>'+
+        '<tr><td>Upfront MIP ('+f.ufmipRate+'% of base loan)</td><td>'+money(f.ufmip,2)+'</td></tr>'+
+        '<tr><td>Total of '+f.nMonths+' Mortgage Payments</td><td>'+money(f.totalMortgage,2)+'</td></tr>'+
+        '<tr><td>Total Interest</td><td>'+money(f.totalInterest,2)+'</td></tr>'+
+        '<tr><td>Total Annual MIP Paid</td><td>'+money(f.totalMip,2)+'</td></tr>'+
+        '<tr><td>Mortgage Payoff Date</td><td>'+f.payoff+'</td></tr>';
+
+      var principalMo = f.pi - (f.sched.length ? f.sched[0].interest : 0);
+      renderDonut([
+        {n:'Principal',v:Math.max(0,principalMo),c:'#1E3A5F'},
+        {n:'Interest',v:f.sched.length?f.sched[0].interest:0,c:'#F97316'},
+        {n:'Property Taxes',v:f.taxMo,c:'#7C3AED'},
+        {n:'Annual MIP',v:f.mipMo,c:'#DC2626'},
+        {n:'Home Insurance',v:f.insMo,c:'#0EA5E9'},
+        {n:'HOA',v:f.hoaMo,c:'#94A3B8'},
+        {n:'Other Costs',v:f.otherMo,c:'#16A34A'}
+      ], f.piti);
     }
     else if(mode === 'cmp'){
-      var c = computeConv();
-      var diff = c.totalPaid - f.totalPaid;
-      label='FHA vs Conventional'; big=(diff>=0?'FHA saves ':'Conventional saves ')+money(Math.abs(diff));
+      var c2 = computeConv();
+      var diff = c2.totalPaid - (f.totalMortgage + f.totalMip);
+      label='FHA vs Conventional';
+      big=(diff>=0?'FHA saves ':'Conventional saves ')+money(Math.abs(diff));
       headEl.classList.toggle('negative', diff < 0);
-      sub = 'Over the full '+f.term+'-year term, counting mortgage insurance on both. FHA needs '+money(Math.abs(c.cashAtClose-f.cashAtClose))+(c.cashAtClose>f.cashAtClose?' less':' more')+' cash at closing.';
-      rows+='<div class="fha-result-row"><span>FHA Cash at Closing</span><span>'+money(f.cashAtClose)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Conventional Cash at Closing</span><span>'+money(c.cashAtClose)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>FHA Monthly (P&amp;I + MIP)</span><span>'+money(f.pi+f.mipMo,2)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Conventional Monthly</span><span>'+money(c.monthly,2)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>FHA Mortgage Insurance Total</span><span>'+money(f.mipTotal)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Conventional PMI Total</span><span>'+money(c.pmiTotal)+'</span></div>';
-      rows+='<div class="fha-result-row total"><span>Total Paid Over '+f.term+' Years</span><span>'+money(f.totalPaid)+' vs '+money(c.totalPaid)+'</span></div>';
-      renderDonut([{n:'FHA total',v:f.totalPaid,c:'#1E3A5F'},{n:'Conventional total',v:c.totalPaid,c:'#16A34A'}], f.totalPaid+c.totalPaid);
+      sub='Over the full '+f.term+'-year term, counting mortgage insurance on both sides.';
+      var r2='';
+      r2+='<div class="fha-result-row"><span>FHA Cash at Closing</span><span>'+money(f.cashAtClose)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>Conventional Cash at Closing</span><span>'+money(c2.cashAtClose)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>FHA Monthly (P&amp;I + MIP)</span><span>'+money(f.pi+f.mipMo,2)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>Conventional Monthly</span><span>'+money(c2.monthly,2)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>FHA Mortgage Insurance Total</span><span>'+money(f.totalMip)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>Conventional PMI Total</span><span>'+money(c2.pmiTotal)+'</span></div>';
+      r2+='<div class="fha-result-row"><span>FHA Insurance Ends</span><span>'+(f.mipMonths>=f.nMonths?'Never (life of loan)':fmtMonths(f.mipMonths))+'</span></div>';
+      r2+='<div class="fha-result-row"><span>Conventional PMI Ends</span><span>'+(c2.needsPmi?fmtMonths(c2.pmiMonths):'Not required')+'</span></div>';
+      r2+='<div class="fha-result-row total"><span>Total Paid Over '+f.term+' Years</span><span>'+money(f.totalMortgage+f.totalMip)+' vs '+money(c2.totalPaid)+'</span></div>';
+      $('fha-resultRows').innerHTML=r2;
+      renderDonut([{n:'FHA total',v:f.totalMortgage+f.totalMip,c:'#1E3A5F'},{n:'Conventional total',v:c2.totalPaid,c:'#16A34A'}], f.totalMortgage+f.totalMip+c2.totalPaid);
     }
     else {
-      label='Monthly Payment'; big=money(f.piti,2);
-      sub = 'Includes '+money(f.mipMo,2)+' of FHA mortgage insurance'+(f.lifeOfLoan?' that never comes off at this down payment.':' that ends after 11 years.');
-      rows+='<div class="fha-result-row"><span>Down Payment ('+f.dpPct+'%)</span><span>'+money(f.down)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Base Loan Amount</span><span>'+money(f.base)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Upfront MIP (1.75%)<span class="fha-tip" title="Charged on every FHA loan. Most borrowers finance it into the mortgage rather than paying it in cash.">?</span></span><span>'+money(f.ufmip,2)+(f.financeUf?' (financed)':' (cash)')+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Total Loan Amount</span><span>'+money(f.loan)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Principal &amp; Interest</span><span>'+money(f.pi,2)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Annual MIP ('+f.mipRate+'%)</span><span class="fha-bad">'+money(f.mipMo,2)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>MIP Ends</span><span class="'+(f.lifeOfLoan?'fha-bad':'fha-good')+'">'+(f.lifeOfLoan?'Never \u2014 life of loan':fmtMonths(f.mipMonths))+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Total MIP Paid</span><span>'+money(f.mipTotal)+'</span></div>';
-      if(f.taxMo>0) rows+='<div class="fha-result-row"><span>Property Tax</span><span>'+money(f.taxMo,2)+'</span></div>';
-      if(f.insMo>0) rows+='<div class="fha-result-row"><span>Home Insurance</span><span>'+money(f.insMo,2)+'</span></div>';
-      if(f.hoaMo>0) rows+='<div class="fha-result-row"><span>HOA</span><span>'+money(f.hoaMo,2)+'</span></div>';
-      rows+='<div class="fha-result-row"><span>Cash Needed at Closing<span class="fha-tip" title="Down payment plus the upfront MIP if you are not financing it. Closing costs are additional.">?</span></span><span>'+money(f.cashAtClose)+'</span></div>';
-      rows+='<div class="fha-result-row total"><span>Total Monthly Payment</span><span>'+money(f.piti,2)+'</span></div>';
-      renderDonut([
-        {n:'Principal & interest',v:f.pi,c:'#1E3A5F'},
-        {n:'MIP',v:f.mipMo,c:'#F97316'},
-        {n:'Property tax',v:f.taxMo,c:'#7C3AED'},
-        {n:'Insurance',v:f.insMo,c:'#0EA5E9'},
-        {n:'HOA',v:f.hoaMo,c:'#94A3B8'}
-      ], f.piti);
+      var limit = Math.max(0, num('fha-limit'));
+      var maxPrice35 = limit/0.965, base35 = f.price*0.965;
+      var eligible = base35 <= limit;
+      label='Max Home Price at 3.5% Down'; big=money(maxPrice35);
+      sub = eligible ? 'A '+money(f.price)+' home fits within this limit.'
+                     : 'A '+money(f.price)+' home needs a '+money(base35)+' loan, which is above your limit.';
+      headEl.classList.toggle('negative', !eligible);
+      var r3='';
+      r3+='<div class="fha-result-row"><span>Your County Limit</span><span>'+money(limit)+'</span></div>';
+      r3+='<div class="fha-result-row"><span>2026 National Floor</span><span>'+money(FLOOR)+'</span></div>';
+      r3+='<div class="fha-result-row"><span>2026 National Ceiling</span><span>'+money(CEILING)+'</span></div>';
+      r3+='<div class="fha-result-row"><span>Loan Needed at 3.5% Down</span><span>'+money(base35)+'</span></div>';
+      r3+='<div class="fha-result-row"><span>Max Price at 3.5% Down</span><span>'+money(maxPrice35)+'</span></div>';
+      r3+='<div class="fha-result-row"><span>Max Price at 10% Down</span><span>'+money(limit/0.90)+'</span></div>';
+      r3+='<div class="fha-result-row total"><span>FHA Eligible at '+money(f.price)+'?</span><span class="'+(eligible?'fha-good':'fha-bad')+'">'+(eligible?'Yes':'No \u2014 over the limit')+'</span></div>';
+      $('fha-resultRows').innerHTML=r3;
+      if(!eligible) warn='At '+money(f.price)+' the base loan exceeds your county limit. You would need a larger down payment, a lower price, or a conventional loan.';
+      renderDonut([{n:'Within limit',v:Math.min(base35,limit),c:'#16A34A'},{n:'Over limit',v:Math.max(0,base35-limit),c:'#DC2626'}], base35);
     }
 
     var w=$('fha-warningBanner');
     if(warn){ w.style.display='block'; w.textContent=warn; } else w.style.display='none';
     $('fha-resultLabel').textContent=label;
     $('fha-bignum').textContent=big;
-    $('fha-verdictSub').textContent = (f.price>0) ? sub : '';
-    $('fha-resultRows').innerHTML=rows;
-    renderTable(f); renderCostChart(f);
+    $('fha-verdictSub').textContent = (f.price>0)?sub:'';
+    renderAmort(f); renderBalanceChart(f);
     window.__fhaLast=f;
   }
 
@@ -868,19 +986,50 @@
       applyModeVisibility(); render();
     });
   });
-  ['fha-price','fha-dp','fha-rate','fha-tax','fha-ins','fha-hoa','fha-cdp','fha-cpmi','fha-limit'].forEach(function(id){
+  document.querySelectorAll('#fha-schedToggle button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#fha-schedToggle button').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); schedView=b.dataset.v; render();
+    });
+  });
+  document.querySelectorAll('#fha-dpUnit button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var price=Math.max(0,num('fha-price')), cur=num('fha-dp'), nu=b.dataset.u;
+      if(nu!==dpUnit && price>0){ $('fha-dp').value = (nu==='amt') ? Math.round(price*cur/100) : +(cur/price*100).toFixed(2); }
+      dpUnit=nu;
+      document.querySelectorAll('#fha-dpUnit button').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); render();
+    });
+  });
+  document.querySelectorAll('#fha-taxUnit button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var price=Math.max(0,num('fha-price')), cur=num('fha-tax'), nu=b.dataset.u;
+      if(nu!==taxUnit && price>0){ $('fha-tax').value = (nu==='amt') ? Math.round(price*cur/100) : +(cur/price*100).toFixed(2); }
+      taxUnit=nu;
+      document.querySelectorAll('#fha-taxUnit button').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); render();
+    });
+  });
+  ['fha-price','fha-dp','fha-rate','fha-term','fha-ufmip','fha-tax','fha-ins','fha-hoa','fha-other','fha-cdp','fha-cpmi','fha-limit','fha-startYear'].forEach(function(id){
     $(id).addEventListener('input', render);
   });
   $('fha-mip').addEventListener('input', function(){ autoMip=false; render(); });
-  $('fha-term').addEventListener('change', function(){ autoMip=true; render(); });
-  $('fha-financeUf').addEventListener('change', render);
+  $('fha-mipdur').addEventListener('change', function(){ autoDur=false; render(); });
+  $('fha-term').addEventListener('input', function(){ autoMip=true; autoDur=true; });
+  $('fha-startMonth').addEventListener('change', render);
+  $('fha-showOpt').addEventListener('change', render);
   $('fha-calcBtn').addEventListener('click', render);
   $('fha-clearBtn').addEventListener('click', function(){
-    $('fha-price').value=400000; $('fha-dp').value=3.5; $('fha-rate').value=6.5;
-    $('fha-term').value='30'; $('fha-tax').value=1.1; $('fha-ins').value=1800;
-    $('fha-hoa').value=0; $('fha-cdp').value=5; $('fha-cpmi').value=0.5;
-    $('fha-limit').value=FLOOR; $('fha-financeUf').checked=true;
-    autoMip=true; render();
+    $('fha-price').value=500000; $('fha-dp').value=3.5; $('fha-rate').value=6.66;
+    $('fha-term').value=30; $('fha-ufmip').value=1.75; $('fha-tax').value=1.2;
+    $('fha-ins').value=2500; $('fha-hoa').value=0; $('fha-other').value=5000;
+    $('fha-cdp').value=5; $('fha-cpmi').value=0.5; $('fha-limit').value=FLOOR;
+    $('fha-startMonth').value='7'; $('fha-startYear').value=2026;
+    $('fha-showOpt').checked=true;
+    dpUnit='pct'; taxUnit='pct'; autoMip=true; autoDur=true;
+    document.querySelectorAll('#fha-dpUnit button').forEach(function(x,i){ x.classList.toggle('active', i===0); });
+    document.querySelectorAll('#fha-taxUnit button').forEach(function(x,i){ x.classList.toggle('active', i===0); });
+    render();
   });
 
   var pdfLibsPromise=null;
@@ -909,30 +1058,42 @@
       doc.text('Generated by CalculatorBoss.com  \u00b7  '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), margin, y);
       y+=20; doc.setDrawColor(220,220,220); doc.line(margin,y,doc.internal.pageSize.getWidth()-margin,y); y+=22;
       doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(22,163,74);
-      doc.text('Monthly payment: '+money(f.piti,2), margin, y); y+=24;
-      doc.autoTable({startY:y,margin:{left:margin,right:margin},styles:{fontSize:10,cellPadding:5},columnStyles:{1:{halign:'right'}},body:[
-        ['Home Price', money(f.price)],
-        ['Down Payment ('+f.dpPct+'%)', money(f.down)],
-        ['Base Loan', money(f.base)],
-        ['Upfront MIP (1.75%)', money(f.ufmip,2)+(f.financeUf?' financed':' cash')],
-        ['Total Loan', money(f.loan)],
-        ['Principal & Interest', money(f.pi,2)],
-        ['Annual MIP ('+f.mipRate+'%)', money(f.mipMo,2)+'/mo'],
-        ['MIP Ends', f.lifeOfLoan?'Never (life of loan)':fmtMonths(f.mipMonths)],
-        ['Total MIP Paid', money(f.mipTotal)],
-        ['Cash Needed at Closing', money(f.cashAtClose)],
-        ['Total Monthly Payment', money(f.piti,2)]
+      doc.text('Monthly Pay: '+money(f.piti,2), margin, y); y+=24;
+      doc.autoTable({startY:y,margin:{left:margin,right:margin},styles:{fontSize:10,cellPadding:5},
+        head:[['','Monthly','Total']],
+        columnStyles:{1:{halign:'right'},2:{halign:'right'}},
+        body:[
+          ['Mortgage Payment', money(f.pi,2), money(f.totalMortgage,2)],
+          ['Property Tax', money(f.taxMo,2), money(f.taxMo*f.nMonths,2)],
+          ['Home Insurance', money(f.insMo,2), money(f.insMo*f.nMonths,2)],
+          ['Annual MIP', money(f.mipMo,2), money(f.totalMip,2)],
+          ['HOA Fee', money(f.hoaMo,2), money(f.hoaMo*f.nMonths,2)],
+          ['Other Costs', money(f.otherMo,2), money(f.otherMo*f.nMonths,2)],
+          ['Total Out-of-Pocket', money(f.piti,2), money(f.outOfPocketTotal,2)]
+        ]});
+      var y2=doc.lastAutoTable.finalY+22;
+      doc.autoTable({startY:y2,margin:{left:margin,right:margin},styles:{fontSize:10,cellPadding:5},columnStyles:{1:{halign:'right'}},body:[
+        ['House Price', money(f.price,2)],
+        ['Loan Amount with Upfront MIP', money(f.loan,2)],
+        ['Down Payment', money(f.down,2)],
+        ['Upfront MIP', money(f.ufmip,2)],
+        ['Total of '+f.nMonths+' Mortgage Payments', money(f.totalMortgage,2)],
+        ['Total Interest', money(f.totalInterest,2)],
+        ['Mortgage Payoff Date', f.payoff]
       ]});
-      var afterY=doc.lastAutoTable.finalY+24;
+      var y3=doc.lastAutoTable.finalY+22;
       doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(30,58,95);
-      doc.text('Down Payment Options', margin, afterY);
-      doc.autoTable({startY:afterY+10,margin:{left:margin,right:margin},
-        head:[['Down','Cash at Close','Monthly MIP','MIP Ends','Monthly']],
-        body:DP_OPTIONS.map(function(d){
-          var x=computeFha(d);
-          return [d+'%', money(x.cashAtClose), money(x.mipMo,2), x.lifeOfLoan?'Life of loan':fmtMonths(x.mipMonths), money(x.pi+x.mipMo,2)];
-        }),
-        styles:{fontSize:9,cellPadding:4},columnStyles:{1:{halign:'right'},2:{halign:'right'},4:{halign:'right'}}});
+      doc.text('Annual Amortization Schedule', margin, y3);
+      var years=[], yi=0, yInt=0, yPrin=0;
+      f.sched.forEach(function(r, idx){
+        yInt+=r.interest; yPrin+=r.principal;
+        if((idx+1)%12===0 || idx===f.sched.length-1){
+          yi++; years.push([yi, money(yInt,2), money(yPrin,2), money(r.balance,2)]); yInt=0; yPrin=0;
+        }
+      });
+      doc.autoTable({startY:y3+10,margin:{left:margin,right:margin},
+        head:[['Year','Interest','Principal','Ending Balance']], body:years,
+        styles:{fontSize:9,cellPadding:4},columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'}}});
       doc.save('fha-loan-estimate-'+new Date().toISOString().slice(0,10)+'.pdf');
     }catch(e){ alert('Sorry, there was a problem generating the PDF: '+e.message); }
   }
