@@ -263,6 +263,8 @@
 .dp-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
 .dp-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.dp-result-head.caution{background:#B0790F}
+.dp-warn-box{background:#FEF3E2;border:1px solid #F0D9A8;color:#8A5A0A;font-size:12.5px;line-height:1.55;padding:10px 12px;border-radius:8px;margin:-6px 0 16px}
 .dp-result-head.bad{background:#D33249}
 .dp-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
 .dp-result-head .bignum{font-size:28px;font-weight:700;line-height:1.25;margin-top:2px}
@@ -376,6 +378,7 @@
   </div>
   <div class="dp-result-body">
     <p class="dp-summary" id="dp-summarySentence"></p>
+    <p class="dp-warn-box" id="dp-longWarning" style="display:none"></p>
     <div class="dp-donut-box" id="dp-donutBox">
       <svg viewBox="0 0 150 150" class="dp-donut-svg" id="dp-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
       <div class="dp-donut-legend" id="dp-donutLegend"></div>
@@ -609,6 +612,8 @@
 
     var head = $('dp-resultHead');
     head.classList.toggle('bad', r.neverPaysOff);
+    var isLong = !r.neverPaysOff && r.months > 240;
+    head.classList.toggle('caution', isLong);
     $('dp-bignum').textContent = r.neverPaysOff ? 'Never (600mo+)' : fmtMonths(r.months);
 
     var totalPrincipal = calc.debts.reduce(function(s,d){return s+d.bal;},0);
@@ -617,6 +622,14 @@
     $('dp-summarySentence').innerHTML = r.neverPaysOff
       ? 'With the payments entered, at least one debt never gets paid off within 50 years — its payment doesn\'t cover the monthly interest charged, so the balance grows instead of shrinking. Increase that debt\'s payment, or direct extra funds toward it, to see a real payoff date.'
       : 'You can pay off your debts in <b>'+fmtMonths(r.months)+'</b> ('+r.months+' months) by making fixed payments of <b>'+usd(totalMonthlyNow,2)+'</b> every month'+(extraMonthlyVal>0?', of which '+usd(extraMonthlyVal,2)+' is the extra monthly payment':'')+'. You will need to pay a total of <b>'+usd(totalPrincipal+r.totalInterest,2)+'</b>, of which the total interest is <b>'+usd(r.totalInterest,2)+'</b>.';
+
+    var warnBox = $('dp-longWarning');
+    if(isLong){
+      warnBox.style.display = 'block';
+      warnBox.textContent = 'That\'s over '+Math.floor(r.months/12)+' years — much longer than most people plan for. Try raising your monthly or extra payment above to see how much time and interest a bigger payment could save.';
+    } else {
+      warnBox.style.display = 'none';
+    }
 
     var donutBox = $('dp-donutBox');
     if(r.neverPaysOff){
@@ -643,7 +656,15 @@
     });
     $('dp-orderList').innerHTML = order.map(function(x, i){
       var meta = (x.paidOffMonth ? fmtMonths(x.paidOffMonth) : 'Never') + ' · ' + (x.paidOffMonth ? usd(x.totalInterest,0)+' interest' : 'balance growing');
-      var narrative = x.paidOffMonth ? buildPayoffNarrative(x.payments) : 'This payment doesn\'t cover the monthly interest charged, so the balance keeps growing instead of shrinking. Raise the payment or add extra funds to make progress on this debt.';
+      var narrative;
+      if(!x.paidOffMonth){
+        narrative = 'This payment doesn\'t cover the monthly interest charged, so the balance keeps growing instead of shrinking. Raise the payment or add extra funds to make progress on this debt.';
+      } else {
+        narrative = buildPayoffNarrative(x.payments);
+        if(x.paidOffMonth > 240){
+          narrative += ' <span style="color:#B0790F">That\'s over '+Math.floor(x.paidOffMonth/12)+' years for this debt alone — a higher payment would clear it much sooner.</span>';
+        }
+      }
       return '<details class="dp-debt-detail"'+(i===0?' open':'')+'>'+
         '<summary><span class="name">#'+(i+1)+': '+x.name+'</span><span class="meta">'+meta+'<span class="chev">▸</span></span></summary>'+
         '<p class="narrative">'+narrative+'</p>'+
