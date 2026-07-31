@@ -448,6 +448,8 @@
 .est-prior b{color:var(--ink)}
 .est-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .est-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.est-prior{font-size:12px;color:var(--ink-soft);margin:0 20px 16px;padding:11px 13px;background:var(--surface-sunken);border-radius:9px;line-height:1.65}
+.est-prior b{color:var(--ink)}
 .est-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
 
 .est-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
@@ -626,8 +628,13 @@
     var over = Math.max(0, base - exclusion);
     var tax = over * RATE;
     var toHeirs = Math.max(0, gross - debts - funeral - charity - stateTaxPaid - tax);
+    var priorExclusion = BEA_PRIOR + dsue;
+    var priorOver = Math.max(0, base - priorExclusion);
+    var priorTax = priorOver * RATE;
     return {gross:gross, deductions:deductions, marital:marital, charity:charity, debts:debts,
             funeral:funeral, stateTaxPaid:stateTaxPaid,
+            priorOver:priorOver, priorTax:priorTax,
+            priorAfter:Math.max(0, gross - debts - funeral - charity - stateTaxPaid - priorTax),
             prior:prior, dsue:dsue, taxable:taxable, base:base, exclusion:exclusion,
             over:over, tax:tax, toHeirs:toHeirs, warn:warn,
             effRate: gross>0 ? tax/gross*100 : 0};
@@ -763,6 +770,7 @@
       rows+='<div class="est-result-row"><span>Above State Exemption</span><span class="'+(s.stateOver>0?'est-owe':'est-safe')+'">'+money(s.stateOver)+'</span></div>';
       rows+='<div class="est-result-row"><span>State Estate Tax at '+s.stateRate+'%</span><span>'+money(s.stateTax)+'</span></div>';
       rows+='<div class="est-result-row total"><span>Net to Heirs</span><span>'+money(s.toHeirs)+'</span></div>';
+      $('est-priorLine').style.display='none';
       renderBar(s.toHeirs, s.combined, s.f.gross);
       renderTable(s.f.exclusion); renderCurve(s.f.exclusion);
       window.__estLast={mode:'state', d:s};
@@ -781,6 +789,7 @@
       rows+='<div class="est-result-row"><span>Still Above Exemption</span><span>'+money(g.remaining)+'</span></div>';
       rows+='<div class="est-result-row total"><span>Federal Tax Saved at 40%</span><span>'+money(g.saved)+'</span></div>';
       if(g.moved > g.exposed && g.exposed > 0) warn = 'This gifting plan moves more than the estate\u2019s current exposure, so the saving is capped at the '+money(g.exposed)+' actually above the exemption.';
+      $('est-priorLine').style.display='none';
       renderBar(g.effective, g.remaining, Math.max(g.exposed, 1));
       renderTable(BEA); renderCurve(BEA);
       window.__estLast={mode:'gift', d:g};
