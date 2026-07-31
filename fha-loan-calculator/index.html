@@ -442,6 +442,9 @@
 .fha-checkrow{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
 .fha-checkrow input{width:16px;height:16px}
 .fha-sched-table td.hl{background:var(--gold-tint);font-weight:700}
+.fha-resultcol{display:flex;flex-direction:column;gap:16px;width:100%;min-width:0}
+.fha-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.fha-panel-head{padding:13px 20px;font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);background:var(--surface-sunken)}
 .fha-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
 .fha-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
 .fha-unit-toggle button.active{background:#1E3A5F;color:#fff}
@@ -566,33 +569,40 @@
     </div>
   </div>
 
-  <div class="fha-result-card fha-area-result">
-    <div class="fha-result-head" id="fha-resultHead">
-      <div class="label" id="fha-resultLabel">Monthly Pay</div>
-      <div class="bignum" id="fha-bignum">$0</div>
-      <div class="verdict-sub" id="fha-verdictSub"></div>
-    </div>
-    <div class="fha-warning" id="fha-warningBanner" style="display:none"></div>
+  <div class="fha-resultcol fha-area-result">
 
-    <div class="fha-result-body" id="fha-breakdownWrap">
-      <table class="fha-mt-table">
-        <thead><tr><th>&nbsp;</th><th>Monthly</th><th>Total</th></tr></thead>
-        <tbody id="fha-mtBody"></tbody>
-      </table>
-    </div>
-
-    <div class="fha-chart-box">
-      <svg viewBox="0 0 320 150" class="fha-svg" id="fha-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="fha-chart-legend" id="fha-legend"></div>
+    <div class="fha-result-card">
+      <div class="fha-result-head" id="fha-resultHead">
+        <div class="label" id="fha-resultLabel">Monthly Pay</div>
+        <div class="bignum" id="fha-bignum">$0</div>
+        <div class="verdict-sub" id="fha-verdictSub"></div>
+      </div>
+      <div class="fha-warning" id="fha-warningBanner" style="display:none"></div>
+      <div class="fha-result-body" id="fha-breakdownWrap">
+        <table class="fha-mt-table">
+          <thead><tr><th>&nbsp;</th><th>Monthly</th><th>Total</th></tr></thead>
+          <tbody id="fha-mtBody"></tbody>
+        </table>
+      </div>
+      <div class="fha-result-body" id="fha-resultRows" style="display:none"></div>
     </div>
 
-    <div class="fha-sec-title" id="fha-sumTitle">Loan Summary</div>
-    <div class="fha-result-body" style="padding-top:6px">
-      <table class="fha-sum-table"><tbody id="fha-sumBody"></tbody></table>
+    <div class="fha-panel-card" id="fha-chartCard">
+      <div class="fha-panel-head">Where Your Payment Goes</div>
+      <div class="fha-chart-box">
+        <svg viewBox="0 0 320 150" class="fha-svg" id="fha-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="fha-chart-legend" id="fha-legend"></div>
+      </div>
     </div>
 
-    <div class="fha-result-body" id="fha-resultRows" style="display:none"></div>
-    <p class="fha-note">Uses the FHA's upfront MIP on the base loan amount and the HUD annual MIP schedule. Estimates only &mdash; your lender's Loan Estimate is the authoritative figure.</p>
+    <div class="fha-panel-card" id="fha-sumCard">
+      <div class="fha-panel-head" id="fha-sumTitle">Loan Summary</div>
+      <div class="fha-result-body" style="padding-top:10px">
+        <table class="fha-sum-table"><tbody id="fha-sumBody"></tbody></table>
+      </div>
+      <p class="fha-note">Upfront MIP is 1.75% of the base loan amount, which is how HUD defines it. Some calculators apply it to the full home price instead, which gives a slightly higher figure. Estimates only &mdash; your lender's Loan Estimate is the authoritative document.</p>
+    </div>
+
   </div>
 
   <div class="fha-sidecol fha-area-sidebar">
@@ -883,8 +893,7 @@
     else if(f.base > CEILING) warn='This loan is above the 2026 FHA national ceiling of '+money(CEILING)+', so an FHA loan would not be available at this price. Check the Loan Limits tab.';
 
     $('fha-breakdownWrap').style.display = (mode==='pay') ? '' : 'none';
-    $('fha-sumTitle').style.display = (mode==='pay') ? '' : 'none';
-    $('fha-sumBody').parentNode.parentNode.style.display = (mode==='pay') ? '' : 'none';
+    $('fha-sumCard').style.display = (mode==='pay') ? '' : 'none';
     $('fha-resultRows').style.display = (mode==='pay') ? 'none' : '';
 
     if(mode === 'pay'){
