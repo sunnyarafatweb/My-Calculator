@@ -443,6 +443,7 @@
 
 .dep-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .dep-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dep-chart-legend{gap:8px 10px !important}
 .dep-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
 
 .dep-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
@@ -568,7 +569,7 @@
       <div class="dep-panel-head">How Much Is Written Off</div>
       <div class="dep-chart-box">
         <svg viewBox="0 0 320 160" class="dep-svg" id="dep-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="dep-chart-legend"><span><i style="background:#1E3A5F"></i>Total depreciation</span><span><i style="background:#94A3B8"></i>Remaining book value</span></div>
+        <div class="dep-chart-legend" id="dep-donutLegend"></div>
       </div>
       <p class="dep-note" id="dep-methodNote"></p>
     </div>
@@ -819,6 +820,13 @@
     svg += '<text x="'+cx+'" y="'+(cy-2)+'" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">'+(frac*100).toFixed(0)+'%</text>';
     svg += '<text x="'+cx+'" y="'+(cy+15)+'" text-anchor="middle" font-size="10" fill="var(--ink-faint)">depreciated</text>';
     $('dep-donutSvg').innerHTML = svg;
+    var leg = $('dep-donutLegend');
+    if(leg){
+      var pctDep = frac*100, pctLeft = Math.max(0, 100-pctDep);
+      leg.innerHTML =
+        '<span><i style="background:#1E3A5F"></i>Depreciated <b style="color:var(--ink);margin-left:3px">'+pctDep.toFixed(1)+'%</b></span>'+
+        '<span><i style="background:#94A3B8"></i>Book value left <b style="color:var(--ink);margin-left:3px">'+pctLeft.toFixed(1)+'%</b></span>';
+    }
   }
 
   function renderBookValueChart(r){

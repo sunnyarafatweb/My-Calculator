@@ -442,6 +442,10 @@
 .fha-checkrow{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
 .fha-checkrow input{width:16px;height:16px}
 .fha-sched-table td.hl{background:var(--gold-tint);font-weight:700}
+.fha-chart-legend#fha-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 12px;justify-content:stretch;margin-top:6px}
+.fha-chart-legend#fha-legend span{display:flex;align-items:center;min-width:0}
+.fha-lg-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fha-lg-pct{margin-left:auto;padding-left:6px;color:var(--ink);font-weight:700;flex-shrink:0}
 .fha-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .fha-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 /* Title sits INSIDE the card on the card's own white background. It previously
@@ -954,9 +958,13 @@
     svg+='<text x="'+cx+'" y="'+(cy-1)+'" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">'+money(total,0)+'</text>';
     svg+='<text x="'+cx+'" y="'+(cy+15)+'" text-anchor="middle" font-size="9.5" fill="var(--ink-faint)">per month</text>';
     $('fha-donutSvg').innerHTML=svg;
-    $('fha-legend').innerHTML = parts.filter(function(p){return p.v>0;}).map(function(p){
-      return '<span><i style="background:'+p.c+'"></i>'+p.n+'</span>';
+    var shown = parts.filter(function(p){ return p.v > 0; });
+    $('fha-legend').innerHTML = shown.map(function(p){
+      var pct = t > 0 ? p.v/t*100 : 0;
+      return '<span><i style="background:'+p.c+'"></i><span class="fha-lg-name">'+p.n+'</span>'+
+             '<b class="fha-lg-pct">'+pct.toFixed(1)+'%</b></span>';
     }).join('');
+    $('fha-legend').style.gridTemplateColumns = 'repeat('+(shown.length > 4 ? 2 : 1)+',minmax(0,1fr))';
   }
 
   function renderAmort(o){
