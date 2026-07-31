@@ -272,11 +272,23 @@
 .dp-result-row span:last-child{font-weight:600;color:var(--ink)}
 .dp-chart-box{padding:0 20px 18px}
 
-.dp-order-table{width:100%;border-collapse:collapse;font-size:12.5px}
-.dp-order-table th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);padding:6px 4px;border-bottom:1px solid var(--border-fine)}
-.dp-order-table td{padding:8px 4px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
-.dp-order-table td.name{color:var(--ink);font-weight:600}
-.dp-order-table td.num{text-align:right}
+.dp-summary{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:0 0 16px}
+.dp-summary b{color:var(--ink)}
+.dp-donut-box{padding:0 0 18px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.dp-donut-svg{width:130px;height:130px;flex-shrink:0}
+.dp-donut-legend{display:flex;flex-direction:column;gap:10px;flex:1;min-width:140px}
+.dp-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
+.dp-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
+.dp-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:10px}
+
+.dp-debt-detail{border:1px solid var(--border-fine);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.dp-debt-detail summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:13px}
+.dp-debt-detail summary::-webkit-details-marker{display:none}
+.dp-debt-detail summary .name{font-weight:600;color:var(--ink)}
+.dp-debt-detail summary .meta{color:var(--ink-faint);font-size:12px;white-space:nowrap}
+.dp-debt-detail summary .chev{color:var(--ink-faint);font-size:11px;transition:transform .15s;margin-left:4px}
+.dp-debt-detail[open] summary .chev{transform:rotate(90deg)}
+.dp-debt-detail .narrative{padding:0 12px 12px;font-size:12px;color:var(--ink-soft);line-height:1.6;border-top:1px solid var(--border-fine);margin:0;padding-top:8px}
 
 .dp-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .dp-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -363,16 +375,21 @@
     <div class="bignum" id="dp-bignum">0 mo</div>
   </div>
   <div class="dp-result-body">
-    <div class="dp-result-row"><span>Total interest paid</span><span id="dp-totalInterest">$0</span></div>
-    <div class="dp-result-row"><span>Total paid (principal + interest)</span><span id="dp-totalPaid">$0</span></div>
+    <p class="dp-summary" id="dp-summarySentence"></p>
+    <div class="dp-donut-box" id="dp-donutBox">
+      <svg viewBox="0 0 150 150" class="dp-donut-svg" id="dp-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="dp-donut-legend" id="dp-donutLegend"></div>
+    </div>
     <div class="dp-result-row"><span>Interest saved by extra payments</span><span id="dp-interestSaved">$0</span></div>
     <div class="dp-result-row"><span>Time saved by extra payments</span><span id="dp-timeSaved">0 mo</span></div>
   </div>
   <div class="dp-chart-box">
-    <span class="dp-section-label" style="margin-top:4px">Payoff order (avalanche)</span>
-    <table class="dp-order-table" id="dp-orderTable"><thead><tr><th>Debt</th><th class="num">Paid off</th><th class="num">Interest</th></tr></thead><tbody></tbody></table>
+    <span class="dp-section-label" style="margin-top:4px">Payoff order &amp; schedule (avalanche)</span>
+    <p style="font-size:11.5px;color:var(--ink-faint);margin:-6px 0 10px">Tap a debt to see exactly how its payment changes month to month.</p>
+    <div id="dp-orderList"></div>
   </div>
   <div class="dp-chart-box">
+    <span class="dp-section-label" style="margin-top:4px">Total balance over time</span>
     <svg viewBox="0 0 300 130" style="width:100%;overflow:visible" id="dp-balanceSvg"></svg>
   </div>
 </div>
@@ -458,7 +475,7 @@
   /* ---------- avalanche simulation ---------- */
   function simulateAvalanche(debts, extraMonthly, extraYearly, oneTimeAmt, oneTimeMonth, fixedTotalOpt, maxMonths){
     maxMonths = maxMonths || 600;
-    var d = debts.map(function(x){ return {name:x.name, balance:x.bal, rate:x.rate, minPay:x.pay, paidOffMonth:null, totalInterest:0}; });
+    var d = debts.map(function(x){ return {name:x.name, balance:x.bal, rate:x.rate, minPay:x.pay, paidOffMonth:null, totalInterest:0, payments:[]}; });
     var originalTotalMin = d.reduce(function(s,x){return s+x.minPay;},0);
     var month = 0;
     var totalInterestAll = 0;
@@ -484,22 +501,28 @@
 
       active.sort(function(a,b){ return b.rate-a.rate; });
 
-      var pool = budget;
+      var paidThisMonth = {};
       active.forEach(function(x){
         var pay = Math.min(x.minPay, x.balance);
         x.balance -= pay;
-        pool -= pay;
+        paidThisMonth[x.name] = (paidThisMonth[x.name]||0) + pay;
       });
+      var pool = budget - active.reduce(function(s,x){return s+(paidThisMonth[x.name]||0);},0);
       var idx = 0;
       while(pool > 0.005 && idx < active.length){
         var x = active[idx];
         if(x.balance > 0.005){
           var pay = Math.min(pool, x.balance);
           x.balance -= pay;
+          paidThisMonth[x.name] = (paidThisMonth[x.name]||0) + pay;
           pool -= pay;
         }
         idx++;
       }
+
+      active.forEach(function(x){
+        x.payments.push({month:month, amount: paidThisMonth[x.name]||0});
+      });
 
       d.forEach(function(x){
         if(x.paidOffMonth===null && x.balance<=0.005){ x.paidOffMonth = month; }
@@ -509,6 +532,57 @@
     }
 
     return {months: month, totalInterest: totalInterestAll, debts: d, history: history, neverPaysOff: month>=maxMonths};
+  }
+
+  /* ---------- turn a debt's month-by-month payment array into a short,
+     human-readable schedule narrative, e.g.:
+     "Pay $220.00 until month 20. Then pay $475.00 until month 26. Pay $312.40 at month 27 to payoff." ---------- */
+  function buildPayoffNarrative(payments){
+    if(!payments || !payments.length) return '';
+    var segs = [];
+    payments.forEach(function(p){
+      var last = segs[segs.length-1];
+      if(last && Math.abs(last.amount-p.amount) < 0.5 && p.month === last.to+1){
+        last.to = p.month;
+      } else {
+        segs.push({from:p.month, to:p.month, amount:p.amount});
+      }
+    });
+    var lastSeg = segs[segs.length-1];
+    var head = segs.slice(0,-1);
+    if(lastSeg.from < lastSeg.to){
+      head = head.concat([{from:lastSeg.from, to:lastSeg.to-1, amount:lastSeg.amount}]);
+    }
+    var body = head.map(function(s, i){
+      return (i===0?'Pay ':'Then pay ')+usd(s.amount,2)+' until month '+s.to+'.';
+    });
+    body.push('Pay '+usd(lastSeg.amount,2)+' at month '+lastSeg.to+' to payoff.');
+    return body.join(' ');
+  }
+
+  // ===== donut chart (principal vs interest) =====
+  function renderDpDonut(svgId, legendId, principal, interest){
+    var total = Math.max(principal+interest, 0.0001);
+    var segs = [
+      {val:Math.max(0,principal), color:'#1E3A5F', label:'Principal'},
+      {val:Math.max(0,interest), color:'#F97316', label:'Interest'}
+    ];
+    var cx=75, cy=75, radius=58, strokeW=26;
+    var circumference = 2*Math.PI*radius;
+    var offset=0;
+    var svg = '<circle cx="'+cx+'" cy="'+cy+'" r="'+radius+'" fill="none" stroke="var(--surface-sunken)" stroke-width="'+strokeW+'"/>';
+    segs.forEach(function(s){
+      var frac = s.val/total;
+      var len = frac*circumference;
+      svg += '<circle cx="'+cx+'" cy="'+cy+'" r="'+radius+'" fill="none" stroke="'+s.color+'" stroke-width="'+strokeW+'" '+
+             'stroke-dasharray="'+len.toFixed(2)+' '+(circumference-len).toFixed(2)+'" stroke-dashoffset="'+(-offset).toFixed(2)+'" '+
+             'transform="rotate(-90 '+cx+' '+cy+')"/>';
+      offset += len;
+    });
+    $(svgId).innerHTML = svg;
+    $(legendId).innerHTML = segs.map(function(s){
+      return '<div class="lg"><i style="background:'+s.color+'"></i>'+s.label+'<b>'+usd(s.val,0)+'</b></div>';
+    }).join('');
   }
 
   var lastResult = null;
@@ -536,9 +610,16 @@
     var head = $('dp-resultHead');
     head.classList.toggle('bad', r.neverPaysOff);
     $('dp-bignum').textContent = r.neverPaysOff ? 'Never (600mo+)' : fmtMonths(r.months);
-    $('dp-totalInterest').textContent = usd(r.totalInterest,0);
+
     var totalPrincipal = calc.debts.reduce(function(s,d){return s+d.bal;},0);
-    $('dp-totalPaid').textContent = usd(totalPrincipal + r.totalInterest, 0);
+    var totalMonthlyNow = calc.debts.reduce(function(s,d){return s+d.pay;},0) + val('dp-extraMonthly');
+    var extraMonthlyVal = val('dp-extraMonthly');
+    $('dp-summarySentence').innerHTML = r.neverPaysOff
+      ? 'With the payments entered, at least one debt never gets paid off — its payment doesn\'t even cover the monthly interest. Increase that payment or add extra funds to see a real payoff date.'
+      : 'You can pay off your debts in <b>'+fmtMonths(r.months)+'</b> ('+r.months+' months) by making fixed payments of <b>'+usd(totalMonthlyNow,2)+'</b> every month'+(extraMonthlyVal>0?', of which '+usd(extraMonthlyVal,2)+' is the extra monthly payment':'')+'. You will need to pay a total of <b>'+usd(totalPrincipal+r.totalInterest,2)+'</b>, of which the total interest is <b>'+usd(r.totalInterest,2)+'</b>.';
+
+    renderDpDonut('dp-donutSvg','dp-donutLegend', totalPrincipal, r.totalInterest);
+
     var interestSaved = baseline.totalInterest - r.totalInterest;
     var timeSaved = baseline.months - r.months;
     $('dp-interestSaved').textContent = usd(Math.max(0,interestSaved),0);
@@ -549,9 +630,13 @@
       var bm = b.paidOffMonth===null ? Infinity : b.paidOffMonth;
       return am-bm;
     });
-    var tbody = document.querySelector('#dp-orderTable tbody');
-    tbody.innerHTML = order.map(function(x){
-      return '<tr><td class="name">'+x.name+'</td><td class="num">'+(x.paidOffMonth?fmtMonths(x.paidOffMonth):'—').replace('mo',' mo')+'</td><td class="num">'+usd(x.totalInterest,0)+'</td></tr>';
+    $('dp-orderList').innerHTML = order.map(function(x, i){
+      var meta = (x.paidOffMonth ? fmtMonths(x.paidOffMonth) : 'Never') + ' · ' + usd(x.totalInterest,0)+' interest';
+      var narrative = buildPayoffNarrative(x.payments);
+      return '<details class="dp-debt-detail"'+(i===0?' open':'')+'>'+
+        '<summary><span class="name">#'+(i+1)+': '+x.name+'</span><span class="meta">'+meta+'<span class="chev">▸</span></span></summary>'+
+        '<p class="narrative">'+(narrative||'—')+'</p>'+
+        '</details>';
     }).join('');
 
     renderBalanceChart(r.history);
