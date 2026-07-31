@@ -468,7 +468,7 @@
 <div class="dep-grid">
 
   <div class="dep-bar dep-area-bar">
-    <span class="dep-bar-text"><span class="dep-bar-badge">&#9662;</span>Pick a method and enter your asset details — results update automatically.</span>
+    <span class="dep-bar-text"><span class="dep-bar-badge">&#9662;</span><span id="dep-barHint">The simplest method — the same expense every year.</span></span>
     <button type="button" class="dep-bar-pdf-btn" id="dep-pdfBtn">&#128190; Save as PDF</button>
   </div>
 
@@ -903,7 +903,16 @@
   }
 
   // ---- tab + field visibility ----
+  var TAB_HINT = {
+    sl:    'The simplest method \u2014 the same expense every year. The usual choice for company accounts.',
+    db:    'Front-loads the expense against the falling book value. Set the factor to 2 for double declining balance.',
+    syd:   'Another accelerated method \u2014 heaviest in year one, tapering every year after.',
+    units: 'Ties depreciation to output rather than the calendar. Suits machinery measured in units, hours or miles.',
+    macrs: 'The system the IRS requires on US tax returns. It ignores salvage value and sets the recovery period for you.'
+  };
   function applyModeVisibility(){
+    var hint = $('dep-barHint');
+    if(hint) hint.textContent = TAB_HINT[mode] || '';
     document.querySelectorAll('.dep-mrow').forEach(function(el){
       var modes = (el.dataset.modes||'').split(' ');
       var show;
