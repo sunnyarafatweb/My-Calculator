@@ -444,6 +444,10 @@
 .dpc-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
 .dpc-unit-toggle button.active{background:#1E3A5F;color:#fff}
 
+.dpc-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
+.dpc-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dpc-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
+
 .dpc-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .dpc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
 .dpc-seo-article h2:first-child{margin-top:0}
@@ -507,19 +511,27 @@
     </div>
   </div>
 
-  <div class="dpc-result-card dpc-area-result">
-    <div class="dpc-result-head" id="dpc-resultHead">
-      <div class="label" id="dpc-resultLabel">Cash Needed to Close</div>
-      <div class="bignum" id="dpc-bignum">$0</div>
-      <div class="verdict-sub" id="dpc-verdictSub"></div>
+  <div class="dpc-resultcol dpc-area-result">
+
+    <div class="dpc-result-card">
+      <div class="dpc-result-head" id="dpc-resultHead">
+        <div class="label" id="dpc-resultLabel">Cash Needed to Close</div>
+        <div class="bignum" id="dpc-bignum">$0</div>
+        <div class="verdict-sub" id="dpc-verdictSub"></div>
+      </div>
+      <div class="dpc-warning" id="dpc-warningBanner" style="display:none"></div>
+      <div class="dpc-result-body" id="dpc-resultRows"></div>
     </div>
-    <div class="dpc-warning" id="dpc-warningBanner" style="display:none"></div>
-    <div class="dpc-result-body" id="dpc-resultRows"></div>
-    <div class="dpc-chart-box">
-      <svg viewBox="0 0 320 120" class="dpc-svg" id="dpc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="dpc-chart-legend"><span><i style="background:#16A34A"></i>Down payment</span><span><i style="background:#F97316"></i>Closing costs</span><span><i style="background:#94A3B8"></i>Financed</span></div>
+
+    <div class="dpc-panel-card">
+      <div class="dpc-panel-head">Where the Money Goes</div>
+      <div class="dpc-chart-box">
+        <svg viewBox="0 0 320 120" class="dpc-svg" id="dpc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="dpc-chart-legend"><span><i style="background:#16A34A"></i>Down payment</span><span><i style="background:#F97316"></i>Closing costs</span><span><i style="background:#94A3B8"></i>Financed</span></div>
+      </div>
+      <p class="dpc-note">Closing costs and PMI are estimates based on the rates you enter. Your Loan Estimate from the lender is the authoritative figure.</p>
     </div>
-    <p class="dpc-note">Closing costs and PMI are estimates based on the rates you enter. Your Loan Estimate from the lender is the authoritative figure.</p>
+
   </div>
 
   <div class="dpc-sidecol dpc-area-sidebar">
