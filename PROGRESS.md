@@ -2549,6 +2549,82 @@ assume this exact order still holds after a few weeks of new data.
     (default $5,650.66 savings, PDF lazy-load, add/remove row, fee toggle,
     Annual/Monthly toggle) is unchanged.
 
+- **Batch of five calculators rebuilt in one session** (Jul 31, 2026):
+  Depreciation, Discount, Down Payment, Estate Tax, FHA Loan. All five were
+  484-line template-tier pages; all five are now custom-built 3-card pattern
+  pages. Per-page detail is in the individual commit messages; what follows
+  is what carried across the batch and is worth reusing.
+
+  **Tooling built this session and kept in the sandbox scratch dir** (not in
+  the repo, per the no-clutter rule). Three pieces did most of the work and
+  are worth rebuilding next time rather than hand-rolling each page:
+  1. `builder.py` — pulls head/header/footer from apr-calculator, swaps the
+     meta values, and emits the shared grid/article CSS. Crucially it
+     generates the FAQPage schema and the visible FAQ markup **from one list
+     of (question, answer) tuples**, which makes the schema-vs-visible
+     mismatch bug that hit four previous sessions structurally impossible
+     rather than something to catch in review. All five pages passed 8/8
+     exact match on the first try as a result.
+  2. `verify_page.py` — static gate: JSON-LD validity, FAQ match, duplicate
+     ids, tag balance, protected style block byte-compare, H1 bold, wrapper
+     padding, unconditional-jsPDF detection, `node --check` on every inline
+     script, internal links resolving to real directories, meta length, H2
+     count. Caught three dead sidebar links and two id collisions before any
+     browser was opened.
+  3. `audit.py` — Playwright harness taking a per-page checks module, run on
+     desktop and mobile: console/page errors, horizontal overflow, H1 weight,
+     jsPDF-not-loaded-before-click, article-vs-grid alignment, and a real PDF
+     download.
+
+  **Two recurring bug classes were fixed at the tooling level, not per page:**
+  - Article heading anchors now carry an `-a-` namespace (`#dep-a-formula`),
+    because plain topic anchors kept colliding with form input ids of the
+    same name and producing duplicate-id failures.
+  - The audit harness filters sandbox-blocked Google Analytics beacons, which
+    were surfacing as a 503 console error and reading like a page bug.
+
+  **Verification standard applied to every page**: math written and checked in
+  Node *before* being wired in, and wherever possible cross-checked against a
+  figure published by an established source, so the check is against an
+  outside answer rather than my own arithmetic:
+  - Depreciation — MACRS percentages derived from the underlying rules rather
+    than hard-coded, then matched against published IRS Pub. 946 tables for
+    all six GDS classes (3/5/7/10/15/20-year), every schedule summing to 100%.
+  - Discount — stacked-discount result matched calculator.net's own worked
+    example (\$279 at 20% then 15% = \$189.72).
+  - Down Payment — monthly payment matched a published SmartAsset example
+    (\$600k at 20% down, 6.59%, 30yr = \$3,062).
+  - Estate Tax — 2026 figures corroborated across eight independent legal and
+    CPA sources citing IRS Rev. Proc. 2025-32 and OBBBA P.L. 119-21 s.70106.
+  - FHA — every figure matched a lender's own published worked example
+    (lower.com: \$386,000 base, \$6,755 UFMIP, \$2,482.48 P&I, \$176.92 MIP).
+
+  **Real bugs the audits caught before commit** (all fixed): negative headline
+  figures when salvage exceeded cost or asset cost was zero (Depreciation); a
+  completed savings goal rendering as "Not required" because a PMI-oriented
+  month formatter was reused where zero means success (Down Payment); plus
+  the dead links and id collisions noted above.
+
+  **Competitive positioning found during research**, since this is the part
+  that decides whether a page can rank rather than just exist:
+  - Depreciation: calculator.net has no MACRS at all, despite MACRS being what
+    the IRS requires on US returns and having a large dedicated-page keyword
+    cluster. Biggest single gap found in the batch.
+  - Discount: calculator.net splits this query across two pages (discount and
+    percent-off); both are covered here, plus reverse solving and BOGO.
+  - Down Payment: calculator.net mentions PMI but never prices it or says when
+    it ends.
+  - Estate Tax: calculator.net has no equivalent page; benchmarked against the
+    real competing set instead. A lot of live content still wrongly warns the
+    exemption halves in 2026, which the article corrects explicitly.
+  - FHA: calculator.net explains the 11-year vs life-of-loan MIP rule but does
+    not price the consequence or compare against conventional.
+
+  **Site-wide regression after the batch**: the five new pages plus
+  debt-consolidation, apr, auto-loan, body-fat and bmi all load with zero
+  console errors, zero horizontal overflow, and correct nav behaviour on both
+  desktop and mobile — confirming nothing shared was disturbed.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
