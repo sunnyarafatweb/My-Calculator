@@ -472,6 +472,24 @@
 .fha-toggle-row button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .fha-sched-table tr.yearend td{background:var(--surface-sunken);font-weight:700}
 
+.fha-grid{grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "rates rates rates" "bottomgrid bottomgrid bottomgrid"}
+@media(max-width:860px){
+  .fha-grid{grid-template-areas:"bar" "tabs" "form" "result" "rates" "bottomgrid" "sidebar"}
+}
+.fha-area-rates{grid-area:rates}
+.fha-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%}
+.fha-rates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.fha-rates-head .t{font-size:14px;font-weight:700;color:var(--ink)}
+.fha-rates-head .u{font-size:11px;color:var(--ink-faint);background:var(--surface-sunken);padding:3px 10px;border-radius:999px}
+.fha-rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fha-rates-grid>div{text-align:center;border-radius:12px;padding:14px;background:var(--surface-sunken)}
+.fha-rates-grid .lbl{font-size:11px;color:var(--ink-soft);margin-bottom:4px}
+.fha-rates-grid .val{font-size:22px;font-weight:600;font-family:var(--font-body);color:#22C55E}
+.fha-rates-grid .use{margin-top:8px;background:none;border:1px solid var(--border);border-radius:7px;color:var(--ink-soft);font-size:11px;font-weight:600;padding:4px 10px;cursor:pointer;font-family:var(--font-body)}
+.fha-rates-grid .use:hover{border-color:#1E3A5F;color:#1E3A5F}
+.fha-rates-note{font-size:11px;color:var(--ink-faint);margin-top:12px;line-height:1.6}
+@media(max-width:640px){.fha-rates-grid{grid-template-columns:1fr}}
+
 .fha-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .fha-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
 .fha-seo-article h2:first-child{margin-top:0}
@@ -668,6 +686,24 @@
     </div>
   </div>
 
+
+<!-- MAINTENANCE NOTE: static figures, not a live feed. There is no
+     CORS-friendly, key-free API a static site can safely call for real-time
+     mortgage rates, and a silently-broken rate feed on a mortgage page is
+     worse than none. Refresh these every 4-8 weeks, or whenever this page is
+     next touched, from freddiemac.com/pmms (30/15-year) and a current FHA
+     lender survey. Keep the date badge and the source line in step. -->
+  <div class="fha-rates-card fha-area-rates">
+    <div class="fha-rates-head">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="t">Latest Mortgage Rates</span><span class="u">Week of Jul 30, 2026</span></div>
+    </div>
+    <div class="fha-rates-grid">
+      <div><div class="lbl">30-Year FHA</div><div class="val">6.07%</div><button type="button" class="use" data-rate="6.07">Use this rate</button></div>
+      <div><div class="lbl">30-Year Fixed (conventional)</div><div class="val">6.66%</div><button type="button" class="use" data-rate="6.66">Use this rate</button></div>
+      <div><div class="lbl">15-Year Fixed</div><div class="val">6.04%</div><button type="button" class="use" data-rate="6.04">Use this rate</button></div>
+    </div>
+    <p class="fha-rates-note">Conventional 30- and 15-year figures are from Freddie Mac's Primary Mortgage Market Survey&reg; (PMMS&reg;) for the week ending Jul 30, 2026. The FHA figure is a national lender-survey average for the same week. FHA rates often sit below conventional ones because the loan is government-insured, but that headline advantage is offset by mortgage insurance that conventional loans drop at 20% equity &mdash; compare the total cost, not just the rate. These are averages for well-qualified borrowers; your own rate depends on credit score, down payment and lender. Updated periodically, not in real time &mdash; confirm today's rate with a lender before relying on it.</p>
+  </div>
   <div class="fha-bottom-grid fha-area-bottomgrid">
     <div class="fha-sched-card">
       <div class="fha-sched-head">
@@ -1148,6 +1184,13 @@
   });
   ['fha-xMoMonth','fha-xYrMonth','fha-xOneMonth'].forEach(function(id){ $(id).addEventListener('change', render); });
   $('fha-biweekly').addEventListener('change', render);
+  document.querySelectorAll('.fha-rates-grid .use').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      $('fha-rate').value = btn.dataset.rate;
+      autoMip = true; render();
+      $('fha-rate').scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
   $('fha-moreBtn').addEventListener('click', function(){
     var open = $('fha-advWrap').style.display !== 'none';
     $('fha-advWrap').style.display = open ? 'none' : '';
