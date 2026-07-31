@@ -2492,6 +2492,63 @@ assume this exact order still holds after a few weeks of new data.
     confirms which page is "taken," before starting a full rebuild, to
     avoid this doubled effort recurring.
 
+- **Debt Consolidation Calculator: real-user UX audit + fixes** (Jul 31,
+  2026, same-day follow-up, user request: "audit this so it's easy to use,
+  not confusing/boring, and competitive with calculator.net on impression/
+  click/AI-citation quality"). Walked through the page as a first-time
+  visitor rather than re-reading the code, and found real issues:
+  1. **Mobile debt-row fields had no visible labels.** The column headers
+     (`Debt name / Balance / Payment / APR`) are `display:none` under
+     520px, and the inputs only had invisible `aria-label`s — a phone
+     visitor would see four unlabeled boxes per debt with no way to tell
+     which was which. Fixed by adding a small uppercase label above each
+     field that only renders on narrow screens (`.dc-mlabel`, hidden by
+     default so desktop is unaffected), and switching the mobile row from
+     a 2-column grid to a stacked flex layout so label+input pairs read
+     naturally top to bottom.
+  2. **No plain-language verdict.** The green/red bignum ("$5,650.66")
+     answers "how much," but a non-finance visitor still has to work out
+     whether that's good news. Added a one-line verdict sentence under the
+     bignum ("✓ Worth it — this loan costs less overall..." / "✗ Not worth
+     it as entered..."), so the takeaway is unmissable without reading the
+     rest of the card.
+  3. **Loan Amount default could look broken.** It's hardcoded to 16000 to
+     match the default debts, but a real visitor entering their own debts
+     would see it stay at 16000 while their own total balance is something
+     else entirely — reads like a bug. Changed to auto-sync to the current
+     total balance on every debt edit, stopping automatically the moment
+     the visitor types into the Loan Amount field directly (tracked via a
+     `loanAmountTouched` flag, set only by a real `input` event — a
+     programmatic `.value =` assignment doesn't fire it, so the auto-sync
+     itself doesn't accidentally mark the field as touched).
+  4. **Jargon with no inline explanation.** "Loan Fee / Points," "Real APR
+     (fee-adjusted)," and "Blended Current APR" are all explained in the
+     article below the calculator, but a visitor scanning just the tool
+     itself has no idea what they mean in the moment. Added small "?"
+     tooltip icons (native `title` attribute, zero extra JS/markup weight)
+     with a one-sentence plain-language explanation on each.
+  5. **No immediate "so what" answer above the fold.** Added a short
+     highlighted "Quick answer" callout right under the subhead stating
+     the core decision rule in one sentence — this both orients a
+     confused/impatient visitor before they've touched a single field, and
+     is written as a clean, standalone, quotable definition for AI
+     Overviews / ChatGPT / Perplexity to lift directly (GEO consideration
+     alongside traditional on-page SEO).
+  6. **Hardened an extreme edge case**: if a Loan Fee is entered at or
+     above 100% of the loan amount (net proceeds ≤ 0), Real APR is now
+     `null` → displayed as "N/A" everywhere it's shown (results card and
+     PDF export), instead of silently falling back to the stated rate,
+     which would have been quietly wrong.
+  - Re-verified after all fixes: JSON-LD still valid, 8/8 FAQ schema-vs-
+    visible still exact match, zero duplicate ids, script still passes
+    `node --check`, protected style block still byte-identical to
+    apr-calculator, full Playwright re-run (desktop + mobile) confirms
+    zero console/page errors, zero horizontal overflow, mobile field
+    labels now compute `display:block`, manual Loan Amount edits correctly
+    stop the auto-sync, and every previously-verified number/feature
+    (default $5,650.66 savings, PDF lazy-load, add/remove row, fee toggle,
+    Annual/Monthly toggle) is unchanged.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
