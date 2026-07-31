@@ -437,8 +437,12 @@
 
 .dsc-mrow{display:none}
 .dsc-mrow.on{display:flex}
-.dsc-steps{margin:0 20px 16px;font-size:12.5px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:10px;padding:12px 14px;line-height:1.75}
+.dsc-steps{margin:10px 20px 12px;font-size:12.5px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:10px;padding:12px 14px;line-height:1.75}
 .dsc-steps b{color:var(--ink)}
+
+.dsc-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
+.dsc-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dsc-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
 
 .dsc-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .dsc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
@@ -489,7 +493,8 @@
 
       <div class="dsc-field dsc-mrow" data-modes="rev"><span class="dsc-field-label">Sale Price</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-sale" type="number" min="0" step="1" value="90"></div></div></div>
       <div class="dsc-field dsc-mrow" data-modes="rev"><span class="dsc-field-label">Discount</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-revpct" type="number" min="0" max="100" step="0.1" value="0"><span>% off</span></div></div></div>
-      <div class="dsc-hint dsc-mrow" data-modes="rev" style="display:none;padding-bottom:6px">Fill in any <strong>two</strong> of the three fields above and leave the third at 0 — this tab works out the missing one.</div>
+      <div class="dsc-field dsc-mrow" data-modes="rev"><span class="dsc-field-label">Amount Saved</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-revsaved" type="number" min="0" step="1" value="0"></div></div></div>
+      <div class="dsc-hint dsc-mrow" data-modes="rev" style="display:none;padding-bottom:6px">Fill in any <strong>two</strong> of the four fields above and leave the rest at 0 — this tab works out whatever is missing.</div>
 
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Price Per Item</span><div class="dsc-field-control"><div class="dsc-input-group"><span>$</span><input id="dsc-bprice" type="number" min="0" step="1" value="50"></div></div></div>
       <div class="dsc-field dsc-mrow" data-modes="bogo"><span class="dsc-field-label">Buy This Many</span><div class="dsc-field-control"><div class="dsc-input-group"><input id="dsc-bbuy" type="number" min="1" step="1" value="1"><span>at full price</span></div></div></div>
@@ -505,19 +510,27 @@
     </div>
   </div>
 
-  <div class="dsc-result-card dsc-area-result">
-    <div class="dsc-result-head" id="dsc-resultHead">
-      <div class="label" id="dsc-resultLabel">You Pay</div>
-      <div class="bignum" id="dsc-bignum">$0</div>
-      <div class="verdict-sub" id="dsc-verdictSub"></div>
+  <div class="dsc-resultcol dsc-area-result">
+
+    <div class="dsc-result-card">
+      <div class="dsc-result-head" id="dsc-resultHead">
+        <div class="label" id="dsc-resultLabel">You Pay</div>
+        <div class="bignum" id="dsc-bignum">$0</div>
+        <div class="verdict-sub" id="dsc-verdictSub"></div>
+      </div>
+      <div class="dsc-warning" id="dsc-warningBanner" style="display:none"></div>
+      <div class="dsc-result-body" id="dsc-resultRows"></div>
     </div>
-    <div class="dsc-warning" id="dsc-warningBanner" style="display:none"></div>
-    <div class="dsc-result-body" id="dsc-resultRows"></div>
-    <div class="dsc-steps" id="dsc-steps"></div>
-    <div class="dsc-chart-box">
-      <svg viewBox="0 0 320 120" class="dsc-svg" id="dsc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="dsc-chart-legend"><span><i style="background:#16A34A"></i>What you pay</span><span><i style="background:#F97316"></i>What you save</span></div>
+
+    <div class="dsc-panel-card">
+      <div class="dsc-panel-head">How the Discount Works Out</div>
+      <div class="dsc-steps" id="dsc-steps"></div>
+      <div class="dsc-chart-box">
+        <svg viewBox="0 0 320 120" class="dsc-svg" id="dsc-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="dsc-chart-legend"><span><i style="background:#16A34A"></i>What you pay</span><span><i style="background:#F97316"></i>What you save</span></div>
+      </div>
     </div>
+
   </div>
 
   <div class="dsc-sidecol dsc-area-sidebar">
@@ -612,7 +625,32 @@
     }
     else if(mode === 'rev'){
       var orig = Math.max(0, num('dsc-price')), sale = Math.max(0, num('dsc-sale')), rp = clampPct(num('dsc-revpct'));
+      var sv = Math.max(0, num('dsc-revsaved'));
       var solved = '';
+      // Pairs that involve the saved amount, resolved first.
+      if(sv > 0 && orig > 0 && sale <= 0){
+        var pctFromSaved = orig>0 ? sv/orig*100 : 0;
+        o.original=orig; o.save=Math.min(sv,orig); o.pay=Math.max(0,orig-sv); o.pct=pctFromSaved;
+        o.solved='sale'; o.noTax=true;
+        o.steps = '<b>'+money(orig)+'</b> &minus; <b>'+money(sv)+'</b> saved = you pay <b>'+money(o.pay)+'</b> (<b>'+pctFromSaved.toFixed(2)+'% off</b>)';
+        if(sv > orig) o.warn = 'The amount saved is larger than the original price \u2014 check the two figures.';
+        return o;
+      }
+      if(sv > 0 && sale > 0 && orig <= 0){
+        var back2 = sale + sv;
+        o.original=back2; o.pay=sale; o.save=sv; o.pct = back2>0 ? sv/back2*100 : 0;
+        o.solved='original'; o.noTax=true;
+        o.steps = '<b>'+money(sale)+'</b> paid + <b>'+money(sv)+'</b> saved = original price <b>'+money(back2)+'</b> (<b>'+o.pct.toFixed(2)+'% off</b>)';
+        return o;
+      }
+      if(sv > 0 && rp > 0 && orig <= 0 && sale <= 0){
+        if(rp >= 100){ o.warn='A 100% discount means the item was free, so there is no original price to work back to.'; o.original=0; o.pay=0; o.save=sv; o.pct=rp; o.noTax=true; return o; }
+        var orig3 = sv/(rp/100);
+        o.original=orig3; o.save=sv; o.pay=orig3-sv; o.pct=rp;
+        o.solved='original'; o.noTax=true;
+        o.steps = '<b>'+money(sv)+'</b> saved at <b>'+rp+'% off</b> means the original price was <b>'+money(orig3)+'</b>';
+        return o;
+      }
       if(orig > 0 && sale > 0){
         o.original=orig; o.pay=sale; o.save=Math.max(0,orig-sale);
         o.pct = orig>0 ? o.save/orig*100 : 0;
@@ -632,7 +670,7 @@
         o.steps = '<b>'+money(orig)+'</b> &times; (1 &minus; '+rp+'%) = sale price <b>'+money(sp)+'</b>';
       } else {
         o.original=0; o.pay=0; o.save=0; o.pct=0;
-        o.warn = 'Fill in any two of Original Price, Sale Price and Discount % \u2014 leave the one you want to find at 0.';
+        o.warn = 'Fill in any two of Original Price, Sale Price, Discount % and Amount Saved \u2014 leave the ones you want to find at 0.';
         o.steps = '';
       }
       o.solved = solved;
@@ -778,14 +816,14 @@
       applyModeVisibility(); render();
     });
   });
-  ['dsc-price','dsc-pct','dsc-fixed','dsc-s1','dsc-s2','dsc-s3','dsc-scoupon','dsc-sale','dsc-revpct','dsc-bprice','dsc-bbuy','dsc-bfree','dsc-bpct','dsc-tax'].forEach(function(id){
+  ['dsc-price','dsc-pct','dsc-fixed','dsc-s1','dsc-s2','dsc-s3','dsc-scoupon','dsc-sale','dsc-revpct','dsc-revsaved','dsc-bprice','dsc-bbuy','dsc-bfree','dsc-bpct','dsc-tax'].forEach(function(id){
     $(id).addEventListener('input', render);
   });
   $('dsc-calcBtn').addEventListener('click', render);
   $('dsc-clearBtn').addEventListener('click', function(){
     $('dsc-price').value=120; $('dsc-pct').value=25; $('dsc-fixed').value=20;
     $('dsc-s1').value=20; $('dsc-s2').value=10; $('dsc-s3').value=0; $('dsc-scoupon').value=0;
-    $('dsc-sale').value=90; $('dsc-revpct').value=0;
+    $('dsc-sale').value=90; $('dsc-revpct').value=0; $('dsc-revsaved').value=0;
     $('dsc-bprice').value=50; $('dsc-bbuy').value=1; $('dsc-bfree').value=1; $('dsc-bpct').value=100;
     $('dsc-tax').value=0; render();
   });
