@@ -441,6 +441,10 @@
 .dep-checkrow.on{display:flex}
 .dep-checkrow input{width:16px;height:16px;flex-shrink:0}
 
+.dep-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
+.dep-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dep-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
+
 .dep-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .dep-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
 .dep-seo-article h2:first-child{margin-top:0}
@@ -548,19 +552,27 @@
     </div>
   </div>
 
-  <div class="dep-result-card dep-area-result">
-    <div class="dep-result-head" id="dep-resultHead">
-      <div class="label" id="dep-resultLabel">First-Year Depreciation</div>
-      <div class="bignum" id="dep-bignum">$0</div>
-      <div class="verdict-sub" id="dep-verdictSub"></div>
+  <div class="dep-resultcol dep-area-result">
+
+    <div class="dep-result-card">
+      <div class="dep-result-head" id="dep-resultHead">
+        <div class="label" id="dep-resultLabel">First-Year Depreciation</div>
+        <div class="bignum" id="dep-bignum">$0</div>
+        <div class="verdict-sub" id="dep-verdictSub"></div>
+      </div>
+      <div class="dep-warning" id="dep-warningBanner" style="display:none"></div>
+      <div class="dep-result-body" id="dep-resultRows"></div>
     </div>
-    <div class="dep-warning" id="dep-warningBanner" style="display:none"></div>
-    <div class="dep-result-body" id="dep-resultRows"></div>
-    <div class="dep-chart-box">
-      <svg viewBox="0 0 320 160" class="dep-svg" id="dep-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="dep-chart-legend"><span><i style="background:#1E3A5F"></i>Total depreciation</span><span><i style="background:#94A3B8"></i>Remaining book value</span></div>
+
+    <div class="dep-panel-card">
+      <div class="dep-panel-head">How Much Is Written Off</div>
+      <div class="dep-chart-box">
+        <svg viewBox="0 0 320 160" class="dep-svg" id="dep-donutSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="dep-chart-legend"><span><i style="background:#1E3A5F"></i>Total depreciation</span><span><i style="background:#94A3B8"></i>Remaining book value</span></div>
+      </div>
+      <p class="dep-note" id="dep-methodNote"></p>
     </div>
-    <p class="dep-note" id="dep-methodNote"></p>
+
   </div>
 
   <div class="dep-sidecol dep-area-sidebar">
