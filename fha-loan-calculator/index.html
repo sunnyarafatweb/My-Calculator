@@ -442,21 +442,24 @@
 .fha-checkrow{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);padding:8px 0}
 .fha-checkrow input{width:16px;height:16px}
 .fha-sched-table td.hl{background:var(--gold-tint);font-weight:700}
-.fha-resultcol{display:flex;flex-direction:column;gap:16px;width:100%;min-width:0}
+.fha-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .fha-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
-.fha-panel-head{padding:13px 20px;font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);background:var(--surface-sunken)}
+/* Title sits INSIDE the card on the card's own white background. It previously
+   used --surface-sunken, which is the same colour as the page background, so
+   the strip vanished and the card looked cut off below its own heading. */
+.fha-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
 .fha-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
 .fha-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
 .fha-unit-toggle button.active{background:#1E3A5F;color:#fff}
 .fha-mt-table{width:100%;border-collapse:collapse;font-size:13px}
 .fha-mt-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);padding:0 0 8px;font-weight:700}
 .fha-mt-table th:first-child{text-align:left}
-.fha-mt-table td{padding:8px 0;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.fha-mt-table td{padding:7px 0;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
 .fha-mt-table td:first-child{text-align:left;color:var(--ink-soft)}
 .fha-mt-table tr.head td{font-weight:700;color:var(--ink)}
 .fha-mt-table tr.grand td{font-weight:700;font-size:14px;border-top:2px solid var(--border);color:var(--ink)}
 .fha-sum-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
-.fha-sum-table td{padding:8px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft)}
+.fha-sum-table td{padding:7px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft)}
 .fha-sum-table td:last-child{text-align:right;font-weight:600;color:var(--ink)}
 .fha-sum-table tr:first-child td{border-top:none;font-weight:700;color:var(--ink)}
 .fha-sec-title{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:18px 20px 2px}
@@ -597,7 +600,7 @@
 
     <div class="fha-panel-card" id="fha-sumCard">
       <div class="fha-panel-head" id="fha-sumTitle">Loan Summary</div>
-      <div class="fha-result-body" style="padding-top:10px">
+      <div class="fha-result-body" style="padding-top:8px">
         <table class="fha-sum-table"><tbody id="fha-sumBody"></tbody></table>
       </div>
       <p class="fha-note">Upfront MIP is 1.75% of the base loan amount, which is how HUD defines it. Some calculators apply it to the full home price instead, which gives a slightly higher figure. Estimates only &mdash; your lender's Loan Estimate is the authoritative document.</p>
