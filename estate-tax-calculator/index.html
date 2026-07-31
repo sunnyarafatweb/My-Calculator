@@ -442,6 +442,12 @@
 .est-safe{color:#16A34A;font-weight:600}
 .est-owe{color:#B45309;font-weight:600}
 
+.est-sec{font-size:13px;font-weight:700;color:var(--ink);margin:14px 0 2px;padding-top:12px;border-top:1px solid var(--border-fine)}
+.est-sec:first-child{margin-top:0;padding-top:0;border-top:none}
+.est-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
+.est-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.est-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
+
 .est-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .est-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
 .est-seo-article h2:first-child{margin-top:0}
@@ -476,28 +482,33 @@
 
   <div class="est-card est-area-form">
     <div class="est-card-pad">
-      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Gross Estate Value<span class="est-tip" title="Everything owned at death at fair market value: property, investments, business interests, retirement accounts and life insurance you own.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-gross" type="number" min="0" step="100000" value="20000000"></div></div></div>
 
-      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Debts &amp; Expenses<span class="est-tip" title="Mortgages, loans, funeral costs and estate administration expenses. These reduce the taxable estate.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-debts" type="number" min="0" step="10000" value="0"></div></div></div>
+      <div class="est-sec est-mrow on" data-modes="fed state">Assets</div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Residence &amp; Real Estate</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aRealEstate" type="number" min="0" step="50000" value="4500000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Stocks, Bonds &amp; Investments</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aInvest" type="number" min="0" step="50000" value="9200000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Savings, CDs &amp; Checking</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aCash" type="number" min="0" step="10000" value="850000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Vehicles, Boats &amp; Property</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aVehicles" type="number" min="0" step="10000" value="320000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Retirement Plans<span class="est-tip" title="401(k), IRA and pension balances are part of the taxable estate even though income tax also applies to the heirs on withdrawal.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aRetirement" type="number" min="0" step="50000" value="2600000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Life Insurance Benefit<span class="est-tip" title="Counted in the estate when you own the policy. Holding it in an irrevocable life insurance trust keeps it out.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aLifeIns" type="number" min="0" step="50000" value="1500000"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Other Assets</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-aOther" type="number" min="0" step="10000" value="430000"></div></div></div>
 
-      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Charitable Bequests</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-charity" type="number" min="0" step="10000" value="0"></div></div></div>
-
+      <div class="est-sec est-mrow on" data-modes="fed state">Liabilities, Costs &amp; Deductions</div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Debts<span class="est-tip" title="Mortgages, loans, credit cards and any other liability outstanding at death.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-dDebts" type="number" min="0" step="10000" value="0"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Funeral &amp; Admin Expenses</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-dFuneral" type="number" min="0" step="5000" value="0"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">Charitable Contributions</span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-charity" type="number" min="0" step="10000" value="0"></div></div></div>
+      <div class="est-field est-mrow on" data-modes="fed state"><span class="est-field-label">State Estate/Inheritance Tax<span class="est-tip" title="State death taxes are deductible against the federal estate, so entering an estimate here lowers the federal figure.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-dStateTax" type="number" min="0" step="10000" value="0"></div></div></div>
       <div class="est-field est-mrow on" data-modes="fed"><span class="est-field-label">Left to Spouse<span class="est-tip" title="The unlimited marital deduction: anything passing to a US-citizen spouse is fully deductible and not taxed at this death.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-marital" type="number" min="0" step="100000" value="0"></div></div></div>
 
-      <div class="est-field est-mrow on" data-modes="fed"><span class="est-field-label">Prior Taxable Gifts<span class="est-tip" title="Lifetime gifts above the annual exclusion that already used part of your exemption. These are added back when the tax is worked out.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-priorgifts" type="number" min="0" step="100000" value="0"></div></div></div>
-
+      <div class="est-sec est-mrow on" data-modes="fed">Lifetime Gifts &amp; Exemption</div>
+      <div class="est-field est-mrow on" data-modes="fed"><span class="est-field-label">Lifetime Gifted Amount<span class="est-tip" title="Total gifts above the annual exclusion made during your lifetime. These use up exemption and are added back when the tax is worked out.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-priorgifts" type="number" min="0" step="100000" value="0"></div></div></div>
       <div class="est-field est-mrow on" data-modes="fed"><span class="est-field-label">Inherited Exemption (DSUE)<span class="est-tip" title="A deceased spouse's unused exemption, available only if Form 706 was filed and portability was elected. Capped at the current exemption amount.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-dsue" type="number" min="0" step="1000000" value="0"></div></div></div>
 
       <div class="est-field est-mrow" data-modes="state"><span class="est-field-label">State Exemption<span class="est-tip" title="Your state's own estate tax exemption. These are often far lower than the federal amount and change frequently, so enter the current figure for your state.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-stateexempt" type="number" min="0" step="100000" value="2000000"></div></div></div>
-
       <div class="est-field est-mrow" data-modes="state"><span class="est-field-label">State Tax Rate</span><div class="est-field-control"><div class="est-input-group"><input id="est-staterate" type="number" min="0" max="30" step="0.1" value="12"><span>%</span></div></div></div>
 
       <div class="est-field est-mrow" data-modes="gift"><span class="est-field-label">Estate Above Exemption<span class="est-tip" title="How much of the estate is currently exposed to the 40% federal rate. Gifts reduce this pound for pound.">?</span></span><div class="est-field-control"><div class="est-input-group"><span>$</span><input id="est-gexposed" type="number" min="0" step="100000" value="5000000"></div></div></div>
-
       <div class="est-field est-mrow" data-modes="gift"><span class="est-field-label">Number of Recipients</span><div class="est-field-control"><div class="est-input-group"><input id="est-grecip" type="number" min="1" max="50" step="1" value="4"><span>people</span></div></div></div>
-
       <div class="est-field est-mrow" data-modes="gift"><span class="est-field-label">Years of Gifting</span><div class="est-field-control"><div class="est-input-group"><input id="est-gyears" type="number" min="1" max="40" step="1" value="10"><span>years</span></div></div></div>
-
       <div class="est-field est-mrow" data-modes="gift"><span class="est-field-label">Gift Splitting<span class="est-tip" title="A married couple electing to split gifts can give double the annual exclusion to each recipient.">?</span></span><div class="est-field-control">
         <select id="est-gsplit" class="est-select">
           <option value="1" selected>Single giver ($19,000 each)</option>
@@ -512,19 +523,27 @@
     </div>
   </div>
 
-  <div class="est-result-card est-area-result">
-    <div class="est-result-head" id="est-resultHead">
-      <div class="label" id="est-resultLabel">Estimated Federal Estate Tax</div>
-      <div class="bignum" id="est-bignum">$0</div>
-      <div class="verdict-sub" id="est-verdictSub"></div>
+  <div class="est-resultcol est-area-result">
+
+    <div class="est-result-card">
+      <div class="est-result-head" id="est-resultHead">
+        <div class="label" id="est-resultLabel">Estimated Federal Estate Tax</div>
+        <div class="bignum" id="est-bignum">$0</div>
+        <div class="verdict-sub" id="est-verdictSub"></div>
+      </div>
+      <div class="est-warning" id="est-warningBanner" style="display:none"></div>
+      <div class="est-result-body" id="est-resultRows"></div>
     </div>
-    <div class="est-warning" id="est-warningBanner" style="display:none"></div>
-    <div class="est-result-body" id="est-resultRows"></div>
-    <div class="est-chart-box">
-      <svg viewBox="0 0 320 120" class="est-svg" id="est-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="est-chart-legend"><span><i style="background:#16A34A"></i>To heirs</span><span><i style="background:#DC2626"></i>Estate tax</span></div>
+
+    <div class="est-panel-card">
+      <div class="est-panel-head">Estate Split Between Heirs and Tax</div>
+      <div class="est-chart-box">
+        <svg viewBox="0 0 320 120" class="est-svg" id="est-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="est-chart-legend"><span><i style="background:#16A34A"></i>To heirs</span><span><i style="background:#DC2626"></i>Estate tax</span></div>
+      </div>
+      <p class="est-note">Based on the 2026 federal exemption of $15,000,000 per person and the 40% top rate (One Big Beautiful Bill Act; IRS Rev. Proc. 2025-32). Estimates only — estate tax returns are prepared by a qualified attorney or CPA.</p>
     </div>
-    <p class="est-note">Based on the 2026 federal exemption of $15,000,000 per person and the 40% top rate (One Big Beautiful Bill Act; IRS Rev. Proc. 2025-32). Estimates only — estate tax returns are prepared by a qualified attorney or CPA.</p>
+
   </div>
 
   <div class="est-sidecol est-area-sidebar">
@@ -579,25 +598,33 @@
   var BEA = 15000000, RATE = 0.40, ANNUAL_EXCL = 19000;
   var mode = 'fed';
 
+  var ASSET_IDS = ['est-aRealEstate','est-aInvest','est-aCash','est-aVehicles','est-aRetirement','est-aLifeIns','est-aOther'];
+  function grossEstate(){
+    return ASSET_IDS.reduce(function(s,id){ return s + Math.max(0, num(id)); }, 0);
+  }
+
   function federal(){
-    var gross = Math.max(0, num('est-gross'));
-    var debts = Math.max(0, num('est-debts'));
+    var gross = grossEstate();
+    var debts = Math.max(0, num('est-dDebts'));
+    var funeral = Math.max(0, num('est-dFuneral'));
     var charity = Math.max(0, num('est-charity'));
+    var stateTaxPaid = Math.max(0, num('est-dStateTax'));   // state death tax is deductible federally
     var marital = Math.max(0, num('est-marital'));
     var prior = Math.max(0, num('est-priorgifts'));
     var dsueRaw = Math.max(0, num('est-dsue'));
     var dsue = Math.min(dsueRaw, BEA);           // DSUE cannot exceed one full exemption
-    var deductions = debts + charity + marital;
+    var deductions = debts + funeral + charity + stateTaxPaid + marital;
     var warn = '';
-    if(deductions > gross && gross > 0) warn = 'Your deductions add up to more than the gross estate, so the taxable estate is treated as zero. Check the figures above.';
+    if(deductions > gross && gross > 0) warn = 'Your deductions and bequests add up to more than the gross estate, so the taxable estate is treated as zero. Check the figures above.';
     if(dsueRaw > BEA) warn = 'Inherited exemption is capped at one full exemption (' + money(BEA) + '), so the excess has been ignored.';
     var taxable = Math.max(0, gross - deductions);
     var base = taxable + prior;
     var exclusion = BEA + dsue;
     var over = Math.max(0, base - exclusion);
     var tax = over * RATE;
-    var toHeirs = Math.max(0, gross - debts - charity - tax);
+    var toHeirs = Math.max(0, gross - debts - funeral - charity - stateTaxPaid - tax);
     return {gross:gross, deductions:deductions, marital:marital, charity:charity, debts:debts,
+            funeral:funeral, stateTaxPaid:stateTaxPaid,
             prior:prior, dsue:dsue, taxable:taxable, base:base, exclusion:exclusion,
             over:over, tax:tax, toHeirs:toHeirs, warn:warn,
             effRate: gross>0 ? tax/gross*100 : 0};
@@ -686,8 +713,12 @@
       headEl.classList.toggle('negative', f.tax > 0);
       sub = f.tax>0 ? 'Heirs receive '+money(f.toHeirs)+' \u2014 an effective rate of '+f.effRate.toFixed(1)+'% on the gross estate.'
                     : 'No federal estate tax due \u2014 the estate is within the '+money(f.exclusion)+' exemption available.';
-      rows+='<div class="est-result-row"><span>Gross Estate</span><span>'+money(f.gross)+'</span></div>';
-      if(f.deductions>0) rows+='<div class="est-result-row"><span>Less Deductions</span><span>-'+money(f.deductions)+'</span></div>';
+      rows+='<div class="est-result-row"><span>Gross Estate (all assets)</span><span>'+money(f.gross)+'</span></div>';
+      if(f.debts>0) rows+='<div class="est-result-row"><span>Less Debts</span><span>-'+money(f.debts)+'</span></div>';
+      if(f.funeral>0) rows+='<div class="est-result-row"><span>Less Funeral &amp; Admin</span><span>-'+money(f.funeral)+'</span></div>';
+      if(f.charity>0) rows+='<div class="est-result-row"><span>Less Charitable</span><span>-'+money(f.charity)+'</span></div>';
+      if(f.stateTaxPaid>0) rows+='<div class="est-result-row"><span>Less State Death Tax</span><span>-'+money(f.stateTaxPaid)+'</span></div>';
+      if(f.marital>0) rows+='<div class="est-result-row"><span>Less Marital Deduction</span><span>-'+money(f.marital)+'</span></div>';
       rows+='<div class="est-result-row"><span>Taxable Estate</span><span>'+money(f.taxable)+'</span></div>';
       if(f.prior>0) rows+='<div class="est-result-row"><span>Plus Prior Taxable Gifts</span><span>+'+money(f.prior)+'</span></div>';
       rows+='<div class="est-result-row"><span>Exemption Available'+(f.dsue>0?' (incl. DSUE)':'')+'</span><span>'+money(f.exclusion)+'</span></div>';
@@ -753,14 +784,18 @@
       applyModeVisibility(); render();
     });
   });
-  ['est-gross','est-debts','est-charity','est-marital','est-priorgifts','est-dsue',
+  ['est-aRealEstate','est-aInvest','est-aCash','est-aVehicles','est-aRetirement','est-aLifeIns','est-aOther',
+   'est-dDebts','est-dFuneral','est-charity','est-dStateTax','est-marital','est-priorgifts','est-dsue',
    'est-stateexempt','est-staterate','est-gexposed','est-grecip','est-gyears'].forEach(function(id){
     $(id).addEventListener('input', render);
   });
   $('est-gsplit').addEventListener('change', render);
   $('est-calcBtn').addEventListener('click', render);
   $('est-clearBtn').addEventListener('click', function(){
-    $('est-gross').value=20000000; $('est-debts').value=0; $('est-charity').value=0;
+    $('est-aRealEstate').value=4500000; $('est-aInvest').value=9200000; $('est-aCash').value=850000;
+    $('est-aVehicles').value=320000; $('est-aRetirement').value=2600000; $('est-aLifeIns').value=1500000;
+    $('est-aOther').value=430000;
+    $('est-dDebts').value=0; $('est-dFuneral').value=0; $('est-charity').value=0; $('est-dStateTax').value=0;
     $('est-marital').value=0; $('est-priorgifts').value=0; $('est-dsue').value=0;
     $('est-stateexempt').value=2000000; $('est-staterate').value=12;
     $('est-gexposed').value=5000000; $('est-grecip').value=4; $('est-gyears').value=10;
