@@ -544,7 +544,7 @@
       <div class="est-panel-head">Estate Split Between Heirs and Tax</div>
       <div class="est-chart-box">
         <svg viewBox="0 0 320 120" class="est-svg" id="est-barSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="est-chart-legend"><span><i style="background:#16A34A"></i>To heirs</span><span><i style="background:#DC2626"></i>Estate tax</span></div>
+        <div class="est-chart-legend" id="est-barLegend"></div>
       </div>
       <p class="est-note">Based on the 2026 federal exemption of $15,000,000 per person and the 40% top rate (One Big Beautiful Bill Act; IRS Rev. Proc. 2025-32). Estimates only — estate tax returns are prepared by a qualified attorney or CPA.</p>
     </div>
@@ -666,7 +666,20 @@
             perYear: recip*per};
   }
 
-  function renderBar(toHeirs, tax, total){
+  function renderBar(toHeirs, tax, total, labelA, labelB){
+    labelA = labelA || 'To heirs'; labelB = labelB || 'Estate tax';
+    var tot = total > 0 ? total : 0;
+    var pctA = tot > 0 ? toHeirs/tot*100 : 0;
+    var pctB = tot > 0 ? tax/tot*100 : 0;
+    var leg = $('est-barLegend');
+    if(leg){
+      leg.innerHTML =
+        '<span><i style="background:#16A34A"></i>'+labelA+' <b style="color:var(--ink);margin-left:3px">'+pctA.toFixed(1)+'%</b></span>'+
+        '<span><i style="background:#DC2626"></i>'+labelB+' <b style="color:var(--ink);margin-left:3px">'+pctB.toFixed(1)+'%</b></span>';
+    }
+    return renderBarSvg(toHeirs, tax, total);
+  }
+  function renderBarSvg(toHeirs, tax, total){
     var W=320,H=120,left=20,right=300,top=30,barH=34;
     var t = Math.max(total, 0.0001), w=right-left;
     var hW = Math.max(0, Math.min(1, toHeirs/t))*w;
@@ -771,7 +784,7 @@
       rows+='<div class="est-result-row"><span>State Estate Tax at '+s.stateRate+'%</span><span>'+money(s.stateTax)+'</span></div>';
       rows+='<div class="est-result-row total"><span>Net to Heirs</span><span>'+money(s.toHeirs)+'</span></div>';
       $('est-priorLine').style.display='none';
-      renderBar(s.toHeirs, s.combined, s.f.gross);
+      renderBar(s.toHeirs, s.combined, s.f.gross, 'To heirs', 'Combined estate tax');
       renderTable(s.f.exclusion); renderCurve(s.f.exclusion);
       window.__estLast={mode:'state', d:s};
     }
@@ -790,7 +803,7 @@
       rows+='<div class="est-result-row total"><span>Federal Tax Saved at 40%</span><span>'+money(g.saved)+'</span></div>';
       if(g.moved > g.exposed && g.exposed > 0) warn = 'This gifting plan moves more than the estate\u2019s current exposure, so the saving is capped at the '+money(g.exposed)+' actually above the exemption.';
       $('est-priorLine').style.display='none';
-      renderBar(g.effective, g.remaining, Math.max(g.exposed, 1));
+      renderBar(g.effective, g.remaining, Math.max(g.exposed, 1), 'Exposure removed by gifting', 'Still above exemption');
       renderTable(BEA); renderCurve(BEA);
       window.__estLast={mode:'gift', d:g};
     }
