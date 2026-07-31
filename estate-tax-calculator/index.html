@@ -444,6 +444,8 @@
 
 .est-sec{font-size:13px;font-weight:700;color:var(--ink);margin:14px 0 2px;padding-top:12px;border-top:1px solid var(--border-fine)}
 .est-sec:first-child{margin-top:0;padding-top:0;border-top:none}
+.est-prior{margin:0 20px 16px;padding:11px 13px;background:var(--surface-sunken);border-radius:9px;font-size:12px;color:var(--ink-soft);line-height:1.6}
+.est-prior b{color:var(--ink)}
 .est-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .est-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .est-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
@@ -533,6 +535,7 @@
       </div>
       <div class="est-warning" id="est-warningBanner" style="display:none"></div>
       <div class="est-result-body" id="est-resultRows"></div>
+      <p class="est-prior" id="est-priorLine" style="display:none"></p>
     </div>
 
     <div class="est-panel-card">
@@ -595,7 +598,7 @@
 
   // 2026 figures: One Big Beautiful Bill Act (P.L. 119-21 s.70106) as confirmed
   // by IRS Rev. Proc. 2025-32. Verified against multiple independent sources.
-  var BEA = 15000000, RATE = 0.40, ANNUAL_EXCL = 19000;
+  var BEA = 15000000, BEA_PRIOR = 13990000, PRIOR_YEAR = 2025, RATE = 0.40, ANNUAL_EXCL = 19000;
   var mode = 'fed';
 
   var ASSET_IDS = ['est-aRealEstate','est-aInvest','est-aCash','est-aVehicles','est-aRetirement','est-aLifeIns','est-aOther'];
@@ -725,11 +728,28 @@
       rows+='<div class="est-result-row"><span>Amount Above Exemption</span><span class="'+(f.over>0?'est-owe':'est-safe')+'">'+money(f.over)+'</span></div>';
       rows+='<div class="est-result-row"><span>Federal Tax at 40%</span><span>'+money(f.tax)+'</span></div>';
       rows+='<div class="est-result-row total"><span>Net to Heirs</span><span>'+money(f.toHeirs)+'</span></div>';
+
+      // Prior-year comparison, so the effect of the exemption change is visible.
+      var priorExcl = BEA_PRIOR + f.dsue;
+      var priorOver = Math.max(0, f.base - priorExcl);
+      var priorTax = priorOver * RATE;
+      var priorHeirs = Math.max(0, f.gross - f.debts - f.funeral - f.charity - f.stateTaxPaid - priorTax);
+      $('est-priorLine').innerHTML = f.gross > 0
+        ? 'Under the ' + PRIOR_YEAR + ' exemption of ' + money(BEA_PRIOR) + ', the same estate would have ' +
+          money(priorOver) + ' above the exemption, owing <b>' + money(priorTax) + '</b> and leaving ' +
+          money(priorHeirs) + ' to heirs \u2014 ' +
+          (priorTax > f.tax ? money(priorTax - f.tax) + ' more tax than under the 2026 rules.'
+                            : (priorTax < f.tax ? money(f.tax - priorTax) + ' less tax than under the 2026 rules.'
+                                                : 'the same as under the 2026 rules.'))
+        : '';
+      $('est-priorLine').style.display = f.gross > 0 ? 'block' : 'none';
+
       renderBar(f.toHeirs, f.tax, f.gross);
       renderTable(f.exclusion); renderCurve(f.exclusion);
       window.__estLast={mode:'fed', d:f};
     }
     else if(mode === 'state'){
+      $('est-priorLine').style.display='none';
       var s = stateCalc(); warn = s.f.warn;
       label='Combined Estate Tax'; big=money(s.combined);
       headEl.classList.toggle('negative', s.combined > 0);
@@ -748,6 +768,7 @@
       window.__estLast={mode:'state', d:s};
     }
     else {
+      $('est-priorLine').style.display='none';
       var g = giftPlan();
       label='Estate Tax Saved by Gifting'; big=money(g.saved);
       headEl.classList.toggle('negative', false);
