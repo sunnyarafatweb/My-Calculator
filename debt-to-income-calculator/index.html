@@ -444,9 +444,10 @@
     var income = INCOME_FIELDS.reduce(function(s,f){return s+monthlyVal(f.id);},0);
     var housing = HOUSING_FIELDS.reduce(function(s,f){return s+monthlyVal(f.id);},0);
     var otherDebt = DEBT_FIELDS.reduce(function(s,f){return s+monthlyVal(f.id);},0);
-    var frontEnd = income>0 ? housing/income*100 : 0;
-    var backEnd = income>0 ? (housing+otherDebt)/income*100 : 0;
-    return {income:income, housing:housing, otherDebt:otherDebt, frontEnd:frontEnd, backEnd:backEnd};
+    var hasIncome = income > 0;
+    var frontEnd = hasIncome ? housing/income*100 : 0;
+    var backEnd = hasIncome ? (housing+otherDebt)/income*100 : 0;
+    return {income:income, housing:housing, otherDebt:otherDebt, frontEnd:frontEnd, backEnd:backEnd, hasIncome:hasIncome};
   }
 
   var THRESHOLDS = [
@@ -461,39 +462,55 @@
     var r = calculate();
     lastCalc = r;
 
-    $('di-frontNum').textContent = r.frontEnd.toFixed(1)+'%';
-    $('di-backNum').textContent = r.backEnd.toFixed(1)+'%';
-
     var grid = $('di-ratioGrid');
     grid.classList.remove('caution','bad');
-    var verdict, verdictClass;
-    if(r.backEnd<=36 && r.frontEnd<=28){
-      verdict = 'Healthy — your ratios meet standard conventional mortgage limits (28% / 36%).';
-      verdictClass = '';
-    } else if(r.backEnd<=43){
-      verdict = 'Workable — within FHA limits (31% / 43%), but tighter than conventional lenders prefer.';
-      verdictClass = 'caution';
+    var tbody = document.querySelector('#di-thresholdTable tbody');
+
+    if(!r.hasIncome){
+      $('di-frontNum').textContent = '—';
+      $('di-backNum').textContent = '—';
+      var hasDebt = (r.housing + r.otherDebt) > 0;
+      if(hasDebt){
+        grid.classList.add('bad');
+        $('di-verdictLine').textContent = 'Enter your income above — a DTI ratio can\'t be calculated from debts alone without an income figure.';
+      } else {
+        $('di-verdictLine').textContent = 'Enter your income and debts above to see your DTI ratio.';
+      }
+      tbody.innerHTML = THRESHOLDS.map(function(t){
+        return '<tr><td class="name">'+t.name+'</td><td class="num">'+(t.front===null?'—':t.front+'%')+'</td><td class="num">'+t.back+'%</td><td class="num">—</td></tr>';
+      }).join('');
     } else {
-      verdict = 'High — above typical lending limits. Qualifying for new credit will likely be harder.';
-      verdictClass = 'bad';
+      $('di-frontNum').textContent = r.frontEnd.toFixed(1)+'%';
+      $('di-backNum').textContent = r.backEnd.toFixed(1)+'%';
+
+      var verdict, verdictClass;
+      if(r.backEnd<=36 && r.frontEnd<=28){
+        verdict = 'Healthy — your ratios meet standard conventional mortgage limits (28% / 36%).';
+        verdictClass = '';
+      } else if(r.backEnd<=43){
+        verdict = 'Workable — within FHA limits (31% / 43%), but tighter than conventional lenders prefer.';
+        verdictClass = 'caution';
+      } else {
+        verdict = 'High — above typical lending limits. Qualifying for new credit will likely be harder.';
+        verdictClass = 'bad';
+      }
+      if(verdictClass) grid.classList.add(verdictClass);
+      $('di-verdictLine').textContent = verdict;
+
+      tbody.innerHTML = THRESHOLDS.map(function(t){
+        var frontPass = t.front===null ? true : r.frontEnd<=t.front;
+        var backPass = r.backEnd<=t.back;
+        var pass = frontPass && backPass;
+        return '<tr><td class="name">'+t.name+'</td><td class="num">'+(t.front===null?'—':t.front+'%')+'</td><td class="num">'+t.back+'%</td>'+
+          '<td class="num '+(pass?'di-pass':'di-fail')+'">'+(pass?'✓ Pass':'✗ Over')+'</td></tr>';
+      }).join('');
     }
-    if(verdictClass) grid.classList.add(verdictClass);
-    $('di-verdictLine').textContent = verdict;
 
     $('di-grossIncome').textContent = usd(r.income,2);
     $('di-housingTotal').textContent = usd(r.housing,2);
     $('di-debtTotal').textContent = usd(r.otherDebt,2);
     $('di-allDebtTotal').textContent = usd(r.housing+r.otherDebt,2);
     $('di-remaining').textContent = usd(r.income-r.housing-r.otherDebt,2);
-
-    var tbody = document.querySelector('#di-thresholdTable tbody');
-    tbody.innerHTML = THRESHOLDS.map(function(t){
-      var frontPass = t.front===null ? true : r.frontEnd<=t.front;
-      var backPass = r.backEnd<=t.back;
-      var pass = frontPass && backPass;
-      return '<tr><td class="name">'+t.name+'</td><td class="num">'+(t.front===null?'—':t.front+'%')+'</td><td class="num">'+t.back+'%</td>'+
-        '<td class="num '+(pass?'di-pass':'di-fail')+'">'+(pass?'✓ Pass':'✗ Over')+'</td></tr>';
-    }).join('');
 
     renderIncomeBar(r);
   }
