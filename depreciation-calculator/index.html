@@ -414,7 +414,7 @@
 .dep-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
 .dep-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
-@media(max-width:940px){.dep-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:860px){.dep-bottom-grid{grid-template-columns:1fr}}
 .dep-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .dep-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .dep-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -743,7 +743,7 @@
       sched = pcts.map(function(p){ return p*cost; });
       methodLabel = mLife+'-year MACRS (GDS, '+(mFactor*100)+'% declining balance, half-year convention)';
       rateLabel = (mFactor*100)+'% DB \u2192 straight-line switch';
-      if(salvage > 0) warn = 'MACRS ignores salvage value \u2014 for tax purposes the asset is written down to $0 over its recovery period, so the salvage figure above is not used in this tab.';
+
     } else if(mode === 'units'){
       var totalUnits = Math.max(1, num('dep-totalUnits'));
       var periodUnits = Math.max(0, num('dep-periodUnits'));
@@ -774,6 +774,7 @@
     }
 
     if(cost <= 0) warn = 'Enter an asset cost above to see a depreciation schedule.';
+    else if(mode !== 'units' && mode !== 'macrs' && num('dep-life') < 1) warn = 'Useful life has to be at least one year \u2014 the schedule below assumes 1 until you change it.';
     else if(mode !== 'macrs' && salvage >= cost) warn = 'Salvage value is the same as or higher than the asset cost, so there is nothing to depreciate. Lower the salvage value to see a schedule.';
 
     // Nothing depreciable -> produce no schedule at all, rather than letting a
@@ -874,9 +875,10 @@
     $('dep-resultLabel').textContent = (mode === 'units') ? 'Depreciation This Period' : 'First-Year Depreciation';
     $('dep-bignum').textContent = money(firstYear, r.roundDollars ? 0 : 2);
     var pctOfCost = r.cost > 0 ? (firstYear/r.cost*100) : 0;
-    $('dep-verdictSub').textContent = r.cost > 0
-      ? 'That is ' + pctOfCost.toFixed(1) + '% of the asset\u2019s cost written off in the first period.'
-      : 'Enter an asset cost to begin.';
+    var periodWord = (mode === 'units') ? 'this period' : 'the first year';
+    $('dep-verdictSub').textContent = (r.warn || firstYear <= 0)
+      ? ''
+      : 'That is ' + pctOfCost.toFixed(1) + '% of the asset\u2019s cost written off in ' + periodWord + '.';
 
     var rows = '';
     var rd = r.roundDollars ? 0 : 2;
