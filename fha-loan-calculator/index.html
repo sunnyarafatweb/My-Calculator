@@ -357,14 +357,14 @@
 .fha-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer}
 .fha-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
-.fha-grid{display:grid;grid-template-columns:390px minmax(360px,1fr) 300px;gap:20px;align-items:start;
+.fha-grid{display:grid;grid-template-columns:minmax(300px,390px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
   grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .fha-area-bar{grid-area:bar}
 .fha-area-form{grid-area:form}
 .fha-area-result{grid-area:result}
 .fha-area-sidebar{grid-area:sidebar}
 .fha-area-bottomgrid{grid-area:bottomgrid}
-@media(max-width:860px){
+@media(max-width:940px){
   .fha-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 
@@ -414,7 +414,7 @@
 .fha-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
 .fha-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
-@media(max-width:860px){.fha-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:940px){.fha-bottom-grid{grid-template-columns:1fr}}
 .fha-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .fha-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .fha-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -477,7 +477,7 @@
 .fha-sched-table tr.yearend td{background:var(--surface-sunken);font-weight:700}
 
 .fha-grid{grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "rates rates rates" "bottomgrid bottomgrid bottomgrid"}
-@media(max-width:860px){
+@media(max-width:940px){
   .fha-grid{grid-template-areas:"bar" "tabs" "form" "result" "rates" "bottomgrid" "sidebar"}
 }
 .fha-area-rates{grid-area:rates}

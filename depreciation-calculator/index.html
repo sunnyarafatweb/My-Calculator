@@ -357,14 +357,14 @@
 .dep-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer}
 .dep-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
-.dep-grid{display:grid;grid-template-columns:390px minmax(360px,1fr) 300px;gap:20px;align-items:start;
+.dep-grid{display:grid;grid-template-columns:minmax(300px,390px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
   grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .dep-area-bar{grid-area:bar}
 .dep-area-form{grid-area:form}
 .dep-area-result{grid-area:result}
 .dep-area-sidebar{grid-area:sidebar}
 .dep-area-bottomgrid{grid-area:bottomgrid}
-@media(max-width:860px){
+@media(max-width:940px){
   .dep-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 
@@ -414,7 +414,7 @@
 .dep-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
 .dep-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
-@media(max-width:860px){.dep-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:940px){.dep-bottom-grid{grid-template-columns:1fr}}
 .dep-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .dep-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .dep-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}

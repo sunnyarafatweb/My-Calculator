@@ -355,14 +355,14 @@
 <style>
 .dc-wrap{max-width:100%;font-family:var(--font-body);color:var(--ink);font-size:14px}
 
-.dc-grid{display:grid;grid-template-columns:400px minmax(360px,1fr) 300px;gap:20px;align-items:start;
+.dc-grid{display:grid;grid-template-columns:minmax(300px,400px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
   grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .dc-area-bar{grid-area:bar}
 .dc-area-form{grid-area:form}
 .dc-area-result{grid-area:result}
 .dc-area-sidebar{grid-area:sidebar}
 .dc-area-bottomgrid{grid-area:bottomgrid}
-@media(max-width:860px){
+@media(max-width:940px){
   .dc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
 }
 
@@ -450,7 +450,7 @@
 .dc-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
 .dc-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
 .dc-toc a:hover{color:#1E3A5F}
-@media(max-width:860px){.dc-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:940px){.dc-bottom-grid{grid-template-columns:1fr}}
 .dc-amort-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .dc-amort-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .dc-amort-head .t{font-size:15px;font-weight:700;color:var(--ink)}
