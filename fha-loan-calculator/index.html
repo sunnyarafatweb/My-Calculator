@@ -448,6 +448,10 @@
    used --surface-sunken, which is the same colour as the page background, so
    the strip vanished and the card looked cut off below its own heading. */
 .fha-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink);background:transparent;border-bottom:none}
+.fha-morelink{padding:10px 0 2px}
+.fha-morelink button{background:none;border:none;color:#1E3A5F;font-weight:700;font-size:13px;cursor:pointer;padding:0;text-decoration:underline;font-family:var(--font-body)}
+.fha-adv-head{font-size:13px;font-weight:700;color:var(--ink);margin:16px 0 2px;padding-top:12px;border-top:1px solid var(--border-fine)}
+.fha-from{font-size:12px;color:var(--ink-faint);flex-shrink:0}
 .fha-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
 .fha-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
 .fha-unit-toggle button.active{background:#1E3A5F;color:#fff}
@@ -559,6 +563,41 @@
         <div class="fha-input-group" style="flex:1"><input id="fha-startYear" type="number" min="2000" max="2100" step="1" value="2026"></div>
       </div></div>
 
+
+      <div class="fha-morelink fha-mrow on" data-modes="pay"><button type="button" id="fha-moreBtn">+ More Options</button></div>
+
+      <div id="fha-advWrap" style="display:none">
+        <div class="fha-adv-head">Annual Tax &amp; Cost Increase</div>
+        <div class="fha-field"><span class="fha-field-label">Property Taxes Increase</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-taxInc" type="number" min="0" max="20" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="fha-field"><span class="fha-field-label">Home Insurance Increase</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-insInc" type="number" min="0" max="20" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="fha-field"><span class="fha-field-label">HOA Fee Increase</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-hoaInc" type="number" min="0" max="20" step="0.1" value="0"><span>%</span></div></div></div>
+        <div class="fha-field"><span class="fha-field-label">Other Costs Increase</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-otherInc" type="number" min="0" max="20" step="0.1" value="0"><span>%</span></div></div></div>
+
+        <div class="fha-adv-head">Extra Payments</div>
+        <div class="fha-field"><span class="fha-field-label">Extra Monthly Pay</span><div class="fha-field-control">
+          <div class="fha-input-group" style="flex:1.1"><span>$</span><input id="fha-xMo" type="number" min="0" step="50" value="0"></div>
+          <span class="fha-from">from</span>
+          <select id="fha-xMoMonth" class="fha-select" style="flex:.9"><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7" selected>Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>
+          <div class="fha-input-group" style="flex:.8"><input id="fha-xMoYear" type="number" min="2000" max="2100" step="1" value="2026"></div>
+        </div></div>
+        <div class="fha-field"><span class="fha-field-label">Extra Yearly Pay</span><div class="fha-field-control">
+          <div class="fha-input-group" style="flex:1.1"><span>$</span><input id="fha-xYr" type="number" min="0" step="500" value="0"></div>
+          <span class="fha-from">from</span>
+          <select id="fha-xYrMonth" class="fha-select" style="flex:.9"><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7" selected>Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>
+          <div class="fha-input-group" style="flex:.8"><input id="fha-xYrYear" type="number" min="2000" max="2100" step="1" value="2026"></div>
+        </div></div>
+        <div class="fha-field"><span class="fha-field-label">Extra One-time Pay</span><div class="fha-field-control">
+          <div class="fha-input-group" style="flex:1.1"><span>$</span><input id="fha-xOne" type="number" min="0" step="1000" value="0"></div>
+          <span class="fha-from">on</span>
+          <select id="fha-xOneMonth" class="fha-select" style="flex:.9"><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7" selected>Jul</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>
+          <div class="fha-input-group" style="flex:.8"><input id="fha-xOneYear" type="number" min="2000" max="2100" step="1" value="2026"></div>
+        </div></div>
+
+        <div class="fha-checkrow" style="display:flex">
+          <input type="checkbox" id="fha-biweekly">
+          <label for="fha-biweekly">Show biweekly payback results</label>
+        </div>
+      </div>
       <div class="fha-field fha-mrow" data-modes="cmp"><span class="fha-field-label">Conventional Down</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-cdp" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></div></div>
       <div class="fha-field fha-mrow" data-modes="cmp"><span class="fha-field-label">Conventional PMI</span><div class="fha-field-control"><div class="fha-input-group"><input id="fha-cpmi" type="number" min="0" max="3" step="0.05" value="0.5"><span>% / yr</span></div></div></div>
 
@@ -604,6 +643,14 @@
         <table class="fha-sum-table"><tbody id="fha-sumBody"></tbody></table>
       </div>
       <p class="fha-note">Upfront MIP is 1.75% of the base loan amount, which is how HUD defines it. Some calculators apply it to the full home price instead, which gives a slightly higher figure. Estimates only &mdash; your lender's Loan Estimate is the authoritative document.</p>
+    </div>
+
+    <div class="fha-panel-card" id="fha-bwCard" style="display:none">
+      <div class="fha-panel-head">Biweekly Payback</div>
+      <div class="fha-result-body" style="padding-top:8px">
+        <table class="fha-sum-table"><tbody id="fha-bwBody"></tbody></table>
+      </div>
+      <p class="fha-note">Paying half the monthly amount every two weeks makes 26 payments a year, the equivalent of 13 monthly payments. Confirm your servicer accepts biweekly payments and applies them immediately rather than holding them.</p>
     </div>
 
   </div>
@@ -696,21 +743,61 @@
 
   // Full month-by-month schedule. MIP is charged on the base loan for the
   // number of months the chosen duration rule allows.
+  // Turns a (month, year) into a 1-based payment index relative to the loan start.
+  function payIndex(m, y, startM, startY){
+    return (y - startY)*12 + (m - startM) + 1;
+  }
+
   function buildSchedule(o){
     var n = Math.round(o.term*12), i = o.rate/1200;
-    var bal = o.loan, rows = [], totalInterest = 0, totalMip = 0;
+    var bal = o.loan, rows = [], totalInterest = 0, totalMip = 0, totalExtra = 0;
+    var tTax = 0, tIns = 0, tHoa = 0, tOther = 0;
     var d = {y:o.startYear, m:o.startMonth};
     for(var k=1;k<=n && bal>0.005;k++){
+      var yearIdx = Math.floor((k-1)/12);                  // 0 for the first 12 payments
       var interest = bal*i;
-      var principal = Math.min(o.pi - interest, bal);
+      var principal = o.pi - interest;
+
+      // extra payments
+      var extra = 0;
+      if(o.xMo > 0 && k >= o.xMoStart) extra += o.xMo;
+      if(o.xYr > 0 && k >= o.xYrStart && (k - o.xYrStart) % 12 === 0) extra += o.xYr;
+      if(o.xOne > 0 && k === o.xOneAt) extra += o.xOne;
+      principal += extra;
+
+      if(principal > bal) { extra = Math.max(0, extra - (principal - bal)); principal = bal; }
       bal = Math.max(0, bal - principal);
-      totalInterest += interest;
+      totalInterest += interest; totalExtra += extra;
+
       var mipThisMonth = (k <= o.mipMonths) ? o.mipMo : 0;
       totalMip += mipThisMonth;
-      rows.push({k:k, y:d.y, m:d.m, interest:interest, principal:principal, mip:mipThisMonth, balance:bal});
+
+      // running costs escalate once a year
+      var taxM   = o.taxMo   * Math.pow(1 + o.taxInc/100,   yearIdx);
+      var insM   = o.insMo   * Math.pow(1 + o.insInc/100,   yearIdx);
+      var hoaM   = o.hoaMo   * Math.pow(1 + o.hoaInc/100,   yearIdx);
+      var otherM = o.otherMo * Math.pow(1 + o.otherInc/100, yearIdx);
+      tTax += taxM; tIns += insM; tHoa += hoaM; tOther += otherM;
+
+      rows.push({k:k, y:d.y, m:d.m, interest:interest, principal:principal,
+                 extra:extra, mip:mipThisMonth, balance:bal});
       d = addMonths(d.y, d.m, 1);
     }
-    return {rows:rows, totalInterest:totalInterest, totalMip:totalMip, months:rows.length};
+    return {rows:rows, totalInterest:totalInterest, totalMip:totalMip, totalExtra:totalExtra,
+            months:rows.length, tTax:tTax, tIns:tIns, tHoa:tHoa, tOther:tOther};
+  }
+
+  // Half the monthly payment every two weeks -- 26 payments a year rather than 12.
+  function biweeklyResult(o){
+    var p = o.pi/2, i = o.rate/100/26, bal = o.loan, tot = 0, k = 0, cap = Math.round(o.term*26*2);
+    while(bal > 0.005 && k < cap){
+      k++;
+      var interest = bal*i, principal = p - interest;
+      if(principal <= 0) return null;
+      if(principal > bal) principal = bal;
+      bal -= principal; tot += interest;
+    }
+    return {payment:p, periods:k, years:k/26, totalInterest:tot};
   }
 
   function computeFha(dpPctOverride){
@@ -753,24 +840,41 @@
     var showOpt = $('fha-showOpt').checked;
     if(!showOpt){ taxYr=0; insYr=0; hoaYr=0; otherYr=0; }
 
+    var sM = parseInt($('fha-startMonth').value,10)||1;
+    var sY = parseInt($('fha-startYear').value,10)||new Date().getFullYear();
+    function idx(mId, yId){
+      var m = parseInt($(mId).value,10)||1, y = parseInt($(yId).value,10)||sY;
+      return Math.max(1, payIndex(m, y, sM, sY));
+    }
+
     var o = {price:price, dpPct:dpPct, down:down, base:base, ltv:ltv, ufmipRate:ufmipRate,
              ufmip:ufmip, loan:loan, pi:pi, mipRate:mipRate, schedRate:schedRate, mipMo:mipMo,
              mipMonths:mipMonths, dur:dur, autoDurVal:autoDurVal, term:term, rate:rate,
              startMonth:parseInt($('fha-startMonth').value,10)||1,
              startYear:parseInt($('fha-startYear').value,10)||new Date().getFullYear(),
              taxMo:taxYr/12, insMo:insYr/12, hoaMo:hoaYr/12, otherMo:otherYr/12,
+             taxInc:Math.max(0,num('fha-taxInc')), insInc:Math.max(0,num('fha-insInc')),
+             hoaInc:Math.max(0,num('fha-hoaInc')), otherInc:Math.max(0,num('fha-otherInc')),
+             xMo:Math.max(0,num('fha-xMo')), xMoStart:idx('fha-xMoMonth','fha-xMoYear'),
+             xYr:Math.max(0,num('fha-xYr')), xYrStart:idx('fha-xYrMonth','fha-xYrYear'),
+             xOne:Math.max(0,num('fha-xOne')), xOneAt:idx('fha-xOneMonth','fha-xOneYear'),
              lifeOfLoan: ltv>90, showOpt:showOpt};
 
     var s = buildSchedule(o);
     o.sched = s.rows; o.totalInterest = s.totalInterest; o.totalMip = s.totalMip;
     if(o.mipMonths <= 0) o.mipMo = 0;   // no annual MIP applies at all
-    o.nMonths = Math.round(term*12);
-    o.totalMortgage = o.pi*o.nMonths;
-    o.piti = o.pi + o.mipMo + o.taxMo + o.insMo + o.hoaMo + o.otherMo;
-    o.outOfPocketTotal = o.totalMortgage + o.totalMip + (o.taxMo+o.insMo+o.hoaMo+o.otherMo)*o.nMonths;
+    o.scheduledMonths = Math.round(term*12);
+    o.nMonths = s.months;                                  // actual months, shorter with extra payments
+    o.totalExtra = s.totalExtra;
+    o.totalMortgage = o.pi*o.nMonths + s.totalExtra;
+    o.tTax = s.tTax; o.tIns = s.tIns; o.tHoa = s.tHoa; o.tOther = s.tOther;
+    o.piti = o.pi + o.mipMo + o.taxMo + o.insMo + o.hoaMo + o.otherMo + o.xMo;
+    o.outOfPocketTotal = o.totalMortgage + o.totalMip + s.tTax + s.tIns + s.tHoa + s.tOther;
+    o.monthsSaved = o.scheduledMonths - o.nMonths;
     o.cashAtClose = o.down;
     var end = addMonths(o.startYear, o.startMonth, o.nMonths);   // month after the final payment, matching the usual convention
     o.payoff = MONTHS[end.m-1]+'. '+end.y;
+    o.bw = $('fha-biweekly').checked ? biweeklyResult(o) : null;
     return o;
   }
 
@@ -906,12 +1010,13 @@
              f.mipMonths>=f.nMonths ? ' that never comes off at this down payment.' :
              ' that ends after '+fmtMonths(f.mipMonths)+'.');
       var rows='';
-      rows+='<tr class="head"><td>Mortgage Payment</td><td>'+money(f.pi,2)+'</td><td>'+money(f.totalMortgage,2)+'</td></tr>';
-      if(f.taxMo>0) rows+='<tr><td>Property Tax</td><td>'+money(f.taxMo,2)+'</td><td>'+money(f.taxMo*f.nMonths,2)+'</td></tr>';
-      if(f.insMo>0) rows+='<tr><td>Home Insurance</td><td>'+money(f.insMo,2)+'</td><td>'+money(f.insMo*f.nMonths,2)+'</td></tr>';
+      rows+='<tr class="head"><td>Mortgage Payment</td><td>'+money(f.pi,2)+'</td><td>'+money(f.pi*f.nMonths,2)+'</td></tr>';
+      if(f.totalExtra>0) rows+='<tr><td>Extra Payments</td><td>'+money(f.xMo,2)+'</td><td>'+money(f.totalExtra,2)+'</td></tr>';
+      if(f.taxMo>0) rows+='<tr><td>Property Tax</td><td>'+money(f.taxMo,2)+'</td><td>'+money(f.tTax,2)+'</td></tr>';
+      if(f.insMo>0) rows+='<tr><td>Home Insurance</td><td>'+money(f.insMo,2)+'</td><td>'+money(f.tIns,2)+'</td></tr>';
       rows+='<tr><td>Annual MIP</td><td>'+money(f.mipMo,2)+'</td><td>'+money(f.totalMip,2)+'</td></tr>';
-      if(f.hoaMo>0) rows+='<tr><td>HOA Fee</td><td>'+money(f.hoaMo,2)+'</td><td>'+money(f.hoaMo*f.nMonths,2)+'</td></tr>';
-      if(f.otherMo>0) rows+='<tr><td>Other Costs</td><td>'+money(f.otherMo,2)+'</td><td>'+money(f.otherMo*f.nMonths,2)+'</td></tr>';
+      if(f.hoaMo>0) rows+='<tr><td>HOA Fee</td><td>'+money(f.hoaMo,2)+'</td><td>'+money(f.tHoa,2)+'</td></tr>';
+      if(f.otherMo>0) rows+='<tr><td>Other Costs</td><td>'+money(f.otherMo,2)+'</td><td>'+money(f.tOther,2)+'</td></tr>';
       rows+='<tr class="grand"><td>Total Out-of-Pocket</td><td>'+money(f.piti,2)+'</td><td>'+money(f.outOfPocketTotal,2)+'</td></tr>';
       $('fha-mtBody').innerHTML=rows;
 
@@ -923,6 +1028,7 @@
         '<tr><td>Total of '+f.nMonths+' Mortgage Payments</td><td>'+money(f.totalMortgage,2)+'</td></tr>'+
         '<tr><td>Total Interest</td><td>'+money(f.totalInterest,2)+'</td></tr>'+
         '<tr><td>Total Annual MIP Paid</td><td>'+money(f.totalMip,2)+'</td></tr>'+
+        (f.monthsSaved>0 ? '<tr><td>Paid Off Early By</td><td>'+fmtMonths(f.monthsSaved)+'</td></tr>' : '')+
         '<tr><td>Mortgage Payoff Date</td><td>'+f.payoff+'</td></tr>';
 
       var principalMo = f.pi - (f.sched.length ? f.sched[0].interest : 0);
@@ -977,6 +1083,20 @@
       renderDonut([{n:'Within limit',v:Math.min(base35,limit),c:'#16A34A'},{n:'Over limit',v:Math.max(0,base35-limit),c:'#DC2626'}], base35);
     }
 
+    var bwCard=$('fha-bwCard');
+    if(mode==='pay' && f.bw){
+      bwCard.style.display='';
+      var monthlyInt = f.totalInterest;
+      $('fha-bwBody').innerHTML =
+        '<tr><td>Biweekly Payment</td><td>'+money(f.bw.payment,2)+'</td></tr>'+
+        '<tr><td>Payments Per Year</td><td>26</td></tr>'+
+        '<tr><td>Payoff Time</td><td>'+fmtMonths(Math.round(f.bw.years*12))+'</td></tr>'+
+        '<tr><td>Total Interest (biweekly)</td><td>'+money(f.bw.totalInterest,2)+'</td></tr>'+
+        '<tr><td>Total Interest (monthly)</td><td>'+money(monthlyInt,2)+'</td></tr>'+
+        '<tr><td>Interest Saved</td><td>'+money(Math.max(0,monthlyInt-f.bw.totalInterest),2)+'</td></tr>'+
+        '<tr><td>Time Saved</td><td>'+fmtMonths(Math.max(0,Math.round(f.nMonths-f.bw.years*12)))+'</td></tr>';
+    } else { bwCard.style.display='none'; }
+
     var w=$('fha-warningBanner');
     if(warn){ w.style.display='block'; w.textContent=warn; } else w.style.display='none';
     $('fha-resultLabel').textContent=label;
@@ -1022,8 +1142,16 @@
       b.classList.add('active'); render();
     });
   });
-  ['fha-price','fha-dp','fha-rate','fha-term','fha-ufmip','fha-tax','fha-ins','fha-hoa','fha-other','fha-cdp','fha-cpmi','fha-limit','fha-startYear'].forEach(function(id){
+  ['fha-price','fha-dp','fha-rate','fha-term','fha-ufmip','fha-tax','fha-ins','fha-hoa','fha-other','fha-cdp','fha-cpmi','fha-limit','fha-startYear',
+   'fha-taxInc','fha-insInc','fha-hoaInc','fha-otherInc','fha-xMo','fha-xMoYear','fha-xYr','fha-xYrYear','fha-xOne','fha-xOneYear'].forEach(function(id){
     $(id).addEventListener('input', render);
+  });
+  ['fha-xMoMonth','fha-xYrMonth','fha-xOneMonth'].forEach(function(id){ $(id).addEventListener('change', render); });
+  $('fha-biweekly').addEventListener('change', render);
+  $('fha-moreBtn').addEventListener('click', function(){
+    var open = $('fha-advWrap').style.display !== 'none';
+    $('fha-advWrap').style.display = open ? 'none' : '';
+    this.textContent = open ? '+ More Options' : '\u2212 Fewer Options';
   });
   $('fha-mip').addEventListener('input', function(){ autoMip=false; render(); });
   $('fha-mipdur').addEventListener('change', function(){ autoDur=false; render(); });
@@ -1038,6 +1166,10 @@
     $('fha-cdp').value=5; $('fha-cpmi').value=0.5; $('fha-limit').value=FLOOR;
     $('fha-startMonth').value='7'; $('fha-startYear').value=2026;
     $('fha-showOpt').checked=true;
+    ['fha-taxInc','fha-insInc','fha-hoaInc','fha-otherInc','fha-xMo','fha-xYr','fha-xOne'].forEach(function(id){ $(id).value=0; });
+    ['fha-xMoYear','fha-xYrYear','fha-xOneYear'].forEach(function(id){ $(id).value=2026; });
+    ['fha-xMoMonth','fha-xYrMonth','fha-xOneMonth'].forEach(function(id){ $(id).value='7'; });
+    $('fha-biweekly').checked=false;
     dpUnit='pct'; taxUnit='pct'; autoMip=true; autoDur=true;
     document.querySelectorAll('#fha-dpUnit button').forEach(function(x,i){ x.classList.toggle('active', i===0); });
     document.querySelectorAll('#fha-taxUnit button').forEach(function(x,i){ x.classList.toggle('active', i===0); });
