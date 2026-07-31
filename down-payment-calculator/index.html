@@ -440,6 +440,9 @@
 .dpc-pmi-ok{color:#16A34A;font-weight:600}
 .dpc-pmi-no{color:#B45309;font-weight:600}
 .dpc-sched-table td.hl{background:var(--gold-tint);font-weight:700}
+.dpc-unit-toggle{display:flex;flex-shrink:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.dpc-unit-toggle button{border:none;background:#fff;color:var(--ink-soft);font-size:12px;font-weight:700;padding:8px 11px;cursor:pointer}
+.dpc-unit-toggle button.active{background:#1E3A5F;color:#fff}
 
 .dpc-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
 .dpc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
@@ -484,7 +487,12 @@
 
       <div class="dpc-field dpc-mrow" data-modes="save"><span class="dpc-field-label">Saving Each Month</span><div class="dpc-field-control"><div class="dpc-input-group"><span>$</span><input id="dpc-monthly" type="number" min="0" step="100" value="1500"></div></div></div>
 
-      <div class="dpc-field dpc-mrow on" data-modes="cash afford pct save"><span class="dpc-field-label">Closing Costs<span class="dpc-tip" title="Lender fees, title, appraisal, escrow and prepaids. Typically 2-5% of the purchase price, due at closing on top of the down payment.">?</span></span><div class="dpc-field-control"><div class="dpc-input-group"><input id="dpc-closing" type="number" min="0" max="10" step="0.1" value="3"><span>%</span></div></div></div>
+      <div class="dpc-field dpc-mrow on" data-modes="cash afford pct save"><span class="dpc-field-label">Closing Costs<span class="dpc-tip" title="Lender fees, title, appraisal, escrow and prepaids. Typically 2-5% of the purchase price, due at closing on top of the down payment.">?</span></span><div class="dpc-field-control">
+        <div class="dpc-input-group"><input id="dpc-closing" type="number" min="0" step="0.1" value="3"></div>
+        <div class="dpc-unit-toggle" id="dpc-ccUnit">
+          <button type="button" class="active" data-u="pct">%</button><button type="button" data-u="amt">$</button>
+        </div>
+      </div></div>
 
       <div class="dpc-field dpc-mrow on" data-modes="cash afford pct"><span class="dpc-field-label">Interest Rate</span><div class="dpc-field-control"><div class="dpc-input-group"><input id="dpc-rate" type="number" min="0" max="20" step="0.01" value="6.5"><span>%</span></div></div></div>
 
@@ -586,36 +594,51 @@
     return mo===0 ? y+(y===1?' year':' years') : y+'y '+mo+'m';
   }
 
+  var ccUnit = 'pct';
   function compute(){
-    var closingPct = Math.max(0, num('dpc-closing'));
+    var closingRaw = Math.max(0, num('dpc-closing'));
+    // When entered as a dollar amount the percentage depends on the price,
+    // which differs by mode, so resolve it per mode below.
+    var closingPct = closingRaw;
     var rate = Math.max(0, num('dpc-rate'));
     var term = Math.max(1, num('dpc-term'));
     var pmiRate = Math.max(0, num('dpc-pmi'));
     var o = {warn:'', mode:mode, closingPct:closingPct, rate:rate, term:term, pmiRate:pmiRate};
+    // (closingPct is re-resolved per mode below when entered as a dollar amount)
 
     if(mode === 'cash'){
       o.price = Math.max(0, num('dpc-price'));
+      if(ccUnit==='amt'){ closingPct = o.price>0 ? closingRaw/o.price*100 : 0; o.closingPct = closingPct; }
       o.dpPct = Math.min(100, Math.max(0, num('dpc-dp')));
       o.down = o.price*o.dpPct/100;
-      o.closing = o.price*closingPct/100;
+      o.closing = o.price*closingPct/100; o.closingPct = closingPct;
       o.cashNeeded = o.down + o.closing;
       if(o.price<=0) o.warn='Enter a home price above to see what you need at closing.';
     }
     else if(mode === 'afford'){
       var cash = Math.max(0, num('dpc-cash'));
       o.dpPct = Math.min(100, Math.max(0, num('dpc-dp')));
-      var denom = (o.dpPct + closingPct)/100;
-      o.price = denom>0 ? cash/denom : 0;
+      if(ccUnit==='amt'){
+        // flat closing cost comes off the cash first, the rest buys the down payment
+        var usable = Math.max(0, cash - closingRaw);
+        o.price = o.dpPct>0 ? usable/(o.dpPct/100) : 0;
+        closingPct = o.price>0 ? closingRaw/o.price*100 : 0;
+        o.closingPct = closingPct;
+      } else {
+        var denom = (o.dpPct + closingPct)/100;
+        o.price = denom>0 ? cash/denom : 0;
+      }
       o.down = o.price*o.dpPct/100;
-      o.closing = o.price*closingPct/100;
+      o.closing = o.price*closingPct/100; o.closingPct = closingPct;
       o.cashNeeded = cash;
       if(cash<=0) o.warn='Enter how much cash you have available to see the home price it supports.';
       else if(denom<=0) o.warn='With 0% down and 0% closing costs there is no upper limit to solve for \u2014 add a down payment percentage.';
     }
     else if(mode === 'pct'){
       o.price = Math.max(0, num('dpc-price'));
+      if(ccUnit==='amt'){ closingPct = o.price>0 ? closingRaw/o.price*100 : 0; o.closingPct = closingPct; }
       var cash2 = Math.max(0, num('dpc-cash'));
-      o.closing = o.price*closingPct/100;
+      o.closing = o.price*closingPct/100; o.closingPct = closingPct;
       o.down = cash2 - o.closing;
       o.cashNeeded = cash2;
       o.dpPct = o.price>0 ? Math.max(0,o.down)/o.price*100 : 0;
@@ -627,9 +650,10 @@
     }
     else if(mode === 'save'){
       o.price = Math.max(0, num('dpc-price'));
+      if(ccUnit==='amt'){ closingPct = o.price>0 ? closingRaw/o.price*100 : 0; o.closingPct = closingPct; }
       o.dpPct = Math.min(100, Math.max(0, num('dpc-dp')));
       o.down = o.price*o.dpPct/100;
-      o.closing = o.price*closingPct/100;
+      o.closing = o.price*closingPct/100; o.closingPct = closingPct;
       o.target = o.down + o.closing;
       var have = Math.max(0, num('dpc-cash'));
       var per = Math.max(0, num('dpc-monthly'));
@@ -790,11 +814,26 @@
   ['dpc-price','dpc-cash','dpc-dp','dpc-monthly','dpc-closing','dpc-rate','dpc-term','dpc-pmi'].forEach(function(id){
     $(id).addEventListener('input', render);
   });
+  document.querySelectorAll('#dpc-ccUnit button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var price = Math.max(0, num('dpc-price')) || (window.__dpcLast ? window.__dpcLast.price : 0);
+      var cur = num('dpc-closing'), nu = b.dataset.u;
+      if(nu !== ccUnit && price > 0){
+        $('dpc-closing').value = (nu==='amt') ? Math.round(price*cur/100) : +(cur/price*100).toFixed(2);
+      }
+      ccUnit = nu;
+      document.querySelectorAll('#dpc-ccUnit button').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); render();
+    });
+  });
   $('dpc-calcBtn').addEventListener('click', render);
   $('dpc-clearBtn').addEventListener('click', function(){
     $('dpc-price').value=400000; $('dpc-cash').value=92000; $('dpc-dp').value=20;
     $('dpc-monthly').value=1500; $('dpc-closing').value=3; $('dpc-rate').value=6.5;
-    $('dpc-term').value=30; $('dpc-pmi').value=0.5; render();
+    $('dpc-term').value=30; $('dpc-pmi').value=0.5;
+    ccUnit='pct';
+    document.querySelectorAll('#dpc-ccUnit button').forEach(function(x,i){ x.classList.toggle('active', i===0); });
+    render();
   });
 
   var pdfLibsPromise=null;

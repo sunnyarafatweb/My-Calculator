@@ -855,22 +855,22 @@
 
 <nav class="dsc-toc" aria-label="Table of contents">
 <strong style="display:block;margin-bottom:8px;color:var(--ink)">On this page</strong>
-<a href="#dsc-how">How Discounts Actually Work</a>
-<a href="#dsc-formulas">Every Formula This Calculator Uses</a>
-<a href="#dsc-stack">Why Stacked Discounts Are Never What They Look Like</a>
-<a href="#dsc-reverse">Working Backwards From a Sale Price</a>
-<a href="#dsc-bogo">BOGO, 3-for-2 and Other Multi-Buy Offers</a>
-<a href="#dsc-salestax">Where Sales Tax Fits In</a>
-<a href="#dsc-fake">Spotting a Discount That Isn&rsquo;t Really a Discount</a>
-<a href="#dsc-example">A Worked Example</a>
-<a href="#dsc-faq">Frequently Asked Questions</a>
+<a href="#dsc-a-how">How Discounts Actually Work</a>
+<a href="#dsc-a-formulas">Every Formula This Calculator Uses</a>
+<a href="#dsc-a-stack">Why Stacked Discounts Are Never What They Look Like</a>
+<a href="#dsc-a-reverse">Working Backwards From a Sale Price</a>
+<a href="#dsc-a-bogo">BOGO, 3-for-2 and Other Multi-Buy Offers</a>
+<a href="#dsc-a-salestax">Where Sales Tax Fits In</a>
+<a href="#dsc-a-fake">Spotting a Discount That Isn&rsquo;t Really a Discount</a>
+<a href="#dsc-a-example">A Worked Example</a>
+<a href="#dsc-a-faq">Frequently Asked Questions</a>
 </nav>
 
-<h2 id="dsc-how">How Discounts Actually Work</h2>
+<h2 id="dsc-a-how">How Discounts Actually Work</h2>
 <p>Every discount comes down to one of two things: a slice of the price expressed as a percentage, or a flat amount knocked off. Percentages scale with the price, so 20% off saves you more on a $500 item than on a $50 one. Fixed amounts do the opposite — a $20 coupon is a huge deal on a $40 purchase and barely noticeable on a $400 one.</p>
 <p>That difference is why converting between the two is so useful. A $15 coupon on a $60 item is exactly 25% off, which instantly tells you whether it beats the 20%-off sale running next to it. The Fixed Amount tab does that conversion automatically, and the table under the calculator shows the same price at a dozen common discount levels so you can compare offers at a glance.</p>
 
-<h2 id="dsc-formulas">Every Formula This Calculator Uses</h2>
+<h2 id="dsc-a-formulas">Every Formula This Calculator Uses</h2>
 <div class="dsc-formula"><strong>Percent off:</strong> Savings = Price &times; (Percent &divide; 100) &nbsp;|&nbsp; You pay = Price &times; (1 &minus; Percent &divide; 100)</div>
 <div class="dsc-formula"><strong>Fixed amount off:</strong> You pay = Price &minus; Amount &nbsp;|&nbsp; Effective percent = (Amount &divide; Price) &times; 100</div>
 <div class="dsc-formula"><strong>Stacked discounts:</strong> You pay = Price &times; (1 &minus; d&#8321;) &times; (1 &minus; d&#8322;) &times; (1 &minus; d&#8323;) &nbsp;— applied one after another, never added</div>
@@ -878,34 +878,34 @@
 <div class="dsc-formula"><strong>Find the original price:</strong> Original = Sale &divide; (1 &minus; Percent &divide; 100)</div>
 <div class="dsc-formula"><strong>Multi-buy (BOGO):</strong> You pay = (Full-price items &times; Unit price) + (Discounted items &times; Unit price &times; (1 &minus; Percent &divide; 100))</div>
 
-<h2 id="dsc-stack">Why Stacked Discounts Are Never What They Look Like</h2>
+<h2 id="dsc-a-stack">Why Stacked Discounts Are Never What They Look Like</h2>
 <p>This is where most people lose money in their heads. A sign reading "20% off, plus an extra 10% off at the register" looks like 30%. It is not. The second discount applies to the already-reduced price, so on a $100 item you go to $80, then take 10% off <em>that</em> — $8, not $10 — landing at $72. Your real saving is 28%.</p>
 <p>The gap widens as you add more layers. Three discounts of 30%, 20% and 10% sound like 60% off; run them properly and you pay $100.80 on a $200 item, which is 49.6%. The Stacked Discounts tab spells out each step and then tells you what the combined discount really works out to, so you can compare it honestly against a single-percentage offer elsewhere.</p>
 <p>One genuinely useful quirk: the order of percentage discounts does not matter. Taking 20% then 10% gives exactly the same result as 10% then 20%, because you are multiplying the same two factors. Order <em>does</em> matter when a fixed-dollar coupon is involved — having the dollars come off before a percentage leaves you paying less than the other way round, which is worth knowing at the register.</p>
 
-<h2 id="dsc-reverse">Working Backwards From a Sale Price</h2>
+<h2 id="dsc-a-reverse">Working Backwards From a Sale Price</h2>
 <p>Two reverse questions come up constantly. The first is "what percentage off is this?" — you can see the original and sale price on the tag and want to know if the deal is any good. Subtract, divide by the original, multiply by 100.</p>
 <p>The second is "what was this before the sale?" — useful when a listing only shows the discounted price and the claimed percentage. Here you divide rather than multiply: a $90 item at 25% off means you are paying 75% of the original, so the original was $90 &divide; 0.75 = $120. A surprisingly common error is to add the percentage back to the sale price instead, which gives $112.50 and is wrong. The Reverse tab handles both directions: fill in any two of the three fields and it works out the third.</p>
 
-<h2 id="dsc-bogo">BOGO, 3-for-2 and Other Multi-Buy Offers</h2>
+<h2 id="dsc-a-bogo">BOGO, 3-for-2 and Other Multi-Buy Offers</h2>
 <p>Multi-buy deals hide their real discount behind the headline. Buy one get one free is 50% off — but only across two items, and only if you genuinely wanted two. Buy one get one <em>half</em> off is far weaker: you pay $50 plus $25 for two $50 items, so $75 for $100 of goods, which is 25% off, not 50%.</p>
 <p>Three-for-two works out to 33.3% off. Buy three get one free is 25%. The pattern is simple once you see it: your saving is the value of the free items divided by the value of everything you take home, not divided by what you paid. The BOGO tab computes this along with the average price per item, which is the number worth comparing against a competitor's straight percentage sale.</p>
 <p>The honest caveat on all of these: a multi-buy discount only saves money on units you actually need. Two of something at 50% off is not cheaper than one at full price if the second one sits unused.</p>
 
-<h2 id="dsc-salestax">Where Sales Tax Fits In</h2>
+<h2 id="dsc-a-salestax">Where Sales Tax Fits In</h2>
 <p>In the United States, sales tax is applied to the discounted price rather than the original, which means a real discount quietly saves you tax as well. On a $120 item at 25% off in a state with 8.25% tax, you pay tax on $90, not $120 — so the total is $97.43 instead of the $107.93 you would have paid without the sale.</p>
 <p>There is a wrinkle worth knowing. Store coupons generally reduce the taxable amount, but manufacturer coupons sometimes do not, because the retailer is reimbursed for that amount and the state still treats it as part of the sale price. This varies by state, so the tax figure this calculator produces is a close estimate rather than a guarantee. Enter your local combined state and local rate for the most accurate result.</p>
 
-<h2 id="dsc-fake">Spotting a Discount That Isn&rsquo;t Really a Discount</h2>
+<h2 id="dsc-a-fake">Spotting a Discount That Isn&rsquo;t Really a Discount</h2>
 <p>A percentage is only meaningful relative to the price it is measured against, and that reference price is chosen by the seller. An item permanently listed at $200 and permanently "40% off" at $120 has a real price of $120. The discount is presentation.</p>
 <p>Two practical habits help. Check what the item has actually sold for recently rather than what the sticker claims it was worth — price history browser extensions and marketplace listings make this easy. And judge the discount against the category norm: 20% off clothing at the end of a season is ordinary, while 20% off a current-model appliance is genuinely unusual. The percentage on the sign tells you about the seller's pricing strategy; the comparison against real recent prices tells you whether you are getting a deal.</p>
 
-<h2 id="dsc-example">A Worked Example</h2>
+<h2 id="dsc-a-example">A Worked Example</h2>
 <p>You are looking at a $120 jacket. The store advertises 25% off, and you also have a 10% email coupon that stacks. Sales tax where you live is 8.25%.</p>
 <p>The first discount takes $30 off, leaving $90. The second takes 10% of $90 — that is $9, not $12 — leaving <strong>$81</strong>. Your combined discount is 32.5%, not the 35% the two signs suggest. Tax is charged on $81, adding $6.68, so you hand over <strong>$87.68</strong>.</p>
 <p>Compare that against a competitor selling the same jacket at a flat $85 with no coupon. Before tax, the stacked deal wins by $4. After tax, it still wins — $87.68 against $92.01. Without running the numbers, the "25% plus 10%" framing makes it hard to see that the margin is only a few dollars rather than the double-digit saving it appears to be.</p>
 
-<h2 id="dsc-faq">Frequently Asked Questions</h2>
+<h2 id="dsc-a-faq">Frequently Asked Questions</h2>
 <h3>How do I calculate a percentage discount?</h3>
 <p>Multiply the original price by the discount percentage divided by 100 to get the amount you save, then subtract that from the original price. A quicker shortcut is to multiply the price by what you still pay: for 25% off, you pay 75%, so $80 × 0.75 = $60. Both routes give the same answer.</p>
 <h3>Is 20% off plus an extra 10% off the same as 30% off?</h3>
