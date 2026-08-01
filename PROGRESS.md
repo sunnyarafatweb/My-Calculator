@@ -3141,6 +3141,26 @@ assume this exact order still holds after a few weeks of new data.
   sloppy — now whole dollars throughout, matching calculator.net and itself;
   and the `.haf-per` unit hints were 11.5px, caught by the sub-12px assertion.
 
+  **Form layout fixed after the owner looked at the rendered page.** On desktop
+  the label column was 196px of a 400px card, and the remaining row had to hold
+  the input, a $/% toggle and a suffix chip. The inputs were crushed to 61px,
+  43px and — for monthly debt — **16px**, hiding most of the typed value:
+  "145000" displayed as "14500". Fixed by stacking the label above the control
+  row for this page, which gives every input the full card width (219–334px
+  now). Number spinners hidden, and a wheel handler added so a focused
+  `type=number` field cannot be silently changed by scrolling past it.
+
+  **The check that should have caught it, and now does.** The existing clipping
+  guard walks elements comparing `scrollWidth` to `clientWidth`, but an
+  `<input>` whose value overflows its box does not report as clipped in that
+  sweep — the text is simply hidden inside the field. A separate assertion was
+  added to **all five** suites: no `main input` may have `scrollWidth >
+  clientWidth`. Re-measured across every page built so far — only the
+  affordability page was affected, because it is the only one putting label,
+  input, unit toggle and suffix on a single row. **Worth keeping in the
+  standard check set: element clipping and input-value clipping are two
+  different measurements.**
+
   **Duplicate-content measured** against both sibling pages built earlier the
   same day: 0.95% containment vs the HELOC article, 1.00% vs home-equity-loan.
 
