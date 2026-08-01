@@ -3020,6 +3020,25 @@ assume this exact order still holds after a few weeks of new data.
   consistency downside at all, so it can safely be scripted across every
   page in one commit.
 
+- **Naming convention settled for acronym calculators** (Aug 1, 2026, HELOC).
+  The owner asked whether "Home Equity Line of Credit (HELOC) Calculator"
+  would be better for SEO than "HELOC Calculator". Checked what the
+  top-ranking US pages actually do rather than reasoning about it: Bankrate
+  runs the long form in both title and H1; calculator.net and mortgage.com
+  both run the **short form in the title and the long form in the H1**. Two
+  of three treat title and H1 as different jobs, which is the sensible read —
+  the title's ~60 characters are scarce and have to win a click, while the
+  H1 never appears in the SERP and can carry the longer variant for free.
+  Applied: H1 became "Home Equity Line of Credit (HELOC) Calculator" and the
+  WebApplication schema name matches it; the title, URL slug and breadcrumb
+  label all stay on the short high-volume form. The subhead was reworded
+  because it had been carrying the long form and now read as an immediate
+  repetition of the H1. **Use this split for any future acronym calculator**
+  (APR, BMI, GDP, IRR, LTV, RMD, TDEE and so on): short form in title, URL
+  and breadcrumb, expanded form in the H1. Measured before shipping — the
+  longer H1 stays on one line at desktop, two at 390px and three at 360px,
+  with no clipping.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
