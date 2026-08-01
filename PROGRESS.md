@@ -2887,6 +2887,102 @@ assume this exact order still holds after a few weeks of new data.
   tool are each their own query cluster with dedicated competitor pages, and
   are currently only covered as prose here.
 
+- **HELOC Calculator rebuilt** (Aug 1, 2026): 484-line template-tier page →
+  1,219-line custom-built two-tab 3-card page with the `hel-` prefix.
+
+  **Scope decision made first: their rate table is advertising, not a
+  feature.** The owner asked directly whether the lender comparison table on
+  calculator.net's HELOC page ("Compare Home Equity Rates", Advertiser
+  Disclosure, NMLS numbers, View Details buttons) is a user feature or
+  monetisation. It is monetisation, and the page source proves it rather than
+  the layout suggesting it: the table is injected by
+  `widgets.icanbuy.com/...?siteid=77c21319f69f80e0`, a third-party
+  lead-generation widget carrying their own site ID, alongside
+  `securepubads.g.doubleclick.net/tag/js/gpt.js` for Google Ad Manager. That
+  is why the disclosure text does not appear in the static HTML at all.
+  Excluded from parity scope, and it should stay excluded: we hold no
+  licensed rate feed, so reproducing it would mean publishing invented
+  interest rates on a YMYL page. **Generalisable check for future parity
+  work: before treating a block on a competitor page as a feature, grep the
+  page source for third-party widget and ad-tag script hosts.** A Playwright
+  assertion now guards the page against any of that content reappearing.
+
+  **Parity (3a-PRIME)**: 11 inputs across their two calculators, taken from
+  the raw form HTML — loan amount, interest rate, draw period, repayment
+  period, the closing-costs-and-fees section (amount with a $/% selector,
+  paid-upfront vs deducted-from-loan, annual fee), and the borrowing-power
+  calculator (home value, mortgage balance, LTV limit with six options). All
+  11 mapped; their checkbox became our standard expander and their radios and
+  dropdown became segmented controls, same states either way.
+
+  **Numeric verification — their forms were submitted, not read.** The
+  screenshots only show the base case, and submitting the form over HTTP
+  revealed that enabling closing costs *adds result rows the screenshots
+  never show*: Cash received (deduct mode only), Closing costs (shown in %
+  mode), Total annual fees, Cost of loan and APR. All reproduce exactly:
+  draw payment $333.33, repayment payment $477.83, total of 240 payments
+  $106,008.69, total interest $56,008.69, donut 47/53, schedule years 1, 6
+  and 7 to the cent, total annual fees $250.00 (which is what revealed the
+  fee is counted for the draw years only, not the full term), cost of loan
+  $58,258.69, cash received $48,000.00, 4% resolving to $2,000, and the
+  borrowing calculator's $230,000 and 41.7%.
+
+  **The APR is a deliberate, evidenced deviation.** Theirs returns 8.755%
+  where the standard method gives 8.555%. Roughly twenty conventions were
+  tested (fee timing, net-proceeds basis, rounded vs exact payments, term
+  length) and none reproduced it. What did fit, consistently across two
+  independent data points — 8.771% vs their 8.755% at $2,000 closing, and
+  8.422% vs their 8.407% at $1,000 — is discounting **only the 180
+  repayment-period payments and omitting the 60 interest-only draw
+  payments**. That contradicts their own "Total of 240 payments" row, and
+  dropping sixty real payments from the cash-flow overstates the rate. Ours
+  discounts the whole stream, per the standard definition. Flagged in the
+  step-7 report, explained in a dedicated paragraph on the page, and the test
+  suite asserts 8.555% with a comment recording why it differs. This is the
+  FHA-MIP precedent applied a second time: match the field, not the error.
+
+  **Two additions beyond calculator.net.** An LTV scenario table on the
+  borrowing tab running all six limits against the same home, since the LTV a
+  lender accepts is one of the few variables here worth shopping around for;
+  and a monthly schedule alongside the annual one, with the first
+  amortizing month marked, because the payment jump is the thing people
+  come to this page for.
+
+  **Keyword research**: head term "heloc calculator" is competitive
+  (Bankrate, credit unions, mortgage.com). Every serious source converges on
+  two themes that shaped the page — the payment shock when the draw period
+  ends, and that HELOC rates are variable. The title leads on the first
+  ("See Your Payment Before and After Draw") and the article and disclaimer
+  are explicit about the second, since holding the rate fixed is this
+  calculator's largest simplification. Distinct clusters covered as sections
+  and FAQs: heloc payment / repayment / payoff, how much can I borrow,
+  heloc vs home equity loan vs cash-out refinance, heloc APR.
+
+  **Content**: 9 H2 sections, 8 FAQs, all original, including a risks section
+  that states plainly what the tool cannot show (variable rates, gradual
+  draws, the home as collateral, lines being frozen when values fall, and
+  conditional interest deductibility).
+
+  **Verification before push**: 3 valid JSON-LD blocks, FAQ schema ↔ visible
+  HTML 16/16 exact match, all 6 inline scripts syntax-clean, PROTECTED SHARED
+  STYLE BLOCK and header/footer partials byte-identical, tag balance clean,
+  all six sidebar link targets confirmed to exist on disk. Playwright desktop
+  and mobile: every parity figure re-run in-browser, annual and monthly
+  schedules (240 rows, month 1 pure interest, month 61 amortizing, final
+  month clearing to zero), both closing-cost modes, % mode, the LTV table and
+  its highlighted row, the over-leveraged case flooring at $0 with a warning,
+  zero-rate and zero-draw edge cases, no text under 12px, every input named,
+  `th` scoped, headings contrast-checked, and jsPDF lazy on first click only.
+  `llms.txt` updated from the now-incomplete "Draw Period" label. New OG
+  image. Site-wide regression across 8 pages: clean.
+
+  **One environment note for next session**: the shared Google Analytics
+  beacon returns 503 from this sandbox IP after enough test runs, and shows
+  up as a console error on *every* page including untouched ones. Confirmed
+  against finance-calculator and bmi-calculator before excluding it. The
+  HELOC suite ignores that one third-party host by name rather than
+  blanket-ignoring console errors, so real page errors still fail the run.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

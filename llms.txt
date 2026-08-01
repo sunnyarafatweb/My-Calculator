@@ -35,7 +35,7 @@
 - [FHA Loan Calculator — Upfront](https://calculatorboss.com/fha-loan-calculator/)
 - [Finance Calculator](https://calculatorboss.com/finance-calculator/)
 - [Future Value Calculator](https://calculatorboss.com/future-value-calculator/)
-- [HELOC Calculator — Draw Period](https://calculatorboss.com/heloc-calculator/)
+- [HELOC Calculator — Draw & Repayment Payments](https://calculatorboss.com/heloc-calculator/)
 - [Home Equity Loan Calculator](https://calculatorboss.com/home-equity-loan-calculator/)
 - [House Affordability Calculator](https://calculatorboss.com/house-affordability-calculator/)
 - [Income Tax Calculator](https://calculatorboss.com/income-tax-calculator/)
