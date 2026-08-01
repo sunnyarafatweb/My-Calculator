@@ -411,8 +411,10 @@
 .gdp-result-row:first-child{border-top:none}
 .gdp-result-row span:first-child{color:var(--ink-soft)}
 .gdp-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
-.gdp-result-row.sub{background:var(--surface-sunken);margin:4px -20px;padding:9px 20px;font-weight:700}
+.gdp-result-row.ind span:first-child{padding-left:16px}
+.gdp-result-row.sub{font-weight:700;border-top:1px solid var(--border)}
 .gdp-result-row.sub span:first-child{color:var(--ink)}
+.gdp-result-row.sub span:last-child{color:#1E3A5F}
 .gdp-result-row.total{font-weight:700;font-size:15px;border-top:2px solid var(--border)}
 
 .gdp-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
@@ -739,18 +741,18 @@
       rows += '<div class="gdp-result-row"><span>Personal consumption</span><span>'+money(e.C)+'</span></div>';
       rows += '<div class="gdp-result-row"><span>Gross investment</span><span>'+money(e.I)+'</span></div>';
       rows += '<div class="gdp-result-row"><span>Government consumption</span><span>'+money(e.G)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Exports</span><span>'+money(e.X)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Imports</span><span>'+money(e.M)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Exports</span><span>'+money(e.X)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Imports</span><span>'+money(-e.M)+'</span></div>';
       rows += '<div class="gdp-result-row sub"><span>Net exports</span><span>'+money(e.net)+'</span></div>';
       $('gdp-verdictSub').textContent = 'Expenditure approach \u00b7 net exports ' +
         (e.net < 0 ? 'subtract ' + money(Math.abs(e.net),0) : 'add ' + money(e.net,0)) + '.';
     } else {
       var i = p.data;
-      rows += '<div class="gdp-result-row"><span>Employee compensation</span><span>'+money(i.EC)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Proprietors&#39; income</span><span>'+money(i.PI)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Rental income</span><span>'+money(i.RI)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Corporate profits</span><span>'+money(i.CP)+'</span></div>';
-      rows += '<div class="gdp-result-row"><span>Interest income</span><span>'+money(i.II)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Employee compensation</span><span>'+money(i.EC)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Proprietors&#39; income</span><span>'+money(i.PI)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Rental income</span><span>'+money(i.RI)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Corporate profits</span><span>'+money(i.CP)+'</span></div>';
+      rows += '<div class="gdp-result-row ind"><span>Interest income</span><span>'+money(i.II)+'</span></div>';
       rows += '<div class="gdp-result-row sub"><span>Gross national product (GNP)</span><span>'+money(i.gnp)+'</span></div>';
       rows += '<div class="gdp-result-row"><span>Indirect business taxes</span><span>'+money(i.IBT)+'</span></div>';
       rows += '<div class="gdp-result-row"><span>Depreciation</span><span>'+money(i.DEP)+'</span></div>';
