@@ -3039,6 +3039,66 @@ assume this exact order still holds after a few weeks of new data.
   longer H1 stays on one line at desktop, two at 390px and three at 360px,
   with no clipping.
 
+- **Home Equity Loan Calculator rebuilt** (Aug 1, 2026): 484-line template-tier
+  page → 1,172-line two-tab 3-card page with the `heq-` prefix. Built directly
+  after the HELOC page, and the two are deliberately treated as a pair.
+
+  **Same ad exclusion, verified again.** calculator.net's home-equity-loan
+  page carries the identical `widgets.icanbuy.com/...?siteid=...` lead-gen
+  widget and `doubleclick` ad tag as its HELOC page. Excluded on the same
+  grounds and guarded by the same test assertion.
+
+  **Parity**: 9 inputs across their two forms. One detail that only shows in
+  the raw HTML: the closing-cost radio defaults to **deducted from loan**
+  here, whereas the HELOC page defaults to *paid upfront*. Ours matches each
+  page's own default rather than assuming they are the same. There is no
+  annual-fee field on this calculator, unlike HELOC. Result rows again only
+  appear once closing costs are enabled (Cash received, Closing costs, Cost
+  of loan, APR), which the screenshots do not show — their form was submitted
+  in all four modes to find them.
+
+  **Numeric verification**: monthly $1,433.48, total of 180 payments
+  $258,026.06, total interest $108,026.06, donut 58/42, schedule years 1, 2
+  and 15 (clearing to $0.00) all to the cent, cost of loan $115,526.06, cash
+  received $142,500.00, 5% resolving to $7,500, and $230,000 at 41.7% on the
+  borrowing tab.
+
+  **The APR here matches calculator.net exactly at 8.860% — and that is the
+  useful finding.** On this page, with a single term and no draw period,
+  their APR is the standard net-advance IRR and agrees with ours to three
+  decimals. It only diverged on the HELOC page. That independently confirms
+  the diagnosis recorded in the HELOC entry: their HELOC APR drops the
+  interest-only draw payments from the cash-flow, and the deviation shipped
+  there was correct rather than a difference in convention. **Worth
+  remembering as a technique — when a competitor's figure cannot be
+  reproduced on one page, check whether the same figure reproduces on a
+  simpler sibling page before concluding anything about the method.**
+
+  **Duplicate-content guard.** This page and `/heloc-calculator/` cover
+  adjacent topics and would be easy to write as near-duplicates. The article
+  was written from a different angle throughout (second-lien position,
+  subordination, the lump-sum-from-day-one consequence, term length as the
+  main lever) with a different FAQ set. Measured after writing: 8-word
+  shingle overlap between the two articles is 1.32% Jaccard / 2.66%
+  containment, and the only shared phrases are the boilerplate disclaimer.
+  **This shingle check is worth running whenever two sibling calculators are
+  built in the same session.**
+
+  **Reuse note**: the page CSS is extracted from `build_heloc.py` at build
+  time and prefix-swapped rather than copied, so the sibling pages cannot
+  drift apart visually. Confirmed zero leftover `hel-` references in the
+  output.
+
+  **Verification before push**: 3 valid JSON-LD blocks, FAQ schema ↔ visible
+  HTML 16/16, scripts syntax-clean, protected style block and header/footer
+  byte-identical, tag balance clean, hub description and `llms.txt` entry
+  both updated (the hub had omitted the borrowing calculator, `llms.txt` had
+  no descriptor). Playwright desktop and mobile: all parity figures re-run
+  live, annual and monthly schedules, all closing-cost modes, LTV table,
+  over-leveraged and zero-rate edges, the clipping guard, accessibility
+  checks, jsPDF lazy. New OG image. Site-wide regression across 8 pages
+  clean.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
