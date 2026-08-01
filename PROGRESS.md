@@ -3006,6 +3006,20 @@ assume this exact order still holds after a few weeks of new data.
   HELOC suite ignores that one third-party host by name rather than
   blanket-ignoring console errors, so real page errors still fail the run.
 
+- **Internal links were causing a 301 hop on every click** (found Aug 1, 2026
+  while auditing the HELOC page against the section 3 checklist). The
+  sidebar "Related Calculators" links are written without a trailing slash
+  (`/loan-calculator`), but the site serves and canonicalises the
+  trailing-slash form, so every one of them redirects: confirmed live with
+  `curl -L`, which reports `num_redirects=1` for `/amortization-calculator`
+  and `0` for `/amortization-calculator/`. Harmless for visitors, mildly
+  wasteful for crawlers, and trivially avoidable. Fixed on the three pages
+  rebuilt this session (heloc, gdp, future-value). **This is a site-wide
+  pattern inherited from finance-calculator and worth a dedicated pass** —
+  unlike the shared-token contrast issue, this one has no visual or
+  consistency downside at all, so it can safely be scripted across every
+  page in one commit.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
