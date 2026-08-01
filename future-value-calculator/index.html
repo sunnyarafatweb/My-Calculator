@@ -366,7 +366,7 @@
 
 .fv-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .fv-bar-text{display:flex;align-items:center;gap:10px}
-.fv-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.fv-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:12px;flex-shrink:0}
 .fv-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 
 .fv-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
@@ -411,7 +411,7 @@
 .fv-donut-legend .lg em{font-style:normal;color:var(--ink-faint);padding-left:6px}
 .fv-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .fv-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-.fv-note{font-size:11.5px;color:var(--ink-faint);margin:0 20px 18px;line-height:1.6}
+.fv-note{font-size:12px;color:var(--ink-faint);margin:0 20px 18px;line-height:1.6}
 
 .fv-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .fv-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -434,7 +434,7 @@
 .fv-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden;display:flex;flex-direction:column}
 .fv-chart-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px;display:block}
 .fv-svg{width:100%;height:auto;display:block}
-.fv-chart-legend{display:flex;justify-content:center;gap:16px;font-size:11.5px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
+.fv-chart-legend{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
 .fv-chart-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
 
 @media(max-width:520px){
@@ -457,7 +457,7 @@
 .fv-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.8;white-space:normal;word-break:break-word}
 .fv-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
 .fv-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
-.fv-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.fv-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:7px 0;min-height:32px;text-decoration:none}
 .fv-toc a:hover{color:#1E3A5F}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the future value of money?","acceptedAnswer":{"@type":"Answer","text":"It is what a sum of money is expected to be worth on a specific date in the future, once interest or investment growth has been added to it. The idea rests on the fact that money available now can be put to work, so a dollar today and a dollar in ten years are not interchangeable. Future value puts a concrete number on that gap instead of leaving it as an intuition."}},{"@type":"Question","name":"What is the formula for future value?","acceptedAnswer":{"@type":"Answer","text":"For a starting amount on its own, FV = PV x (1 + i)^N, where PV is the amount you begin with, i is the interest rate for one period as a decimal and N is the number of periods. When you also add an equal deposit each period, the future value of those deposits is added on: PMT x [((1 + i)^N - 1) / i], multiplied by a further (1 + i) if the deposits land at the start of each period rather than the end."}},{"@type":"Question","name":"How do I calculate future value with monthly deposits?","acceptedAnswer":{"@type":"Answer","text":"Convert everything to months before you enter it. Divide the annual rate by 12 to get the rate for one period, and multiply the number of years by 12 to get the number of periods. A 6% annual rate over ten years becomes 0.5% per period across 120 periods, and $300 a month at those settings grows to $49,163.80. Leaving the rate at 6 and the periods at 10 answers a completely different question and gives $3,954.24, which is the classic version of this mistake."}},{"@type":"Question","name":"What is the difference between an ordinary annuity and an annuity due?","acceptedAnswer":{"@type":"Answer","text":"An ordinary annuity puts each deposit at the end of the period; an annuity due puts it at the beginning. Choosing the beginning gives every single deposit one extra period of growth, so the ending balance is always higher when the rate is positive. With the values this page opens on, the two settings differ by $439.76 on an ending balance of roughly $20,000, which is small in percentage terms but far from nothing."}},{"@type":"Question","name":"Is future value the same as compound interest?","acceptedAnswer":{"@type":"Answer","text":"They are closely related but not identical. Compound interest describes the mechanism, where interest is added to the balance and then earns interest itself in later periods. Future value is the result that mechanism produces by a given date, and it also covers the deposits you make along the way rather than just a single untouched sum."}},{"@type":"Question","name":"Does this calculator account for inflation?","acceptedAnswer":{"@type":"Answer","text":"No. Every figure it returns is nominal, meaning it is stated in future dollars and ignores what prices do in the meantime. A balance of $20,077.41 in fifteen years would be worth about $12,886.93 in today's money at 3% annual inflation. If you want the answer in today's purchasing power, subtract your expected inflation rate from the rate you enter and read the result as real rather than nominal."}},{"@type":"Question","name":"What happens if I enter an interest rate of 0%?","acceptedAnswer":{"@type":"Answer","text":"The calculator falls back to simple addition, because nothing compounds. The ending balance becomes the starting amount plus every deposit you made, and total interest comes out at zero. It is a useful sanity check: entering 0% should always return exactly the money you put in, and it is worth doing once to confirm the periods and deposit you typed are the ones you meant."}},{"@type":"Question","name":"How is present value different from future value?","acceptedAnswer":{"@type":"Answer","text":"They are the same relationship read in opposite directions. Future value pushes a sum forward in time and adds growth; present value pulls a future sum backwards and strips growth out, answering what you would need today to end up with that amount. The result card shows both, so you can see that the plan on screen is equivalent to a single deposit of a much smaller sum made right now."}}]}</script>
@@ -542,7 +542,7 @@
       </div>
       <div class="fv-sched-scroll">
         <table class="fv-sched-table">
-          <thead><tr><th>Period</th><th>Start balance</th><th>Deposit</th><th>Interest</th><th>End balance</th></tr></thead>
+          <thead><tr><th scope="col">Period</th><th scope="col">Start balance</th><th scope="col">Deposit</th><th scope="col">Interest</th><th scope="col">End balance</th></tr></thead>
           <tbody id="fv-schedBody"></tbody>
         </table>
       </div>
@@ -669,7 +669,7 @@
       var val = minV + (maxV-minV)*t/4, y = Y(val);
       svg += '<line x1="'+left+'" y1="'+y.toFixed(1)+'" x2="'+right+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
       var lbl = Math.abs(val) >= 10000 ? (val<0?'-':'')+'$'+Math.round(Math.abs(val)/1000)+'K' : money(val,0);
-      svg += '<text x="'+(left-7)+'" y="'+(y+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="var(--ink-faint)">'+lbl+'</text>';
+      svg += '<text x="'+(left-7)+'" y="'+(y+4).toFixed(1)+'" font-size="12" text-anchor="end" fill="var(--ink-faint)">'+lbl+'</text>';
     }
 
     var n = pts.length, slot = (right-left)/n, bw = Math.max(1.5, Math.min(18, slot*0.66));
@@ -699,11 +699,11 @@
 
     var lstep = Math.max(1, Math.round(n/6));
     for(var i2=0; i2<n; i2+=lstep){
-      svg += '<text x="'+(left+slot*(i2+0.5)).toFixed(1)+'" y="'+(bot+15)+'" font-size="11" text-anchor="middle" fill="var(--ink-faint)">'+pts[i2].p+'</text>';
+      svg += '<text x="'+(left+slot*(i2+0.5)).toFixed(1)+'" y="'+(bot+15)+'" font-size="12" text-anchor="middle" fill="var(--ink-faint)">'+pts[i2].p+'</text>';
     }
     svg += '<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+bot+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
     svg += '<line x1="'+left+'" y1="'+zero.toFixed(1)+'" x2="'+right+'" y2="'+zero.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
-    svg += '<text x="'+((left+right)/2).toFixed(1)+'" y="'+(H-3)+'" font-size="11" text-anchor="middle" fill="var(--ink-faint)">Period</text>';
+    svg += '<text x="'+((left+right)/2).toFixed(1)+'" y="'+(H-3)+'" font-size="12" text-anchor="middle" fill="var(--ink-faint)">Period</text>';
 
     var legend = stackable
       ? '<span><i style="background:#1E3A5F"></i>Starting amount</span>'+

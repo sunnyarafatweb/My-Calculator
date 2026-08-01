@@ -2712,6 +2712,35 @@ assume this exact order still holds after a few weeks of new data.
   second. Site-wide regression across future-value, finance, present-value,
   bmi, tip, body-fat, home and all-calculators on both breakpoints: clean.
 
+  **Post-build accessibility pass** (same session, following the convention
+  set by the Jul 31 "Restore post-build accessibility and text-size fixes"
+  commit rather than inventing a new remedy): no text below 12px anywhere on
+  the page — `.fv-note` and `.fv-chart-legend` went 11.5px → 12px, the bar
+  badge 11px → 12px, and both SVG chart renderers' axis/label text 11 → 12;
+  TOC links given `padding:7px 0; min-height:32px` so they clear a 32px tap
+  target; schedule `<th>`s given `scope="col"`. Re-audited after: 0 elements
+  under 12px, 0 inputs without an accessible name, 0 SVGs without a role or
+  aria-label, 0 elements with clipped or overflowing text.
+
+  **Outstanding, site-wide, NOT introduced here — shared-token colour
+  contrast.** A WCAG AA sweep found 6 failing text/background pairs on this
+  page: the input unit suffixes ("$", "% / period") and `.fv-hint` /
+  `.fv-note` / chart-card kickers at `var(--ink-faint)` on white (2.06–2.33
+  against a 4.5 requirement), the sidebar's white-on-`#22C55E` "View More"
+  button (2.28), the SVG axis labels (3.30) and the breadcrumb links (3.66).
+  The same probe run against untouched pages returns finance-calculator 6,
+  sales-tax-calculator 5, bmi-calculator 4 — i.e. this comes from the shared
+  design tokens and the shared `.crumb` / view-more patterns, and this page
+  sits exactly where its reference pages do. Deliberately left alone: fixing
+  it on one page only would make that page visibly inconsistent with ~199
+  others, and fixing it properly means darkening `--ink-faint`/`--muted` and
+  the view-more green across the whole site, which is a shared-token change
+  that section 1 says must be propagated everywhere and spot-checked before
+  pushing. Worth doing as its own focused task — it is a real accessibility
+  gap, and Google's page-experience signals care about it — but it should not
+  be smuggled in under a single calculator rebuild. The two remaining
+  sub-32px tap targets are the shared breadcrumb links, same reasoning.
+
   **Still outstanding for this slug**: `present-value-calculator` is still a
   484-line template-tier page. Checked per the AdSense no-over-claiming rule:
   the new article makes no claim about it — the article's only links are its
