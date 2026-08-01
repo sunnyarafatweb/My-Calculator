@@ -2976,6 +2976,29 @@ assume this exact order still holds after a few weeks of new data.
   `llms.txt` updated from the now-incomplete "Draw Period" label. New OG
   image. Site-wide regression across 8 pages: clean.
 
+  **Layout fixes after the owner spotted cut-off text.** Three things were
+  clipping their own boxes, and only one of them was visible in the
+  screenshot that prompted the check:
+  - The six-option LTV segmented control needed 192px in a 168px column, so
+    "60%" was sliced in half. Replaced with a dropdown at the owner's
+    request. The standing "tabs, not dropdowns" convention holds for two or
+    three modes; six numeric options in a narrow form column is where a
+    select is simply the right control.
+  - The closing-cost toggle ("Paid upfront" / "Deducted from loan") needed
+    209px in the same 168px column and was clipping too, unnoticed. Second
+    label shortened to "Deducted", which the row label already contextualises.
+  - The donut legend put label and value on one flex row with the value set
+    `white-space:nowrap`, so a long label squeezed the percentage off the
+    edge. Rebuilt as a two-column grid with the value on its own line
+    underneath, which makes clipping structurally impossible rather than
+    dependent on label length. The same fragile pattern was on the GDP page
+    and was measured to be clipping slightly there too, so both were fixed.
+
+  **Permanent guard added to both suites**: an assertion that walks every
+  element under `main` and fails if `scrollWidth` exceeds `clientWidth` while
+  `overflow-x` is visible. Cheap, and it would have caught all three of these
+  before they shipped. Worth adding to the standard check set for every page.
+
   **One environment note for next session**: the shared Google Analytics
   beacon returns 503 from this sandbox IP after enough test runs, and shows
   up as a console error on *every* page including untouched ones. Confirmed

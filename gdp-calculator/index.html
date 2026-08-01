@@ -420,9 +420,9 @@
 .gdp-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .gdp-donut-svg{width:150px;height:150px;flex-shrink:0}
 .gdp-donut-legend{display:flex;flex-direction:column;gap:9px;flex:1;min-width:160px}
-.gdp-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
-.gdp-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
-.gdp-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:10px;white-space:nowrap}
+.gdp-donut-legend .lg{display:grid;grid-template-columns:11px minmax(0,1fr);column-gap:8px;align-items:start;font-size:12.5px;color:var(--ink-soft);line-height:1.35}
+.gdp-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;margin-top:3px}
+.gdp-donut-legend .lg b{grid-column:2;display:block;color:var(--ink);margin-top:2px;white-space:nowrap}
 .gdp-note{font-size:12px;color:var(--ink-faint);margin:0 20px 18px;line-height:1.6}
 
 .gdp-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
@@ -659,7 +659,7 @@
     }
     $('gdp-donutSvg').innerHTML = svg;
     $('gdp-donutLegend').innerHTML = segs.map(function(s){
-      return '<div class="lg"><i style="background:'+s.color+'"></i>'+s.label+'<b>'+money(s.raw,0)+'</b></div>';
+      return '<div class="lg"><i style="background:'+s.color+'"></i><span>'+s.label+'</span><b>'+money(s.raw,0)+'</b></div>';
     }).join('');
     var negs = p.rows.filter(function(r){ return r.v < 0; }).map(function(r){ return r.k.toLowerCase(); });
     $('gdp-donutNote').textContent = negs.length
