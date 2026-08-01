@@ -2625,6 +2625,100 @@ assume this exact order still holds after a few weeks of new data.
   console errors, zero horizontal overflow, and correct nav behaviour on both
   desktop and mobile — confirming nothing shared was disturbed.
 
+- **Future Value Calculator rebuilt** (Aug 1, 2026): 484-line template-tier
+  page (lump-sum only, generic `X Calculator | CalculatorBoss` title, 3 H2s,
+  2 FAQs, no PMT field at all) → 1,053-line custom-built 3-card page with the
+  `fv-` prefix.
+
+  **Parity (3a-PRIME, calculator.net/future-value-calculator.html)**: their
+  raw form HTML was fetched and parsed rather than eyeballed — it has exactly
+  five inputs (`cyearsv` 10, `cstartingprinciplev` 1000, `cinterestratev` 6,
+  `ccontributeamountv` 100, `ciadditionat1` radio defaulting to `end`), no
+  Advanced section and no tab/mode variants. All 5 mapped 1:1; the
+  beginning/end radio became a segmented tab control per the standing
+  "tabs, not dropdowns" directive. Result parity 12/12: Future Value,
+  PV (Present Value), Total Periodic Deposits, Total Interest, the 3-segment
+  donut, the 5-column schedule (Start balance / Deposit / Interest /
+  End balance) and the 3-series stacked bar chart.
+
+  **Numeric verification** (Node, before any code was wired in): every figure
+  calculator.net publishes on that page reproduces to the cent — FV
+  $3,108.93, PV $1,736.01, deposits $1,000.00, interest $1,108.93, donut
+  32/32/36, and schedule rows 1/2/10 ($60.00→$1,160.00, $69.60→$1,329.60,
+  $170.32→$3,108.93), plus their own doc example ($10 at 6% for 1 period =
+  $10.60). The period-by-period simulation and the closed-form
+  `PV(1+i)^N + PMT[((1+i)^N-1)/i](1+iT)` were computed independently and
+  agree, which is what the page ships (the schedule is built the long way, so
+  the two act as a permanent cross-check). Zero-rate falls back to
+  `PV + PMT*N` = $8,750.00 rather than dividing by zero; annuity-due mode
+  verified separately at $3,188.01 with period-1 interest of $66.00.
+  Defaults deliberately differ from theirs: 15 / $5,000 / 7% / $250.
+
+  **Keyword research**: head term "future value calculator" is high-volume /
+  high-competition (calculator.net, CalculatorSoup, Symbolab, Omni,
+  FinancialMentor). Distinct long-tail clusters with their own dedicated
+  competitor pages — so real query clusters, not phrasing variants — are
+  "future value of annuity calculator", "future value of annuity **due** /
+  ordinary vs due", "future value formula", "future value with monthly
+  deposits" and "lump sum future value". The middle-ground opportunity taken:
+  calculator.net *has* the beginning/end toggle but says nothing about it in
+  its title or meta, and only small sites target the annuity-due phrasing —
+  so it got its own H2 and FAQ here. Title
+  "Future Value Calculator — See What Your Money Grows To" (54 chars),
+  meta 154 chars.
+
+  **Content**: 9 H2 sections, 2,455 words, 8 FAQs, all original. Every number
+  quoted in the prose was computed in Node first, not estimated — the
+  $13,795.16 / $6,282.26 lump-vs-deposits split (which sums exactly to the
+  $20,077.41 default), the $439.76 annuity-due gap, the $49,163.80 monthly
+  conversion against the $3,954.24 wrong-units answer, the period-12
+  interest-overtakes-deposit crossover at $276.21, and the $12,886.93
+  inflation-adjusted figure.
+
+  **Two things worth reusing next time.**
+  1. *Generate the FAQ schema and the visible FAQ from one Python list.*
+     The recurring em-dash/quote drift between schema and visible text
+     (flagged in the guide as hitting every rebuild so far) cannot happen if
+     both are emitted from the same source string. 16/16 exact-equality
+     assertions passed on the first run with no manual reconciliation.
+  2. *Build the OG image against measured geometry, not by eye.* The template
+     was reverse-engineered from `og/annuity-payout-calculator.png`: element
+     bounding boxes and exact colors sampled per-pixel, and the background's
+     green radial wash recovered by least-squares fitting a 2D polynomial to
+     the text-free rows (max error 3/255, visually identical). A first
+     attempt at building a clean background plate by taking the per-pixel
+     median across all 42 existing OG images failed and was abandoned —
+     the images vary too much in layout, so the median erased the shared
+     template elements (pill fill, divider, footer) too.
+
+  **Bug caught by the checks, not by reading**: the tail slice that splices
+  the shared footer back on was off by four lines and silently dropped
+  `</div></main><footer>`, leaving the page with no `</main>` and two
+  unbalanced divs. Nothing visual gave it away — it surfaced only as a
+  68-open/70-close div count. Worth keeping the tag-balance assertion in the
+  standard check set; it is cheap and it caught a real structural break.
+
+  **Verification before push**: 3 JSON-LD blocks valid, FAQ schema ↔ visible
+  HTML 16/16 exact match, all 6 inline scripts `node --check` clean, the
+  PROTECTED SHARED STYLE BLOCK byte-identical to finance-calculator and
+  body-fat-calculator (sha256 `d2dadb0c…`, 20,166 bytes), header and footer
+  partials byte-identical to the reference page, TOC anchors matching H2 ids,
+  tag balance clean. Playwright on desktop (1280×900) and mobile (390×844):
+  zero console/page errors, zero horizontal overflow, no element wider than
+  the viewport, `h1` computing 700, every card heading measured for contrast
+  against its resolved background (the Jul-31 vanishing-heading lesson),
+  the full calculator.net parity case re-run in-browser, and jsPDF confirmed
+  to fetch zero bytes on load, load on first click and not re-fetch on the
+  second. Site-wide regression across future-value, finance, present-value,
+  bmi, tip, body-fat, home and all-calculators on both breakpoints: clean.
+
+  **Still outstanding for this slug**: `present-value-calculator` is still a
+  484-line template-tier page. Checked per the AdSense no-over-claiming rule:
+  the new article makes no claim about it — the article's only links are its
+  own TOC anchors, and the sidebar lists it by name with no feature promise,
+  so nothing needs correcting. It is still the obvious next upgrade, and the
+  two pages should end up as a matched pair.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
