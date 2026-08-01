@@ -3099,6 +3099,59 @@ assume this exact order still holds after a few weeks of new data.
   checks, jsPDF lazy. New OG image. Site-wide regression across 8 pages
   clean.
 
+- **House Affordability Calculator rebuilt** (Aug 1, 2026): 484-line stub →
+  1,154-line two-tab page (`haf-` prefix). The most involved parity job so far:
+  18 inputs, nine $/% unit toggles, a 12-option DTI standard, and a fee
+  checkbox.
+
+  **Same ad exclusion** — their page carries the same icanbuy lead-gen widget
+  and doubleclick tag, guarded by the standing assertion.
+
+  **The whole engine was reverse-engineered from their outputs and matched
+  first try.** Housing allowance = min(income x front-end, income x back-end −
+  other debts); price = allowance ÷ [(1 − down%) × M + (tax% + ins% + HOA%)/12].
+  Every published figure reproduces: $409,354 price, $327,483 loan, $81,871
+  down, $12,281 closing, $94,152 at closing, 28%/28% DTI, $2,118 payment,
+  $6,140 tax, $2,047 insurance, $6,140 maintenance, $3,312 total monthly; the
+  back-end-binding case at $307,016 with 21%/36%; the 10%-down PMI case at
+  $356,157 with $134/mo; and both budget-tab cases, $432,631 with fees and
+  $676,541 without.
+
+  **Two structural facts only visible from submitting their form**: maintenance
+  (1.5%) is shown in the total monthly cost but deliberately *excluded* from
+  the DTI ratio, and PMI is 0.5%/yr of the loan applied below 20% down.
+
+  **Three deliberate corrections, all evidenced.**
+  1. *VA funding fee.* They show it as a monthly charge. It is a one-time fee
+     with no ongoing component — confirmed against 2026 sources including
+     Rocket Mortgage — at 2.15% under 5% down, 1.50% from 5%, 1.25% from 10%
+     for first use. Ours puts it in the closing costs. Their own VA numbers
+     are additionally self-inconsistent: the price is solved using roughly a
+     0.75%-of-loan annual charge while the display shows 1.25%, so their
+     stated "front-end 31%" does not match their own displayed costs (32.4%).
+  2. *FHA monthly MIP* is excluded from their front-end ratio; FHA
+     underwriting counts it, so ours does, which lowers the FHA figure
+     slightly.
+  3. *PMI in dollar-mode down payments.* Theirs shows PMI at a 23.6% down
+     payment entered in dollars. Ours compares the actual down-payment
+     percentage against 20%, so it correctly shows none.
+
+  **Two internal-consistency fixes found by the checks**: the result column
+  mixed whole dollars and cents (`$2,117.74` beside `$6,140`) which read as
+  sloppy — now whole dollars throughout, matching calculator.net and itself;
+  and the `.haf-per` unit hints were 11.5px, caught by the sub-12px assertion.
+
+  **Duplicate-content measured** against both sibling pages built earlier the
+  same day: 0.95% containment vs the HELOC article, 1.00% vs home-equity-loan.
+
+  **Verification**: schema 16/16, scripts clean, protected block and partials
+  byte-identical, tag balance clean, all six sidebar targets confirmed on
+  disk, hub description and `llms.txt` descriptor both updated. Playwright
+  desktop and mobile: every parity figure re-run live, dollar/percent toggles,
+  FHA and VA modes, budget tab with and without fees, rate-sensitivity table,
+  clipping guard, accessibility checks, jsPDF lazy. New OG image. Site-wide
+  regression clean.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

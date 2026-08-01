@@ -37,7 +37,7 @@
 - [Future Value Calculator](https://calculatorboss.com/future-value-calculator/)
 - [HELOC Calculator — Draw & Repayment Payments](https://calculatorboss.com/heloc-calculator/)
 - [Home Equity Loan Calculator — Payment, Schedule & APR](https://calculatorboss.com/home-equity-loan-calculator/)
-- [House Affordability Calculator](https://calculatorboss.com/house-affordability-calculator/)
+- [House Affordability Calculator — 28/36 Rule & Budget](https://calculatorboss.com/house-affordability-calculator/)
 - [Income Tax Calculator](https://calculatorboss.com/income-tax-calculator/)
 - [Inflation Calculator](https://calculatorboss.com/inflation-calculator/)
 - [Interest Calculator — Simple vs. Compound](https://calculatorboss.com/interest-calculator/)
