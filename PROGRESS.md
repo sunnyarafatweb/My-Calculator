@@ -2841,6 +2841,47 @@ assume this exact order still holds after a few weeks of new data.
   image generated from the same measured template. Site-wide regression
   across 8 pages on both breakpoints: clean.
 
+  **Usability pass, same session, after the owner asked whether the page was
+  actually easy to use.** Re-reading the build from a visitor's point of view
+  rather than a parity checklist's found three things worth fixing, one of
+  them a genuine defect that every automated check had passed:
+
+  1. **The cross-check card accused users of mistakes they had not made.**
+     Both tabs ship with example figures. A visitor who filled in only the
+     expenditure tab with their own numbers had those compared against *our*
+     untouched income examples, and the card then reported a discrepancy and
+     told them "a component is missing or entered in the wrong units". The
+     feature meant to teach the identity was instead alarming people about a
+     gap they had no part in creating. Fixed by tracking which approach the
+     visitor has actually edited: untouched, the card frames the match as our
+     example; one side edited, it shows "not entered yet", no invented
+     discrepancy number, and a neutral prompt naming the tab still to fill;
+     both edited, it does the real comparison. Clear resets the state. This
+     is worth remembering as a class of bug — **a feature that compares two
+     things must know which of them the user actually supplied**, or it will
+     confidently report nonsense about its own defaults.
+  2. **GDP per capita returned a meaningless number.** GDP entered in
+     billions (22800) divided by a real head count (250,000,000) gave
+     $0.000091, which reads as a broken calculator. Added a "Figures are in"
+     segmented control (plain units / millions / billions) that labels the
+     headline result and converts per capita to plain currency, so billions
+     with a 250m population now gives $70,800. Where the per-head figure
+     still lands under $1 with a large population, the warning banner names
+     the likely cause rather than showing a silent $0.00.
+  3. **Two different percentages for the same thing.** The donut legend gave
+     each component's share of the positive components while the breakdown
+     table gave its share of GDP — two denominators side by side for the same
+     items. The donut legend now shows amounts and the table alone owns the
+     percentages, and the donut's note explains a negative component rather
+     than burying it in a generic footnote.
+
+  Deliberately not changed: **Clear** refills the example values rather than
+  emptying the fields, which does not match calculator.net and arguably does
+  not match the word "clear" either. It is the established behaviour on every
+  3-card page on this site, so changing it here alone would be a worse
+  inconsistency than the mismatch itself. If it is ever revisited it should
+  be revisited site-wide.
+
   **Still outstanding for this slug**: nothing on parity. Worth considering
   later — a dedicated real-GDP / GDP-deflator tool and a GDP growth-rate
   tool are each their own query cluster with dedicated competitor pages, and

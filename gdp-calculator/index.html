@@ -387,6 +387,10 @@
 .gdp-hint{font-size:12px;color:var(--ink-faint);margin-top:4px;line-height:1.5}
 .gdp-subhead{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin:16px 0 2px;padding-top:12px;border-top:1px solid var(--border-fine)}
 .gdp-subhead:first-child{margin-top:0;padding-top:0;border-top:none}
+.gdp-seg{display:flex;flex:1;min-width:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.gdp-seg button{flex:1;border:none;background:#fff;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:10px 4px;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+.gdp-seg button.active{background:#1E3A5F;color:#fff}
+.gdp-seg button + button{border-left:1px solid var(--border-fine)}
 .gdp-morelink{padding:10px 0 2px}
 .gdp-morelink button{background:none;border:none;color:#1E3A5F;font-weight:700;font-size:13px;cursor:pointer;padding:6px 2px;min-height:32px;text-decoration:underline;font-family:var(--font-body)}
 
@@ -447,6 +451,7 @@
 .gdp-verdict{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:12.5px;line-height:1.6}
 .gdp-verdict.ok{background:var(--gold-tint);border:1px solid #1BA94C;color:#0F6B31}
 .gdp-verdict.off{background:#FEF3C7;border:1px solid #FBBF24;color:#92400E}
+.gdp-verdict.info{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft)}
 
 @media(max-width:520px){
   .gdp-field{flex-wrap:wrap}
@@ -493,15 +498,21 @@
 
       <div class="gdp-formula-note" id="gdp-formulaNote"></div>
 
+      <div class="gdp-field"><span class="gdp-field-label">Figures are in</span><div class="gdp-field-control">
+        <div class="gdp-seg" id="gdp-unit" role="group" aria-label="Unit of the figures you enter">
+          <button type="button" data-u="1" data-l="" class="active" aria-pressed="true">Plain units</button><button type="button" data-u="1000000" data-l="million" aria-pressed="false">Millions</button><button type="button" data-u="1000000000" data-l="billion" aria-pressed="false">Billions</button>
+        </div>
+      </div></div>
+
       <div id="gdp-expFields"><div class="gdp-field"><span class="gdp-field-label">Personal Consumption</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-c" type="number" step="any" value="14800" aria-label="Personal Consumption"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Gross Investment</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-i" type="number" step="any" value="4600" aria-label="Gross Investment"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Government Consumption</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-g" type="number" step="any" value="4200" aria-label="Government Consumption"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Exports</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-x" type="number" step="any" value="2500" aria-label="Exports"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Imports</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-m" type="number" step="any" value="3300" aria-label="Imports"></div></div></div></div>
       <div id="gdp-incFields" style="display:none"><div class="gdp-subhead">Income components (give GNP)</div><div class="gdp-field"><span class="gdp-field-label">Employee Compensation</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-ec" type="number" step="any" value="13200" aria-label="Employee Compensation"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Proprietors&#39; Income</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-pi" type="number" step="any" value="1900" aria-label="Proprietors' Income"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Rental Income</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-ri" type="number" step="any" value="850" aria-label="Rental Income"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Corporate Profits</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-cp" type="number" step="any" value="3100" aria-label="Corporate Profits"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Interest Income</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-ii" type="number" step="any" value="1050" aria-label="Interest Income"></div></div></div><div class="gdp-subhead">Adjustments (GNP to GDP)</div><div class="gdp-field"><span class="gdp-field-label">Indirect Business Taxes</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-ibt" type="number" step="any" value="1750" aria-label="Indirect Business Taxes"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Depreciation</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-dep" type="number" step="any" value="3000" aria-label="Depreciation"></div></div></div><div class="gdp-field"><span class="gdp-field-label">Net Income of Foreigners</span><div class="gdp-field-control"><div class="gdp-input-group"><span>$</span><input id="gdp-nif" type="number" step="any" value="-2050" aria-label="Net Income of Foreigners"></div></div></div></div>
 
-      <div class="gdp-hint">Enter every figure in the same unit &mdash; billions, millions, whatever your source uses. The result comes back in that same unit.</div>
+      <div class="gdp-hint">Every figure must use the unit picked above. The result comes back in that same unit.</div>
 
       <div class="gdp-morelink"><button type="button" id="gdp-moreBtn">+ Per capita (optional)</button></div>
       <div id="gdp-advWrap" style="display:none">
         <div class="gdp-field"><span class="gdp-field-label">Population</span><div class="gdp-field-control"><div class="gdp-input-group"><span>#</span><input id="gdp-pop" type="number" step="any" value="" placeholder="leave blank to skip" aria-label="Population, optional"></div></div></div>
-        <div class="gdp-hint">Use the actual head count, not millions &mdash; and keep GDP in the unit you chose above.</div>
+        <div class="gdp-hint">Enter the real head count (e.g. 250000000, not 250). GDP per capita is converted to plain currency for you, whatever unit you picked above.</div>
       </div>
 
       <div class="gdp-btn-row">
@@ -573,6 +584,8 @@
   var $ = function(id){ return document.getElementById(id); };
   var TAB = 'exp';
   var last = null;
+  var UNIT = 1, UNIT_LABEL = '';
+  var touched = {exp:false, inc:false};
 
   var EXP_NOTE = '<b>GDP =</b> personal consumption + gross investment + government consumption + (exports &minus; imports)';
   var INC_NOTE = '<b>GNP =</b> employee compensation + proprietors&#39; income + rental income + corporate profits + interest income<br><b>GDP =</b> GNP + indirect business taxes + depreciation + net income of foreigners';
@@ -644,13 +657,15 @@
     }
     $('gdp-donutSvg').innerHTML = svg;
     $('gdp-donutLegend').innerHTML = segs.map(function(s){
-      var share = total > 0 ? pct(s.val/total*100) : '\u2014';
-      return '<div class="lg"><i style="background:'+s.color+'"></i>'+s.label+'<b>'+share+'</b></div>';
+      return '<div class="lg"><i style="background:'+s.color+'"></i>'+s.label+'<b>'+money(s.raw,0)+'</b></div>';
     }).join('');
-    var anyNeg = p.rows.some(function(r){ return r.v < 0; });
-    $('gdp-donutNote').textContent = anyNeg
-      ? 'Shares are of the positive components only, so a negative component (shown in the table below) is left out of the ring.'
-      : 'Each slice is that component\u2019s share of total GDP.';
+    var negs = p.rows.filter(function(r){ return r.v < 0; }).map(function(r){ return r.k.toLowerCase(); });
+    $('gdp-donutNote').textContent = negs.length
+      ? 'The ring compares the components that add to GDP. ' +
+        (negs.length === 1 ? negs[0].charAt(0).toUpperCase()+negs[0].slice(1) + ' is negative, so it reduces GDP instead of taking a slice.'
+                           : 'Some components are negative, so they reduce GDP instead of taking a slice.') +
+        ' Every share of GDP is in the breakdown table below.'
+      : 'The ring compares the size of each component. Their exact shares of GDP are in the breakdown table below.';
   }
 
   function renderBreakdown(p){
@@ -668,19 +683,44 @@
 
   function renderCompare(){
     var e = computeExp(), i = computeInc();
-    var diff = e.gdp - i.gdp;
-    $('gdp-cmpExp').textContent = money(e.gdp);
-    $('gdp-cmpInc').textContent = money(i.gdp);
-    $('gdp-cmpDiff').textContent = money(diff);
     var v = $('gdp-cmpVerdict');
+    var suffix = UNIT_LABEL ? ' ' + UNIT_LABEL : '';
+
+    /* Only compare figures the visitor actually entered. Holding their numbers
+       up against our untouched example numbers would report a discrepancy they
+       had no part in creating. */
+    if(!touched.exp && !touched.inc){
+      $('gdp-cmpExp').textContent = money(e.gdp) + suffix;
+      $('gdp-cmpInc').textContent = money(i.gdp) + suffix;
+      $('gdp-cmpDiff').textContent = money(e.gdp - i.gdp) + suffix;
+      v.className = 'gdp-verdict ok';
+      v.textContent = 'The example figures on both tabs are set up to give the same answer on purpose \u2014 that is the accounting identity in action. Replace them with your own on both tabs and this card will check your working.';
+      return;
+    }
+    if(touched.exp !== touched.inc){
+      var doneTab = touched.exp ? 'expenditure' : 'income';
+      var todoTab = touched.exp ? 'Income Approach' : 'Expenditure Approach';
+      $('gdp-cmpExp').textContent = touched.exp ? money(e.gdp) + suffix : 'not entered yet';
+      $('gdp-cmpInc').textContent = touched.inc ? money(i.gdp) + suffix : 'not entered yet';
+      $('gdp-cmpDiff').textContent = '\u2014';
+      v.className = 'gdp-verdict info';
+      v.textContent = 'You have filled in the ' + doneTab + ' approach. Fill in the ' + todoTab +
+        ' tab with figures for the same economy and this card will tell you whether the two agree.';
+      return;
+    }
+
+    var diff = e.gdp - i.gdp;
     var base = Math.max(Math.abs(e.gdp), Math.abs(i.gdp));
     var rel = base > 0 ? Math.abs(diff)/base*100 : 0;
+    $('gdp-cmpExp').textContent = money(e.gdp) + suffix;
+    $('gdp-cmpInc').textContent = money(i.gdp) + suffix;
+    $('gdp-cmpDiff').textContent = money(diff) + suffix;
     if(Math.abs(diff) < 0.005){
       v.className = 'gdp-verdict ok';
-      v.textContent = 'The two approaches agree exactly. That is the national accounting identity holding: every dollar spent on output is a dollar someone earned.';
+      v.textContent = 'Your two approaches agree exactly. That is the national accounting identity holding: every dollar spent on output is a dollar someone earned.';
     } else {
       v.className = 'gdp-verdict off';
-      v.textContent = 'The two sides differ by ' + money(Math.abs(diff)) + ' (' + pct(rel) +
+      v.textContent = 'Your two sides differ by ' + money(Math.abs(diff)) + suffix + ' (' + pct(rel) +
         ' of the larger figure). Official statistics report a gap like this as the statistical discrepancy; in your own working it usually means a component is missing or entered in the wrong units.';
     }
   }
@@ -690,7 +730,7 @@
     last = p;
 
     $('gdp-formulaNote').innerHTML = (TAB === 'exp' ? EXP_NOTE : INC_NOTE);
-    $('gdp-bignum').textContent = money(p.gdp);
+    $('gdp-bignum').textContent = money(p.gdp) + (UNIT_LABEL ? ' ' + UNIT_LABEL : '');
     $('gdp-resultHead').classList.toggle('negative', p.gdp < 0);
 
     var rows = '';
@@ -724,7 +764,15 @@
     if(!blank('gdp-pop')){
       var pop = num('gdp-pop');
       if(pop > 0){
-        rows += '<div class="gdp-result-row"><span>GDP per capita</span><span>'+money(p.gdp/pop, 6)+'</span></div>';
+        var perCap = p.gdp * UNIT / pop;
+        rows += '<div class="gdp-result-row"><span>GDP per capita</span><span>'+money(perCap, 2)+'</span></div>';
+        /* A per-head figure under a dollar almost always means the GDP figures
+           are in millions or billions while the unit selector still says plain
+           units -- say so instead of quietly showing $0.00. */
+        if(Math.abs(perCap) < 1 && pop >= 1000){
+          w.style.display = 'block';
+          w.textContent = 'GDP per capita came out below $1. If your GDP figures are in millions or billions, set "Figures are in" above to match \u2014 otherwise the division is out by a factor of a million or more.';
+        }
       } else {
         w.style.display = 'block';
         w.textContent = 'Population must be greater than zero for a per-capita figure.';
@@ -752,8 +800,25 @@
     });
   });
 
-  var ALL = ['gdp-c','gdp-i','gdp-g','gdp-x','gdp-m','gdp-ec','gdp-pi','gdp-ri','gdp-cp','gdp-ii','gdp-ibt','gdp-dep','gdp-nif','gdp-pop'];
-  ALL.forEach(function(id){ $(id).addEventListener('input', render); });
+  var EXP_IDS = ['gdp-c','gdp-i','gdp-g','gdp-x','gdp-m'];
+  var INC_IDS = ['gdp-ec','gdp-pi','gdp-ri','gdp-cp','gdp-ii','gdp-ibt','gdp-dep','gdp-nif'];
+  var ALL = EXP_IDS.concat(INC_IDS).concat(['gdp-pop']);
+  EXP_IDS.forEach(function(id){ $(id).addEventListener('input', function(){ touched.exp = true; render(); }); });
+  INC_IDS.forEach(function(id){ $(id).addEventListener('input', function(){ touched.inc = true; render(); }); });
+  $('gdp-pop').addEventListener('input', render);
+
+  Array.prototype.forEach.call(document.querySelectorAll('#gdp-unit button'), function(b){
+    b.addEventListener('click', function(){
+      UNIT = parseFloat(this.getAttribute('data-u'));
+      UNIT_LABEL = this.getAttribute('data-l');
+      Array.prototype.forEach.call(document.querySelectorAll('#gdp-unit button'), function(x){
+        var on = x === b;
+        x.classList.toggle('active', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      render();
+    });
+  });
 
   $('gdp-moreBtn').addEventListener('click', function(){
     var open = $('gdp-advWrap').style.display !== 'none';
@@ -767,6 +832,7 @@
     'gdp-ibt':1750,'gdp-dep':3000,'gdp-nif':-2050,'gdp-pop':''};
   $('gdp-clearBtn').addEventListener('click', function(){
     ALL.forEach(function(id){ $(id).value = DEFAULTS[id]; });
+    touched.exp = false; touched.inc = false;
     render();
   });
 
