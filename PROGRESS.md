@@ -2748,6 +2748,104 @@ assume this exact order still holds after a few weeks of new data.
   so nothing needs correcting. It is still the obvious next upgrade, and the
   two pages should end up as a matched pair.
 
+- **GDP Calculator rebuilt** (Aug 1, 2026): 484-line template-tier page →
+  1,052-line custom-built 3-card page with the `gdp-` prefix and two tabs.
+
+  **The gap that mattered**: the old page implemented only the expenditure
+  approach — its title literally said so — while calculator.net has *two*
+  calculators on that URL. Half the tool was missing, not half the polish.
+
+  **Parity (3a-PRIME, calculator.net/gdp-calculator.html)**: their form HTML
+  was fetched and parsed rather than read off the page, confirming two
+  separate forms with 13 inputs between them and no defaults at all (every
+  field ships blank). Expenditure: personal consumption, gross investment,
+  government consumption, exports, imports. Income: employee compensation,
+  proprietors' income, rental income, corporate profits, interest income,
+  indirect business taxes, depreciation, net income of foreigners. All 13
+  mapped 1:1 and split across two tabs rather than two stacked forms.
+
+  **Numeric verification**: rather than trusting the published formulas,
+  both of their forms were actually submitted over HTTP and the returned
+  result tables captured, then reproduced in Node — expenditure
+  (12000/3500/2800/1500/2100) returns 17,700 on both sides, and income
+  (9000/1400/600/2200/800/1300/2500/-300) returns GNP 14,000 and GDP 17,500
+  on both sides. Their result table shows GNP as an intermediate subtotal, so
+  ours does too. Cross-checked independently against a textbook example that
+  reaches 602 by both routes, plus trade-deficit, trade-surplus, negative-NIF
+  and all-zero edge cases. Defaults were then chosen so the two approaches
+  reconcile to exactly 22,800, which makes the accounting identity visible
+  the moment the page loads.
+
+  **Two additions beyond calculator.net, both flagged as intentional.**
+  1. A *Both Approaches Compared* card that reports expenditure GDP, income
+     GDP and the difference between them, labelled as the statistical
+     discrepancy. calculator.net runs its two forms in complete isolation and
+     never reconciles them, yet "both approaches give the same answer" is the
+     single point every textbook makes about GDP. It is the page's main
+     differentiator and it costs nothing, since both figures are already
+     computed.
+  2. An optional population field yielding GDP per capita, hidden behind a
+     "+ Per capita (optional)" expander so it does not clutter the parity
+     fields. This targets a real, separately-served query cluster — Omni,
+     Calculator Academy and others all run dedicated GDP-per-capita pages.
+
+  **Keyword research**: the audience here is students, not consumers — the
+  head term "gdp calculator" surfaces AnalystPrep (CFA), Study.com and
+  course material rather than finance brands, so the title promises the
+  working rather than a financial outcome: "GDP Calculator — Both Formulas
+  With Every Step Shown". Distinct clusters each with dedicated competitor
+  pages (so genuine clusters, not phrasings): "gdp formula" / "how to
+  calculate gdp", "expenditure approach" vs "income approach", "gnp
+  calculator" / GDP vs GNP, "real gdp calculator" and the GDP deflator,
+  "gdp growth rate calculator", "gdp per capita calculator". Real GDP,
+  growth rate and per capita are separate tools elsewhere, so they are
+  covered as article sections and FAQs rather than bolted on as fields.
+
+  **Content**: 9 H2 sections, 2,394 words, 8 FAQs, all original, including an
+  explicit section on why the two approaches must agree and a candid
+  "what GDP leaves out" section (unpaid work, distribution, depletion,
+  quality change, the informal economy).
+
+  **Two stale claims elsewhere on the site, found and fixed** — both were
+  accurate before this rebuild and became wrong because of it, which is
+  exactly the AdSense no-over-claiming case in section 10 read in reverse:
+  `all-calculators` described the page as "Estimate Gross Domestic Product
+  using the expenditure method", and `llms.txt` listed it as "GDP Calculator
+  — Expenditure Approach". Both now mention both approaches. Worth making a
+  habit: after adding a capability to a page, grep the hub page and
+  `llms.txt` for that slug, because a description that was true yesterday can
+  be the thing that under-sells the page today.
+
+  **One real fix surfaced by the automated check**: the two form section
+  kickers ("Income components", "Adjustments") were on `var(--ink-faint)`,
+  which is fine for a decorative chart label but too weak for a structural
+  form label. Moved to `var(--ink-soft)`, an existing token — no new colour
+  invented and no shared token touched. Note the check initially reported
+  them as invisible for the wrong reason: they were measured while the
+  income tab was hidden, so width was 0. The probe now switches tabs before
+  measuring — a reminder that a visibility assertion has to be run in the
+  state where the element is actually supposed to be visible.
+
+  **Verification before push**: 3 valid JSON-LD blocks, FAQ schema ↔ visible
+  HTML 16/16 exact match (same single-source generation as the Future Value
+  page), all 6 inline scripts `node --check` clean, PROTECTED SHARED STYLE
+  BLOCK byte-identical across gdp / future-value / finance / bmi
+  (`d2dadb0c…`), header and footer partials byte-identical, tag balance clean
+  (122/122 divs), TOC anchors matching H2 ids. Playwright desktop + mobile:
+  both calculator.net parity cases re-run in-browser, tab switching swaps
+  field sets, GNP subtotal present, per-capita row appears and disappears
+  correctly, Clear restores defaults, no text under 12px, every input has an
+  accessible name, `th` carries `scope`, all card headings contrast-checked
+  in their visible state, zero console errors, zero horizontal overflow, and
+  jsPDF fetching nothing until first click and not re-fetching after. New OG
+  image generated from the same measured template. Site-wide regression
+  across 8 pages on both breakpoints: clean.
+
+  **Still outstanding for this slug**: nothing on parity. Worth considering
+  later — a dedicated real-GDP / GDP-deflator tool and a GDP growth-rate
+  tool are each their own query cluster with dedicated competitor pages, and
+  are currently only covered as prose here.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

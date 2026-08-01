@@ -206,7 +206,7 @@
 - [Electricity Calculator — kWh Usage & Cost](https://calculatorboss.com/electricity-calculator/)
 - [Factor Calculator — All Factors](https://calculatorboss.com/factor-calculator/)
 - [Fuel Cost Calculator — Trip Gas Cost Estimate](https://calculatorboss.com/fuel-cost-calculator/)
-- [GDP Calculator — Expenditure Approach](https://calculatorboss.com/gdp-calculator/)
+- [GDP Calculator — Expenditure & Income Approach](https://calculatorboss.com/gdp-calculator/)
 - [GPA Calculator — Standard 4.0 Scale](https://calculatorboss.com/gpa-calculator/)
 - [Gravel Calculator — Tons & Cubic Yards Needed](https://calculatorboss.com/gravel-calculator/)
 - [Greatest Common Factor (GCF) Calculator](https://calculatorboss.com/gcf-calculator/)
