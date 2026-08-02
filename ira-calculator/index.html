@@ -357,7 +357,7 @@
 .ira-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .ira-bar-pdf-btn:hover{background:#f2f2f2}
 
-.ira-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+.ira-grid{display:grid;grid-template-columns:minmax(300px,380px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
   grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
 .ira-area-bar{grid-area:bar}
 .ira-area-tabs{grid-area:tabs}
@@ -366,7 +366,7 @@
 .ira-area-sidebar{grid-area:sidebar}
 .ira-area-schedule{grid-area:schedule}
 .ira-area-bottomgrid{grid-area:bottomgrid}
-@media(max-width:860px){
+@media(max-width:1000px){
   .ira-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "schedule" "sidebar"}
 }
 
@@ -446,8 +446,10 @@
 .ira-schedule-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .ira-schedule-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
 .ira-schedule-sub{font-size:11.5px;color:var(--ink-faint)}
-.ira-schedule-body-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
-@media(max-width:800px){.ira-schedule-body-grid{grid-template-columns:1fr}}
+.ira-schedule-row{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:860px){.ira-schedule-row{grid-template-columns:1fr}}
+.ira-chart-card{display:flex;flex-direction:column}
+.ira-chart-card .ira-chart-col{flex:1;justify-content:center}
 .ira-chart-col{display:flex;flex-direction:column;gap:10px}
 .ira-chart-svg{width:100%;height:auto;display:block}
 .ira-chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
@@ -647,20 +649,25 @@
   </div>
 </div>
 
-<div class="ira-schedule-card ira-area-schedule" id="ira-scheduleCard">
-  <div class="ira-schedule-head">
-    <span class="t">Year-by-Year Growth Schedule</span>
-    <span class="ira-schedule-sub" id="ira-scheduleSub"></span>
-  </div>
-  <div class="ira-schedule-body-grid">
+<div class="ira-schedule-row ira-area-schedule" id="ira-scheduleCard">
+  <div class="ira-schedule-card">
+    <div class="ira-schedule-head">
+      <span class="t">Year-by-Year Growth Schedule</span>
+      <span class="ira-schedule-sub" id="ira-scheduleSub"></span>
+    </div>
     <div class="ira-table-wrap">
       <table class="ira-table" id="ira-scheduleTable">
         <thead><tr><th>Year</th><th>Age</th><th>Beginning Balance</th><th>Contribution</th><th>Growth</th><th>Ending Balance</th></tr></thead>
         <tbody id="ira-scheduleBody"><tr><td colspan="6" style="text-align:center;color:var(--ink-faint)">Calculating…</td></tr></tbody>
       </table>
     </div>
+  </div>
+  <div class="ira-schedule-card ira-chart-card">
+    <div class="ira-schedule-head">
+      <span class="t">Balance by Year</span>
+    </div>
     <div class="ira-chart-col">
-      <svg viewBox="0 0 320 240" class="ira-chart-svg" id="ira-chartSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <svg viewBox="0 0 320 240" class="ira-chart-svg" id="ira-chartSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contributions and growth stacked by year"></svg>
       <div class="ira-chart-legend">
         <div class="lg"><i style="background:#1E3A5F"></i>Contributions</div>
         <div class="lg"><i style="background:#16A34A"></i>Growth</div>
@@ -778,7 +785,7 @@
       $('ira-donutBox').style.display = (currentMode==='grow') ? 'flex' : 'none';
       $('ira-deductNote').style.display = (currentMode==='grow' && $('ira-deductCheck').checked) ? 'block' : 'none';
       $('ira-compareBox').style.display = (currentMode==='compare') ? 'block' : 'none';
-      $('ira-scheduleCard').style.display = (currentMode==='grow') ? 'block' : 'none';
+      $('ira-scheduleCard').style.display = (currentMode==='grow') ? '' : 'none';
       updateResultLabel();
       renderActive();
     });

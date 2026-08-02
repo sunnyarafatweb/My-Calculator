@@ -3724,6 +3724,52 @@ assume this exact order still holds after a few weeks of new data.
   all passing, and the 99900.000% figure was checked for clipping at 1280 and
   390 rather than assumed to fit.
 
+- **IRA Calculator: schedule and chart split into two cards** (Aug 2, 2026,
+  user pointed out the inconsistency from a screenshot).
+
+  Every other page on the site puts the year-by-year table and its chart in two
+  separate cards side by side. The IRA page had them inside a single card, with
+  an inner `ira-schedule-body-grid` doing the two-column split. Restructured to
+  a `.ira-schedule-row` holding two `.ira-schedule-card` siblings, matching the
+  rest of the site: 696px + 400px at 1280, stacked at 390, both with the same
+  white background, 1px border and 16px radius. The chart card gained a "Balance
+  by Year" heading and the SVG gained an aria-label it did not have.
+
+  **One trap in that change**: the JS tab switch did
+  `$('ira-scheduleCard').style.display = 'block'`, and the wrapper is now a grid.
+  Setting `block` inline would have silently flattened the two cards into one
+  column on every switch back to the growth tab. Changed to `''` so the
+  stylesheet value wins. Asserted in the check: hiding on the compare tab and
+  restoring to `grid` on the growth tab.
+
+  **A pre-existing layout bug found while verifying, and half-fixed.** Testing
+  across widths turned up horizontal overflow, and comparing against the live
+  page proved it was not from this change. Two independent causes:
+
+  1. *Grid minimum wider than its breakpoint.* The IRA grid was
+     `380px minmax(370px,1fr) 300px` — a minimum of about 1,138px including
+     page padding — but only collapsed to one column at 860px, leaving
+     **861-1113px broken**, which includes iPad landscape. Fixed by making the
+     columns flexible in the same pattern the other pages use and moving the
+     breakpoint to 1000. The pages built this session had a smaller version of
+     the same fault (minimum ~958px against a 940px breakpoint, so 941-1003
+     overflowed); their breakpoints moved to 1000 as well, and the build-script
+     style sources were patched too so a rebuild does not undo it. Verified
+     across fourteen widths from 1440 down to 390.
+
+  2. *The shared header search box.* `.cf-search-trigger` is a fixed 296px
+     inside `.nav-cta`, and the header stops fitting below about 1004px while
+     the mobile nav does not take over until around 900. That leaves roughly
+     **901-1003px overflowing on all 214 pages** — the rule is byte-identical
+     everywhere. It sits in the protected shared block, so it was not touched
+     today. This is its own task and a worthwhile one: it is a common laptop and
+     split-screen width, and it affects the whole site rather than one page.
+
+  Verified after: two cards at both widths with matching styling, 35 schedule
+  rows, 36 chart bars, both tabs computing ($1,196,925 and "Traditional wins by
+  $119,693"), three comparison columns still present, protected block
+  byte-identical, 115/115 divs, zero console errors, jsPDF still lazy.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
