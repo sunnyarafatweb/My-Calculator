@@ -3435,6 +3435,77 @@ assume this exact order still holds after a few weeks of new data.
   The real fix is retrofitting the sidebar module onto the ~190 pages without
   one, which is its own project and should not be smuggled into a page build.
 
+- **Interest Rate Calculator rebuilt** (Aug 2, 2026, ad-hoc user request):
+  484-line dead stub → 1,151-line page (`irc-` prefix). **Third stub in a row
+  with no calculator JavaScript at all.** Three for three now; the presumption
+  should be that a 484-line page does not work.
+
+  **This one is a reverse solve, which is a different class of problem.** The
+  loan equation `PV = PMT x [1 - (1+i)^-n] / i` has no closed form for `i` — the
+  rate sits both as a divisor and inside an exponent. Solved by bisection over
+  200 iterations, which is safe here because PV falls monotonically as i rises,
+  so the bracket can never straddle a false root. Section 3a's standing rule
+  about reverse-solve modes was applied: the solved rate is fed back into the
+  **forward** payment formula and returns $355.0000 against an input of $355,
+  and the independently-built amortization lands on a balance of exactly zero
+  at the final payment. Both cross-checks are asserted in the browser test, not
+  just in Node.
+
+  **Oracle again.** Their form submits by GET, same as the Interest Calculator,
+  so eight scenarios were pulled covering a 30-year mortgage, a 6-month term, a
+  years+months term, a 22% rate, a 0.49% rate and a zero-interest loan. All
+  eight match on term length, total of payments and total interest.
+
+  **Intentional difference: ours is the more accurate solve.** On three of the
+  eight their rate differs from ours in the third decimal (14.454 vs 14.452,
+  9.924 vs 9.923, 26.927 vs 26.931). Substituting each back into the loan
+  equation settles it — ours lands within $0.001-$0.14 of the target loan
+  amount, theirs within $0.01-$0.25, so ours is roughly ten times closer in
+  every divergent case. The divergence grows with the rate, which points at a
+  convergence tolerance on their side. Separately, on a loan with no interest at
+  all ($12,000 over 24 months at $500) they return **0.001%** where the answer
+  is exactly 0; ours returns 0.000% and short-circuits that case before
+  iterating.
+
+  **Also handled, which they do not**: payments that never repay the loan. Enter
+  $20,000 over 2 years at $100 a month and the page explains that the payments
+  total $2,400 against a $20,000 balance rather than returning a number.
+
+  **A real bug the checks caught, and a process fix worth keeping.** The first
+  build came out with two `</article>` tags and unbalanced structure. Cause: the
+  build scripts spliced the shared scaffold using **hard-coded line offsets**
+  (`ref[:352]`, `ref[928:]`) into `future-value-calculator/index.html` — and two
+  sidebar links had been added to that file earlier in the same session, pushing
+  every line down by two. The tail then started mid-article. Nothing about the
+  page looked wrong; only the tag-balance assertion caught it. **All three build
+  scripts now locate the splice points by content** (`</header><main`,
+  `</div></main><footer>`, the line carrying the title, the BreadcrumbList line)
+  instead of by index, and inflation and interest were rebuilt and re-verified
+  through their full suites. Any future scaffold edit is now harmless. Worth
+  remembering: a build script that reads another live page is coupled to it, and
+  fixed offsets are the most fragile possible coupling.
+
+  **Verification**: 8/8 oracle scenarios through the shipped page in a browser,
+  30 assertions total; 3 valid JSON-LD blocks; FAQ 8/8 exact; `node --check`
+  clean; protected style block byte-identical; tag balance 62/62 divs and
+  1/1 article after the fix; TOC resolves both ways; desktop and mobile with
+  zero real console errors and no sideways scroll; jsPDF lazy. New OG image,
+  bands within 2 px. Meta descriptions on all three pages trimmed into the
+  150-160 range (interest-rate 157, inflation 153, interest 154).
+
+  **Keyword research**: the head term "interest rate calculator" is crowded and
+  ambiguous — most of what ranks for it is forward loan-payment calculators
+  (Bankrate, NerdWallet, CalculatorSoup). The distinct intent for *this* page is
+  the reverse one, which calculator.net states outright: car dealers quote a
+  payment and not a rate. Title built on that ("Find the Rate Behind Any Monthly
+  Payment") with the long-tail cluster woven through the copy and FAQs: what
+  interest rate am I paying, find interest rate from monthly payment, reverse
+  loan calculator, car loan rate from payment. Article is 2,704 words, 11 H2
+  sections plus FAQ, covering their topics (what an interest rate is, simple vs
+  compound, fixed vs variable, APR, uncontrollable and controllable factors,
+  real interest rate) in original wording, plus sections they lack on reading
+  the amortization schedule and what the tool leaves out.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
