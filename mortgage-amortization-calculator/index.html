@@ -366,7 +366,7 @@
 .amz-area-form{grid-area:form}
 .amz-area-result{grid-area:result}
 .amz-area-sidebar{grid-area:sidebar}
-.amz-area-bottomgrid{grid-area:bottomgrid}
+.amz-area-bottomgrid{grid-area:bottomgrid;min-width:0}
 @media(max-width:1000px){
   .amz-grid{grid-template-columns:1fr;grid-template-areas:"bar" "result" "form" "bottomgrid" "sidebar"}
 }
@@ -441,6 +441,26 @@
 
 .amz-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;width:100%;align-items:stretch}
 @media(max-width:900px){.amz-bottom-grid{grid-template-columns:1fr}}
+.amz-rates-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;margin-bottom:16px;min-width:0;overflow:hidden}
+.amz-rates-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.amz-rates-head .t{font-size:15px;font-weight:700;color:var(--ink)}
+.amz-rates-head .src{font-size:11.5px;color:var(--ink-faint)}
+.amz-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.amz-chip{flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:1px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;font-family:var(--font-body)}
+.amz-chip:hover{border-color:#1E3A5F;background:#E8EDF6}
+.amz-chip .lb{font-size:12px;color:var(--ink-soft);font-weight:600}
+.amz-chip .rt{font-size:23px;font-weight:700;color:var(--ink);line-height:1.25}
+.amz-chip .dl{font-size:11.5px;color:var(--ink-faint)}
+.amz-chip .use{font-size:10.5px;font-weight:700;color:#1E3A5F;text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.amz-cmp-scroll{overflow-x:auto;max-width:100%}
+.amz-cmp{width:100%;min-width:430px;border-collapse:collapse;font-size:12.5px}
+.amz-cmp th{background:#1E3A5F;color:#fff;padding:8px 10px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.02em;font-weight:600}
+.amz-cmp th:first-child{text-align:left}
+.amz-cmp td{padding:8px 10px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.amz-cmp td:first-child{text-align:left;color:var(--ink-soft)}
+.amz-cmp tr.cur td{background:#E8EDF6;font-weight:700;color:var(--ink)}
+.amz-cmp button{background:#fff;border:1px solid var(--border);border-radius:6px;padding:4px 11px;font-size:11.5px;font-weight:600;color:#1E3A5F;cursor:pointer;font-family:var(--font-body)}
+.amz-cmp button:hover{background:#E8EDF6}
 .amz-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
 .amz-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .amz-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -598,6 +618,20 @@
   </div>
 
   <div class="amz-area-bottomgrid">
+    <div class="amz-rates-card">
+      <div class="amz-rates-head">
+        <span class="t">Latest mortgage rates</span>
+        <span class="src" id="amz-ratesrc"></span>
+      </div>
+      <div class="amz-chips" id="amz-chips"></div>
+      <div class="amz-cmp-scroll">
+        <table class="amz-cmp">
+          <thead><tr><th>Term at your rate</th><th>Monthly P&amp;I</th><th>Total interest</th><th>Payoff</th><th></th></tr></thead>
+          <tbody id="amz-cmpBody"></tbody>
+        </table>
+      </div>
+      <p class="amz-note" style="margin:12px 0 0">Survey averages for borrowers with 20% down and strong credit, published weekly by Freddie Mac. Your own quote will differ with credit score, loan size, points and lender. The table compares terms using the rate currently in the form, not the survey rate.</p>
+    </div>
     <div class="amz-bottom-grid">
       <div class="amz-sched-card" id="amz-schedule">
         <div class="amz-sched-head">
@@ -804,6 +838,48 @@
              year: Math.round(num('amz-year')) || new Date().getFullYear() };
   }
 
+  /* Freddie Mac Primary Mortgage Market Survey, published weekly on Thursdays.
+     Verified against freddiemac.com/pmms and the matching press release. */
+  var RATES = {
+    asOf: 'Jul 30, 2026',
+    items: [
+      { label: '30-year fixed', term: 30, rate: 6.66, prev: 6.58 },
+      { label: '15-year fixed', term: 15, rate: 6.04, prev: 5.96 }
+    ]
+  };
+  var CMP_TERMS = [30, 20, 15, 10];
+
+  function drawRates(o){
+    $('amz-ratesrc').textContent = 'Freddie Mac survey \u00b7 week of ' + RATES.asOf;
+    var html = '', i;
+    for(i = 0; i < RATES.items.length; i++){
+      var it = RATES.items[i], d = it.rate - it.prev;
+      var move = d === 0 ? 'unchanged from last week'
+        : (d > 0 ? 'up ' : 'down ') + Math.abs(d).toFixed(2) + ' from last week';
+      html += '<button type="button" class="amz-chip" data-rate="' + it.rate + '" data-term="' + it.term + '">' +
+        '<span class="lb">' + it.label + '</span>' +
+        '<span class="rt">' + it.rate.toFixed(2) + '%</span>' +
+        '<span class="dl">' + move + '</span>' +
+        '<span class="use">Use this rate &rarr;</span></button>';
+    }
+    $('amz-chips').innerHTML = html;
+
+    var rows = '';
+    for(i = 0; i < CMP_TERMS.length; i++){
+      var t = CMP_TERMS[i];
+      var alt = build({ price:o.price, downPct:o.downPct, years:t, rate:o.rate, extra:0,
+                        taxPct:0, insurance:0, pmi:0, hoa:0, other:0 });
+      if(alt.bad) continue;
+      var end = addMonths(o.month, o.year, alt.n);
+      var isCur = Math.round(o.years) === t;
+      rows += '<tr' + (isCur ? ' class="cur"' : '') + '><td>' + t + ' years' +
+        (isCur ? ' (current)' : '') + '</td><td>' + money(alt.pay) + '</td><td>' +
+        money0(alt.totalInterest) + '</td><td>' + fmtDate(end) + '</td><td>' +
+        (isCur ? '' : '<button type="button" data-term="' + t + '">Use</button>') + '</td></tr>';
+    }
+    $('amz-cmpBody').innerHTML = rows;
+  }
+
   var COSTS = [
     ['Mortgage payment', 'mortgage', '#1E3A5F'],
     ['Property tax',     'tax',      '#4B7BC4'],
@@ -874,6 +950,7 @@
       return '<div class="amz-list-row"><span>' + x[0] + '</span><span>' + x[1] + '</span></div>';
     }).join('') + extraRows;
 
+    drawRates(o);
     drawSchedule(res, o);
     drawChart(res);
     $('amz-chartnote').textContent = 'Bars show what each year puts toward interest and principal. The line is the balance still owed at the end of that year.';
@@ -904,7 +981,8 @@
       }
       offset -= pct; if(offset < 0) offset += 100;
       legend += '<span class="lg"><i style="background:' + colors[i] + '"></i>' + labels[i] +
-        '<b>' + money0(parts[i]) + '</b></span>';
+        '<b>' + money0(parts[i]) + ' <em style="font-style:normal;color:var(--ink-faint);font-weight:600">' +
+        (pct < 1 ? '<1' : Math.round(pct)) + '%</em></b></span>';
     }
     $('amz-donut').innerHTML = svg;
     $('amz-legend').innerHTML = legend;
@@ -979,6 +1057,17 @@
     optionalsOn = this.checked;
     syncOptionals(); render();
   });
+  $('amz-chips').addEventListener('click', function(e){
+    var btn = e.target.closest('.amz-chip'); if(!btn) return;
+    $('amz-rate').value = btn.getAttribute('data-rate');
+    $('amz-term').value = btn.getAttribute('data-term');
+    render();
+  });
+  $('amz-cmpBody').addEventListener('click', function(e){
+    var btn = e.target.closest('button'); if(!btn) return;
+    $('amz-term').value = btn.getAttribute('data-term');
+    render();
+  });
   $('amz-schedTabs').addEventListener('click', function(e){
     var btn = e.target.closest('button'); if(!btn) return;
     var kids = this.getElementsByTagName('button'), i;
@@ -988,9 +1077,10 @@
     if(last) drawSchedule(last.res, last.o);
   });
 
+  var NOW = new Date();
   var DEF = { price:'465,000', down:'15', term:'30', rate:'6.42', extra:'0',
               tax:'1.1', ins:'2,100', pmi:'1,650', hoa:'0', other:'3,200',
-              month:'8', year:'2026' };
+              month:String(NOW.getMonth() + 1), year:String(NOW.getFullYear()) };
   var FIELDS = ['price','down','term','rate','extra','tax','ins','pmi','hoa','other','year'];
   FIELDS.forEach(function(f){ $('amz-' + f).addEventListener('input', render); });
   $('amz-month').addEventListener('change', render);
@@ -1083,6 +1173,8 @@
         alert('Could not load the PDF library \u2014 check your connection and try again.'); });
   });
 
+  $('amz-month').value = DEF.month;
+  $('amz-year').value = DEF.year;
   syncOptionals();
   render();
 })();
