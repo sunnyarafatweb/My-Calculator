@@ -3306,6 +3306,90 @@ assume this exact order still holds after a few weeks of new data.
      class of issue as the related-calculator links fixed on Jul 31, but at
      sitemap scale. Also its own task.
 
+- **Interest Calculator rebuilt** (Aug 2, 2026, ad-hoc user request): 484-line
+  dead stub → 1,207-line page (`int-` prefix). **Second confirmed case of the
+  same failure mode as the Inflation Calculator** — no calculator JavaScript at
+  all, inert inputs, a hardcoded dollar figure in the HTML. That is now two of
+  two template-tier pages inspected. Treat the remaining 484-line pages as
+  presumed non-functional until checked; `interest-rate-calculator` was noticed
+  in passing at exactly 484 lines and should be looked at next.
+
+  **The big methodological win: their form submits by GET, so their own engine
+  can be used as an oracle.** `interest-calculator.html?cstartingprinciple=...`
+  returns a fully rendered Results panel and both schedules. That turned parity
+  from "read their page and hope" into a measurable exercise: ten scenarios were
+  pulled covering every compounding option, beginning/end contributions, tax,
+  monthly + annual contributions together, and a years+months term, and the
+  engine was fitted against them until all ten matched. Worth checking for this
+  on every future calculator.net page — several of their calculators post back
+  the same way, and it is far stronger evidence than eyeballing one screenshot.
+
+  **What the oracle exposed about their model**, none of which is guessable from
+  the page: the effective annual factor is `(1 + r/n)^n` (or `e^r` for
+  continuous), converted to a monthly rate as `EAF^(1/12) - 1`, and the whole
+  thing is simulated monthly regardless of the compounding option — which is why
+  their monthly schedule shows $101.85 of interest in month 1 on $25,000 at 5%
+  compounded *annually* (25000 x (1.05^(1/12) - 1)). The annual contribution goes
+  in once a year, at the start of the year when contributing at the beginning and
+  at the **end of the year** when contributing at the end. Getting that last
+  detail wrong was the first draft's only structural error, and it showed up as
+  $54,417.49 against their $53,153.79.
+
+  **Tax mechanics**: interest accrues gross, tax is taken out of each period's
+  interest before it is added, so the balance compounds on the net amount. Their
+  "Total interest" is the gross figure, which is why raising the tax rate lowers
+  total interest as well as the ending balance. Reproduced exactly.
+
+  **A genuine defect in their calculator, matched as a field but not as a bug**
+  (per the section 3a-PRIME rule). Their "Interest of initial investment" line
+  ignores the tax rate completely. Verified by sweep: at 0%, 25%, 50% and 90%
+  tax it returns 5525.63 every single time, while total interest falls from
+  9535.20 to 8647.21. Since they force the two "Interest of" lines to sum to the
+  total, the entire error is dumped into "Interest of the contributions", which
+  at 90% tax is understated by roughly 40%. Ours tracks the initial investment
+  and the contributions as separate balances through the same net-growth loop,
+  so both lines are correct and still sum exactly to the total. Flagged in the
+  step-7 report and explained on the page.
+
+  **Also divergent, but trivially**: on non-annual compounding their two split
+  lines differ from ours by 0.14 to 0.31 on figures around 5,000 (0.005%), in
+  cases where both sets reconcile to the same total. Their daily and continuous
+  compounding return an *identical* split figure (5680.37) despite different
+  totals, which suggests a closed-form shortcut on their side. Not chased
+  further; ours is derived from the simulation and is self-consistent.
+
+  **Verification**: all ten oracle scenarios re-run through the shipped page in
+  a real browser, headline figures matching to the cent in every one. 3 valid
+  JSON-LD blocks; FAQ schema 8/8 exact (single-source generation again, third
+  build running, still zero reconciliation needed); `node --check` clean;
+  protected style block and header byte-identical; tag balance 80/80 divs;
+  TOC and headings resolve both ways; Playwright desktop 1280 and mobile 390
+  with zero real console errors, no sideways scroll, jsPDF absent on load and
+  fetched only on click; annual schedule 9 rows and monthly 102 for the default
+  8-year-6-month term. New OG image, all five element bands within 2 px of the
+  template.
+
+  **Keyword research**: head term "interest calculator" overlaps almost entirely
+  with "compound interest calculator", and this site already has a real
+  867-line page on that slug — so the two were deliberately separated rather
+  than left to cannibalise. This page is positioned on what the sibling does not
+  do: **tax and inflation adjustment**, the annual + monthly contribution split,
+  and nine compounding options including continuous. Title built around that
+  ("What You Keep After Tax and Inflation") rather than on the raw head term.
+  Long-tail woven in: compound interest with monthly contributions, APY /
+  effective annual rate, monthly interest, interest after tax, money doubling
+  time. Checked the sibling pages before linking to them so no claim describes a
+  feature that is not there.
+
+  **Article**: 2,858 words, 11 H2 sections plus FAQ, covering the topics their
+  article covers — simple vs compound, the Rule of 72, fixed vs floating,
+  contributions, tax rate, inflation rate — written from scratch, plus sections
+  they lack on APY, reading the accumulation schedule, and what the calculator
+  leaves out. Every figure quoted was computed first: the annual/monthly/
+  continuous spread is $448.23, the beginning-vs-end gap is $4,510.92, and the
+  Rule of 72 checks (9 vs 9.01 at 8%, 16 vs 15.75 at 4.5%) were verified rather
+  than asserted.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
