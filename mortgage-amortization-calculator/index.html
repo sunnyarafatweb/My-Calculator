@@ -388,6 +388,10 @@
 .amz-datepair{display:flex;gap:6px;flex:1;min-width:0}
 .amz-datepair .amz-select{flex:1.2}
 .amz-datepair .amz-input-group{flex:1}
+.amz-check{display:flex;align-items:center;gap:10px;padding:11px 13px;margin:4px 0 2px;
+  background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;
+  cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4}
+.amz-check input{width:17px;height:17px;accent-color:#1E3A5F;cursor:pointer;flex-shrink:0;margin:0}
 .amz-seg{display:flex;flex:1;min-width:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
 .amz-seg button{flex:1;border:none;background:#fff;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:9px 4px;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
 .amz-seg button.active{background:#1E3A5F;color:#fff}
@@ -521,12 +525,12 @@
       <div class="amz-field"><span class="amz-field-label">Extra monthly payment</span><div class="amz-field-control">
         <div class="amz-input-group"><span>$</span><input type="text" inputmode="decimal" id="amz-extra" value="0" aria-label="Extra monthly payment toward principal"></div></div></div>
 
-      <div class="amz-sub">Ownership costs</div>
+      <div class="amz-sub">Taxes &amp; ownership costs</div>
 
-      <div class="amz-field"><span class="amz-field-label">Include these costs</span><div class="amz-field-control">
-        <div class="amz-seg" id="amz-optSeg" role="group" aria-label="Include optional ownership costs">
-          <button type="button" class="active" data-v="yes">Include</button><button type="button" data-v="no">Skip</button>
-        </div></div></div>
+      <label class="amz-check" for="amz-optChk">
+        <input type="checkbox" id="amz-optChk" checked>
+        <span>Include these costs in the monthly payment</span>
+      </label>
 
       <div id="amz-optionals">
         <div class="amz-field amz-optional"><span class="amz-field-label">Property taxes</span><div class="amz-field-control">
@@ -971,12 +975,8 @@
     var inputs = box.getElementsByTagName('input');
     for(i = 0; i < inputs.length; i++) inputs[i].disabled = !optionalsOn;
   }
-  $('amz-optSeg').addEventListener('click', function(e){
-    var btn = e.target.closest('button'); if(!btn) return;
-    var kids = this.getElementsByTagName('button'), i;
-    for(i = 0; i < kids.length; i++) kids[i].classList.remove('active');
-    btn.classList.add('active');
-    optionalsOn = btn.getAttribute('data-v') === 'yes';
+  $('amz-optChk').addEventListener('change', function(){
+    optionalsOn = this.checked;
     syncOptionals(); render();
   });
   $('amz-schedTabs').addEventListener('click', function(e){
@@ -1004,8 +1004,7 @@
   $('amz-clearBtn').addEventListener('click', function(){
     Object.keys(DEF).forEach(function(k){ $('amz-' + k).value = DEF[k]; });
     optionalsOn = true;
-    var kids = $('amz-optSeg').getElementsByTagName('button'), i;
-    for(i = 0; i < kids.length; i++) kids[i].classList.toggle('active', kids[i].getAttribute('data-v') === 'yes');
+    $('amz-optChk').checked = true;
     syncOptionals(); render();
   });
 
