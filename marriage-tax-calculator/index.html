@@ -368,7 +368,7 @@
 .mtx-area-sidebar{grid-area:sidebar}
 .mtx-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:1000px){
-  .mtx-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .mtx-grid{grid-template-columns:1fr;grid-template-areas:"bar" "result" "form" "bottomgrid" "sidebar"}
 }
 
 .mtx-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -432,6 +432,10 @@
 .mtx-mini td.good{color:#16A34A}
 .mtx-mini td.bad{color:#DC2626}
 .mtx-mini td.flat{color:var(--ink-faint)}
+.mtx-jump{display:block;margin:0 20px 16px;padding:9px 12px;background:var(--surface-sunken);
+  border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;
+  color:#1E3A5F;text-decoration:none;text-align:center}
+.mtx-jump:hover{background:#E8EDF6}
 .mtx-why{font-size:12.5px;line-height:1.7;color:var(--ink-soft);margin:2px 20px 18px;padding-top:12px;border-top:1px solid var(--border-fine)}
 .mtx-donut-box{padding:2px 20px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .mtx-donut-svg{width:144px;height:144px;flex-shrink:0}
@@ -616,6 +620,7 @@
         </table>
       </div>
       <p class="mtx-why" id="mtx-why"></p>
+      <a class="mtx-jump" href="#mtx-breakdown">See the spouse-by-spouse breakdown &darr;</a>
     </div>
 
     <div class="mtx-result-card">
@@ -646,7 +651,7 @@
   <div class="mtx-area-bottomgrid">
     <div class="mtx-bottom-grid">
 
-      <div class="mtx-sched-card">
+      <div class="mtx-sched-card" id="mtx-breakdown">
         <div class="mtx-sched-head">
           <span class="t">Full side-by-side breakdown</span>
           <div class="mtx-schedtabs" id="mtx-periodTabs" role="group" aria-label="Show annual or monthly figures">
@@ -1166,7 +1171,13 @@
   FIELDS.forEach(function(f){ $('mtx-' + f).addEventListener('input', render); });
   $('mtx-fs1').addEventListener('change', render);
   $('mtx-fs2').addEventListener('change', render);
-  $('mtx-calcBtn').addEventListener('click', render);
+  $('mtx-calcBtn').addEventListener('click', function(){
+    render();
+    if(window.innerWidth <= 1000){
+      var card = document.querySelector('.mtx-area-result');
+      if(card && card.scrollIntoView) card.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  });
   $('mtx-clearBtn').addEventListener('click', function(){
     Object.keys(DEF).forEach(function(k){ $('mtx-' + k).value = DEF[k]; });
     segState = { ded1:'std', ded2:'std', se1:'no', se2:'no' };
