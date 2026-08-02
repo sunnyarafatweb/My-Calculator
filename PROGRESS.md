@@ -3964,6 +3964,48 @@ assume this exact order still holds after a few weeks of new data.
   table, which is worth building one row at a time as pages get touched. A generic
   sitewide scanner produces a signal that is far too easy to get backwards.
 
+- **Margin Calculator rebuilt** (Aug 2, 2026, ad-hoc user request): 484-line
+  dead stub → 1,302-line three-tab page (`mgn-` prefix). Confirmed dead by
+  reading the source — no calculator maths and no inputs in `<main>` at all —
+  not by the retracted scanner.
+
+  **Three unrelated calculators under one word.** Profit margin (business sense),
+  stock trading margin and currency exchange margin (broker sense). Their page
+  runs them as three separate forms with a hidden `ctype`, and the values are
+  **1 = profit, 3 = stock, 2 = currency** — not in the order the forms appear,
+  which is the third time this session a hidden mode field has been a trap.
+
+  **The interesting part is the any-two solve.** Cost, revenue, margin and
+  profit are locked together, so any two fix the other two. All six pairs were
+  pulled from their engine and all six reproduce: margin 25.00%, markup 33.33%,
+  profit $40.00 from every combination. Ours tracks which fields the user
+  touched most recently and treats the last two as given, labelling the other
+  two as results and tinting them; typing into a third quietly demotes the
+  oldest entry. That is better than their blank-fields-and-submit approach and
+  keeps the promise the page makes.
+
+  Also reproduced: the negative case (cost $200, revenue $160 → −25.00%
+  margin, −20.00% markup), stock margin at three requirements, and currency
+  margin at five leverage ratios.
+
+  **Formulas confirmed against their outputs**: stock margin is
+  `price x shares x requirement%`, currency margin is
+  `rate x units / ratio`. The currency figure needed care to extract, because
+  all three result panels say "Amount required" and a naive regex returns the
+  stock answer for every currency query — it silently produced 549.00 for five
+  different currency scenarios before I scoped the search to the right section.
+
+  **Verification**: 6/6 input pairs plus 6 stock and currency scenarios through
+  the shipped page, 28 assertions, zero failures; 3 valid JSON-LD blocks; FAQ
+  8/8 exact; protected style block byte-identical; 86/86 divs; TOC resolves both
+  ways; tabs asserted below the bar; desktop and mobile clean with no sideways
+  scroll; jsPDF lazy. New OG image within 2 px of the template.
+
+  **Article**: 1,956 words, 9 H2 sections plus FAQ, built around the confusion
+  the reference page states but does not dwell on — that margin and markup are
+  different numbers for the same profit, and that adding 30% to cost produces a
+  23.1% margin rather than 30%. Every figure computed first.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
