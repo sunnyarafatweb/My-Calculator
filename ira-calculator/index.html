@@ -426,11 +426,11 @@
 
 .ira-compare-box{padding:6px 20px 20px}
 .ira-compare-box .t{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;display:block}
-.ira-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ira-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .ira-compare-col{background:var(--surface-sunken);border-radius:8px;padding:12px;border:1px solid var(--border-fine)}
 .ira-compare-col.is-winner{border-color:#16A34A;box-shadow:0 0 0 1px #16A34A inset;background:#fff}
-.ira-compare-col .cn{font-size:11px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em}
-.ira-compare-col .cv{font-size:20px;font-weight:700;color:var(--ink);margin-top:3px}
+.ira-compare-col .cn{font-size:10.5px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em;line-height:1.3;min-height:26px}
+.ira-compare-col .cv{font-size:17.5px;font-weight:700;color:var(--ink);margin-top:3px;white-space:nowrap}
 .ira-compare-col .cs{font-size:11.5px;color:var(--muted);margin-top:4px}
 .ira-compare-verdict{font-size:12.5px;color:var(--ink-soft);margin-top:12px;line-height:1.55;padding-top:10px;border-top:1px solid var(--border-fine)}
 .ira-compare-verdict b{color:#128A3D}
@@ -615,7 +615,7 @@
     <span class="t">After-Tax Value at Retirement</span>
     <div class="ira-compare-grid">
       <div class="ira-compare-col" id="ira-compareColTrad">
-        <div class="cn">Traditional IRA</div>
+        <div class="cn">Traditional, SIMPLE or SEP IRA</div>
         <div class="cv" id="ira-compareTrad">—</div>
         <div class="cs">Taxed at withdrawal</div>
       </div>
@@ -623,6 +623,11 @@
         <div class="cn">Roth IRA</div>
         <div class="cv" id="ira-compareRoth">—</div>
         <div class="cs">Tax-free withdrawal</div>
+      </div>
+      <div class="ira-compare-col" id="ira-compareColTaxable">
+        <div class="cn">Regular Taxable Savings</div>
+        <div class="cv" id="ira-compareTaxable">—</div>
+        <div class="cs">No shelter, gains taxed yearly</div>
       </div>
     </div>
     <div class="ira-compare-verdict" id="ira-compareVerdict"></div>
@@ -843,10 +848,19 @@
     var taxRet = parseFloat($('ira-taxRet').value);
     if(!isFinite(taxNow)) taxNow = 22;
     if(!isFinite(taxRet)) taxRet = 12;
-    var fvContribOnly = fv(0, contrib, rate, n);
-    var rothAfterTax = fvContribOnly * (1 - taxNow/100);
-    var tradAfterTax = fvContribOnly * (1 - taxRet/100);
-    lastCompare = {taxNow:taxNow, taxRet:taxRet, fvContribOnly:fvContribOnly, roth:rothAfterTax, trad:tradAfterTax, n:n};
+    /* The comparison runs on the same money the growth tab projects - the current
+       balance plus every contribution - so the two tabs reconcile. A Traditional
+       balance is pre-tax and taxed on withdrawal; a Roth holds the same gross
+       amount contributed after tax today; regular taxable savings starts from the
+       same after-tax money but pays tax on its gains every year, which is modelled
+       as a reduced growth rate. */
+    var fvPreTax = fv(balance, contrib, rate, n);
+    var tradAfterTax = fvPreTax * (1 - taxRet/100);
+    var rothAfterTax = fvPreTax * (1 - taxNow/100);
+    var afterTaxRate = rate * (1 - taxNow/100);
+    var taxableSavings = fv(balance * (1 - taxNow/100), contrib * (1 - taxNow/100), afterTaxRate, n);
+    lastCompare = {taxNow:taxNow, taxRet:taxRet, fvPreTax:fvPreTax, roth:rothAfterTax,
+                   trad:tradAfterTax, taxable:taxableSavings, afterTaxRate:afterTaxRate, n:n};
 
     renderActive();
     renderSchedule(rows);
@@ -883,10 +897,16 @@
       var diff = c.roth - c.trad;
       var winner = diff > 0.5 ? 'Roth' : (diff < -0.5 ? 'Traditional' : 'tied');
       $('ira-bignum').textContent = winner==='tied' ? 'Essentially tied' : (winner+' wins by '+money(Math.abs(diff),0));
-      $('ira-subline').textContent = 'Same '+money(lastGrow.contrib,0)+'/yr for '+c.n+' years at '+pct(lastGrow.rate)+', taxed at '+pct(c.taxNow,0)+' now vs. '+pct(c.taxRet,0)+' in retirement';
-      $('ira-resultRows').innerHTML = '';
+      $('ira-subline').textContent = money(lastGrow.balance,0)+' plus '+money(lastGrow.contrib,0)+'/yr for '+c.n+' years at '+pct(lastGrow.rate)+', taxed at '+pct(c.taxNow,0)+' now vs. '+pct(c.taxRet,0)+' in retirement';
+      $('ira-resultRows').innerHTML =
+        '<div class="ira-result-row"><span>Balance at age '+lastGrow.retireAge+' (before tax)</span><span>'+money(c.fvPreTax,0)+'</span></div>'+
+        '<div class="ira-result-row"><span>Traditional, SIMPLE or SEP IRA (after tax)</span><span>'+money(c.trad,0)+'</span></div>'+
+        '<div class="ira-result-row"><span>Roth IRA (after tax)</span><span>'+money(c.roth,0)+'</span></div>'+
+        '<div class="ira-result-row"><span>Regular taxable savings (after tax)</span><span>'+money(c.taxable,0)+'</span></div>'+
+        '<div class="ira-result-row"><span>Either IRA beats taxable savings by at least</span><span>'+money(Math.min(c.trad,c.roth)-c.taxable,0)+'</span></div>';
       $('ira-compareTrad').textContent = money(c.trad, 0);
       $('ira-compareRoth').textContent = money(c.roth, 0);
+      $('ira-compareTaxable').textContent = money(c.taxable, 0);
       $('ira-compareColTrad').classList.toggle('is-winner', winner==='Traditional');
       $('ira-compareColRoth').classList.toggle('is-winner', winner==='Roth');
       var verdict;
@@ -897,6 +917,9 @@
       } else {
         verdict = '<b>Traditional comes out ahead</b> here because your assumed tax rate is lower in retirement ('+pct(c.taxRet,0)+') than it is now ('+pct(c.taxNow,0)+') — deferring the tax to a lower future bracket beats paying it today.';
       }
+      verdict += ' Either way, sheltering the money beats an ordinary taxable account by <b>'+
+        money(Math.min(c.trad,c.roth)-c.taxable,0)+'</b> or more, because taxable savings pay tax on their gains every year \u2014 effectively growing at '+
+        pct(c.afterTaxRate)+' instead of '+pct(lastGrow.rate)+'.';
       $('ira-compareVerdict').innerHTML = verdict;
     }
   }
@@ -1089,11 +1112,14 @@
 
       if(lastCompare){
         doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(30,58,95);
-        doc.text('Traditional vs. Roth (same contribution, tax rate now '+lastCompare.taxNow+'% vs retirement '+lastCompare.taxRet+'%)', margin, afterY);
+        doc.text('Traditional vs. Roth vs. taxable savings (tax rate now '+lastCompare.taxNow+'% vs retirement '+lastCompare.taxRet+'%)', margin, afterY);
         doc.autoTable({
           startY: afterY+10, margin:{left:margin,right:margin},
           head:[['Account','After-Tax Value at Retirement']],
-          body:[['Traditional IRA', money(lastCompare.trad,2)], ['Roth IRA', money(lastCompare.roth,2)]],
+          body:[['Balance at retirement (before tax)', money(lastCompare.fvPreTax,2)],
+              ['Traditional, SIMPLE or SEP IRA (after tax)', money(lastCompare.trad,2)],
+              ['Roth IRA (after tax)', money(lastCompare.roth,2)],
+              ['Regular taxable savings (after tax)', money(lastCompare.taxable,2)]],
           styles:{fontSize:10,cellPadding:5}, columnStyles:{1:{halign:'right'}}
         });
         afterY = doc.lastAutoTable.finalY+24;
@@ -1165,7 +1191,7 @@
 <h2 id="ira-vsroth">Traditional vs. Roth: Which Actually Wins?</h2>
 <p>The <strong>Traditional vs. Roth</strong> tab above runs the single most useful comparison for this decision: it holds the pretax dollar amount you're setting aside constant, then asks what happens if that same money is taxed today (Roth) versus taxed later, at whatever rate applies when you withdraw it (Traditional). The math reduces to one clean rule: <strong>if your tax rate will be lower in retirement than it is today, Traditional wins; if it will be higher (or the same), Roth wins or ties.</strong> That's because paying a smaller percentage in tax always beats paying a larger one on the same pretax dollars — it genuinely doesn't matter whether the tax bite happens now or decades from now, only which rate is smaller.</p>
 <p>In practice, most people's honest answer is "I don't know what tax rates will look like in 30 years." That uncertainty is exactly why many financial planners suggest splitting new contributions between both account types — it hedges against future tax-law changes and against not knowing your own retirement income level yet. People early in their careers, likely to be in a higher bracket later as income grows, often lean Roth; people at or near their peak earning years, expecting a lower-spending retirement, often lean Traditional.</p>
-
+<p>The comparison panel adds a third column that is easy to overlook and is often the most persuasive one: <strong>regular taxable savings</strong>. That is the same money, invested the same way, in an ordinary account with no shelter — so its gains are taxed every single year rather than compounding untouched. Modelled at the opening figures, an ordinary account grows at an effective 5.46% instead of 7%, and finishes several hundred thousand dollars behind either IRA. The Traditional-versus-Roth question is worth thinking about; the shelter-versus-no-shelter question is usually worth far more.</p>
 <h2 id="ira-doesnt">What This Calculator Doesn't Cover</h2>
 <p>A few real-world factors aren't modeled here, on purpose, to keep the tool focused and honest about its limits. <strong>State income tax</strong> isn't included — a handful of states don't tax retirement withdrawals at all, and some don't tax income in the first place, which can shift the Traditional-vs-Roth math further than the federal comparison alone suggests. <strong>Required Minimum Distributions</strong> aren't factored into the growth projection — a Traditional IRA forces you to start withdrawing (and paying tax on) money at 73 or 75 whether you need the income or not, while a Roth IRA has no RMDs during the original owner's lifetime; the reference tool further down this page estimates a single year's RMD. <strong>Medicare IRMAA surcharges and Social Security taxability</strong> both depend on your overall income picture in a given year, including Traditional IRA withdrawals — a large RMD can push you into a higher Medicare premium bracket or make more of your Social Security benefit taxable, effects this calculator doesn't attempt to model. Finally, the Traditional-vs-Roth comparison assumes a level, static tax rate on each side; real tax brackets are progressive and marginal rates can shift with tax law changes, so treat the comparison as a directional guide rather than a precise prediction.</p>
 

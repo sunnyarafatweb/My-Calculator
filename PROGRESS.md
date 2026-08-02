@@ -3554,6 +3554,54 @@ assume this exact order still holds after a few weeks of new data.
   rule, no RMDs — rather than repeating the comparison, or the two will
   compete for the same queries.
 
+- **IRA Calculator: the parity gap the recheck almost missed** (Aug 2, 2026).
+
+  The first pass of the recheck covered structure, function and naming and
+  reported the page healthy. It did **not** re-run the field/output parity
+  audit, on the assumption that a prior session had done it. Pushed on that
+  point, the audit was run properly and found two real gaps. Lesson: "is this
+  page OK" means re-running the whole protocol, not the parts that are quick.
+  A page can be structurally perfect and still be missing a third of its
+  output.
+
+  **Their model, recovered exactly.** Seven inputs, all of which we already had
+  (current balance, annual before-tax contribution, expected return, current
+  age, retirement age, current marginal tax rate, expected rate in retirement).
+  The output is a **three-way** comparison, not two: Traditional/SIMPLE/SEP IRA
+  against Roth IRA against **regular taxable savings**, shown before and after
+  tax, plus a year-by-year table carrying all three. Their arithmetic:
+  Traditional grows pre-tax and is multiplied by (1 - retirement rate); Roth is
+  the same gross future value multiplied by (1 - current rate); taxable savings
+  starts from after-tax money and pays tax on its gains annually, which is
+  exactly a growth rate of `rate x (1 - current tax rate)`. All four of their
+  published figures reproduce to the dollar: $1,066,343 before tax, $906,392
+  Traditional after tax, $799,758 Roth, $563,434 taxable.
+
+  **Gap 1: the taxable-savings arm was missing entirely.** Ours compared
+  Traditional against Roth and stopped. Added as a third column, three extra
+  result rows, a line in the verdict and a row in the PDF. It is arguably the
+  most useful of the three, since it answers "what does sheltering the money
+  actually buy me" rather than the narrower Traditional-versus-Roth question.
+
+  **Gap 2: the comparison silently dropped the current balance.** The code
+  comment said "contribution-only, per verified model" — a deliberate earlier
+  choice to isolate the tax question. Defensible in itself, but it meant the
+  two tabs disagreed: the growth tab projected $1,196,925 while the comparison
+  ran on $1,036,777, a $16,015 swing in the headline number with nothing on the
+  page explaining why. Now both tabs run on the same money and reconcile
+  exactly, which is also what calculator.net does.
+
+  Also updated: the PDF heading still said "same contribution", now corrected,
+  and the article gained a paragraph describing the taxable-savings column so
+  the copy matches what the page actually shows.
+
+  **Verification**: their four figures reproduced through the shipped page in a
+  browser; both tabs asserted to reconcile on the same before-tax balance;
+  protected block byte-identical; 113/113 divs; FAQ 6/6 exact; `node --check`
+  clean; three compare columns render at 1280 and 390 with no clipped values,
+  no sideways scroll and zero console errors; jsPDF still absent on load and
+  fetched only on click.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
