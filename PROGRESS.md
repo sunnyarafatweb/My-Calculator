@@ -3390,6 +3390,51 @@ assume this exact order still holds after a few weeks of new data.
   Rule of 72 checks (9 vs 9.01 at 8%, 16 vs 15.75 at 4.5%) were verified rather
   than asserted.
 
+- **Interest + Inflation Calculator: rendering fix and SEO pass** (Aug 2, 2026,
+  user reported a clipped donut legend from a screenshot).
+
+  **Two rendering bugs, one of them worse than reported.** The user flagged the
+  donut legend clipping; the same screenshot also showed the "Contribute at the"
+  segmented control rendering as unstyled text reading "BeginningEnd". Cause:
+  the interest page's stylesheet was derived from the inflation page's, and the
+  inflation page had no segmented control, so `.fv-seg` had been dropped when
+  that stylesheet was first written — the interest page then used
+  `class="int-seg"` against a rule that did not exist. **Every automated check
+  passed with this on the page**: the element existed, was the right size, had
+  adequate contrast, and the JS toggle worked. Nothing short of looking at it,
+  or asserting on a specific CSS property, would have caught it. Added a check
+  that asserts the control has a border, a radius and distinct active/idle
+  backgrounds, rather than only that it exists.
+
+  Legend clipping fixed by wrapping the label in a `<span class="t">` with
+  `min-width:0` and allowing `.lg` to wrap, so the value drops to its own line
+  instead of overflowing. Applied to both pages; verified by measuring each
+  value's bounding box against its container at 1280 and 390.
+
+  **SEO pass on the interest page.** Audit was mostly clean: 94.6 KB, zero
+  external scripts on load, 1 H1 / 12 H2 / 8 H3, all 17 outbound links valid
+  with trailing slashes, registered in sitemap, index, hub and `llms.txt`,
+  strong coverage of every target term. Changes made:
+  - WebApplication schema enriched on both pages with `dateModified`,
+    `inLanguage`, `isAccessibleForFree`, `publisher` and a `featureList` —
+    entity and freshness signals, and the feature list is the kind of thing AI
+    answer engines quote. No `aggregateRating`: inventing ratings is a policy
+    violation, not an optimisation.
+  - "Doubling time" surfaced explicitly in the Rule of 72 section; it was a
+    real long-tail phrase from the research that the copy talked around.
+
+  **The finding worth acting on next: only 22 of 214 pages have a related-
+  calculators sidebar.** This is the exact gap section 1 of the guide flagged
+  months ago, and it is the site's single biggest untapped internal-linking
+  lever. Both new pages had just 6 inbound internal links each, two of which
+  were the hub and the sitemap. Added the topically strongest ones available
+  (future-value → interest + inflation, inflation → interest), taking both to
+  8. Deliberately did **not** pad with weak matches — home-equity-loan →
+  interest was available and skipped, since loan interest and savings interest
+  are different intents and a link that does not fit is not worth the equity.
+  The real fix is retrofitting the sidebar module onto the ~190 pages without
+  one, which is its own project and should not be smuggled into a page build.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
