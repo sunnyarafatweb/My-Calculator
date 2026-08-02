@@ -3267,6 +3267,29 @@ assume this exact order still holds after a few weeks of new data.
   year, value of money over time, monthly vs annual average, US average
   inflation rate, deflation years.
 
+  **A parity gap the HTML audit missed, caught only by the user's screenshots.**
+  The live-fetched source and the markdown extraction both showed the three
+  forms and the historical inflation *chart*, so the first build shipped
+  without the **full year-by-month inflation rate table** that sits under that
+  chart (Year | Jan..Dec | Average, 1914 to date). It is rendered client-side
+  from a data blob, so it simply is not in the fetched HTML as a table, and
+  nothing in the source hinted it existed. Lesson for the standing protocol:
+  a raw-HTML audit is necessary but not sufficient — for any calculator.net
+  page, also render it (screenshot or headless browser) before declaring the
+  field/output map complete, because their heavier pages build result tables
+  and charts in JS. Added as a full-width card under the bottom grid, 113 rows
+  x 14 columns, with ten cells spot-checked against the user's screenshots and
+  all ten matching. One apparent mismatch, Mar 2026 at 3.26% vs a screenshot
+  reading of 3.28%, resolved in favour of the raw BLS series (330.213/319.799
+  = 3.2564%); the other five months of 2026 match to the basis point, so it was
+  a digit misread at screenshot resolution, not a data difference. October 2025
+  renders blank in their table too, which matches our null.
+
+  **The purchasing-power chart was also upgraded to month resolution** to match
+  theirs (their graph plots monthly points across the span; ours had plotted one
+  point per year). The year-by-year schedule table stays yearly for readability.
+  Long spans are downsampled to 420 points so the SVG path stays light.
+
   **Two site-wide findings, deliberately not changed here** (one page should
   not diverge from ~200 others):
   1. *Contrast below WCAG AA on several shared design tokens.* Measured

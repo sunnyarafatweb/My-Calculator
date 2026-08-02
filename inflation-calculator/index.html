@@ -421,8 +421,18 @@
 .inf-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
 .inf-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
+.inf-bottom-stack{display:flex;flex-direction:column;gap:16px;width:100%;min-width:0}
 .inf-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
 @media(max-width:860px){.inf-bottom-grid{grid-template-columns:1fr}}
+.inf-histtable-scroll{max-height:460px}
+.inf-histtable{min-width:820px}
+.inf-histtable th{font-size:11.5px;padding:9px 8px}
+.inf-histtable td{padding:6px 8px;font-size:12px;white-space:nowrap}
+.inf-histtable td:first-child{font-weight:600;color:var(--ink)}
+.inf-histtable tbody tr:nth-child(even){background:var(--surface-sunken)}
+.inf-histtable td.up{color:var(--ink);font-weight:400}
+.inf-histtable td.down{color:#DC2626;font-weight:600}
+@media(max-width:520px){.inf-histtable{min-width:760px}.inf-histtable th,.inf-histtable td{padding:6px 5px;font-size:11.5px}}
 .inf-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .inf-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
 .inf-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -551,22 +561,37 @@
     </div>
   </div>
 
-  <div class="inf-bottom-grid inf-area-bottomgrid">
-    <div class="inf-sched-card">
-      <div class="inf-sched-head">
-        <span class="t" id="inf-schedTitle">Year-by-Year Breakdown</span>
-        <span class="t" style="font-size:12px;font-weight:600;color:var(--ink-faint)" id="inf-schedMeta"></span>
+  <div class="inf-area-bottomgrid inf-bottom-stack">
+    <div class="inf-bottom-grid">
+      <div class="inf-sched-card">
+        <div class="inf-sched-head">
+          <span class="t" id="inf-schedTitle">Year-by-Year Breakdown</span>
+          <span class="t" style="font-size:12px;font-weight:600;color:var(--ink-faint)" id="inf-schedMeta"></span>
+        </div>
+        <div class="inf-sched-scroll">
+          <table class="inf-sched-table">
+            <thead id="inf-schedHead"></thead>
+            <tbody id="inf-schedBody"></tbody>
+          </table>
+        </div>
       </div>
-      <div class="inf-sched-scroll">
-        <table class="inf-sched-table">
-          <thead id="inf-schedHead"></thead>
-          <tbody id="inf-schedBody"></tbody>
-        </table>
+      <div class="inf-chart-card">
+        <span class="t">U.S. Annual Inflation Rate Since 1914</span>
+        <div id="inf-histChart"></div>
       </div>
     </div>
-    <div class="inf-chart-card">
-      <span class="t">U.S. Annual Inflation Rate Since 1914</span>
-      <div id="inf-histChart"></div>
+
+    <div class="inf-sched-card">
+      <div class="inf-sched-head">
+        <span class="t">Historical U.S. Inflation Rate by Month</span>
+        <span class="t" style="font-size:12px;font-weight:600;color:var(--ink-faint)" id="inf-histTableMeta"></span>
+      </div>
+      <div class="inf-sched-scroll inf-histtable-scroll">
+        <table class="inf-sched-table inf-histtable">
+          <thead id="inf-histTableHead"></thead>
+          <tbody id="inf-histTableBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -693,10 +718,28 @@
       pt.yoy = (i === 0) ? null : (pt.cpi / series[i-1].cpi - 1) * 100;
     });
 
+    /* month-resolution path for the chart when both ends are real months
+       (calculator.net plots the same purchasing-power curve monthly) */
+    var chart = null;
+    if(m1 !== 13 && m2 !== 13 && years !== 0){
+      var pts = [], step = (years > 0) ? 1 : -1;
+      var cy = y1, cm = m1, guard = 0;
+      while(guard++ < 2000){
+        var cv2 = cpiAt(cy, cm);
+        if(cv2 !== null) pts.push({year:cy, month:cm, value:amount * cv2 / c1});
+        if(cy === y2 && cm === m2) break;
+        cm += step;
+        if(cm > 12){ cm = 1; cy++; } else if(cm < 1){ cm = 12; cy--; }
+        if((step > 0 && (cy > y2 || (cy === y2 && cm > m2))) ||
+           (step < 0 && (cy < y2 || (cy === y2 && cm < m2)))) break;
+      }
+      if(pts.length > 2) chart = pts;
+    }
+
     return {mode:'cpi', bad:false, warn:warn, amount:amount, value:value, change:change,
             cumulative:cumulative, avgAnnual:avgAnnual, years:years,
             y1:y1, m1:m1, y2:y2, m2:m2, c1:c1, c2:c2, factor:factor,
-            dollarThen: (factor === 0 ? 0 : 1/factor), series:series};
+            dollarThen: (factor === 0 ? 0 : 1/factor), series:series, chart:chart};
   }
 
   function computeFlat(dir){
@@ -767,9 +810,19 @@
   /* ---------------- line chart of the amount over time ---------------- */
   function renderTrack(r){
     var el = $('inf-trackChart');
-    var pts = (r.mode === 'cpi')
-      ? r.series.map(function(p){ return {x:p.year, y:p.value, lbl:periodShort(p.year,p.month)}; })
-      : r.series.map(function(p){ return {x:p.step, y:p.value, lbl:(Math.round(p.step*10)/10) + 'y'}; });
+    var src, pts;
+    if(r.mode === 'cpi'){
+      src = r.chart || r.series;
+      if(src.length > 420){                       /* keep the path light on very long spans */
+        var st = Math.ceil(src.length / 420), thin = [];
+        for(var q = 0; q < src.length; q += st) thin.push(src[q]);
+        if(thin[thin.length-1] !== src[src.length-1]) thin.push(src[src.length-1]);
+        src = thin;
+      }
+      pts = src.map(function(p){ return {x:p.year, y:p.value, lbl:periodShort(p.year,p.month)}; });
+    } else {
+      pts = r.series.map(function(p){ return {x:p.step, y:p.value, lbl:(Math.round(p.step*10)/10) + 'y'}; });
+    }
     if(pts.length < 2){ el.innerHTML = '<p class="inf-note" style="margin:0 0 14px">Pick two different dates to see the path between them.</p>'; return; }
 
     var W=400, H=210, padL=54, padR=12, padT=12, padB=28;
@@ -847,6 +900,29 @@
     $('inf-histChart').innerHTML =
       '<svg viewBox="0 0 '+W+' '+H+'" class="inf-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="United States annual inflation rate by year">'+svg+'</svg>'+
       '<div class="inf-chart-legend"><span><i style="background:#1E3A5F"></i>Inflation</span><span><i style="background:#DC2626"></i>Deflation</span></div>';
+  }
+
+  /* ---------------- historical inflation rate table (year x month) ---------------- */
+  function renderHistTable(){
+    var head = '<tr><th scope="col">Year</th>';
+    for(var i = 0; i < 12; i++) head += '<th scope="col">' + MONTH_ABBR[i] + '</th>';
+    head += '<th scope="col">Average</th></tr>';
+
+    var body = '';
+    for(var y = LAST_YEAR; y >= BASE_YEAR + 1; y--){
+      var cells = '';
+      for(var m = 1; m <= 13; m++){
+        var a = cpiAt(y, m), b = cpiAt(y - 1, m);
+        if(a === null || b === null){ cells += '<td></td>'; continue; }
+        var v = (a / b - 1) * 100;
+        cells += '<td class="' + (v < 0 ? 'down' : 'up') + '">' + v.toFixed(2) + '%</td>';
+      }
+      body += '<tr><td>' + y + '</td>' + cells + '</tr>';
+    }
+    $('inf-histTableHead').innerHTML = head;
+    $('inf-histTableBody').innerHTML = body;
+    $('inf-histTableMeta').textContent =
+      'Year-over-year change in CPI-U, ' + (BASE_YEAR + 1) + '\u2013' + LAST_YEAR;
   }
 
   /* ---------------- schedule ---------------- */
@@ -1074,6 +1150,7 @@
   });
 
   renderHistory();
+  renderHistTable();
   render();
 })();
 </script>
@@ -1124,6 +1201,7 @@
 <p>Three features stand out. The spikes around both world wars are the highest in the series, peaking at <strong>17.97% in 1918</strong>. The 1920s and 1930s contain a run of deep negative years &mdash; <strong>&minus;10.50% in 1921</strong>, then &minus;8.98% and &minus;9.87% in 1931 and 1932 &mdash; the only sustained deflation in the modern record. And the late 1970s and early 1980s form the last stretch of double-digit inflation, topping out at 13.50% in 1980.</p>
 <p>Set against that, the recent period looks less exceptional than it felt. Inflation reached 8.00% in 2022, the highest in four decades, then eased to 4.12%, 2.95% and 2.63% across 2023, 2024 and 2025. High by the standards of the 2010s, certainly, but nothing like 1918 or 1980.</p>
 <p>The other thing the chart shows is how rare deflation has become. Thirteen years since 1913 posted falling prices, but only one of them &mdash; 2009, at &minus;0.36% &mdash; happened after 1955. Persistent deflation is treated as a serious economic problem precisely because it discourages spending, and central banks now aim well clear of it.</p>
+<p>Underneath the chart sits the same information at full resolution: a table of the year-over-year inflation rate for <em>every month</em> from 1914 to the present, plus each year's annual average in the final column. It is worth scrolling if you want a specific month rather than a yearly summary &mdash; and it is where the missing October 2025 cell is plainly visible as a blank.</p>
 
 <h2 id="inf-a-personal">Why Your Own Costs May Not Match CPI</h2>
 <p>People often finish a calculation like this convinced the number is too low, and they are frequently right about their own situation. CPI-U is a national average across a fixed basket, weighted by how urban households collectively spend. Almost nobody spends that way individually.</p>
