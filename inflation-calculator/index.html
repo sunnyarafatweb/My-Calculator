@@ -354,7 +354,7 @@
 .inf-wrap{max-width:100%;font-family:var(--font-body);color:var(--ink);font-size:14px}
 
 .inf-grid{display:grid;grid-template-columns:minmax(300px,390px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
-  grid-template-areas:"tabs tabs ." "bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .inf-area-tabs{grid-area:tabs}
 .inf-area-bar{grid-area:bar}
 .inf-area-form{grid-area:form}
@@ -362,7 +362,7 @@
 .inf-area-sidebar{grid-area:sidebar}
 .inf-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:1000px){
-  .inf-grid{grid-template-columns:1fr;grid-template-areas:"tabs" "bar" "form" "result" "bottomgrid" "sidebar"}
+  .inf-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 
 .inf-tabs{display:flex;gap:8px;flex-wrap:wrap}

@@ -3770,6 +3770,47 @@ assume this exact order still holds after a few weeks of new data.
   $119,693"), three comparison columns still present, protected block
   byte-identical, 115/115 divs, zero console errors, jsPDF still lazy.
 
+- **IRR + Inflation: tabs moved below the bar, and the IRR H1 expanded**
+  (Aug 2, 2026, user spotted the tab placement on a screenshot).
+
+  **The tab position was my inconsistency, on two pages.** Counting the grid
+  areas across the site: **39 pages put the mode tabs below the blue bar**, and
+  exactly two put them above — `inflation-calculator` and `irr-calculator`,
+  both built this session. Fixed on both, desktop and mobile stack order, plus
+  the build-script style sources so a rebuild keeps it. Verified by measuring
+  the rendered offsets against `loan-calculator` and `ira-calculator`: bar at
+  252px, tabs at 339px, identical on all four.
+
+  Worth remembering when starting a page from a fresh stylesheet: the grid
+  areas are where the house layout conventions actually live, and a wrong order
+  there looks deliberate rather than broken, so nothing flags it.
+
+  **Naming, settled on evidence.** calculator.net titles this page "Internal
+  Rate of Return (IRR) Calculator" while ours said just "IRR Calculator". The
+  SERP is unambiguous: essentially every page ranking for either query carries
+  **both** the abbreviation and the expansion — Omni ("Internal Rate of Return
+  (IRR) Calculator"), GigaCalculator ("IRR Calculator - Calculate Internal Rate
+  of Return"), dqydj, Ajelix, Swoop, thecalculatorsite. Our title already did
+  both; the **H1 did not**.
+
+  Changed the H1 to **"Internal Rate of Return (IRR) Calculator"**, which
+  contains "IRR Calculator" verbatim, so the short form is not lost and the long
+  form is gained — strictly more coverage at no cost. The WebApplication schema
+  name now matches the H1 with `alternateName: "IRR Calculator"`. Title left
+  alone: it already leads with the short form, carries the expansion, and sits
+  at 57 characters.
+
+  Deliberately **not** renamed: the URL, the visible breadcrumb, the
+  BreadcrumbList schema, `calculators-index.json` and `llms.txt` all stay "IRR
+  Calculator". Unlike the IRA case, these are not contradictory — breadcrumbs
+  should stay short, and the H1 is the fuller form of the same name rather than
+  a different one. The visible and schema breadcrumbs still match each other,
+  which is the check that matters.
+
+  H1 wrapping checked rather than assumed: one line at 1280 and 768, two at 390,
+  no clipping and no page overflow at any of them. Both pages re-run through
+  their full suites afterwards, all clean.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
