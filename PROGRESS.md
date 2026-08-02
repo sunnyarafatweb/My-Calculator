@@ -3917,6 +3917,53 @@ assume this exact order still holds after a few weeks of new data.
   internal link equity at pages that compute nothing. The scan should come
   before any sitewide linking work, not after.
 
+- **The calculator status scan was wrong, and has been retracted** (Aug 2, 2026).
+
+  Earlier in this session I published `CALCULATOR_STATUS.md` claiming **131 of 206
+  pages did not work**, and recommended acting on it. **That number was wrong.**
+  Investigating the top recommendation — fixing `percentage-calculator`, which
+  the scan called broken and which the shared footer links from all 214 pages —
+  showed it computes correctly: 37% of 250 gives 92.5, 46 is 25% of 184, and 64
+  increased by 96% gives 125.44. It recomputes as you type, which is why clicking
+  Calculate changes nothing.
+
+  **The cause, and it kept moving.** Four separate defects, found one after
+  another:
+  1. The fingerprint was `main.innerText`, which **excludes `<input>` values**, so
+     any calculator that writes its answer into a field looked dead.
+  2. Adding all control values to the fingerprint made everything look alive,
+     because the values the scanner had just typed were part of it. A
+     self-fulfilling test that passed all 206 pages.
+  3. Comparing element *indexes* across two different selector queries (one
+     including `<select>`, one not) made the scanner's own edits register as
+     recomputed output.
+  4. This is a **React build**: writing `el.value` from page JS does not update
+     React state. Only simulated typing works, so any in-page nudge is unsound
+     here.
+
+  Even after all four were fixed, a controlled trial against hand-checked pages
+  agreed only **4 times out of 12**, and verdicts moved between runs. At that
+  point the honest conclusion is not a better number but that **the true split is
+  unknown**, and the file now says so.
+
+  **My spot-checks were wrong twice as well**, in both directions — once
+  comparing only the first 160 characters of rendered text (breadcrumb and
+  heading) and declaring a working page broken, once mis-indexing and declaring
+  dead pages alive. A verification that is less rigorous than the thing it
+  verifies does not verify anything; it just launders a guess.
+
+  **Nothing was changed on the site.** `git diff backup-before-percentage-fix
+  HEAD` over everything except the two markdown files is empty, the working tree
+  is clean, and `percentage-calculator/index.html` is byte-identical to the copy
+  taken before starting. Tag `backup-before-percentage-fix` remains as a rollback
+  point.
+
+  **What to do instead**: the check that has actually worked all session is the
+  per-calculator one — known inputs, known correct answer, asserted against a
+  reference. It does not generalise to 206 pages without a per-page expected-value
+  table, which is worth building one row at a time as pages get touched. A generic
+  sitewide scanner produces a signal that is far too easy to get backwards.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
