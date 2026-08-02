@@ -3172,6 +3172,117 @@ assume this exact order still holds after a few weeks of new data.
   clipping guard, accessibility checks, jsPDF lazy. New OG image. Site-wide
   regression clean.
 
+- **Inflation Calculator rebuilt** (Aug 2, 2026, ad-hoc user request): 484-line
+  template stub → 1,298-line three-tab page (`inf-` prefix).
+
+  **The old page did not work at all.** It was a static React snapshot with no
+  calculator JavaScript and no CPI data anywhere in the file — the inputs were
+  inert and the "result" (`$186.96` for $100 in 2000) was hardcoded in the
+  HTML, along with a matching hardcoded worked example in the body copy. Any
+  visitor who changed a dropdown got the same number back. Worth checking other
+  surviving template-tier pages for the same pattern rather than assuming a
+  thin page at least computes something; a page can pass a visual skim and a
+  "does the tool exist" check while being a picture of a calculator.
+
+  **Data**: BLS series `CUUR0000SA0` (CPI-U, U.S. city average, all items, NSA)
+  pulled from `download.bls.gov/pub/time.series/cu/cu.data.1.AllItems`, 1,475
+  records covering Jan 1913 – Jun 2026, monthly plus annual averages, embedded
+  as an 8.6 KB nested array. Six published figures reproduced exactly on parse
+  (Jan 2016 236.916, Jan 2017 242.839, 2024 avg 313.689, 2000 avg 172.2, 1913
+  avg 9.9, Jun 2022 296.311), and BLS's annual average confirmed to be the mean
+  of the twelve monthly readings.
+
+  **October 2025 has no CPI figure** — BLS never published it (footnote `X`;
+  the autumn 2025 shutdown interrupted collection), and the 2025 annual average
+  is the mean of the eleven months that exist. Handled explicitly: the month
+  appears in the dropdown as a disabled "October (not published)" option rather
+  than being hidden or interpolated, and the article explains it. Caught only
+  because the parse printed the raw year row; a naive `.get(month)` would have
+  returned undefined and produced a silent NaN.
+
+  **Parity** (calculator.net/inflation-calculator.html, live-audited from raw
+  HTML, not from the rendered page — the month dropdowns are empty in source
+  and populated by an `updateMonths()` script that also encodes their
+  `cpiLatestYear`/`cpiLatestMonth` cutoff, which the markdown extraction lost
+  entirely). Their page is three separate forms; ours is three tabs:
+  `cstartingamount1/2/3` → `#inf-amount`, `cinmonth1`/`coutmonth1` →
+  `#inf-fromMonth`/`#inf-toMonth`, `cinyear1`/`coutyear1` →
+  `#inf-fromYear`/`#inf-toYear`, `cinrate2/3` → `#inf-rate`, `cinyear2/3` →
+  `#inf-years`, plus Calculate/Clear and their historical inflation chart.
+  16/16 inputs, 5/5 results, 0 gaps on the final DOM cross-check.
+
+  **Numeric verification ran in the browser against the shipped code**, not
+  just in Node, and against four independent published sources rather than only
+  calculator.net: their own defaults ($100 Jan 2016 → Jan 2026 = $137.29),
+  their own article example (Jan 2016 → Jan 2017 = 2.5%), their forward and
+  backward flat-rate defaults ($134.39 and $74.41 at $100/3%/10y),
+  CalculatorSoup ($100 Jan 2015 → Jul 2025 = $138.23) and NerdWallet (1990 →
+  2010 annual averages = 66.837%). All seven matched to the cent/basis point.
+
+  **A real bug the checks caught**: the first build listed Jul–Dec 2026 as
+  "(not published)" because the data row pads unpublished months with `null`,
+  which is correct for October 2025 but wrong for months that simply have not
+  happened yet. Fixed by walking to the last published month per year and
+  omitting anything after it, so only genuine interior gaps stay visible.
+  Nothing in the DOM or the numbers flagged this — only an assertion that the
+  2026 month list equals exactly `['1'..'6']`.
+
+  **Verification before push**: 3 valid JSON-LD blocks; FAQ schema ↔ visible
+  HTML 8/8 exact (both emitted from one Python list, so drift is structurally
+  impossible — second build in a row where this needed no reconciliation);
+  `node --check` clean; protected style block and header byte-identical against
+  four pages (future-value, bmi, tip, body-fat) with only the breadcrumb line
+  differing, and that line proved identical apart from the name/URL; tag
+  balance clean (67/67 divs, main/footer/article/table/svg all paired — the
+  splice bug from the Jul 31 session re-checked); Playwright desktop 1280 and
+  mobile 390: 28/28 checks, zero real console errors, zero horizontal overflow,
+  jsPDF absent on load and fetched only on click. New OG image.
+
+  **OG image built against measured geometry** again, reusing the method from
+  the Jul 31 session: background wash recovered by least-squares fitting a 2D
+  polynomial to the text-free pixels of `og/future-value-calculator.png` with an
+  outlier-rejection refit (max error 2.07/255), palette sampled per-element, and
+  all five element bands verified to land within 2 px of the reference. Two
+  things worth noting for next time: IBM Plex is not installed in the sandbox
+  and both the GitHub raw paths and jsDelivr are blocked, but `npm pack
+  @ibm/plex-sans @ibm/plex-mono` works and fontTools converts the shipped
+  `.woff` to `.ttf` for PIL. And PIL's `getbbox()` under-reports the left
+  bearing on some glyphs, so text placed by bbox alone landed 3 px off; a
+  two-pass helper that renders to a temp bitmap and measures the actual ink
+  extents fixed it.
+
+  **Keyword research before any copy** (section 4). Head term "inflation
+  calculator" is dominated by Minneapolis Fed, NerdWallet, in2013dollars,
+  usinflationcalculator, CalculatorSoup, SmartAsset and calculator.net. The
+  pattern worth copying: NerdWallet, CalculatorSoup, usinflationcalculator and
+  in2013dollars all put the **year range in the title tag** ("U.S. CPI and
+  Dollar Value 1913-2026", "Find US Dollar's Value From 1913-2026"), so the
+  range went into ours rather than a bare keyword restate. Middle-ground
+  opportunity found and built around: the big sites almost all do historical
+  CPI lookup *only*, while the forward-projection cluster ("future inflation
+  calculator", "what will X cost in Y years", "purchasing power calculator") is
+  served mainly by small sites — covering both clusters on one page is the
+  differentiation, and it happens to be exactly calculator.net's three-tool
+  structure. Long-tail woven into H2s/FAQs: purchasing power, inflation by
+  year, value of money over time, monthly vs annual average, US average
+  inflation rate, deflation years.
+
+  **Two site-wide findings, deliberately not changed here** (one page should
+  not diverge from ~200 others):
+  1. *Contrast below WCAG AA on several shared design tokens.* Measured
+     computed colour against effective background: `--ink-faint` body notes,
+     hints, chart titles and the byline sit at 2.06–2.33, `.inf-viewmore`
+     (white on `#22C55E`) at 2.28, white on the `#16A34A` result header and
+     Calculate button at 3.30, breadcrumb links at 3.66. Verified **identical**
+     on future-value-calculator and gdp-calculator, so this is the established
+     baseline, not a regression introduced here. Worth its own focused pass
+     with a propagated token change and spot-checks, like the `llms.txt`
+     cleanup already queued.
+  2. *Sitemap omits trailing slashes on all 210 `<loc>` entries* while every
+     canonical carries one, so each crawled URL takes a 301 hop — the same
+     class of issue as the related-calculator links fixed on Jul 31, but at
+     sitemap scale. Also its own task.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
