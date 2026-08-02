@@ -3865,6 +3865,58 @@ assume this exact order still holds after a few weeks of new data.
   and that the shortcut formula is off by about three dollars a month. Every
   figure computed first.
 
+- **Behavioural scan of every calculator page** (Aug 2, 2026, user asked to
+  settle how much of the site actually works).
+
+  Method deliberately behavioural rather than a code heuristic: load each page,
+  change a visible input, fire the events, click a Calculate button if one
+  exists, and check whether **anything on the page recomputes**. A page can be
+  full of markup, pass every structural check and compute nothing — five of
+  those have been rebuilt this session already.
+
+  **Result: 75 of 206 pages work. 131 do not.** Roughly two thirds of the site
+  does not respond to input at all. Written up in `CALCULATOR_STATUS.md` in the
+  repo root, with the full list both ways, so this does not have to be
+  rediscovered.
+
+  **The 485-line template is an almost perfect tell** — 129 of the 131 broken
+  pages are exactly 485 lines. That makes the two exceptions the important ones,
+  because nothing about their size would ever flag them:
+  - `age-calculator`, 821 lines, broken
+  - `percentage-calculator`, 715 lines, broken
+
+  **The finding that should be acted on first**: `percentage-calculator` is one
+  of only six calculators linked from the **shared footer on all 214 pages**,
+  and it is the only one of those six that does not work. Every page on the site
+  currently points visitors and crawlers at a calculator that computes nothing.
+  The other five (mortgage, loan, income-tax, bmi, compound-interest) are fine.
+
+  **Six broken pages duplicate a working one**, so a redirect is cheaper than a
+  build and removes near-duplicate thin content: `crypto-profit-calculator` →
+  `crypto-profit-loss-calculator`, `mortgage-amortization-calculator` →
+  `amortization-calculator`, `payment-calculator` and `repayment-calculator` →
+  `loan-calculator`, `simple-interest-calculator` → `interest-calculator`,
+  `roi-calculator` → `irr-calculator`.
+
+  Six further pages render **no visible inputs at all** — `scientific-calculator`,
+  `statistics-calculator`, `standard-deviation-calculator`,
+  `mean-median-mode-range-calculator`, `base64-encode-decode`,
+  `url-encode-decode` — so they are not merely inert, they have no interface.
+
+  **A methodology mistake worth recording.** The first hand-verification of the
+  scanner's verdicts compared only the first 160 characters of the rendered
+  text, which is breadcrumb and heading, and duly reported `tip-calculator` — a
+  page known to work — as broken. The scanner itself compared the whole text and
+  was right. Spot-checks need to be at least as rigorous as the thing they are
+  checking, or they manufacture false conclusions about correct work. Re-run
+  against the full text, the two LIVE controls changed and the DEAD ones did
+  not, and the verdicts held.
+
+  This also reframes the sidebar question from earlier in the session: adding
+  related-calculator links to the 137 short pages would have been pointing
+  internal link equity at pages that compute nothing. The scan should come
+  before any sitewide linking work, not after.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
