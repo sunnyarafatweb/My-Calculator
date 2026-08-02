@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>IRR Calculator — Internal Rate of Return | CalculatorBoss</title><meta name="description" content="Calculate the internal rate of return for a series of cash flows — the discount rate at which the investment breaks even."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/irr-calculator/"/><meta property="og:title" content="IRR Calculator | CalculatorBoss"/><meta property="og:description" content="Solve for the discount rate where a cash-flow series breaks even."/><meta property="og:url" content="https://calculatorboss.com/irr-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>IRR Calculator — Internal Rate of Return on Any Cash Flow</title><meta name="description" content="Free IRR calculator for fixed recurring or irregular annual cash flows. See the internal rate of return, gross return and the NPV curve behind it."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="irr calculator,internal rate of return calculator,npv calculator,discounted cash flow calculator,cash flow return calculator,investment return calculator,capital budgeting calculator,irr formula"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/irr-calculator/"/><meta property="og:title" content="IRR Calculator — Internal Rate of Return on Any Cash Flow"/><meta property="og:description" content="Free IRR calculator for fixed recurring or irregular annual cash flows. See the internal rate of return, gross return and the NPV curve behind it."/><meta property="og:url" content="https://calculatorboss.com/irr-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/irr-calculator.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="IRR Calculator — Internal Rate of Return on Any Cash Flow"/><meta name="twitter:description" content="Free IRR calculator for fixed recurring or irregular annual cash flows. See the internal rate of return, gross return and the NPV curve behind it."/><meta name="twitter:image" content="https://calculatorboss.com/og/irr-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -275,7 +275,7 @@
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"IRR","item":"https://calculatorboss.com/irr-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"IRR Calculator","item":"https://calculatorboss.com/irr-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +349,893 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does IRR differ from a simple ROI?","acceptedAnswer":{"@type":"Answer","text":"ROI looks only at the total starting and ending amounts. IRR accounts for exactly when each cash flow happens — money returned sooner is worth more, which IRR correctly reflects and a basic ROI calculation does not."}},{"@type":"Question","name":"Why might this say no rate was found?","acceptedAnswer":{"@type":"Answer","text":"IRR requires the cash flow series to change sign at least once — typically an outflow followed by inflows. If every flow after the initial investment is positive (or all the same sign throughout), there's no breakeven rate to solve for."}},{"@type":"Question","name":"What counts as a 'good' IRR?","acceptedAnswer":{"@type":"Answer","text":"It depends entirely on the alternative — compare the IRR to your cost of capital, a relevant benchmark return, or what else you could realistically do with the money. There's no universal good number."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"IRR Calculator","url":"https://calculatorboss.com/irr-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">IRR Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">IRR Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Enter an initial investment and the cash flows it returns each year — find the rate at which it exactly breaks even.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><h2 class="font-display text-lg text-ink">Cash flows</h2><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Initial investment (year 0)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">−$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="1000"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:0.09000900090009001%;background:var(--accent)"></div><input type="range" min="100" max="1000000" step="100" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Initial investment (year 0)" value="1000"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(0.09000900090009001% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Year 1 cash flow</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50.3%;background:var(--accent)"></div><input type="range" min="-50000" max="50000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Year 1 cash flow" value="300"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50.3% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Year 2 cash flow</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50.3%;background:var(--accent)"></div><input type="range" min="-50000" max="50000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Year 2 cash flow" value="300"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50.3% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Year 3 cash flow</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50.3%;background:var(--accent)"></div><input type="range" min="-50000" max="50000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Year 3 cash flow" value="300"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50.3% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Year 4 cash flow</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50.3%;background:var(--accent)"></div><input type="range" min="-50000" max="50000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Year 4 cash flow" value="300"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50.3% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Year 5 cash flow</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50.3%;background:var(--accent)"></div><input type="range" min="-50000" max="50000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Year 5 cash flow" value="300"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50.3% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Internal rate of return</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">15.24%</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">IRR is the discount rate at which this exact series of cash flows breaks even — net present value of zero. Compare it to your cost of capital or a benchmark return to judge whether the investment is worthwhile.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A <span class="tabular">$1,000</span> investment returning <span class="tabular">$300</span> a year for <span class="tabular">5</span> years has an IRR of roughly <span class="tabular">15.2%</span> — the discount rate at which those five $300 payments are worth exactly $1,000 today.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How does IRR differ from a simple ROI?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">ROI looks only at the total starting and ending amounts. IRR accounts for exactly when each cash flow happens — money returned sooner is worth more, which IRR correctly reflects and a basic ROI calculation does not.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why might this say no rate was found?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">IRR requires the cash flow series to change sign at least once — typically an outflow followed by inflows. If every flow after the initial investment is positive (or all the same sign throughout), there&#x27;s no breakeven rate to solve for.</p></div><div><h3 class="font-medium text-ink mb-1.5">What counts as a &#x27;good&#x27; IRR?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It depends entirely on the alternative — compare the IRR to your cost of capital, a relevant benchmark return, or what else you could realistically do with the money. There&#x27;s no universal good number.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not financial advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<style>
+.irr-wrap{max-width:100%;font-family:var(--font-body);color:var(--ink);font-size:14px}
+
+.irr-grid{display:grid;grid-template-columns:minmax(300px,390px) minmax(320px,1fr) minmax(250px,300px);gap:20px;align-items:start;
+  grid-template-areas:"tabs tabs ." "bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.irr-area-bar{grid-area:bar}
+.irr-area-form{grid-area:form}
+.irr-area-result{grid-area:result}
+.irr-area-sidebar{grid-area:sidebar}
+.irr-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:940px){
+  .irr-grid{grid-template-columns:1fr;grid-template-areas:"tabs" "bar" "form" "result" "bottomgrid" "sidebar"}
+}
+
+
+.irr-bar{padding:14px 16px;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.irr-bar-text{display:flex;align-items:center;gap:10px}
+.irr-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:12px;flex-shrink:0}
+.irr-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+
+.irr-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.irr-card-pad{padding:22px}
+.irr-field{display:flex;align-items:center;gap:8px;padding:6px 0;flex-wrap:wrap}
+.irr-field-label{width:142px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.irr-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.irr-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.irr-input-group span{padding:0 8px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.irr-input-group input{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.irr-select{border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink);font-family:var(--font-body);font-size:13px;padding:8px 6px;min-width:0;flex:1;cursor:pointer}
+.irr-hint{font-size:12px;color:var(--ink-faint);margin-top:2px;line-height:1.5}
+
+.irr-seg{display:flex;flex:1;min-width:0;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.irr-seg button{flex:1;border:none;background:#fff;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:10px 4px;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+.irr-seg button.active{background:#1E3A5F;color:#fff}
+.irr-seg button + button{border-left:1px solid var(--border-fine)}
+.irr-btn-row{display:flex;gap:8px;padding-top:16px}
+.irr-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;flex:1.3}
+.irr-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer;flex:1}
+
+.irr-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
+.irr-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.irr-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.irr-result-head.negative{background:#DC2626}
+.irr-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.irr-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.irr-result-head .verdict-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:6px;line-height:1.45}
+.irr-warning{margin:14px 20px 0;padding:10px 12px;background:#FEF3C7;border:1px solid #FBBF24;color:#92400E;border-radius:8px;font-size:12px;line-height:1.5}
+.irr-result-body{padding:16px 20px}
+.irr-result-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;gap:10px}
+.irr-result-row:first-child{border-top:none}
+.irr-result-row span:first-child{color:var(--ink-soft)}
+.irr-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.irr-result-row.total{font-weight:700;font-size:14.5px}
+
+.irr-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.irr-donut-svg{width:150px;height:150px;flex-shrink:0}
+.irr-donut-legend{display:flex;flex-direction:column;gap:10px;flex:1;min-width:150px}
+.irr-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.irr-donut-legend .lg .t{flex:1 1 auto;min-width:0}
+.irr-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
+.irr-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:8px;white-space:nowrap}
+.irr-donut-legend .lg em{font-style:normal;color:var(--ink-faint);padding-left:6px}
+.irr-panel-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.irr-panel-head{padding:15px 20px 0;font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.irr-note{font-size:12px;color:var(--ink-faint);margin:0 20px 18px;line-height:1.6}
+
+.irr-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.irr-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.irr-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.irr-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.irr-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.irr-bottom-stack{display:flex;flex-direction:column;gap:16px;width:100%;min-width:0}
+.irr-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:860px){.irr-bottom-grid{grid-template-columns:1fr}}
+.irr-histtable-scroll{max-height:460px}
+.irr-histtable{min-width:820px}
+.irr-histtable th{font-size:11.5px;padding:9px 8px}
+.irr-histtable td{padding:6px 8px;font-size:12px;white-space:nowrap}
+.irr-histtable td:first-child{font-weight:600;color:var(--ink)}
+.irr-histtable tbody tr:nth-child(even){background:var(--surface-sunken)}
+.irr-histtable td.up{color:var(--ink);font-weight:400}
+.irr-histtable td.down{color:#DC2626;font-weight:600}
+@media(max-width:520px){.irr-histtable{min-width:760px}.irr-histtable th,.irr-histtable td{padding:6px 5px;font-size:11.5px}}
+.irr-sched-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.irr-sched-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:10px}
+.irr-sched-head .t{font-size:15px;font-weight:700;color:var(--ink)}
+.irr-sched-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
+.irr-sched-table{min-width:460px;width:100%;font-size:12.5px;border-collapse:collapse}
+.irr-sched-table th{position:sticky;top:0;background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:12px;text-transform:uppercase}
+.irr-sched-table th:first-child,.irr-sched-table td:first-child{text-align:left}
+.irr-sched-table td{padding:7px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.irr-sched-table td.up{color:#16A34A;font-weight:600}
+.irr-sched-table td.down{color:#DC2626;font-weight:600}
+.irr-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.irr-chart-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px;display:block}
+.irr-svg{width:100%;height:auto;display:block}
+.irr-chart-legend{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
+.irr-chart-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+
+@media(max-width:520px){
+  .irr-field{flex-wrap:wrap}
+  .irr-field-label{width:100%}
+  .irr-sched-table{min-width:0;font-size:12px}
+  .irr-sched-table th,.irr-sched-table td{padding:7px 6px}
+  .irr-result-head .bignum{font-size:26px}
+}
+
+.irr-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.irr-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.irr-seo-article h2:first-child{margin-top:0}
+.irr-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.irr-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.irr-seo-article strong{color:var(--ink);font-weight:600}
+.irr-seo-article em{font-style:italic}
+.irr-seo-article ul,.irr-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.irr-seo-article ul li strong,.irr-seo-article ol li strong{color:var(--ink)}
+.irr-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.8;white-space:normal;word-break:break-word}
+.irr-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.irr-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.irr-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:7px 0;min-height:32px;text-decoration:none}
+.irr-toc a:hover{color:#1E3A5F}
+
+.irr-schedtabs{display:flex;border:1px solid var(--border-fine);border-radius:8px;overflow:hidden}
+.irr-schedtabs button{border:none;background:#fff;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;font-family:var(--font-body)}
+.irr-schedtabs button.active{background:#1E3A5F;color:#fff}
+.irr-schedtabs button + button{border-left:1px solid var(--border-fine)}
+.irr-pair{display:flex;gap:6px;flex:1;min-width:0}
+.irr-pair .irr-input-group{flex:1}
+.irr-select{border:1px solid var(--border-fine);border-radius:8px;background:#fff;color:var(--ink);font-family:var(--font-body);font-size:13px;padding:8px 6px;flex:1;min-width:0;cursor:pointer}
+
+.irr-lines-legend{display:flex;justify-content:center;gap:14px;font-size:12px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
+.irr-lines-legend i{width:14px;height:3px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:3px}
+.irr-bignum-pct{font-size:34px}
+
+.irr-area-tabs{grid-area:tabs}
+.irr-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.irr-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--font-body)}
+.irr-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.irr-cf-list{display:flex;flex-direction:column;gap:6px;max-height:330px;overflow-y:auto;padding-right:4px;margin-top:2px}
+.irr-cf-row{display:flex;align-items:center;gap:8px}
+.irr-cf-row label{width:58px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.irr-cf-row .irr-input-group{flex:1}
+.irr-linkbtn{background:none;border:none;color:#1E3A5F;font-size:12.5px;font-weight:600;cursor:pointer;padding:6px 0;font-family:var(--font-body);text-decoration:underline}
+.irr-flag{margin:0 20px 14px;padding:10px 12px;background:#EFF6FF;border:1px solid #93C5FD;color:#1E3A5F;border-radius:8px;font-size:12px;line-height:1.5}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the internal rate of return in plain terms?","acceptedAnswer":{"@type":"Answer","text":"It is the annual rate at which an investment exactly breaks even once you account for when the money moves. Discount every cash flow back to today at the IRR and the pluses and minuses cancel to zero. That makes it the return the project earns on the money while it is actually tied up, which is why two investments returning the same total can have very different IRRs."}},{"@type":"Question","name":"How is IRR calculated?","acceptedAnswer":{"@type":"Answer","text":"By trial. The equation sets net present value to zero and asks for the discount rate, but the rate appears inside an exponent at every time period, so there is no way to isolate it algebraically. Calculators and spreadsheets test rates until the net present value lands on zero. This page scans a wide range, finds every point where the value crosses zero, then narrows each crossing to well beyond the precision you need."}},{"@type":"Question","name":"What is a good IRR?","acceptedAnswer":{"@type":"Answer","text":"Only in comparison to something. IRR is judged against a hurdle rate — your cost of capital, or the return you could get elsewhere for similar risk. Above the hurdle the project adds value; below it, the money is better used elsewhere. A 12% IRR is excellent against a 6% hurdle and a poor result against 20%. There is no threshold that is good in isolation."}},{"@type":"Question","name":"Why do two investments with the same total return have different IRRs?","acceptedAnswer":{"@type":"Answer","text":"Timing. Take $80,000 invested with $100,000 coming back over five years. Received front-loaded — $30,000 then $25,000, $20,000, $15,000, $10,000 — the IRR is 9.655%. Received in the reverse order it is 6.697%. The gross return is 25% in both cases, but early cash is free to be used again sooner, and IRR is the only one of the two measures that notices."}},{"@type":"Question","name":"Can an investment have more than one IRR?","acceptedAnswer":{"@type":"Answer","text":"Yes, whenever the cash flows change direction more than once — money out, then in, then out again. The textbook case is $4,000 out, $25,000 back, then $25,000 out, which produces zero net present value at both 25% and 400%. Neither is more correct than the other. This page counts the sign changes and warns you when the pattern allows it, because a single IRR figure quietly stops meaning much at that point."}},{"@type":"Question","name":"What is the difference between IRR and NPV?","acceptedAnswer":{"@type":"Answer","text":"They are the same equation read in opposite directions. NPV fixes a discount rate and tells you the value in today's money; IRR fixes the value at zero and tells you the rate. NPV answers how much a project is worth, IRR answers what rate it earns. When ranking projects of different sizes, NPV is usually the sounder guide, because a small project can post a spectacular IRR on a trivial amount of money."}},{"@type":"Question","name":"What does the calculator assume about reinvesting the cash?","acceptedAnswer":{"@type":"Answer","text":"That every interim cash flow is reinvested at the IRR itself. That assumption is built into the arithmetic and it is often optimistic — a project returning 30% rarely has somewhere to put the proceeds at 30%. The modified internal rate of return, MIRR, exists to let you set a realistic reinvestment rate separately. Treat a very high IRR with that in mind."}},{"@type":"Question","name":"Why does the fixed cash flow mode ask for a holding period and an ending balance?","acceptedAnswer":{"@type":"Answer","text":"Because that mode describes an account rather than a project: you put an amount in, you withdraw or add a set sum on a schedule, and at the end there is a balance. The calculator turns that into a cash flow series and solves it the same way. Set the recurring amount to $0 and you get a plain buy-and-hold annualised return between the two balances."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"IRR Calculator","url":"https://calculatorboss.com/irr-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","description":"Calculate the internal rate of return for a fixed recurring cash flow or an irregular series of annual cash flows, with gross return, an NPV curve and a full discounted cash flow table.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en-US","isAccessibleForFree":true,"dateModified":"2026-08-02","featureList":["IRR for a fixed recurring cash flow at seven frequencies","IRR for irregular annual cash flows, up to 50 years","Beginning or end of period timing","Cumulative withdrawals or deposits, total return and gross return","Net present value curve against discount rate","Discounted cash flow table with running NPV","Multiple-IRR detection and warning","PDF export"],"publisher":{"@type":"Organization","name":"CalculatorBoss","url":"https://calculatorboss.com/"}}</script>
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">IRR Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">IRR Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Find the internal rate of return on a regular holding or an uneven run of cash flows &mdash; and see the NPV curve behind the answer.</p>
+
+<div class="irr-wrap">
+<div class="irr-grid">
+
+  <div class="irr-tabs irr-area-tabs" id="irr-tabs" role="tablist" aria-label="IRR calculator modes">
+    <button type="button" class="irr-tab active" data-mode="fixed" role="tab" aria-selected="true">Fixed Cash Flow</button><button type="button" class="irr-tab" data-mode="irregular" role="tab" aria-selected="false">Irregular Cash Flow</button>
+  </div>
+
+  <div class="irr-bar irr-area-bar">
+    <span class="irr-bar-text"><span class="irr-bar-badge">&#9662;</span><span>Change any value to update the result instantly</span></span>
+    <button type="button" class="irr-bar-pdf-btn" id="irr-pdfBtn">&#128190; Save as PDF</button>
+  </div>
+
+  <div class="irr-card irr-area-form" id="irr-form">
+    <div class="irr-card-pad">
+
+      <div class="irr-field"><span class="irr-field-label">Initial investment</span><div class="irr-field-control">
+        <div class="irr-input-group"><span>$</span><input type="text" inputmode="decimal" id="irr-initial" value="25,000"></div>
+      </div></div>
+
+      <div id="irr-fixedFields">
+        <div class="irr-field"><span class="irr-field-label">Holding period</span><div class="irr-field-control">
+          <div class="irr-pair">
+            <div class="irr-input-group"><input type="text" inputmode="numeric" id="irr-years" value="4" aria-label="Holding years"><span>yr</span></div>
+            <div class="irr-input-group"><input type="text" inputmode="numeric" id="irr-months" value="0" aria-label="Holding months"><span>mo</span></div>
+          </div>
+        </div></div>
+
+        <div class="irr-field"><span class="irr-field-label">Ending balance</span><div class="irr-field-control">
+          <div class="irr-input-group"><span>$</span><input type="text" inputmode="decimal" id="irr-ending" value="38,000"></div>
+        </div></div>
+
+        <div class="irr-field"><span class="irr-field-label">Recurring cash flow</span><div class="irr-field-control">
+          <select class="irr-select" id="irr-flowDir" aria-label="Cash flow direction" style="max-width:118px">
+            <option value="w" selected>Withdraw</option>
+            <option value="d">Deposit</option>
+          </select>
+          <div class="irr-input-group"><span>$</span><input type="text" inputmode="decimal" id="irr-amount" value="150" aria-label="Recurring amount"></div>
+        </div></div>
+
+        <div class="irr-field"><span class="irr-field-label">How often</span><div class="irr-field-control">
+          <select class="irr-select" id="irr-freq" aria-label="Frequency">
+            <option value="a">Annually</option>
+            <option value="sa">Semiannually</option>
+            <option value="q" selected>Quarterly</option>
+            <option value="m">Monthly</option>
+            <option value="sm">Semimonthly</option>
+            <option value="bw">Biweekly</option>
+            <option value="w">Weekly</option>
+          </select>
+        </div></div>
+
+        <div class="irr-field"><span class="irr-field-label">At the</span><div class="irr-field-control">
+          <div class="irr-seg" id="irr-timing" role="group" aria-label="Cash flow timing">
+            <button type="button" data-t="b" aria-pressed="false">Beginning</button><button type="button" data-t="e" class="active" aria-pressed="true">End</button>
+          </div>
+        </div></div>
+        <div class="irr-hint">Of each period. Set the recurring amount to $0 for a plain buy-and-hold return.</div>
+      </div>
+
+      <div id="irr-irregularFields" style="display:none">
+        <div class="irr-hint" style="margin:6px 0 8px">One figure per year. Positive is money coming back to you, negative is more money going in.</div>
+        <div class="irr-cf-list" id="irr-cfList"></div>
+        <button type="button" class="irr-linkbtn" id="irr-addYear">+ Add another year</button>
+      </div>
+
+      <div class="irr-btn-row">
+        <button type="button" class="irr-btn-calc" id="irr-calcBtn">Calculate &#9656;</button>
+        <button type="button" class="irr-btn-clear" id="irr-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="irr-resultcol irr-area-result">
+    <div class="irr-result-card">
+      <div class="irr-result-head" id="irr-resultHead">
+        <div class="label">Internal Rate of Return</div>
+        <div class="bignum irr-bignum-pct" id="irr-bignum">0.000%</div>
+        <div class="verdict-sub" id="irr-verdictSub"></div>
+      </div>
+      <div class="irr-warning" id="irr-warningBanner" style="display:none"></div>
+      <div class="irr-flag" id="irr-multiFlag" style="display:none"></div>
+      <div class="irr-result-body" id="irr-resultRows"></div>
+      <div class="irr-donut-box">
+        <svg viewBox="0 0 150 150" class="irr-donut-svg" id="irr-donutSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Breakdown of money in and money returned"></svg>
+        <div class="irr-donut-legend" id="irr-donutLegend"></div>
+      </div>
+    </div>
+
+    <div class="irr-panel-card">
+      <div class="irr-panel-head">Cash Flow Timeline</div>
+      <div style="padding:12px 20px 0"><div id="irr-flowChart"></div></div>
+      <p class="irr-note" id="irr-flowNote">IRR is the single annual rate at which every one of these flows, discounted back to today, nets out to exactly zero.</p>
+    </div>
+  </div>
+
+  <div class="irr-sidecol irr-area-sidebar">
+    <div class="irr-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/investment-calculator/">Investment <span class="arrow">&rarr;</span></a>
+      <a href="/interest-calculator/">Interest <span class="arrow">&rarr;</span></a>
+      <a href="/interest-rate-calculator/">Interest Rate <span class="arrow">&rarr;</span></a>
+      <a href="/present-value-calculator/">Present Value <span class="arrow">&rarr;</span></a>
+      <a href="/future-value-calculator/">Future Value <span class="arrow">&rarr;</span></a>
+      <a href="/compound-interest-calculator/">Compound Interest <span class="arrow">&rarr;</span></a>
+      <a href="/all-calculators/#fin" class="irr-viewmore">View More <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="irr-bottom-grid irr-area-bottomgrid">
+    <div class="irr-sched-card">
+      <div class="irr-sched-head">
+        <span class="t">Discounted Cash Flow at the IRR</span>
+        <span class="t" style="font-size:12px;font-weight:600;color:var(--ink-faint)" id="irr-schedMeta"></span>
+      </div>
+      <div class="irr-sched-scroll">
+        <table class="irr-sched-table">
+          <thead id="irr-schedHead"></thead>
+          <tbody id="irr-schedBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="irr-chart-card">
+      <span class="t">NPV Against Discount Rate</span>
+      <div id="irr-npvChart"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<article class="irr-seo-article">
+<div class="irr-byline">Written by the CalculatorBoss Finance Team &middot; Reviewed for accuracy &middot; Last updated August 2026</div>
+<nav class="irr-toc"><a href="#irr-a-what">What This Calculator Works Out</a><a href="#irr-a-def">What IRR Actually Is</a><a href="#irr-a-how">How It Is Calculated</a><a href="#irr-a-modes">Which Mode to Use</a><a href="#irr-a-inputs">What Each Input Means</a><a href="#irr-a-npv">Reading the NPV Curve</a><a href="#irr-a-timing">Why Timing Beats Totals</a><a href="#irr-a-uses">What IRR Is Used For</a><a href="#irr-a-limits">Where IRR Misleads</a><a href="#irr-a-vs">IRR vs. NPV vs. ROI</a><a href="#irr-a-leaves">What This Calculator Leaves Out</a><a href="#irr-a-faq">Frequently Asked Questions</a></nav>
+
+<h2 id="irr-a-what">What This Calculator Works Out</h2>
+<p>Two questions get asked about an investment. How much did it make, and how well did it make it? The first is arithmetic. The second has to account for <em>when</em> the money moved, and that is what the internal rate of return measures.</p>
+<p>The page has two modes because cash flows come in two shapes. The <strong>fixed cash flow</strong> mode handles an account: a sum in, a regular withdrawal or deposit, a balance at the end. The <strong>irregular cash flow</strong> mode handles a project: an amount in, then whatever comes back each year, in any pattern including years where more money goes out.</p>
+<p>The figures it opens on describe a modest holding: <strong>$25,000 invested, $150 withdrawn every quarter, ending at $38,000 after four years</strong>. That is an IRR of <strong>13.206% a year</strong>. Cumulative withdrawals come to $2,400, total return to $15,400, and the gross return to 61.6% — which sounds far more impressive than 13.206% until you remember it took four years to earn.</p>
+
+<h2 id="irr-a-def">What IRR Actually Is</h2>
+<p>The internal rate of return is the discount rate at which an investment's net present value comes out to exactly zero.</p>
+<p>That definition is precise and initially unhelpful, so here is the same thing said differently. Money arriving in five years is worth less than money arriving today, and a discount rate is how much less. Pick a low discount rate and a profitable project looks very valuable; pick a high one and its future cash shrinks until the project looks worthless. Somewhere between the two is a rate where it is worth exactly what it cost. That rate is the IRR.</p>
+<p>Read that way, IRR is the break-even rate. If the project's IRR is above what your money costs you, the project pays for itself and more. If it is below, you are funding it at a loss even though the raw numbers may look positive.</p>
+
+<h2 id="irr-a-how">How It Is Calculated</h2>
+<p>The equation is the net present value formula with the answer fixed at zero:</p>
+<div class="irr-formula">0 = &Sigma; CF<sub>t</sub> &divide; (1 + r)<sup>t</sup> &nbsp;&nbsp;for t = 0 to n<br><br>CF<sub>t</sub> = the cash flow at time t (CF<sub>0</sub> is normally negative, the money going in)<br>r = the internal rate of return &nbsp;&middot;&nbsp; t = the period number</div>
+<p>Here is the honest complication: that equation cannot be rearranged for <strong>r</strong>. The rate sits inside an exponent at every single time period, and there is no algebraic manoeuvre that pulls it out. For anything beyond two periods, no closed-form solution exists — this is a mathematical fact, not a shortcoming of the tool.</p>
+<p>So it is solved numerically. This page sweeps a wide band of rates, watches for every point where the net present value crosses from positive to negative or back, and then narrows each crossing by repeated halving until it is exact to far more decimal places than anyone needs. Sweeping rather than starting from a single guess matters, because as the section on limitations explains, some cash flow patterns have more than one answer, and a solver that stops at the first one it stumbles on will hide that from you.</p>
+<p>The discounted cash flow table below the results shows the working: every flow, its discount factor at the solved rate, its present value, and the running total. That last column should finish on zero, and it does — that is the check that the answer is right.</p>
+
+<h2 id="irr-a-modes">Which Mode to Use</h2>
+<ul>
+<li><strong>Fixed cash flow</strong> — for an account or holding with a regular rhythm. A brokerage account you draw from monthly, a rental deposit, a savings pot you top up quarterly. You know the start, the end, and the size of the repeating flow. Set the recurring amount to $0 and it becomes a straight annualised return between two balances.</li>
+<li><strong>Irregular cash flow</strong> — for a project. A machine bought for $40,000 that returns different amounts each year, a property with an uneven rental history and a sale at the end, a business investment needing another injection in year two. Enter one figure per year, negative when more money goes in.</li>
+</ul>
+<p>Both modes solve the same equation. The difference is only how the cash flow series is assembled before it gets there.</p>
+<p>One limitation to know: the irregular mode works in whole years. For flows at irregular dates, a spreadsheet's XIRR function handles arbitrary dates, and for sub-annual regular patterns the fixed mode already covers it at seven frequencies.</p>
+
+<h2 id="irr-a-inputs">What Each Input Means</h2>
+<p><strong>Fixed cash flow mode</strong></p>
+<ul>
+<li><strong>Initial investment</strong> — what went in at the start.</li>
+<li><strong>Holding period</strong> — how long you held it, in years and months.</li>
+<li><strong>Ending balance</strong> — what it was worth at the end, before any final withdrawal.</li>
+<li><strong>Recurring cash flow</strong> — the repeating amount, and whether it leaves the account or goes into it.</li>
+<li><strong>How often</strong> — from annually down to weekly. The rate is solved per period and then annualised.</li>
+<li><strong>At the</strong> — whether the flow lands at the beginning or the end of each period. Over <em>n</em> periods there are <em>n</em> beginnings and <em>n</em> ends, so the count is the same either way; only the timing shifts, and with it the return.</li>
+</ul>
+<p><strong>Irregular cash flow mode</strong></p>
+<ul>
+<li><strong>Initial investment</strong> — the upfront cost, entered as a positive number. It is treated as money out.</li>
+<li><strong>Year 1, 2, 3…</strong> — the net cash flow for each year. Positive is money coming back, negative is more money going in. Add years as you need them.</li>
+</ul>
+
+<h2 id="irr-a-npv">Reading the NPV Curve</h2>
+<p>The chart beside the schedule plots net present value against every discount rate in a band around the answer. It is worth understanding because it makes IRR visible rather than abstract.</p>
+<p>The curve slopes downward: the more heavily you discount future money, the less a project is worth today. Where it crosses the zero line is the IRR — that is the definition, drawn. Everything to the left of the crossing is a discount rate at which the project is worth more than it cost; everything to the right is a rate at which it is not.</p>
+<p>The shape carries information too. A curve that plunges steeply through zero belongs to a project whose value is highly sensitive to the discount rate, typically because its cash arrives late. A shallow crossing means the answer is robust — you could be wrong about your cost of capital by a couple of points and the conclusion would not change. And if the curve crosses zero more than once, you can see immediately that a single IRR figure is not telling the whole story.</p>
+
+<h2 id="irr-a-timing">Why Timing Beats Totals</h2>
+<p>This is the point of the whole metric, and it is easiest to see with two investments that look identical on paper.</p>
+<p>Both cost <strong>$80,000</strong> and both return <strong>$100,000</strong> over five years. The first pays $30,000, then $25,000, $20,000, $15,000 and $10,000. The second pays exactly the same amounts in reverse: $10,000 first, rising to $30,000 in year five.</p>
+<p>Gross return is 25% for both. Total profit is $20,000 for both. Any measure that ignores timing calls them equal. But the IRRs are <strong>9.655%</strong> and <strong>6.697%</strong> — nearly three percentage points apart, on cash flows that add up to the same number.</p>
+<p>The reason is that money returned early is free again early. It can pay down debt, fund the next project, or simply sit earning something. Money locked up until year five does none of that. IRR prices the difference; gross return cannot see it.</p>
+
+<h2 id="irr-a-uses">What IRR Is Used For</h2>
+<ul>
+<li><strong>Capital budgeting.</strong> Ranking competing projects when there is not enough money for all of them.</li>
+<li><strong>Hurdle rate tests.</strong> Comparing a project's IRR against the cost of the capital funding it. Above the hurdle, proceed; below it, do not.</li>
+<li><strong>Private equity and venture capital.</strong> The standard headline measure for fund performance, precisely because capital is drawn and returned unevenly over years.</li>
+<li><strong>Real estate.</strong> Combining rental income across a holding period with the sale proceeds at the end into one comparable figure.</li>
+<li><strong>Personal investing.</strong> Working out what an account actually earned when you have been paying in or drawing down along the way, which a simple start-to-finish percentage gets wrong.</li>
+<li><strong>Lease and finance comparisons.</strong> Reducing several payment structures to a single rate.</li>
+</ul>
+
+<h2 id="irr-a-limits">Where IRR Misleads</h2>
+<p>IRR is a good metric with well-known failure modes, and knowing them matters more than knowing the formula.</p>
+<ul>
+<li><strong>It is blind to scale.</strong> A 60% IRR on $1,000 is a smaller amount of actual money than a 12% IRR on $2 million. IRR ranks percentages, not profits, so it will happily prefer the trivial project.</li>
+<li><strong>It assumes reinvestment at the IRR itself.</strong> The arithmetic implicitly requires every interim cash flow to be reinvested at the same rate. For a project returning 30%, that is usually fantasy. MIRR exists specifically to let you set a realistic reinvestment rate.</li>
+<li><strong>Multiple IRRs are real.</strong> When cash flows change direction more than once, the equation can have several valid solutions. The standard illustration — $4,000 out, $25,000 back, $25,000 out again — has net present value of zero at both <strong>25%</strong> and <strong>400%</strong>, and neither is more correct. This page counts the sign changes and warns you when the pattern permits it.</li>
+<li><strong>No solution at all.</strong> If every flow points the same way, there is nothing to break even against and no IRR exists. The calculator says so rather than inventing a number.</li>
+<li><strong>It says nothing about risk.</strong> Two projects with identical IRRs can carry wildly different odds of achieving them. IRR takes the forecast as given.</li>
+</ul>
+
+<h2 id="irr-a-vs">IRR vs. NPV vs. ROI</h2>
+<p>Three measures, three different questions.</p>
+<ul>
+<li><strong>ROI</strong> asks what fraction of the money came back as profit. Simple and time-blind: the two five-year investments above both score 25%.</li>
+<li><strong>NPV</strong> asks what a project is worth in today's dollars at a discount rate you choose. It answers in currency, so it respects scale, which makes it the better tool for choosing between projects of different sizes.</li>
+<li><strong>IRR</strong> asks what rate the project earns. It answers in percent, which makes it easy to compare against a hurdle rate but blind to how much money is involved.</li>
+</ul>
+<p>They come from the same equation, so they rarely disagree about whether a single project is worthwhile. They disagree about <em>ranking</em>, and when they do, NPV is the one to trust. Most analysts calculate both and treat a large IRR-versus-NPV divergence as a signal to look harder rather than as a tie to break.</p>
+
+<h2 id="irr-a-leaves">What This Calculator Leaves Out</h2>
+<ul>
+<li><strong>Irregular dates.</strong> The irregular mode works in whole years. For flows on specific calendar dates, XIRR in a spreadsheet is the right tool.</li>
+<li><strong>Tax.</strong> Every figure is pre-tax. Real after-tax returns depend on the account type and your own rates.</li>
+<li><strong>Fees.</strong> Management fees, transaction costs and carried interest are not modeled unless you fold them into the cash flows yourself.</li>
+<li><strong>MIRR.</strong> No separate reinvestment rate; the standard IRR assumption applies.</li>
+<li><strong>Inflation.</strong> The result is a nominal rate. Subtract expected inflation for the real one, or see the <a href="/inflation-calculator/">Inflation Calculator</a> for actual price data.</li>
+<li><strong>Risk.</strong> Nothing here reflects the probability that the forecast cash flows actually arrive.</li>
+</ul>
+<p>For a simpler growth projection with a known rate, the <a href="/investment-calculator/">Investment Calculator</a> is a better fit; to find the rate on a loan rather than an investment, see the <a href="/interest-rate-calculator/">Interest Rate Calculator</a>; and for discounting a single future amount, the <a href="/present-value-calculator/">Present Value Calculator</a>.</p>
+
+<h2 id="irr-a-faq">Frequently Asked Questions</h2>
+<h3>What is the internal rate of return in plain terms?</h3>
+<p>It is the annual rate at which an investment exactly breaks even once you account for when the money moves. Discount every cash flow back to today at the IRR and the pluses and minuses cancel to zero. That makes it the return the project earns on the money while it is actually tied up, which is why two investments returning the same total can have very different IRRs.</p>
+<h3>How is IRR calculated?</h3>
+<p>By trial. The equation sets net present value to zero and asks for the discount rate, but the rate appears inside an exponent at every time period, so there is no way to isolate it algebraically. Calculators and spreadsheets test rates until the net present value lands on zero. This page scans a wide range, finds every point where the value crosses zero, then narrows each crossing to well beyond the precision you need.</p>
+<h3>What is a good IRR?</h3>
+<p>Only in comparison to something. IRR is judged against a hurdle rate — your cost of capital, or the return you could get elsewhere for similar risk. Above the hurdle the project adds value; below it, the money is better used elsewhere. A 12% IRR is excellent against a 6% hurdle and a poor result against 20%. There is no threshold that is good in isolation.</p>
+<h3>Why do two investments with the same total return have different IRRs?</h3>
+<p>Timing. Take $80,000 invested with $100,000 coming back over five years. Received front-loaded — $30,000 then $25,000, $20,000, $15,000, $10,000 — the IRR is 9.655%. Received in the reverse order it is 6.697%. The gross return is 25% in both cases, but early cash is free to be used again sooner, and IRR is the only one of the two measures that notices.</p>
+<h3>Can an investment have more than one IRR?</h3>
+<p>Yes, whenever the cash flows change direction more than once — money out, then in, then out again. The textbook case is $4,000 out, $25,000 back, then $25,000 out, which produces zero net present value at both 25% and 400%. Neither is more correct than the other. This page counts the sign changes and warns you when the pattern allows it, because a single IRR figure quietly stops meaning much at that point.</p>
+<h3>What is the difference between IRR and NPV?</h3>
+<p>They are the same equation read in opposite directions. NPV fixes a discount rate and tells you the value in today's money; IRR fixes the value at zero and tells you the rate. NPV answers how much a project is worth, IRR answers what rate it earns. When ranking projects of different sizes, NPV is usually the sounder guide, because a small project can post a spectacular IRR on a trivial amount of money.</p>
+<h3>What does the calculator assume about reinvesting the cash?</h3>
+<p>That every interim cash flow is reinvested at the IRR itself. That assumption is built into the arithmetic and it is often optimistic — a project returning 30% rarely has somewhere to put the proceeds at 30%. The modified internal rate of return, MIRR, exists to let you set a realistic reinvestment rate separately. Treat a very high IRR with that in mind.</p>
+<h3>Why does the fixed cash flow mode ask for a holding period and an ending balance?</h3>
+<p>Because that mode describes an account rather than a project: you put an amount in, you withdraw or add a set sum on a schedule, and at the end there is a balance. The calculator turns that into a cash flow series and solves it the same way. Set the recurring amount to $0 and you get a plain buy-and-hold annualised return between the two balances.</p>
+
+<p class="irr-note" style="margin:22px 0 0;padding-top:16px;border-top:1px solid var(--border-fine)">Results are pre-tax and assume the cash flows you enter occur as scheduled. Provided for general information only and not financial or investment advice.</p>
+</article>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var PPY = {a:1, sa:2, q:4, m:12, sm:24, bw:26, w:52};
+  var FREQ_NAME = {a:'year', sa:'half-year', q:'quarter', m:'month', sm:'half-month', bw:'two weeks', w:'week'};
+  var MODE = 'fixed', TIMING = 'e', last = null;
+  var INITIAL = {fixed:'25,000', irregular:'60,000'};
+  var CF = ['12,000','18,000','25,000','30,000'];
+  var MAXCF = 50;
+
+  function num(id, def){
+    var raw = ($(id).value || '').toString().replace(/[, $%]/g,'').trim();
+    var v = parseFloat(raw);
+    return isFinite(v) ? v : def;
+  }
+  function parseAmt(s){
+    var v = parseFloat((s||'').toString().replace(/[, $]/g,'').trim());
+    return isFinite(v) ? v : 0;
+  }
+  function money(v, d){
+    if(!isFinite(v)) return '\u2014';
+    if(d === undefined) d = 2;
+    return (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString('en-US',
+      {minimumFractionDigits:d, maximumFractionDigits:d});
+  }
+  function pct(v, d){ if(d === undefined) d = 3; return (isFinite(v) ? v.toFixed(d) : '\u2014') + '%'; }
+
+  /* ---------------- solver ---------------- */
+  function solveRate(npv, lo, hi){
+    var n = 4000, prev = lo, fprev = npv(lo), roots = [];
+    for(var k = 1; k <= n; k++){
+      var x = lo + (hi - lo) * k / n, fx = npv(x);
+      if(!isFinite(fx)){ prev = x; fprev = fx; continue; }
+      if(isFinite(fprev) && fprev * fx < 0){
+        var l = prev, h = x;
+        for(var j = 0; j < 200; j++){
+          var m = (l + h) / 2;
+          if(npv(l) * npv(m) <= 0) h = m; else l = m;
+        }
+        roots.push((l + h) / 2);
+      }
+      prev = x; fprev = fx;
+    }
+    return roots;
+  }
+  function signChanges(flows){
+    var c = 0, last2 = 0;
+    for(var i = 0; i < flows.length; i++){
+      var s = flows[i] > 0 ? 1 : (flows[i] < 0 ? -1 : 0);
+      if(s === 0) continue;
+      if(last2 !== 0 && s !== last2) c++;
+      last2 = s;
+    }
+    return c;
+  }
+  function npvOf(flows, r){
+    var s = 0;
+    for(var t = 0; t < flows.length; t++) s += flows[t] / Math.pow(1 + r, t);
+    return s;
+  }
+
+  /* ---------------- compute ---------------- */
+  function compute(){
+    var initial = num('irr-initial', 0), warn = '';
+    if(!(initial > 0)) return {bad:true, warn:'Enter an initial investment above zero.'};
+
+    if(MODE === 'fixed'){
+      var yrs = Math.floor(num('irr-years', 0)), mos = Math.floor(num('irr-months', 0));
+      if(!(yrs >= 0)) yrs = 0;
+      if(!(mos >= 0)) mos = 0;
+      var freq = $('irr-freq').value, ppy = PPY[freq];
+      var years = yrs + mos/12;
+      var nP = Math.round(years * ppy);
+      if(nP < 1) return {bad:true, warn:'The holding period must cover at least one full period at this frequency.'};
+      if(nP > 5000) return {bad:true, warn:'That many periods is beyond what this page will chart. Try a lower frequency.'};
+      var ending = num('irr-ending', 0), amt = num('irr-amount', 0);
+      if(amt < 0){ amt = 0; warn = 'The recurring amount cannot be negative \u2014 use the Deposit option instead.'; }
+      var withdraw = ($('irr-flowDir').value === 'w');
+      var atEnd = (TIMING === 'e');
+
+      var cum = amt * nP;
+      var totalReturn = withdraw ? (ending + cum - initial) : (ending - initial - cum);
+      var invested = withdraw ? initial : (initial + cum);
+      var gross = invested > 0 ? totalReturn / invested * 100 : NaN;
+
+      var flows = [];
+      for(var k = 0; k <= nP; k++) flows.push(0);
+      flows[0] = -initial;
+      /* n periods have n beginnings and n ends; a payment is placed at one or the other */
+      for(var p = 1; p <= nP; p++) flows[atEnd ? p : p - 1] += (withdraw ? amt : -amt);
+      flows[nP] += ending;
+
+      var roots = solveRate(function(r){ return npvOf(flows, r); }, -0.9999, 5);
+      if(!roots.length)
+        return {bad:true, nP:nP,
+                warn:'No rate of return fits these figures. Check the ending balance against what went in.'};
+      var per = roots[0];
+      return {bad:false, warn:warn, mode:'fixed', initial:initial, ending:ending, amount:amt,
+              withdraw:withdraw, atEnd:atEnd, freq:freq, ppy:ppy, nP:nP, years:years,
+              cum:cum, invested:invested, totalReturn:totalReturn, gross:gross,
+              annual:(Math.pow(1 + per, ppy) - 1) * 100, periodRate:per * 100,
+              flows:flows, periodRateRaw:per, roots:roots, signs:signChanges(flows)};
+    }
+
+    /* irregular */
+    var cf = [];
+    for(var i = 0; i < CF.length; i++) cf.push(parseAmt(CF[i]));
+    while(cf.length && cf[cf.length-1] === 0) cf.pop();
+    if(!cf.length) return {bad:true, warn:'Enter at least one year of cash flow.'};
+    var flows2 = [-initial].concat(cf);
+    var inflow = 0, further = 0;
+    for(var j = 0; j < cf.length; j++){ if(cf[j] > 0) inflow += cf[j]; else further += -cf[j]; }
+    var invested2 = initial + further;
+    var totalReturn2 = inflow - invested2;
+    var gross2 = invested2 > 0 ? totalReturn2 / invested2 * 100 : NaN;
+    var roots2 = solveRate(function(r){ return npvOf(flows2, r); }, -0.9999, 10);
+    if(!roots2.length)
+      return {bad:true, warn:'No rate of return fits these cash flows. With every flow pointing the same way there is nothing for IRR to solve.'};
+    return {bad:false, warn:'', mode:'irregular', initial:initial, cf:cf, years:cf.length,
+            further:further, invested:invested2, inflow:inflow, totalReturn:totalReturn2,
+            gross:gross2, annual:roots2[0]*100, flows:flows2, roots:roots2,
+            signs:signChanges(flows2)};
+  }
+
+  /* ---------------- donut ---------------- */
+  function renderDonut(r){
+    var segs;
+    if(r.mode === 'fixed'){
+      segs = [{val:r.initial, color:'#1E3A5F', label:'Initial investment'},
+              {val:Math.max(0, r.totalReturn), color:'#16A34A', label:'Total return'}];
+      if(!r.withdraw && r.cum > 0)
+        segs.splice(1, 0, {val:r.cum, color:'#4B4ED8', label:'Further deposits'});
+    } else {
+      segs = [{val:r.initial, color:'#1E3A5F', label:'Initial investment'}];
+      if(r.further > 0) segs.push({val:r.further, color:'#4B4ED8', label:'Further investments'});
+      segs.push({val:Math.max(0, r.totalReturn), color:'#16A34A', label:'Total return'});
+    }
+    var total = segs.reduce(function(a,s){ return a + Math.max(0,s.val); }, 0);
+    var cx=75, cy=75, rad=58, sw=26, circ=2*Math.PI*rad, off=0;
+    var svg = '<circle cx="'+cx+'" cy="'+cy+'" r="'+rad+'" fill="none" stroke="var(--surface-sunken)" stroke-width="'+sw+'"/>';
+    if(total > 0){
+      segs.forEach(function(s){
+        var len = (Math.max(0,s.val)/total)*circ;
+        if(len <= 0) return;
+        svg += '<circle cx="'+cx+'" cy="'+cy+'" r="'+rad+'" fill="none" stroke="'+s.color+'" stroke-width="'+sw+'" '+
+               'stroke-dasharray="'+len.toFixed(2)+' '+(circ-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" '+
+               'transform="rotate(-90 '+cx+' '+cy+')"/>';
+        off += len;
+      });
+    }
+    $('irr-donutSvg').innerHTML = svg;
+    $('irr-donutLegend').innerHTML = segs.map(function(s){
+      var sh = total > 0 ? Math.round(Math.max(0,s.val)/total*100) + '%' : '\u2014';
+      return '<div class="lg"><i style="background:'+s.color+'"></i><span class="t">'+s.label+
+             '</span><b>'+money(s.val,0)+'<em>'+sh+'</em></b></div>';
+    }).join('');
+  }
+
+  /* ---------------- cash flow timeline ---------------- */
+  function renderFlows(r){
+    var el = $('irr-flowChart'), flows = r.flows;
+    var src = flows, step = 1;
+    if(flows.length > 60){ step = Math.ceil(flows.length/60); src = flows.filter(function(_,i){ return i % step === 0; }); }
+    var W=400,H=210,padL=56,padR=12,padT=12,padB=30;
+    var left=padL,right=W-padR,top=padT,bot=H-padB;
+    var maxV=0, minV=0;
+    src.forEach(function(v){ if(v>maxV) maxV=v; if(v<minV) minV=v; });
+    if(maxV===minV){ maxV=1; minV=-1; }
+    function Y(v){ return bot - (bot-top)*((v-minV)/(maxV-minV)); }
+    var svg='';
+    for(var t=0;t<=4;t++){
+      var val=minV+(maxV-minV)*t/4, y=Y(val);
+      svg += '<line x1="'+left+'" y1="'+y.toFixed(1)+'" x2="'+right+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      var lbl = Math.abs(val)>=10000 ? (val<0?'-':'')+'$'+Math.round(Math.abs(val)/1000)+'K' : money(val,0);
+      svg += '<text x="'+(left-7)+'" y="'+(y+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="var(--ink-faint)">'+lbl+'</text>';
+    }
+    var n=src.length, slot=(right-left)/n, bw=Math.max(1.5, Math.min(22, slot*0.66)), zero=Y(0);
+    src.forEach(function(v, idx){
+      var x0 = left + slot*idx + (slot-bw)/2, y=Y(v);
+      svg += '<rect x="'+x0.toFixed(1)+'" y="'+Math.min(y,zero).toFixed(1)+'" width="'+bw.toFixed(1)+
+             '" height="'+Math.max(0.8,Math.abs(y-zero)).toFixed(1)+'" fill="'+(v<0?'#DC2626':'#16A34A')+'"/>';
+    });
+    var lstep=Math.max(1, Math.round(n/6));
+    for(var i2=0;i2<n;i2+=lstep){
+      svg += '<text x="'+(left+slot*(i2+0.5)).toFixed(1)+'" y="'+(bot+15)+'" font-size="11" text-anchor="middle" fill="var(--ink-faint)">'+(i2*step)+'</text>';
+    }
+    svg += '<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+bot+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg += '<line x1="'+left+'" y1="'+zero.toFixed(1)+'" x2="'+right+'" y2="'+zero.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg += '<text x="'+((left+right)/2).toFixed(1)+'" y="'+(H-3)+'" font-size="12" text-anchor="middle" fill="var(--ink-faint)">'+
+           (r.mode==='fixed' ? 'Period' : 'Year')+'</text>';
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" class="irr-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cash in and out at each point in time">'+svg+'</svg>'+
+      '<div class="irr-chart-legend"><span><i style="background:#DC2626"></i>Money in</span>'+
+      '<span><i style="background:#16A34A"></i>Money back</span></div>';
+  }
+
+  /* ---------------- NPV profile ---------------- */
+  function renderNpv(r){
+    var el = $('irr-npvChart');
+    var perAnnual = (r.mode === 'fixed') ? r.ppy : 1;
+    var centre = (r.mode === 'fixed') ? r.periodRateRaw : r.annual/100;
+    var span = Math.max(0.35, Math.abs(centre) * 2.2);
+    var lo = Math.max(-0.95, centre - span), hi = centre + span;
+    var pts = [];
+    for(var k = 0; k <= 120; k++){
+      var x = lo + (hi - lo) * k / 120;
+      pts.push({x:x, y:npvOf(r.flows, x)});
+    }
+    var W=400,H=230,padL=58,padR=12,padT=12,padB=32;
+    var left=padL,right=W-padR,top=padT,bot=H-padB;
+    var maxV=-Infinity,minV=Infinity;
+    pts.forEach(function(p){ if(p.y>maxV) maxV=p.y; if(p.y<minV) minV=p.y; });
+    if(maxV===minV){ maxV+=1; minV-=1; }
+    function Y(v){ return bot - (bot-top)*((v-minV)/(maxV-minV)); }
+    function X(x){ return left + (right-left)*((x-lo)/(hi-lo)); }
+    var svg='';
+    for(var t=0;t<=4;t++){
+      var val=minV+(maxV-minV)*t/4, y=Y(val);
+      svg += '<line x1="'+left+'" y1="'+y.toFixed(1)+'" x2="'+right+'" y2="'+y.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1" opacity="0.15"/>';
+      var lbl = Math.abs(val)>=1000 ? (val<0?'-':'')+'$'+Math.round(Math.abs(val)/1000)+'K' : money(val,0);
+      svg += '<text x="'+(left-7)+'" y="'+(y+4).toFixed(1)+'" font-size="11" text-anchor="end" fill="var(--ink-faint)">'+lbl+'</text>';
+    }
+    var d='';
+    pts.forEach(function(p,i){ d += (i===0?'M':'L')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1)+' '; });
+    var zeroY = (minV <= 0 && maxV >= 0) ? Y(0) : null;
+    if(zeroY !== null)
+      svg += '<line x1="'+left+'" y1="'+zeroY.toFixed(1)+'" x2="'+right+'" y2="'+zeroY.toFixed(1)+'" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+    svg += '<path d="'+d+'" fill="none" stroke="#1E3A5F" stroke-width="2.2" stroke-linejoin="round"/>';
+    (r.roots || []).forEach(function(root){
+      if(root < lo || root > hi) return;
+      svg += '<circle cx="'+X(root).toFixed(1)+'" cy="'+(zeroY===null?Y(0):zeroY).toFixed(1)+'" r="4" fill="#16A34A"/>';
+    });
+    for(var m2=0;m2<=4;m2++){
+      var xv = lo + (hi-lo)*m2/4;
+      var shown = (r.mode==='fixed') ? (Math.pow(1+xv, perAnnual)-1)*100 : xv*100;
+      svg += '<text x="'+X(xv).toFixed(1)+'" y="'+(bot+15)+'" font-size="11" text-anchor="middle" fill="var(--ink-faint)">'+shown.toFixed(0)+'%</text>';
+    }
+    svg += '<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+bot+'" stroke="var(--ink-faint)" stroke-width="1.5"/>';
+    svg += '<text x="'+((left+right)/2).toFixed(1)+'" y="'+(H-4)+'" font-size="12" text-anchor="middle" fill="var(--ink-faint)">Annual discount rate</text>';
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" class="irr-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Net present value across a range of discount rates">'+svg+'</svg>'+
+      '<div class="irr-chart-legend"><span><i style="background:#1E3A5F"></i>NPV</span>'+
+      '<span><i style="background:#16A34A"></i>Crosses zero at the IRR</span></div>';
+  }
+
+  /* ---------------- discounted cash flow table ---------------- */
+  function renderSchedule(r){
+    var rate = (r.mode === 'fixed') ? r.periodRateRaw : r.annual/100;
+    var unit = (r.mode === 'fixed') ? 'Period' : 'Year';
+    $('irr-schedHead').innerHTML = '<tr><th scope="col">'+unit+'</th><th scope="col">Cash flow</th>'+
+      '<th scope="col">Discount factor</th><th scope="col">Present value</th><th scope="col">Running NPV</th></tr>';
+    var html = '', run = 0, rows = r.flows, step = 1;
+    if(rows.length > 400) step = Math.ceil(rows.length/400);
+    for(var t = 0; t < rows.length; t++){
+      var f = Math.pow(1 + rate, -t), pv = rows[t] * f;
+      run += pv;
+      if(t % step !== 0 && t !== rows.length-1) continue;
+      html += '<tr><td>'+t+'</td><td class="'+(rows[t]<0?'down':'up')+'">'+money(rows[t])+
+              '</td><td>'+f.toFixed(6)+'</td><td>'+money(pv)+'</td><td>'+money(run)+'</td></tr>';
+    }
+    $('irr-schedBody').innerHTML = html;
+    $('irr-schedMeta').textContent = 'Discounted at ' +
+      (r.mode==='fixed' ? pct(r.periodRate) + ' per ' + FREQ_NAME[r.freq] : pct(r.annual) + ' per year') +
+      ' \u00b7 ends at ' + money(run, 2);
+  }
+
+  /* ---------------- render ---------------- */
+  function render(){
+    var r = compute();
+    var w = $('irr-warningBanner'), mf = $('irr-multiFlag');
+    if(r.bad){
+      w.style.display='block'; w.textContent = r.warn; mf.style.display='none';
+      $('irr-bignum').textContent = '\u2014';
+      $('irr-verdictSub').textContent = '';
+      $('irr-resultRows').innerHTML = '';
+      $('irr-schedHead').innerHTML=''; $('irr-schedBody').innerHTML='';
+      $('irr-donutSvg').innerHTML=''; $('irr-donutLegend').innerHTML='';
+      $('irr-flowChart').innerHTML=''; $('irr-npvChart').innerHTML='';
+      $('irr-schedMeta').textContent='';
+      return;
+    }
+    if(r.warn){ w.style.display='block'; w.textContent = r.warn; } else { w.style.display='none'; }
+    last = r;
+
+    $('irr-bignum').textContent = pct(r.annual) + ' per year';
+
+    var rows;
+    if(r.mode === 'fixed'){
+      $('irr-verdictSub').textContent = money(r.initial,0) + ' held for ' +
+        (Math.round(r.years*10)/10) + ' years, ending at ' + money(r.ending,0) +
+        (r.amount > 0 ? ', ' + (r.withdraw?'withdrawing ':'depositing ') + money(r.amount,0) +
+        ' every ' + FREQ_NAME[r.freq] : '') + '.';
+      rows =
+        (r.amount > 0 ? '<div class="irr-result-row"><span>Cumulative '+(r.withdraw?'withdrawals':'deposits')+
+          '</span><span>'+money(r.cum)+'</span></div>' : '') +
+        '<div class="irr-result-row total"><span>Total return</span><span>'+money(r.totalReturn)+'</span></div>'+
+        '<div class="irr-result-row"><span>Gross return</span><span>'+pct(r.gross)+'</span></div>'+
+        '<div class="irr-result-row"><span>Rate per '+FREQ_NAME[r.freq]+'</span><span>'+pct(r.periodRate, 4)+'</span></div>'+
+        '<div class="irr-result-row"><span>Periods</span><span>'+r.nP+'</span></div>';
+    } else {
+      $('irr-verdictSub').textContent = money(r.initial,0) + ' in, then ' + r.years +
+        ' years of cash flow totalling ' + money(r.inflow,0) + ' back.';
+      rows =
+        (r.further > 0 ? '<div class="irr-result-row"><span>Further investments</span><span>'+money(r.further)+'</span></div>' : '')+
+        '<div class="irr-result-row"><span>Investment length</span><span>'+r.years+' year'+(r.years===1?'':'s')+'</span></div>'+
+        '<div class="irr-result-row total"><span>Total return</span><span>'+money(r.totalReturn)+'</span></div>'+
+        '<div class="irr-result-row"><span>Gross return</span><span>'+pct(r.gross)+'</span></div>'+
+        '<div class="irr-result-row"><span>Total put in</span><span>'+money(r.invested)+'</span></div>';
+    }
+    $('irr-resultRows').innerHTML = rows;
+
+    if(r.roots.length > 1){
+      mf.style.display = 'block';
+      mf.innerHTML = '<b>These cash flows have more than one IRR.</b> The signs flip ' + r.signs +
+        ' times, and the maths allows ' + r.roots.length + ' rates that all bring NPV to zero (' +
+        r.roots.map(function(x){ return pct((r.mode==='fixed' ? Math.pow(1+x,r.ppy)-1 : x)*100, 2); }).join(', ') +
+        '). The first is shown above. When this happens IRR stops being a reliable single measure \u2014 net present value at your own required rate is the sounder read.';
+    } else if(r.signs > 1){
+      mf.style.display = 'block';
+      mf.innerHTML = '<b>Heads up:</b> the direction of these cash flows changes ' + r.signs +
+        ' times. Only one IRR exists here, but patterns like this can produce several, so it is worth sanity-checking against net present value.';
+    } else {
+      mf.style.display = 'none';
+    }
+
+    renderDonut(r); renderFlows(r); renderNpv(r); renderSchedule(r);
+  }
+
+  /* ---------------- cash flow rows ---------------- */
+  function buildCfRows(){
+    var html = '';
+    for(var i = 0; i < CF.length; i++){
+      html += '<div class="irr-cf-row"><label for="irr-cf'+i+'">Year '+(i+1)+'</label>'+
+              '<div class="irr-input-group"><span>$</span>'+
+              '<input type="text" inputmode="decimal" id="irr-cf'+i+'" data-i="'+i+'" value="'+CF[i]+'"></div></div>';
+    }
+    $('irr-cfList').innerHTML = html;
+    Array.prototype.forEach.call($('irr-cfList').querySelectorAll('input'), function(inp){
+      inp.addEventListener('input', function(){
+        CF[parseInt(this.getAttribute('data-i'),10)] = this.value;
+        render();
+      });
+    });
+    $('irr-addYear').style.display = (CF.length >= MAXCF) ? 'none' : '';
+  }
+
+  /* ---------------- wiring ---------------- */
+  var DEF = {initial:{fixed:'25,000', irregular:'60,000'}, years:'4', months:'0',
+             ending:'38,000', amount:'150', freq:'q', dir:'w', timing:'e',
+             cf:['12,000','18,000','25,000','30,000']};
+
+  function setMode(mode){
+    INITIAL[MODE] = $('irr-initial').value;      /* remember what this mode was showing */
+    MODE = mode;
+    $('irr-initial').value = INITIAL[mode];
+    Array.prototype.forEach.call(document.querySelectorAll('#irr-tabs .irr-tab'), function(b){
+      var on = b.getAttribute('data-mode') === mode;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    $('irr-fixedFields').style.display = (mode === 'fixed') ? '' : 'none';
+    $('irr-irregularFields').style.display = (mode === 'fixed') ? 'none' : '';
+    render();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#irr-tabs .irr-tab'), function(b){
+    b.addEventListener('click', function(){ setMode(this.getAttribute('data-mode')); });
+  });
+  ['irr-initial','irr-years','irr-months','irr-ending','irr-amount'].forEach(function(id){
+    $(id).addEventListener('input', function(){
+      if(id === 'irr-initial') INITIAL[MODE] = this.value;
+      render();
+    });
+  });
+  ['irr-freq','irr-flowDir'].forEach(function(id){ $(id).addEventListener('change', render); });
+  Array.prototype.forEach.call(document.querySelectorAll('#irr-timing button'), function(b){
+    b.addEventListener('click', function(){
+      TIMING = this.getAttribute('data-t');
+      Array.prototype.forEach.call(document.querySelectorAll('#irr-timing button'), function(x){
+        var on = (x === b);
+        x.classList.toggle('active', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      render();
+    });
+  });
+  $('irr-addYear').addEventListener('click', function(){
+    if(CF.length >= MAXCF) return;
+    CF.push('0'); buildCfRows(); render();
+    var el = $('irr-cf' + (CF.length-1));
+    if(el){ el.focus(); el.select(); }
+  });
+  $('irr-calcBtn').addEventListener('click', render);
+  $('irr-clearBtn').addEventListener('click', function(){
+    INITIAL = {fixed:DEF.initial.fixed, irregular:DEF.initial.irregular};
+    $('irr-initial').value = INITIAL[MODE]; $('irr-years').value = DEF.years;
+    $('irr-months').value = DEF.months;   $('irr-ending').value = DEF.ending;
+    $('irr-amount').value = DEF.amount;   $('irr-freq').value = DEF.freq;
+    $('irr-flowDir').value = DEF.dir;     TIMING = DEF.timing;
+    Array.prototype.forEach.call(document.querySelectorAll('#irr-timing button'), function(x){
+      var on = x.getAttribute('data-t') === DEF.timing;
+      x.classList.toggle('active', on); x.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    CF = DEF.cf.slice(); buildCfRows();
+    render();
+  });
+
+  /* ---------------- lazy PDF ---------------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('PDF library is still loading, please try again in a moment.'); return; }
+    try{
+      var r = last || compute();
+      if(r.bad) return;
+      var doc = new window.jspdf.jsPDF({unit:'pt', format:'letter'});
+      var margin = 40, y = 50;
+      doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+      doc.text('Internal Rate of Return', margin, y); y += 18;
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+      doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+        {year:'numeric', month:'long', day:'numeric'}), margin, y);
+      y += 20; doc.setDrawColor(220,220,220);
+      doc.line(margin, y, doc.internal.pageSize.getWidth()-margin, y); y += 22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(22,163,74);
+      doc.text('IRR: ' + pct(r.annual) + ' per year', margin, y); y += 22;
+      var body;
+      if(r.mode === 'fixed'){
+        body = [['Initial investment', money(r.initial)],
+                ['Holding period', Math.floor(r.years) + ' years ' + Math.round((r.years%1)*12) + ' months'],
+                ['Ending balance', money(r.ending)],
+                [(r.withdraw?'Withdrawal':'Deposit') + ' each ' + FREQ_NAME[r.freq], money(r.amount)],
+                ['Timing', r.atEnd ? 'End of each period' : 'Beginning of each period'],
+                ['Periods', String(r.nP)],
+                ['Cumulative ' + (r.withdraw?'withdrawals':'deposits'), money(r.cum)],
+                ['Total return', money(r.totalReturn)],
+                ['Gross return', pct(r.gross)],
+                ['Rate per ' + FREQ_NAME[r.freq], pct(r.periodRate, 4)]];
+      } else {
+        body = [['Initial investment', money(r.initial)],
+                ['Investment length', r.years + ' years'],
+                ['Further investments', money(r.further)],
+                ['Total put in', money(r.invested)],
+                ['Cash returned', money(r.inflow)],
+                ['Total return', money(r.totalReturn)],
+                ['Gross return', pct(r.gross)]];
+      }
+      doc.autoTable({startY:y, margin:{left:margin, right:margin},
+        styles:{fontSize:10, cellPadding:5}, columnStyles:{1:{halign:'right'}}, body:body});
+      var afterY = doc.lastAutoTable.finalY + 22;
+      doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(30,58,95);
+      doc.text('Discounted Cash Flow at the IRR', margin, afterY);
+      var rate = (r.mode === 'fixed') ? r.periodRateRaw : r.annual/100, run = 0, tbl = [];
+      for(var t = 0; t < r.flows.length; t++){
+        var f = Math.pow(1 + rate, -t), pv = r.flows[t] * f; run += pv;
+        tbl.push([t, money(r.flows[t]), f.toFixed(6), money(pv), money(run)]);
+      }
+      if(tbl.length > 120) tbl = tbl.slice(0, 120);
+      doc.autoTable({startY:afterY+10, margin:{left:margin, right:margin},
+        head:[[(r.mode==='fixed'?'Period':'Year'),'Cash flow','Discount factor','Present value','Running NPV']],
+        body:tbl, styles:{fontSize:9, cellPadding:4},
+        columnStyles:{1:{halign:'right'},2:{halign:'right'},3:{halign:'right'},4:{halign:'right'}}});
+      doc.save('irr-' + new Date().toISOString().slice(0,10) + '.pdf');
+    }catch(e){ alert('Sorry, there was a problem generating the PDF: ' + e.message); }
+  }
+  $('irr-pdfBtn').addEventListener('click', function(){
+    var btn = this, orig = btn.innerHTML;
+    btn.disabled = true; btn.textContent = 'Loading\u2026';
+    ensurePdfLibs().then(function(){ btn.innerHTML = orig; btn.disabled = false; generatePdf(); })
+      .catch(function(){ btn.innerHTML = orig; btn.disabled = false;
+        alert('Could not load the PDF library \u2014 check your connection and try again.'); });
+  });
+
+  buildCfRows();
+  render();
+})();
+</script>
+
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">

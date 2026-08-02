@@ -3602,6 +3602,73 @@ assume this exact order still holds after a few weeks of new data.
   no sideways scroll and zero console errors; jsPDF still absent on load and
   fetched only on click.
 
+- **IRR Calculator rebuilt** (Aug 2, 2026, ad-hoc user request): 484-line dead
+  stub → 1,364-line two-tab page (`irr-` prefix). **Fourth stub in a row with
+  no calculator JavaScript.**
+
+  **Two modes, both reverse solves.** Fixed recurring cash flow (initial, holding
+  period, ending balance, recurring withdrawal or deposit at one of seven
+  frequencies, beginning or end of period) and irregular annual cash flow
+  (initial plus up to 50 yearly figures, negatives allowed). Their page is two
+  separate forms with independent initial investments, so ours keeps a separate
+  initial value per tab rather than sharing the field — sharing it was the
+  first build's bug, and it silently showed 60.588% on the irregular tab because
+  the fixed tab's $25,000 was still sitting in the box.
+
+  **Oracle again**, both forms submit by GET. Eleven scenarios pulled, and every
+  published figure reproduced first time: their two defaults (29.768% and
+  12.446%) and all three worked examples from their own article (19.438%,
+  11.290%, 10.259%), plus deposit-instead-of-withdraw, quarterly, annual,
+  zero-cash-flow and a loss-making case. Watch out when scripting their forms:
+  the select values are short codes (`a`, `sa`, `q`, `m`, `sm`, `bw`, `w` and
+  `d`/`w`), and passing the visible labels silently falls back to monthly rather
+  than erroring — the first oracle run looked plausible and was wrong.
+
+  **Intentional difference — their beginning-of-period case counts one payment
+  too many.** Probed across four term lengths and it is consistent: one year
+  annual gives 2 payments, three years gives 4, thirty months monthly gives 31.
+  N periods have N beginnings, so the correct counts are 1, 3 and 30. Their
+  end-of-period case is right, which is what makes this an off-by-one rather
+  than a convention: they place an extra payment at the terminal date, which is
+  by definition the *end* of the last period. Ours uses the standard annuity-due
+  placement, so on their default the cumulative withdrawals read $3,000 against
+  their $3,100 and the IRR 30.052% against 30.361%. Flagged in the step-7 report
+  and explained on the page.
+
+  **Multiple IRRs are handled properly, which most competitors skip.** The
+  solver sweeps the whole rate band and collects *every* zero crossing rather
+  than returning the first root a Newton iteration lands on. On the textbook
+  double-root case (−4,000, +25,000, −25,000) the page reports both 25%
+  and 400% and says plainly that a single IRR has stopped meaning much. It also
+  counts sign changes and warns on patterns that merely *could* produce several
+  roots, and refuses to invent a number when no root exists at all.
+
+  **A real bug the checks caught**: `part_irr_script.js` was written without its
+  closing `</script>` tag. The page still looked fine and the calculator still
+  worked, because the browser closed the block for it — but the tag-balance
+  assertion caught `div 67/66` and `main 1/0`, and `node --check` failed with
+  `Unexpected token '<'` because the extracted "script" ran on into
+  `</div></main><footer>`. Second time in this session that tag balance has
+  caught something invisible.
+
+  **Verification**: 11/11 oracle scenarios through the shipped page in a
+  browser, 38 assertions; running NPV in the discounted cash flow table asserted
+  to end at $0.00; 3 valid JSON-LD blocks; FAQ 8/8 exact; protected style block
+  byte-identical; 75/75 divs; TOC resolves both ways; desktop and mobile with
+  zero real console errors and no sideways scroll; jsPDF lazy. New OG image,
+  bands within 2 px.
+
+  **Keyword research**: the IRR SERP is split between finance-education pages
+  (Wall Street Prep, Corporate Finance Institute, Omni, GigaCalculator) and
+  niche real-estate IRR tools. Two things almost nobody else offers and both
+  went into the positioning: the **fixed recurring cash flow** mode, and an
+  **NPV-versus-discount-rate curve** with the roots marked. Article is 2,620
+  words across 11 H2 sections plus FAQ, covering their topics in original
+  wording and adding sections they lack on reading the NPV curve, why timing
+  beats totals, and IRR versus NPV versus ROI. The timing example was computed
+  rather than borrowed: $80,000 returning $100,000 over five years scores 9.655%
+  front-loaded and 6.697% back-loaded on an identical 25% gross return.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
