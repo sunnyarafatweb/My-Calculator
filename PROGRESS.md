@@ -3811,6 +3811,60 @@ assume this exact order still holds after a few weeks of new data.
   no clipping and no page overflow at any of them. Both pages re-run through
   their full suites afterwards, all clean.
 
+- **Lease Calculator rebuilt** (Aug 2, 2026, ad-hoc user request): 484-line
+  dead stub → 1,201-line two-tab page (`lse-` prefix). **Fifth stub in a row
+  with no calculator JavaScript.**
+
+  **The model, recovered from the oracle.** The obvious guess — the money-factor
+  shortcut every lease guide teaches, `(asset - residual)/n + (asset + residual)
+  x MF` — gives $403.33 on their defaults where they return **$405.06**, so it
+  is not what they use. What they actually do is finance `asset - residual/(1+i)^n`
+  and amortise it: the asset value less the **present value** of the residual.
+  That reproduces $405.06 exactly, and every one of the six fixed-rate scenarios.
+  Worth remembering: the widely-taught lease formula is an approximation, not the
+  formula, and it drifts further with rate and term. That gap became a section of
+  the article.
+
+  **Oracle via GET again**, eleven scenarios across both modes. One trap: the
+  hidden mode field takes `fixpayment`, not `fixpay`, and passing the wrong value
+  silently falls back to fixed-rate and returns plausible-looking wrong output —
+  the same class of failure as the IRR select codes. Always confirm a mode switch
+  actually changed the result before trusting a batch.
+
+  **Intentional differences, all three flagged:**
+  1. On two reverse-solve cases their rate differs from ours in the third
+     decimal (6.683 vs our 6.682, 7.269 vs 7.268). Substituting back settles it:
+     ours reproduces the target payment to within $0.0035 where theirs is
+     $0.0086 out, and the exact root is 6.682290%. Same pattern as the Interest
+     Rate Calculator — their solver converges less tightly.
+  2. When the payment is below the depreciation, they print the words "the
+     interest/return rate is negative" and no number. Ours returns −2.841%,
+     which reproduces the $300.00 payment exactly, and explains that a negative
+     rate is the signature of a subsidised lease. A real answer beats a refusal.
+  3. Defaults differ as required: $34,500 asset, $19,200 residual, 2y6m, 7.4%,
+     $625.
+
+  **A cross-check the page can prove to itself**: the schedule amortises the
+  asset value down and must land on exactly the residual. It does, to within
+  4e-11, on every case tried including 0% and zero-residual. The finance-charge
+  column also sums to their "Total Interest" and the depreciation column to
+  `asset - residual`, so three independent totals reconcile. Asserted in the
+  browser test rather than only in Node.
+
+  **Verification**: 11/11 oracle scenarios through the shipped page, 38
+  assertions; 3 valid JSON-LD blocks; FAQ 8/8 exact; protected style block
+  byte-identical; 69/69 divs; TOC resolves both ways; tabs asserted to sit
+  **below** the bar this time, having got that wrong on the previous two builds;
+  desktop and mobile with zero real console errors and no sideways scroll;
+  jsPDF lazy. New OG image, bands within 2 px.
+
+  **Article**: 2,285 words, 10 H2 sections plus FAQ. Built around what the
+  reference page does not explain — that residual value moves the payment more
+  than anything you can negotiate ($678.60 against $806.47 on the same car for a
+  $4,200 residual difference), that money factor is just the rate over 2,400,
+  and that the shortcut formula is off by about three dollars a month. Every
+  figure computed first.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
