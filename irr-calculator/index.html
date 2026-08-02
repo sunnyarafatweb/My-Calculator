@@ -775,12 +775,15 @@
   function pct(v, d){ if(d === undefined) d = 3; return (isFinite(v) ? v.toFixed(d) : '\u2014') + '%'; }
 
   /* ---------------- solver ---------------- */
-  function solveRate(npv, lo, hi){
-    var n = 4000, prev = lo, fprev = npv(lo), roots = [];
+  function scanBand(npv, lo, hi, n){
+    var prev = lo, fprev = npv(lo), roots = [];
     for(var k = 1; k <= n; k++){
       var x = lo + (hi - lo) * k / n, fx = npv(x);
       if(!isFinite(fx)){ prev = x; fprev = fx; continue; }
-      if(isFinite(fprev) && fprev * fx < 0){
+      /* A step can land exactly on the root - round inputs make that likely, which is
+         precisely what people type. A strict sign-change test would step straight over it. */
+      if(fx === 0){ roots.push(x); prev = x; fprev = fx; continue; }
+      if(isFinite(fprev) && fprev !== 0 && fprev * fx < 0){
         var l = prev, h = x;
         for(var j = 0; j < 200; j++){
           var m = (l + h) / 2;
@@ -789,6 +792,19 @@
         roots.push((l + h) / 2);
       }
       prev = x; fprev = fx;
+    }
+    return roots;
+  }
+  /* Scan the ordinary band finely first. Only if nothing turns up there do we widen,
+     decade by decade - a single fine scan wide enough for a 100,000% return would be
+     too coarse to catch an ordinary 3% one. */
+  function solveRate(npv, lo, hi){
+    var roots = scanBand(npv, lo, hi, 4000);
+    if(roots.length) return roots;
+    var band = hi;
+    while(band < 2e5 && !roots.length){
+      roots = scanBand(npv, band, band * 10, 1500);
+      band *= 10;
     }
     return roots;
   }
@@ -840,9 +856,13 @@
       flows[nP] += ending;
 
       var roots = solveRate(function(r){ return npvOf(flows, r); }, -0.9999, 5);
-      if(!roots.length)
+      if(!roots.length){
+        var backF = ending + (withdraw ? cum : 0), inF = initial + (withdraw ? 0 : cum);
         return {bad:true, nP:nP,
-                warn:'No rate of return fits these figures. Check the ending balance against what went in.'};
+                warn: backF <= 0
+                  ? 'Nothing came back from this investment, so there is no rate at which it breaks even.'
+                  : 'No rate of return fits these figures. Check the ending balance and the recurring amount against what went in.'};
+      }
       var per = roots[0];
       return {bad:false, warn:warn, mode:'fixed', initial:initial, ending:ending, amount:amt,
               withdraw:withdraw, atEnd:atEnd, freq:freq, ppy:ppy, nP:nP, years:years,
@@ -863,8 +883,13 @@
     var totalReturn2 = inflow - invested2;
     var gross2 = invested2 > 0 ? totalReturn2 / invested2 * 100 : NaN;
     var roots2 = solveRate(function(r){ return npvOf(flows2, r); }, -0.9999, 10);
-    if(!roots2.length)
-      return {bad:true, warn:'No rate of return fits these cash flows. With every flow pointing the same way there is nothing for IRR to solve.'};
+    if(!roots2.length){
+      var sc = signChanges(flows2);
+      return {bad:true,
+              warn: sc === 0
+                ? 'Every one of these flows points the same way, so there is nothing for IRR to break even against.'
+                : 'No rate of return fits these cash flows. Check the figures \u2014 nothing between \u2212100% and 20,000,000% brings the net present value to zero.'};
+    }
     return {bad:false, warn:'', mode:'irregular', initial:initial, cf:cf, years:cf.length,
             further:further, invested:invested2, inflow:inflow, totalReturn:totalReturn2,
             gross:gross2, annual:roots2[0]*100, flows:flows2, roots:roots2,

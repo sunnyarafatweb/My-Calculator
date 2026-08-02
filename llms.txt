@@ -213,7 +213,7 @@
 - [Height Calculator — Khamis-Roche Child Height Predictor](https://calculatorboss.com/height-calculator/)
 - [Horsepower Calculator — From Torque & RPM](https://calculatorboss.com/horsepower-calculator/)
 - [Hours Calculator — Elapsed Time & Pay](https://calculatorboss.com/hours-calculator/)
-- [IRR Calculator — Internal Rate of Return](https://calculatorboss.com/irr-calculator/)
+- [IRR Calculator](https://calculatorboss.com/irr-calculator/)
 - [Lean Body Mass Calculator — Boer Formula](https://calculatorboss.com/lean-body-mass-calculator/)
 - [Least Common Multiple (LCM) Calculator](https://calculatorboss.com/lcm-calculator/)
 - [Margin Calculator — Margin, Markup](https://calculatorboss.com/margin-calculator/)

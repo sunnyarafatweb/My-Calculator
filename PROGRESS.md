@@ -3669,6 +3669,61 @@ assume this exact order still holds after a few weeks of new data.
   rather than borrowed: $80,000 returning $100,000 over five years scores 9.655%
   front-loaded and 6.697% back-loaded on an identical 25% gross return.
 
+- **IRR Calculator: second audit found two real solver bugs** (Aug 2, 2026,
+  user asked for a re-audit the day it shipped).
+
+  Learning from the IRA recheck, this pass ran the whole protocol rather than
+  the quick parts — and specifically went looking for failures instead of
+  confirming successes. Structure, schema, FAQ parity, registration and the
+  eleven oracle scenarios were all still clean. The problems were in the solver,
+  at inputs the original eleven scenarios never reached.
+
+  **Bug 1: the search ceiling was too low.** The scan ran to 500% per period in
+  fixed mode and 1,000% in irregular mode. Anything above that returned "no rate
+  fits these figures" — including $1,000 growing to $1,000,000 in a year, where
+  calculator.net correctly returns 99,900%, and $1,000 returning $500,000, where
+  they return 49,899.963%. Fixed by keeping the fine 4,000-step scan over the
+  ordinary band and, only when that finds nothing, widening decade by decade up
+  to 20,000,000%. A single scan wide enough for a 100,000% return would have
+  been far too coarse to catch an ordinary 3% one, which is why it is staged.
+
+  **Bug 2: a root landing exactly on a scan step was stepped over.** The
+  bracketing test was `fprev * fx < 0`, a strict inequality, so a sample point
+  where NPV came out at exactly zero produced `0 * fx = 0` and was skipped —
+  twice, since the next step then had `fprev = 0` as well. Rare with arbitrary
+  numbers and much less rare with round ones, which is what people actually
+  type. The $1,000 → $500,000 case needed **both** fixes: widening to reach the
+  band containing the root, and this to notice the root sitting exactly on a
+  step at 499. Now handled explicitly.
+
+  Measured honestly rather than dramatised: on a ten-case probe, two failed
+  before and both work now; the other eight were unaffected. Both failures were
+  above the old ceiling.
+
+  **Bug 3: a warning that misdiagnosed the problem.** The irregular mode told
+  users "every flow points the same way" whenever no root was found, which was
+  wrong for −1,000 then +500,000. Messages now distinguish no sign change at
+  all, nothing came back from the investment, and no root inside the searched
+  range.
+
+  **A process lesson worth keeping**: `engine_irr.js`, the harness used to
+  validate against the oracle, is **not** the shipped code — it is a
+  reimplementation. It had an early `if(!isFinite(npv(lo))) return null` that the
+  page script does not, so the harness reported the 1,560-period weekly case as
+  failing when the live page handles it fine (5.640%, where calculator.net
+  returns nothing at all). Validate against the harness for speed, but confirm
+  every edge case against the shipped page in a browser before believing it.
+
+  Also aligned `llms.txt`, which still read "IRR Calculator — Internal Rate of
+  Return" while the H1, breadcrumb and search index all said "IRR Calculator".
+  Same class of drift as the IRA naming, and worth a sweep across all pages at
+  some point.
+
+  Four new regression tests pinned: the two very-high-return cases, the
+  1,560-period case, and the nothing-came-back message. Suite is 42 assertions,
+  all passing, and the 99900.000% figure was checked for clipping at 1280 and
+  390 rather than assumed to fit.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
