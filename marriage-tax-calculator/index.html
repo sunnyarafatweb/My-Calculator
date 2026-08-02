@@ -414,6 +414,16 @@
 .mtx-result-row span:first-child{color:var(--ink-soft)}
 .mtx-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
 .mtx-result-row.total{font-weight:700;font-size:14.5px}
+.mtx-mini{width:100%;border-collapse:collapse;font-size:12.5px}
+.mtx-mini th{text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);font-weight:700;padding:0 0 8px 6px}
+.mtx-mini th:first-child{text-align:left;padding-left:0}
+.mtx-mini td{text-align:right;padding:8px 0 8px 6px;border-top:1px solid var(--border-fine);color:var(--ink);font-weight:600;white-space:nowrap}
+.mtx-mini td:first-child{text-align:left;color:var(--ink-soft);font-weight:400;white-space:normal;padding-left:0}
+.mtx-mini tr.tot td{font-weight:700;border-top:2px solid var(--border)}
+.mtx-mini td.good{color:#16A34A}
+.mtx-mini td.bad{color:#DC2626}
+.mtx-mini td.flat{color:var(--ink-faint)}
+.mtx-why{font-size:12.5px;line-height:1.7;color:var(--ink-soft);margin:2px 20px 18px;padding-top:12px;border-top:1px solid var(--border-fine)}
 .mtx-donut-box{padding:2px 20px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .mtx-donut-svg{width:144px;height:144px;flex-shrink:0}
 .mtx-donut-legend{display:flex;flex-direction:column;gap:9px;flex:1;min-width:150px}
@@ -581,12 +591,12 @@
         <div class="verdict-sub" id="mtx-sub">You would pay less federal income tax filing jointly than as two single filers.</div>
       </div>
       <div class="mtx-result-body">
-        <div class="mtx-result-row"><span>Federal tax &mdash; two single returns</span><span id="mtx-fedsingle">$9,580</span></div>
-        <div class="mtx-result-row"><span>Federal tax &mdash; filing jointly</span><span id="mtx-fedjoint">$7,780</span></div>
-        <div class="mtx-result-row total"><span>Difference</span><span id="mtx-feddiff">&minus;$1,800</span></div>
-        <div class="mtx-result-row"><span>Combined take-home if married</span><span id="mtx-takejoint">$95,925</span></div>
-        <div class="mtx-result-row"><span>Change in take-home pay</span><span id="mtx-takediff">+$1,800</span></div>
+        <table class="mtx-mini">
+          <thead><tr><th>&nbsp;</th><th>Not married</th><th>If married</th><th>Change</th></tr></thead>
+          <tbody id="mtx-summary"></tbody>
+        </table>
       </div>
+      <p class="mtx-why" id="mtx-why"></p>
     </div>
 
     <div class="mtx-result-card">
@@ -904,17 +914,71 @@
         ? 'You would pay more federal income tax filing jointly than as two single filers.'
         : 'Filing jointly costs you the same as two separate single returns.');
 
-    $('mtx-fedsingle').textContent = money(singlesFed);
-    $('mtx-fedjoint').textContent = money(j.federal);
-    $('mtx-feddiff').textContent = signedMoney(-diff);
-    $('mtx-takejoint').textContent = money(j.takeHome);
-    $('mtx-takediff').textContent = signedMoney(j.takeHome - (a.takeHome + b.takeHome));
+    drawSummary(a, b, j);
+    $('mtx-why').textContent = explain(a, b, j, diff);
     $('mtx-totinc').textContent = money(j.totalIncome);
 
     drawTable(a, b, j);
     drawDonut(j);
     drawBars(a, b, j);
     drawDrivers(a, b, j);
+  }
+
+  var SUMMARY = [
+    ['All income',           function(x){ return x.totalIncome; }, 'neutral'],
+    ['Federal income tax',   function(x){ return x.federal; },     'cost'],
+    ['Social Security tax',  function(x){ return x.ss; },          'cost'],
+    ['Medicare tax',         function(x){ return x.medicare; },    'cost'],
+    ['State &amp; city tax', function(x){ return x.state; },       'cost'],
+    ['Retirement savings',   function(x){ return x.retirement; },  'neutral'],
+    ['Total tax',            function(x){ return x.federal + x.ss + x.medicare + x.state; }, 'cost'],
+    ['Take-home pay',        function(x){ return x.takeHome; },    'gain']
+  ];
+
+  function drawSummary(a, b, j){
+    var html = '', i;
+    for(i = 0; i < SUMMARY.length; i++){
+      var r = SUMMARY[i];
+      var un = r[1](a) + r[1](b), mar = r[1](j), d = mar - un;
+      var cls = 'flat';
+      if(Math.abs(d) >= 0.5){
+        if(r[2] === 'cost') cls = d < 0 ? 'good' : 'bad';
+        else if(r[2] === 'gain') cls = d > 0 ? 'good' : 'bad';
+      }
+      var strong = (r[0] === 'Total tax' || r[0] === 'Take-home pay');
+      html += '<tr' + (strong ? ' class="tot"' : '') + '><td>' + r[0] + '</td>' +
+        '<td>' + money(un) + '</td><td>' + money(mar) + '</td>' +
+        '<td class="' + cls + '">' + (Math.abs(d) < 0.5 ? '$0' : signedMoney(d)) + '</td></tr>';
+    }
+    $('mtx-summary').innerHTML = html;
+  }
+
+  function explain(a, b, j, diff){
+    if(j.totalIncome <= 0) return 'Enter income for at least one spouse to see a result.';
+    var drivers = [
+      ['where your income sits in the tax brackets', (a.regular + b.regular) - j.regular],
+      ['the child tax credit', j.ctc - (a.ctc + b.ctc)],
+      ['the earned income credit', j.eitc - (a.eitc + b.eitc)],
+      ['the 3.8% investment income surtax', (a.niit + b.niit) - j.niit]
+    ];
+    var top = drivers[0], live = 0, i;
+    for(i = 0; i < drivers.length; i++){
+      if(Math.abs(drivers[i][1]) >= 0.5) live++;
+      if(Math.abs(drivers[i][1]) > Math.abs(top[1])) top = drivers[i];
+    }
+    var payroll = (a.ss + a.medicare + b.ss + b.medicare) - (j.ss + j.medicare);
+    var tail = Math.abs(payroll) >= 0.5
+      ? ' Payroll tax also changes by ' + signedMoney(-payroll) +
+        ', because the 0.9% Medicare surtax starts at $250,000 of combined wages rather than $200,000 each.'
+      : '';
+    if(Math.abs(diff) < 0.5){
+      return (live === 0
+        ? 'This is the expected result, not a missing calculation. You both sit inside brackets that are exactly doubled for joint filers, and the joint standard deduction is exactly twice the single one, so the two routes come to the same figure to the dollar. Shift income from one column to the other and a difference appears.'
+        : 'Two opposing effects cancel out here, so the totals match. The breakdown below shows what is pushing each way.') + tail;
+    }
+    var verb = top[1] > 0 ? 'saves you ' : 'costs you ';
+    return 'The biggest single factor is ' + top[0] + ', which ' + verb + money(Math.abs(top[1])) +
+      ' by marrying.' + tail;
   }
 
   var ROWS = [
