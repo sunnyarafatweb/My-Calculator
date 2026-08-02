@@ -45,7 +45,7 @@
 - [Investment Calculator](https://calculatorboss.com/investment-calculator/)
 - [Lease Calculator — Lease vs. Buy Comparison](https://calculatorboss.com/lease-calculator/)
 - [Loan Calculator — Monthly Payment](https://calculatorboss.com/loan-calculator/)
-- [Marriage Tax Calculator — Bonus or Penalty?](https://calculatorboss.com/marriage-tax-calculator/)
+- [Marriage Tax Calculator — See Your Bonus or Penalty](https://calculatorboss.com/marriage-tax-calculator/)
 - [Mortgage Amortization Calculator](https://calculatorboss.com/mortgage-amortization-calculator/)
 - [Mortgage Calculator — Payment & Amortization](https://calculatorboss.com/mortgage-calculator/)
 - [Mortgage Payoff Calculator](https://calculatorboss.com/mortgage-payoff-calculator/)
