@@ -4006,6 +4006,55 @@ assume this exact order still holds after a few weeks of new data.
   different numbers for the same profit, and that adding 30% to cost produces a
   23.1% margin rather than 30%. Every figure computed first.
 
+- **AdSense readiness folded into the build process** (Aug 2, 2026, user asked
+  to comply during the build rather than retrofit before applying).
+
+  Checked the current requirements rather than working from memory. The load-
+  bearing ones: original content, no thin pages, real About/Contact/Privacy
+  pages, HTTPS, working navigation, and — the one that matters most here —
+  **finance and health are Google "sensitive categories"**, so this site is
+  almost entirely YMYL and held to a higher bar.
+
+  **Originality, measured rather than asserted.** The user asked directly
+  whether the articles are adapted from calculator.net. They are not, and
+  `check_originality.py` now proves it: across all seven pages built this
+  session the worst **8-word overlap is 0.02%**, and the longest verbatim run
+  anywhere is 8 words — "the consumer price index for all urban consumers",
+  which is the official BLS series name and cannot be written differently.
+  Checkers flag above roughly 15-20%.
+
+  Also measured the risk nobody asks about: **internal duplication**. Reusing
+  article structure across pages could trip the same filters. Highest overlap
+  between any two of our pages is **0.99%**, and each article shares 0.4-1.2% of
+  its 8-word runs with any other. Repeated headings are fine; repeated sentences
+  would not be.
+
+  **New: `check_adsense.py`**, run per page before pushing. Enforces 800+ article
+  words, 5+ H2, 4+ FAQ, byline, last-updated date, a section on what the tool does
+  not cover, a closing disclaimer, canonical, indexability, breadcrumb, links to
+  About and Privacy, no broken internal links, valid JSON-LD with FAQ schema
+  matching visible text, title 40-65 and description 120-160.
+
+  **Three real findings on the first run**, all fixed:
+  1. `ira-calculator` had **no closing disclaimer** — on the most sensitive page
+     on the site, retirement plus tax. Every other finance page had one. Added.
+  2. `inflation-calculator` title was 66 characters and
+     `interest-rate-calculator` 67, both past the point Google truncates.
+     Trimmed to 62 and 54, build sources updated too.
+  3. The check itself was wrong once: it looked for "Leaves Out" and missed the
+     IRA page's "What This Calculator Doesn't Cover". The page was fine; the
+     check was not. Regex widened.
+
+  **Five site-level items recorded in the guide, not fixed** — they are decisions
+  for the owner, and one is a judgment call worth flagging plainly: every article
+  byline says **"Reviewed for accuracy"** while `/about` names nobody and
+  describes no editorial process. In a YMYL niche an unsupported authorship claim
+  is worse than no claim. The honest fix is available and unusually strong: we
+  really do verify every calculator against a reference implementation with a
+  recorded test suite, so About should say so. Inventing a named reviewer would
+  not be acceptable. Also noted: `/contact` at 225 words, `/about` promising ads
+  that do not yet run, ~110 template pages under 300 words, and no `ads.txt`.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

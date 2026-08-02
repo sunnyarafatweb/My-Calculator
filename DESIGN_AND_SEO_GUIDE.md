@@ -219,3 +219,52 @@ The user has confirmed this site runs (or will run) Google AdSense. Every page b
 - **`ads.txt`**: once the user has an AdSense publisher ID, an `ads.txt` file needs to exist at the domain root (`https://calculatorboss.com/ads.txt`) listing it — this doesn't exist yet in this repo as of Jul 2026. Flag this to the user rather than inventing a placeholder publisher ID; it must come from their real AdSense account.
 - **Mobile-friendliness and load speed** — already covered by the section 3 checklist and the site's static-HTML/lazy-PDF conventions; both are also things Google's ad quality and Search ranking systems reward independent of AdSense specifically.
 - Google can and does change these policies; if AdSense compliance becomes a point of dispute or a specific rejection reason comes back from Google, re-check `support.google.com/adsense/answer/48182` (Program policies) and `support.google.com/adsense/answer/9724` (Eligibility requirements) live rather than relying on this summary indefinitely.
+
+## AdSense readiness — build it in, do not retrofit it
+
+Every page is built to application standard from the start, so that nothing has to be
+revisited when we apply. Run `check_adsense.py <slug>` before pushing, alongside the
+parity and browser suites. Criteria come from Google's stated eligibility requirements
+plus the Search quality expectations for YMYL topics.
+
+**This site is almost entirely a Google "sensitive category".** Finance and health both
+are, so the bar is higher than for a general site and the checks below are not optional.
+
+### Per page, enforced by `check_adsense.py`
+- **Original content.** Never adapt the reference site's prose. Take the list of topics
+  that need covering, then write it independently, and compute every figure first so the
+  examples are ours. Verified by `check_originality.py`: worst 8-word overlap with
+  calculator.net across the pages built so far is **0.02%**, and the only matches are
+  unavoidable proper nouns like the CPI series name. Checkers flag above ~15-20%.
+- **Not thin.** At least 800 words of article, 5 H2 sections, 4 FAQ entries. Thin pages
+  are the single most common stated reason for rejection.
+- **YMYL signals.** Byline, a visible last-updated date, a section stating what the
+  calculator does *not* cover, and a closing disclaimer that says it is not financial,
+  tax or medical advice.
+- **Trust and navigation.** Canonical tag, indexable, breadcrumb, links to About and
+  Privacy Policy, at least five internal links, and no broken ones.
+- **Structured data** valid, and FAQ schema matching the visible text exactly — mismatched
+  schema is a policy problem, not just an SEO one.
+- **Title 40-65 characters, description 120-160.** Longer titles get truncated in results.
+- **No ad code inside the calculator.** When ads are added they go around the content,
+  never inside the tool, which is what the About page already promises readers.
+
+### Also check against our own pages, not just theirs
+Reusing article structure risks internal duplication. `check_originality.py` measures this
+too: currently the highest overlap between any two of our pages is **0.99%**, and each
+article shares only 0.4-1.2% of its 8-word runs with any other. Keep it there. Repeated
+*headings* are fine and good for consistency; repeated *sentences* are not.
+
+### Open items that are site-level, not page-level
+These do not block building and should be settled before applying:
+1. **`/contact` is 225 words.** Reviewers specifically flag placeholder policy pages.
+   About (480), Privacy (729) and Terms (531) are fine.
+2. **The byline claims "Reviewed for accuracy" but nothing backs it.** `/about` names no
+   person and describes no editorial process. In a YMYL niche an unsupported authorship
+   claim is worse than none. The honest fix is easy and unusually strong: we genuinely do
+   verify every calculator against a reference implementation with a recorded test suite,
+   so say that on About and link it. Do not simply invent a reviewer.
+3. **`/about` says "you'll see ads around the content"** while no ads run yet.
+4. **~110 pages are under 300 words** — the untouched template pages. They dilute site
+   quality at review time. Either finish them, or noindex them until they are finished.
+5. **`ads.txt` does not exist.** Needed after approval, not before.
