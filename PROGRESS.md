@@ -4055,6 +4055,36 @@ assume this exact order still holds after a few weeks of new data.
   not be acceptable. Also noted: `/contact` at 225 words, `/about` promising ads
   that do not yet run, ~110 template pages under 300 words, and no `ads.txt`.
 
+- **Margin Calculator: the tinted "result" fields were wrong, and fixed**
+  (Aug 2, 2026, user asked simply "why is this green?").
+
+  Good question, and checking it found two real faults I had introduced:
+  1. **Contrast 4.24, below WCAG AA's 4.5** — green text on a green tint. The
+     visual suite did not catch it because that suite checks *site-wide design
+     tokens*, and this was a colour I invented for this page alone. Page-local
+     colours sit in a blind spot.
+  2. **The colour was not from the palette.** `#F0FDF4` was my invention; the
+     site's green tint token is `--gold-tint:#E4F5EA`.
+
+  There was a third problem that no measurement would have found: **green means
+  "valid" in a form**, not "this was computed". The wrong signal entirely.
+
+  Fixed by distinguishing the derived fields the way the design system already
+  distinguishes things — the sunken surface plus bold weight, against white and
+  regular for the fields the user supplied. The RESULT label moved from
+  `--gold-deep` (4.44, just under) to `--fin` (9.98). Worst contrast anywhere in
+  that group is now **8.63**, and the two states are still clearly distinct at
+  both 1280 and 390.
+
+  Rather than invent yet another colour — which is what caused this — the
+  replacement was chosen by listing the palette tokens that clear AA on white and
+  picking one already used for finance pages.
+
+  **Lesson for the guide**: if a page needs a colour the design system does not
+  already have, that is a signal the design system is being worked around, not
+  that a new colour is needed. Check any page-local colour against AA explicitly,
+  because the site-wide token check will pass it silently.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
