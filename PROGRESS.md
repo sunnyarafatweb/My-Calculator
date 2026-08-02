@@ -3506,6 +3506,54 @@ assume this exact order still holds after a few weeks of new data.
   real interest rate) in original wording, plus sections they lack on reading
   the amortization schedule and what the tool leaves out.
 
+- **IRA Calculator: recheck and rename** (Aug 2, 2026, user asked whether the
+  page was correctly named).
+
+  **Health check first — the page itself is fine.** Protected style block
+  byte-identical, 109/109 divs, three valid JSON-LD blocks, FAQ 6/6 exact
+  against the visible copy, all 17 outbound links resolve, OG image present,
+  both tabs compute in a real browser (Grow My IRA returns $1,196,925 and
+  Traditional vs. Roth returns "Traditional wins by $103,678"), 35-row
+  schedule, zero console errors and no sideways scroll at 1280 and 390, jsPDF
+  still absent on load. Nothing was broken.
+
+  **The naming was genuinely inconsistent, in five places at once.** The URL is
+  `/ira-calculator/`, `calculators-index.json` (which drives the on-site search
+  box) said "IRA Calculator", the title, H1 and visible breadcrumb said
+  "Traditional IRA Calculator", the BreadcrumbList schema said just "IRA", and
+  `llms.txt` said "Traditional IRA Calculator". The schema/visible breadcrumb
+  mismatch is the same class of defect the guide already warns about for
+  FAQPage, and it applies to BreadcrumbList too — worth checking on every page,
+  not just the FAQ block.
+
+  **Settled on "IRA Calculator"**, on evidence rather than preference:
+  calculator.net names this exact slug "IRA Calculator" and keeps a separate
+  Roth IRA Calculator, which is the same two-page structure this site has; the
+  URL and the search index already used the generic name; and the page covers
+  *both* account types across its two tabs, so "Traditional" understated it and
+  invited confusion with the pending `/roth-ira-calculator/` page. The higher
+  volume also sits with the generic head term. Title now blends all three terms
+  rather than picking one, per section 8: **"IRA Calculator — Traditional vs.
+  Roth, and What Yours Grows To"** (62 chars, down from 72, which Google was
+  truncating). Meta description rewritten to 149 characters and leading with
+  both account types.
+
+  Renamed consistently in title, og:title, twitter:title, H1, visible
+  breadcrumb, BreadcrumbList schema, WebApplication name and description, the
+  PDF report header, and `llms.txt`. Verified afterwards that the visible
+  breadcrumb and the schema breadcrumb are now the same string. WebApplication
+  schema also brought in line with the pages rebuilt today (`dateModified`,
+  `inLanguage`, `isAccessibleForFree`, `publisher`, `featureList`). New OG image
+  with the corrected name, bands within 2 px of the template.
+
+  **Note for whoever does queue #5**: `/roth-ira-calculator/` is still a
+  484-line stub, and its title is still the generic `X | CalculatorBoss`
+  pattern. Now that `/ira-calculator/` is explicitly the Traditional-plus-
+  comparison page, the Roth page should be scoped narrowly to Roth-specific
+  mechanics — after-tax contributions, the income phase-out, the five-year
+  rule, no RMDs — rather than repeating the comparison, or the two will
+  compete for the same queries.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

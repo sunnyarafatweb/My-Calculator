@@ -73,7 +73,7 @@
 - [Social Security Calculator](https://calculatorboss.com/social-security-calculator/)
 - [Student Loan Calculator — With Grace Period](https://calculatorboss.com/student-loan-calculator/)
 - [Take-Home Paycheck Calculator — Federal Tax](https://calculatorboss.com/take-home-paycheck-calculator/)
-- [Traditional IRA Calculator](https://calculatorboss.com/ira-calculator/)
+- [IRA Calculator](https://calculatorboss.com/ira-calculator/)
 - [UK Mortgage Calculator — Repayment](https://calculatorboss.com/mortgage-calculator-uk/)
 - [VA Mortgage Calculator — Funding Fee](https://calculatorboss.com/va-mortgage-calculator/)
 
