@@ -4133,6 +4133,87 @@ assume this exact order still holds after a few weeks of new data.
   6.42%/30y, $3,343.89 at 6.04%/15y), zero console errors, no horizontal
   overflow, h1 at 700, jsPDF still fetches nothing until the button is clicked.
 
+- **UK Mortgage Calculator: full rebuild from a 484-line template stub to the
+  3-card pattern** (Aug 3, 2026, owner request, reference page
+  calculator.net/mortgage-calculator-uk.html supplied with a screenshot).
+
+  The old page was a React-slider shell: four sliders, 383 words, one H2, three
+  FAQs, no schedule, no chart, no PDF. Rebuilt at custom-built tier.
+
+  **Parity (protocol 3a-PRIME).** Their markdown extraction loses input `value`
+  and `name` attributes, so the field audit was done against the raw HTML — that
+  is what produced the complete set of 11 controls. All 11 map to ours. Every one
+  of their outputs is present: the two headline figures, the Monthly/Total table
+  (mortgage payment, taxes, insurance, other, total out-of-pocket, loan amount,
+  deposit, total interest), the donut, and the Annual/Monthly schedule with the
+  balance/interest/capital chart.
+
+  Formulas were verified in Node **before** any page code was written, and the
+  browser suite re-checks them: feeding their own defaults (£500,000 / 25% / 25y
+  / 5%) reproduces £2,192.21 monthly, £1,562.50 interest-only, £282,663.80 total
+  interest, £1,020,164 lifetime out-of-pocket, and their published schedule rows
+  at months 1, 12, 180 and 300 plus year-1 interest of £18,574.
+
+  **Two intentional differences, both flagged on the page.**
+  1. *Council tax is entered in pounds per year, not as a percentage of the
+     price.* Their "Taxes" field is the US property-tax field transplanted
+     unchanged; UK council tax is a flat band-based bill set by the local
+     authority and is not a function of what the house is worth. Same rule as the
+     FHA upfront-MIP case: keep the field, drop the modelling error. Entering the
+     equivalent amount reproduces their figures exactly, which the parity test
+     asserts.
+  2. *Added Stamp Duty and overpayment.* SDLT appears only in their prose, not in
+     their calculator — **and the rates in that prose are out of date**, still
+     showing the temporary 2022-2025 thresholds (£250,000 nil-rate, FTB
+     £425k/£625k). This page uses the bands in force from 1 April 2025, taken from
+     gov.uk, and the SDLT function is checked against HMRC's own worked examples:
+     £295,000 standard = £4,750, first-time buyer at £500,000 = £10,000,
+     additional property at £300,000 = £20,000. A band-by-band breakdown table
+     shows the arithmetic rather than just the answer. Overpayment is the largest
+     UK-specific query cluster their page does not serve.
+
+  **Keyword research.** UK SERP for the head term is owned by HSBC, MoneySavingExpert,
+  Compare the Market, Barclays, Nationwide, Halifax and MoneySuperMarket. The term
+  the banks converge on is "mortgage repayment calculator", not "mortgage calculator
+  UK", and MSE's own title pairs it with "interest only". Title therefore covers both
+  the head term and the second-largest cluster: *UK Mortgage Calculator — Repayments
+  and Stamp Duty* (50 chars). Long-tail woven into H2s and FAQs: interest-only,
+  first-time buyer stamp duty, overpayment savings, 25 vs 30 year term, lender quote
+  differences. Note this page is the section-8 exception — UK-first, British spelling,
+  £ and UK conventions throughout.
+
+  **A mistake caught by the suite, worth recording.** The headline figure was
+  labelled "Monthly repayment" while actually showing the total including council
+  tax and insurance — £1,872 where the mortgage payment was £1,594. This is the
+  same class of mislabelling fixed on the amortization page earlier the same day,
+  reintroduced from the other direction. The headline is now the payment to the
+  lender; the all-in figure sits beneath it and in the table, which also matches
+  how the reference page separates the two.
+
+  **Contrast.** Three inherited failures were found by measuring, not by eye:
+  `.ukm-crumb a` at 3.66 and, more seriously, the result-head label and sub-line
+  at **3.30** — white on `#16A34A`. Both fixed page-locally with existing tokens
+  (`--fin` navy at 11.50, `--ink-soft` at 7.64); no new colour invented, and
+  `--gold-deep` was measured at 4.44 and rejected for being under the line. All 28
+  text elements on the page now pass AA. **The green result-head is used across
+  other pages, so that 3.30 failure exists site-wide** — recorded below, not fixed
+  here.
+
+  **Originality.** Zero eight-word runs shared with calculator.net (0.00%). Against
+  our own pages the first draft hit 1.99% with mortgage-amortization-calculator,
+  above the 0.99% site record; the shared runs were the annuity-formula sentence,
+  which was reworded to bring it to 1.09%. What remains is byline and TOC
+  boilerplate.
+
+  Verified before push: shared style block byte-identical to bmi/tip/body-fat/
+  mortgage; `node --check` clean; three JSON-LD blocks parse; all 8 FAQ Q&As match
+  the visible text exactly (schema and HTML are generated from one Python list, so
+  they cannot drift); 90 browser assertions across desktop 1280 and mobile 390;
+  zero console errors; no horizontal overflow; h1 at 700; jsPDF fetches nothing
+  until the button is clicked. New OG image at 1200x630. Directory entry renamed
+  from the awkward "Mortgage Uk Calculator" to "UK Mortgage Calculator" in
+  `calculators-index.json` and `all-calculators`, and the sitemap lastmod bumped.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
