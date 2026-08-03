@@ -609,20 +609,22 @@
 </div>
 </div>
 <style>
-.mpo-seo-article{max-width:820px;margin:44px auto 0;font-size:15.5px;line-height:1.75;color:var(--ink-soft)}
-.mpo-seo-article h2{font-family:var(--font-display);font-size:23px;font-weight:700;color:var(--ink);margin:34px 0 12px;letter-spacing:-.01em}
-.mpo-seo-article h3{font-size:16.5px;font-weight:700;color:var(--ink);margin:24px 0 6px}
-.mpo-seo-article p{margin:0 0 14px}
-.mpo-seo-article ul{margin:0 0 16px;padding-left:22px}
-.mpo-seo-article li{margin:0 0 8px}
-.mpo-seo-article b{color:var(--ink);font-weight:600}
-.mpo-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:14px;margin-bottom:8px}
-.mpo-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:14px;padding:16px 18px;margin:18px 0 28px}
-.mpo-toc .h{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:700;margin-bottom:10px}
-.mpo-toc a{display:inline-block;font-size:13px;color:#1E3A5F;text-decoration:none;margin:0 16px 8px 0;border-bottom:1px solid transparent}
-.mpo-toc a:hover{border-bottom-color:#1E3A5F}
-.mpo-disclaimer{font-size:12.5px;color:var(--ink-faint);background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:14px 16px;margin-top:28px;line-height:1.65}
-</style><div class="mpo-seo-article"><div class="mpo-byline">Written by the CalculatorBoss Finance Team &middot; Every calculator is checked against a reference implementation with a recorded test suite &middot; Last updated August 2026</div><div class="mpo-toc"><div class="h">On this page</div><a href="#what">What early payoff buys you</a><a href="#math">The math behind it</a><a href="#fields">Every field explained</a><a href="#compare">Extra vs biweekly vs lump sum</a><a href="#payoff-amount">Payoff amount vs balance</a><a href="#when-not">When it is the wrong call</a><a href="#limits">What it does not cover</a><a href="#faq">FAQ</a></div>
+.mpo-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.mpo-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.mpo-seo-article h2:first-child{margin-top:0}
+.mpo-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.mpo-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.mpo-seo-article strong,.mpo-seo-article b{color:var(--ink);font-weight:600}
+.mpo-seo-article ul,.mpo-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.mpo-seo-article ul li strong,.mpo-seo-article ul li b{color:var(--ink)}
+.mpo-seo-article a{color:#1E3A5F;text-decoration:underline}
+.mpo-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.8;word-break:break-word}
+.mpo-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.mpo-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.mpo-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:7px 0;min-height:32px;text-decoration:none}
+.mpo-toc a:hover{color:#1E3A5F}
+.mpo-disc{font-size:12.5px;color:var(--ink-faint);line-height:1.7;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+</style><article class="mpo-seo-article"><p class="mpo-byline">Written by the CalculatorBoss Finance Team &middot; Every calculator is checked against a reference implementation with a recorded test suite &middot; Last updated August 2026</p><nav class="mpo-toc" aria-label="On this page"><a href="#what">What early payoff buys you</a><a href="#math">The math behind it</a><a href="#fields">Every field explained</a><a href="#compare">Extra vs biweekly vs lump sum</a><a href="#payoff-amount">Payoff amount vs balance</a><a href="#when-not">When it is the wrong call</a><a href="#limits">What it does not cover</a><a href="#faq">FAQ</a></nav>
 <h2 id="what">What paying a mortgage down early actually buys you</h2>
 <p>A mortgage is front-loaded by design. Interest is charged on the outstanding principal, so in the early years most of
 each payment covers interest and only a thin slice reduces the balance. That is also the reason overpaying works so well:
@@ -641,12 +643,10 @@ how a bad year feels. Plenty of people overpay for that reason rather than for t
 (<span class="mono">i = r / 12</span>). The scheduled payment on the original loan comes from the standard amortization
 formula, where <span class="mono">P</span> is the original amount and <span class="mono">n</span> the total number of
 monthly payments:</p>
-<p class="mono" style="background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:12px 14px;font-size:13px">
-M = P &times; i / (1 &minus; (1 + i)<sup>&minus;n</sup>)</p>
+<p class="mpo-formula">M = P &times; i / (1 &minus; (1 + i)<sup>&minus;n</sup>)</p>
 <p>If you told us the remaining term, we work out today's balance by rolling the original loan forward to the point you
 are at now &mdash; the closed form for the balance after <span class="mono">k</span> payments:</p>
-<p class="mono" style="background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:12px 14px;font-size:13px">
-B<sub>k</sub> = P(1 + i)<sup>k</sup> &minus; M &times; [((1 + i)<sup>k</sup> &minus; 1) / i]</p>
+<p class="mpo-formula">B<sub>k</sub> = P(1 + i)<sup>k</sup> &minus; M &times; [((1 + i)<sup>k</sup> &minus; 1) / i]</p>
 <p>From there the calculator stops using formulas and simply walks the loan forward one month at a time, because that is
 the only way to handle irregular extra payments correctly. Each month it charges interest on the balance
 (<span class="mono">balance &times; i</span>), applies your payment, and puts whatever is left over against principal.
@@ -743,7 +743,7 @@ day-count convention. Expect a close match to your servicer's figures rather tha
 <h3>How do I make sure my extra payment actually goes to principal?</h3>
 <p>Say so explicitly. Use your servicer's 'additional principal' field online, or write 'apply to principal' on the check or transfer memo. Without that instruction many servicers treat the surplus as a prepaid future installment, which pushes your next due date forward but leaves the principal untouched — so you get none of the interest saving. Check the next statement to confirm the balance dropped by the amount you sent.</p>
 <h3>Does paying off my mortgage early hurt my credit score?</h3>
-<p>It can dip your score slightly, and it does not matter much. Closing an installment account removes an active, well-paying tradeline and can reduce your credit mix, so a small short-term drop is normal. The closed account stays on your report as positive history for years, and being free of the payment is worth far more than a few points.</p><div class="mpo-disclaimer"><b>Disclaimer.</b> This calculator produces estimates for general information only and is not financial, tax or legal advice. Figures assume a fixed rate and exclude escrow, insurance, PMI, HOA dues, prepayment penalties and servicer fees. Your lender’s payoff quote is the authoritative number. Confirm anything you plan to act on with your servicer or a licensed advisor. Learn more <a href="/about/" style="color:#1E3A5F">about CalculatorBoss</a> and our <a href="/privacy-policy/" style="color:#1E3A5F">privacy policy</a>.</div></div></div></main><script>
+<p>It can dip your score slightly, and it does not matter much. Closing an installment account removes an active, well-paying tradeline and can reduce your credit mix, so a small short-term drop is normal. The closed account stays on your report as positive history for years, and being free of the payment is worth far more than a few points.</p><p class="mpo-disc"><b>Disclaimer.</b> This calculator produces estimates for general information only and is not financial, tax or legal advice. Figures assume a fixed rate and exclude escrow, insurance, PMI, HOA dues, prepayment penalties and servicer fees. Your lender’s payoff quote is the authoritative number. Confirm anything you plan to act on with your servicer or a licensed advisor. Learn more <a href="/about/" style="color:#1E3A5F">about CalculatorBoss</a> and our <a href="/privacy-policy/" style="color:#1E3A5F">privacy policy</a>.</p></article></div></main><script>
 (function(){
   function $(id){ return document.getElementById(id); }
   var mode = 'known', strat = 'extra', schedView = 'annual', last = null;
