@@ -1111,7 +1111,11 @@
     return order.map(function(key){ return {key:key, ts:byDate[key].ts, price:byDate[key].price}; });
   }
   function fmtUSD(n){
-    return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    /* A losing position rendered as "$-1,234.56" with the sign stranded after the
+       dollar. Match the sign handling every other money helper on the site uses. */
+    var neg = n < 0; n = Math.abs(n);
+    var s = '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    return neg ? '-'+s : s;
   }
   function fetchHistory(){
     var tbody = byId('btcHistoryBody');
@@ -1249,7 +1253,9 @@
         var profit = endValue - amt;
         var pct = amt > 0 ? (profit/amt*100) : 0;
 
-        byId('btcProfitValue').textContent = '$'+profit.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+        var pNeg = profit < 0, pAbs = Math.abs(profit);
+        byId('btcProfitValue').textContent = (pNeg ? '-' : '') + '$' +
+          pAbs.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
         var pctEl = byId('btcProfitPct');
         pctEl.textContent = (pct>=0?'+':'')+pct.toFixed(2)+'%';
         pctEl.className = 'btc-profit-pct '+(pct>=0?'up':'down');

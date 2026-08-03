@@ -4674,6 +4674,70 @@ assume the rest carry the same defects until checked \u2014 particularly the neg
 formatting, negative colouring and select-on-focus, which are shared conventions
 rather than page-specific logic.
 
+## Site-wide: select-on-focus across 174 pages, Aug 3, 2026
+
+Rollout of the fix found in the net worth audit, plus one genuine money-formatting bug.
+
+**select-on-focus, 174 pages.** Almost every calculator on this site ships with worked
+example values already in its boxes. Without select-on-focus, tapping a field on a
+phone puts the caret beside the existing digits, so someone aiming for 250000 in a box
+reading 420000 ends up with 420000250000. Only the two pages fixed earlier today had
+it.
+
+Implemented as **one delegated `focusin` listener injected before `</body>`**, the same
+injection pattern the "Calculate jumps to the result" script already uses. Deliberately
+not a regex over each page's own JS: the pages have wildly different script structures
+and a broad replace over 174 of them is exactly the kind of change that has broken this
+site before. The helper needs no per-page knowledge, guards itself with a
+`window.__cbSelectOnFocus` flag, and skips `readOnly`/`disabled` inputs so computed
+output boxes (horsepower's `hp-hpInput`, investment's `inv-end`) are left alone.
+
+One non-obvious detail worth keeping: a mouse click focuses first and *then* places the
+caret on mouseup, which throws the selection away. The helper swallows that single
+mouseup and removes the listener after 400ms. Without it the fix works on mobile tap
+but silently does nothing on desktop.
+
+40 pages were skipped because they have no `type="number"` inputs at all (404,
+_not-found, about, all-calculators, age-calculator, base64-encode-decode and similar).
+
+**bitcoin-calculator: a losing position rendered as `$-1,234.56`.** `'$'+profit.toLocaleString(...)`
+with no sign handling. Fixed inline at the call site — note that `fmtUSD()` on that page
+lives in a *different* `<script>` block, so calling it from the profit code would have
+thrown a ReferenceError. Caught before pushing; worth checking scope on that page before
+any future refactor.
+
+**Correction to what I reported before this pass.** I said eight pages had the negative
+money-format bug. That came from a regex that only looked at a single expression, and
+seven of the eight (debt-consolidation, depreciation, discount, down-payment, estate-tax,
+fha-loan, finance) already do `var neg = n<0; n = Math.abs(n);` on the line above and are
+correct. Only bitcoin-calculator was actually broken. This is the second bad-regex
+false positive this session — the first was the sitemap trailing-slash claim. **Read the
+surrounding lines before believing a pattern match.**
+
+Minor known inconsistency, deliberately not churned: those seven pages prefix a plain
+ASCII hyphen (`-$1,234`), while net-worth and mutual-fund use a typographic minus
+(`\u2212$1,234`). Both read fine; standardising would mean touching seven working pages
+for a typographic preference, which was not worth the risk inside a 175-file commit.
+
+**Verification, before and after, per the mandatory site-wide process.** A baseline was
+captured for all 214 pages first (protected style block SHA-1, title, canonical,
+description, byte length, script count). After the change, across all 214: zero
+protected-style-block hashes changed, zero titles changed, no canonical or meta
+description lost, all six `:root` variables intact everywhere, no universal `*` reset
+introduced, and every inline script on every page still parses under `node --check`.
+All 214 pages then loaded in a real browser: `nav-links: flex`, no horizontal overflow
+and zero page errors on all but `404` and `_not-found`, which were already React error
+pages with no canonical or description before this change. Both the mutual-fund and
+net-worth suites still pass. Finally the behaviour itself was verified at a 390px
+viewport with a real click on 69 pages that actually have an editable prefilled number
+box: 69 working, 0 failing.
+
+**Two test artifacts that looked like failures and were not**, recorded so the next
+person does not chase them: clicking the *centre* of a number input hits the native
+spinner and increments the value (salary-calculator went 25 to 25.01 before any typing),
+and the first visible number input on several pages is a read-only result box. Target
+the first editable input and click its left edge.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

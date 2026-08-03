@@ -1131,4 +1131,28 @@
   }
 })();
 </script>
+<script>
+/* Calculator boxes ship with worked example values already in them. Without this, tapping
+   a field on a phone puts the caret beside the existing digits, so a visitor aiming for
+   250000 ends up with 420000250000. Selecting on focus makes the first keystroke replace
+   the example. Delegated from the document so it needs no per-page knowledge. */
+(function(){
+  if(window.__cbSelectOnFocus) return;
+  window.__cbSelectOnFocus = 1;
+  function armed(el){
+    return el && el.tagName === 'INPUT' && el.type === 'number' && !el.readOnly && !el.disabled;
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target;
+    if(!armed(el)) return;
+    try { el.select(); } catch(err) { return; }
+    /* A mouse click focuses first, then places the caret on mouseup, which would throw
+       the selection away. Swallow that one mouseup only. */
+    var once = function(ev){ ev.preventDefault(); el.removeEventListener('mouseup', once); };
+    el.addEventListener('mouseup', once);
+    setTimeout(function(){ el.removeEventListener('mouseup', once); }, 400);
+  });
+})();
+</script>
+
 </body></html>
