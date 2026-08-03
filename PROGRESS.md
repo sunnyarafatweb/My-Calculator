@@ -4261,6 +4261,81 @@ assume this exact order still holds after a few weeks of new data.
   on all twelve, with no console errors; at 1280px the guard blocks on all of
   them. Injected script parses under node --check on all 63.
 
+## Mutual Fund Calculator — rebuilt Aug 3, 2026
+
+Was a 484-line template-tier page with no calculator at all. Rebuilt to the 3-card
+pattern (`mf-` prefix), reusing investment-calculator's component conventions.
+
+**Reference audited live** (raw fetch + the owner's screenshot of the rendered page,
+per the guide's "do both" rule): calculator.net/mutual-fund-calculator.html. It has
+no tabs/modes and no schedule; 8 inputs, 8 result rows, one donut.
+
+**Field map: 9/9 input controls, 9/9 result fields, zero omissions.** Ours adds a
+conditional Deferred sales charge result row, an Annual/Monthly schedule, a stacked
+bar chart, a Fee Impact card and PDF export.
+
+**Math reverse-engineered and verified in Node before embedding.** Their engine is
+the industry-standard convention: net annual rate = rate of return − expense ratio,
+compounded monthly as `(1+net)^(1/12)−1`, contributions at month end, front-end load
+taken from the initial investment and from every contribution, deferred charge on
+`min(total principal, ending balance)`, and Net IRR solved from the monthly cash-flow
+sequence and reported as an annual effective rate. Verified against their reference
+case (20000 / 0 / 1000 / 5% / 5y / 2% / 0% / 0.5%): ending value, total principal,
+total contributions, net return, Net IRR (3.844%), sales charge and all four donut
+percentages match exactly. Also checked a closed-form lump sum, a deferred-charge
+case, a loss case, a 40-year and a 100-year horizon, and a partial-year term.
+
+**Intentional difference — Operating expenses shows $1,324.00 where they show
+$1,323.40 (0.045%).** calculator.net is internally inconsistent on this one line:
+their ending value comes from a 4.5%-net path, but their fee figure comes from a
+separate ledger running at ~4.4767% (solved both ways; their number sits between the
+two orderings of that ledger, within a cent). Reproducing their figure would break
+tie-out between the result card and the schedule. Ours accrues the fee from the same
+balance path the page displays, so every schedule row satisfies
+`start + added + growth − fees = end` exactly and the fee column sums to
+"Total charges and fees". Flagged on-page in the methodology section.
+
+**Two bugs the DOM-level checks passed and only the screenshot caught** — the exact
+failure mode section 3a-PRIME warns about:
+1. `solveIrr` bracketed from −0.9999, where `Math.pow(1+x, -i)` overflows to Infinity
+   once the horizon passes ~10 years, so Net IRR silently rendered as an em-dash for
+   any realistic holding period. Now brackets from a range where npv stays finite.
+2. Native number spinners ate ~16px of the 55px-wide years/months boxes, hiding the
+   values entirely while `input_value` still returned them. Spinners removed, split
+   control widened. Both now have regression assertions in the browser suite.
+
+**Keyword research** (web-search competitive proxy; no paid tool or GSC connector in
+this environment). Head term "mutual fund calculator" — calculator.net, NerdWallet
+and Omni rank. NerdWallet titles theirs around growth *and fees*, which is the
+differentiator; the fee/expense-ratio angle is a distinct query cluster with its own
+dedicated competitor pages ("expense ratio calculator", "mutual fund fee
+calculator", "front-end load"). SIP framing deliberately avoided — those SERPs are
+India-facing and section 8 says USA-first. Title: "Mutual Fund Calculator — See Your
+Real Return After Fees" (56 chars); description 147 chars, fee-benefit first.
+
+**Verification before push.** Static: 52 checks — protected shared style block
+byte-identical to body-fat-calculator, all six `:root` vars intact, no universal
+reset, `<title>`/description/canonical/OG/Twitter present, all JSON-LD parses,
+BreadcrumbList + FAQPage + WebApplication present, FAQ schema string-equal to the
+visible `<h3>`/`<p>` pairs (8/8, automated diff), 7 inline scripts pass
+`node --check`, 2,449-word article, 9 H2s, 18 internal links none broken.
+Browser (Playwright, 1280px and 390px): zero console/page errors, zero horizontal
+overflow, H1 computed weight 700, all five cards render with real geometry, numeric
+parity re-checked in-browser, schedule rows tie out, jsPDF fetches nothing until the
+button is clicked. Five untouched pages spot-checked clean.
+
+Defaults deliberately differ from theirs: 15,000 / 1,200 / 400 / 7% / 12y / 1.5% /
+0% / 0.65%.
+
+**Still open on this page:** no `og/mutual-fund-calculator.png` was generated this
+session — the OG tags point at the shared default. Worth adding next time the page
+is touched.
+
+**Observed in passing, not fixed:** `investment-calculator` requests jsPDF on page
+load rather than on click, contrary to the guide's standing lazy-load rule. Left
+alone to keep this commit to one page; worth its own pass across whichever pages
+still do this.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
@@ -4290,7 +4365,11 @@ assume this exact order still holds after a few weeks of new data.
   authenticate that doesn't require pasting the raw token into chat each
   time (e.g. the user storing it outside the conversation and Claude Code/
   CLI picking it up from local environment instead) before the next session,
-  rather than repeating this note a fourth time. **Update, Jul 27, 2026
+  rather than repeating this note a fourth time. **Update, Aug 3, 2026 session
+  (Mutual Fund Calculator build)**: it happened a seventh time — a PAT was pasted
+  in the first message again. Treat it as burned. Flagged to the owner at the top
+  of the session before any other work; the durable fix (token stored outside the
+  chat, read from local environment) is still not in place. **Update, Jul 27, 2026
   session**: it happened again (a fourth time) — a PAT was pasted directly
   in chat at the very start of this session too. Treat that token as burned
   and rotate it before the next session. **Update, separate Jul 27, 2026
