@@ -1160,7 +1160,27 @@
     optionalsOn = this.checked; syncOptionals(); render();
   });
 
-  $('ukm-calcBtn').addEventListener('click', render);
+  /* On a phone the result card sits below the form, so pressing Calculate can
+     look like nothing happened. Recalculate, then bring the answer into view.
+     Detected from the actual layout rather than a hard-coded breakpoint, so it
+     keeps working if the grid's collapse point ever moves. */
+  function revealResult(){
+    var form = document.querySelector('.ukm-area-form');
+    var res = document.querySelector('.ukm-area-result');
+    if(!form || !res) return;
+    var fr = form.getBoundingClientRect(), rr = res.getBoundingClientRect();
+    if(rr.top <= fr.top + 20) return;            // side by side, already visible
+    var header = document.querySelector('header');
+    var offset = (header ? header.getBoundingClientRect().height : 0) + 12;
+    var target = rr.top + window.pageYOffset - offset;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try{
+      window.scrollTo({ top: Math.max(0, target), behavior: reduce ? 'auto' : 'smooth' });
+    } catch(e){
+      window.scrollTo(0, Math.max(0, target));   // older browsers ignore the options object
+    }
+  }
+  $('ukm-calcBtn').addEventListener('click', function(){ render(); revealResult(); });
 
   var NOW = new Date();
   var DEF = {
