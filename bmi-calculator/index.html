@@ -994,4 +994,31 @@
   input.addEventListener('input', function(){ renderResults(input.value); });
 })();
 </script>
+<script>
+/* cb-reveal-result — tapping Calculate on a phone should show the answer.
+   The result card sits below the form there, so the update happens off screen
+   and it looks as though nothing happened. Whether to scroll is decided from
+   live geometry, not a breakpoint: if the result is level with the form it is
+   already visible and nothing moves, which leaves desktop untouched. */
+(function(){
+  var BTNS = ["bmi-calcBtn"], FORM = ".bmi-area-form", RESULT = ".bmi-area-result";
+  function reveal(){
+    var f = document.querySelector(FORM), r = document.querySelector(RESULT);
+    if(!f || !r) return;
+    var fr = f.getBoundingClientRect(), rr = r.getBoundingClientRect();
+    if(rr.top <= fr.top + 20) return;           /* side by side, already in view */
+    var hd = document.querySelector('header');
+    var off = (hd ? hd.getBoundingClientRect().height : 0) + 12;
+    var top = Math.max(0, rr.top + window.pageYOffset - off);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    catch(e){ window.scrollTo(0, top); }        /* older browsers ignore the options object */
+  }
+  function onClick(){ if(window.requestAnimationFrame) requestAnimationFrame(reveal); else reveal(); }
+  for(var i = 0; i < BTNS.length; i++){
+    var b = document.getElementById(BTNS[i]);
+    if(b) b.addEventListener('click', onClick);
+  }
+})();
+</script>
 </body></html>

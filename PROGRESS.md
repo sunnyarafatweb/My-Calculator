@@ -4214,6 +4214,53 @@ assume this exact order still holds after a few weeks of new data.
   from the awkward "Mortgage Uk Calculator" to "UK Mortgage Calculator" in
   `calculators-index.json` and `all-calculators`, and the sitemap lastmod bumped.
 
+- **Jump to the result on Calculate, added to 63 completed pages**
+  (Aug 3, 2026, owner request after the UK Mortgage build).
+
+  The figures already update as you type, but on a phone the result card sits
+  below the form and off screen, so tapping Calculate looked like nothing had
+  happened. Calculate now scrolls the result card to just under the sticky
+  header. One self-contained script appended to each page - no existing
+  handler, style or markup touched, and every changed file was diffed to prove
+  the snippet is the only difference (63 files, +1701, zero deletions).
+
+  Whether to scroll is decided from live geometry rather than a breakpoint: if
+  the result is level with the form it is already visible and nothing moves.
+  That keeps desktop untouched without needing to know each page's collapse
+  point, which matters because the prefixes and breakpoints vary page to page.
+  The 71px sticky header is subtracted, and prefers-reduced-motion gets an
+  instant jump.
+
+  **Nine pages were deliberately left out**, because their own scripts already
+  scroll on Calculate and a second scroll would fight the first:
+  crypto-position-size, crypto-tax, fha-loan, leverage, liquidation-price,
+  marriage-tax, mortgage-amortization, risk-reward and staking-reward. The
+  snippet was injected into all 72 first and then reverted on those nine.
+
+  **A measurement trap worth recording, because it nearly produced the wrong
+  answer.** The first attempt classified pages by behaviour: click Calculate on
+  the pre-change build and see whether the page scrolled. That said 65 of 72
+  already had the feature, which would have meant abandoning the task. It was
+  wrong. Clicking Calculate re-renders the DOM, and the browser's **scroll
+  anchoring** then shifts scrollY to keep a visible element steady - loan
+  calculator moved 378px with no change in document height and no scroll code
+  anywhere in its source. Re-running the identical build three times gave
+  spreads of 19-44px, so the signal was noise. The reliable classifier is
+  static: does the page's own script call scrollIntoView, window.scrollTo or
+  set scrollTop. That gives 9, not 65.
+
+  The same trap applies to verification. Comparing scroll movement before and
+  after the change reported five desktop failures that were all noise; the
+  sound desktop check is geometric - measure the form-to-result offset and
+  confirm the guard blocks - plus a same-build repeat run to establish the
+  noise floor.
+
+  Verified: 12-page sample across every structure on the site (single button,
+  multi-tab buttons, the separate crypto design system, the largest file, the
+  heaviest tables). At 390px the result lands in view and clear of the header
+  on all twelve, with no console errors; at 1280px the guard blocks on all of
+  them. Injected script parses under node --check on all 63.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
