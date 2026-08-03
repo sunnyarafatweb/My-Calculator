@@ -4590,6 +4590,63 @@ static and browser suites still pass.
 **Still open site-wide:** only 58 of 214 pages have an `og:image` at all, and most
 `lastmod` values are stale. Worth its own pass.
 
+## Net Worth Calculator — post-launch audit, Aug 3, 2026
+
+Adversarial pass over the shipped page (not a re-run of the build's own tests) plus a
+field-coverage diff against NerdWallet, Bankrate, Forbes Advisor, Schwab MoneyWise and
+AARP. Five defects and one coverage gap found and fixed.
+
+**Bugs, all of which the build-time suite passed straight over:**
+1. **Negative asset input corrupted every total.** `min="0"` does not stop a typed
+   minus sign. Entering −500,000 for a home produced total assets of −$209,500 and a
+   nonsense net worth. Now clamped on read via a `money_in()` helper and the field
+   itself is reset to 0 on blur.
+2. **Projection bars ran straight out of the SVG.** With a negative net worth the bars
+   drew downward from a fixed baseline; measured bottom edge was y=202 in a
+   viewBox 120 tall. Rewritten to split the plot around a computed zero line sized to
+   whichever side has values, with a visible zero rule when any year is negative.
+3. **Debt-to-asset ratio showed an em-dash for the single most alarming case** — debts
+   with no assets. Now reads "No assets to cover it".
+4. **A very large total overflowed the result card.** The headline was a fixed 30px.
+   Now steps down to 24px and 20px by string length.
+5. **Negative totals rendered in green** in the balance-sheet row and the projection
+   headline. A negative number in the positive colour is actively misleading; both now
+   go red.
+
+**UX: focus now selects the field contents.** Every box ships with a worked example in
+it. Without select-on-focus, tapping a field on a phone puts the caret beside the
+existing digits, so a user aiming for 250000 gets 420000250000. This is worth applying
+to any other page that prefills example values.
+
+**Coverage gap vs the big US sites.** NerdWallet, Bankrate and Forbes Advisor all name
+retirement accounts as their own asset line; ours had them buried in "other
+investments", which is the largest single balance most households own and the most
+likely thing to be left out entirely. Added a **Retirement accounts (401k, IRA)** field
+in the Investments group — deliberately excluded from the liquid-assets line, since
+that is the point of showing liquid separately. Asset and liability counts are now
+10 and 8; the reference's 9 and 8 are all still present, so parity is unaffected.
+
+Also rewrote the two form hints to say explicitly where ambiguous items go: business
+ownership, crypto and cash-value life insurance under other investments; land, art,
+jewelry, collectibles and money owed to you under other assets; medical bills, business
+loans, taxes owed, payday/title loans and family debts under other debt. NerdWallet
+lists medical debt, business loans and payday loans by name, and users were otherwise
+left guessing.
+
+Defaults changed with the new field: assets 806,500, liabilities 311,300, net worth
+495,200, debt-to-asset 38.6%, liquid 247,500, ex-home 343,200, ten-year projection
+957,563 (matches the closed form to the dollar).
+
+**All six fixes now have permanent assertions in the page's browser suite**, so they
+cannot regress silently. Re-ran the full adversarial pass on desktop and mobile
+afterwards: zero issues.
+
+**Lesson for future builds:** the build-time suite tested the happy path and the
+documented edge cases, and passed all of them while five real defects sat in the
+shipped page. Worth running a deliberate junk-input pass — negatives, empty strings,
+text, absurd magnitudes, all-zero, all-negative — against every calculator before
+calling it done, and checking that negative results are coloured as negative.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

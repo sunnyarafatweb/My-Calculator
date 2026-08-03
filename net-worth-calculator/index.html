@@ -421,6 +421,7 @@
 .nw-table tr.nw-sec td{background:var(--surface-sunken);font-weight:700;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
 .nw-table tr.nw-total td{font-weight:700;color:var(--ink);border-top:1px solid var(--border)}
 .nw-table tr.nw-net td{font-weight:700;color:#128A3D;background:var(--gold-tint)}
+.nw-table tr.nw-net.is-negative td{color:#B3261E;background:#FBE4E7}
 .nw-table td.nw-empty{text-align:left;color:var(--ink-faint);font-size:12.5px}
 .nw-chart-svg{width:100%;height:auto;display:block;flex:1}
 .nw-chart-legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}
@@ -443,6 +444,7 @@
 .nw-bench-note{font-size:11.5px;color:var(--ink-faint);line-height:1.6;margin-top:14px;border-top:1px solid var(--border-fine);padding-top:12px}
 .nw-proj-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:8px}
 .nw-proj-head b{font-size:22px;color:#128A3D}
+.nw-proj-head b.is-negative{color:#B3261E}
 .nw-proj-svg{width:100%;height:auto;display:block}
 .nw-proj-note{font-size:11.5px;color:var(--ink-faint);line-height:1.6;margin-top:10px}
 .nw-proj-inputs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
@@ -465,12 +467,13 @@
   <div class="nw-field"><label class="nw-field-label" for="nw-holiday">Holiday home</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-holiday" value="0" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-otherre">Other real estate</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-otherre" value="0" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-shares">Shares and investments</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-shares" value="185000" min="0" step="100" inputmode="decimal"></div></div>
+  <div class="nw-field"><label class="nw-field-label" for="nw-retirement">Retirement accounts (401k, IRA)</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-retirement" value="96000" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-otherinv">Other investments</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-otherinv" value="24000" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-savings">Savings accounts</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-savings" value="32000" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-checking">Checking accounts</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-checking" value="6500" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-vehicles">Motor vehicles</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-vehicles" value="28000" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-otherast">Other assets</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-otherast" value="15000" min="0" step="100" inputmode="decimal"></div></div>
-  <p class="nw-subnote">Enter what each item would realistically sell for today, not what you paid for it. Nothing you type leaves your browser.</p>
+  <p class="nw-subnote">Enter what each item would realistically sell for today, not what you paid for it. <b>Other investments</b> covers business ownership, crypto and cash-value life insurance; <b>other assets</b> covers land, art, jewelry, collectibles and money owed to you. Nothing you type leaves your browser.</p>
   <div class="nw-divider"></div>
   <span class="nw-pill alt">Liabilities — what you owe</span>
   <div class="nw-field"><label class="nw-field-label" for="nw-mortgage">Mortgage</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-mortgage" value="268000" min="0" step="100" inputmode="decimal"></div></div>
@@ -481,7 +484,7 @@
   <div class="nw-field"><label class="nw-field-label" for="nw-consumer">Consumer loan</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-consumer" value="0" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-card">Credit card and overdraft</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-card" value="4800" min="0" step="100" inputmode="decimal"></div></div>
   <div class="nw-field"><label class="nw-field-label" for="nw-otherdebt">Other debt</label><div class="nw-input-group"><span>$</span><input type="number" id="nw-otherdebt" value="0" min="0" step="100" inputmode="decimal"></div></div>
-  <p class="nw-subnote">Use the outstanding balance on each debt, not the original loan amount or the monthly payment.</p>
+  <p class="nw-subnote">Use the outstanding balance on each debt, not the original loan amount or the monthly payment. <b>Other debt</b> is where medical bills, business loans, taxes owed, payday or title loans and money owed to family belong.</p>
   <div class="nw-btn-row">
     <button type="button" class="nw-btn-calc" id="nw-calcBtn">Calculate</button>
     <button type="button" class="nw-btn-clear" id="nw-clearBtn">Clear</button>
@@ -575,6 +578,10 @@
     var v = parseFloat(el.value);
     return isFinite(v) ? v : 0;
   }
+  /* Money boxes carry min="0", but browsers do not stop a typed minus sign, and a
+     negative "asset" silently corrupted every total. Clamp on read, and correct the
+     visible value when the field is left. */
+  function money_in(id){ return Math.max(0, num(id)); }
   function money(v, dp){
     if(!isFinite(v)) return '—';
     var neg = v < 0;
@@ -606,6 +613,7 @@
     {id:'nw-holiday',  label:'Holiday home',                group:'Real estate'},
     {id:'nw-otherre',  label:'Other real estate',           group:'Real estate'},
     {id:'nw-shares',   label:'Shares and investments',      group:'Investments'},
+    {id:'nw-retirement',label:'Retirement accounts',        group:'Investments'},
     {id:'nw-otherinv', label:'Other investments',           group:'Investments'},
     {id:'nw-savings',  label:'Savings accounts',            group:'Cash'},
     {id:'nw-checking', label:'Checking accounts',           group:'Cash'},
@@ -635,19 +643,19 @@
     var assets = [], liabs = [], totalA = 0, totalL = 0;
     var i, v;
     for(i=0;i<ASSETS.length;i++){
-      v = num(ASSETS[i].id);
+      v = money_in(ASSETS[i].id);
       totalA += v;
       assets.push({label:ASSETS[i].label, group:ASSETS[i].group, value:v});
     }
     for(i=0;i<LIABS.length;i++){
-      v = num(LIABS[i].id);
+      v = money_in(LIABS[i].id);
       totalL += v;
       liabs.push({label:LIABS[i].label, group:LIABS[i].group, value:v});
     }
     var netWorth = totalA - totalL;
-    var homeEquity = num('nw-home') - num('nw-mortgage');
-    var liquid = num('nw-savings') + num('nw-checking') + num('nw-shares') + num('nw-otherinv');
-    var ratio = totalA > 0 ? (totalL/totalA) : null;
+    var homeEquity = money_in('nw-home') - money_in('nw-mortgage');
+    var liquid = money_in('nw-savings') + money_in('nw-checking') + money_in('nw-shares') + money_in('nw-otherinv');
+    var ratio = totalA > 0 ? (totalL/totalA) : (totalL > 0 ? Infinity : null);
     return {
       assets:assets, liabs:liabs, totalA:totalA, totalL:totalL, netWorth:netWorth,
       homeEquity:homeEquity, liquid:liquid, ratio:ratio,
@@ -717,7 +725,8 @@
     }
     if(!anyL) out.push('<tr><td colspan="3" class="nw-empty">No liabilities entered — nice.</td></tr>');
     out.push('<tr class="nw-total"><td>Total liabilities</td><td>'+money(r.totalL,0)+'</td><td>'+(r.totalL>0?'100%':'—')+'</td></tr>');
-    out.push('<tr class="nw-net"><td>Net worth</td><td>'+money(r.netWorth,0)+'</td><td></td></tr>');
+    out.push('<tr class="nw-net'+(r.netWorth < 0 ? ' is-negative' : '')+'"><td>Net worth</td><td>'+
+             money(r.netWorth,0)+'</td><td></td></tr>');
     tb.innerHTML = out.join('');
   }
 
@@ -789,7 +798,7 @@
   function drawProjection(r){
     var box = $('nw-projBody');
     if(!box) return;
-    var save = num('nw-save'), growth = num('nw-growth')/100;
+    var save = Math.max(0, num('nw-save')), growth = num('nw-growth')/100;
     if(growth < -0.99){ box.innerHTML = '<p class="nw-empty">Enter a growth rate above \u2212100%.</p>'; return; }
     var nw = r.netWorth, rows = [], peak = Math.max(Math.abs(nw), 1);
     for(var y=1; y<=10; y++){
@@ -797,19 +806,31 @@
       rows.push({year:y, value:nw});
       peak = Math.max(peak, Math.abs(nw));
     }
-    var W = 460, H = 120, pad = 6;
+    /* A negative projection used to draw downward from a fixed baseline and run
+       straight out of the viewBox. Split the plot around a zero line instead, sized
+       to whichever side actually has values. */
+    var W = 460, H = 130, pad = 6, labelH = 14;
+    var plotH = H - labelH;
+    var maxPos = 0, maxNeg = 0;
+    rows.forEach(function(x){ if(x.value > maxPos) maxPos = x.value; if(x.value < maxNeg) maxNeg = x.value; });
+    var span = maxPos + Math.abs(maxNeg);
+    if(span <= 0) span = 1;
+    var zeroY = (maxPos / span) * plotH;
+    var slot = (W - pad*2)/10, bw = slot - 6;
     var bars = rows.map(function(x, i){
-      var h = Math.abs(x.value)/peak*(H-24);
-      var bw = (W - pad*2)/10 - 6;
-      var bx = pad + i*((W-pad*2)/10) + 3;
-      var by = x.value >= 0 ? (H-14-h) : (H-14);
+      var h = Math.abs(x.value)/span*plotH;
+      var bx = pad + i*slot + 3;
+      var by = x.value >= 0 ? (zeroY - h) : zeroY;
       return '<rect x="'+bx.toFixed(1)+'" y="'+by.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+
              '" rx="2" fill="'+(x.value>=0?'#16A34A':'#B3261E')+'"><title>Year '+x.year+': '+money(x.value,0)+'</title></rect>'+
              '<text x="'+(bx+bw/2).toFixed(1)+'" y="'+(H-3)+'" text-anchor="middle" font-size="9" fill="#787D86">'+x.year+'</text>';
-    }).join('');
+    }).join('') +
+    (maxNeg < 0 ? '<line x1="'+pad+'" y1="'+zeroY.toFixed(1)+'" x2="'+(W-pad)+'" y2="'+zeroY.toFixed(1)+
+                  '" stroke="rgba(22,27,38,.25)" stroke-width="1"/>' : '');
     var end = rows[rows.length-1].value;
     box.innerHTML =
-      '<div class="nw-proj-head"><span>Net worth in 10 years</span><b>'+money(end,0)+'</b></div>'+
+      '<div class="nw-proj-head"><span>Net worth in 10 years</span><b'+
+      (end < 0 ? ' class="is-negative"' : '')+'>'+money(end,0)+'</b></div>'+
       '<svg viewBox="0 0 '+W+' '+H+'" class="nw-proj-svg" role="img" aria-label="Projected net worth over ten years">'+bars+'</svg>'+
       '<p class="nw-proj-note">Assumes your current net worth grows '+ (growth*100).toFixed(1) +'% a year and you add '+
       money(save,0)+' of savings at the end of each year. A single smooth rate is a planning simplification, '+
@@ -822,10 +843,15 @@
     last = r;
     var head = $('nw-head');
     if(head) head.className = 'nw-result-head' + (r.netWorth < 0 ? ' is-negative' : '');
-    $('nw-networth').textContent = money(r.netWorth, 2);
+    var nwEl = $('nw-networth');
+    nwEl.textContent = money(r.netWorth, 2);
+    /* A twelve-digit total ran off the edge of the card at the fixed 30px size. */
+    var len = nwEl.textContent.length;
+    nwEl.style.fontSize = len > 20 ? '20px' : (len > 16 ? '24px' : '');
     $('nw-totalassets').textContent = money(r.totalA, 2);
     $('nw-totalliabs').textContent = money(r.totalL, 2);
-    $('nw-ratio').textContent = r.ratio === null ? '—' : (r.ratio*100).toFixed(1) + '%';
+    $('nw-ratio').textContent = r.ratio === null ? '—'
+      : (r.ratio === Infinity ? 'No assets to cover it' : (r.ratio*100).toFixed(1) + '%');
     $('nw-liquid').textContent = money(r.liquid, 2);
     $('nw-equity').textContent = money(r.homeEquity, 2);
     $('nw-exhome').textContent = money(r.exHome, 2);
@@ -854,6 +880,15 @@
       if(!el) return;
       el.addEventListener('input', calculate);
       el.addEventListener('keydown', function(e){ if(e.key === 'Enter') calculate(); });
+      /* Every box ships with a worked example in it. Without this, tapping a field on
+         a phone puts the caret next to the existing number and people end up with
+         4200001234 instead of their own figure. */
+      el.addEventListener('focus', function(){ try{ el.select(); }catch(e){} });
+      el.addEventListener('change', function(){
+        var v = parseFloat(el.value);
+        if(!isFinite(v) || v < 0) el.value = 0;
+        calculate();
+      });
     })(allIds[i]);
   }
   if($('nw-calcBtn')) $('nw-calcBtn').addEventListener('click', calculate);
@@ -992,7 +1027,8 @@
 <ul>
 <li><strong>Primary home, holiday home, other real estate</strong> — at current market value, not purchase price and not the tax assessment, which often lags the market by a wide margin.</li>
 <li><strong>Shares and investments</strong> — brokerage balances, index funds, individual stocks, bonds.</li>
-<li><strong>Other investments</strong> — retirement accounts, business ownership stakes, crypto holdings, cash-value life insurance.</li>
+<li><strong>Retirement accounts</strong> — 401(k), 403(b), IRA and Roth IRA balances. These are assets and belong in the total even though you cannot spend them yet; the separate <em>net worth excluding home equity</em> and <em>liquid assets</em> lines are there precisely so you can see what is and is not reachable today.</li>
+<li><strong>Other investments</strong> — business ownership stakes, crypto holdings, cash-value life insurance, and anything else invested that has no box of its own.</li>
 <li><strong>Savings and checking accounts</strong> — the balances as of today, including any money market or emergency fund.</li>
 <li><strong>Motor vehicles</strong> — at resale value. A car bought for $40,000 three years ago is not a $40,000 asset.</li>
 <li><strong>Other assets</strong> — anything else worth enough to matter: jewelry, art, collectibles, equipment, money owed to you.</li>
@@ -1006,7 +1042,7 @@
 <li><strong>Car loan</strong> and <strong>lease purchase</strong> — what is left to pay on vehicles.</li>
 <li><strong>Student loan</strong> — federal and private balances together.</li>
 <li><strong>Personal loan, consumer loan, credit card and overdraft</strong> — all unsecured borrowing, including buy-now-pay-later balances and anything carried month to month.</li>
-<li><strong>Other debt</strong> — tax owed, medical bills in repayment, and informal debts to family or friends, which people routinely forget and which are still real obligations.</li>
+<li><strong>Other debt</strong> — medical bills in repayment, business loans, tax owed, payday or title loans, and informal debts to family or friends, which people routinely forget and which are still real obligations.</li>
 </ul>
 <p>Note how assets and liabilities pair up. The house is an asset and its mortgage is a liability; they are entered separately rather than netted, because seeing the size of the mortgage on its own is part of the point.</p>
 
