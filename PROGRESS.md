@@ -4538,6 +4538,58 @@ same gap as the mutual fund page and most of the site (only 58 of 214 pages have
 og:image at all). The `sitemap.xml` `lastmod` for this URL is also stale.
 
 
+## OG images, sitemap and inbound links for the two Aug 3 pages
+
+Closing the gaps flagged at the end of both builds.
+
+**OG images generated** for `mutual-fund-calculator` and `net-worth-calculator`, and
+`og:image` / `og:image:width` / `og:image:height` added to both pages in the site's
+existing position (immediately after `og:url`, before `twitter:card`). Both verified
+to return 200.
+
+The generator lives in the session scratch dir, not the repo, but the template was
+reverse-engineered from `og/apr-calculator.png` and is worth recording so it does not
+have to be redone: 1200x630; base `#F3F1EA`; the green wash is a **clipped diagonal
+linear gradient**, not a radial one — `t = clamp(0.001*x + 0.000586*y - 0.630, 0, 1)`
+blending toward `#D3E5D1`. Logo bars at x=66 baseline y=79, brand text IBM Plex Sans
+Bold 25 at x=100. Category pill x=64 y=147 h=34, fill `#E8EDF6`, border `#CEDAEC`,
+IBM Plex Mono Bold 13 in `#22417A` with ~1.6px letter spacing. H1 IBM Plex Sans Bold
+64 on baseline 268, subhead Regular 24 on baseline 324, both with about -3% tracking
+(Pillow has no letter-spacing, so draw per character). Divider at y=529, footer
+baseline 566. Two gotchas: IBM Plex Sans has no U+2713 and Pillow's fallback renders
+it as a radical sign, so the tick is drawn as a polyline; and IBM Plex Sans is not on
+the box — pull it with `npm pack @ibm/plex-sans` and convert the complete woff2 to
+ttf with fontTools (Plex Mono is already at
+`/mnt/skills/examples/canvas-design/canvas-fonts/`). Reproducing apr-calculator.png
+with this recipe gives a mean absolute pixel difference of 2.39 and an exactly
+matching H1 width.
+
+**sitemap.xml** `lastmod` updated for both URLs (they still read 2026-07-03).
+
+**Correction to an earlier note in this session:** I reported that sitemap `<loc>`
+entries lack the trailing slash while canonicals have it. That was wrong — a bad
+regex. All 209 entries **do** carry the trailing slash and match their canonicals.
+There is no slash mismatch to fix.
+
+**Inbound internal links added** — both pages previously had outbound links but were
+only reachable from `/all-calculators/` and `/sitemap/`. Added one related-card link
+each from: investment, compound-interest, IRR and bond → Mutual Fund; savings,
+debt-consolidation and budget (already present) → Net Worth. `retirement-calculator`
+was deliberately skipped: it has four tab panels each with its own sidebar and four
+`-viewmore` anchors, so the insert point is ambiguous and it needs a considered edit
+rather than an automated one. Note the `-viewmore` anchor markup is **not** uniform
+across pages (`href="/"`, `href="/all-calculators/"` and `href="/all-calculators/#fin"`
+all appear), so any future automated pass over related cards must match on the class,
+not the href.
+
+**Verified after:** all six donor pages plus both targets, body-fat-calculator and
+retirement-calculator load with a page-specific title, canonical, meta description,
+`nav-links: flex`, no horizontal overflow and zero page errors; both pages' full
+static and browser suites still pass.
+
+**Still open site-wide:** only 58 of 214 pages have an `og:image` at all, and most
+`lastmod` values are stale. Worth its own pass.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
