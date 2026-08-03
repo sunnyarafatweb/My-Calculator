@@ -4453,6 +4453,91 @@ any other page on this site. New OG image.
    to catch copy from a different page (nothing else wrong). Defect was confined
    to that one file.
 
+## Net Worth Calculator — rebuilt Aug 3, 2026
+
+Was a 484-line template-tier page with no calculator. Rebuilt to the 3-card pattern
+(`nw-` prefix).
+
+**Reference is NOT calculator.net this time.** calculator.net has no net worth
+calculator — checked and confirmed. The owner supplied
+omnicalculator.com/finance/net-worth as the reference, audited live. Per section 3a,
+also diffed Bankrate, NerdWallet, Forbes Advisor, Schwab MoneyWise, AARP and
+Financial Mentor.
+
+**Field map: 9/9 assets, 8/8 liabilities, 3/3 result fields, zero omissions.**
+Omni's asset and liability field sets are reproduced exactly (primary home, holiday
+home, other real estate, shares and investments, other investments, savings,
+checking, motor vehicles, other assets / mortgage, car loan, personal loan, student
+loan, lease purchase, consumer loan, credit card and overdraft, other debt).
+
+**Added beyond the reference**, each because a majority of the other competitors have
+it and it answers a distinct query cluster:
+- Debt-to-asset ratio, liquid assets, home equity, and net worth excluding home
+  equity as derived result rows.
+- Asset-mix donut and a stacked assets-vs-liabilities column chart by category.
+- A balance-sheet panel showing each line item's share of its own side.
+- **Ten-year projection** (annual savings + expected growth). Bankrate, Schwab and
+  AARP all have this; Omni does not. Verified against the closed form
+  `NW·(1+g)^10 + S·((1+g)^10−1)/g` — both give $801,189 on the page defaults.
+- **Benchmark panel** with the age group as a tab row (not a dropdown, per standing
+  UI rule), showing median, average AND the top-10% threshold.
+
+**Benchmark data deliberately differs from the reference.** Omni's comparison table
+is the Federal Reserve's *2016* SCF (published Sept 2017) and shows only the mean.
+This page uses the **2022 SCF** (released Oct 2023, the most recent completed wave;
+the 2025 wave is expected late 2026) and shows median, mean and the 90th-percentile
+threshold together, because the median/mean gap is the single most misread thing in
+net worth statistics — mean $1,063,700 vs median $192,700 across all US families.
+Figures used, in 2022 dollars: median by age 39,040 / 135,300 / 246,700 / 364,270 /
+410,000 / 334,700; mean by age 183,380 / 548,070 / 971,270 / 1,564,070 / 1,780,720 /
+1,620,100; top-10% thresholds 372,100 / 1.04M / 1.96M / 2.96M / 2.88M and 1.94M all
+ages. **Known limitation, stated on the page:** the Fed reports top-10% thresholds
+for 18–34/35–44/45–54/55–64/65+, so the 65–74 and 75+ tabs both show the 65+ figure.
+
+**Intentionally omitted from the reference:** Omni also compares by income tier and
+by education level. Those cuts were dropped rather than shipped, because current
+(2022 SCF) figures for every bracket could not be verified to the same standard this
+session — only fragments were available (e.g. median net worth by education: no high
+school diploma ~$38,000, college degree ~$464,000). Shipping a half-populated table
+on a YMYL page was the worse option. Worth adding once the full 2022 breakdowns are
+pulled from the Fed's own SCF tables.
+
+**Verification.** Every displayed figure recomputed independently in Node before
+embedding: total assets 710,500, total liabilities 311,300, net worth 399,200,
+debt-to-asset 43.8%, liquid 247,500, home equity 152,000, ex-home 247,200, donut
+59.1/29.4/5.4/3.9/2.1%. Static: 52 checks pass — protected shared style block
+byte-identical to body-fat-calculator, all six `:root` vars intact, no universal
+reset, title/description/canonical/OG/Twitter present, all JSON-LD parses,
+BreadcrumbList + FAQPage + WebApplication, FAQ schema string-equal to visible text
+(8/8), 7 inline scripts pass `node --check`, 2,130-word article, 9 H2s, 19 internal
+links none broken. Browser (Playwright, 1280px and 390px): zero console/page errors,
+zero horizontal overflow, H1 computed weight 700, all cards render with real
+geometry, assets−liabilities ties to the displayed total, benchmark tabs switch and
+show the right figures, negative-net-worth path shows a minus sign and turns the
+header red, Clear zeroes everything, jsPDF fetches nothing until the button is
+clicked.
+
+**Originality.** 8-word overlap with omnicalculator.com: **0.000%** (0 of 2,122
+shingles); 6-word 0.047%, and the only 5-word matches are unavoidable phrases like
+"how to increase your net worth" and the literal field list. Overlap with our own
+mutual-fund-calculator initially measured 1.13%; one repeated sentence about
+inflation eroding a nominal projection was reworded, bringing it to **0.94%** — the
+remainder is the site-wide legal disclaimer opening and shared headings, which are
+intended to be consistent.
+
+**Keyword research.** Head term "net worth calculator" — NerdWallet, Bankrate, Forbes
+Advisor, Schwab, AARP and Omni all rank. The genuinely differentiating clusters are
+"average/median net worth by age" and "net worth percentile / top 10%", which is why
+the benchmark panel leads with all three reference points rather than a single
+average. Privacy ("all calculations run in your browser") is a recurring trust signal
+across the competitor set and is stated in the form and the article. Title: "Net
+Worth Calculator — See Where You Actually Stand" (50 chars); description 147 chars.
+
+**Still open on this page:** no `og/net-worth-calculator.png` and no `og:image` tag —
+same gap as the mutual fund page and most of the site (only 58 of 214 pages have an
+og:image at all). The `sitemap.xml` `lastmod` for this URL is also stale.
+
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
