@@ -750,6 +750,13 @@ day-count convention. Expect a close match to your servicer's figures rather tha
 
   /* ---------------- helpers ---------------- */
   function num(id){ var el = $(id); if(!el) return 0; var v = parseFloat(String(el.value).replace(/,/g,'')); return isNaN(v) ? 0 : v; }
+  /* A blank field is not the same as a typed 0. It matters for the rate, where 0
+     is a legitimate answer (an interest-free loan), so a blank box cannot simply
+     fall through to zero — mid-edit that renders a plausible but wrong payoff
+     date rather than an obvious error state. */
+  function blank(id){ var el = $(id); return !el || String(el.value).trim() === ''; }
+  /* Negative money never means anything here, so clamp rather than propagate it. */
+  function pos(id){ return Math.max(0, num(id)); }
   function m2(x){ return '$' + (Math.round(x*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function m0(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
   function pmt(P,r,n){ return r === 0 ? P/n : P*r/(1 - Math.pow(1+r,-n)); }
@@ -802,6 +809,7 @@ day-count convention. Expect a close match to your servicer's figures rather tha
 
     if(mode === 'known'){
       var P = num('mpo-amount'), yrs = num('mpo-term');
+      if(blank('mpo-rate') || num('mpo-rate') < 0) return null;
       r = num('mpo-rate')/100/12;
       nRem = Math.round(num('mpo-remY')*12 + num('mpo-remM'));
       var nAll = Math.round(yrs*12);
@@ -814,6 +822,7 @@ day-count convention. Expect a close match to your servicer's figures rather tha
       origTotalAll = M * nAll;
       principal = P;
     } else {
+      if(blank('mpo-rate2') || num('mpo-rate2') < 0) return null;
       B = num('mpo-balance'); M = num('mpo-monthly'); r = num('mpo-rate2')/100/12;
       if(B <= 0 || M <= 0) return null;
       if(M <= B*r) return { error:'payment-too-low', min:B*r };
@@ -835,9 +844,9 @@ day-count convention. Expect a close match to your servicer's figures rather tha
 
     var opts = { base:M };
     if(strat === 'extra'){
-      opts.base = M + num('mpo-exM');
-      opts.exY = num('mpo-exY'); opts.exO = num('mpo-exO');
-      if(num('mpo-exM') <= 0 && !opts.exY && !opts.exO){ o.plan = null; o.noExtra = true; return o; }
+      opts.base = M + pos('mpo-exM');
+      opts.exY = pos('mpo-exY'); opts.exO = pos('mpo-exO');
+      if(pos('mpo-exM') <= 0 && !opts.exY && !opts.exO){ o.plan = null; o.noExtra = true; return o; }
     } else if(strat === 'biweekly'){ opts.biweekly = true; }
 
     o.plan = schedule(B, r, opts);
@@ -954,7 +963,7 @@ day-count convention. Expect a close match to your servicer's figures rather tha
     var how = s === 'biweekly'
       ? 'By switching to <b>'+m2(o.M/2)+'</b> every two weeks'
       : 'By adding ' + (function(){
-          var bits = [], a = num('mpo-exM'), b2 = num('mpo-exY'), c = num('mpo-exO');
+          var bits = [], a = pos('mpo-exM'), b2 = pos('mpo-exY'), c = pos('mpo-exO');
           if(a > 0) bits.push('<b>'+m2(a)+'</b> a month');
           if(b2 > 0) bits.push('<b>'+m2(b2)+'</b> once a year');
           if(c > 0) bits.push('<b>'+m2(c)+'</b> as a one-time payment');
