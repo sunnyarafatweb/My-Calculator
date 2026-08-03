@@ -4336,6 +4336,123 @@ load rather than on click, contrary to the guide's standing lazy-load rule. Left
 alone to keep this commit to one page; worth its own pass across whichever pages
 still do this.
 
+## Mortgage Payoff Calculator — rebuilt Aug 3, 2026
+
+Was a 46KB template-tier page: one slider form (4 inputs), 3 H2s, a generic
+`X Calculator | CalculatorBoss` title, no biweekly, no lump sum, no schedule,
+no chart. Rebuilt to the 3-card pattern (`mpo-` prefix), reusing
+loan-calculator's tab conventions and mortgage-calculator-uk as the structural
+donor.
+
+**Keyword research done before any copy was written, per section 4.**
+Head term "mortgage payoff calculator" is high-volume/high-competition:
+Ramsey, AARP, calculator.net, Allstate, mortgagecalculator.org, plus a long
+tail of near-duplicate bank pages all running the same Fiserv widget and the
+same stock line ("How much interest can you save by increasing your mortgage
+payment?"). That last part is the opportunity — dozens of thin, identical,
+non-differentiated pages rank on this term, which is a much softer SERP than
+the big names alone suggest. Distinct long-tail clusters confirmed to have
+their own dedicated competitor pages (so real query clusters, not phrasing
+variants): "extra payment mortgage calculator" (PrimeLending, TotalMortgage,
+mortgagecalculator.org), "biweekly mortgage calculator" (PrimeLending,
+mortgagecalculator.biz), "early mortgage payoff calculator" (many banks),
+"additional mortgage payment calculator" (Navy Federal), "what if I pay more".
+**Mid-tail gap built around:** nobody covers the "I don't know my remaining
+term" case well except calculator.net, and "payoff amount" intent (Allstate
+ranks on it) is underserved and is a genuinely different question from
+"balance" — both got their own tab/section. Title targets the two outcomes a
+searcher actually wants: *Mortgage Payoff Calculator — Payoff Date & Interest
+Saved* (57 chars), description 151.
+
+**Reference audited live** (raw source fetch for the input set + server-rendered
+result pages for the output set, per the guide's "do both" rule):
+calculator.net/mortgage-payoff-calculator.html. Two separate calculators on one
+page, which became our two tabs. Fetched their rendered result for every
+repayment option separately rather than assuming — worth it, because
+"Payback altogether" and "Normal repayment" render a completely different
+result block (no savings boxes, different headline) that the default view
+never shows.
+
+**Field map: 12/12 input controls, 24/24 result fields, zero omissions.**
+Intentional differences, all flagged rather than silent: one shared strategy
+radio + extra-payment trio across both tabs instead of duplicating them (only
+one tab is visible at a time); "pay in full" hidden on tab 2, matching them,
+since there the balance *is* the input; our chart shows the payoff plan's
+yearly principal/interest as stacked bars plus both balance curves rather than
+their four raw lines, with the original's per-year interest carried in the
+adjacent schedule table. Ours adds an Annual/Monthly schedule toggle, a donut,
+and PDF export.
+
+**Biweekly is the part worth recording, because three reasonable models are all
+wrong.** Not a true 14-day amortisation at r/26, and not a 13M/12 monthly
+equivalent — both miss by roughly half a payment. Reading calculator.net's own
+per-period `allPayOffData` array settled it: they simulate **monthly** at r/12
+and add an extra **half-payment every 6th month**, which is what 26
+half-payments a year actually comes to (2 extra halves = 1 extra payment).
+Their schedule shows payments of 2398.20 with 3597.30 landing on months
+6, 12, 18, 24… Once that replaced the guess, every figure matched. Lesson
+worth generalising: when a mode won't reconcile, their embedded chart/schedule
+data array is the ground truth, not the rendered summary.
+
+**All 15 numeric checks matched to the cent** — payment, balance-after-k,
+original totals, extra-monthly, extra-annual (lands at year end), one-time
+(lands on the first payment), biweekly and pay-in-full, on both tabs. Verified
+first in Node, then re-asserted in the rendered browser against the same
+reference figures.
+
+**Two bugs caught during the build, both by testing rather than inspection:**
+a floating-point edge case where the untouched known-mode schedule ran 317
+months instead of 316 (now pinned to the exact remaining term via `fixedN`),
+and a savings percentage computed against *remaining* interest instead of
+*whole-loan* interest, which read 35% where calculator.net correctly reads 26%.
+The dollar saving was right in both cases; only the denominator was wrong,
+which is exactly the kind of thing that survives a code read.
+
+**A third fix shipped separately after the owner asked about it:** a blank rate
+box fell through to 0%, so mid-edit the page showed a plausible but wrong
+payoff date (20y8m where the answer was 20y2m) rather than an obvious error.
+Blank and typed-zero are now distinguished — an empty box is rejected like
+every other empty box, an explicit 0% still computes an interest-free loan.
+Negative rates rejected, negative extras clamped. The general shape of this
+bug is worth watching for on other pages: a guard was omitted precisely
+because zero is a *legitimate* value for that field.
+
+**Verified before push:** 63 Playwright checks at 1280 and 390px, 11 browser
+edge cases (0% rate, blank/negative inputs, remaining > original term, extras
+exceeding the balance, 50-year term, tab-2 zero balance/payment), zero console
+errors, zero horizontal overflow, protected style block byte-identical to both
+a custom-built and a template-tier page, jsPDF fetching zero bytes on load and
+firing only on click. Article 2,175 words, 8 H2s + 8 FAQs, FAQ schema and
+visible FAQ generated from one Python source so the em-dash drift that has hit
+every previous rebuild cannot occur. Originality: 0.155% eight-word overlap
+with calculator.net (field labels only) and **zero** article-level overlap with
+any other page on this site. New OG image.
+
+### Three site-level fixes shipped in the same session
+
+1. **Sitemap pointed at redirects, not canonicals.** All 210 entries omitted
+   the trailing slash while every page canonicalises with one, so each
+   submitted URL returned a 308 to the real address (confirmed live before
+   changing). Not broken, but a redirect hop on every crawl and a "Page with
+   redirect" report in Search Console. All 210 now end in a slash.
+
+2. **`/about/`, `/contact/`, `/privacy-policy/` and `/terms/` canonicalised to
+   the homepage.** Found by cross-checking every sitemap URL against the
+   canonical on the page it points to — exactly four mismatches, all four these.
+   This tells Google the trust pages are duplicates of "/", i.e. an instruction
+   to drop them from the index. Worse than a normal canonical slip, since these
+   are the pages an AdSense review looks for on a site in a sensitive category,
+   and they are the destination of footer links sitewide. Now self-referencing;
+   sitemap and canonical agree on all 210 URLs.
+
+3. **Mortgage Amortization's OG image showed the wrong text** — the Marriage Tax
+   subtitle spliced into the middle of it, plus an em dash written as a literal
+   ".mdash;". Redrawn. Then audited the other 56 rather than assume it was
+   isolated: OCR across all of them for rendered entity fragments (zero hits),
+   and each image's OCR'd text compared against its own page's meta description
+   to catch copy from a different page (nothing else wrong). Defect was confined
+   to that one file.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
@@ -4387,6 +4504,14 @@ still do this.
   token outside the chat and Claude Code/CLI reading it from local
   environment instead) isn't in place before the next session, treat this
   as a standing unresolved risk rather than a one-off reminder.
+  **Update, Aug 3, 2026 session (Mortgage Payoff Calculator rebuild)**: a
+  seventh token was pasted in the first message. Flagged at the start of the
+  session before any other work, as with the previous six. The condition the
+  previous note set has now been met — six notes passed without the rotation
+  happening — so this is recorded as a **standing unresolved risk**, not a
+  reminder. An eighth note will add nothing; the durable fix (owner stores the
+  token outside the conversation, CLI reads it from the local environment)
+  needs to happen before the next session.
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
