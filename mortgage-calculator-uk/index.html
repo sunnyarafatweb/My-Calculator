@@ -404,10 +404,10 @@
 
 .ukm-resultcol{display:flex;flex-direction:column;gap:12px;width:100%;min-width:0}
 .ukm-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
-.ukm-result-head{padding:18px 20px;background:#1E3A5F;color:#fff}
-.ukm-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.ukm-result-head{padding:16px 20px 18px;background:#16A34A;color:#fff}
+.ukm-result-head .label{font-size:19px;font-weight:700;line-height:1.3}
 .ukm-result-head .bignum{font-size:32px;font-weight:700;line-height:1.2;margin-top:2px}
-.ukm-result-head .verdict-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:6px;line-height:1.45}
+.ukm-headsub{font-size:12.5px;font-weight:500;color:var(--ink-soft);line-height:1.5;margin:14px 20px 0}
 .ukm-result-body{padding:14px 20px}
 .ukm-mini{width:100%;border-collapse:collapse;font-size:12.5px}
 .ukm-mini th{text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);font-weight:700;padding:0 0 8px 6px}
@@ -421,7 +421,9 @@
 .ukm-list-row span:first-child{color:var(--ink-soft)}
 .ukm-list-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
 .ukm-list-row.save span:last-child{color:#16A34A}
-.ukm-donut-box{padding:2px 20px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.ukm-donut-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px 20px;width:100%}
+.ukm-donut-card .t{font-size:15px;font-weight:700;color:var(--ink);display:block;margin-bottom:14px}
+.ukm-donut-box{padding:0;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .ukm-donut-svg{width:140px;height:140px;flex-shrink:0}
 .ukm-donut-legend{display:flex;flex-direction:column;gap:8px;flex:1;min-width:150px}
 .ukm-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
@@ -515,7 +517,7 @@
 .ukm-seg button.active{background:#1E3A5F;color:#fff}
 .ukm-seg button + button{border-left:1px solid var(--border-fine)}
 .ukm-hint{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin:2px 0 8px}
-.ukm-big2{display:flex;flex-wrap:wrap;gap:10px;margin:0 20px 14px}
+.ukm-big2{display:flex;flex-wrap:wrap;gap:10px;margin:16px 20px 16px}
 .ukm-big2 .b{flex:1 1 150px;min-width:0;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:12px 14px}
 .ukm-big2 .b .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:600}
 .ukm-big2 .b .v{font-size:24px;font-weight:700;color:var(--ink);line-height:1.25;margin-top:2px}
@@ -525,7 +527,7 @@
 .ukm-two th:first-child{text-align:left}
 .ukm-two td{padding:8px 10px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
 .ukm-two td:first-child{text-align:left;color:var(--ink-soft)}
-.ukm-two tr.tot td{background:#E8EDF6;font-weight:700;color:var(--ink)}
+.ukm-two tr.tot td{background:var(--gold-tint);font-weight:700;color:var(--ink);border-top:2px solid #16A34A}
 .ukm-sdlt{width:100%;border-collapse:collapse;font-size:12.5px;min-width:430px}
 .ukm-sdlt th{background:#1E3A5F;color:#fff;padding:8px 10px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.02em;font-weight:600}
 .ukm-sdlt th:first-child{text-align:left}
@@ -613,8 +615,8 @@
       <div class="ukm-result-head">
         <div class="label">Monthly repayment</div>
         <div class="bignum" id="ukm-big">&pound;0</div>
-        <div class="verdict-sub" id="ukm-headsub"></div>
       </div>
+      <p class="ukm-headsub" id="ukm-headsub"></p>
 
       <div class="ukm-big2">
         <div class="b"><div class="k">Interest only</div><div class="v" id="ukm-io">&pound;0</div><div class="s">a month, capital untouched</div></div>
@@ -627,6 +629,10 @@
           <tbody id="ukm-costs"></tbody>
         </table>
       </div>
+    </div>
+
+    <div class="ukm-donut-card">
+      <span class="t">Where the monthly cost goes</span>
       <div class="ukm-donut-box">
         <svg class="ukm-donut-svg" viewBox="0 0 42 42" id="ukm-donut" role="img" aria-label="Breakdown of the monthly cost"></svg>
         <div class="ukm-donut-legend" id="ukm-legend"></div>
