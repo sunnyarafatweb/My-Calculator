@@ -409,6 +409,7 @@
 .mf-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
 .mf-result-row.is-strong{font-weight:700;color:var(--ink)}
 .mf-result-row.is-strong span:last-child{font-weight:700}
+.mf-result-row.is-loss span:last-child{color:#B3261E}
 .mf-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .mf-donut-svg{width:150px;height:150px;flex-shrink:0}
 .mf-donut-seg{transition:stroke-dasharray .6s ease}
@@ -610,7 +611,11 @@
   }
   function money(v, dp){
     if(!isFinite(v)) return '—';
-    return '$' + v.toLocaleString('en-US', {minimumFractionDigits:dp, maximumFractionDigits:dp});
+    /* A losing fund used to render "$-33,307.96" with the sign stranded after the
+       dollar. Put the minus in front, matching the rest of the site. */
+    var neg = v < 0;
+    var s = '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits:dp, maximumFractionDigits:dp});
+    return neg ? '\u2212' + s : s;
   }
   var lastResult = null, schedMode = 'annual';
 
@@ -882,11 +887,18 @@
     if(!res){ fail('Operating expenses cannot exceed the rate of return by 100 percentage points or more.'); return; }
     lastResult = {res:res, o:o};
 
-    $('mf-ending').textContent = money(res.ending, 2);
+    var endEl = $('mf-ending');
+    endEl.textContent = money(res.ending, 2);
+    var elen = endEl.textContent.length;
+    endEl.style.fontSize = elen > 20 ? '20px' : (elen > 16 ? '24px' : '');
     $('mf-principal').textContent = money(res.principal, 2);
     $('mf-contrib').textContent = money(res.contributions, 2);
-    $('mf-netreturn').textContent = money(res.netReturn, 2);
-    $('mf-irr').textContent = (res.irr === null) ? '—' : ((res.irr*100).toFixed(3) + '% per year');
+    var nrEl = $('mf-netreturn');
+    nrEl.textContent = money(res.netReturn, 2);
+    nrEl.parentNode.className = 'mf-result-row is-strong' + (res.netReturn < 0 ? ' is-loss' : '');
+    var irrEl = $('mf-irr');
+    irrEl.textContent = (res.irr === null) ? '—' : ((res.irr*100).toFixed(3) + '% per year');
+    irrEl.parentNode.className = 'mf-result-row' + ((res.irr !== null && res.irr < 0) ? ' is-loss' : '');
     $('mf-salescharge').textContent = money(res.sales, 2);
     $('mf-opexp').textContent = money(res.op, 2);
     $('mf-totalfees').textContent = money(res.fees, 2);
@@ -912,7 +924,12 @@
   var ids = ['mf-initial','mf-annual','mf-monthly','mf-rate','mf-years','mf-months','mf-sales','mf-deferred','mf-expense'];
   for(var i=0;i<ids.length;i++){
     var el = $(ids[i]);
-    if(el) el.addEventListener('keydown', function(e){ if(e.key === 'Enter') calculate(); });
+    if(el){
+      el.addEventListener('keydown', function(e){ if(e.key === 'Enter') calculate(); });
+      /* Prefilled example values: without this, tapping a box on a phone puts the
+         caret beside the existing digits instead of replacing them. */
+      (function(node){ node.addEventListener('focus', function(){ try{ node.select(); }catch(e){} }); })(el);
+    }
   }
   if($('mf-calcBtn')) $('mf-calcBtn').addEventListener('click', calculate);
   if($('mf-tabAnnual')) $('mf-tabAnnual').addEventListener('click', function(){ setMode('annual'); });
@@ -1028,7 +1045,7 @@
 .mf-seo-article ul li strong,.mf-seo-article ol li strong{color:var(--ink)}
 .mf-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.7;white-space:normal;word-break:break-word}
 .mf-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
-.mf-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.mf-toc{background:var(--surface-sunken);border-radius:10px;padding:16px 20px;margin-bottom:28px}
 .mf-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
 .mf-toc a:hover{color:#1E3A5F}
 .mf-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.7;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}

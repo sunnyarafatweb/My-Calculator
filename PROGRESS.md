@@ -4647,6 +4647,33 @@ shipped page. Worth running a deliberate junk-input pass — negatives, empty st
 text, absurd magnitudes, all-zero, all-negative — against every calculator before
 calling it done, and checking that negative results are coloured as negative.
 
+## Mutual Fund Calculator — same audit applied, Aug 3, 2026
+
+Ran the Net Worth adversarial pass against the Mutual Fund page as well, since the
+defects there were a class of bug rather than a one-off. Four found, all fixed, all
+now asserted in that page's suite.
+
+1. **`money()` never handled negatives.** A losing fund rendered its net return as
+   `$-33,307.96`, with the sign stranded after the dollar. Now `\u2212$33,307.96`,
+   matching the rest of the site.
+2. **A negative net return and a negative IRR rendered in neutral ink**, the same
+   colour as a gain. Both now go red via an `is-loss` row class.
+3. **A very large ending value overflowed the fixed 30px headline.** Steps down by
+   string length, same fix as the net worth page.
+4. **No select-on-focus**, so tapping a prefilled box on a phone appended to the
+   example (15000 + typed 50000 = 1500050000).
+
+Things that were already correct and are worth knowing hold: negative initial
+investment is rejected, 100% sales charge is rejected with a message, junk text does
+not produce NaN, an expense ratio above the return still computes, and the schedule
+chart and donut stay inside their boxes with a loss.
+
+**Standing item:** the same junk-input pass has NOT been run against the other ~60
+custom-built pages. Given four of four checks failed on both pages audited so far,
+assume the rest carry the same defects until checked \u2014 particularly the negative
+formatting, negative colouring and select-on-focus, which are shared conventions
+rather than page-specific logic.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
