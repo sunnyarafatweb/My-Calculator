@@ -4085,6 +4085,54 @@ assume this exact order still holds after a few weeks of new data.
   that a new colour is needed. Check any page-local colour against AA explicitly,
   because the site-wide token check will pass it silently.
 
+- **Mortgage Amortization: two different "15 years" on one card, and the note
+  explaining it was unreadable** (Aug 3, 2026, owner asked why the same rates
+  block appears twice across two pages).
+
+  The owner was right, and the fault was mine from the previous commit. The
+  rates card carried two things that meant different things: Freddie Mac survey
+  chips (30-yr 6.66%, 15-yr 6.04%) and a term-comparison table priced at the
+  rate in the form (6.42%). So one card showed "15-year fixed 6.04%" and, two
+  centimetres below, "15 years - $3,425.69", which is the 15-year payment at
+  6.42%. The honest figure at 6.04% is $3,343.89 - $82/month and about $14,700
+  of total interest apart. Worse, the two buttons carried the same label and did
+  different things: the chip set rate *and* term, the table's Use set term only.
+
+  Nothing was miscalculated - every number was right on its own terms, and the
+  header did say "Term at your rate". The failure was that "your rate" reads as
+  "the rate I'll get", not "the number in the box".
+
+  Fixed by giving each element one job:
+  - Chips moved to the form, directly under Interest rate, as small pills
+    (`30-year 6.66% up 0.08`), labelled "tap to load that term and rate" so the
+    two-field change is stated before the click, not discovered after it. The
+    chip matching the current form turns navy, so the active rate is visible
+    rather than inferred.
+  - The bottom card became a pure comparison: "Compare loan terms", a new
+    **Rate** column repeating the rate on every row, and a live "All rows at
+    6.42%" in the header. Nothing left to guess.
+  - The old `.amz-chip` block (6 dead rules) removed.
+
+  **A real second finding, which the question surfaced.** The explanatory notes -
+  exactly the text meant to prevent this confusion - use `--ink-faint` #A6AAB1,
+  which is **2.33:1 on white**, well under WCAG AA's 4.5. The explanation existed
+  but was close to unreadable. Set to `--ink-soft` #474C55 (**8.63:1**) on this
+  page. Following the Margin Calculator lesson, no new colour was invented -
+  `--muted` #787D86 was measured first and rejected at 4.14. All nine text
+  elements in the touched area now pass AA, zero failures.
+
+  **Site-level, deliberately not touched here:** #A6AAB1 is the note colour on
+  many pages, so the same 2.33 failure is sitewide. This commit only overrides it
+  page-locally. A sitewide pass on that token belongs in its own task, not folded
+  into an unrelated page fix.
+
+  Verified: shared style block byte-identical to bmi/tip/body-fat/mortgage;
+  inline JS `node --check` clean; 3 JSON-LD blocks parse, all 8 FAQ Q&As match
+  visible text exactly; 52 functional assertions across desktop 1280 and mobile
+  390 - payments cross-checked against independent Node values ($2,477.49 at
+  6.42%/30y, $3,343.89 at 6.04%/15y), zero console errors, no horizontal
+  overflow, h1 at 700, jsPDF still fetches nothing until the button is clicked.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-

@@ -445,15 +445,17 @@
 .amz-rates-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}
 .amz-rates-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .amz-rates-head .src{font-size:11.5px;color:var(--ink-faint)}
-.amz-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.amz-chip{flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:1px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;font-family:var(--font-body)}
-.amz-chip:hover{border-color:#1E3A5F;background:#E8EDF6}
-.amz-chip .lb{font-size:12px;color:var(--ink-soft);font-weight:600}
-.amz-chip .rt{font-size:23px;font-weight:700;color:var(--ink);line-height:1.25}
-.amz-chip .dl{font-size:11.5px;color:var(--ink-faint)}
-.amz-chip .use{font-size:10.5px;font-weight:700;color:#1E3A5F;text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.amz-ratechips{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:2px 0 10px}
+.amz-ratechips .cl{width:100%;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:600}
+.amz-ratechip{background:#fff;border:1px solid var(--border-fine);border-radius:100px;padding:6px 12px;font-size:12px;font-weight:600;color:#1E3A5F;cursor:pointer;font-family:var(--font-body);transition:.15s}
+.amz-ratechip:hover{background:#E8EDF6;border-color:#1E3A5F}
+.amz-ratechip .d{margin-left:6px;font-size:11px;font-weight:500;color:var(--ink-soft)}
+.amz-note,.amz-ratefoot,.amz-rates-head .src{color:var(--ink-soft)}
+.amz-ratechip.on{background:#1E3A5F;border-color:#1E3A5F;color:#fff;cursor:default}
+.amz-ratechip.on .d{color:rgba(255,255,255,.72)}
+.amz-ratefoot{font-size:11px;line-height:1.5;margin:0 0 4px}
 .amz-cmp-scroll{overflow-x:auto;max-width:100%}
-.amz-cmp{width:100%;min-width:430px;border-collapse:collapse;font-size:12.5px}
+.amz-cmp{width:100%;min-width:500px;border-collapse:collapse;font-size:12.5px}
 .amz-cmp th{background:#1E3A5F;color:#fff;padding:8px 10px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.02em;font-weight:600}
 .amz-cmp th:first-child{text-align:left}
 .amz-cmp td{padding:8px 10px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
@@ -535,6 +537,9 @@
 
       <div class="amz-field"><span class="amz-field-label">Interest rate</span><div class="amz-field-control">
         <div class="amz-input-group"><input type="text" inputmode="decimal" id="amz-rate" value="6.42" aria-label="Interest rate"><span>%</span></div></div></div>
+
+      <div class="amz-ratechips" id="amz-chips"></div>
+      <p class="amz-ratefoot">Survey averages for strong credit and 20&percnt; down &mdash; your own quote will differ with credit score, loan size, points and lender.</p>
 
       <div class="amz-field"><span class="amz-field-label">Start date</span><div class="amz-field-control">
         <div class="amz-datepair">
@@ -620,17 +625,16 @@
   <div class="amz-area-bottomgrid">
     <div class="amz-rates-card">
       <div class="amz-rates-head">
-        <span class="t">Latest mortgage rates</span>
+        <span class="t">Compare loan terms</span>
         <span class="src" id="amz-ratesrc"></span>
       </div>
-      <div class="amz-chips" id="amz-chips"></div>
       <div class="amz-cmp-scroll">
         <table class="amz-cmp">
-          <thead><tr><th>Term at your rate</th><th>Monthly P&amp;I</th><th>Total interest</th><th>Payoff</th><th></th></tr></thead>
+          <thead><tr><th>Term</th><th>Rate</th><th>Monthly P&amp;I</th><th>Total interest</th><th>Payoff</th><th></th></tr></thead>
           <tbody id="amz-cmpBody"></tbody>
         </table>
       </div>
-      <p class="amz-note" style="margin:12px 0 0">Survey averages for borrowers with 20% down and strong credit, published weekly by Freddie Mac. Your own quote will differ with credit score, loan size, points and lender. The table compares terms using the rate currently in the form, not the survey rate.</p>
+      <p class="amz-note" style="margin:12px 0 0">Only the term changes here &mdash; every row is priced at the rate in your form, so the columns show what shortening or lengthening the loan costs on its own. In practice a shorter term is usually offered at a lower rate, so a real 15-year quote would come in below the figure shown. Change the rate above to price that.</p>
     </div>
     <div class="amz-bottom-grid">
       <div class="amz-sched-card" id="amz-schedule">
@@ -850,17 +854,17 @@
   var CMP_TERMS = [30, 20, 15, 10];
 
   function drawRates(o){
-    $('amz-ratesrc').textContent = 'Freddie Mac survey \u00b7 week of ' + RATES.asOf;
-    var html = '', i;
+    $('amz-ratesrc').textContent = 'All rows at ' + o.rate + '%';
+    var html = '<span class="cl">Freddie Mac survey \u00b7 ' + RATES.asOf +
+               ' \u00b7 tap to load that term and rate</span>', i;
     for(i = 0; i < RATES.items.length; i++){
       var it = RATES.items[i], d = it.rate - it.prev;
-      var move = d === 0 ? 'unchanged from last week'
-        : (d > 0 ? 'up ' : 'down ') + Math.abs(d).toFixed(2) + ' from last week';
-      html += '<button type="button" class="amz-chip" data-rate="' + it.rate + '" data-term="' + it.term + '">' +
-        '<span class="lb">' + it.label + '</span>' +
-        '<span class="rt">' + it.rate.toFixed(2) + '%</span>' +
-        '<span class="dl">' + move + '</span>' +
-        '<span class="use">Use this rate &rarr;</span></button>';
+      var move = d === 0 ? 'flat' : (d > 0 ? 'up ' : 'down ') + Math.abs(d).toFixed(2);
+      var on = Math.abs(o.rate - it.rate) < 1e-9 && Math.round(o.years) === it.term;
+      html += '<button type="button" class="amz-ratechip' + (on ? ' on' : '') + '"' +
+        ' aria-pressed="' + (on ? 'true' : 'false') + '"' +
+        ' data-rate="' + it.rate + '" data-term="' + it.term + '">' +
+        it.term + '-year ' + it.rate.toFixed(2) + '%<span class="d">' + move + '</span></button>';
     }
     $('amz-chips').innerHTML = html;
 
@@ -873,7 +877,7 @@
       var end = addMonths(o.month, o.year, alt.n);
       var isCur = Math.round(o.years) === t;
       rows += '<tr' + (isCur ? ' class="cur"' : '') + '><td>' + t + ' years' +
-        (isCur ? ' (current)' : '') + '</td><td>' + money(alt.pay) + '</td><td>' +
+        (isCur ? ' (current)' : '') + '</td><td>' + o.rate + '%</td><td>' + money(alt.pay) + '</td><td>' +
         money0(alt.totalInterest) + '</td><td>' + fmtDate(end) + '</td><td>' +
         (isCur ? '' : '<button type="button" data-term="' + t + '">Use</button>') + '</td></tr>';
     }
@@ -1058,7 +1062,7 @@
     syncOptionals(); render();
   });
   $('amz-chips').addEventListener('click', function(e){
-    var btn = e.target.closest('.amz-chip'); if(!btn) return;
+    var btn = e.target.closest('.amz-ratechip'); if(!btn) return;
     $('amz-rate').value = btn.getAttribute('data-rate');
     $('amz-term').value = btn.getAttribute('data-term');
     render();
