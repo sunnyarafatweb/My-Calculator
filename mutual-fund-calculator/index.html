@@ -432,8 +432,11 @@
 .mf-schedule-toggle{display:flex;gap:6px}
 .mf-schedule-toggle button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:6px}
 .mf-schedule-toggle button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-.mf-schedule-body-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start}
-@media(max-width:800px){.mf-schedule-body-grid{grid-template-columns:1fr}}
+.mf-schedule-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;width:100%;align-items:stretch}
+.mf-schedule-pair>.mf-schedule-card{display:flex;flex-direction:column}
+.mf-schedule-pair>.mf-schedule-card .mf-chart-col{flex:1;justify-content:center}
+@media(max-width:860px){.mf-schedule-pair{grid-template-columns:1fr}}
+.mf-schedule-card .mf-table-wrap{max-height:460px}
 .mf-chart-col{display:flex;flex-direction:column;gap:10px}
 .mf-chart-svg{width:100%;height:auto;display:block}
 .mf-chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
@@ -540,24 +543,16 @@
   </div>
 </div>
 
-<div class="mf-area-schedule mf-schedule-card">
-  <div class="mf-schedule-head">
-    <span class="t">Accumulation Schedule</span>
-    <div class="mf-schedule-right">
-      <span class="mf-schedule-sub" id="mf-schedSub"></span>
-      <div class="mf-schedule-toggle" role="tablist" aria-label="Schedule period">
-        <button type="button" id="mf-tabAnnual" class="active" role="tab" aria-selected="true">Annual</button>
-        <button type="button" id="mf-tabMonthly" role="tab" aria-selected="false">Monthly</button>
-      </div>
-    </div>
-  </div>
-  <div class="mf-schedule-body-grid">
-    <div class="mf-chart-col">
-      <svg class="mf-chart-svg" id="mf-chart" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Stacked bar chart of principal, fees and investment growth by year"></svg>
-      <div class="mf-chart-legend">
-        <div class="lg"><i style="background:#2563EB"></i>Principal</div>
-        <div class="lg"><i style="background:#22C9D8"></i>Investment growth</div>
-        <div class="lg"><i style="background:#B3261E"></i>Fees paid</div>
+<div class="mf-area-schedule mf-schedule-pair">
+  <div class="mf-schedule-card">
+    <div class="mf-schedule-head">
+      <span class="t">Accumulation Schedule</span>
+      <div class="mf-schedule-right">
+        <span class="mf-schedule-sub" id="mf-schedSub"></span>
+        <div class="mf-schedule-toggle" role="tablist" aria-label="Schedule period">
+          <button type="button" id="mf-tabAnnual" class="active" role="tab" aria-selected="true">Annual</button>
+          <button type="button" id="mf-tabMonthly" role="tab" aria-selected="false">Monthly</button>
+        </div>
       </div>
     </div>
     <div class="mf-table-wrap">
@@ -565,6 +560,21 @@
         <thead><tr><th id="mf-thPeriod">Year</th><th>Start</th><th>Added</th><th>Growth</th><th>Fees</th><th>End</th></tr></thead>
         <tbody id="mf-tbody"></tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="mf-schedule-card">
+    <div class="mf-schedule-head">
+      <span class="t">Growth Breakdown</span>
+      <span class="mf-schedule-sub">By year</span>
+    </div>
+    <div class="mf-chart-col">
+      <svg class="mf-chart-svg" id="mf-chart" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Stacked bar chart of principal, fees and investment growth by year"></svg>
+      <div class="mf-chart-legend">
+        <div class="lg"><i style="background:#2563EB"></i>Principal</div>
+        <div class="lg"><i style="background:#22C9D8"></i>Investment growth</div>
+        <div class="lg"><i style="background:#B3261E"></i>Fees paid</div>
+      </div>
     </div>
   </div>
 </div>
@@ -729,7 +739,7 @@
     if(!svg) return;
     var rows = annualRows(res);
     if(!rows.length){ svg.innerHTML = ''; return; }
-    var W = 640, H = 300, padL = 58, padR = 12, padB = 30, padT = 14;
+    var W = 640, H = 400, padL = 58, padR = 12, padB = 30, padT = 14;
     var plotW = W - padL - padR, plotH = H - padT - padB;
     var cumPrincipal = res.initial, cumFees = 0, bars = [];
     for(var i=0;i<rows.length;i++){
