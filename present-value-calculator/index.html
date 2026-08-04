@@ -698,11 +698,9 @@
         +' after '+n+(n===1?' period':' periods')+'.';
       var h=row('Future value',money(FV));
       h+=row('Total interest',money(a.interest),true);
-      h+=row('Periods',String(n));
-      h+=row('Discount rate',rate+'% per period');
       $('pv-resultRows').innerHTML=h;
       renderDonut([{val:a.pv,color:'#1E3A5F',label:'Worth today'},
-                   {val:a.interest,color:'#16A34A',label:'Growth to future value'}]);
+                   {val:a.interest,color:'#16A34A',label:'Growth'}]);
       lastRows=lumpSchedule(a.pv,n,rate);
       renderSchedule('Value today');
       renderBars(lastRows,'Value today');
@@ -723,8 +721,6 @@
       var g=row('FV (future value)',money(b.fv));
       g+=row('Total principal',money(b.principal));
       g+=row('Total interest',money(b.interest),true);
-      g+=row('Periods',String(n));
-      g+=row('Discount rate',rate+'% per period');
       $('pv-resultRows').innerHTML=g;
       renderDonut([{val:b.principal,color:'#1E3A5F',label:'Principal'},
                    {val:b.interest,color:'#16A34A',label:'Interest'}]);
@@ -784,6 +780,9 @@
       Array.prototype.forEach.call(document.querySelectorAll('#pv-resultRows .pv-result-row'),function(r){
         rows.push([r.children[0].textContent,r.children[1].textContent]);
       });
+      rows.push(['Periods',String(last.n)]);
+      rows.push(['Discount rate',last.rate+'% per period']);
+      if(last.mode==='series') rows.push(['Deposit timing',last.atBeg?'Beginning of period':'End of period']);
       rows.unshift(['Mode',last.mode==='lump'?'Future amount':'Regular deposits']);
       doc.autoTable({startY:y,head:[['Detail','Value']],body:rows,theme:'grid',
         headStyles:{fillColor:[30,58,95]},styles:{fontSize:9,cellPadding:4},columnStyles:{1:{halign:'right'}}});

@@ -5059,6 +5059,21 @@ on the bottom grid changed to `start`; card heights now 509px and 310px. Worth n
 builds — stretch only looks right when the two cards are naturally similar in height, which was
 true on payment-calculator's five-row table and false here.
 
+**Second follow-up, same day (owner spotted it).** The form and result cards were badly mismatched
+in height on the first tab. Measured across the rebuilt pages before touching anything, because
+the question was whether this page was out of line or the whole pattern was: payment-calculator
+54px apart, personal-loan 46px, pension 16px, present-value 187px. So it was this page.
+Two causes, both fixed:
+1. The donut legend label "Growth to future value" was long enough to wrap, which pushed the
+   legend column past the 150px donut and made the whole block 242px instead of the 174px every
+   other page gets. Shortened to "Growth".
+2. The result card carried "Periods" and "Discount rate" rows that only repeated the two inputs
+   sitting a few centimetres to the left. The reference shows neither. Removed from the card and
+   added explicitly to the PDF export instead, so nothing is lost from the saved report.
+Now 35px apart on the first tab and 4px on the second, inside the range the other pages sit in.
+General lesson for the pattern: a result card's height is driven by the donut legend's longest
+label as much as by its row count, and rows that merely echo an input are worth removing anyway.
+
 **Verification before push**
 - Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
 - JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
