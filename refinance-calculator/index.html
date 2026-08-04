@@ -390,6 +390,13 @@
 .rfi-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .rfi-jump{display:block;margin:0 20px 18px;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
 .rfi-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.rfi-result-card.rfi-flash{animation:rfiFlash .95s ease}
+@keyframes rfiFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55);border-color:#16A34A}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18);border-color:#16A34A}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0);border-color:var(--border-fine)}
+}
+@media(prefers-reduced-motion:reduce){.rfi-result-card.rfi-flash{animation:none;border-color:#16A34A}}
 #rfi-compare,#rfi-result-anchor{scroll-margin-top:88px}
 .rfi-result-head{padding:16px 20px;background:#16A34A;color:#fff}
 .rfi-result-head.is-worse{background:#B45309}
@@ -487,7 +494,7 @@
 
   <div class="rfi-area-bar">
     <div class="rfi-bar">
-      <span>Refinance analysis &middot; current loan vs. new offer</span>
+      <span>Just enter your values below — results update automatically.</span>
       <button type="button" class="rfi-bar-pdf-btn" id="rfi-pdf">&#128190; Save as PDF</button>
     </div>
   </div>
@@ -1088,10 +1095,22 @@
     });
   });
 
+  function flashResult(){
+    var el=$('rfi-result-anchor');
+    if(!el) return;
+    el.classList.remove('rfi-flash');
+    void el.offsetWidth;            /* restart the animation */
+    el.classList.add('rfi-flash');
+    setTimeout(function(){ el.classList.remove('rfi-flash'); },1000);
+  }
   function jumpToResult(){
+    var el=$('rfi-result-anchor');
+    if(!el) return;
     if(window.innerWidth<=900){
-      var el=$('rfi-result-anchor');
-      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(flashResult,420);  /* flash once it is on screen */
+    }else{
+      flashResult();
     }
   }
   $('rfi-calc').addEventListener('click',function(){ run(); jumpToResult(); });
