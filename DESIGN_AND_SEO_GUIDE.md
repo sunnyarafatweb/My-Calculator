@@ -180,6 +180,66 @@ Pages like `sales-tax-calculator` and `salary-calculator` represent a **leaner e
 - **The form card's button row is Calculate + Clear only — no Share button.** A prior version of several pages had a 3rd "🔗 Share" button crowding the row; this is now removed sitewide (kept only the harmless, independent URL-param pre-fill logic where it existed, since that's not tied to a visible button and costs nothing to leave dormant). Both buttons flex to fill the full row width (`flex:1.3` on Calculate, `flex:1` on Clear — Calculate ends up visibly but not dramatically wider, ~1.28x in practice, as the primary action), not a fixed-width pair with empty space where the 3rd button used to be. (Note: the separate, older "crypto/trading batch" design system — position-size/leverage/liquidation-price/mining-profit/risk-reward/staking-reward/crypto-tax calculators — has a *different*, already-clean 2-button 50/50 `calc-btn-row`, plus a distinct "Copy shareable link" button grouped with Print/CSV export tools in a separate `export-row`. That's a different feature in a different context, not the same crowding issue — don't touch it as part of this convention without a separate, explicit decision to do so.)
 - **The page's `<h1>` must render bold.** The common `font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3` class combo does *not* include a bold weight on its own — `font-display` only sets the font-family, not weight, so it silently renders at regular (400) unless `font-bold` is explicitly added to the class list. Always include `font-bold` in the H1's classes (e.g. `font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3`) and confirm with `getComputedStyle(h1).fontWeight === '700'` in a Playwright check — don't assume the class name alone guarantees the rendered weight.
 
+## 5a. STANDING RULE — shared 3-card behaviour (added Aug 4, 2026, owner directive)
+
+**Every 3-card calculator page must behave the same way. This is not per-page taste.**
+There is one shared implementation — do not re-invent it per page:
+
+- `scripts/cb_ux.html` — the snippet (CSS + JS, self-contained, wrapped in try/catch).
+- `scripts/apply_cb_ux.py` — the injector. Idempotent: re-running replaces the existing
+  block rather than adding a second one.
+
+### What it guarantees on every page
+
+1. **Status bar sentence is identical sitewide:**
+   `Just enter your values below — results update automatically.`
+   Real em dash. If a page prefixes a small badge span (`▾`, `%`, `$`), the badge is kept and
+   only the sentence is replaced. Do not write a bespoke line for a new page.
+2. **Auto-calculate.** Typing in any input in the form area re-runs the calculation after a
+   180ms debounce; `select`/radio/checkbox changes fire immediately. The visitor never has to
+   press Calculate.
+3. **Calculate confirms itself.** On desktop the result card gets a short green ring flash
+   (`.cb-flash`). On screens ≤900px it scrolls to the result card first, then flashes, because
+   the result sits below the form at that width.
+4. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
+   pointing at the first card in the bottomgrid area, with `scroll-margin-top:88px` so the 70px
+   sticky header does not cover the heading you land on.
+
+### Running it
+
+```bash
+python3 scripts/apply_cb_ux.py <slug> [<slug> ...]
+```
+
+**Run this as the last step of every new or rebuilt 3-card calculator, before the browser test.**
+
+### How it finds things (why it works without per-page wiring)
+
+It locates the grid by computed `grid-template-areas` containing the tokens `form`,
+`result` (or `rightstack`, which mortgage-calculator uses) and `sidebar` — matched as
+**tokens, not as the literal string** `"form result sidebar"`, because the mobile media query
+re-orders those areas. Getting this wrong silently makes the whole feature desktop-only; it was
+caught exactly that way during rollout. It then finds each piece by the grid area it occupies,
+tags the calculate button(s) `data-cb-calc` and the result card `data-cb-result`, and increments
+`window.__cbAutoRuns` on each auto-run — those three hooks exist so the Playwright check can
+assert against what the snippet actually wired, not against a guess.
+
+### Known and accepted exceptions
+
+- **`crypto-profit-loss-calculator` and the rest of the crypto/trading batch** have no
+  Calculate button — they calculate live by design and use a different 2-button `calc-btn-row`.
+  The snippet degrades gracefully there: it standardises the bar text and wires nothing else.
+  Per section 5, do not restyle that batch without a separate explicit decision.
+- Pages with no `bottomgrid` area simply get no jump link. That is correct, not a failure.
+
+### Verifying
+
+Assert per page: bar sentence matches, `__cbAutoRuns` increases after an `input` event,
+`.cb-flash` appears after clicking `[data-cb-calc]`, zero console errors, zero horizontal
+overflow — **at both 1280px and 390px**. Applied to 65 finance pages on Aug 4, 2026; 64 passed,
+the exception above being the 65th.
+
+
 ## 6. Hard-won lessons (read before adding any live/external-data feature)
 
 - **Always test third-party API calls from an actual browser context, not just curl/Node.** `curl`/Node's `fetch` do not enforce CORS, so a working curl response proves nothing about whether client-side JS in a real browser can read that response. Verify with `curl -sI -H "Origin: https://calculatorboss.com" <api-url>` and confirm an `access-control-allow-origin` header comes back — or better, load the real page in Playwright and check for zero console errors after the fetch resolves. (Concretely: `api.frankfurter.app`, the legacy currency-rate domain, sends **no** CORS header and silently fails in every browser; `api.frankfurter.dev` does send one and works. The original currency-calculator page was built against the broken domain — likely never worked for a real visitor.)
