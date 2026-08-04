@@ -4929,6 +4929,53 @@ Article is 2,028 words, 8 H2 sections, 8 FAQs, 12 distinct internal links. New O
 sitemap lastmod refreshed; the folder's stale Next.js RSC payload files removed as with the
 payment page.
 
+## DEFERRED — site-wide fixes held back for the final audit pass
+
+**Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
+first. Do **not** fix the items below along the way, even when a session touches a file
+that has one of these problems. They are collected here so that when the owner asks for a
+full-site audit, this list is the starting point and nothing has to be rediscovered.
+
+Assistant memory does not persist between sessions, so this file is the only thing that
+carries the decision forward. Read it before proposing any site-wide change.
+
+1. **20 pages still load jsPDF eagerly.** `<script src=...jspdf...>` tags in the markup
+   instead of the `loadScriptOnce`/`ensurePdfLibs` lazy pattern the guide requires. About
+   403KB fetched by every visitor on every view of those pages for a feature most never
+   use. Full list as of Aug 4, 2026: age-calculator, amortization-calculator,
+   annuity-calculator, bmi-calculator, bra-size-calculator, compound-interest-calculator,
+   currency-calculator, engine-horsepower-calculator, gpa-calculator, horsepower-calculator,
+   income-tax-calculator, investment-calculator, loan-calculator, mortgage-calculator,
+   resistor-calculator, retirement-calculator, salary-calculator, sales-tax-calculator,
+   savings-calculator, tip-calculator. Re-derive the list at audit time with:
+   `grep -l 'script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf' */index.html`
+   The working lazy implementation to copy is in apr-calculator, payment-calculator or
+   pension-calculator.
+
+2. **`check_adsense.py` and `check_originality.py` do not exist.** The guide's AdSense
+   section instructs running both before every push, but `scripts/` only holds
+   `sync_header_footer.py`. Every page built so far has had those checks done by hand.
+   Writing them once would make the standard repeatable and is the natural companion to
+   the audit itself. What they need to assert is already specified in the guide's
+   "Per page, enforced by check_adsense.py" list.
+
+3. **Thin inbound linking on rebuilt pages.** Freshly rebuilt calculators tend to link out
+   well through their sidebar but receive few links back. payment-calculator had 3 inbound
+   links at launch (all-calculators, sitemap, business-loan-calculator). At audit time,
+   sweep the sibling pages of each rebuilt calculator and add it to their related-calculator
+   sidebars — cheap internal equity, but it touches many files so it belongs in its own pass.
+
+4. **Stale Next.js RSC payload files remain in 70 folders.** The 111 folders whose payload
+   contradicted their page were cleared on Aug 4; the remaining 70 still match their (as yet
+   unrebuilt) pages, so there was no defect to fix. Each one becomes stale the moment that
+   page is rebuilt — delete that folder's `index.txt` and `__next*.txt` as part of the rebuild,
+   as was done for payment-calculator and pension-calculator.
+
+5. **Site-level AdSense items already listed at the end of DESIGN_AND_SEO_GUIDE.md** —
+   `/contact` being only 225 words, the unsupported "Reviewed for accuracy" byline claim,
+   `/about` describing ads that do not run yet, ~110 pages under 300 words, and the missing
+   `ads.txt`. These belong to the same final pass; do not treat them as separate discoveries.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
