@@ -5020,6 +5020,62 @@ with different-length unit labels will do this.
 Article 1,857 words, 8 H2, 8 FAQs, 12 internal links. New OG image; sitemap refreshed; stale RSC
 payload files removed.
 
+## Present Value Calculator — rebuilt Aug 4, 2026
+
+Owner request with the calculator.net page and a screenshot. Section 3a-PRIME protocol.
+
+**Before:** a 212-word stub covering only the single-amount case, with two FAQs. The reference
+page's second calculator — the present value of a stream of deposits, which is the half most
+people actually arrive looking for — did not exist here, nor did the schedule or chart.
+
+**Keyword research (section 4).** "Present value calculator" is held by Omni, CalculatorSoup,
+FinancialMentor, MoneyChimp and Stanford's IFDM alongside calculator.net. Reading what they do was
+the useful part: MoneyChimp handles only a lump sum, and FinancialMentor splits the two cases
+across separate pages and links between them, which tells you "present value of annuity calculator"
+is a distinct query with its own demand. Doing both in one tool, with the period-by-period
+schedule, is the position worth taking, so the title carries both. Title 49 chars, description 144.
+
+**Parity.** Two calculators, eight input controls including the beginning/end timing radio pair.
+Both modes verified in Node before any code was wired in — 18 assertions, all passing: $558.39 and
+$441.61 for the single amount; $736.01 / $1,318.08 / $1,000.00 / $318.08 for deposits at period
+end; $780.17 / $1,397.16 / $397.16 at period beginning; and five sampled schedule rows in each
+timing mode reproduced to the cent, including the reference's slightly odd column mix where
+"Deposits" is cumulative but "Interest" is per-period.
+
+No deviations found. Every figure the reference prints, we print identically.
+
+**Two additions beyond the reference, flagged rather than silent:** a principal/interest donut on
+the single-amount tab (the reference shows one only on the deposits tab), and a schedule plus chart
+for the single-amount tab showing the present value compounding back up to the future amount. Both
+exist because our result card and bottom grid would otherwise sit empty on that tab; neither
+changes any number.
+
+**Built** on the 3-card pattern with a `pv-` prefix, two tabs, stacked bars matching the
+reference's accumulated-deposits-plus-interest chart.
+
+**Fixed after looking at the render:** the chart card was stretching to the height of the 15-row
+schedule beside it, leaving roughly 200px of empty white below the legend. `align-items:stretch`
+on the bottom grid changed to `start`; card heights now 509px and 310px. Worth noting for future
+builds — stretch only looks right when the two cards are naturally similar in height, which was
+true on payment-calculator's five-row table and false here.
+
+**Verification before push**
+- Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
+- JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
+- FAQ schema from the same list as the visible HTML; 8/8 exact.
+- Inline JS passes `node --check`; sitemap.xml parses.
+- Every figure quoted in the article body was checked in Node rather than asserted: 1.045^8 =
+  1.4221, $17,579.63, the $13,507 comparison at 8%, and $736.01 x 1.06 = $780.17.
+- Playwright desktop 1280px and mobile 390px, 32 assertions each, all passing: both tabs, both
+  timing modes, all reference schedule rows compared string-for-string, and six edge cases (0% rate
+  in each mode, blank deposit, zero periods, over 600 periods, rate above 100).
+- jsPDF: nothing on load, downloads on first click, no refetch on second.
+- SEO audit 21 checks clear. Originality 0.00% against the reference; worst against our own pages
+  0.31%.
+
+Article 1,782 words, 8 H2, 8 FAQs, 12 internal links. New OG image; sitemap refreshed; the folder
+had no stale RSC files left to remove.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
