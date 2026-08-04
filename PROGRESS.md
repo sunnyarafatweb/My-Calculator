@@ -5091,6 +5091,34 @@ label as much as by its row count, and rows that merely echo an input are worth 
 Article 1,782 words, 8 H2, 8 FAQs, 12 internal links. New OG image; sitemap refreshed; the folder
 had no stale RSC files left to remove.
 
+## Card width alignment — personal-loan and present-value, Aug 4, 2026
+
+Owner pointed at margin-calculator as the standard: the value-input card and the result card should
+be the same width. Height is expected to vary with how much each side has to show and is not part
+of this.
+
+Measured before changing anything. margin-calculator resolves to 390 / 382 / 300 (form / result /
+sidebar) at 1280px — an 8px gap. The two pages named were running their own column values,
+`360px minmax(360px,1fr) 285px` and `355px minmax(360px,1fr) 285px`, which resolved to 390/427 and
+390/432 — 62px and 77px apart, with the result card visibly wider.
+
+Both now use margin-calculator's exact declaration:
+`minmax(300px,390px) minmax(320px,1fr) minmax(250px,300px)`. Verified identical to
+margin-calculator at 1440, 1280, 1024 and 900px (the last stacks), zero horizontal overflow at
+every width, and both full test suites still passing.
+
+**One thing tried and backed out.** At the narrower result width the donut legend on these two
+pages dropped below the donut instead of sitting beside it, so the donut was shrunk to 128px to
+make room. Then margin-calculator was measured properly: its donut is 150px, the same as everywhere
+else, and its legend fits only because its labels are short ("Cost $185 71%"). Shrinking ours would
+have introduced a new inconsistency to solve a problem the owner had not raised, so it was reverted.
+The legend wrapping below the donut at narrower widths is existing site behaviour —
+payment-calculator does the same thing at 1024px. Final diff is one line per file.
+
+**Still on the old column values:** payment-calculator (390/422, 32px apart) and pension-calculator
+(390/432, 42px apart) at 1280px. Left alone because the owner scoped this to two pages; worth
+folding into the final audit pass if site-wide consistency is wanted.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
