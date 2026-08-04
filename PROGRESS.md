@@ -4929,6 +4929,87 @@ Article is 2,028 words, 8 H2 sections, 8 FAQs, 12 distinct internal links. New O
 sitemap lastmod refreshed; the folder's stale Next.js RSC payload files removed as with the
 payment page.
 
+## Personal Loan Calculator — rebuilt Aug 4, 2026
+
+Owner request with the calculator.net page and two screenshots. Section 3a-PRIME protocol.
+
+**Before:** a 224-word stub with two FAQs and six inputs — loan amount, rate, term and a currency
+selector — producing a payment and total interest. No origination fee, no insurance, no APR, no
+schedule, no chart. The reference tool's entire reason for existing (turning a quoted rate plus a
+fee into a real APR) was missing.
+
+**Keyword research (section 4) before any copy.** "Personal loan calculator" is one of the more
+contested finance terms in US search — NerdWallet, Bankrate, Wells Fargo, OneMain, LendingTree and
+a long tail of credit unions all hold pages. Reading what they actually do was the useful part:
+the bank and credit-union tools (Wells Fargo, OneMain, Landmark, SCU) return a monthly payment and
+stop. Only NerdWallet and calculator.net handle the origination fee and convert it into an APR,
+and NerdWallet's own page copy leads with "with or without an origination fee". That is the gap
+worth owning, so the title leads on fees and true APR rather than competing on the bare head term.
+Title 55 chars, description 150.
+
+**Parity work.** Nine input controls, including two the stub had no equivalent of: the % / $
+selector on the fee amount and the deducted-vs-upfront radio pair. Result rows are conditional and
+that conditionality had to be derived rather than guessed — four separate result URLs were fetched
+(no fee; fee deducted; fee upfront; fee deducted plus insurance) to establish which rows appear
+when. "Cash received" only shows when a fee is deducted; "Monthly pay + insurance" and "Total
+insurance" only when a premium is entered; "Origination fee", "Cost of loan" and "APR" whenever the
+optional panel is on. The donut's segments change with the same logic — deducted shows cash
+received, upfront shows the full loan amount.
+
+**A non-obvious finding worth recording:** the APR is identical whether the fee is deducted or paid
+upfront. Both leave the borrower holding the loan minus the fee and repaying the full balance, so
+the cash flows match; only the day-one cash position differs. Verified against the reference, which
+prints 12.239% for both, and now explained in the article because it is the sort of thing a
+borrower assumes must differ.
+
+**Verified in Node before wiring anything in** — 11 figures reproduced exactly: $424.94 payment,
+$25,496.45 total, $5,496.45 interest, $1,000.00 fee, $19,000.00 cash received, $6,496.45 and
+$9,496.45 cost of loan, $474.94 payment-with-insurance, $3,000.00 total insurance, and the APR at
+12.239%.
+
+**One deviation, at the rounding level.** APR was probed across seven input sets. Five match to the
+printed digit. Two differ by 0.001 percentage points, and critically they differ *in opposite
+directions* — ours 9.377855 (displays 9.378) where they print 9.377, and ours 17.267970 (displays
+17.268) where they print 17.269. A systematic convention difference would push the same way every
+time; opposite drift is their solver's tolerance in the last digit. Ours is a 300-iteration
+bisection on the standard APR definition. Recorded as an intentional difference; the magnitude is
+one part in twenty thousand.
+
+**Built** on the 3-card pattern with a `pl-` prefix. No tabs here — the reference is a single
+calculator with a collapsible fee panel, so the panel is a checkbox-revealed block rather than a
+tab. Annual schedule carries the date-range column (8/26-7/27) and the monthly view carries per-month
+dates with end-of-year separators, both matching the reference. Start date defaults to the current
+month via JS rather than shipping a hardcoded date that goes stale.
+
+**Two things fixed after looking at the rendered page, not the DOM:**
+1. The fee amount row showed "3 %" inside the input *and* a "%" dropdown beside it — the unit stated
+   twice on one line. The reference does this too; we dropped the in-field marker and kept the
+   dropdown.
+2. The result sub-line read "Before fees this is a $381.13 payment", which is misleading — the
+   payment is $381.13 either way; what the fee changes is the cost, not the installment. Reworded.
+
+**Internal duplication caught and fixed.** First measurement showed 1.42% eight-word-run overlap
+with payment-calculator, above the guide's ~1% line. The overlap was real: the amortization formula
+explanation and a few stock sentences were near-identical prose I had written on both pages.
+Rewrote four passages — the formula paragraph, the first FAQ answer, the variable-rate bullet and
+the worked example — and it fell to 0.24%. The worked example's new figure ($143.79 of the first
+payment being interest) was checked in Node rather than asserted.
+
+**Verification before push**
+- Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
+- JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
+- FAQ schema generated from the same list as the visible HTML; 8/8 exact.
+- Inline JS passes `node --check`; sitemap.xml parses.
+- Playwright desktop 1280px and mobile 390px, 39 assertions each, all passing: all four reference
+  configurations typed in live, both fee units, the reference's own year-1, year-5 and month-1
+  schedule rows matched character for character, monthly view 60 rows with 4 separators, and five
+  edge cases (blank amount, fee >= loan, months-only term, zero term, 0% rate).
+- jsPDF: nothing on load, downloads on first click, no refetch on second.
+- SEO audit, 21 checks, all clear. Originality 0.00% against the reference page.
+
+Article 1,857 words, 8 H2, 8 FAQs, 12 internal links. New OG image; sitemap refreshed; stale RSC
+payload files removed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
