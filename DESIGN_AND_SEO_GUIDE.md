@@ -257,6 +257,16 @@ assert against what the snippet actually wired, not against a guess.
   correctly declines to scroll when the card is already parked — but if either page is ever
   rebuilt, drop the page-level scroll and let the shared snippet own that behaviour.
 
+### Tabbed pages carry one grid per tab
+
+`retirement-calculator` has **four** grids, `401k-calculator` three, `auto-loan-calculator` two —
+one per tab, only one visible at a time. An early version wired only the first grid it found, so
+every tab except the first had no auto-calculate, no flash and no jump at all, and the cached
+result-card reference pointed at a `display:none` element once the tab changed. The snippet now
+loops over **every** matching grid and re-resolves the visible result card on each use. When
+checking a tabbed page, switch to a second tab before testing — the first tab passing proves
+nothing about the rest.
+
 ### Verifying — measure the control, not `window.scrollY`
 
 A checkbox that collapses an optional section legitimately changes page height, so `scrollY`

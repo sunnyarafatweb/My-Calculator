@@ -1226,15 +1226,50 @@ or a survivor percentage other than the one you enter.</li>
   "use strict";
   var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
 
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
   function init(){
     try{
-      var grid = null, all = document.querySelectorAll('div');
+      var all = document.querySelectorAll('div'), grids = [];
       for (var i=0;i<all.length;i++){
         var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
         /* the mobile media query re-orders these areas, so match on the tokens, not the order */
-        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)){ grid = all[i]; break; }
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
       }
-      if (!grid) return;
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
 
       /* --- locate the pieces by the grid area they occupy --- */
       function areaChild(name){
@@ -1280,6 +1315,21 @@ or a survivor percentage other than the one you enter.</li>
       var btn = btns[0] || null;
 
       /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
       var card = null;
       if (resultArea){
         /* Prefer a real result CARD. Some pages hang the coloured head straight off
@@ -1300,40 +1350,18 @@ or a survivor percentage other than the one you enter.</li>
       }
 
       function flash(){
-        if (!card) return;
-        card.classList.remove('cb-flash');
-        void card.offsetWidth;
-        card.classList.add('cb-flash');
-        setTimeout(function(){ card.classList.remove('cb-flash'); }, 1000);
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
       }
 
       /* --- 4. auto-calculate as the visitor types --- */
-      var auto = false, timer = null, suppress = false, supTimer = null;
-
-      /* Most pages already scroll to the result inside their own Calculate
-         handler, often from a requestAnimationFrame callback. Auto-calculate
-         fires that handler on every keystroke and every checkbox toggle, which
-         yanked the page down to the result while the visitor was still filling
-         the form in. Programmatic scrolling is muted for a moment around an
-         auto-run only - a real button press is never affected. */
-      try {
-        var realScrollTo = window.scrollTo.bind(window);
-        var realSIV = Element.prototype.scrollIntoView;
-        window.scrollTo = function(){
-          if (suppress) return;
-          return realScrollTo.apply(null, arguments);
-        };
-        Element.prototype.scrollIntoView = function(){
-          if (suppress) return;
-          return realSIV.apply(this, arguments);
-        };
-      } catch(e){}
-
-      function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
-      /* Armed in the capture phase, before the page's own change/input handlers
-         run - a couple of pages scroll straight from their own listener, which
-         fires earlier than ours and would otherwise slip through. */
-      function armSuppress(){ suppress = true; clearTimeout(supTimer); supTimer = setTimeout(function(){ suppress = false; }, 700); }
+      var auto = false, timer = null;
 
       function runCalc(){
         auto = true;
@@ -1352,6 +1380,19 @@ or a survivor percentage other than the one you enter.</li>
         }
       }
       if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
         scope.addEventListener('input', function(){
           armSuppress();
           clearTimeout(timer);
@@ -1370,16 +1411,17 @@ or a survivor percentage other than the one you enter.</li>
           b.addEventListener('click', function(){
             if (auto) return;
             releaseScroll();      /* a real press always gets to move the page */
-            if (!card){ return; }
+            var live = resolveCard() || card;
+            if (!live){ return; }
             /* Always bring the answer to the visitor. On a long form they have
                scrolled well past the result card, so flashing alone is invisible
                and reads as "nothing happened" - scroll first, then flash. */
-            var r = card.getBoundingClientRect();
+            var r = live.getBoundingClientRect();
             var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
             if (settled){
               flash();
             } else {
-              card.scrollIntoView({behavior:'smooth', block:'start'});
+              live.scrollIntoView({behavior:'smooth', block:'start'});
               setTimeout(flash, 420);
             }
           });
@@ -1387,15 +1429,16 @@ or a survivor percentage other than the one you enter.</li>
       }
 
       /* --- 6. link down to the detail section --- */
-      if (card && bottomArea && !document.querySelector('.cb-jump')){
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
         var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
-        if (!target.id) target.id = 'cb-detail';
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
         target.classList.add('cb-scroll-target');
         var a = document.createElement('a');
         a.className = 'cb-jump';
         a.href = '#' + target.id;
         a.innerHTML = 'See the full breakdown \u2193';
         (resultArea || card.parentNode).appendChild(a);
+      }
       }
     }catch(e){ /* never break the page */ }
   }
