@@ -4738,6 +4738,111 @@ spinner and increments the value (salary-calculator went 25 to 25.01 before any 
 and the first visible number input on several pages is a read-only result box. Target
 the first editable input and click its left edge.
 
+## Payment Calculator — rebuilt Aug 4, 2026
+
+Owner request, with the calculator.net page and two screenshots supplied as the
+reference. Built under the section 3a-PRIME parity protocol.
+
+**Before:** a template-tier stub — 220 words in `<main>`, 3 H2s (one of which was
+just the form's "Solve for" label), 2 FAQ entries, a React-rendered
+payment/loan-amount toggle with no element IDs, and no amortization schedule,
+chart, or fixed-payment mode at all. Generic `Payment Calculator | CalculatorBoss`
+title.
+
+**Keyword research (section 4), done before any copy was written.**
+Head term "payment calculator" is effectively owned by calculator.net, which is
+also the only major that titles the tool that bare way. Every US competitor that
+ranks — TransUnion, Bankrate ("Simple Loan Payment Calculator"), Finaid, United
+FCU — uses **"loan payment calculator"**, so per section 8 that higher-volume
+phrasing went into the title tag and meta while the H1 and slug keep "Payment
+Calculator". A genuinely separate query cluster sits behind the second tab:
+"loan payoff calculator" / "how long to pay off my loan" has dedicated pages at
+MoneyUnder30, thecalculatorsite, CalcXML, DCU and Atomic CU, so it earned its own
+H2, its own FAQ entries and a mention in the meta description rather than being
+folded in silently. Middle-ground gap found: nobody titles around *both*
+directions in one tool, which is what the title now leads with.
+Title `Loan Payment Calculator — Monthly Cost or Payoff Time` (53 chars),
+description 149 chars.
+
+**Parity work.** Live-fetched calculator.net's source for the input set and also
+fetched the `ctype=fixpay` result URL, because the Fixed Payments headline and
+its extra "Time Required to Clear Debt" row do not appear on the default page
+load. Input parity 6/6, result parity 11/11.
+
+**Formula verification in Node before any of it was wired into the page**, against
+calculator.net's own published figures — 32 assertions, all passing: the fixed-term
+payment, both totals, the 15-row annual schedule and sampled monthly rows for
+200000/15y/6%, plus the payoff time (11 years 6.98 months), 11.58-year figure,
+138.98-payment total and 12-row schedule for 200000/$2000/6%.
+
+**One real discrepancy found and resolved rather than papered over.** In fixed-payment
+mode the term lands on a fraction of a month, and a plain discrete simulation
+(138 full payments plus a real final payment of balance + one month's interest)
+totals $277,951.56 while calculator.net's headline says $277,951.44. The 12-cent
+gap is not a bug on either side: their headline is the closed form `M × n`, and
+their schedule silently back-solves the last period as a residual so the table
+reconciles to it — which is why their year-12 interest cell reads "$274" where
+every other cell on the page carries two decimals (the true residual is $274.07).
+We adopted the same convention, so our headline and our schedule agree with each
+other *and* with theirs, and the article explains plainly that the closing payment
+is smaller than the rest. Flagged under intentional differences rather than left
+silent.
+
+**Built** on the loan-calculator/apr-calculator 3-card conventions with a `pay-`
+prefix: navy bar + lazy PDF button, Fixed Term / Fixed Payments tabs, form card,
+result card with headline + sub-line + rows + principal/interest donut, navy
+related-calculators sidebar (9 links), and a bottomgrid pairing the amortization
+schedule (Annual/Monthly toggle, "End of year N" separators in the monthly view)
+with a three-line balance / cumulative-interest / cumulative-paid chart matching
+the three series calculator.net plots. Defaults deliberately differ from theirs:
+$28,500 over 5 years at 7.4%, and $600/month on the second tab.
+
+**FAQ schema generated from the same Python list as the visible FAQ HTML.** The
+guide records this em-dash/curly-quote mismatch biting every previous rebuild;
+generating both from one source makes it structurally impossible rather than a
+thing to remember. Verified anyway: 8/8 exact string equality.
+
+**Verification before push**
+- Protected shared style block byte-identical to the pre-edit file and to
+  bmi-calculator's.
+- All JSON-LD parses; BreadcrumbList left in `<head>` per site convention (an
+  earlier build of this page added a second one in `<main>` — caught and removed).
+- Inline JS passes `node --check`; sitemap.xml parses.
+- Playwright, desktop 1280px and mobile 390px, 30 assertions each, all passing:
+  default render, both tabs, annual/monthly toggle (5 rows / 60 rows + 4 year
+  separators), the two calculator.net parity cases typed in live, the
+  payment-below-monthly-interest error path, h1 computed font-weight 700, zero
+  console errors, zero horizontal overflow. Screenshotted rather than only
+  asserting nodes exist, per the guide's note that DOM checks passed on the
+  invisible-headings bug.
+- jsPDF: zero bytes fetched on load, `window.jspdf` undefined until the button is
+  clicked, PDF downloads on first click, no re-fetch on second.
+- Originality: 0.00% 8-word-run overlap with calculator.net's page. Against our own
+  74 substantial articles, worst overlap is 0.26% once the site-wide byline and
+  disclaimer boilerplate are excluded (1.57% including it, and 28 of those 31
+  shared runs *are* that boilerplate).
+
+Article is 2,030 words, 8 H2 sections, 8 FAQs, 12 distinct internal links.
+New OG image at `og/payment-calculator.png`; sitemap lastmod refreshed.
+
+**Left open, flagged to the owner**
+1. **20 pages still load jsPDF eagerly** — loan-calculator, mortgage-calculator,
+   bmi-calculator, salary-calculator, income-tax-calculator, sales-tax-calculator,
+   savings-calculator, tip-calculator, age-calculator, amortization-calculator,
+   annuity-calculator, bra-size-calculator, compound-interest-calculator,
+   currency-calculator, engine-horsepower-calculator, gpa-calculator,
+   horsepower-calculator, investment-calculator, resistor-calculator,
+   retirement-calculator. That is ~403KB paid by every visitor on every view of
+   those pages for a feature most never use, and the guide already forbids it.
+   Worth a dedicated commit.
+2. **`check_adsense.py` and `check_originality.py` do not exist in `scripts/`**
+   even though the guide's AdSense section instructs running them before every
+   push. Only `sync_header_footer.py` is there. The equivalent checks were run
+   by hand this session; writing the two scripts once would make that repeatable.
+3. **Only 3 pages link to /payment-calculator/** (all-calculators, sitemap,
+   business-loan-calculator). Adding it to the sidebar of loan-calculator,
+   auto-loan-calculator and amortization-calculator is cheap inbound equity.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
