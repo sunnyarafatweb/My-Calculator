@@ -5200,6 +5200,65 @@ need" pointers. New OG image; sitemap refreshed.
 page holds the one-year snapshot, that one should be built as the multi-year projection with
 appreciation, loan paydown and sale proceeds, which keeps the two clearly separated.
 
+## Refinance Calculator — rebuilt Aug 4, 2026
+
+Was a 393-word template stub with 7 inputs that only compared monthly payments and used the
+naive `closing costs / monthly saving` break-even. Rebuilt to the 3-card pattern (`rfi-` prefix)
+with full field parity against calculator.net.
+
+**Parity work (section 3a-PRIME).** Their page computes client-side, so the raw HTML gave the
+input set but no results. Submitted their form by GET to recover the rendered result block, then
+ran five more scenario submissions to pin down behaviour that is invisible in a single sample:
+
+- **Points are a percent of the NEW loan amount**, including any cash out (verified: cash-out
+  50k moved upfront cost 6,500 -> 7,500).
+- **APR** solves `(new loan - upfront) = payment x annuity factor`, i.e. on money actually received.
+- **Remaining term is floored**, not rounded (payment 1,800 -> 285.70 months displays 285; payment
+  2,000 -> 224.55 displays 224). Total payments then use that integer count.
+- **Known sell price back-solves an implied appreciation rate** for interim years.
+- **Break-even is NOT closing costs / monthly saving.** It is the first month where cumulative
+  payment savings PLUS the equity gap between the two loans exceeds the upfront cost. Confirmed
+  on three independent scenarios (30, 32 and 33 months) where the naive formula gives 728, 44 and 31.
+- Rows are conditionally hidden: no mortgage row when the loan is cash, no break-even line when the
+  new payment is higher, no faster/slower line when both terms match.
+
+**Numeric verification.** Node model checked against their output before any page code was written:
+6 scenarios x 45 assertions, all exact to the cent, including a row-level check of 7 sampled years.
+The same 5 scenarios were then re-run through the finished page in Playwright and matched again.
+
+**Keyword research (section 4).** Head term "refinance calculator" is held by Zillow, Bankrate,
+NerdWallet and calculator.net; Zillow titles theirs literally "Should I Refinance?". The best
+long-tail cluster is **"refinance break even calculator"** — Bankrate, Churchill, Refi.com and
+mortgagecalculator.org each run a *dedicated page* for it, which marks it as a real query cluster
+rather than a phrasing variant. Title targets the head term plus that cluster:
+"Refinance Calculator — See Your Break-Even Point & Savings" (58 chars).
+
+**Differentiation angle.** Every major competitor states the naive break-even formula. Ours counts
+the equity difference, which is both more correct and a defensible content angle — the article
+explains why, using the page's own default figures (naive says 16 months, correct answer is 12)
+and the extreme case where the naive method reports decades for a refinance that pays back in years.
+
+**Audit fixes before shipping.** Two real defects were found and fixed: 124px horizontal overflow on
+mobile (grid items default to `min-width:auto`, letting the chart's min-width escape its scroll
+container), and `$-253.55` sign placement corrected to `-$253.55` per US convention — calculator.net
+renders the former, but only their maths is copied, not their formatting.
+
+FAQ schema is generated programmatically from the article HTML at build time rather than hand-typed,
+which structurally removes the em-dash/quote mismatch failure mode the guide has hit on every
+previous rebuild. Verified exact.
+
+Article 2,500 words, 10 H2, 8 FAQs, 9 internal links. New OG image. Sitemap lastmod refreshed.
+Protected style block byte-identical to bmi/tip/body-fat/real-estate. jsPDF lazy (0 requests before
+click, 2 after). Desktop and mobile both 0px overflow, zero page errors. 10 edge cases (0% rates,
+garbage text, negatives, empty, payment-below-interest, $2.5M balance) produce no NaN/Infinity.
+
+Input fields: 13/13. Result fields: 15/15.
+
+**Note for the deferred audit list:** the shared head preloads
+`/_next/static/chunks/36m08sdd6fi_4.js` but nothing consumes it, so every rebuilt page (confirmed on
+real-estate, present-value and this one) logs a console warning ~4s after load. Pre-existing and
+site-wide, not introduced here — belongs with the other deferred items.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
