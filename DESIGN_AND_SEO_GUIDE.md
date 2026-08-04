@@ -204,8 +204,15 @@ There is one shared implementation — do not re-invent it per page:
    filling in twenty fields the visitor is hundreds of pixels below the result card, so a flash
    alone is off-screen and reads as "the button did nothing". If the card is already comfortably
    in view (top between 60px and half the viewport) it skips the scroll and only flashes, so a
-   short form does not jump pointlessly.
-4. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
+   short form does not jump pointlessly. **Any page carrying its own scroll-on-calculate must use
+   this same rule** — refinance-calculator originally guarded on `innerWidth<=900` and so never
+   scrolled on desktop, which is exactly the bug this is meant to prevent.
+4. **The ring goes around the whole result card.** Pick `[class*="-result-card"]` first. Some
+   pages hang the coloured result head straight off the result area with no card wrapper, so a
+   loose `[class*="-result"]` match grabs the ~95px header and the glow appears only under the
+   green strip (seen on auto-loan-calculator and apr-calculator). When there is no single card
+   child, flash the whole result area instead and add `.cb-area` so it gets a 16px radius.
+5. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
    pointing at the first card in the bottomgrid area, with `scroll-margin-top:88px` so the 70px
    sticky header does not cover the heading you land on.
 

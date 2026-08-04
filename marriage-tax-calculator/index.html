@@ -1411,6 +1411,7 @@
 <!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
 <style id="cb-ux-style">
 .cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
 @keyframes cbFlash{
   0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
   45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
@@ -1484,7 +1485,19 @@
       /* --- 3. the card that shows the answer --- */
       var card = null;
       if (resultArea){
-        card = resultArea.querySelector('[class*="-result-card"], [class*="-result"], [class*="-card"]') || resultArea;
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
         card.classList.add('cb-scroll-target');
         card.setAttribute('data-cb-result','1');
       }

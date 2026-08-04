@@ -1106,11 +1106,15 @@
   function jumpToResult(){
     var el=$('rfi-result-anchor');
     if(!el) return;
-    if(window.innerWidth<=900){
+    /* Scroll on every screen size, not just mobile: on a long form the visitor
+       has scrolled well past the result card, so a flash alone is off-screen. */
+    var r=el.getBoundingClientRect();
+    var settled=r.top>=60 && r.top<=(window.innerHeight*0.5);
+    if(settled){
+      flashResult();
+    }else{
       el.scrollIntoView({behavior:'smooth',block:'start'});
       setTimeout(flashResult,420);  /* flash once it is on screen */
-    }else{
-      flashResult();
     }
   }
   $('rfi-calc').addEventListener('click',function(){ run(); jumpToResult(); });
