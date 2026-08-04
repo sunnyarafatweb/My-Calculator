@@ -371,6 +371,11 @@
 .pl-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
 .pl-input-group span{padding:0 8px;color:var(--ink-faint);font-size:12.5px;flex-shrink:0;white-space:nowrap}
 .pl-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.pl-term .pl-input-group{flex:1 1 0;min-width:0}
+.pl-term .pl-input-group input{min-width:0;padding:9px 6px;text-align:right;-moz-appearance:textfield}
+.pl-term .pl-input-group input::-webkit-outer-spin-button,
+.pl-term .pl-input-group input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pl-term .pl-input-group span{padding:0 7px 0 4px;font-size:12px}
 .pl-select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13px;background:#fff;color:var(--ink);font-family:var(--font-body)}
 .pl-check{display:flex;align-items:center;gap:9px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-fine);cursor:pointer;font-size:13px;font-weight:600;color:var(--ink)}
 .pl-check input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
@@ -461,7 +466,7 @@
     </div>
     <div class="pl-field">
       <label class="pl-field-label" for="pl-years">Loan term</label>
-      <div class="pl-field-control">
+      <div class="pl-field-control pl-term">
         <div class="pl-input-group"><input id="pl-years" type="number" inputmode="numeric" min="0" step="1" value="4"><span>years</span></div>
         <div class="pl-input-group"><input id="pl-months" type="number" inputmode="numeric" min="0" max="11" step="1" value="0"><span>months</span></div>
       </div>

@@ -4995,6 +4995,16 @@ Rewrote four passages — the formula paragraph, the first FAQ answer, the varia
 the worked example — and it fell to 0.24%. The worked example's new figure ($143.79 of the first
 payment being interest) was checked in Node rather than asserted.
 
+**Follow-up fix, same day (owner spotted it).** The months half of the loan-term row rendered its
+value invisibly on desktop. Both halves shared `flex:1` with `min-width:0`, and because the word
+"months" is wider than "years" the second input collapsed to 32px — after padding and the space
+Chrome reserves for the number spinner, there was nothing left to show the digit in. Measured
+rather than guessed: 43px vs 32px at 1280px wide. Fixed by giving the two boxes an equal
+`flex:1 1 0` basis, tightening the unit labels, right-aligning the figures against them and
+suppressing the spinner on those two fields only. Now 49px and 39px, nothing clipped, checked at
+1280, 768 and 390px. Worth remembering as a pattern: any field-control holding two input groups
+with different-length unit labels will do this.
+
 **Verification before push**
 - Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
 - JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
