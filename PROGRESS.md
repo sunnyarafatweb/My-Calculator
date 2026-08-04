@@ -5161,6 +5161,15 @@ compensation and made it a purchase-agreement negotiation. National averages thr
 5.5% than the old 6% where a seller pays both sides. The commission field defaults to 5.5% and the
 article explains why treating 6% as fixed is now a mistake.
 
+**Second follow-up, same day.** The total row's background was `--surface-sunken`, which resolves
+to #F3F1EA — the exact same colour as the page background, rgb(243,241,234). The row therefore
+disappeared into the page and read as though it had fallen outside the card. Measured rather than
+eyeballed: the two computed values were identical. Replaced with the navy already used for the
+table header, so the table is bookended, with a white label and a light-green figure. Contrast on
+navy is 11.5:1 for the label and 7.1:1 for the figure, both clear of the 4.5:1 WCAG AA threshold.
+Applies to all three tabs. General note: `--surface-sunken` is the same colour as the page
+background, so it only works as a tint *inside* a white card, never as the last row of one.
+
 **Follow-up fix, same day (owner spotted it).** The buying tab's breakdown table ended on a total
 row with an empty third cell, which read as a hole at the bottom of the table. The sell and
 invest tabs both fill that cell; only this one had been left as `''`. Filling it with a number
