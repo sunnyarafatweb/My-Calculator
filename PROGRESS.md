@@ -5119,6 +5119,69 @@ payment-calculator does the same thing at 1024px. Final diff is one line per fil
 (390/432, 42px apart) at 1280px. Left alone because the owner scoped this to two pages; worth
 folding into the final audit pass if site-wide consistency is wanted.
 
+## Real Estate Calculator — built from research, Aug 4, 2026
+
+Owner flagged that calculator.net's real-estate page carries no calculator, only links, and asked
+for the design to come from researching the wider field instead. Verified their observation first:
+that page has one input on it and the input is the site search box.
+
+**What the research showed.** "Real estate calculator" splits into two intents. calculator.net and
+ELIKA answer it as a hub — a list of seventeen or twenty links. FinancialMentor, WealthBuilders and
+Wikipedia's "property investment calculator" entry answer it as investment analysis: cap rate, cash
+flow, cash-on-cash. A second search on the selling side turned up a dense field — HomeLight,
+Casaplorer, SoldNest, EstatePass, AskDoss and several others all run dedicated seller net-proceeds
+tools, and all of them lead with the same finding, that sellers hand over 6-10% of the price before
+the loan payoff.
+
+**The problem that decided the design.** We already have `/rental-property-calculator/`, and it
+already does cap rate and cash-on-cash. The `/real-estate-calculator/` stub was doing exactly the
+same thing — its title even read "Real Estate Calculator — Cap Rate". Building another cap-rate tool
+here would have set two of our own pages against each other for the same query. Meanwhile we had no
+seller-side calculator anywhere on the site, against a field of competitors who all have one.
+
+So the page answers the umbrella query with three working calculators covering the three moments
+money actually moves, two of which were site-wide gaps:
+1. **Buying** — cash to close. Down payment plus closing costs plus prepaid escrow, less seller
+   credit. Our mortgage and down-payment pages give the monthly figure; none gave the day-one cash.
+2. **Selling** — net proceeds. Price less payoff, commission, title/escrow, transfer tax,
+   concessions and repairs. Nothing on the site covered this at all.
+3. **Renting out** — a one-year return screen. Kept deliberately as a snapshot, with a prominent
+   link to `/rental-property-calculator/` for the full hold-period projection, so the two pages have
+   distinct jobs rather than competing.
+
+**No reference implementation exists**, so every figure was hand-derived and checked in Node rather
+than matched against someone else's output: 22 assertions covering cash to close ($107,100), net
+proceeds ($141,750 with costs at 8.94%), NOI ($20,280), cap rate (5.96%), and the P&I payment
+($1,662.41) cross-checked independently against the annuity formula. Edge cases included a seller
+credit, an all-cash purchase, and an underwater sale where the payoff exceeds the price — that last
+one correctly returns a negative net and tells the seller what they would have to bring to closing.
+
+**One current fact worth getting right.** The 2024 NAR settlement ended MLS-advertised buyer-agent
+compensation and made it a purchase-agreement negotiation. National averages through 2026 sit nearer
+5.5% than the old 6% where a seller pays both sides. The commission field defaults to 5.5% and the
+article explains why treating 6% as fixed is now a mistake.
+
+**Verification before push**
+- Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
+- JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
+- FAQ schema from the same list as the visible HTML; 8/8 exact.
+- Inline JS passes `node --check`; sitemap.xml parses.
+- Playwright desktop 1280px and mobile 390px, 32 assertions each, all passing, including the card
+  widths resolving to 390/382/300 to match margin-calculator.
+- One test failure turned out to be the test's fault, not the page's: it set a $5,000 seller credit
+  and then ran the all-cash case without clearing it, so $462,100 was the correct answer and the
+  expectation was wrong. Test corrected rather than the calculator.
+- jsPDF: nothing on load, downloads on first click, no refetch on second.
+- SEO audit 23 checks clear. Originality 0.00% against calculator.net's hub page and 0.00% against
+  every one of our own articles.
+
+Article 1,918 words, 8 H2, 8 FAQs, 12 internal links including five "which calculator you actually
+need" pointers. New OG image; sitemap refreshed.
+
+**Follow-up worth doing:** `/rental-property-calculator/` is still a 295-word stub. Now that this
+page holds the one-year snapshot, that one should be built as the multi-year projection with
+appreciation, loan paydown and sale proceeds, which keeps the two clearly separated.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
