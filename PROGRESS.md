@@ -4843,6 +4843,92 @@ New OG image at `og/payment-calculator.png`; sitemap lastmod refreshed.
    business-loan-calculator). Adding it to the sidebar of loan-calculator,
    auto-loan-calculator and amortization-calculator is cheap inbound equity.
 
+## Pension Calculator — rebuilt Aug 4, 2026
+
+Owner request, with the calculator.net page and four screenshots supplied. Built under the
+section 3a-PRIME parity protocol. This is the largest single page on the site so far:
+three independent calculators, two charts and seventeen inputs.
+
+**Before:** the slug held a completely different tool — a defined-benefit formula estimator
+(years of service x final average salary x multiplier), 369 words, three H2s, four FAQs.
+None of the three decision calculators the reference page is actually known for existed here.
+
+**Keyword research (section 4), before any copy.** The bare head term "pension calculator"
+is ambiguous in US search — it pulls DB-formula tools and UK pension-pot calculators as often
+as the payout decision. The dominant high-intent cluster is **"pension vs lump sum
+calculator"**, which has dedicated pages at Schwab MoneyWise, Ameriprise, Fidelity, Clark
+Howard, SmartAsset and a long tail of advisor sites. Per section 8 that phrasing went into the
+title and meta while the H1 and slug keep "Pension Calculator". Secondary clusters targeted in
+H2s and FAQs: single-life vs joint-and-survivor, pension maximization / life insurance instead
+of a survivor benefit, and "should I retire early or work longer". Title 48 chars, description
+159.
+
+**Reverse-engineering the reference maths.** Nothing about the three calculators' conventions
+is documented, so they were derived from the reference tool's own output: the two SVG charts
+were decoded back to dollar values by calibrating against their gridlines, and the exact
+integer figures printed by the second calculator were used as fixed targets. The result is
+that the three calculators do **not** share one convention:
+
+- **Calculator 1 and 3** value each year's pension total at the *middle* of that year —
+  discount exponent `j + 0.5`, with the year count being `death age - retirement age`. Fitted
+  against 56 decoded chart points spanning ages 66-120; worst error 0.006%.
+- **Calculator 2** values the survivor stream at the *start* of each year (exponent `j`) and
+  counts spans *inclusively*: a spouse aged 62 with life expectancy 82 gets 21 payments, not
+  20. That convention reproduces all three of its printed figures to the dollar —
+  $657,173 replacement lump sum, $514,709 invested difference, $428,530 remaining survivor
+  value. The "20 years" quoted for the term-life comparison is the non-inclusive span, which
+  is a separate quantity in their own text.
+
+Engine verified in Node before being wired into the page: 17 assertions, all passing,
+including three independent break-even probes for calculator 1 fetched live with different
+inputs (ages 81, 81, 101 — all matched).
+
+**One deliberate deviation, flagged rather than copied.** The third calculator's verdict
+sentence is off by one year. With the reference defaults it says to retire at 65 if you live
+to 86, but at 86 retiring at 60 is still ahead by $3,105 — and their own chart on the same
+page shows the earlier-retirement line above the later one at that age. Probed with four
+different input sets and the error is systematic: their stated age is always one year early,
+by $1,158 to $5,850 of remaining gap. Calculator 1's break-even, by contrast, matched exactly
+on every probe, so this is specific to the third tool rather than a difference of convention.
+We report the first age at which working longer genuinely wins (87 on the defaults) and say so
+on the page. Same reasoning as the FHA upfront-MIP deviation already recorded in the guide:
+match the field, not the error.
+
+**Built** on the established 3-card pattern with a `pen-` prefix. Three tabs swap the form
+fields and the result layout; tabs 1 and 3 render a two-series present-value line chart with
+life expectancy on the x-axis, tab 2 renders a two-bar comparison instead since the reference
+shows no chart there. Bottom grid pairs a value-by-age table with a standing "before you elect
+anything" card covering irreversibility, spousal consent, pre-tax figures and PBGC caps.
+Defaults deliberately differ from the reference throughout.
+
+**Two real defects caught by looking at the render, not the DOM** — both would have passed
+every node-level assertion:
+1. The chart legend on tab 1 was reversed. Series A is the pension value and series B the flat
+   lump sum, but the labels were passed in the opposite order, so the rising navy line was
+   captioned "Lump sum". The table's column headers had the same swap.
+2. On tab 2 the comparison bars ran to the edge of the viewBox and their value labels were
+   clipped mid-number ("$360,4"). Fixed by reserving label width; the tab-2 table also had a
+   stray empty fourth column, now three columns with the explanation left-aligned.
+
+**Verification before push**
+- Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
+- JSON-LD all parses; BreadcrumbList left in `<head>` per convention and corrected there to
+  match the visible trail ("Pension Calculator", and the Finance step pointing at
+  /all-calculators/#fin) — the stub had the older short-name form.
+- FAQ schema generated from the same list as the visible HTML; 8/8 exact string equality.
+- Inline JS passes `node --check`; sitemap.xml parses.
+- Playwright, desktop 1280px and mobile 390px, 22 assertions each, all passing: every tab,
+  all three calculator.net parity cases typed in live, both validation paths (joint pension
+  not below single-life; second retirement age not later than the first), h1 computed weight
+  700, zero console errors, zero horizontal overflow.
+- jsPDF: nothing fetched on load, downloads on first click, no re-fetch on the second.
+- Originality: 0.00% 8-word-run overlap with the reference page. Against our own articles the
+  worst is 0.10% once byline and disclaimer boilerplate are excluded.
+
+Article is 2,028 words, 8 H2 sections, 8 FAQs, 12 distinct internal links. New OG image;
+sitemap lastmod refreshed; the folder's stale Next.js RSC payload files removed as with the
+payment page.
+
 ## Standing notes for next session
 
 - **`llms.txt` is generally stale**, found in passing while fixing the crypto-
