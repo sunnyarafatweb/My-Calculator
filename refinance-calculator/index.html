@@ -388,6 +388,9 @@
 .rfi-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body)}
 .rfi-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 12px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body)}
 .rfi-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.rfi-jump{display:block;margin:0 20px 18px;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.rfi-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+#rfi-compare,#rfi-result-anchor{scroll-margin-top:88px}
 .rfi-result-head{padding:16px 20px;background:#16A34A;color:#fff}
 .rfi-result-head.is-worse{background:#B45309}
 .rfi-result-head.is-error{background:#B45309}
@@ -567,7 +570,7 @@
 
   <div class="rfi-area-result">
     <div class="rfi-right-stack">
-      <div class="rfi-result-card">
+      <div class="rfi-result-card" id="rfi-result-anchor">
         <div class="rfi-result-head" id="rfi-head">
           <div class="big" id="rfi-big">&mdash;</div>
           <div class="sub" id="rfi-sub">Enter your loan details to see the result.</div>
@@ -577,6 +580,7 @@
           <svg class="rfi-donut-svg" id="rfi-donut" viewBox="0 0 42 42" role="img" aria-label="What the new loan costs in total"></svg>
           <div class="rfi-donut-legend" id="rfi-donut-legend"></div>
         </div>
+        <a class="rfi-jump" href="#rfi-compare">See the full loan comparison &darr;</a>
       </div>
     </div>
   </div>
@@ -607,7 +611,7 @@
 
   <div class="rfi-area-bottomgrid">
     <div class="rfi-bottom-grid">
-      <div class="rfi-break-card" style="margin-top:0">
+      <div class="rfi-break-card" id="rfi-compare" style="margin-top:0">
         <div class="rfi-break-head">
           <div>
             <span class="t">Current loan vs. new loan</span>
@@ -1084,10 +1088,17 @@
     });
   });
 
-  $('rfi-calc').addEventListener('click',run);
+  function jumpToResult(){
+    if(window.innerWidth<=900){
+      var el=$('rfi-result-anchor');
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
+  $('rfi-calc').addEventListener('click',function(){ run(); jumpToResult(); });
   Array.prototype.forEach.call(document.querySelectorAll('.rfi-wrap input'),function(inp){
     inp.addEventListener('focus',function(){ inp.select(); });
-    inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); run(); } });
+    inp.addEventListener('input',run);
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); run(); jumpToResult(); } });
   });
 
   $('rfi-clear').addEventListener('click',function(){
