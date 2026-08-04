@@ -212,7 +212,16 @@ There is one shared implementation — do not re-invent it per page:
    loose `[class*="-result"]` match grabs the ~95px header and the glow appears only under the
    green strip (seen on auto-loan-calculator and apr-calculator). When there is no single card
    child, flash the whole result area instead and add `.cb-area` so it gets a 16px radius.
-5. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
+5. **Auto-calculate must never move the page.** Most pages already scroll to the result
+   *inside their own Calculate handler*, often from a `requestAnimationFrame` callback. Because
+   auto-calculate works by clicking that same button, every keystroke and every checkbox toggle
+   yanked the visitor down to the result while they were still filling the form in — reported from
+   real use on canadian-mortgage-calculator, and present on 67 pages. The snippet therefore mutes
+   `window.scrollTo` and `Element.prototype.scrollIntoView` for ~700ms around an auto-run, and
+   **arms that mute in the capture phase**, because a couple of pages scroll from their own
+   `change` listener which fires before ours. A real button press calls `releaseScroll()` first, so
+   pressing Calculate always still moves the page.
+6. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
    pointing at the first card in the bottomgrid area, with `scroll-margin-top:88px` so the 70px
    sticky header does not cover the heading you land on.
 
@@ -247,6 +256,15 @@ assert against what the snippet actually wired, not against a guess.
   page about 88px on a *repeat* click on mobile. Pre-existing and harmless — the snippet
   correctly declines to scroll when the card is already parked — but if either page is ever
   rebuilt, drop the page-level scroll and let the shared snippet own that behaviour.
+
+### Verifying — measure the control, not `window.scrollY`
+
+A checkbox that collapses an optional section legitimately changes page height, so `scrollY`
+shifts while nothing visibly moves — mortgage-amortization-calculator shrinks 249px that way and
+looks like a 249px "jump" if you measure scroll position. The metric that matches what the visitor
+experiences is: **the control they just touched stays at the same viewport position** (drift under
+~40px). Also never use `scrollIntoView` to position the harness — it is muted by the very feature
+under test, which produced two rounds of false readings before this was spotted.
 
 ### Verifying
 

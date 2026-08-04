@@ -1202,30 +1202,68 @@
       }
 
       /* --- 4. auto-calculate as the visitor types --- */
-      var auto = false, timer = null;
+      var auto = false, timer = null, suppress = false, supTimer = null;
+
+      /* Most pages already scroll to the result inside their own Calculate
+         handler, often from a requestAnimationFrame callback. Auto-calculate
+         fires that handler on every keystroke and every checkbox toggle, which
+         yanked the page down to the result while the visitor was still filling
+         the form in. Programmatic scrolling is muted for a moment around an
+         auto-run only - a real button press is never affected. */
+      try {
+        var realScrollTo = window.scrollTo.bind(window);
+        var realSIV = Element.prototype.scrollIntoView;
+        window.scrollTo = function(){
+          if (suppress) return;
+          return realScrollTo.apply(null, arguments);
+        };
+        Element.prototype.scrollIntoView = function(){
+          if (suppress) return;
+          return realSIV.apply(this, arguments);
+        };
+      } catch(e){}
+
+      function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+      /* Armed in the capture phase, before the page's own change/input handlers
+         run - a couple of pages scroll straight from their own listener, which
+         fires earlier than ours and would otherwise slip through. */
+      function armSuppress(){ suppress = true; clearTimeout(supTimer); supTimer = setTimeout(function(){ suppress = false; }, 700); }
+
       function runCalc(){
         auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
         try {
           var target = null;
           for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
           (target || btns[0]).click();
           window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
-        } finally { auto = false; }
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
       }
       if (btns.length && scope){
         scope.addEventListener('input', function(){
+          armSuppress();
           clearTimeout(timer);
           timer = setTimeout(runCalc, 180);
-        });
+        }, true);
         scope.addEventListener('change', function(e){
           var t = e.target;
-          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))) runCalc();
-        });
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
 
         /* --- 5. pressing Calculate confirms itself --- */
         btns.forEach(function(b){
           b.addEventListener('click', function(){
             if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
             if (!card){ return; }
             /* Always bring the answer to the visitor. On a long form they have
                scrolled well past the result card, so flashing alone is invisible
