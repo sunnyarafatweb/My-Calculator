@@ -198,9 +198,13 @@ There is one shared implementation — do not re-invent it per page:
 2. **Auto-calculate.** Typing in any input in the form area re-runs the calculation after a
    180ms debounce; `select`/radio/checkbox changes fire immediately. The visitor never has to
    press Calculate.
-3. **Calculate confirms itself.** On desktop the result card gets a short green ring flash
-   (`.cb-flash`). On screens ≤900px it scrolls to the result card first, then flashes, because
-   the result sits below the form at that width.
+3. **Calculate always brings the answer to the visitor.** Clicking Calculate scrolls the
+   result card into view and then flashes it green (`.cb-flash`) — **on every screen size, not
+   just mobile**. The reason is the long-form case (net-worth-calculator is the clearest): after
+   filling in twenty fields the visitor is hundreds of pixels below the result card, so a flash
+   alone is off-screen and reads as "the button did nothing". If the card is already comfortably
+   in view (top between 60px and half the viewport) it skips the scroll and only flashes, so a
+   short form does not jump pointlessly.
 4. **A jump link** (`.cb-jump`, "See the full breakdown ↓") is appended under the result card,
    pointing at the first card in the bottomgrid area, with `scroll-margin-top:88px` so the 70px
    sticky header does not cover the heading you land on.
@@ -231,6 +235,11 @@ assert against what the snippet actually wired, not against a guess.
   The snippet degrades gracefully there: it standardises the bar text and wires nothing else.
   Per section 5, do not restyle that batch without a separate explicit decision.
 - Pages with no `bottomgrid` area simply get no jump link. That is correct, not a failure.
+- **`marriage-tax-calculator` and `mortgage-amortization-calculator` already had their own
+  scroll-on-calculate** before this snippet existed. Both handlers now run, which settles the
+  page about 88px on a *repeat* click on mobile. Pre-existing and harmless — the snippet
+  correctly declines to scroll when the card is already parked — but if either page is ever
+  rebuilt, drop the page-level scroll and let the shared snippet own that behaviour.
 
 ### Verifying
 

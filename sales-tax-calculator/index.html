@@ -1077,11 +1077,17 @@
         btns.forEach(function(b){
           b.addEventListener('click', function(){
             if (auto) return;
-            if (window.innerWidth <= 900 && card){
+            if (!card){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = card.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
               card.scrollIntoView({behavior:'smooth', block:'start'});
               setTimeout(flash, 420);
-            } else {
-              flash();
             }
           });
         });
