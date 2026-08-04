@@ -256,6 +256,24 @@ overflow — **at both 1280px and 390px**. Applied to 65 finance pages on Aug 4,
 the exception above being the 65th.
 
 
+### Mobile grid check — run at 430px, not just 390px
+
+A collapsed mobile `grid-template-areas` must name **every** area the page actually uses.
+`retirement-calculator` shipped with `@media(max-width:860px){.ret-grid{grid-template-columns:1fr;
+grid-template-areas:"form" "result" "sidebar"}}` — it left out `bar` and `tabs`. Those two items
+still carried `grid-area:bar` / `grid-area:tabs`, which do not exist in that template, so CSS
+auto-placed them into an **implicit** grid and silently created extra column tracks. The result
+was three tracks (`110px 0px 248px`) on a 398px-wide grid, with the form card squeezed to 110px
+and the inputs cut off. `grid-template-columns:1fr` was present and correct — it was the missing
+area names that did the damage.
+
+This is nasty because **horizontal overflow stays at 0**, so an overflow check passes while the
+page is visibly broken. The check that catches it: at a narrow viewport, assert
+`getComputedStyle(grid).gridTemplateColumns` resolves to a **single track**, and that every direct
+child is at least ~90% of the grid width. Sweeping all 66 finance pages that way found exactly one
+offender, so this is rare — but it is invisible to every other test we run.
+
+
 ## 6. Hard-won lessons (read before adding any live/external-data feature)
 
 - **Always test third-party API calls from an actual browser context, not just curl/Node.** `curl`/Node's `fetch` do not enforce CORS, so a working curl response proves nothing about whether client-side JS in a real browser can read that response. Verify with `curl -sI -H "Origin: https://calculatorboss.com" <api-url>` and confirm an `access-control-allow-origin` header comes back — or better, load the real page in Playwright and check for zero console errors after the fetch resolves. (Concretely: `api.frankfurter.app`, the legacy currency-rate domain, sends **no** CORS header and silently fails in every browser; `api.frankfurter.dev` does send one and works. The original currency-calculator page was built against the broken domain — likely never worked for a real visitor.)
