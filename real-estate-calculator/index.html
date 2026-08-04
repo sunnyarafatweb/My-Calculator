@@ -715,13 +715,13 @@
                 {val:b.closing,color:'#F3BA2F',label:'Closing costs'}];
       if(b.prepaid>0) segs.push({val:b.prepaid,color:'#7C6CD6',label:'Prepaid escrow'});
       renderDonut(segs);
-      var tot=b.down+b.closing+b.prepaid;
-      fillBreakdown(['Item','Amount','Share of cash'],[
-        ['Down payment ('+pct(downPct)+' of price)',money(b.down),pct(b.down/tot*100)],
-        ['Closing costs ('+pct(closePct)+' of price)',money(b.closing),pct(b.closing/tot*100)],
-        ['Prepaid taxes and insurance',money(b.prepaid),pct(b.prepaid/tot*100)],
-        ['Seller credit','\u2212'+money(credit).replace('\u2212',''),credit>0?'\u2212'+pct(credit/tot*100):'0.00%'],
-        ['Cash to close',money(b.cash),'',true]
+      fillBreakdown(['Item','Amount','Share of price'],[
+        ['Down payment',money(b.down),pct(downPct)],
+        ['Closing costs',money(b.closing),pct(closePct)],
+        ['Prepaid taxes and insurance',money(b.prepaid),pct(b.prepaid/price*100)],
+        ['Seller credit',credit>0?'\u2212'+money(credit).replace('\u2212',''):money(0),
+         credit>0?'\u2212'+pct(credit/price*100):'0.00%'],
+        ['Cash to close',money(b.cash),pct(b.cash/price*100),true]
       ],'buying at '+money(price,0));
       last={mode:mode,price:price,res:b};
     }

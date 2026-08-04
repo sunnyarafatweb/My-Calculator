@@ -5161,6 +5161,15 @@ compensation and made it a purchase-agreement negotiation. National averages thr
 5.5% than the old 6% where a seller pays both sides. The commission field defaults to 5.5% and the
 article explains why treating 6% as fixed is now a mistake.
 
+**Follow-up fix, same day (owner spotted it).** The buying tab's breakdown table ended on a total
+row with an empty third cell, which read as a hole at the bottom of the table. The sell and
+invest tabs both fill that cell; only this one had been left as `''`. Filling it with a number
+was not enough on its own — the column had been "Share of cash" measured against the pre-credit
+subtotal, which gives no sensible figure for the row that comes after the credit. Switched the
+column to "Share of price", matching the sell tab, so every row divides by the same denominator
+and the total lands on something worth reading: cash to close is 23.80% of the purchase price on
+the defaults. Also stopped a zero seller credit rendering as "-$0.00".
+
 **Verification before push**
 - Protected shared style block byte-identical to the pre-edit file and to bmi-calculator's.
 - JSON-LD parses; breadcrumb corrected in `<head>` to match the visible trail.
