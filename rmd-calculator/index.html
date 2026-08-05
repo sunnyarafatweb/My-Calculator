@@ -418,16 +418,19 @@
 .rmd-notes-card ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.75}
 .rmd-notes-card li{margin-bottom:8px}
 .rmd-notes-card li b{color:var(--ink)}
+.rmd-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:start}
+@media(max-width:1000px){.rmd-sched-row{grid-template-columns:1fr}}
+.rmd-sched-row>*{min-width:0}
 .rmd-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .rmd-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .rmd-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .rmd-break-head .s{font-size:12px;color:#1E3A5F;display:block;font-weight:500;margin-top:2px}
 .rmd-chart-wrap{padding:16px 18px 6px;overflow-x:auto}
-.rmd-chart{min-width:520px;width:100%;height:220px;display:block;max-width:100%}
+.rmd-chart{min-width:430px;width:100%;height:300px;display:block;max-width:100%}
 .rmd-chart-legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 16px;font-size:12.5px;color:var(--ink-soft)}
 .rmd-chart-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
 .rmd-break-scroll{overflow-x:auto;max-height:440px;overflow-y:auto}
-.rmd-break-table{min-width:560px;width:100%;font-size:12.5px;border-collapse:collapse}
+.rmd-break-table{min-width:470px;width:100%;font-size:12.5px;border-collapse:collapse}
 .rmd-break-table th{background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
 .rmd-break-table th:first-child,.rmd-break-table td:first-child{text-align:left}
 .rmd-break-table td{padding:8px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
@@ -437,9 +440,9 @@
 #rmd-schedule{scroll-margin-top:88px}
 @media(max-width:520px){
   .rmd-field{flex-wrap:wrap}.rmd-field-label{width:100%}
-  .rmd-break-table{min-width:470px;font-size:11px}
+  .rmd-break-table{min-width:400px;font-size:11px}
   .rmd-break-table th,.rmd-break-table td{padding:8px 7px}
-  .rmd-chart{min-width:320px}
+  .rmd-chart{min-width:300px}
   .rmd-chart-wrap{padding:14px 12px 6px}
   .rmd-formula{margin:10px 14px 16px}
   .rmd-card-pad{padding:18px}
@@ -592,33 +595,46 @@
   </div>
 
   <div class="rmd-area-bottomgrid">
-    <div class="rmd-break-card" id="rmd-schedule">
-      <div class="rmd-break-head">
-        <div>
-          <span class="t">Every year from here</span>
-          <span class="s" id="rmd-sched-sub">What the rules would require in each future year</span>
+    <div class="rmd-sched-row">
+
+      <div class="rmd-break-card" id="rmd-schedule">
+        <div class="rmd-break-head">
+          <div>
+            <span class="t">Every year from here</span>
+            <span class="s" id="rmd-sched-sub">What the rules would require in each future year</span>
+          </div>
+        </div>
+        <div class="rmd-break-scroll">
+          <table class="rmd-break-table">
+            <thead><tr>
+              <th>Year</th>
+              <th>Age</th>
+              <th>Period</th>
+              <th>RMD</th>
+              <th>Balance at year end</th>
+            </tr></thead>
+            <tbody id="rmd-sched-body"></tbody>
+            <tfoot id="rmd-sched-foot"></tfoot>
+          </table>
         </div>
       </div>
-      <div class="rmd-chart-wrap">
-        <svg class="rmd-chart" id="rmd-chart" role="img" aria-label="Required distribution each year against the projected account balance"></svg>
+
+      <div class="rmd-break-card">
+        <div class="rmd-break-head">
+          <div>
+            <span class="t">Distribution and balance by age</span>
+            <span class="s" id="rmd-chart-sub">How the required amount rises as the balance runs down</span>
+          </div>
+        </div>
+        <div class="rmd-chart-wrap">
+          <svg class="rmd-chart" id="rmd-chart" role="img" aria-label="Required distribution each year against the projected account balance"></svg>
+        </div>
+        <div class="rmd-chart-legend">
+          <span><i style="background:#1E3A5F"></i>Required distribution</span>
+          <span><i style="background:#A6AAB1"></i>Account balance <span style="color:var(--ink-faint)">(right axis)</span></span>
+        </div>
       </div>
-      <div class="rmd-chart-legend">
-        <span><i style="background:#1E3A5F"></i>Required distribution</span>
-        <span><i style="background:#A6AAB1"></i>Account balance <span style="color:var(--ink-faint)">(right axis)</span></span>
-      </div>
-      <div class="rmd-break-scroll">
-        <table class="rmd-break-table">
-          <thead><tr>
-            <th>Year</th>
-            <th>Your age</th>
-            <th>Distribution period</th>
-            <th>RMD</th>
-            <th>Balance at year end</th>
-          </tr></thead>
-          <tbody id="rmd-sched-body"></tbody>
-          <tfoot id="rmd-sched-foot"></tfoot>
-        </table>
-      </div>
+
     </div>
   </div>
 
@@ -937,7 +953,7 @@
     var yrs=r.rows.slice(), step=1;
     if(yrs.length>30){ step=Math.ceil(yrs.length/30); yrs=yrs.filter(function(g,ix){ return ix%step===0 || ix===r.rows.length-1; }); }
     var wrap=$('rmd-chart').parentNode;
-    var W=Math.max(520,Math.round((wrap?wrap.clientWidth:520)-36)), H=220, padL=58, padR=62, padB=26, padT=12;
+    var W=Math.max(430,Math.round((wrap?wrap.clientWidth:430)-36)), H=300, padL=58, padR=62, padB=26, padT=12;
     var mx=Math.max.apply(null,yrs.map(function(g){return g.rmd;}).concat([1]));
     var mxBal=Math.max.apply(null,r.rows.map(function(g){return g.eoy;}).concat([r.bal,1]));
     var plotH=H-padB-padT, y0=padT+plotH;
