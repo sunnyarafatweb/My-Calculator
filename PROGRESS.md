@@ -5731,6 +5731,53 @@ current age, a zero starting balance, a 0% tax rate (both columns land level, ad
 rate, and a negative return. Article 1,982 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the
 reference. Columns balance at 972 / 833 / 852. New OG image; sitemap refreshed.
 
+## Simple Interest Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line stub. Four solve modes over one formula, two unit dropdowns, and a rounding fault in
+the reference's schedule.
+
+**Rules recovered by probing** (their page computes server-side, tab held in a hidden `ctype` field):
+- Interest is `P x r x t` with **the term converted into whatever period the rate is quoted in**.
+  All four unit pairs behave: annual rate with a term in months divides by 12 ($20,500), monthly rate
+  with a term in years multiplies by 12 ($92,000), matching units leave it alone.
+- On the **Term** tab the answer is always reported in **years**, and the rate's own unit decides the
+  raw number — a monthly rate gives 16.67 months, printed as 1.39 years. The term dropdown is ignored
+  there, because term is the output.
+- On the **Rate** tab the answer is always **per year**, and the term's unit decides the raw number —
+  10 months gives 5% a month, printed as 60% per year. Symmetric to the Term tab.
+
+**Verification: 14 reference cases, all exact** — four unit pairs on Balance, principal and its
+interest, and all four unit pairs on both Term and Rate.
+
+**A rounding fault in the reference.** When the term comes out fractional, their schedule's final row
+uses the *displayed* two-decimal term rather than the exact one. On their own worked example the last
+row reads $402.00 of interest and a closing balance of $30,002.00 — two dollars above the $30,000
+they printed as the answer four lines earlier. We use the exact remainder, so the final row is
+$400.00 and the schedule closes on $30,000.00 exactly. The browser suite asserts that row.
+
+**Beyond parity.** Calculation steps rendered as real working rather than a static string, a
+principal/interest donut, the interest as a share of the balance, the total return on the principal,
+and interest per year. Bottom row is the two-card schedule-and-chart pattern; the schedule is only
+three columns so it sits side by side comfortably, and the chart card stretches to match it
+(367 / 367 at 1440px).
+
+**Article figures were computed before shipping,** including the full simple-versus-compound table at
+1, 5, 10, 20 and 30 years — all five rows verified in Node, along with the $18,500 / 4.5% / 6-year
+default, the eight-month unit example both ways, and the 16.67-versus-13.7-year term comparison.
+
+**Keyword research.** The formula itself is a query: CalculatorSoup, NerdWallet and Vertex42 all put
+"I = Prt" in their titles, and CalculatorSoup runs a second page for "A = P(1 + rt)". Those
+competitors solve one direction each; the four-tab rearrangement is the differentiator, so the title
+carries both: "Simple Interest Calculator — I = Prt, Solved Four Ways" (54 chars). Meta 158.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to visible text; 8 inline scripts pass
+`node --check`; protected shared block byte-identical; `apply_cb_ux.py` applied, and the suite
+switches tabs before re-asserting auto-calculate; jsPDF lazy; zero console errors and zero overflow
+at 1280/430/390px; edge cases including a zero principal, a 0% rate on both the Balance tab (balance
+unchanged) and the Term tab (explained rather than dividing by zero), and an end balance below the
+principal. Article 1,548 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the reference.
+New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
