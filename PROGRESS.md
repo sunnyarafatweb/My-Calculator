@@ -5341,6 +5341,33 @@ console errors and zero horizontal overflow at 1280px, 430px and 390px, with a s
 every child at full width on mobile; 15 edge cases including negative cash flow, 0% interest, 100%
 down, a 1-year hold, all costs at zero, Clear, and non-numeric input.
 
+**Result layout reworked same day, after an owner review.** The first build followed the standard
+3-card split: result card in the middle column, everything else in the bottomgrid. On this page that
+failed, because the form carries 23 fields and is far taller than the other two columns. Measured at
+1440px: form 1492px, middle 1013px, sidebar 756px — **479px of dead space**, with the "first year,
+line by line" table stranded 1,511px below the result head. calculator.net, whatever else is wrong
+with it, puts its summary and its first-year table side by side, so cause and effect are on one
+screen. We had thrown that away.
+
+Now: the first-year table sits in the middle column directly under the result card, the "how the
+first year is built" explainer moved into the sidebar, and the bottomgrid holds only the full-width
+breakdown-over-time card. Columns come out at 1492 / 1483 / 1223 — dead space gone. Mobile order is
+unchanged (bar, form, result + first-year, breakdown, sidebar).
+
+**Deliberate deviation from the shared cb-ux behaviour, flagged per section 5a.** The injected
+`.cb-jump` ("See the full breakdown ↓") is hidden on this page via
+`.rpc-area-result .cb-jump{display:none}`. The link exists to bridge a long scroll between the
+result and the detail; that scroll no longer exists here, so the button pointed at something already
+in view. The snippet is untouched — only this page's CSS hides it. If another page ever ends up with
+its detail card adjacent to the result, the same one-liner applies; if that happens more than once
+or twice, the snippet should learn to skip the link when the target is already near, rather than
+each page hiding it by hand.
+
+**A layout mockup was rendered and reviewed before any of this was pushed** — the change was applied
+in the browser with `page.evaluate`, screenshotted before/after with the dead space outlined, and
+approved. Worth repeating for any layout change: it costs one Playwright run and it caught that the
+proposal was worth doing at all.
+
 **Top spacing, fixed same day.** The page shipped with the guide's stated 3-card wrapper padding
 (`py-8 sm:py-10`, a 41px gap between the sticky header and the breadcrumb). The owner compared it
 against `/mortgage-calculator/` and the gap was visibly larger. Measured across pages: mortgage and

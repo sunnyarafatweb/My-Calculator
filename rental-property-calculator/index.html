@@ -366,7 +366,7 @@
   grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .rpc-area-bar{grid-area:bar;min-width:0}.rpc-area-form{grid-area:form;min-width:0}.rpc-area-result{grid-area:result;min-width:0}
 .rpc-area-sidebar{grid-area:sidebar;min-width:0}.rpc-area-bottomgrid{grid-area:bottomgrid;min-width:0}
-.rpc-grid>*{min-width:0}.rpc-bottom-grid>*{min-width:0}
+.rpc-grid>*{min-width:0}.rpc-right-stack>*{min-width:0}
 .rpc-card{min-width:0}.rpc-break-card{min-width:0}
 @media(max-width:900px){.rpc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}}
 .rpc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
@@ -424,8 +424,8 @@
 .rpc-notes-card ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.75}
 .rpc-notes-card li{margin-bottom:8px}
 .rpc-notes-card li b{color:var(--ink)}
-.rpc-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:start}
-@media(max-width:900px){.rpc-bottom-grid{grid-template-columns:1fr}}
+.rpc-right-stack{display:flex;flex-direction:column;gap:20px;min-width:0}
+.rpc-area-result .cb-jump{display:none}
 .rpc-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;margin-top:16px}
 .rpc-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .rpc-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -667,6 +667,7 @@
   </div>
 
   <div class="rpc-area-result">
+    <div class="rpc-right-stack">
     <div class="rpc-result-card" id="rpc-result-anchor">
       <div class="rpc-result-head" id="rpc-head">
         <div class="big" id="rpc-big">&mdash;</div>
@@ -678,6 +679,22 @@
         <svg class="rpc-donut-svg" id="rpc-donut" viewBox="0 0 42 42" role="img" aria-label="First-year expense breakdown"></svg>
         <div class="rpc-donut-legend" id="rpc-donut-legend"></div>
       </div>
+    </div>
+
+    <div class="rpc-break-card" id="rpc-firstyear" style="margin-top:0">
+      <div class="rpc-break-head">
+        <div>
+          <span class="t">First year, line by line</span>
+          <span class="s" id="rpc-fy-sub">Every dollar in and out during year one</span>
+        </div>
+      </div>
+      <div class="rpc-break-scroll" style="max-height:none">
+        <table class="rpc-fy-table">
+          <thead><tr><th>&nbsp;</th><th>Monthly</th><th>Annual</th></tr></thead>
+          <tbody id="rpc-fy-body"></tbody>
+        </table>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -702,25 +719,6 @@
           <li><b>Cap rate compares, cash-on-cash pays.</b> One strips out the mortgage, the other is what your down payment actually earns.</li>
         </ul>
       </div>
-    </div>
-  </div>
-
-  <div class="rpc-area-bottomgrid">
-    <div class="rpc-bottom-grid">
-      <div class="rpc-break-card" id="rpc-firstyear" style="margin-top:0">
-        <div class="rpc-break-head">
-          <div>
-            <span class="t">First year, line by line</span>
-            <span class="s" id="rpc-fy-sub">Every dollar in and out during year one</span>
-          </div>
-        </div>
-        <div class="rpc-break-scroll" style="max-height:none">
-          <table class="rpc-fy-table">
-            <thead><tr><th>&nbsp;</th><th>Monthly</th><th>Annual</th></tr></thead>
-            <tbody id="rpc-fy-body"></tbody>
-          </table>
-        </div>
-      </div>
       <div class="rpc-notes-card">
         <span class="t">How the first year is built</span>
         <ul>
@@ -732,8 +730,11 @@
         </ul>
       </div>
     </div>
+  </div>
 
-    <div class="rpc-break-card" id="rpc-schedule">
+  <div class="rpc-area-bottomgrid">
+
+    <div class="rpc-break-card" id="rpc-schedule" style="margin-top:0">
       <div class="rpc-break-head">
         <div>
           <span class="t">Breakdown over time</span>
