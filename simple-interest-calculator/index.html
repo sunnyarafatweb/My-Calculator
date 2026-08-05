@@ -393,7 +393,7 @@
 .sim-result-head .sub{font-size:12.5px;opacity:.93;margin-top:6px;line-height:1.55}
 .sim-steps{margin:14px 20px;padding:14px 16px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;font-size:13px;line-height:1.9;color:var(--ink)}
 .sim-steps .t{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:8px}
-.sim-steps code{font-family:var(--font-mono,ui-monospace,monospace);font-size:12.5px;color:var(--ink)}
+.sim-steps code{font-family:inherit;font-size:13px;color:var(--ink)}
 .sim-steps b{color:#128A3D}
 .sim-result-body{padding:2px 20px 14px}
 .sim-subhead{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);padding:12px 0 2px}
@@ -419,16 +419,17 @@
 .sim-notes-card ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.75}
 .sim-notes-card li{margin-bottom:8px}
 .sim-notes-card li b{color:var(--ink)}
-.sim-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:stretch}
-@media(max-width:1000px){.sim-sched-row{grid-template-columns:1fr}
-  .sim-chart-wrap{min-height:280px}}
+.sim-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:start}
+@media(max-width:1000px){.sim-sched-row{grid-template-columns:1fr}}
 .sim-sched-row>*{min-width:0}
 .sim-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .sim-chart-card{display:flex;flex-direction:column}
 .sim-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .sim-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .sim-break-head .s{font-size:12px;color:#1E3A5F;display:block;font-weight:500;margin-top:2px}
-.sim-chart-wrap{padding:16px 18px 6px;overflow-x:auto;flex:1;min-height:180px}
+/* height is set from the schedule card in script, so the two end level and the
+   schedule finishes on its last row rather than being padded out */
+.sim-chart-wrap{padding:16px 18px 6px;overflow-x:auto}
 .sim-chart{min-width:430px;width:100%;height:100%;display:block;max-width:100%}
 .sim-chart-legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 16px;font-size:12.5px;color:var(--ink-soft)}
 .sim-chart-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
@@ -982,8 +983,18 @@
     if(pts.length>26){ var step=Math.ceil(pts.length/26);
       pts=pts.filter(function(s,i){ return i%step===0 || i===o.rows.length; }); }
     var wrap=$('sim-chart').parentNode;
+    /* match the schedule card beside us so it can end on its last row.
+       Stacked on a narrow screen there is nothing to match, so use a fixed height. */
+    var row=document.querySelector('.sim-sched-row');
+    var stacked=getComputedStyle(row).gridTemplateColumns.split(' ').length===1;
+    var card=wrap.parentNode;
+    var chrome=card.querySelector('.sim-break-head').offsetHeight
+             + card.querySelector('.sim-chart-legend').offsetHeight;
+    var target = stacked ? 300
+      : Math.max(100, Math.round(row.children[0].getBoundingClientRect().height)-chrome);
+    wrap.style.height=target+'px';
     var W=Math.max(430,Math.round((wrap?wrap.clientWidth:430)-36));
-    var H=Math.max(200,Math.round((wrap?wrap.clientHeight:300)-22));
+    var H=Math.max(90,target-22);
     var padL=58, padR=14, padB=26, padT=12;
     var mx=Math.max.apply(null,pts.map(function(s){return s.balance;}).concat([1]));
     var plotH=H-padB-padT, y0=padT+plotH;
