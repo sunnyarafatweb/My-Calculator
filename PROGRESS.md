@@ -5513,6 +5513,38 @@ caps at 600 rows with the cap explained. Article 2,152 words, 8 H2s, 8 FAQs, zer
 with the reference, 1.96% internal overlap and both runs are the deliberate byline and About/Privacy
 boilerplate. Columns balance at 881 / 838 / 710. New OG image; sitemap refreshed.
 
+### Deployment stall, Aug 5, 2026 — unresolved at end of session
+
+The Repayment Calculator commit (`6ab77629`) is correct in the repo and passes every check, but
+Cloudflare Pages did not publish it. `/repayment-calculator/` kept serving the old stub title and
+`/og/repayment-calculator.png` returned 404 for more than 25 minutes, while the three commits before
+it that session (rental-property restyle, rent-calculator, layout change) all went live within
+~75 seconds each.
+
+Ruled out from this side:
+- **Not caching.** The response carries `cf-cache-status: DYNAMIC` and `cache-control: no-store`, so
+  Cloudflare is genuinely serving an older deployment rather than a cached copy.
+- **Not the file.** The committed HTML is 104,284 bytes, valid UTF-8, zero null bytes, zero stray
+  control characters, and byte-identical to the copy that passed the browser suite.
+- **Not repo size.** 1,055 tracked files, largest single file 390KB — far inside the Pages limits of
+  20,000 files and 25MiB per file.
+- **Not a bad push.** The commit is on `origin/main`; an additional empty commit (`b9a6bd7b`) was
+  pushed to queue a fresh build and also did not publish.
+
+**Most likely cause, unverifiable without dashboard access: the Cloudflare Pages free-tier build
+quota of 500 builds a month.** The symptom fits exactly — builds simply stop being produced and the
+last successful deployment keeps serving. Four pushes went out inside an hour that session, which is
+the kind of burst that finishes off a monthly allowance.
+
+**What to check first:** the Pages project's Deployments tab, for a deployment stuck in *queued*, or
+marked *failed*, or a "build limit reached" notice on the account. If it is the quota, the fix is
+either waiting for the monthly reset or upgrading the plan; if it is a failed build, "Retry
+deployment" is enough, since this repo has no build step and Pages only uploads static files.
+
+**Working note for future sessions:** do not respond to a stalled deploy by pushing more commits.
+One empty commit to re-queue is reasonable; beyond that, each push consumes another build and makes
+a quota problem worse rather than better. Verify the dashboard first.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
