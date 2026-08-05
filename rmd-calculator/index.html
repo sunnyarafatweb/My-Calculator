@@ -418,17 +418,17 @@
 .rmd-notes-card ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.75}
 .rmd-notes-card li{margin-bottom:8px}
 .rmd-notes-card li b{color:var(--ink)}
-.rmd-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:stretch}
+.rmd-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:start}
 .rmd-chart-card{display:flex;flex-direction:column}
-@media(max-width:1000px){.rmd-sched-row{grid-template-columns:1fr}
-  /* stacked, there is no neighbour to stretch against, so give the chart real height */
-  .rmd-chart-wrap{min-height:280px}}
+@media(max-width:1000px){.rmd-sched-row{grid-template-columns:1fr}}
 .rmd-sched-row>*{min-width:0}
 .rmd-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .rmd-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .rmd-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
 .rmd-break-head .s{font-size:12px;color:#1E3A5F;display:block;font-weight:500;margin-top:2px}
-.rmd-chart-wrap{padding:16px 18px 6px;overflow-x:auto;flex:1;min-height:180px}
+/* height comes from the schedule card in script, so the schedule can finish on its
+   last row instead of being padded out to meet the chart */
+.rmd-chart-wrap{padding:16px 18px 6px;overflow-x:auto}
 .rmd-chart{min-width:430px;width:100%;height:100%;display:block;max-width:100%}
 .rmd-chart-legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 16px;font-size:12.5px;color:var(--ink-soft)}
 .rmd-chart-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
@@ -967,8 +967,17 @@
     if(yrs.length>30){ step=Math.ceil(yrs.length/30); yrs=yrs.filter(function(g,ix){ return ix%step===0 || ix===r.rows.length-1; }); }
     var wrap=$('rmd-chart').parentNode;
     /* the card stretches to match the table beside it, so take the height from the box */
+    /* match the schedule card beside us; stacked, there is nothing to match */
+    var schedRow=document.querySelector('.rmd-sched-row');
+    var stacked=getComputedStyle(schedRow).gridTemplateColumns.split(' ').length===1;
+    var chartCard=wrap.parentNode;
+    var chrome=chartCard.querySelector('.rmd-break-head').offsetHeight
+             + chartCard.querySelector('.rmd-chart-legend').offsetHeight;
+    var target = stacked ? 300
+      : Math.max(140, Math.round(schedRow.children[0].getBoundingClientRect().height)-chrome);
+    wrap.style.height=target+'px';
     var W=Math.max(430,Math.round((wrap?wrap.clientWidth:430)-36));
-    var H=Math.max(200,Math.round((wrap?wrap.clientHeight:300)-22)), padL=58, padR=62, padB=26, padT=12;
+    var H=Math.max(120,target-22), padL=58, padR=62, padB=26, padT=12;
     var mx=Math.max.apply(null,yrs.map(function(g){return g.rmd;}).concat([1]));
     var mxBal=Math.max.apply(null,r.rows.map(function(g){return g.eoy;}).concat([r.bal,1]));
     var plotH=H-padB-padT, y0=padT+plotH;
