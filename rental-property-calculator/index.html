@@ -435,7 +435,17 @@
 .rpc-seg{display:flex;gap:6px;flex-shrink:0}
 .rpc-seg button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font-body)}
 .rpc-seg button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-.rpc-break-scroll{overflow-x:auto;max-height:430px;overflow-y:auto}
+.rpc-break-scroll{overflow-x:auto;max-height:430px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#C3CBD8 transparent}
+/* A classic Windows scrollbar sits inside the box, so it pushes the navy total row
+   off the card edge and parks an arrow button beside it. Thin, track-less, and the
+   total row gets its own rounded bottom corners so it still reads as finished. */
+.rpc-break-scroll::-webkit-scrollbar{width:8px;height:8px}
+.rpc-break-scroll::-webkit-scrollbar-track{background:transparent}
+.rpc-break-scroll::-webkit-scrollbar-thumb{background:#C3CBD8;border-radius:8px}
+.rpc-break-scroll::-webkit-scrollbar-thumb:hover{background:#A6AAB1}
+.rpc-break-scroll::-webkit-scrollbar-corner{background:transparent}
+.rpc-break-table tfoot td:first-child{border-bottom-left-radius:16px}
+.rpc-break-table tfoot td:last-child{border-bottom-right-radius:16px}
 .rpc-break-table{min-width:720px;width:100%;font-size:12.5px;border-collapse:collapse}
 .rpc-break-table th{background:#1E3A5F;color:#fff;padding:9px 12px;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
 .rpc-break-table th:first-child,.rpc-break-table td:first-child{text-align:left}

@@ -430,13 +430,23 @@
 .roi-chart{min-width:430px;width:100%;height:100%;display:block;max-width:100%}
 .roi-chart-legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 16px;font-size:12.5px;color:var(--ink-soft)}
 .roi-chart-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
-.roi-break-scroll{overflow-x:auto;max-height:440px;overflow-y:auto}
+.roi-break-scroll{overflow-x:auto;max-height:440px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#C3CBD8 transparent}
+/* A classic Windows scrollbar sits inside the box, so it pushes the navy total row
+   off the card edge and parks an arrow button beside it. Thin, track-less, and the
+   total row gets its own rounded bottom corners so it still reads as finished. */
+.roi-break-scroll::-webkit-scrollbar{width:8px;height:8px}
+.roi-break-scroll::-webkit-scrollbar-track{background:transparent}
+.roi-break-scroll::-webkit-scrollbar-thumb{background:#C3CBD8;border-radius:8px}
+.roi-break-scroll::-webkit-scrollbar-thumb:hover{background:#A6AAB1}
+.roi-break-scroll::-webkit-scrollbar-corner{background:transparent}
+.roi-break-table tfoot td:first-child{border-bottom-left-radius:16px}
+.roi-break-table tfoot td:last-child{border-bottom-right-radius:16px}
 .roi-break-table{min-width:430px;width:100%;font-size:12.5px;border-collapse:collapse}
 .roi-break-table th{background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
 .roi-break-table th:first-child,.roi-break-table td:first-child{text-align:left}
 .roi-break-table td{padding:8px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
 .roi-break-table td.neg{color:#B45309}
-.roi-break-table tr.roi-final td{border-top:none;background:#1E3A5F;color:#5FE39A;font-weight:700}
+.roi-break-table tr.roi-final td{border-top:none;background:#1E3A5F;color:#5FE39A;font-weight:700;position:sticky;bottom:0}
 .roi-break-table tr.roi-final td:first-child{color:#fff}
 .roi-break-table tr.roi-final td.neg{color:#FBBF7A}
 #roi-schedule{scroll-margin-top:88px}
@@ -607,6 +617,7 @@
               <th>ROI to date</th>
             </tr></thead>
             <tbody id="roi-sched-body"></tbody>
+            <tfoot id="roi-sched-foot"></tfoot>
           </table>
         </div>
       </div>
@@ -851,6 +862,7 @@
     $('roi-donut-wrap').style.display='none';
     $('roi-donut-title').style.display='none';
     $('roi-sched-body').innerHTML='';
+    $('roi-sched-foot').innerHTML='';
     $('roi-chart').innerHTML='';
     last=null;
   }
@@ -921,14 +933,16 @@
   }
 
   function schedule(r){
-    var b='';
-    r.rows.forEach(function(s,i){
-      var lastRow=(i===r.rows.length-1);
-      b+='<tr'+(lastRow?' class="roi-final"':'')+'><td>'+(Math.abs(s.t-Math.round(s.t))<1e-9?Math.round(s.t):yrs3(s.t))
+    /* the closing row goes in the tfoot so it stays pinned while the rest scrolls */
+    function cells(s){
+      return '<td>'+(Math.abs(s.t-Math.round(s.t))<1e-9?Math.round(s.t):yrs3(s.t))
         +'</td><td>'+money0(s.value)+'</td><td'+(s.gain<0?' class="neg"':'')+'>'+money0(s.gain)
-        +'</td><td'+(s.roi<0?' class="neg"':'')+'>'+pct2(s.roi)+'</td></tr>';
-    });
+        +'</td><td'+(s.roi<0?' class="neg"':'')+'>'+pct2(s.roi)+'</td>';
+    }
+    var b='', i;
+    for(i=0;i<r.rows.length-1;i++){ b+='<tr>'+cells(r.rows[i])+'</tr>'; }
     $('roi-sched-body').innerHTML=b;
+    $('roi-sched-foot').innerHTML='<tr class="roi-final">'+cells(r.rows[r.rows.length-1])+'</tr>';
     $('roi-sched-sub').textContent = r.gain>=0
       ? 'Compounding at '+pct2(r.ann)+' a year gets from '+money0(r.inv)+' to '+money0(r.ret)
       : 'Falling at '+pct2(r.ann)+' a year takes '+money0(r.inv)+' down to '+money0(r.ret);
