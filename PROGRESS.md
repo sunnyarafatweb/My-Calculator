@@ -5616,6 +5616,61 @@ age past 120 clamping to the table floor of 2.0. Article 2,141 words, 8 H2s, 8 F
 overlap with the reference after rewording one unavoidable factual sentence. Columns balance at
 868 / 768 / 756. New OG image; sitemap refreshed.
 
+## ROI Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line stub. Small surface (five inputs, four outputs) but one genuinely non-obvious rule
+hidden in it, which probing found and a formula would not have.
+
+**The date convention is not days ÷ 365.25.** The obvious guess reproduces the reference's own
+default case (1,609 days → 4.405 years) and then disagrees on almost everything else. Probing ten
+date pairs showed the real rule:
+
+    years = whole anniversary years + leftover days ÷ 365
+
+The tells were the clean ones: 2020-01-01 → 2021-01-01 returns exactly 1.000 despite spanning 366
+days, and 2000-01-01 → 2026-01-01 returns exactly 26.000 across 9,497 days. Neither is possible
+under a flat day-count. The divisor for the leftover is **always 365, never 366** — confirmed by
+2024-01-01 → 2024-07-01, which is 182 days in a leap year and returns 0.499 (365) rather than 0.497
+(366). All ten date pairs and five ROI cases match exactly, fifteen checks in total.
+
+**Input parity: 5/5. Result parity: 4/4** — gain (label flips to "Investment loss" on a negative
+return, as theirs does), ROI, annualized ROI, investment length, plus the invested/profit donut.
+
+**Two things the reference refuses that this page handles:**
+1. *A total loss.* Return zero and theirs produces no result at all; here it prints −100.00% ROI and
+   −100.00% annualized, which is simply what a wipeout is.
+2. *Costs and fees.* An optional field, defaulting to zero so parity is untouched. When it is set,
+   ROI after costs and annualized ROI after costs appear alongside the gross figures, and the
+   headline stays gross so nothing about the comparison with the reference moves. Every serious
+   source on ROI says to net off commissions and tax; none of the calculators surveyed except
+   CalculatorSoup actually offers the field.
+
+**Beyond parity.** Return multiple, time-to-double at the annualized rate, and a year-by-year table
+with a matching stacked chart showing the original stake holding steady while the profit builds on
+top. A fractional holding period adds an exact final row (0, 1, 2, 3, 4, 4.405) so the table always
+lands on the real returned amount rather than stopping short. Default dates are set to today and
+five years ago on load, so the page cannot go stale.
+
+**Article figures were checked, and two were wrong.** The comparison table and the worked examples
+were all recomputed in Node before shipping: 55.20% over ten years is 4.49% a year, not the 4.50% I
+had written, and 60% over twelve years is 3.99%, not 4.00%. Both were corrected. Worth keeping as a
+habit — an article that quotes rounded annualized rates is making arithmetic claims, and rounding
+them by hand goes wrong about as often as it goes right.
+
+**Keyword research.** Head term "ROI calculator" is crowded (Omni, CalculatorSoup, Gigacalculator,
+DQYDJ, Corporate Finance Institute, calculator.net). The cluster worth carrying is **annualized ROI
+and its equivalence to CAGR** — DQYDJ is the only major that states the two are the same thing, and
+it is a real bridge between two separate query sets. Title: "ROI Calculator — Total and Annualized
+Return on Investment" (58 chars). Meta 158.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to visible text; 8 inline scripts pass
+`node --check`; protected shared block byte-identical; `apply_cb_ux.py` applied, and the suite
+switches tabs before re-asserting auto-calculate; jsPDF lazy; zero console errors and zero overflow
+at 1280/430/390px; edge cases including a zero stake, reversed dates, a same-day span and a zero
+length. Article 1,961 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the reference. Built with
+the schedule table and chart as two separate cards from the start, per the owner correction earlier
+in the session. Columns balance at 846 / 758 / 809. New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
