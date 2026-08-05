@@ -5381,6 +5381,69 @@ and then writing the winner into the guide, rather than fixing one more page una
 calculator.net: **zero**. Highest overlap with any of our own pages: 0.65% (refinance-calculator,
 boilerplate byline and disclaimer). 18 internal links; new OG image; sitemap lastmod refreshed.
 
+## Rent Calculator — rebuilt Aug 5, 2026
+
+Was a 2-input stub (gross monthly income, target percentage) printing one number. The reference page
+is itself unusually thin — three inputs, four output figures and a **static PNG** for the
+safe/acceptable/aggressive scale — so this is one of the few builds where matching parity took an
+hour and the value came from what was added around it.
+
+**Reference audit.** Their form submits by GET, so the arithmetic was recovered by probing the live
+endpoint with nine parameter sets rather than guessed:
+- "You can afford up to" = 36% of gross monthly income **minus existing monthly debt** (back-end DTI).
+- "It is recommended to keep below" = 28% of gross monthly income minus debt (front-end DTI).
+- The "1/3 of gross income" landlord note = gross monthly ÷ 3, **ignoring debt**, and it only appears
+  when the 36% figure exceeds it — i.e. only when the landlord cap would actually bite. Confirmed by
+  bracketing: debt $100 shows the note, debt $200 does not.
+- When the 36% figure falls to zero or below, everything is replaced by a "hard to meet rent
+  payments" message.
+
+All nine cases match exactly, including their negative-recommendation case (income $5,000/mo, debt
+$1,500 → recommended −$100) and the boundary where the maximum lands on exactly zero.
+
+**Input parity: 3/3**, plus two additions. Their per-year/per-month control is a `<select>`; ours is
+a segmented toggle, per the standing no-dropdown rule. Added: **share of income for rent** (default
+30%, which RentCafe, Apartments.com and Zumper all expose) and **other housing costs** (utilities,
+renters insurance, parking, pet rent), which feeds a total-housing-cost figure and never touches the
+parity numbers — set the share to 30 and other costs to 0 and every reference figure is unchanged,
+which the browser suite asserts directly.
+
+**Result parity: 4/4**, and their static scale image is replaced by a real SVG drawn from the
+visitor's own numbers, with a pointer at their target. Added rows: the 40× annual rent rule, the
+annual income a landlord would want for the target rent, total housing cost and its share of gross
+income, and an explicit warning row when the 36% maximum sits above the landlord's 3× cap — which is
+the single most useful thing on the page, because that is the gap where someone gets approved for a
+rent their budget cannot carry.
+
+**Two defects caught in review, both worth recording.**
+1. *The scale contradicted the article.* Green ran to 28% (matching the reference's boundary), so the
+   default 30% target landed in the amber "a stretch" band while the article on the same page called
+   30% the standard rule. Green now runs to 30%; the 28% front-end ratio stays as a result row. The
+   lesson is that a chart's thresholds are content and have to agree with the prose.
+2. *The disclaimer was inherited wholesale.* The build script was adapted from the rental-property
+   page and a `str.replace` for the closing disclaimer silently failed to match, so a rent
+   affordability page shipped a paragraph about depreciation recapture and "committing to a
+   purchase". `check_originality` is what surfaced it — internal overlap read 4.32% against
+   rental-property, and inspecting the overlapping runs showed one of them was 90 words of the wrong
+   disclaimer. **Adapting a build script means every replace needs an assert, not a hope.** After the
+   rewrite, overlap is 1.77% and both remaining runs are deliberate sitewide boilerplate (the byline
+   and the About/Privacy tail).
+
+**Keyword research.** The head term is "rent calculator", but the dominant query is *how much rent
+can I afford* — it is the reference page's own H2 and every major competitor's H1. The second
+cluster is the rules themselves: 30% rule, 3x rent, 40x rent, rent-to-income ratio. Title:
+"Rent Calculator — How Much Rent Can I Afford? (30% Rule)" (56 chars), which carries the head term,
+the full question and the biggest rule cluster while staying distinct from the reference's own
+title. Meta description 153 chars.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to the visible text (same generator);
+8 inline scripts pass `node --check`; protected shared style block byte-identical to two other
+pages; `apply_cb_ux.py` applied and asserted; jsPDF lazy; zero console errors and zero horizontal
+overflow at 1280/430/390px; 8 edge cases. One found a real defect — after Clear the share box was
+empty and the whole result refused to render, so a blank share now falls back to 30% while an
+out-of-range value still errors. Article 2,445 words, 8 H2s, 8 FAQs, zero 8-word overlap with the
+reference. Columns balance at 813 / 976 / 764. New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
