@@ -5671,6 +5671,66 @@ length. Article 1,961 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the ref
 the schedule table and chart as two separate cards from the start, per the owner correction earlier
 in the session. Columns balance at 846 / 758 / 809. New OG image; sitemap refreshed.
 
+## Roth IRA Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line stub. Seven inputs, a two-column Roth-versus-taxable comparison, and three rules that
+only probing could have found — plus a real arithmetic bug in the reference.
+
+**Rules recovered by probing** (none of it visible in their HTML, which computes server-side):
+- Both accounts **grow first, then take the year's contribution**: `balance x (1 + r) + contribution`.
+  Contributing first would have shifted the age-30 row from $39,300 to $39,750.
+- The taxable side is charged at the marginal rate on its growth **every year**, so it compounds at
+  `r x (1 - tax)`. At 6% and 25% that is 4.5%, which reproduces their $38,850 first row exactly.
+- **Contributions are silently capped at the IRS limit**, and the two capping rules are different:
+  a typed amount is held at the limit for your *current* age for the whole projection, while
+  "maximize" steps the limit up when you reach 50. Confirmed by a pair of probes at age 45 — typing
+  $20,000 gives $150,000 of contributions (20 x $7,500) while maximize gives $166,500
+  (5 x $7,500 + 15 x $8,600).
+
+**Verification: 5 scenarios, all exact** — balance, contributions, taxable growth and tax across
+defaults, a sub-limit contribution, a 45-to-67 run at 7% and 32%, and maximize from both 30 and 55.
+The 35-row annual schedule matches the reference row for row at both ends.
+
+**A bug in the reference.** Their Roth "Total interest" is one annual contribution too high:
+$781,343 where balance minus contributions is $773,843. It is consistent across every scenario — the
+gap is always exactly the final year's contribution ($7,500, $6,000, $8,600 depending on the case).
+The giveaway is that their own Roth column does not add up: $292,500 + $781,343 = $1,073,843, not
+the $1,066,343 they print two rows above. Their taxable column *does* reconcile
+($292,500 + $611,660 − $152,915 = $751,245), so it is an off-by-one in one branch rather than a
+different definition. We print $773,843 and the browser suite asserts that both columns reconcile.
+
+**One intentional difference.** The reference caps an over-limit contribution and says nothing —
+type $20,000 and you get $7,500 with no explanation. We cap identically but show a note naming the
+limit for your age and the higher figure from 50. Same arithmetic, disclosed.
+
+**Beyond parity.** The Roth advantage and the tax never paid as headline figures, growth as a share
+of the balance, the after-tax return the taxable account actually earns (5.32% on a 7% return at
+24%), and a three-line chart — Roth, taxable, and contributions — that shows the two accounts
+diverging. Layout uses the stacked two-card pattern from rental-property, since the seven-column
+schedule needs the full width.
+
+**Article figures were computed, not estimated.** Three numbers in the FAQ were written from a rough
+guess and checked in Node before shipping: the default projection is $807,921 with $597,921 of
+growth, and $533,478 at a 5% return — I had written $832,000, $618,000 and $556,000. All corrected.
+This is the second build in a row where hand-estimated article figures were wrong; the check is now
+routine.
+
+**Keyword research.** Head term is crowded but shallow — NerdWallet, Thrivent, Clark, and a long
+tail of credit unions running the same white-label widget that only projects growth. Almost none of
+them show the taxable comparison, which is this page's actual differentiator. Title:
+"Roth IRA Calculator — How Much Will It Grow by Retirement?" (58 chars), aimed at the dominant
+question rather than the head term alone; the comparison carries the meta description.
+
+**Contribution limits are 2026 figures ($7,500 under 50, $8,600 from 50) and need an annual check**
+against IRS.gov, alongside the income phase-out ranges quoted in the sidebar and article.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to visible text; 8 inline scripts pass
+`node --check`; protected shared block byte-identical; `apply_cb_ux.py` applied; jsPDF lazy; zero
+console errors and zero overflow at 1280/430/390px; edge cases including retirement age at or before
+current age, a zero starting balance, a 0% tax rate (both columns land level, advantage $0), a 100%
+rate, and a negative return. Article 1,982 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the
+reference. Columns balance at 972 / 833 / 852. New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
