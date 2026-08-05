@@ -5259,6 +5259,92 @@ Input fields: 13/13. Result fields: 15/15.
 real-estate, present-value and this one) logs a console warning ~4s after load. Pre-existing and
 site-wide, not introduced here — belongs with the other deferred items.
 
+## Rental Property Calculator — rebuilt Aug 5, 2026
+
+Closes the follow-up left open by the Real Estate Calculator entry above: this page was a 295-word
+template stub with 6 inputs (price, down payment, rate, term, rent, vacancy) that printed a single
+monthly cash-flow number. It is now the multi-year projection the site was missing — appreciation,
+loan paydown, equity build-up and sale proceeds — which is the split those two pages were always
+meant to have. `/real-estate-calculator/` keeps the one-year snapshot; this page owns the hold-period
+question.
+
+**Reference audit went further than usual, and it paid off.** calculator.net computes this page
+server-side, so the arithmetic is not in the fetched HTML at all. Their form submits by GET, so
+instead of guessing, the whole calculation was reverse-engineered by **probing their live endpoint
+with eight parameter sets** and reading the rendered output back. That surfaced three rules that
+were nowhere in the source and would have been wrong if assumed:
+- **Management fee is charged after vacancy**, on rent actually collected — 10% of $22,800, not of
+  $24,000. Their own "Total Rental Income" line is net of both.
+- **A known sale price is converted to an implied appreciation rate**, `(sell ÷ base)^(1/hold) − 1`,
+  and applied to every intermediate year, so the equity column stays consistent in year three.
+- **With repairs enabled the appreciation base becomes the after-repair value**, not the price, and
+  the cap-rate label switches to "Purchase Capitalization Rate" while still dividing by the price.
+
+**Numeric verification.** The model was written independently in Node first and matched against all
+eight probes before any of it was wired into the page, then re-asserted in the browser through
+Playwright. Every figure matches to the cent:
+
+| Scenario | IRR | Total profit | Cash on cash | Cap rate |
+|---|---|---|---|---|
+| Their defaults | 18.42% | $402,304.36 | 874.57% | 8.05% |
+| Management 10% | 14.89% | $341,039.90 | 741.39% | 6.91% |
+| Repairs on | 15.35% | $482,001.70 | 730.31% | 8.05% |
+| All cash | 10.56% | $558,937.50 | 271.33% | 8.05% |
+| Known sale price | 18.73% | $437,979.89 | 952.13% | 8.05% |
+| Hold 35yr / 30yr loan | 17.62% | $1,099,849.11 | 2,390.98% | 8.05% |
+
+Row-level parity is asserted too, not just the summary: the whole first-year table (9 rows × monthly
+and annual), the Begin row, years 1, 2 and 20 of the schedule, and the Total row all match their
+published output exactly. Year 31 of a 35-year hold correctly shows $0 mortgage.
+
+**Input parity: 23/23.** Purchase price, use-loan toggle, down payment, rate, term, closing costs,
+repairs toggle, repair cost, after-repair value, five operating-expense lines each with their own
+compounding increase, rent and other income each with an increase, vacancy, management fee,
+known-sale-price toggle, appreciation, sale price, holding period, cost to sell. Nothing dropped,
+nothing merged.
+
+**One deliberate deviation, flagged.** Their donut chart disagrees with their own table: it computes
+vacancy and management on **gross** rent ($2,400 at 10%) while the table uses **collected** rent
+($2,280), and it ignores other monthly income entirely — add $300/mo of parking income and the donut
+does not move. Ours is computed from the same figures as the table, so the two always agree.
+
+**Beyond parity.** An Annual/Monthly toggle on the schedule (240 monthly rows with exact loan
+balances, and the last two columns swapping to cumulative cash flow and property value, since a
+monthly IRR is not a meaningful number); a stacked bar chart splitting each year's rent into
+mortgage, operating expenses and cash flow, with a separate amber "shortfall" segment when the year
+runs negative; a "cash needed up front" row; and the headline number is **first-year monthly cash
+flow**, not IRR — it is what the query is actually asking, and it turns amber when the property runs
+at a loss.
+
+**Chart sizing note worth remembering.** An SVG with `width:100%` and a fixed `viewBox` narrower than
+its container does not stretch — `preserveAspectRatio` defaults to `xMidYMid meet`, so it scales to
+the height and floats in the middle with dead space either side. This is visible in a screenshot and
+invisible to every DOM check. Fixed by computing the viewBox width from `parentNode.clientWidth`
+(1:1 with rendered pixels, so it stays crisp) and redrawing on a debounced resize. The same latent
+issue exists on refinance-calculator and mutual-fund-calculator; worth folding into the audit pass.
+
+**Keyword research.** Head term "rental property calculator" is heavily contested (Zillow,
+BiggerPockets, TurboTenant, Omni, calculator.net). The distinct long-tail clusters that each have
+dedicated competitor pages — and so are covered in H2s and FAQs rather than fought for in the title —
+are cash-flow calculator, ROI calculator, cap rate, cash-on-cash return, investment property and
+rental income calculator. Title: "Rental Property Calculator — Cash Flow, Cap Rate & ROI" (54 chars),
+which carries three of those clusters and promises an outcome rather than restating the tool name.
+Meta description 147 chars.
+
+**Checks run.** 3 JSON-LD blocks valid; FAQ schema and visible text generated from a single Python
+source and asserted byte-equal, which removes the em-dash mismatch failure mode structurally rather
+than by care; 7 inline scripts pass `node --check`; protected shared style block byte-identical to
+both refinance-calculator and body-fat-calculator; `apply_cb_ux.py` applied and its behaviour
+asserted (bar sentence, `__cbAutoRuns` increments, `.cb-flash` on the full result card, jump link);
+jsPDF fetches zero bytes until the button is clicked and is not re-fetched on a second click; zero
+console errors and zero horizontal overflow at 1280px, 430px and 390px, with a single grid track and
+every child at full width on mobile; 15 edge cases including negative cash flow, 0% interest, 100%
+down, a 1-year hold, all costs at zero, Clear, and non-numeric input.
+
+**Originality.** 3,088-word article, 8 H2 sections, 8 FAQs. Longest shared 8-word run with
+calculator.net: **zero**. Highest overlap with any of our own pages: 0.65% (refinance-calculator,
+boilerplate byline and disclaimer). 18 internal links; new OG image; sitemap lastmod refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
