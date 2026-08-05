@@ -5341,6 +5341,15 @@ console errors and zero horizontal overflow at 1280px, 430px and 390px, with a s
 every child at full width on mobile; 15 edge cases including negative cash flow, 0% interest, 100%
 down, a 1-year hold, all costs at zero, Clear, and non-numeric input.
 
+**Top spacing, fixed same day.** The page shipped with the guide's stated 3-card wrapper padding
+(`py-8 sm:py-10`, a 41px gap between the sticky header and the breadcrumb). The owner compared it
+against `/mortgage-calculator/` and the gap was visibly larger. Measured across pages: mortgage and
+real-estate both use `py-5 sm:py-6` (21px), while rental and refinance used the larger value.
+Rental now matches at 21px on both 1280px and 390px. **Left inconsistent on purpose:**
+`refinance-calculator` still carries the 41px gap, and DESIGN_AND_SEO_GUIDE.md section 5 still
+documents `py-8 sm:py-10` as the pattern. One of the two is wrong — worth settling in the audit pass
+and then writing the winner into the guide, rather than fixing one more page unasked.
+
 **Originality.** 3,088-word article, 8 H2 sections, 8 FAQs. Longest shared 8-word run with
 calculator.net: **zero**. Highest overlap with any of our own pages: 0.65% (refinance-calculator,
 boilerplate byline and disclaimer). 18 internal links; new OG image; sitemap lastmod refreshed.
