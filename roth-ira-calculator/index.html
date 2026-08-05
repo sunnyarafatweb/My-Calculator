@@ -506,6 +506,11 @@
           <div class="rth-field-control"><div class="rth-input-group"><span>$</span><input type="text" inputmode="decimal" id="rth-balance" value="24,000"></div></div>
         </div>
 
+        <div class="rth-field" id="rth-contribfield">
+          <label class="rth-field-label" for="rth-contrib">Annual contribution</label>
+          <div class="rth-field-control"><div class="rth-input-group"><span>$</span><input type="text" inputmode="decimal" id="rth-contrib" value="6,000"></div></div>
+        </div>
+
         <div class="rth-field">
           <span class="rth-field-label" id="rth-maxlbl">Contribute the maximum?</span>
           <div class="rth-field-control">
@@ -514,11 +519,6 @@
               <label><input type="radio" name="rth-max" value="n" checked><span>No</span></label>
             </div>
           </div>
-        </div>
-
-        <div class="rth-field" id="rth-contribfield">
-          <label class="rth-field-label" for="rth-contrib">Annual contribution</label>
-          <div class="rth-field-control"><div class="rth-input-group"><span>$</span><input type="text" inputmode="decimal" id="rth-contrib" value="6,000"></div></div>
         </div>
 
         <div class="rth-field">
@@ -852,15 +852,19 @@
         +' a year, so '+money0(r.typedContrib)+' has been reduced to that. From age 50 the limit rises to '
         +money0(LIMIT_50_PLUS)+'.';
       $('rth-capnote').style.display='block';
+    }else if(r.isMax && r.age<50 && r.retAge>50){
+      $('rth-capnote').textContent='Contributions follow the IRS limit: '+money0(LIMIT_UNDER_50)
+        +' a year now, rising to '+money0(LIMIT_50_PLUS)+' from age 50.';
+      $('rth-capnote').style.display='block';
     }else{
       $('rth-capnote').style.display='none';
     }
 
     $('rth-cmp-body').innerHTML=
       crow('Balance at age '+r.retAge, money0(r.roth), money0(r.taxable), true)
-    + crow('What you put in', money0(r.principal), money0(r.principal))
-    + crow('Investment growth', money0(r.rothInterest), money0(r.grossInterest))
-    + crow('Tax paid along the way', money0(0), money0(r.taxPaid));
+    + crow('Total principal', money0(r.principal), money0(r.principal))
+    + crow('Total interest', money0(r.rothInterest), money0(r.grossInterest))
+    + crow('Total tax', money0(0), money0(r.taxPaid));
     $('rth-cmp-wrap').style.display='block';
 
     var h='<div class="rth-subhead">What the Roth is worth</div>';
@@ -929,7 +933,16 @@
 
   /* ---------- events ---------- */
   function run(){ render(compute()); }
-  function syncMaxUI(){ $('rth-contribfield').style.display = maximize()?'none':''; }
+  function syncMaxUI(){
+    var inp=$('rth-contrib'), on=maximize();
+    inp.readOnly=on;
+    inp.style.background = on ? 'var(--surface-sunken)' : '#fff';
+    inp.style.color = on ? 'var(--ink-faint)' : 'var(--ink)';
+    if(on){
+      var a=num($('rth-age').value);
+      inp.value = money0(limitFor(isFinite(a)?a:0)).replace('$','');
+    }
+  }
 
   Array.prototype.forEach.call(document.querySelectorAll('.rth-wrap input[type="radio"]'),function(el){
     el.addEventListener('change',function(){ syncMaxUI(); run(); });
@@ -937,7 +950,7 @@
   $('rth-calc').addEventListener('click',run);
   Array.prototype.forEach.call(document.querySelectorAll('.rth-wrap input[type="text"]'),function(inp){
     inp.addEventListener('focus',function(){ inp.select(); });
-    inp.addEventListener('input',run);
+    inp.addEventListener('input',function(){ if(inp.id==='rth-age') syncMaxUI(); run(); });
     inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); run(); } });
   });
   $('rth-clear').addEventListener('click',function(){
@@ -977,9 +990,9 @@
     doc.setTextColor(0);
     doc.autoTable({ startY:82, head:[['','Roth IRA','Taxable account']], body:[
       ['Balance at age '+r.retAge, money0(r.roth), money0(r.taxable)],
-      ['What you put in', money0(r.principal), money0(r.principal)],
-      ['Investment growth', money0(r.rothInterest), money0(r.grossInterest)],
-      ['Tax paid along the way', money0(0), money0(r.taxPaid)],
+      ['Total principal', money0(r.principal), money0(r.principal)],
+      ['Total interest', money0(r.rothInterest), money0(r.grossInterest)],
+      ['Total tax', money0(0), money0(r.taxPaid)],
       ['The Roth advantage', money0(r.advantage), '']
     ], styles:{fontSize:9,cellPadding:5}, headStyles:{fillColor:[30,58,95]} });
     var y=doc.lastAutoTable.finalY+18;
