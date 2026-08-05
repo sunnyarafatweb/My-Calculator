@@ -426,6 +426,8 @@
 .rpc-notes-card li b{color:var(--ink)}
 .rpc-right-stack{display:flex;flex-direction:column;gap:20px;min-width:0}
 .rpc-area-result .cb-jump{display:none}
+.rpc-sched-stack{display:flex;flex-direction:column;gap:16px;width:100%}
+.rpc-sched-stack>*{min-width:0}
 .rpc-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;margin-top:16px}
 .rpc-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .rpc-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -735,44 +737,56 @@
   </div>
 
   <div class="rpc-area-bottomgrid">
+    <div class="rpc-sched-stack">
 
-    <div class="rpc-break-card" id="rpc-schedule" style="margin-top:0">
-      <div class="rpc-break-head">
-        <div>
-          <span class="t">Breakdown over time</span>
-          <span class="s" id="rpc-sched-sub">Income, costs, equity and what a sale would hand you</span>
+      <div class="rpc-break-card" id="rpc-schedule" style="margin-top:0">
+        <div class="rpc-break-head">
+          <div>
+            <span class="t">Where the rent goes each year</span>
+            <span class="s" id="rpc-chart-sub">Mortgage first, then the running costs, and what is left is yours</span>
+          </div>
         </div>
-        <div class="rpc-seg" role="group" aria-label="Schedule period">
-          <button type="button" class="active" data-period="annual">Annual</button>
-          <button type="button" data-period="monthly">Monthly</button>
+        <div class="rpc-chart-wrap">
+          <svg class="rpc-chart" id="rpc-chart" role="img" aria-label="Where each year of rent goes"></svg>
+        </div>
+        <div class="rpc-chart-legend">
+          <span><i style="background:#1E3A5F"></i>Mortgage</span>
+          <span><i style="background:#A6AAB1"></i>Operating expenses</span>
+          <span><i style="background:#16A34A"></i>Cash flow</span>
+          <span><i style="background:#B45309"></i>Shortfall</span>
         </div>
       </div>
-      <div class="rpc-chart-wrap">
-        <svg class="rpc-chart" id="rpc-chart" role="img" aria-label="Where each year of rent goes"></svg>
+
+      <div class="rpc-break-card" style="margin-top:0">
+        <div class="rpc-break-head">
+          <div>
+            <span class="t">Breakdown over time</span>
+            <span class="s" id="rpc-sched-sub">Income, costs, equity and what a sale would hand you</span>
+          </div>
+          <div class="rpc-seg" role="group" aria-label="Schedule period">
+            <button type="button" class="active" data-period="annual">Annual</button>
+            <button type="button" data-period="monthly">Monthly</button>
+          </div>
+        </div>
+        <div class="rpc-break-scroll">
+          <table class="rpc-break-table">
+            <thead><tr>
+              <th id="rpc-th-period">Year</th>
+              <th>Income collected</th>
+              <th>Mortgage</th>
+              <th>Expenses</th>
+              <th>Cash flow</th>
+              <th id="rpc-th-coc">Cash on cash</th>
+              <th>Equity built</th>
+              <th>Cash if sold</th>
+              <th id="rpc-th-irr">Return (IRR)</th>
+            </tr></thead>
+            <tbody id="rpc-sched-body"></tbody>
+            <tfoot id="rpc-sched-foot"></tfoot>
+          </table>
+        </div>
       </div>
-      <div class="rpc-chart-legend">
-        <span><i style="background:#1E3A5F"></i>Mortgage</span>
-        <span><i style="background:#A6AAB1"></i>Operating expenses</span>
-        <span><i style="background:#16A34A"></i>Cash flow</span>
-        <span><i style="background:#B45309"></i>Shortfall</span>
-      </div>
-      <div class="rpc-break-scroll">
-        <table class="rpc-break-table">
-          <thead><tr>
-            <th id="rpc-th-period">Year</th>
-            <th>Income collected</th>
-            <th>Mortgage</th>
-            <th>Expenses</th>
-            <th>Cash flow</th>
-            <th id="rpc-th-coc">Cash on cash</th>
-            <th>Equity built</th>
-            <th>Cash if sold</th>
-            <th id="rpc-th-irr">Return (IRR)</th>
-          </tr></thead>
-          <tbody id="rpc-sched-body"></tbody>
-          <tfoot id="rpc-sched-foot"></tfoot>
-        </table>
-      </div>
+
     </div>
   </div>
 
