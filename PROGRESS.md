@@ -5545,6 +5545,77 @@ deployment" is enough, since this repo has no build step and Pages only uploads 
 One empty commit to re-queue is reasonable; beyond that, each push consumes another build and makes
 a quota problem worse rather than better. Verify the dashboard first.
 
+## RMD Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line stub. This is the first build on this site whose accuracy depends on **published
+government tables rather than a formula**, so the sourcing mattered more than the arithmetic.
+
+**Where the numbers came from.** The reference computes server-side and does not ship its tables, so
+guessing was not an option and neither was deriving them — the IRS periods come from a mortality
+basis that cannot be reproduced to one decimal by hand. The tables were parsed directly out of
+**IRS Publication 590-B, Appendix B** (fetched from irs.gov, 996KB of HTML, 35 tables with
+`summary` attributes):
+- **Table III, Uniform Lifetime** — ages 72 to 120, 49 values.
+- **Table II, Joint Life and Last Survivor** — 5,611 published cells across 20 chunk tables,
+  symmetrised to 10,201, then sliced to the part this page can reach (owner 73-120, spouse
+  20 to owner-11) = 3,192 values.
+
+Both are stored as **zero-padded tenths in a fixed-width string** read positionally, which puts the
+whole of Table II in 9,576 characters instead of a 60KB+ JSON object. Uniform is 147 characters.
+
+**Verification: 24 checks, all exact.** Thirteen distribution-period probes against the reference
+plus eleven projection rows across both tables. The parsed data reproduced the reference's Joint
+Life figures before any of it was wired into the page — (75,51) → 35.8, (75,36) → 49.7,
+(75,20) → 65.1 — which is the strongest evidence available that both sides are reading the same
+IRS table.
+
+**Rules recovered by probing, not assumed:**
+- The Joint table applies only when the spouse is sole beneficiary **and** more than ten years
+  younger, measured by year of birth. Bracketed it: an 11-year gap uses Joint (25.3), a 10-year gap
+  uses Uniform (24.6).
+- **SECURE 2.0 start ages are handled correctly by the reference and by us**: age 73 for births up
+  to 1959, age 75 from 1960. Confirmed at the boundary — born 1959 → first RMD 2032, born 1960 →
+  first RMD 2035.
+- The projection re-looks-up the period every year with **both** ages advancing, so a Joint-table
+  case stays on the Joint table.
+- Balance projection is `balance x (1 + return) − RMD`, distribution taken at year end.
+
+**Input parity: 6/6. Result parity: 5/5**, including the fraction graphic (balance over period
+equals RMD), which is the clearest thing on their page and worth keeping.
+
+**Two intentional differences, both improvements rather than deviations:**
+1. *A spouse under 20 is handled instead of refused.* Pub 590-B prints Table II from age 20, and the
+   reference simply fails to produce a result below that. We use the age-20 row and say so in the
+   result text. This errs toward a **larger** required withdrawal, which is the safe direction —
+   the penalty is for taking too little, never too much.
+2. *Periods print to one decimal everywhere*, matching the IRS's own formatting, so 22 appears as
+   22.0. The reference prints "22". Formatting only; no figure differs.
+
+**Beyond parity.** The full Uniform Lifetime table is rendered as a visible reference table in the
+article, because "IRS uniform lifetime table" is its own query cluster. The result card names which
+table was used and why. The RMD is shown as a percentage of the balance. The year selector
+**rebuilds itself around the real current year on load**, so the page cannot silently go stale the
+way a hard-coded list would — the reference's list stops at 2027.
+
+**Note for whoever picks this up next: the title contains "2026" and needs an annual edit.** The
+year-qualified query dominates this term (every competitor titles that way), so it is worth having,
+but it is a maintenance item. The tables themselves should also be re-checked against Pub 590-B
+whenever the IRS revises them — the current set has been effective since 2022.
+
+**Keyword research.** Head term "RMD calculator" is heavily contested (NerdWallet, AARP, Schwab,
+Fidelity, FINRA, Investor.gov). The gap worth taking: **Investor.gov explicitly refuses the
+spouse-more-than-ten-years-younger case** and tells the reader to go and read Publication 590-B.
+That is the one thing this page does properly, so it leads the subhead and gets its own sidebar
+card. Title: "RMD Calculator 2026 — Required Minimum Distribution by Age" (58 chars). Meta 158.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to visible text; 8 inline scripts pass
+`node --check`; protected shared block byte-identical; `apply_cb_ux.py` applied; jsPDF lazy; zero
+console errors and zero overflow at 1280/430/390px; edge cases including a non-numeric birth year,
+a negative balance, a zero balance (returns $0 rather than an error), a blank return rate, and an
+age past 120 clamping to the table floor of 2.0. Article 2,141 words, 8 H2s, 8 FAQs, **zero** 8-word
+overlap with the reference after rewording one unavoidable factual sentence. Columns balance at
+868 / 768 / 756. New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
