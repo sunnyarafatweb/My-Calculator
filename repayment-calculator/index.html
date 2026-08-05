@@ -416,6 +416,9 @@
 .rpy-notes-card ul{margin:0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.75}
 .rpy-notes-card li{margin-bottom:8px}
 .rpy-notes-card li b{color:var(--ink)}
+.rpy-sched-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;width:100%;align-items:start}
+@media(max-width:1000px){.rpy-sched-row{grid-template-columns:1fr}}
+.rpy-sched-row>*{min-width:0}
 .rpy-break-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
 .rpy-break-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-fine);flex-wrap:wrap;gap:8px}
 .rpy-break-head .t{font-size:15px;font-weight:700;color:var(--ink)}
@@ -424,11 +427,11 @@
 .rpy-seg button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font-body)}
 .rpy-seg button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .rpy-chart-wrap{padding:16px 18px 6px;overflow-x:auto}
-.rpy-chart{min-width:520px;width:100%;height:220px;display:block;max-width:100%}
+.rpy-chart{min-width:430px;width:100%;height:300px;display:block;max-width:100%}
 .rpy-chart-legend{display:flex;gap:16px;flex-wrap:wrap;padding:0 18px 16px;font-size:12.5px;color:var(--ink-soft)}
 .rpy-chart-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
 .rpy-break-scroll{overflow-x:auto;max-height:440px;overflow-y:auto}
-.rpy-break-table{min-width:560px;width:100%;font-size:12.5px;border-collapse:collapse}
+.rpy-break-table{min-width:470px;width:100%;font-size:12.5px;border-collapse:collapse}
 .rpy-break-table th{background:#1E3A5F;color:#fff;padding:9px 14px;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
 .rpy-break-table th:first-child,.rpy-break-table td:first-child{text-align:left}
 .rpy-break-table td{padding:8px 14px;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
@@ -606,39 +609,52 @@
   </div>
 
   <div class="rpy-area-bottomgrid">
-    <div class="rpy-break-card" id="rpy-schedule">
-      <div class="rpy-break-head">
-        <div>
-          <span class="t">Repayment schedule</span>
-          <span class="s" id="rpy-sched-sub">Where each payment goes, period by period</span>
+    <div class="rpy-sched-row">
+
+      <div class="rpy-break-card" id="rpy-schedule">
+        <div class="rpy-break-head">
+          <div>
+            <span class="t">Repayment schedule</span>
+            <span class="s" id="rpy-sched-sub">Where each payment goes, period by period</span>
+          </div>
+          <div class="rpy-seg" role="group" aria-label="Schedule period">
+            <button type="button" class="active" data-period="annual">By year</button>
+            <button type="button" data-period="each">Every payment</button>
+          </div>
         </div>
-        <div class="rpy-seg" role="group" aria-label="Schedule period">
-          <button type="button" class="active" data-period="annual">By year</button>
-          <button type="button" data-period="each">Every payment</button>
+        <div class="rpy-break-scroll">
+          <table class="rpy-break-table">
+            <thead><tr>
+              <th id="rpy-th-period">Year</th>
+              <th>Payments</th>
+              <th>Interest</th>
+              <th>Principal</th>
+              <th>Balance</th>
+            </tr></thead>
+            <tbody id="rpy-sched-body"></tbody>
+            <tfoot id="rpy-sched-foot"></tfoot>
+          </table>
+        </div>
+        <div class="rpy-break-note" id="rpy-sched-note" style="display:none"></div>
+      </div>
+
+      <div class="rpy-break-card">
+        <div class="rpy-break-head">
+          <div>
+            <span class="t">Interest against principal</span>
+            <span class="s" id="rpy-chart-sub">The split shifts toward principal as the balance falls</span>
+          </div>
+        </div>
+        <div class="rpy-chart-wrap">
+          <svg class="rpy-chart" id="rpy-chart" role="img" aria-label="Interest and principal repaid each year, with the balance falling"></svg>
+        </div>
+        <div class="rpy-chart-legend">
+          <span><i style="background:#1E3A5F"></i>Principal repaid</span>
+          <span><i style="background:#E0A82E"></i>Interest paid</span>
+          <span><i style="background:#A6AAB1"></i>Balance remaining <span style="color:var(--ink-faint)">(right axis)</span></span>
         </div>
       </div>
-      <div class="rpy-chart-wrap">
-        <svg class="rpy-chart" id="rpy-chart" role="img" aria-label="Interest and principal repaid each year, with the balance falling"></svg>
-      </div>
-      <div class="rpy-chart-legend">
-        <span><i style="background:#1E3A5F"></i>Principal repaid</span>
-        <span><i style="background:#E0A82E"></i>Interest paid</span>
-        <span><i style="background:#A6AAB1"></i>Balance remaining <span style="color:var(--ink-faint)">(right axis)</span></span>
-      </div>
-      <div class="rpy-break-scroll">
-        <table class="rpy-break-table">
-          <thead><tr>
-            <th id="rpy-th-period">Year</th>
-            <th>Payments</th>
-            <th>Interest</th>
-            <th>Principal</th>
-            <th>Balance</th>
-          </tr></thead>
-          <tbody id="rpy-sched-body"></tbody>
-          <tfoot id="rpy-sched-foot"></tfoot>
-        </table>
-      </div>
-      <div class="rpy-break-note" id="rpy-sched-note" style="display:none"></div>
+
     </div>
   </div>
 
@@ -976,7 +992,7 @@
     var yrs=r.years.slice(), step=1;
     if(yrs.length>30){ step=Math.ceil(yrs.length/30); yrs=yrs.filter(function(g,ix){ return ix%step===0 || ix===r.years.length-1; }); }
     var wrap=$('rpy-chart').parentNode;
-    var W=Math.max(520,Math.round((wrap?wrap.clientWidth:520)-36)), H=220, padL=58, padB=26, padT=12;
+    var W=Math.max(430,Math.round((wrap?wrap.clientWidth:430)-36)), H=300, padL=58, padB=26, padT=12;
     /* Two scales on purpose: a year of payments is a fraction of the balance, so putting
        both on one axis flattened every bar to a sliver. Bars use the left axis, the
        balance line the right one. */
