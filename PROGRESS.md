@@ -5444,6 +5444,75 @@ empty and the whole result refused to render, so a blank share now falls back to
 out-of-range value still errors. Article 2,445 words, 8 H2s, 8 FAQs, zero 8-word overlap with the
 reference. Columns balance at 813 / 976 / 764. New OG image; sitemap refreshed.
 
+## Repayment Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line template stub. The reference page is a compounding-vs-payment-frequency loan engine
+with two solve directions, and it computes server-side, so the arithmetic was again recovered by
+probing the live endpoint — fifteen parameter sets this time, covering every compounding basis and
+several payment frequencies.
+
+**What the probes established** (none of it visible in their HTML):
+- The periodic rate is `(1 + r/c)^(c/p) − 1`, with `c` compounding periods a year and `p` payment
+  periods; continuous compounding collapses to `e^(r/p) − 1`.
+- Their stated conventions matter and are load-bearing: **biweekly is 26 periods** (52 weeks) and
+  **daily is 365.25** (leap years averaged in). Both appear only as footnotes on their result.
+- A term entered as years and months converts to `(years×12 + months) × p / 12` and is **kept
+  fractional**. This was caught by a case that did not match: biweekly over 3y5m is 88.83 payments,
+  not 89, and rounding it broke the payment by 21 cents.
+- The displayed payment count is `ceil(n)`; the term is rendered as whole years plus months to one
+  decimal.
+
+**Input parity: 7/7.** Balance, rate, 9-option compounding select, 8-option payback select, the
+fixed-term / fixed-installment mode switch, years+months, installment amount. Their mode switch is a
+radio pair; ours is the site's tab pattern, matching loan-calculator, which also keeps selects for
+the two long frequency lists rather than forcing 9 options into tabs.
+
+**Result parity: 5/5** — payment (or payoff term), payment count, total of all payments, total
+interest, and the principal/interest donut. Their "View Amortization Table" popup becomes a proper
+schedule card with a by-year / every-payment toggle, a stacked chart and a total row. Added rows:
+effective annual rate (APY) alongside the nominal rate, the rate applied to each payment, and
+interest as a share of everything repaid.
+
+**Intentional difference, and it is the interesting one.** Where the term is fractional, the
+reference reports total paid as `payment × n` — settling the loan partway through a period and
+billing a part-period of interest. A loan does not work that way: the balance clears on the 65th
+payment date and that final period carries a full period of interest. Our totals come from the
+period-by-period simulation instead, which is 4c higher on their $200 case, 9c on the $90 case and
+3c on the fractional-term case. Payment, payment count and the term wording still match exactly.
+The deciding argument was internal consistency: the schedule table is generated from the same
+simulation, so using their figure would have printed a total the rows below it do not sum to — the
+exact fault found in their own rental-property donut two builds ago. The browser suite now asserts
+the schedule sums to the printed total.
+
+**Two build defects caught, both by checks rather than by eye.**
+1. *The assert convention paid for itself immediately.* Adapting the rent-calculator build script,
+   the disclaimer replacement failed to match again — same class of failure as yesterday, this time
+   a trailing-space mismatch in the search string. Because the replacements now assert, it raised
+   instead of silently shipping a rent disclaimer on a loan page. Worth noting that the assert fired
+   *before* `build.py` was rewritten but *after* the page had already been generated once from the
+   unpatched script, so the first output still had to be discarded — asserts belong before any
+   generation step, not just before the write.
+2. *The chart was unreadable.* Bars (a year of payments, ~$5k) and the balance line (~$18.5k) shared
+   one axis, so every bar was flattened to a sliver. Split onto two axes with the right-hand scale
+   labelled and the legend marking which line uses it. Bar width is also capped at 86px so a
+   five-bar chart does not render as slabs.
+
+**Keyword research.** "Repayment calculator" is a nearly uncontested head term in the US — the
+reference and some UK sites hold it. The high-volume American phrasing for the same intent is
+**"loan payoff calculator" / "how long to pay off my loan"**, held by Bankrate-tier sites and credit
+unions. Title: "Repayment Calculator — Your Payment or Your Payoff Date" (55 chars), which keeps the
+head term and promises both solve directions; the payoff-time cluster is carried in the H2s and FAQs
+rather than fought for in the title. Meta description 152 chars.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal to visible text; 8 inline scripts pass
+`node --check`; protected shared block byte-identical; `apply_cb_ux.py` applied, and the suite
+switches tabs before asserting auto-calculate, per the tabbed-page note in section 5a; jsPDF lazy;
+zero console errors and zero overflow at 1280/430/390px; 8 edge cases including a payment below the
+interest accrual, 0% interest, a blank months box and an absurd rate. A 1,826-payment daily schedule
+caps at 600 rows with the cap explained. Article 2,152 words, 8 H2s, 8 FAQs, zero 8-word overlap
+with the reference, 1.96% internal overlap and both runs are the deliberate byline and About/Privacy
+boilerplate. Columns balance at 881 / 838 / 710. New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
