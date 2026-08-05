@@ -5778,6 +5778,54 @@ unchanged) and the Term tab (explained rather than dividing by zero), and an end
 principal. Article 1,548 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the reference.
 New OG image; sitemap refreshed.
 
+## Social Security Calculator — rebuilt Aug 5, 2026
+
+Was a 508-line stub. Two calculators on one page, and the hardest model recovery of the session.
+
+**How the model was pinned down.** The reference prints one sentence per calculator, which is far too
+little to fit a discounting model against. The leverage came from **the chart**: its nine bars are
+plain SVG rects, so their heights are nine data points. Reading them out gave the relative lifetime
+value of every claiming age from 62 to 70, and fitting against that turned a guess into a
+measurement.
+
+The first attempt matched the best age and the benefit multiplier but got the *curve* wrong — too
+flat early, too steep late, eight bars out. A search over the discount factor and the horizon found
+the fault in one place: the benefit stream runs **through the life-expectancy year inclusive**, one
+year more than I had. The fitted discount factor came back as 0.98096 against the theoretical
+(1 + cola) / (1 + return) = 0.980952, i.e. the discounting was right all along. With the horizon
+fixed, all nine bars match to 0.01% and the RMS error is 0.003%.
+
+**Rules confirmed:**
+- Full retirement age follows the SSA schedule: 66 to birth year 1954, plus two months a year to
+  1959, then 67.
+- Early claiming costs 5/9 of 1% a month for the first 36 months and 5/12 of 1% beyond; delaying
+  adds 2/3 of 1% a month and stops at 70. At a full retirement age of 67 that gives 70% at 62 and
+  124% at 70, matching their text.
+- Someone already past 70 gets a "claim now" message rather than a calculation — found by probing a
+  1955 birth year, which returns a different sentence entirely.
+
+**Verification: 17 checks, all exact** — 9 chart bars, 4 best-age scenarios across different life
+expectancies and rate assumptions, and 4 break-even cases on the second calculator.
+
+**The result card was deliberately kept lean,** following the owner's instruction earlier in the
+session. Four rows on the best-age tab and three on the compare tab, and the browser suite asserts
+that **no row simply repeats a value the user typed** — it pulls every input value and every result
+value and checks the sets do not intersect. Everything shown is something the calculator worked out:
+the full retirement age derived from the birth year, the benefit multiplier at the chosen age, and
+the two anchor points at 62 and 70 for comparison.
+
+**Keyword research.** "Social security calculator" is dominated by SSA.gov itself plus AARP,
+Bankrate and NerdWallet. The differentiated cluster is the decision rather than the estimate: "best
+age to claim social security", "social security break even age", "claim at 62 or 70". Title:
+"Social Security Calculator — Best Age to Claim Benefits" (55 chars).
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema byte-equal; 8 inline scripts pass `node --check`;
+protected shared block byte-identical; `apply_cb_ux.py` applied; jsPDF lazy; zero console errors and
+zero overflow at 1280/430/390px; edge cases including a life expectancy below 62, a second claiming
+age earlier than the first, and a delayed option paying less than the early one. Cards finish level
+at 440/442. Article 1,545 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the reference.
+New OG image; sitemap refreshed.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
