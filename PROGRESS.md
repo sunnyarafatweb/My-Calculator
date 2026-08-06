@@ -5826,6 +5826,104 @@ age earlier than the first, and a delayed option paying less than the early one.
 at 440/442. Article 1,545 words, 8 H2s, 8 FAQs, **zero** 8-word overlap with the reference.
 New OG image; sitemap refreshed.
 
+## Student Loan Calculator — rebuilt from stub (Aug 6, 2026)
+
+Replaced a 392-word, 3-H2 template stub with a full three-tab tool at
+`/student-loan-calculator/`. Reference page: calculator.net/student-loan-calculator.html,
+which carries three separate sub-calculators; all three are covered as tabs.
+
+**Parity (§3a-PRIME).** Input fields 18/18, result fields 17/17. Their page was read
+BOTH as source and as rendered output, per the standing note — the source gave the input
+set, and re-fetching the form with each `cpayoffoption` value (`together` / `extra` /
+`original`) and each `cpayinterest` value gave the result set, which differs per mode and
+does not appear in a single fetch. Two rows (Balance After Graduation, Balance After Grace
+Period) are correctly dropped when interest is paid during school; we match that.
+
+**Formula verification.** 40 Node assertions before any code was embedded, all passing
+against their published figures:
+- Payment mode: 30,000 / 10y / 6.8% -> $345.24, interest $11,428.92, total $41,428.92
+- Term mode: 30,000 / $400 -> 8y 2m, total $39,173.06
+- Balance mode: $345.24 / 10y -> $29,999.91 ; Rate mode -> 6.80%
+- Payoff: 30,000 / $350 + $150/mo -> 6y 2m, total $36,767.26, saves $4,421.28
+- Projection: 2y / $10k / $20k / 10y / 6mo -> $526.96, grad $44,263.99, grace $45,790.44
+- Projection with interest paid in school -> $460.32, interest $15,238.56
+
+Three conventions had to be reverse-engineered rather than assumed:
+1. Their *Simple* tool totals the term-solve using the **fractional** period count
+   (M x n, giving 39,173.06) while displaying the ceiling in years and months. A
+   carry-forward loop gives 39,173.13 and does not match.
+2. Their *Repayment* tool uses month-by-month simulation for the original schedule too
+   (41,188.54), not the closed form (41,188.33). The two tools genuinely disagree with
+   each other by 21 cents; each is matched to its own tool rather than unified.
+3. Their *Projection* tool drips **annual borrowing in twelfths each month** during study
+   (`b = b*(1+r) + annual/12`). Lump-sum-at-start-of-year is out by $795 and
+   lump-sum-at-end by $658 on the default case.
+
+An own bug was caught by internal cross-check: feeding tab 1's exactly-solved payment into
+tab 2's simulator returned 145 months instead of 144, because a sub-cent floating-point
+residue after the final period kept `bal > 0` true and billed a phantom month. Fixed with a
+half-cent epsilon on both the loop test and the final-payment test.
+
+**Deliberate differences.** All numeric defaults differ from theirs (27,500 / 12y / 6.52% /
+$310 / $125 extra / 3y / $9,500 / $14,000). Two do not, flagged rather than faked: the
+**6-month grace period**, which is the statutory federal figure and would be wrong at any
+other value, and the **No** default on paying interest during school, which is correct for
+unsubsidized loans and is a binary with no neutral third option.
+
+**Keyword research (§4).** Head term "student loan calculator" is dominated by
+studentaid.gov, Bankrate, NerdWallet, Ramsey and the reference site. Long-tail clusters with
+dedicated competitor pages, therefore real: "student loan payoff calculator" (Ramsey,
+Purefy, savingforcollege, studentloanplanner), "extra payment calculator", "repayment
+calculator", "interest calculator" — tab 2 targets these directly. The high-value gap is
+recency: OBBBA took effect July 1, 2026, and the reference article still describes
+PAYE/REPAYE/ICR/SAVE as live options. Our article covers RAP, the tiered Standard plan, the
+Grad PLUS removal and the new caps, plus confirmed 2026-27 rates (6.52% / 8.07% / 9.07%,
+from the May 12, 2026 ten-year auction at 4.468% high yield) and origination fees
+(1.057% / 4.228%). Title: "Student Loan Calculator — See When You'll Be Debt-Free" (54).
+
+**Additions beyond the reference** (none of these exist on their page): year-by-year
+amortization table with a stacked interest/principal chart, a two-line balance comparison
+for the payoff tab, an in-school balance-growth table and chart, and per-tab PDF export.
+
+**Checks.** 3 JSON-LD blocks valid; FAQ schema generated from the same Python strings as the
+visible HTML, so the em-dash/quote drift the guide warns about is structurally impossible
+rather than hand-checked, and the diff asserts byte-equality anyway; 7 inline scripts pass
+`node --check`; protected shared style block byte-identical to simple-interest-calculator;
+`apply_cb_ux.py` applied after the build (build overwrites it, so the order matters);
+jsPDF confirmed lazy — zero bytes on load, fetched on first click only. 99 Playwright
+assertions pass at 1280/430/390px: zero console errors, zero horizontal overflow, all three
+tabs computing, both radio groups switching, mobile grid resolving to a single track with
+every child at full width. Article 2,704 words, 9 H2s plus FAQ, 8 FAQs.
+
+**Originality.** 8-word overlap with the reference article: **0.000%**. Highest overlap with
+any of our own 87 articles: 1.79% (simple-interest-calculator), of which all but two runs are
+the standard byline and disclaimer blocks. The two genuine prose repeats found — a daily
+simple-interest explanation and a "paying a few days early" phrasing — were reworded before
+shipping rather than left.
+
+**Two harness bugs worth remembering, both of which produced false failures:**
+1. `node --check` was being fed the JSON-LD blocks, because the filter matched on script
+   *content* for the string "application/ld+json" — which appears in the tag's `type`
+   attribute, never in the body. Filter on the tag, not the body.
+2. The "auto-calculate must not move the page" check failed at 430px and 390px with ~50px
+   drift, and passed at 1280px. It was `page.fill()` scrolling the element into view before
+   typing — Playwright's own scroll, not the page's. Clicking the field first, so the
+   scroll-into-view happens before the baseline is taken, gives 0px drift at all three
+   widths. This is the same trap the guide already flags for `scrollIntoView`; `fill()`
+   does it too.
+
+**Housekeeping.** New OG image; sitemap lastmod refreshed; stale RSC payload removed
+(`index.txt` + six `__next*.txt`). Already listed in `calculators-index.json` and
+`/all-calculators/`. Inbound links currently 4 (sitemap, all-calculators,
+repayment-calculator, college-cost-calculator) — leaving the sidebar sweep to the deferred
+internal-linking pass rather than touching many files here.
+
+**Security.** A GitHub PAT was pasted in plaintext in the first message again — the ninth
+time this is being recorded. The previous note already downgraded this from a reminder to a
+standing unresolved risk, and nothing has changed. Treat the token as burned. The durable
+fix remains unimplemented: the owner needs to store the token outside the conversation and
+let the CLI read it from the local environment.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
