@@ -6199,6 +6199,34 @@ gets published, so this check should be repeated whenever the article quotes an 
 
 Article now 2,854 words and 10 H2s plus FAQ. 115 Playwright assertions still pass.
 
+### Second form card gets its own button pair (Aug 6, 2026)
+
+Owner: a visitor who works down the optional second card reaches the bottom, finds no
+Calculate or Clear anywhere near, and reasonably concludes the card does nothing. Correct
+reading. Auto-calculate meant it *worked*, but nothing on screen said so, and the visitor
+also lost the thing pressing Calculate actually buys on a long form: cb_ux scrolls the
+result card into view and flashes it. From the bottom of card two the answer is well off
+screen, so that jump is the whole point.
+
+Both form cards now carry the standard Calculate + Clear pair. One `run()` and one
+`clearAll()` behind both, so Clear from either card empties the whole form rather than only
+its own fields.
+
+`apply_cb_ux.py` needed no change: it collects every button whose text is exactly
+"Calculate" as well as any `[id*="-calc"]`, so `pay-calc-2` is tagged automatically. The
+browser suite now asserts that **two** buttons carry `data-cb-calc` and that `pay-clear-2`
+does **not** — the `-calc` id substring rule would happily grab a badly-named Clear button,
+and this page proves it does not here.
+
+Verified rather than assumed: from a scroll position centred on the second card's button,
+clicking it lands the result card at 88px from the top of the viewport at all three widths
+— under the 70px sticky header rather than behind it. 136 Playwright assertions now pass.
+
+Worth carrying forward: **any page whose form area holds more than one input card needs a
+button pair on each of them.** This is the first page on the site with a split form; the
+single-card pages are unaffected, and the student loan calculator's form area is one input
+card plus a notes card, so it already ends on its buttons.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators

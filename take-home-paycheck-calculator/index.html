@@ -645,6 +645,11 @@
             <label class="pay-radio"><input type="radio" name="pay-selfemp" value="no" checked><span>No</span></label>
           </div></div>
         </div>
+
+        <div class="pay-btn-row">
+          <button type="button" class="pay-btn-calc" id="pay-calc-2">Calculate</button>
+          <button type="button" class="pay-btn-clear" id="pay-clear-2">Clear</button>
+        </div>
       </div>
 
       <div class="pay-notes-card">
@@ -1286,11 +1291,16 @@ var THP = (function () {
   Array.prototype.forEach.call(document.querySelectorAll('.pay-wrap select, .pay-wrap input[type="radio"]'), function(el){
     el.addEventListener('change', run);
   });
-  $('pay-calc').addEventListener('click', run);
-  $('pay-clear').addEventListener('click', function(){
+  /* Both form cards carry their own Calculate/Clear pair. A visitor working
+     down the optional card is a long way from the first one, and with no button
+     in reach the card reads as inert -- and they lose the jump-to-result that
+     pressing Calculate gives them. Both pairs drive the same handlers. */
+  function clearAll(){
     Array.prototype.forEach.call(document.querySelectorAll('.pay-wrap input[type="text"]'), function(i){ i.value=''; });
     run(); $('pay-income').focus();
-  });
+  }
+  ['pay-calc','pay-calc-2'].forEach(function(id){ var b=$(id); if(b) b.addEventListener('click', run); });
+  ['pay-clear','pay-clear-2'].forEach(function(id){ var b=$(id); if(b) b.addEventListener('click', clearAll); });
 
   /* PDF, loaded only on click */
   var pdfLibs=null;
