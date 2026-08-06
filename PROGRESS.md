@@ -5954,6 +5954,115 @@ set is still fully covered. Browser suite grown to 114 assertions across 1280/43
 including explicit checks that neither tab echoes its own inputs and that the $0.00 bug
 cannot return.
 
+## Take-Home Paycheck Calculator — audit complete, build NOT started (Aug 6, 2026)
+
+Owner asked for `/take-home-paycheck-calculator/` against
+calculator.net/take-home-pay-calculator.html. Step 1 and Step 2 of the parity protocol are
+done and the reference site's tax model has been fully reverse-engineered. **No page code
+was written and nothing was shipped** — recording the findings here so the next session
+does not have to redo an hour of probing. The current page is still the 43KB stub.
+
+### Field map (21 inputs, all confirmed from the live form)
+
+| calculator.net | type / default |
+|---|---|
+| `cannualincome` Your job income (salary) | $/year, 80000 |
+| `cpayfrequency` | select: Daily, Weekly, Bi-weekly, Semi-monthly, Monthly, Quarterly, Semi-Annually, Annually |
+| `cfilestatus` | select: Single, MarriedJoint, MarriedSeparately, HeadofHousehold |
+| `cchildren` Children under 17 | 0 |
+| `cotherdep` Other dependents | 0 |
+| `cnonjobincome` Other income (not from jobs) | $/year, 0 |
+| `chelddeduction` Pretax deductions withheld | $/year, 6000 |
+| `cnothelddeduction` Deductions not withheld | $/year, 0 |
+| `citemdeduction` Itemized deductions | $/year, 0 |
+| `chasotherjobincome` Has 2nd/3rd job or spouse income | radio yes/no, no |
+| `cjobincome2`, `cjobincome3` | $/year, 0 (shown only when the radio is yes) |
+| `cstatetax` State income tax rate | %, 0 |
+| `ccitytax` City income tax rate | %, 0 |
+| `cage65` Are you 65 or older | radio yes/no, no |
+| `cspouse65` Is your spouse 65 or older | radio yes/no, no |
+| `ctips` Qualified tips income | $/year, 0 |
+| `covertime` Qualified overtime compensation | $/year, 0 |
+| `cloaninterest` Qualified passenger vehicle loan interest | $/year, 0 |
+| `cgifts` Cash gifts to charities | $/year, 0 |
+| `cselfemployed` Self-employed or independent contractor | radio yes/no, no |
+
+**Result fields (8 rows + two W-4 blocks):** Gross Pay, Federal Income Tax, Social Security
+Tax, Medicare Tax, State Income Tax, City Income Tax, Deductions withheld, Final Pay Check;
+then "Step 3: Claim Dependents" (qualifying children, other dependents, total) and
+"Step 4: Other Adjustments" (a other income, b deductions, c extra withholding per period).
+
+### Their model, reverse-engineered and confirmed to the cent
+
+Derived by probing ~40 parameter combinations against the live page. Every rule below
+reproduces their output exactly unless noted.
+
+1. **Gross per period** = annual income / periods (Daily uses 260, weekly 52, bi-weekly 26,
+   semi-monthly 24, monthly 12, quarterly 4, semi-annual 2, annual 1). Their footnote says
+   "based on 52 weeks per year".
+2. **Social Security** = 6.2% of income up to a **$184,500** wage base (12.4% if
+   self-employed). Confirmed: 200k single -> $11,439.00.
+3. **Medicare** = 1.45% of all income (2.9% self-employed), plus the 0.9% additional
+   Medicare surtax above a threshold.
+4. **Federal taxable income** = job income + non-job income + 2nd/3rd job income
+   − FICA actually paid − pretax deductions withheld − deductions not withheld
+   − max(standard deduction, itemized) − qualified tips − qualified overtime
+   − qualified vehicle loan interest − min(charitable gifts, 1000 single / 2000 MFJ)
+   − senior deduction. Then 2026 brackets, then credits.
+5. **Credits**: $2,200 per child under 17, $500 per other dependent.
+6. **Standard deductions 2026**: 16,100 single and MFS, 32,200 MFJ, 24,150 HoH — matches
+   IRS Rev. Proc. 2025-32.
+7. **Senior deduction**: the OBBBA $6,000 per qualifying person 65+.
+8. **Self-employed**: FICA doubles, and an extra deduction equal to half of it is applied.
+9. **State and city tax**: a flat percentage of gross job income. No brackets, no state
+   standard deduction, no local rules. Simple by design.
+
+### THREE defects in the reference, all confirmed — do not replicate
+
+Per the guide's standing rule (the FHA MIP precedent), match the field but not the error,
+implement the correct figure, explain it on the page, and flag it in the step-7 report.
+
+1. **FICA is subtracted from federal taxable income.** This is the big one and it affects
+   *every single result on their page*. The employee share of FICA is not deductible for a
+   W-2 employee. Worked example, $100,000 single, no other inputs:
+   - Correct: taxable 100,000 − 16,100 = 83,900 -> **$13,170** federal tax.
+     Independently confirmed against a third-party 2026 bracket calculator, which states
+     the same $83,900 / ~$13,170 for exactly this case.
+   - calculator.net: taxable 100,000 − 7,650 − 16,100 = 76,250 -> **$11,487.00**.
+   - They understate federal income tax by **$1,683, or 12.8%**, and the understatement
+     scales with income. On a YMYL paycheck page that is not a rounding difference; it
+     tells a visitor their take-home is ~$140/month higher than it will be.
+   - The one place this deduction *is* partly legitimate is self-employment, where half the
+     SE tax is deductible — and they already apply that separately on top, so the
+     self-employed path double-counts.
+2. **Senior deduction is a cliff, not a phase-out.** The statute phases the $6,000 out at
+   6% of MAGI above $75,000 single / $150,000 MFJ, gone entirely by $175,000. They apply it
+   in full at $74,000 and zero at $76,000. Verified: single 74k diff $903.90, single 76k
+   diff $0.00.
+3. **Additional Medicare threshold is $0 for Married Filing Separately.** Implied
+   thresholds from a 300k probe: Single 200,000 (correct), MFJ 250,000 (correct),
+   HoH 200,000 (correct), **MFS 0** (should be 125,000). An MFS filer on $80,000 is charged
+   $720 of surtax they do not owe.
+
+Also worth deciding at build time: they ignore the pre-OBBBA additional standard deduction
+for age 65 ($2,050 single/HoH, $1,650 per spouse MFJ), which is separate from and stacks
+with the new $6,000 senior deduction. Whether to add it is a judgement call, but it should
+be a deliberate one.
+
+### Build notes for next session
+
+- Three defects above mean our numbers will diverge from the reference on purpose. The
+  step-7 report must list all three under "Intentional differences", and the article needs a
+  short section explaining why our federal figure is higher than some other calculators'.
+- Because the numbers will differ, the usual "matches the reference to the cent" evidence
+  does not apply here. Verify instead against the IRS bracket tables directly, and
+  cross-check two or three whole scenarios against an independent 2026 calculator.
+- This is the most YMYL page on the site so far. Budget time for the tax-table article
+  (2026 brackets for all four statuses, FICA rates and caps, the OBBBA deductions) rather
+  than treating it as a normal calculator build.
+- Suggested tabs, given the field count: a main Paycheck tab, and a Self-employed tab, so
+  the 21 fields are not stacked into one form card.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
