@@ -399,6 +399,8 @@
 .pay-result-head .big{font-size:23px;font-weight:700;line-height:1.25}
 .pay-result-head .sub{font-size:12.5px;opacity:.93;margin-top:6px;line-height:1.55}
 .pay-result-body{padding:2px 20px 16px}
+.pay-flag{margin:14px 20px 0;padding:12px 14px;background:#FEF6E7;border:1px solid #F3D9A4;border-left:4px solid #B45309;border-radius:10px;font-size:12.5px;line-height:1.6;color:#5C3D0B}
+.pay-flag b{color:#7A4E08}
 .pay-subhead{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);padding:14px 0 2px}
 .pay-result-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
 .pay-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
@@ -624,7 +626,7 @@
             <label class="pay-radio"><input type="radio" name="pay-age65" value="no" checked><span>No</span></label>
           </div></div>
         </div>
-        <div class="pay-field" style="align-items:flex-start">
+        <div class="pay-field" id="pay-spouse65-row" style="align-items:flex-start;display:none">
           <span class="pay-field-label">Is your spouse 65 or older?</span>
           <div class="pay-field-control"><div class="pay-radio-row">
             <label class="pay-radio"><input type="radio" name="pay-spouse65" value="yes"><span>Yes</span></label>
@@ -660,6 +662,7 @@
           <div class="big" id="pay-big">&mdash;</div>
           <div class="sub" id="pay-sub">Enter your salary to see the paycheck.</div>
         </div>
+        <div class="pay-flag" id="pay-flag" style="display:none"></div>
         <div class="pay-result-body" id="pay-rows"></div>
       </div>
 
@@ -1145,6 +1148,7 @@ var THP = (function () {
       $('pay-big').innerHTML='\u2014';
       $('pay-sub').textContent='Enter your salary before tax to see the paycheck.';
       $('pay-rows').innerHTML='';
+      $('pay-flag').style.display='none';
       $('pay-donut-card').style.display='none';
       $('pay-freq-body').innerHTML=''; $('pay-freq-foot').innerHTML='';
       return;
@@ -1153,23 +1157,60 @@ var THP = (function () {
     var r=THP.compute(i);
     last={inputs:i, res:r};
 
+    var married = i.status==='joint' || i.status==='separate';
+    $('pay-spouse65-row').style.display = married ? '' : 'none';
+
     $('pay-head').className='pay-result-head';
     $('pay-big').innerHTML=money(r.netPerPeriod)+'<span style="font-size:14px;font-weight:600;opacity:.9"> '+FREQ_SHORT[i.frequency]+'</span>';
     $('pay-sub').textContent='Take-home pay, '+FREQ_LABEL[i.frequency].toLowerCase()+'. That is '
       + money(r.annual.net)+' over the year on a salary of '+money0(i.jobIncome)+'.';
 
+    /* --- sanity flags -------------------------------------------------
+       A bare negative take-home is not a useful answer. Say why. */
+    var flags=[];
+    if(i.preTaxDeductions > i.jobIncome){
+      flags.push('Your pre-tax deductions of <b>'+money0(i.preTaxDeductions)+'</b> are larger than the salary of <b>'
+        + money0(i.jobIncome)+'</b>, so there is nothing left to pay out.');
+    } else if(r.netPerPeriod < 0){
+      flags.push('The tax owed on this household is more than this one salary can cover, so the paycheck comes out '
+        + 'negative. In real life payroll withholds only what the check can bear and the rest is settled when you file.');
+    }
+    if(i.stateRate + i.cityRate > 20){
+      flags.push('A combined state and city rate of <b>'+(i.stateRate+i.cityRate).toFixed(1)+'%</b> is higher than any '
+        + 'US jurisdiction charges. The highest state rate is around 13%.');
+    }
+    var capped=[];
+    if(i.tips > r.tipsDeduction) capped.push('tips');
+    if(i.overtime > r.overtimeDeduction) capped.push('overtime');
+    if(i.carLoanInterest > r.carDeduction) capped.push('car loan interest');
+    if(i.charity > r.charityUsed && !r.usedItemized) capped.push('charitable gifts');
+    if(capped.length){
+      flags.push('The cap or income phase-out limits what you can deduct for <b>'+capped.join(', ')
+        + '</b>, so only part of what you entered is counted.');
+    }
+    if(flags.length){ $('pay-flag').style.display=''; $('pay-flag').innerHTML=flags.join('<br><br>'); }
+    else { $('pay-flag').style.display='none'; $('pay-flag').innerHTML=''; }
+
+    var ssLabel = i.selfEmployed ? 'Social Security (both halves)' : 'Social Security';
+    var medLabel = i.selfEmployed ? 'Medicare (both halves)' : 'Medicare';
+    var newDeductions = r.seniorDeduction + r.tipsDeduction + r.overtimeDeduction + r.carDeduction + r.charityUsed;
+
     var withheld=r.federalPerPeriod+r.ssPerPeriod+r.medicarePerPeriod+r.statePerPeriod+r.cityPerPeriod;
     $('pay-rows').innerHTML =
         '<div class="pay-result-row"><span>Gross pay</span><span>'+money(r.grossPerPeriod)+'</span></div>'
       + '<div class="pay-result-row is-neg"><span>Federal income tax</span><span>'+money(-r.federalPerPeriod)+'</span></div>'
-      + '<div class="pay-result-row is-neg"><span>Social Security</span><span>'+money(-r.ssPerPeriod)+'</span></div>'
-      + '<div class="pay-result-row is-neg"><span>Medicare</span><span>'+money(-r.medicarePerPeriod)+'</span></div>'
+      + '<div class="pay-result-row is-neg"><span>'+ssLabel+'</span><span>'+money(-r.ssPerPeriod)+'</span></div>'
+      + '<div class="pay-result-row is-neg"><span>'+medLabel+'</span><span>'+money(-r.medicarePerPeriod)+'</span></div>'
       + '<div class="pay-result-row is-neg"><span>State income tax</span><span>'+money(-r.statePerPeriod)+'</span></div>'
       + '<div class="pay-result-row is-neg"><span>City income tax</span><span>'+money(-r.cityPerPeriod)+'</span></div>'
       + '<div class="pay-result-row is-neg"><span>Pre-tax deductions</span><span>'+money(-r.preTaxPerPeriod)+'</span></div>'
       + '<div class="pay-result-row is-key"><span>Take-home pay</span><span>'+money(r.netPerPeriod)+'</span></div>'
-      + '<div class="pay-subhead">Over a full year</div>'
+      + '<div class="pay-subhead">How the tax was worked out</div>'
+      + '<div class="pay-result-row"><span>'+(r.usedItemized?'Itemized deductions used':'Standard deduction used')+'</span><span>'+money(r.baseDeduction)+'</span></div>'
+      + (newDeductions>0.005 ? '<div class="pay-result-row"><span>New 2026 deductions applied</span><span>'+money(newDeductions)+'</span></div>' : '')
+      + (r.credit>0.005 ? '<div class="pay-result-row"><span>Credit for dependents</span><span>'+money(r.credit)+'</span></div>' : '')
       + '<div class="pay-result-row"><span>Taxable income</span><span>'+money(r.taxable)+'</span></div>'
+      + '<div class="pay-subhead">Over a full year</div>'
       + '<div class="pay-result-row"><span>Total tax withheld</span><span>'+money(r.annual.totalTax)+'</span></div>'
       + '<div class="pay-result-row"><span>Take-home for the year</span><span>'+money(r.annual.net)+'</span></div>'
       + '<div class="pay-result-row"><span>Marginal federal rate</span><span>'+(r.marginal*100).toFixed(0)+'%</span></div>'

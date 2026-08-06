@@ -6122,6 +6122,52 @@ declarations instead. Worth folding back into the shared validator.
 **Housekeeping.** New OG image; sitemap lastmod refreshed; stale RSC payload removed.
 Already in `calculators-index.json` and `/all-calculators/`; 6 inbound links.
 
+### Self-audit pass, Aug 6, 2026 — used both pages as a visitor and fixed what got in the way
+
+Owner asked for a final audit, including actually using the tools and fixing anything
+confusing. Five real defects found, all now fixed and covered by tests.
+
+**Student Loan Calculator — a value the visitor typed was silently discarded.**
+The worst of the five. Tab 1 solves for whichever of the four boxes is left empty, and the
+default leaves Monthly payment blank. So the natural next move — typing "400" into the
+payment box to ask "what if I paid $400?" — filled all four boxes, and the code fell back to
+`solveFor = 'payment'`, recomputed $275.82 and displayed that. The page looked frozen and
+ignored the visitor. Reproduced in Playwright before fixing. All four filled is genuinely
+ambiguous, so it now says so and names the box to clear, with a worked suggestion for each
+direction. Two assertions added.
+
+**Take-Home Paycheck — four fixes from an edge-case sweep and a read-through:**
+
+1. **A negative paycheck came out as a bare minus number.** Entering pre-tax deductions
+   larger than the salary, or a large non-job income against a small salary, produced things
+   like -$91,664 with no explanation. There is now an amber strip under the headline that
+   names the cause: deductions exceeding salary, or tax on the household exceeding what one
+   check can bear (with the note that payroll withholds only what the check covers and the
+   rest settles at filing).
+2. **Capped and phased-out entries looked broken.** Type $60,000 of tips and only $25,000
+   counts; the number simply did not move and there was no way to know why. The strip now
+   names which of tips, overtime, car loan interest or charitable gifts was limited.
+3. **The spouse-65 question showed for single filers,** where the engine ignores it. Now
+   hidden unless the filing status is married.
+4. **Nothing explained where the tax came from.** Added a "How the tax was worked out"
+   block: which deduction was used and whether it was standard or itemized (this is what
+   makes an ignored itemized entry legible), the new-2026 deductions actually applied, the
+   dependent credit, and taxable income. Also an impossible state/city rate is now flagged
+   against the ~13% real-world maximum, and the FICA rows say "both halves" when
+   self-employed rather than implying an employer is paying half.
+
+**Verification after the changes.** Student loan: 40 engine assertions, validation, 116
+Playwright assertions. Paycheck: 53 engine assertions, validation, 115 Playwright
+assertions. All pass at 1280/430/390px with zero console errors and zero overflow.
+
+**Sitewide regression check.** All 214 pages scanned: `git status` shows only the two files
+this session touched, and the protected shared style block is byte-identical on every page
+that carries one. Two pre-existing findings for the deferred audit, neither caused here and
+neither touched: six pages carry a shared block that differs from the reference
+(debt-to-income, debt-payoff, profit-loss, all-calculators, 404, _not-found), and the eight
+crypto/trading pages carry no protected block at all, which matches the separate design
+system the guide documents for that batch.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators

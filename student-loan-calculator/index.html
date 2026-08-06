@@ -1243,8 +1243,13 @@
       $('stu-chart-1').innerHTML = '';
     }
     if(missing.length > 1) return fail('Leave exactly one box empty \u2014 that is the one worked out.');
-    var solveFor = missing.length ? missing[0] : 'payment';
-    if(!missing.length && !isFinite(pay)) solveFor = 'payment';
+    /* All four filled is ambiguous: solving for any one of them means quietly
+       throwing away a number the visitor just typed. Previously this defaulted
+       to payment, so typing a payment appeared to do nothing at all. Ask. */
+    if(!missing.length) return fail('All four boxes have a value, so there is nothing left to work out. '
+      + 'Clear the one you want answered \u2014 empty the term box to see how long that payment takes, '
+      + 'or empty the payment box to get the payment back.');
+    var solveFor = missing[0];
 
     var r = rate/100/12, o = {};
     if(solveFor === 'payment'){
