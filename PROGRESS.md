@@ -6168,6 +6168,37 @@ neither touched: six pages carry a shared block that differs from the reference
 crypto/trading pages carry no protected block at all, which matches the separate design
 system the guide documents for that batch.
 
+### The second card did not explain itself (Aug 6, 2026)
+
+The owner read the finished page and asked what the "Deductions and other income" card was
+actually for. That is the signal that matters: if the person who commissioned the page
+cannot tell, no visitor will either. The card was a bare list of twelve jargon fields with
+one line of instruction ("Leave anything that does not apply at zero") that said what to do
+and never why.
+
+Fixed in three places:
+
+1. **The card now states its purpose.** Retitled "Anything else that affects your tax", with
+   an intro saying the first card assumes a plain situation and this one is for whatever
+   makes your case different &mdash; and that most people can leave all of it at zero.
+2. **Each of the four sections carries a one-line note saying which way it moves the
+   paycheck** and why. The deductions note calls out the counter-intuitive case explicitly:
+   pre-tax deductions push take-home *down* because the money goes to your 401(k) or HSA
+   rather than your bank. Two sub-labels were also expanded ("claimed on your return, not
+   through payroll"; the $1,000/$2,000 charity limit).
+3. **A new article section, "What the second card is for, and when to touch it"**, with a
+   table giving the annual effect of every field against the page defaults, so the
+   abstraction is grounded in dollars. It also explains that doubling a 401(k) costs $4,154
+   of take-home but adds $4,800 to the account, leaving you $646 ahead &mdash; the single
+   most misread line on any paycheck calculator.
+
+**Every figure in that table is generated from the shipped engine and asserted**, not typed
+from memory: thirteen claims checked against `THP.compute` on the page defaults, all within
+a dollar. Writing worked examples into a YMYL article by hand is exactly how a wrong number
+gets published, so this check should be repeated whenever the article quotes an output.
+
+Article now 2,854 words and 10 H2s plus FAQ. 115 Playwright assertions still pass.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
