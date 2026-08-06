@@ -410,7 +410,8 @@
 .stu-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
 .stu-result-row.is-key span:last-child{color:#128A3D}
 .stu-donut-title{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);padding:14px 20px 0;border-top:1px solid var(--border-fine);margin-top:6px}
-.stu-donut-wrap{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;padding:10px 20px 20px}
+.stu-donut-card .stu-break-head{padding:15px 18px}
+.stu-donut-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px}
 .stu-donut-svg{width:118px;height:118px;flex-shrink:0}
 .stu-donut-legend{display:flex;flex-direction:column;gap:7px;min-width:150px;flex:1}
 .stu-lg{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.45;color:var(--ink-soft)}
@@ -483,7 +484,7 @@
   .stu-break-table th,.stu-break-table td{padding:8px 7px}
   .stu-chart{min-width:300px}
   .stu-chart-wrap{padding:14px 12px 6px}
-  .stu-donut-wrap{padding:10px 14px 18px}
+  .stu-donut-wrap{padding:14px}
   .stu-card-pad{padding:18px}
   .stu-extra{padding-left:12px}
 }
@@ -558,16 +559,24 @@
   </div>
 
   <div class="stu-area-result">
-    <div class="stu-result-card" id="stu-result-1">
-      <div class="stu-result-head" id="stu-head-1">
-        <div class="big" id="stu-big-1">&mdash;</div>
-        <div class="sub" id="stu-sub-1">Leave one box empty and the other three will find it.</div>
+    <div class="stu-stack">
+      <div class="stu-result-card" id="stu-result-1">
+        <div class="stu-result-head" id="stu-head-1">
+          <div class="big" id="stu-big-1">&mdash;</div>
+          <div class="sub" id="stu-sub-1">Leave one box empty and the other three will find it.</div>
+        </div>
+        <div class="stu-result-body" id="stu-rows-1"></div>
       </div>
-      <div class="stu-result-body" id="stu-rows-1"></div>
-      <div class="stu-donut-title" id="stu-donut-title-1" style="display:none">Where the money goes</div>
-      <div class="stu-donut-wrap" id="stu-donut-wrap-1" style="display:none">
-        <svg class="stu-donut-svg" id="stu-donut-1" viewBox="0 0 42 42" role="img" aria-label="Principal and interest as shares of everything repaid"></svg>
-        <div class="stu-donut-legend" id="stu-donut-legend-1"></div>
+
+      <div class="stu-card stu-donut-card" id="stu-donut-card-1" style="display:none">
+        <div class="stu-break-head"><div>
+          <span class="t">Where the money goes</span>
+          <span class="s" id="stu-donut-sub-1">Principal against interest across the whole loan</span>
+        </div></div>
+        <div class="stu-donut-wrap">
+          <svg class="stu-donut-svg" id="stu-donut-1" viewBox="0 0 42 42" role="img" aria-label="Principal and interest as shares of everything repaid"></svg>
+          <div class="stu-donut-legend" id="stu-donut-legend-1"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -838,16 +847,24 @@
   </div>
 
   <div class="stu-area-result">
-    <div class="stu-result-card" id="stu-result-3">
-      <div class="stu-result-head" id="stu-head-3">
-        <div class="big" id="stu-big-3">&mdash;</div>
-        <div class="sub" id="stu-sub-3">Fill in the boxes on the left.</div>
+    <div class="stu-stack">
+      <div class="stu-result-card" id="stu-result-3">
+        <div class="stu-result-head" id="stu-head-3">
+          <div class="big" id="stu-big-3">&mdash;</div>
+          <div class="sub" id="stu-sub-3">Fill in the boxes on the left.</div>
+        </div>
+        <div class="stu-result-body" id="stu-rows-3"></div>
       </div>
-      <div class="stu-result-body" id="stu-rows-3"></div>
-      <div class="stu-donut-title" id="stu-donut-title-3" style="display:none">Where the money goes</div>
-      <div class="stu-donut-wrap" id="stu-donut-wrap-3" style="display:none">
-        <svg class="stu-donut-svg" id="stu-donut-3" viewBox="0 0 42 42" role="img" aria-label="Amount borrowed and interest as shares of everything repaid"></svg>
-        <div class="stu-donut-legend" id="stu-donut-legend-3"></div>
+
+      <div class="stu-card stu-donut-card" id="stu-donut-card-3" style="display:none">
+        <div class="stu-break-head"><div>
+          <span class="t">Where the money goes</span>
+          <span class="s" id="stu-donut-sub-3">What you borrow against what it costs to repay</span>
+        </div></div>
+        <div class="stu-donut-wrap">
+          <svg class="stu-donut-svg" id="stu-donut-3" viewBox="0 0 42 42" role="img" aria-label="Amount borrowed and interest as shares of everything repaid"></svg>
+          <div class="stu-donut-legend" id="stu-donut-legend-3"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1220,8 +1237,7 @@
       $('stu-big-1').innerHTML = '\u2014';
       $('stu-sub-1').textContent = msg;
       $('stu-rows-1').innerHTML = '';
-      $('stu-donut-title-1').style.display = 'none';
-      $('stu-donut-wrap-1').style.display = 'none';
+      $('stu-donut-card-1').style.display = 'none';
       $('stu-sched-body-1').innerHTML = '';
       $('stu-sched-foot-1').innerHTML = '';
       $('stu-chart-1').innerHTML = '';
@@ -1278,17 +1294,19 @@
     $('stu-sub-1').textContent = o.label + ' \u2014 ' + money(o.balance) + ' over ' + months(o.months) + ' at ' + pct(o.ratePct) + '.';
 
     var list = [];
-    if(solveFor !== 'payment') list.push({k:'Monthly payment', v:money(o.payment)});
-    if(solveFor !== 'balance') list.push({k:'Loan balance', v:money(o.balance)});
-    if(solveFor !== 'term') list.push({k:'Remaining term', v:months(o.months)});
-    if(solveFor !== 'rate') list.push({k:'Interest rate', v:pct(o.ratePct)});
+    /* Only DERIVED figures belong here. The three boxes the visitor filled in
+       themselves are already on screen in the form beside this card, and the
+       one being solved for is the big number above -- repeating them back was
+       just noise pushing the real answers down. */
+    if(solveFor !== 'payment') list.push({k:'Monthly payment', v:money(o.payment), key:true});
     list.push({k:'Total interest', v:money(o.totalInterest), key:true});
     list.push({k:'Total of all payments', v:money(o.totalPaid)});
     list.push({k:'Interest per dollar borrowed', v:'$' + (o.totalInterest/o.balance).toFixed(2)});
+    list.push({k:'Interest as a share of the total', v:(o.totalInterest/o.totalPaid*100).toFixed(1) + '%'});
     rows($('stu-rows-1'), list);
 
-    $('stu-donut-title-1').style.display = '';
-    $('stu-donut-wrap-1').style.display = '';
+    $('stu-donut-card-1').style.display = '';
+    $('stu-donut-sub-1').textContent = money(o.totalPaid) + ' repaid on ' + money(o.balance) + ' borrowed';
     donut($('stu-donut-1'), $('stu-donut-legend-1'), [
       {k:'Principal', v:o.balance, c:'#1E3A5F'},
       {k:'Interest', v:Math.max(o.totalInterest,0), c:'#16A34A'}
@@ -1438,8 +1456,7 @@
       $('stu-big-3').innerHTML = '\u2014';
       $('stu-sub-3').textContent = msg;
       $('stu-rows-3').innerHTML = '';
-      $('stu-donut-title-3').style.display = 'none';
-      $('stu-donut-wrap-3').style.display = 'none';
+      $('stu-donut-card-3').style.display = 'none';
       $('stu-sched-body-3').innerHTML = '';
       $('stu-sched-foot-3').innerHTML = '';
       $('stu-chart-3').innerHTML = '';
@@ -1455,13 +1472,15 @@
     if(!(borrowed>0)) return fail('Enter what you have borrowed so far, or what you expect to borrow each year.');
 
     var r = rate/100/12, schoolM = Math.round(gradY*12), n = Math.round(termY*12);
-    var bal, afterGrad, afterGrace, growth = [];
+    var bal, afterGrad, afterGrace, growth = [], schoolInterest = 0;
     if(paying){
       bal = cur;
       for(var m=1;m<=schoolM;m++){
+        schoolInterest += bal*r;
         bal = bal + annual/12;
         if(m%12===0) growth.push({label:'Year '+(m/12), borrowed:bal, interest:0, balance:bal});
       }
+      schoolInterest += bal*r*grace;
       afterGrad = borrowed; afterGrace = borrowed;
     } else {
       bal = cur;
@@ -1481,7 +1500,7 @@
     var totalPaid = payment*n;
     var totalInterest = totalPaid - borrowed;
     last3 = {borrowed:borrowed, afterGrad:afterGrad, afterGrace:afterGrace, payment:payment, months:n,
-             totalPaid:totalPaid, totalInterest:totalInterest, paying:paying, growth:growth, ratePct:rate};
+             totalPaid:totalPaid, totalInterest:totalInterest, paying:paying, growth:growth, ratePct:rate, schoolInterest:schoolInterest};
 
     $('stu-head-3').className = 'stu-result-head';
     $('stu-big-3').innerHTML = money(payment) + '<span style="font-size:14px;font-weight:600;opacity:.9">/month</span>';
@@ -1492,17 +1511,19 @@
       list.push({k:'Balance at graduation', v:money(afterGrad)});
       list.push({k:'Balance when repayment starts', v:money(afterGrace)});
       list.push({k:'Interest added before the first bill', v:money(afterGrace-borrowed), key:true});
+      list.push({k:'Total interest over the loan', v:money(totalInterest), key:true});
+      list.push({k:'Total of all payments', v:money(totalPaid)});
     } else {
-      list.push({k:'Interest paid while studying', v:money(0)});
+      list.push({k:'Interest paid while studying', v:money(schoolInterest)});
       list.push({k:'Balance when repayment starts', v:money(afterGrace)});
+      list.push({k:'Interest over the repayment term', v:money(totalInterest), key:true});
+      list.push({k:'Total of all payments', v:money(totalPaid)});
+      list.push({k:'Everything paid, in-school interest included', v:money(totalPaid + schoolInterest)});
     }
-    list.push({k:'Monthly payment', v:money(payment)});
-    list.push({k:'Total interest over the loan', v:money(totalInterest), key:true});
-    list.push({k:'Total of all payments', v:money(totalPaid)});
     rows($('stu-rows-3'), list);
 
-    $('stu-donut-title-3').style.display = '';
-    $('stu-donut-wrap-3').style.display = '';
+    $('stu-donut-card-3').style.display = '';
+    $('stu-donut-sub-3').textContent = money(totalPaid) + ' repaid on ' + money(borrowed) + ' borrowed';
     donut($('stu-donut-3'), $('stu-donut-legend-3'), [
       {k:'Amount borrowed', v:borrowed, c:'#1E3A5F'},
       {k:'Interest', v:Math.max(totalInterest,0), c:'#16A34A'}

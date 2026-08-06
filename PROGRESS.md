@@ -5924,6 +5924,36 @@ standing unresolved risk, and nothing has changed. Treat the token as burned. Th
 fix remains unimplemented: the owner needs to store the token outside the conversation and
 let the CLI read it from the local environment.
 
+### Follow-up, same day: result cards show results, not the visitor's own input
+
+Owner feedback on the live page: the result card was leading with Loan balance,
+Remaining term and Interest rate — three values the visitor had just typed into the
+form sitting immediately to its left. That pushed the actual answers below the fold of
+the card for no gain. Changed across the tool:
+
+- **Tab 1** now lists only derived figures: total interest, total of all payments,
+  interest per dollar borrowed, and interest as a share of the total. The solved value
+  stays in the green headline; the inputs stay in the form where they were entered.
+- **Tab 3** dropped `Monthly payment` from its rows, which was a verbatim repeat of its
+  own headline.
+- **The donut moved to its own card** below the result card, with a subline reading
+  "$X repaid on $Y borrowed", per the owner's request to make it a separate chart.
+
+While doing this a real defect surfaced in tab 3: in "Yes, I pay interest while studying"
+mode the card printed `Interest paid while studying: $0.00`, which is simply false — that
+is the one mode where the borrower *is* paying it. The in-school and grace-period interest
+is now accumulated properly in the loop and reported, along with a new
+"Everything paid, in-school interest included" total. Cross-checked independently in Node:
+$6,833.77 against the page's $6,833.78 on the default figures (one cent of float ordering).
+The comparison this unlocks is the point of the toggle — $68,215.66 all-in if the interest
+is paid during study against $72,213.23 if it capitalises.
+
+Parity is unaffected: no field was removed, and every reference figure still matches. The
+removed rows echoed inputs rather than reporting outputs, so the reference site's own result
+set is still fully covered. Browser suite grown to 114 assertions across 1280/430/390px,
+including explicit checks that neither tab echoes its own inputs and that the $0.00 bug
+cannot return.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
