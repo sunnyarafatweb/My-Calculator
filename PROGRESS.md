@@ -6063,6 +6063,65 @@ be a deliberate one.
 - Suggested tabs, given the field count: a main Paycheck tab, and a Self-employed tab, so
   the 21 fields are not stacked into one form card.
 
+### Built, Aug 6, 2026 — and it deliberately does NOT match the reference
+
+Owner instruction: fix what is wrong and build it correctly. Done. This is the first page
+on the site where matching the reference to the cent would have been the wrong outcome, so
+the usual evidence standard is replaced: every figure is checked against the published IRS
+tables and against independent third-party calculators instead.
+
+**Input fields 21/21, result fields 8/8 plus both W-4 blocks.** No field dropped.
+
+**Where we differ from the reference, on purpose:**
+1. **FICA is not deducted from federal taxable income.** Theirs does; the employee share is
+   not deductible. On $100,000 single: correct taxable $83,900 -> $13,170, theirs $11,487.
+   Independently confirmed — a third-party 2026 bracket calculator states the same
+   $83,900 / $13,170 for that case, and the engine test asserts it.
+2. **Senior deduction phases out at 6% of income above $75,000 / $150,000** rather than
+   falling off a cliff at $75,000. At $80,000 single the correct deduction is $5,700; theirs
+   is $0.
+3. **Additional Medicare threshold for married filing separately is $125,000,** not $0.
+   Theirs charges an MFS filer on $80,000 a $720 surtax they do not owe.
+4. **The OBBBA deductions are capped and phased out.** Theirs applies tips, overtime and car
+   loan interest with no cap at all. Correct: tips $25,000, overtime $12,500 / $25,000,
+   car loan interest $10,000, each with its own phase-out ($100 per $1,000 for tips and
+   overtime above $150k/$300k; $200 per $1,000 for car loan above $100k/$200k).
+5. **Self-employment tax applies to 92.35% of net earnings,** as the code requires. Theirs
+   uses 100% and then also subtracts full FICA at step 1, double-counting the relief.
+6. **The additional standard deduction for 65+** ($2,050 single/HoH, $1,650 per spouse) is
+   applied and stacks with the new $6,000 senior deduction. Theirs ignores it.
+
+The article carries a callout explaining point 1 in plain language, because a visitor who
+cross-checks against another site will otherwise think our number is wrong. That is a
+feature: the difference is roughly $140 a month of take-home that does not exist.
+
+**Verification.** 53 Node assertions on the engine covering bracket maths for all four
+statuses (anchored on two independently published totals, $13,170 single and $45,196 joint),
+FICA caps and all three surtax thresholds, credit and deduction phase-outs, itemizing,
+self-employment, all eight pay frequencies, and row-reconciliation. The engine lives in
+`part_engine.js` and is **inlined verbatim** by the builder, and the browser suite asserts
+the shipped copy is byte-identical to the tested one — so the two cannot drift.
+85 Playwright assertions at 1280/430/390px, zero console errors, zero overflow.
+
+**Other checks.** 3 JSON-LD blocks valid; FAQ schema generated from the same strings as the
+visible text; 9 inline scripts pass `node --check`; protected style block byte-identical;
+`apply_cb_ux.py` applied after the build; jsPDF lazy. Article 2,483 words, 9 H2s, 8 FAQs.
+8-word overlap with the reference article: **0.000%**. Highest internal overlap 1.09%
+(student-loan-calculator), all of it byline, disclaimer and shared H2 headings.
+
+**Keyword research.** Head term "take home paycheck calculator" is held by ADP, SmartAsset,
+PaycheckCity and the reference. The differentiated angle is again currency plus correctness:
+the 2026 brackets, the four new OBBBA deductions with their real caps, and the W-4 Step 3/4
+output that most paycheck calculators omit. Title: "Take-Home Paycheck Calculator — 2026
+After-Tax Pay" (50 chars).
+
+**Validator note.** `validate.py` hard-coded a `tabs` grid area, which this untabbed page
+does not have. Fixed by deriving the required area set from the page's own `grid-area:`
+declarations instead. Worth folding back into the shared validator.
+
+**Housekeeping.** New OG image; sitemap lastmod refreshed; stale RSC payload removed.
+Already in `calculators-index.json` and `/all-calculators/`; 6 inbound links.
+
 ## DEFERRED — site-wide fixes held back for the final audit pass
 
 **Owner decision, Aug 4, 2026:** finish building/rebuilding the individual calculators
