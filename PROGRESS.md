@@ -7306,6 +7306,51 @@ validation, no self-link, cross-link to the pregnancy calculator, exact PDF file
 0px drift.
 
 
+### Close-out audit of everything flagged today (Aug 7, 2026)
+
+The owner asked whether the problems found during the day had actually been fixed. Rather than
+answer from memory, every fix was re-verified and the newly-learned checks were run
+retroactively across all nine pages touched today.
+
+**Verified fixed and holding:** sitewide colour scheme; Other Units missing from Body Fat and
+BMR; TDEE carrying the wrong converter; incomplete unit lists (Acre and the six Imperial volume
+units); converter layout stacked From-above-To; Settings replaced by the mortgage More Options
+button; the BMR result label; the Macro protein floor; the `.pg-bar` class collision; the due
+date self-link and PDF filename; sitemap `lastmod` and the two missing URLs.
+
+**Retroactive sweep across all nine pages.** No self-links anywhere else. Every PDF filename
+matches its page. The duplicate-class guard reported six hits per page, all false positives on
+inspection — sibling (`.x+.x`) and descendant (`.a .b`) selectors, not collisions. The `.pg-bar`
+case remains the only real one.
+
+**One genuine finding: four stale assertions on the VA mortgage suite.** They described the
+*earlier* Clear behaviour — reset to defaults, scroll the fields back into view, flash the result
+card — written before the site standardised on calculator.net's `clearForm()` (empty every typed
+box, leave selects and radios, no scroll, no recalculation, no flash). The live page was checked
+directly and behaves correctly: 0px drift, no flash, radios and selects untouched. So the page
+was right and the tests were out of date, which is its own kind of failure — a suite that
+asserts superseded behaviour will eventually block a correct change. Block rewritten; VA suite
+now 91 assertions.
+
+**Also closed:** `/crypto-profit-calculator/` was a self-canonicalising indexable duplicate of
+`/crypto-profit-loss-calculator/` sitting in the repo. It 301s and is absent from the sitemap, so
+it has no effect today, but it becomes a live duplicate the moment `_redirects` is touched. Its
+canonical now points at the replacement and it is `noindex, follow`. Deleting the directory
+would also work but risks a 404 if redirect precedence ever changes.
+
+**Final state:** VAT 74 · VA Mortgage 91 · Body Fat 97 · BMR 112 · TDEE 124 · Ideal Weight 86 ·
+Macro 131 · Pregnancy 81 · Due Date 85 — all passing against the live site.
+
+**Still open, awaiting the owner's decision** (flagged, deliberately not changed):
+1. **Body Fat** — the reference publishes the US-customary Navy equations but its calculator
+   applies the SI ones to both unit tabs. We match the implementation, so our numbers agree with
+   theirs everywhere; switching would match the published Navy method at the cost of the two
+   tabs disagreeing by up to ~0.7 points for the same body.
+2. **Pregnancy** — the secondary "X months Y days" line matches in 11 of 13 probes, the two
+   misses being 3 days and 1 day out. Their own figure is internally inconsistent, so ours is
+   arguably sounder, but it is a difference.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
