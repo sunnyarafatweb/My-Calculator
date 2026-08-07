@@ -6855,6 +6855,70 @@ Health & Fitness build and would otherwise have propagated across the whole sect
 (`rgb(22,163,74)` and `rgb(30,58,95)`).
 
 
+## BMR Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 46KB template stub at `/bmr-calculator/` with a full 3-card build (93KB).
+Reference: calculator.net/bmr-calculator.html.
+
+**Parity (§3a-PRIME).** Input fields 13/13, result fields 7/7 (BMR headline plus six
+activity rows), both unit tabs, the collapsible Settings panel with its results-unit,
+formula and body-fat controls, and both validation rules.
+
+**Formula verification.** 8 Node assertions against the reference's own output before any
+code was embedded, all exact:
+- US Mifflin 1,717 with rows 2,060 / 2,361 / 2,515 / 2,661 / 2,962 / 3,262
+- Metric Mifflin 1,605 · Revised Harris-Benedict 1,614 · Katch-McArdle at 20% 1,407
+- Metric female 1,439 · Metric kJ 6,720 · US kJ 7,189 · US Katch at 30% 1,467
+
+Three conventions reverse-engineered:
+1. **Activity rows come from the unrounded BMR**, not the displayed one. 1717 x 1.375
+   rounds to 2,362; the reference shows 2,361, which is 1716.998 x 1.375. Multipliers are
+   1.2 / 1.375 / 1.465 / 1.55 / 1.725 / 1.9.
+2. **Kilojoules use 4.1868**, the International Steam Table calorie, not 4.184 — which
+   4.184 would put the metric BMR at 6,715 against their 6,720. Each row is converted from
+   its own unrounded calorie value rather than from the rounded kJ headline.
+3. **Age is restricted to 15-80 and Katch rejects a 0% body fat**, both with their own
+   error rather than a computed result. Our messages say the same thing in our words.
+
+**Keyword research (§4).** Head term "bmr calculator"; the distinguishing long-tail is the
+equation names, which is what people search when a tool gave them a different number
+("mifflin st jeor calculator", "harris benedict calculator", "katch mcardle"). All three
+are selectable and named in the result subhead. Title: "BMR Calculator — Calories You Burn
+at Complete Rest" (51 chars); description 150.
+
+**Content.** 2,098-word article, 8 H2s, 8 FAQs, byline, TOC, breadcrumb, a "what this does
+not cover" section that puts *a calorie target* first, and a YMYL disclaimer naming
+pregnancy, under-18s, medication and disordered-eating history explicitly. The 2005
+Johnstone analysis the reference cites is used for the honest accuracy claim (about a
+quarter of between-person variation stays unexplained).
+
+**Verification.** 85 Playwright assertions at 1280/430/390px: all 7 reference cases exact
+through the UI including both kJ cases, the equation-table highlight, age bounds accepted
+at 15 and 80 and rejected at 14 and 81, Katch rejecting 0% while Mifflin ignores the field,
+the kJ column header switching, sitewide colours asserted by computed value, Clear emptying
+the boxes with 0px drift, zero console errors, zero overflow, single-track mobile grid.
+
+### Three things worth carrying forward
+
+**A test-harness artifact that looked like a page bug.** The Clear drift check failed at
+185px. The page was fine: `html{scroll-behavior:smooth}` is set in the shared protected
+block, so the scroll that Calculate legitimately performs is *animated*, and the harness
+was measuring mid-flight. Added a `settle()` helper that polls `window.scrollY` until it
+stops changing rather than using a fixed wait. **Any drift measurement on this site needs
+that**, because the smooth-scroll rule is sitewide.
+
+**Hiding a result section on error moves the page.** The first version hid the whole
+activity table when inputs were blank, collapsing the result card ~185px and shifting the
+document under the visitor. It now keeps the table with em-dash placeholders, which holds
+the height steady and also shows what the tool will produce.
+
+**Two genuine copies caught by the originality check, not by eye.** The exercise-level
+footnote ("15-30 minutes of elevated heart rate activity") was near-verbatim from the
+reference, and "Worked through with the values this page opens on" had been reused from the
+body-fat article. Both rewritten; overlap with the reference fell from 2.37% to 1.43%, and
+what remains is formula constants and the form's field-label sequence.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
