@@ -6333,6 +6333,140 @@ carries the decision forward. Read it before proposing any site-wide change.
   reminder. An eighth note will add nothing; the durable fix (owner stores the
   token outside the conversation, CLI reads it from the local environment)
   needs to happen before the next session.
+
+## VA Mortgage Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 46KB template stub at `/va-mortgage-calculator/` with a full 3-card build
+(117KB). Reference page: calculator.net/va-mortgage-calculator.html, supplied by the owner
+with a full-page screenshot alongside the URL.
+
+**Parity (§3a-PRIME).** Input fields 37/37, result fields 30/30 — both re-verified by a
+script that greps the *built file* rather than the plan (`parity.py` in the session
+scratch), per step 6. Their page was read both as source and as rendered output: the
+source gave the 30 form controls, but the result set only appears after submitting the
+form, and it **changes shape depending on `caddoptional`** — with optional costs off they
+show principal and interest alone, with them on they show the full Monthly/Total cost
+table. A single fetch of the default page would have missed the entire cost table, the
+biweekly box and the payoff date. We always render the full version.
+
+**Funding fee logic was derived empirically, not from memory.** Eighteen probe requests
+with varied `cdownpayment` / `vaeligibility` / `valoanbefore` / `disabled` values
+reconstructed their table:
+
+| Down payment | First use | Repeat use |
+|---|---|---|
+| under 5% | 2.15% | 3.30% |
+| 5% to 9.99% | 1.50% | 1.50% |
+| 10% or more | 1.25% | 1.25% |
+
+Cross-checked against current published VA rules (military.com, Veterans United,
+valoannetwork, VA Circular 26-22-13 as cited by several of them) — the table matches 2026
+law exactly, including the 0.50% IRRRL rate and cash-out using the zero-down purchase
+rates, both of which are now in a bottomgrid card even though their form has no field for
+them.
+
+Two findings worth recording:
+1. **The fee is charged on the base loan amount, not the home price, and their page gets
+   this right.** Probing with 3% down ($12,000 on $400,000) returns $8,342, which is
+   2.15% of $388,000, not of $400,000. This is *not* the same defect as the FHA page's
+   upfront-MIP handling noted in the guide — do not assume the FHA finding generalises to
+   other pages on their site. No deviation was needed here.
+2. **The Reservist/National Guard radio produces results identical to Active/Veteran.**
+   That is correct, not a bug: rates were equalised across service categories by the Blue
+   Water Navy Vietnam Veterans Act. The field is kept for parity and because it still
+   matters for entitlement, and the page says so in a note rather than leaving a control
+   that visibly does nothing.
+
+**Formula verification.** A standalone Node engine was written and asserted against their
+published output before a line of it went into the page. Seven scenarios, all exact:
+- 400k / 0 down / 6.5% / 30y -> P&I $2,582.63, total $929,746.78, interest $521,146.78,
+  out-of-pocket $3,607.63 / $1,298,746.78, payoff Aug 2056
+- Their own default (500k / 6.706%) -> $3,297.79, $1,187,204.50, $676,454.50
+- 10% down -> 1.25%, $4,500 fee, $364,500 loan ; repeat use -> 3.3%, $13,200 ;
+  surviving spouse and 10%+ disability -> 0%
+- 3% annual property-tax increase -> $228,362.00 total (compounds once a year, not monthly)
+- HOA $300/yr + $200/mo extra -> 24y 6m, mortgage total $758,671.29, extra total
+  $58,600.00, out-of-pocket $3,832.63 / $1,125,971.29
+
+Three conventions had to be reverse-engineered:
+1. **Biweekly.** Four candidate conventions were tested against their $401,129.25 /
+   24.04-years figures. The one that matches exactly: the biweekly payment is the rounded
+   monthly payment **truncated** to two decimals (1291.315 -> 1291.31, not 1291.32), the
+   rate is annual/26, the final period is left fractional, and the payoff is reported as
+   `n x 14 / 365.25` years. Rounding instead of truncating is out by $4.42; reporting
+   `n / 26` gives 24.12 years instead of 24.04.
+2. **The final instalment carries no extra payment.** With $200/mo extra their extra-payment
+   total is exactly 293 x $200 while the mortgage total covers 293 full payments plus a
+   $1,960.70 stub — so the last month is whatever clears the balance, and the extra is
+   dropped that month.
+3. **The payoff date is the month *after* the last payment.** Starting Aug 2026 with 360
+   payments, payment 360 falls in Jul 2056 and they report Aug 2056.
+
+**Keyword research (§4).** US competitors converge on "VA **loan** calculator", not
+calculator.net's "VA mortgage calculator" — Bankrate, Zillow, Veterans United, U.S. Bank
+and VAMortgageCenter all use it. Per §8 the term was blended into the title and meta rather
+than renaming the H1 or slug. A second cluster with its own dedicated competitor pages,
+"VA funding fee calculator" / "VA funding fee chart 2026", is the higher-volume /
+lower-competition middle ground and is targeted through the title, an H2 and a bottomgrid
+rate table. Title: "VA Loan Calculator — Payment With Funding Fee Included" (54 chars);
+description 148.
+
+**Content.** 2,236-word article, 9 H2s, 8 FAQs, byline, TOC, disclaimer, visible breadcrumb,
+a "what this calculator does not cover" section (closing costs, points, ARMs, entitlement
+limits, residual-income underwriting). Every worked figure in the prose is computed from the
+page's own defaults ($425,000 / 6.45%) and verified in Node, so no example is borrowed.
+Originality: 0.11% 8-gram overlap with their page (3 grams, all unavoidable — the VA
+department's name and two field-label sequences), and **0.00% article-prose overlap with any
+of our own pages** after one fix, below.
+
+**Design.** 3-card grid with a `schedule` area (`amortization-calculator` was the structural
+donor). Navy bar with lazy PDF, form / result / navy sidebar, full-width schedule card with
+Annual and Monthly tabs plus a Balance / Principal-paid / Interest-paid line chart, and a
+bottomgrid pair (live-highlighted funding-fee tier table + exemption list). Taxes, insurance,
+HOA and other costs sit on the form directly rather than behind their "More Options" link;
+cost escalation and extra payments are behind one toggle.
+
+**Verification.** 75 Playwright assertions at 1280 / 430 / 390px: zero console errors, zero
+horizontal overflow, mobile grid resolves to a single track with every child at least 90% of
+grid width, h1 computed weight 700, jsPDF fetches zero bytes until the button is clicked and
+the download then succeeds, schedule tabs produce 30 annual and 360 monthly rows, and the
+schedule matches theirs row-for-row (monthly #1 `8/2026 $2,213 $369 $408,231`; annual #1
+`8/26-7/27 $26,425 $4,567 $404,033`). Protected shared style block byte-identical (6,425
+bytes). Three JSON-LD blocks valid; FAQ schema and visible text asserted equal on all 8
+pairs. New OG image generated at `og/va-mortgage-calculator.png`.
+
+### Three process notes from this session
+
+**The FAQ-drift failure mode was designed out rather than checked for.** The guide records
+this breaking on four consecutive rebuilds. Instead of writing the schema and the visible
+HTML separately and diffing them, both are generated from one Python list in the build
+script, so an em dash or curly quote cannot appear in one and not the other. The diff check
+still runs, but it now confirms a property the build guarantees.
+
+**Rebuilding from the working file silently inflated the page by 23KB.** The build script
+originally lifted the shared chrome (gtag head, protected block, header, footer, trailing
+site scripts) out of the page it was about to overwrite. After `apply_cb_ux.py` had run once,
+a rebuild folded the injected block back in and the file grew from 106KB to 139KB with no
+duplicated content visible to a `count()` check on any of the obvious markers. The fix is a
+one-line rule now written into the script: **shared chrome always comes from the pristine
+committed copy (`git show HEAD:...`), never from the working file.** Worth applying to any
+future page builder that follows this pattern.
+
+**`apply_cb_ux.py` owns the status-bar sentence and will delete markup it does not expect.**
+The bar was written as `<span class="va-bar-text"><span class="badge">$</span><span
+id="va-barText">...</span></span>`. The injector keeps the badge and removes every following
+sibling, so the `#va-barText` span was destroyed at runtime while remaining present in the
+source — a DOM grep on the file would have passed. Match the reference markup exactly:
+badge span, then a bare text node.
+
+**One prose collision was caught and fixed.** The opening line of the "what this doesn't
+cover" section, "Being clear about the edges matters more than…", already existed in
+`refinance-calculator` and `marriage-tax-calculator`. Whole-page 8-gram comparison hid it
+inside 83 shared-chrome matches; an article-only comparison surfaced it. **The internal
+originality check should run on the article region alone** — header, footer, nav and the
+shared disclaimer will always match and drown out the one line that actually matters.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

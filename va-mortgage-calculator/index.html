@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>VA Mortgage Calculator — Funding Fee | CalculatorBoss</title><meta name="description" content="Calculate your VA loan monthly payment including the 2026 VA funding fee — and see why VA loans never require monthly mortgage insurance."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/va-mortgage-calculator/"/><meta property="og:title" content="VA Mortgage Calculator | CalculatorBoss"/><meta property="og:description" content="VA loan payment including the current funding fee."/><meta property="og:url" content="https://calculatorboss.com/va-mortgage-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>VA Loan Calculator — Payment With Funding Fee Included</title><meta name="description" content="Free VA loan calculator with the 2026 funding fee built in. See your real monthly payment with taxes, insurance, HOA and extra payments — no signup."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="va loan calculator,va mortgage calculator,va funding fee calculator,va home loan payment calculator,va loan calculator with taxes and insurance,va loan amortization schedule,va loan payment estimator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/va-mortgage-calculator/"/><meta property="og:title" content="VA Loan Calculator — Payment With Funding Fee Included"/><meta property="og:description" content="Free VA loan calculator with the 2026 funding fee built in. See your real monthly payment with taxes, insurance, HOA and extra payments — no signup."/><meta property="og:url" content="https://calculatorboss.com/va-mortgage-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/va-mortgage-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="VA Loan Calculator — Payment With Funding Fee Included"/><meta name="twitter:description" content="Free VA loan calculator with the 2026 funding fee built in. See your real monthly payment with taxes, insurance, HOA and extra payments — no signup."/><meta name="twitter:image" content="https://calculatorboss.com/og/va-mortgage-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,155 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.va-wrap{width:100%}
+.va-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.va-bar-text{display:flex;align-items:center;gap:10px}
+.va-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.va-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.va-bar-pdf-btn:hover{background:#f0f0f0}
+.va-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.va-grid{display:grid;grid-template-columns:392px minmax(360px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar" "schedule schedule schedule" "bottomgrid bottomgrid bottomgrid"}
+.va-area-bar{grid-area:bar}
+.va-area-form{grid-area:form}
+.va-area-result{grid-area:result}
+.va-area-sidebar{grid-area:sidebar}
+.va-area-schedule{grid-area:schedule}
+.va-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .va-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "schedule" "sidebar"}
+}
+
+.va-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.va-card-pad{padding:22px}
+.va-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 6px}
+.va-sec:first-child{margin-top:0}
+.va-field{display:flex;align-items:center;gap:8px;padding:6px 0;flex-wrap:wrap}
+.va-field-label{width:132px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.va-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.va-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.va-input-group span{padding:0 8px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.va-input-group input{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.va-unit{border:1px solid var(--border-fine);border-radius:8px;padding:8px 4px;font-size:12.5px;background:#fff;color:var(--ink);flex-shrink:0;width:52px}
+.va-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.va-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.va-subnote{font-size:11.5px;color:var(--ink-faint);margin:2px 0 0;line-height:1.5}
+
+.va-radio-row{display:flex;flex-direction:column;gap:6px;padding:2px 0 6px}
+.va-radio{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);line-height:1.45}
+.va-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0;margin-top:1px}
+.va-radio-inline{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0 4px}
+
+.va-toggle{display:flex;align-items:center;gap:8px;padding:10px 0 4px;cursor:pointer;user-select:none}
+.va-toggle input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
+.va-toggle span{font-size:13px;font-weight:600;color:var(--ink)}
+.va-panel{display:none;background:var(--surface-sunken);border-radius:10px;padding:14px;margin-top:6px}
+.va-panel.open{display:block}
+.va-panel-sub{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:14px 0 6px}
+.va-panel-sub:first-child{margin-top:0}
+.va-date-row{display:flex;gap:6px;flex:1;min-width:0}
+.va-date-row select{flex:1;min-width:0}
+.va-date-row input{width:66px;flex-shrink:0}
+.va-extra-row{display:grid;grid-template-columns:1fr 84px 68px;gap:6px;align-items:center}
+.va-extra-row .va-input-group input{background:#fff}
+.va-extra-row select,.va-extra-row input.yr{border:1px solid var(--border-fine);border-radius:8px;padding:8px 4px;font-size:12.5px;background:#fff;color:var(--ink);min-width:0;width:100%}
+
+.va-btn-row{display:flex;gap:8px;padding-top:16px}
+.va-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.va-btn-calc:hover{background:#128A3D}
+.va-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.va-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.va-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.va-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.va-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.va-result-head .sub{font-size:12px;opacity:.9;margin-top:3px}
+.va-result-body{padding:16px 20px}
+.va-note-box{margin:0 20px 14px;background:var(--gold-tint);border:1px solid #cfe9d8;border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--ink);line-height:1.5;display:none}
+.va-note-box.show{display:block}
+.va-mtable{width:100%;border-collapse:collapse;font-size:13.5px}
+.va-mtable th{text-align:right;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;padding:0 0 7px}
+.va-mtable th:first-child{text-align:left}
+.va-mtable td{padding:8px 0;border-top:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.va-mtable td:first-child{text-align:left;color:var(--ink-soft)}
+.va-mtable td:not(:first-child){font-weight:600}
+.va-mtable td+td{padding-left:12px}
+.va-mtable tr.tot td{border-top:2px solid var(--border);font-weight:700;color:var(--ink);padding-top:10px}
+.va-mtable tr.tot td:first-child{color:var(--ink)}
+.va-result-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.va-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.va-result-row.hl span:last-child{color:#128A3D}
+
+.va-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.va-donut-svg{width:128px;height:128px;flex-shrink:0}
+.va-donut-legend{display:flex;flex-direction:column;gap:7px;flex:1;min-width:150px}
+.va-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
+.va-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
+.va-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:10px}
+
+.va-bw-box{margin:0 20px 20px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:14px 16px;display:none}
+.va-bw-box.show{display:block}
+.va-bw-box .t{font-size:11px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.va-bw-box .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink-soft);padding:3px 0}
+.va-bw-box .row b{font-weight:700;color:var(--ink)}
+
+.va-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.va-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.va-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.va-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.va-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.va-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.va-schedule-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:22px;width:100%;overflow:hidden}
+.va-schedule-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.va-schedule-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.va-schedule-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.va-schedule-sub{font-size:11.5px;color:var(--ink-faint)}
+.va-schedule-toggle{display:flex;gap:6px}
+.va-schedule-toggle button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:6px}
+.va-schedule-toggle button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.va-schedule-body-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media(max-width:900px){.va-schedule-body-grid{grid-template-columns:1fr}}
+.va-chart-col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.va-chart-svg{width:100%;height:auto;display:block}
+.va-chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.va-chart-legend .lg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)}
+.va-chart-legend .lg i{width:10px;height:10px;border-radius:3px;display:block}
+.va-table-wrap{max-height:430px;overflow-y:auto;overflow-x:auto;border:1px solid var(--border-fine);border-radius:10px}
+.va-table{width:100%;min-width:430px;border-collapse:collapse;font-size:12.5px}
+.va-table th{position:sticky;top:0;background:var(--surface-sunken);text-align:right;padding:9px 10px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border-fine);z-index:1;white-space:nowrap}
+.va-table th:first-child,.va-table td:first-child{text-align:left}
+.va-table td{text-align:right;padding:7px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink);white-space:nowrap}
+.va-table tr:last-child td{border-bottom:none}
+.va-table tbody tr:nth-child(even){background:var(--surface-sunken)}
+.va-table tr.va-year-end td{font-weight:700;background:var(--gold-tint);color:var(--ink)}
+
+.va-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.va-bottom-grid{grid-template-columns:1fr}}
+.va-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden}
+.va-info-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.va-fee-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.va-fee-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.va-fee-table th:first-child{text-align:left}
+.va-fee-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.va-fee-table td:first-child{text-align:left;color:var(--ink-soft)}
+.va-fee-table tr:last-child td{border-bottom:none}
+.va-fee-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.va-fee-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+.va-info-list{display:flex;flex-direction:column;gap:8px}
+.va-info-item{font-size:12.5px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:8px;padding:9px 12px;line-height:1.5}
+.va-info-item b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px;font-size:12.5px}
+
+@media(max-width:520px){
+  .va-field{flex-wrap:wrap}
+  .va-field-label{width:100%}
+  .va-extra-row{grid-template-columns:1fr}
+  .va-donut-box{gap:14px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"VA Mortgage","item":"https://calculatorboss.com/va-mortgage-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +496,364 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the funding fee actually for?","acceptedAnswer":{"@type":"Answer","text":"It helps fund the VA loan program for future veterans, replacing the ongoing mortgage insurance that FHA and low-down-payment conventional loans require. It's typically a one-time cost rather than a recurring monthly one."}},{"@type":"Question","name":"Why is the fee higher for a second VA loan?","acceptedAnswer":{"@type":"Answer","text":"Subsequent use carries a higher rate (3.30% vs 2.15% with no down payment) since the VA's risk model treats repeat use differently — though a down payment of 5% or more brings both first-time and subsequent rates down to the same level."}},{"@type":"Question","name":"Who's exempt from the funding fee?","acceptedAnswer":{"@type":"Answer","text":"Veterans receiving VA disability compensation, those eligible for compensation but receiving retirement pay instead, Purple Heart recipients on active duty, and certain surviving spouses."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VA Mortgage Calculator","url":"https://calculatorboss.com/va-mortgage-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">VA Mortgage Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">VA Mortgage Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Your loan details and usage history — see the funding fee and full monthly payment.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-5"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Loan amount</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><span style="color:var(--ink-faint)">$</span><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="300000"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:12.82051282051282%;background:var(--accent)"></div><input type="range" min="50000" max="2000000" step="5000" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Loan amount" value="300000"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(12.82051282051282% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Down payment</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="0"/><span style="color:var(--ink-faint)">%</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:0%;background:var(--accent)"></div><input type="range" min="0" max="20" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Down payment" value="0"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(0% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Interest rate</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="6.25"/><span style="color:var(--ink-faint)">%</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:52.083333333333336%;background:var(--accent)"></div><input type="range" min="0" max="12" step="0.05" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Interest rate" value="6.25"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(52.083333333333336% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Loan term</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="30"/><span style="color:var(--ink-faint)">years</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:100%;background:var(--accent)"></div><input type="range" min="10" max="30" step="5" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Loan term" value="30"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(100% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full transition-colors bg-accent text-white">First use</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">Subsequent use</button></div><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent"/>Exempt (service-connected disability)</label><label class="flex items-center gap-2 text-sm text-ink-soft"><input type="checkbox" class="accent-accent" checked=""/>Finance the funding fee into the loan</label></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Monthly payment</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">$1,886.87</div><dl class="grid grid-cols-2 gap-4 text-sm"><div><dt class="text-ink-faint mb-1">Funding fee</dt><dd class="tabular text-ink font-medium">2.15<!-- -->% (<!-- -->$6,450.00<!-- -->)</dd></div><div><dt class="text-ink-faint mb-1">Total interest</dt><dd class="tabular text-ink font-medium">$372,821.53</dd></div></dl><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">VA loans never require monthly mortgage insurance, unlike FHA or low-down-payment conventional loans — the one-time funding fee replaces that ongoing cost entirely.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A first-time VA borrower financing <span class="tabular">$300,000</span> with no down payment pays a <span class="tabular">2.15%</span> funding fee — <span class="tabular">$6,450</span> — typically rolled into the loan. At <span class="tabular">6.25%</span> over <span class="tabular">30</span> years, that comes to about <span class="tabular">$1,887</span> a month, with no separate mortgage insurance added on top.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">What&#x27;s the funding fee actually for?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It helps fund the VA loan program for future veterans, replacing the ongoing mortgage insurance that FHA and low-down-payment conventional loans require. It&#x27;s typically a one-time cost rather than a recurring monthly one.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why is the fee higher for a second VA loan?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Subsequent use carries a higher rate (3.30% vs 2.15% with no down payment) since the VA&#x27;s risk model treats repeat use differently — though a down payment of 5% or more brings both first-time and subsequent rates down to the same level.</p></div><div><h3 class="font-medium text-ink mb-1.5">Who&#x27;s exempt from the funding fee?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Veterans receiving VA disability compensation, those eligible for compensation but receiving retirement pay instead, Purple Heart recipients on active duty, and certain surviving spouses.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not financial advice. Funding fee rates reflect 2026 figures (unchanged since April 2023) and confirm eligibility and exemption status with the VA.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"VA Mortgage Calculator","item":"https://calculatorboss.com/va-mortgage-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the VA funding fee apply to the purchase price or the loan amount?","acceptedAnswer":{"@type":"Answer","text":"The loan amount. The fee is charged on what you actually borrow, so a down payment shrinks it twice — once by lowering the balance and again by moving you into a cheaper fee tier. On a $425,000 home with nothing down, the first-use fee is 2.15% of $425,000, or $9,137.50. Put 5% down and the fee is 1.50% of the remaining $403,750, or $6,056.25 — a $3,081.25 reduction on top of the smaller loan."}},{"@type":"Question","name":"How much is the VA funding fee in 2026?","acceptedAnswer":{"@type":"Answer","text":"For a purchase with less than 5% down it is 2.15% the first time you use the benefit and 3.30% for any later use. From 5% up to 9.99% down it drops to 1.50%, and at 10% or more it falls to 1.25% — those two lower tiers are the same whether or not you have used a VA loan before. Streamline (IRRRL) refinances are charged 0.50%."}},{"@type":"Question","name":"Do National Guard and Reserve members pay a higher funding fee?","acceptedAnswer":{"@type":"Answer","text":"Not any more. Guard and Reserve members once paid rates about a quarter-point above regular military, but that gap was removed and every service category now pays the same published rate. The calculator keeps the category as a separate choice because it still matters for entitlement and documentation, even though it no longer changes the fee."}},{"@type":"Question","name":"Is it better to roll the funding fee into the loan or pay it at closing?","acceptedAnswer":{"@type":"Answer","text":"Paying it at closing is cheaper if you have the cash. Financing $9,137.50 at 6.45% over 30 years adds about $57.46 to the monthly payment and roughly $20,684 in total cost — more than double the fee itself. Rolling it in still makes sense when keeping cash on hand matters more than the long-run interest, which is often the case for a first purchase."}},{"@type":"Question","name":"Who is exempt from the VA funding fee?","acceptedAnswer":{"@type":"Answer","text":"Borrowers receiving VA compensation for a service-connected disability rated at 10% or higher, those entitled to that compensation but drawing retirement or active-duty pay instead, active-duty Purple Heart recipients, and qualifying surviving spouses. Exemption is confirmed from your Certificate of Eligibility, and a fee paid before a rating is granted can often be refunded afterward."}},{"@type":"Question","name":"Why is my VA payment higher than the calculator's principal and interest figure?","acceptedAnswer":{"@type":"Answer","text":"Principal and interest is only the part that repays the loan. Your servicer usually also collects property tax and homeowners insurance into an escrow account each month, and HOA dues are billed separately. Fill in the tax, insurance, HOA and other-cost fields and the total out-of-pocket row shows the number that actually leaves your account."}},{"@type":"Question","name":"Do VA loans have mortgage insurance?","acceptedAnswer":{"@type":"Answer","text":"No. There is no monthly mortgage insurance on a VA loan at any down payment, which is the main reason a zero-down VA payment can undercut a low-down-payment conventional or FHA payment on the same house. The one-time funding fee is what stands in for it, and unlike FHA's annual premium it never recurs."}},{"@type":"Question","name":"Can I pay extra on a VA loan without a penalty?","acceptedAnswer":{"@type":"Answer","text":"Yes. Prepayment penalties are not permitted on VA-backed loans, so you can pay more whenever you like. Adding $250 a month to the example above clears the loan in about 23 years and 10 months instead of 30 and cuts roughly $133,162 of interest."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VA Mortgage Calculator","url":"https://calculatorboss.com/va-mortgage-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates a VA home loan payment including the VA funding fee, property taxes, insurance, HOA dues and extra payments, with a full amortization schedule.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">VA Mortgage Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">VA Mortgage Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Work out a VA home loan payment with the funding fee, property taxes, insurance and HOA dues included — plus the full amortization schedule and what extra payments would save you.</p><div class="va-wrap">
+<div class="va-grid">
+
+  <div class="va-bar va-area-bar">
+    <span class="va-bar-text"><span class="va-bar-badge">$</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="va-bar-pdf-btn" id="va-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="va-card va-area-form">
+    <div class="va-card-pad">
+
+      <div class="va-sec">Loan basics</div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-price">Home Price</label>
+        <div class="va-field-control"><div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-price" value="425000"></div></div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-down">Down Payment</label>
+        <div class="va-field-control">
+          <div class="va-input-group"><input type="text" inputmode="decimal" id="va-down" value="0"></div>
+          <select class="va-unit" id="va-downUnit" aria-label="Down payment unit"><option value="pct">%</option><option value="amt">$</option></select>
+        </div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-term">Loan Term</label>
+        <div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-term" value="30"><span>years</span></div></div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-rate">Interest Rate</label>
+        <div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-rate" value="6.45"><span>%</span></div></div>
+      </div>
+
+      <div class="va-divider"></div>
+
+      <div class="va-sec">Your VA entitlement</div>
+      <div class="va-radio-row" role="radiogroup" aria-label="Service category">
+        <label class="va-radio"><input type="radio" name="va-elig" value="v" checked><span>Veteran or active-duty service member</span></label>
+        <label class="va-radio"><input type="radio" name="va-elig" value="r"><span>National Guard or Reserve member</span></label>
+        <label class="va-radio"><input type="radio" name="va-elig" value="s"><span>Surviving spouse receiving DIC</span></label>
+      </div>
+      <p class="va-subnote">Guard and Reserve pay the same rates as regular military. Qualifying surviving spouses owe no funding fee.</p>
+
+      <div class="va-field" style="margin-top:10px">
+        <span class="va-field-label">Used a VA loan before?</span>
+        <div class="va-field-control va-radio-inline" role="radiogroup" aria-label="Prior VA loan use">
+          <label class="va-radio"><input type="radio" name="va-used" value="y"><span>Yes</span></label>
+          <label class="va-radio"><input type="radio" name="va-used" value="n" checked><span>No</span></label>
+        </div>
+      </div>
+      <div class="va-field">
+        <span class="va-field-label">Service-connected disability (10%+)?</span>
+        <div class="va-field-control va-radio-inline" role="radiogroup" aria-label="Disability rating">
+          <label class="va-radio"><input type="radio" name="va-dis" value="y"><span>Yes</span></label>
+          <label class="va-radio"><input type="radio" name="va-dis" value="n" checked><span>No</span></label>
+        </div>
+      </div>
+      <div class="va-field">
+        <span class="va-field-label">Funding fee</span>
+        <div class="va-field-control va-radio-inline" role="radiogroup" aria-label="Funding fee handling">
+          <label class="va-radio"><input type="radio" name="va-fee" value="f" checked><span>Roll into loan</span></label>
+          <label class="va-radio"><input type="radio" name="va-fee" value="u"><span>Pay at closing</span></label>
+        </div>
+      </div>
+
+      <div class="va-divider"></div>
+
+      <div class="va-sec">Taxes &amp; other homeownership costs</div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-tax">Property Taxes</label>
+        <div class="va-field-control">
+          <div class="va-input-group"><input type="text" inputmode="decimal" id="va-tax" value="1.1"></div>
+          <select class="va-unit" id="va-taxUnit" aria-label="Property tax unit"><option value="pct">%</option><option value="amt">$</option></select>
+        </div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-ins">Home Insurance</label>
+        <div class="va-field-control"><div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-ins" value="2100"><span>/yr</span></div></div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-hoa">HOA Fee</label>
+        <div class="va-field-control"><div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-hoa" value="0"><span>/yr</span></div></div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-other">Other Costs</label>
+        <div class="va-field-control"><div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-other" value="3600"><span>/yr</span></div></div>
+      </div>
+      <div class="va-field">
+        <label class="va-field-label" for="va-startMonth">First Payment</label>
+        <div class="va-field-control va-date-row">
+          <select class="va-select-plain" id="va-startMonth" aria-label="First payment month"></select>
+          <input class="va-unit" type="text" inputmode="numeric" id="va-startYear" value="2026" aria-label="First payment year" style="width:66px">
+        </div>
+      </div>
+
+      <label class="va-toggle" for="va-advChk"><input type="checkbox" id="va-advChk"><span>Cost increases &amp; extra payments</span></label>
+      <div class="va-panel" id="va-advPanel">
+        <div class="va-panel-sub">Annual cost increase</div>
+        <div class="va-field"><label class="va-field-label" for="va-taxInc">Property Taxes</label><div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-taxInc" value="0"><span>%</span></div></div></div>
+        <div class="va-field"><label class="va-field-label" for="va-insInc">Home Insurance</label><div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-insInc" value="0"><span>%</span></div></div></div>
+        <div class="va-field"><label class="va-field-label" for="va-hoaInc">HOA Fee</label><div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-hoaInc" value="0"><span>%</span></div></div></div>
+        <div class="va-field"><label class="va-field-label" for="va-otherInc">Other Costs</label><div class="va-field-control"><div class="va-input-group"><input type="text" inputmode="decimal" id="va-otherInc" value="0"><span>%</span></div></div></div>
+
+        <div class="va-panel-sub">Extra payments</div>
+        <label class="va-subnote" for="va-exM" style="display:block;margin-bottom:4px">Extra monthly, starting</label>
+        <div class="va-extra-row" style="margin-bottom:8px">
+          <div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-exM" value="0"></div>
+          <select id="va-exMMonth" aria-label="Extra monthly start month"></select>
+          <input class="yr" type="text" inputmode="numeric" id="va-exMYear" value="2026" aria-label="Extra monthly start year">
+        </div>
+        <label class="va-subnote" for="va-exY" style="display:block;margin-bottom:4px">Extra yearly, starting</label>
+        <div class="va-extra-row" style="margin-bottom:8px">
+          <div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-exY" value="0"></div>
+          <select id="va-exYMonth" aria-label="Extra yearly start month"></select>
+          <input class="yr" type="text" inputmode="numeric" id="va-exYYear" value="2026" aria-label="Extra yearly start year">
+        </div>
+        <label class="va-subnote" for="va-exO" style="display:block;margin-bottom:4px">One-time extra, on</label>
+        <div class="va-extra-row">
+          <div class="va-input-group"><span>$</span><input type="text" inputmode="decimal" id="va-exO" value="0"></div>
+          <select id="va-exOMonth" aria-label="One-time extra month"></select>
+          <input class="yr" type="text" inputmode="numeric" id="va-exOYear" value="2026" aria-label="One-time extra year">
+        </div>
+
+        <label class="va-toggle" for="va-bwChk" style="padding-bottom:0"><input type="checkbox" id="va-bwChk" checked><span>Show biweekly payoff</span></label>
+      </div>
+
+      <div class="va-btn-row">
+        <button type="button" class="va-btn-calc" id="va-calcBtn">Calculate</button>
+        <button type="button" class="va-btn-clear" id="va-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="va-result-card va-area-result">
+    <div class="va-result-head">
+      <div class="label">Monthly principal &amp; interest</div>
+      <div class="bignum" id="va-bigNum">$0.00</div>
+      <div class="sub" id="va-bigSub">—</div>
+    </div>
+    <div class="va-note-box" id="va-noteBox"></div>
+    <div class="va-result-body">
+      <table class="va-mtable">
+        <thead><tr><th></th><th id="va-colMo">Monthly</th><th>Total</th></tr></thead>
+        <tbody id="va-costBody"></tbody>
+      </table>
+      <div style="height:14px"></div>
+      <div id="va-loanRows"></div>
+    </div>
+    <div class="va-donut-box">
+      <svg class="va-donut-svg" id="va-donutSvg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Breakdown of total lifetime cost"></svg>
+      <div class="va-donut-legend" id="va-donutLegend"></div>
+    </div>
+    <div class="va-bw-box" id="va-bwBox">
+      <div class="t">If you paid biweekly instead</div>
+      <div class="row"><span>Biweekly payment</span><b id="va-bwPay">—</b></div>
+      <div class="row"><span>Total interest</span><b id="va-bwInt">—</b></div>
+      <div class="row"><span>Paid off in</span><b id="va-bwYrs">—</b></div>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="va-sidecol va-area-sidebar">
+    <div class="va-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/mortgage-calculator/">Mortgage <span class="arrow">→</span></a>
+      <a href="/fha-loan-calculator/">FHA Loan <span class="arrow">→</span></a>
+      <a href="/house-affordability-calculator/">House Affordability <span class="arrow">→</span></a>
+      <a href="/down-payment-calculator/">Down Payment <span class="arrow">→</span></a>
+      <a href="/refinance-calculator/">Refinance <span class="arrow">→</span></a>
+      <a href="/amortization-calculator/">Amortization <span class="arrow">→</span></a>
+      <a href="/debt-to-income-calculator/">Debt-to-Income <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="va-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ SCHEDULE ============ -->
+  <div class="va-schedule-card va-area-schedule">
+    <div class="va-schedule-head">
+      <span class="t">Amortization Schedule</span>
+      <div class="va-schedule-right">
+        <span class="va-schedule-sub" id="va-schedSub"></span>
+        <div class="va-schedule-toggle">
+          <button type="button" id="va-schedAnnualBtn" class="active">Annual</button>
+          <button type="button" id="va-schedMonthlyBtn">Monthly</button>
+        </div>
+      </div>
+    </div>
+    <div class="va-schedule-body-grid">
+      <div class="va-table-wrap">
+        <table class="va-table">
+          <thead id="va-schedHead"></thead>
+          <tbody id="va-schedBody"></tbody>
+        </table>
+      </div>
+      <div class="va-chart-col">
+        <svg class="va-chart-svg" id="va-chartSvg" viewBox="0 0 340 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loan balance and cumulative interest over time"></svg>
+        <div class="va-chart-legend">
+          <span class="lg"><i style="background:#1E3A5F"></i>Balance</span>
+          <span class="lg"><i style="background:#16A34A"></i>Principal paid</span>
+          <span class="lg"><i style="background:#CF3F53"></i>Interest paid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="va-area-bottomgrid">
+    <div class="va-bottom-grid">
+      <div class="va-info-card">
+        <span class="t">VA Funding Fee Rates</span>
+        <table class="va-fee-table">
+          <thead><tr><th>Down payment</th><th>First use</th><th>Repeat use</th></tr></thead>
+          <tbody>
+            <tr id="va-feeRow0"><td>Less than 5%</td><td>2.15%</td><td>3.30%</td></tr>
+            <tr id="va-feeRow5"><td>5% to 9.99%</td><td>1.50%</td><td>1.50%</td></tr>
+            <tr id="va-feeRow10"><td>10% or more</td><td>1.25%</td><td>1.25%</td></tr>
+          </tbody>
+        </table>
+        <p class="va-fee-note" id="va-feeNote">The highlighted row is the tier your entries fall into. Rates apply to purchase loans and are charged on the amount borrowed, not the sale price.</p>
+        <span class="t" style="margin-top:18px">Refinance Rates</span>
+        <table class="va-fee-table">
+          <thead><tr><th>Refinance type</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Streamline (IRRRL)</td><td>0.50%</td></tr>
+            <tr><td>Cash-out, first use</td><td>2.15%</td></tr>
+            <tr><td>Cash-out, repeat use</td><td>3.30%</td></tr>
+          </tbody>
+        </table>
+        <p class="va-fee-note">A streamline refinance is charged the same flat rate however many times you have used the benefit. Cash-out refinances use the zero-down purchase rates no matter how much equity you hold.</p>
+      </div>
+      <div class="va-info-card">
+        <span class="t">Who Pays No Funding Fee</span>
+        <div class="va-info-list">
+          <div class="va-info-item"><b>Compensated disability</b>Anyone receiving VA compensation for a service-connected condition rated 10% or higher.</div>
+          <div class="va-info-item"><b>Entitled but drawing retired pay</b>Those who would receive compensation but take military retirement or active-duty pay instead.</div>
+          <div class="va-info-item"><b>Purple Heart recipients</b>Active-duty members with a Purple Heart on record at the time of closing.</div>
+          <div class="va-info-item"><b>Certain surviving spouses</b>Spouses of members who died in service or from a service-connected condition, and those drawing DIC.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.va-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.va-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.va-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.va-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.va-seo-article strong{color:var(--ink);font-weight:600}
+.va-seo-article a{color:#128A3D;text-decoration:underline}
+.va-seo-article ul,.va-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.va-seo-article ul li strong,.va-seo-article ol li strong{color:var(--ink)}
+.va-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.7;word-break:break-word}
+.va-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.va-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.va-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.va-toc a:hover{color:#1E3A5F}
+.va-seo-article h2[id]{scroll-margin-top:88px}
+.va-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.va-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="va-seo-article">
+<p class="va-byline">Written by the CalculatorBoss Finance Team · Reviewed against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<nav class="va-toc" aria-label="On this page">
+  <a href="#what">What a VA loan really costs</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#fee">The funding fee, tier by tier</a>
+  <a href="#exempt">Who pays nothing</a>
+  <a href="#rollin">Roll the fee in, or pay it at closing?</a>
+  <a href="#compare">VA against FHA and conventional</a>
+  <a href="#extra">Paying it down early</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="what">What a VA loan really costs</h2>
+<p>The headline feature of a VA-backed mortgage is that qualifying buyers can finance the whole purchase price. No down payment, and — unlike every low-down-payment alternative — no monthly mortgage insurance for as long as you hold the loan. That combination is unusual enough that it is worth being precise about where the money actually goes, because "zero down" is not the same as "no cost."</p>
+<p>What replaces mortgage insurance is a single charge called the funding fee, paid once, at closing. It is set by law rather than by your lender, it scales with your down payment and whether you have used the benefit before, and a large share of borrowers owe nothing at all. Most general mortgage calculators leave it out entirely, which is why they under-report a VA payment: on a $425,000 purchase with nothing down, the fee adds $9,137.50 to the balance before the first payment is even due.</p>
+<p>The rest of the payment behaves like any other fixed-rate mortgage. Principal and interest are fixed for the term. Property tax, homeowners insurance and — where they apply — HOA dues sit on top, usually collected monthly into escrow, and those pieces drift upward over the years while the loan payment does not.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>Four steps run in order, and each one feeds the next.</p>
+<p><strong>1. The base loan.</strong> Subtract any down payment from the purchase price. This figure, not the sale price, is what the funding fee is charged on.</p>
+<div class="va-formula">Base loan = Home price − Down payment</div>
+<p><strong>2. The funding fee.</strong> Look up the rate from your down payment tier, whether this is a first or repeat use, and your exemption status, then apply it to the base loan. If you finance the fee it is added to the balance; if you pay it at closing the balance is unchanged and the fee joins your cash to close.</p>
+<div class="va-formula">Funding fee = Base loan × Rate<br>Loan amount = Base loan + Funding fee&nbsp;&nbsp;(when financed)</div>
+<p><strong>3. The monthly payment.</strong> Standard amortization, with the monthly rate as the annual rate divided by twelve and the term in months.</p>
+<div class="va-formula">M = P × r ÷ (1 − (1 + r)<sup>−n</sup>)<br><br>P = loan amount&nbsp;&nbsp;·&nbsp;&nbsp;r = annual rate ÷ 12&nbsp;&nbsp;·&nbsp;&nbsp;n = term in months</div>
+<p>Worked through with the defaults on this page — $425,000, nothing down, 6.45% over 30 years — the financed fee brings the loan to $434,137.50 and the payment to $2,729.78 in principal and interest.</p>
+<p><strong>4. Everything else.</strong> Property tax, insurance, HOA dues and any other annual costs are divided into monthly amounts and added on. Each can be given its own yearly increase, which compounds once a year rather than every month, since that is how tax assessments and insurance renewals actually arrive. With 1.1% property tax, $2,100 of insurance and $3,600 of other costs, that same example lands at $3,594.37 leaving your account each month.</p>
+<p>The schedule underneath is generated payment by payment rather than from a closed-form shortcut, which is what lets extra payments, mid-loan start dates and escalating costs all land in the right month.</p>
+
+<h2 id="fee">The funding fee, tier by tier</h2>
+<p>Two things set the rate on a purchase loan: how much you put down, and whether you have used a VA loan before. Nothing else moves it.</p>
+<ul>
+  <li><strong>Under 5% down</strong> — 2.15% for a first use, 3.30% for any later use. This is the only tier where prior use costs you anything.</li>
+  <li><strong>5% to 9.99% down</strong> — 1.50%, first use or not.</li>
+  <li><strong>10% or more down</strong> — 1.25%, first use or not.</li>
+</ul>
+<p>The repeat-use penalty in that first tier is steep — on a $425,000 zero-down purchase it is the difference between $9,137.50 and $14,025, or $4,887.50. It also vanishes completely at 5% down, which makes a modest down payment worth far more to a repeat borrower than to a first-time one. A first-time buyer moving from nothing down to 5% saves $3,081.25 in fee; a repeat borrower making the same move saves $7,968.75.</p>
+<p>Refinances follow their own rule. A streamline refinance, the IRRRL, is charged a flat 0.50% no matter how many times you have used the benefit. A cash-out refinance is charged at the zero-down purchase rates regardless of how much equity you hold.</p>
+
+<h2 id="exempt">Who pays nothing</h2>
+<p>Exemption is common enough that it deserves checking before you plan around the fee at all. You owe nothing if you receive VA compensation for a service-connected disability rated 10% or higher, if you are entitled to that compensation but draw retirement or active-duty pay in its place, if you are an active-duty Purple Heart recipient, or if you are a qualifying surviving spouse.</p>
+<p>On the running example, exemption removes $9,137.50 from the balance, drops the payment by $57.46, and saves roughly $20,684 across thirty years — because the fee, when financed, accrues interest like any other borrowed dollar.</p>
+<p>Two practical notes. Your Certificate of Eligibility is what confirms the exemption, so it is worth having in hand before closing rather than after. And if a disability rating is granted retroactively to a date before your closing, a fee you already paid can often be refunded — a claim a fair number of eligible borrowers never file.</p>
+
+<h2 id="rollin">Roll the fee in, or pay it at closing?</h2>
+<p>Financing the fee is the default, and for good reason: it keeps cash in your pocket at the moment when cash is tightest. But it is not free. Rolling $9,137.50 into a 6.45% thirty-year loan adds $57.46 to every payment and about $20,684 in total — more than twice the fee, because you are borrowing it for three decades.</p>
+<p>Paying it at closing is the cheaper option whenever the money is genuinely spare. Toggle the two settings on the calculator and the closing-cash row appears so you can see both sides at once. A third route worth asking about: sellers may contribute toward the fee as a concession, within the VA's limits on concessions, which is negotiable in a way the fee rate itself is not.</p>
+
+<h2 id="compare">VA against FHA and conventional</h2>
+<p>The comparison people usually want is not really about the fee, it is about what the fee replaces.</p>
+<p>An FHA loan charges an upfront premium <em>and</em> an annual mortgage insurance premium that, at the minimum down payment, stays for the life of the loan. A conventional loan under 20% down carries private mortgage insurance, which does fall away once you reach sufficient equity, but which you pay every month until then. A VA loan charges its fee once and never bills for insurance again.</p>
+<p>That is why a zero-down VA payment frequently beats a 3.5%-down FHA payment and a 5%-down conventional payment on the same house, despite the larger balance. VA rates also tend to price slightly below conventional, which widens the gap further.</p>
+<p>The trade-offs are real, though. Eligibility is limited to those who have earned it. The property must be your primary residence, so this is not a route to a rental. VA appraisals apply minimum property standards that can complicate a fixer-upper. And borrowing the full price means starting with no equity, which matters if you may need to sell within a few years.</p>
+
+<h2 id="extra">Paying it down early</h2>
+<p>VA loans cannot carry a prepayment penalty, so anything extra goes straight against principal. The effect is larger than most people expect early on, when almost the whole payment is interest.</p>
+<p>Adding $250 a month to the running example clears the loan in about 23 years and 10 months instead of 30, and cuts roughly $133,162 of interest. Open the extra-payments panel to model a monthly amount, a yearly lump sum such as a bonus, or a single one-off payment, each starting in whatever month you choose. The biweekly figure shown alongside is a different route to a similar place: half a payment every two weeks works out to thirteen monthly payments a year rather than twelve.</p>
+<p>None of this is automatically the right call. Extra principal is a guaranteed return equal to your mortgage rate, which is a fair benchmark — but it is money you cannot easily get back, and it ranks behind an emergency fund and any employer retirement match.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<p>A payment estimate is only as useful as the list of things it leaves out, so here is that list.</p>
+<ul>
+  <li><strong>Closing costs beyond the funding fee.</strong> Origination, appraisal, title, credit report and recording fees are all separate. Use the "other costs" field for recurring items such as maintenance or utilities, not one-time closing charges.</li>
+  <li><strong>Discount points.</strong> Buying down the rate changes both your cash at closing and your rate; model it by entering the bought-down rate directly.</li>
+  <li><strong>Adjustable rates.</strong> The schedule assumes a fixed rate for the full term.</li>
+  <li><strong>Entitlement limits.</strong> Borrowers with reduced or partially used entitlement may face a required down payment on larger loans. This tool prices the loan you describe; it does not certify that you qualify for it.</li>
+  <li><strong>Underwriting.</strong> The VA uses a residual-income test alongside debt-to-income, and neither is evaluated here. Your <a href="/debt-to-income-calculator/">debt-to-income ratio</a> and overall <a href="/house-affordability-calculator/">affordability</a> are separate questions from the payment itself.</li>
+</ul>
+<p>Rates shown are your input, not a quote. Actual figures come from a VA-approved lender and a Loan Estimate.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>Does the VA funding fee apply to the purchase price or the loan amount?</h3>
+<p>The loan amount. The fee is charged on what you actually borrow, so a down payment shrinks it twice — once by lowering the balance and again by moving you into a cheaper fee tier. On a $425,000 home with nothing down, the first-use fee is 2.15% of $425,000, or $9,137.50. Put 5% down and the fee is 1.50% of the remaining $403,750, or $6,056.25 — a $3,081.25 reduction on top of the smaller loan.</p>
+<h3>How much is the VA funding fee in 2026?</h3>
+<p>For a purchase with less than 5% down it is 2.15% the first time you use the benefit and 3.30% for any later use. From 5% up to 9.99% down it drops to 1.50%, and at 10% or more it falls to 1.25% — those two lower tiers are the same whether or not you have used a VA loan before. Streamline (IRRRL) refinances are charged 0.50%.</p>
+<h3>Do National Guard and Reserve members pay a higher funding fee?</h3>
+<p>Not any more. Guard and Reserve members once paid rates about a quarter-point above regular military, but that gap was removed and every service category now pays the same published rate. The calculator keeps the category as a separate choice because it still matters for entitlement and documentation, even though it no longer changes the fee.</p>
+<h3>Is it better to roll the funding fee into the loan or pay it at closing?</h3>
+<p>Paying it at closing is cheaper if you have the cash. Financing $9,137.50 at 6.45% over 30 years adds about $57.46 to the monthly payment and roughly $20,684 in total cost — more than double the fee itself. Rolling it in still makes sense when keeping cash on hand matters more than the long-run interest, which is often the case for a first purchase.</p>
+<h3>Who is exempt from the VA funding fee?</h3>
+<p>Borrowers receiving VA compensation for a service-connected disability rated at 10% or higher, those entitled to that compensation but drawing retirement or active-duty pay instead, active-duty Purple Heart recipients, and qualifying surviving spouses. Exemption is confirmed from your Certificate of Eligibility, and a fee paid before a rating is granted can often be refunded afterward.</p>
+<h3>Why is my VA payment higher than the calculator&#x27;s principal and interest figure?</h3>
+<p>Principal and interest is only the part that repays the loan. Your servicer usually also collects property tax and homeowners insurance into an escrow account each month, and HOA dues are billed separately. Fill in the tax, insurance, HOA and other-cost fields and the total out-of-pocket row shows the number that actually leaves your account.</p>
+<h3>Do VA loans have mortgage insurance?</h3>
+<p>No. There is no monthly mortgage insurance on a VA loan at any down payment, which is the main reason a zero-down VA payment can undercut a low-down-payment conventional or FHA payment on the same house. The one-time funding fee is what stands in for it, and unlike FHA's annual premium it never recurs.</p>
+<h3>Can I pay extra on a VA loan without a penalty?</h3>
+<p>Yes. Prepayment penalties are not permitted on VA-backed loans, so you can pay more whenever you like. Adding $250 a month to the example above clears the loan in about 23 years and 10 months instead of 30 and cuts roughly $133,162 of interest.</p>
+
+<p class="va-disclaimer">This calculator provides estimates for general information only and is not financial, tax, legal or lending advice, nor an offer of credit. Funding fee rates, eligibility rules and entitlement limits are set by the U.S. Department of Veterans Affairs and can change; verify current figures with the VA or a VA-approved lender before making a decision. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +888,449 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var schedView = 'annual', last = null;
+
+  var DEF = { price:'425000', down:'0', downUnit:'pct', term:'30', rate:'6.45',
+    elig:'v', used:'n', dis:'n', fee:'f',
+    tax:'1.1', taxUnit:'pct', ins:'2100', hoa:'0', other:'3600',
+    taxInc:'0', insInc:'0', hoaInc:'0', otherInc:'0',
+    exM:'0', exY:'0', exO:'0' };
+
+  /* ---------- helpers ---------- */
+  function num(id){ var el = $(id); if(!el) return 0;
+    var v = parseFloat(String(el.value).replace(/[$,\s]/g,'')); return isNaN(v) ? 0 : v; }
+  function pos(id){ return Math.max(0, num(id)); }
+  function intv(id){ var v = parseInt(String($(id).value).replace(/\D/g,''),10); return isNaN(v)?0:v; }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function setRadio(name,val){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) r[i].checked = (r[i].value===val); }
+  function m2(x){ return '$' + (Math.round(x*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function m0(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
+  function pmt(P,i,n){ return i===0 ? P/n : P*i/(1-Math.pow(1+i,-n)); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function termLong(mo){
+    var y = Math.floor(mo/12), m = mo % 12, p = [];
+    if(y) p.push(y + (y===1?' year':' years'));
+    if(m) p.push(m + (m===1?' month':' months'));
+    return p.length ? p.join(' and ') : '0 months';
+  }
+
+  /* Funding fee rate. Guard/Reserve have paid the same rates as regular military
+     since the Blue Water Navy Act took effect; the category is kept because it is
+     a real entitlement distinction, not because it changes the arithmetic. */
+  function feeRate(downPct, used, elig, dis){
+    if(dis === 'y' || elig === 's') return 0;
+    if(downPct < 5)  return used === 'y' ? 3.30 : 2.15;
+    if(downPct < 10) return 1.50;
+    return 1.25;
+  }
+
+  /* ---------- core ---------- */
+  function compute(){
+    var price = pos('va-price');
+    var downRaw = pos('va-down');
+    var downAmt = $('va-downUnit').value === 'pct' ? price*downRaw/100 : downRaw;
+    if(downAmt > price) downAmt = price;
+    var downPct = price > 0 ? downAmt/price*100 : 0;
+    var base = price - downAmt;
+
+    var elig = radio('va-elig'), used = radio('va-used'), dis = radio('va-dis');
+    var fr  = feeRate(downPct, used, elig, dis);
+    var fee = base * fr/100;
+    var financed = radio('va-fee') === 'f';
+    var loan = financed ? base + fee : base;
+
+    var years = pos('va-term'), rate = pos('va-rate');
+    var n = Math.round(years*12);
+    if(!(loan > 0) || !(n > 0)) return null;
+
+    var i = rate/100/12;
+    var M = pmt(loan, i, n);
+
+    var sM = intv('va-startMonth') || 1, sY = intv('va-startYear') || new Date().getFullYear();
+    var adv = $('va-advChk').checked;
+    var exM = adv ? pos('va-exM') : 0, exY = adv ? pos('va-exY') : 0, exO = adv ? pos('va-exO') : 0;
+    function off(y,m){ return (y - sY)*12 + (m - sM); }
+    var exMfrom = off(intv('va-exMYear'), intv('va-exMMonth'));
+    var exYfrom = off(intv('va-exYYear'), intv('va-exYMonth'));
+    var exOat   = off(intv('va-exOYear'), intv('va-exOMonth'));
+
+    /* Amortise. The final instalment is whatever clears the balance and carries no
+       extra payment with it, which is how a servicer actually settles the last month. */
+    var bal = loan, k = 0, totMort = 0, totExtra = 0, totInt = 0, rows = [];
+    while(bal > 0.005 && k < 12000){
+      var it = bal*i, ex = 0;
+      if(exM > 0 && k >= exMfrom) ex += exM;
+      if(exY > 0 && k >= exYfrom && (k - exYfrom) % 12 === 0) ex += exY;
+      if(exO > 0 && k === exOat) ex += exO;
+      var mp = M, ep = ex;
+      if(bal + it <= M + ex){ mp = bal + it; ep = 0; }
+      var pr = mp + ep - it;
+      var end = Math.max(0, bal - pr);
+      rows.push({ k:k+1, int:it, princ:pr, end:end, mort:mp, extra:ep });
+      totMort += mp; totExtra += ep; totInt += it;
+      bal = end; k++;
+    }
+    var months = k;
+    if(!months) return null;
+
+    /* Recurring costs, compounding once a year. */
+    var taxAnnual = $('va-taxUnit').value === 'pct' ? price*pos('va-tax')/100 : pos('va-tax');
+    var insA = pos('va-ins'), hoaA = pos('va-hoa'), othA = pos('va-other');
+    var taxG = adv ? pos('va-taxInc') : 0, insG = adv ? pos('va-insInc') : 0,
+        hoaG = adv ? pos('va-hoaInc') : 0, othG = adv ? pos('va-otherInc') : 0;
+    function tot(annual, g){
+      var t = 0;
+      for(var m = 0; m < months; m++) t += (annual/12)*Math.pow(1+g/100, Math.floor(m/12));
+      return t;
+    }
+    var costs = {
+      tax:{mo:taxAnnual/12, tot:tot(taxAnnual,taxG), g:taxG},
+      ins:{mo:insA/12,      tot:tot(insA,insG),      g:insG},
+      hoa:{mo:hoaA/12,      tot:tot(hoaA,hoaG),      g:hoaG},
+      oth:{mo:othA/12,      tot:tot(othA,othG),      g:othG}
+    };
+
+    /* Biweekly: half the (rounded, truncated) monthly, 26 times a year. */
+    var bwPay = Math.floor((Math.round(M*100)/100)/2*100)/100;
+    var ib = rate/100/26, bwInt = null, bwYrs = null;
+    if(bwPay > loan*ib && rate > 0){
+      var nb = -Math.log(1 - loan*ib/bwPay)/Math.log(1+ib);
+      bwInt = bwPay*nb - loan; bwYrs = nb*14/365.25;
+    } else if(rate === 0 && bwPay > 0){
+      bwInt = 0; bwYrs = (loan/bwPay)*14/365.25;
+    }
+
+    var payoff = new Date(sY, (sM-1) + months, 1);
+    var early = months < n;
+
+    return { price:price, downAmt:downAmt, downPct:downPct, base:base, feeRate:fr, fee:fee,
+      financed:financed, loan:loan, M:M, n:n, months:months, rows:rows, costs:costs,
+      totMort:totMort, totExtra:totExtra, totInt:totInt, bwPay:bwPay, bwInt:bwInt, bwYrs:bwYrs,
+      payoff:payoff, sM:sM, sY:sY, early:early, rate:rate, i:i, elig:elig, used:used, dis:dis };
+  }
+
+  /* ---------- donut ---------- */
+  function donut(o){
+    var segs = [
+      { n:'Principal',      v:o.loan,          c:'#1E3A5F' },
+      { n:'Interest',       v:o.totInt,        c:'#CF3F53' },
+      { n:'Property tax',   v:o.costs.tax.tot, c:'#16A34A' },
+      { n:'Home insurance', v:o.costs.ins.tot, c:'#4B4ED8' },
+      { n:'HOA fees',       v:o.costs.hoa.tot, c:'#E0A93B' },
+      { n:'Other costs',    v:o.costs.oth.tot, c:'#787D86' }
+    ].filter(function(s){ return s.v > 0; });
+    var total = segs.reduce(function(a,s){ return a+s.v; }, 0);
+    var svg = '', ang = -90, R = 44, C = 60, SW = 18;
+    if(total <= 0){ $('va-donutSvg').innerHTML=''; $('va-donutLegend').innerHTML=''; return; }
+    segs.forEach(function(s){
+      var frac = s.v/total, sweep = frac*360;
+      if(sweep >= 359.99){
+        svg += '<circle cx="'+C+'" cy="'+C+'" r="'+R+'" fill="none" stroke="'+s.c+'" stroke-width="'+SW+'"/>';
+      } else {
+        var a0 = ang*Math.PI/180, a1 = (ang+sweep)*Math.PI/180;
+        var x0 = C+R*Math.cos(a0), y0 = C+R*Math.sin(a0);
+        var x1 = C+R*Math.cos(a1), y1 = C+R*Math.sin(a1);
+        svg += '<path d="M '+x0.toFixed(2)+' '+y0.toFixed(2)+' A '+R+' '+R+' 0 '+(sweep>180?1:0)+' 1 '+
+               x1.toFixed(2)+' '+y1.toFixed(2)+'" fill="none" stroke="'+s.c+'" stroke-width="'+SW+'"/>';
+      }
+      ang += sweep;
+    });
+    $('va-donutSvg').innerHTML = svg;
+    $('va-donutLegend').innerHTML = segs.map(function(s){
+      return '<span class="lg"><i style="background:'+s.c+'"></i>'+esc(s.n)+
+             '<b>'+Math.round(s.v/total*100)+'%</b></span>';
+    }).join('');
+  }
+
+  /* ---------- schedule + chart ---------- */
+  function annualRows(o){
+    var out = [], accI = 0, accP = 0, idx = 0;
+    for(var y = 0; y < Math.ceil(o.months/12); y++){
+      var i0 = y*12, i1 = Math.min(o.months, i0+12), ai = 0, ap = 0;
+      for(var k = i0; k < i1; k++){ ai += o.rows[k].int; ap += o.rows[k].princ; }
+      var startM = (o.sM-1+i0) % 12, startY = o.sY + Math.floor((o.sM-1+i0)/12);
+      var endM   = (o.sM-1+i1-1) % 12, endY = o.sY + Math.floor((o.sM-1+i1-1)/12);
+      accI += ai; accP += ap; idx++;
+      out.push({ label:String(idx),
+        date:(startM+1)+'/'+String(startY).slice(2)+'\u2013'+(endM+1)+'/'+String(endY).slice(2),
+        int:ai, princ:ap, end:o.rows[i1-1].end, accI:accI, accP:accP });
+    }
+    return out;
+  }
+  function renderSchedule(o){
+    var head = $('va-schedHead'), body = $('va-schedBody');
+    if(schedView === 'annual'){
+      var ar = annualRows(o);
+      head.innerHTML = '<tr><th>Year</th><th>Date</th><th>Interest</th><th>Principal</th><th>Balance</th></tr>';
+      body.innerHTML = ar.map(function(r){
+        return '<tr><td>'+r.label+'</td><td>'+r.date+'</td><td>'+m0(r.int)+'</td><td>'+m0(r.princ)+'</td><td>'+m0(r.end)+'</td></tr>';
+      }).join('');
+      $('va-schedSub').textContent = ar.length + (ar.length===1?' year':' years');
+    } else {
+      head.innerHTML = '<tr><th>Month</th><th>Date</th><th>Interest</th><th>Principal</th><th>Balance</th></tr>';
+      var html = [];
+      for(var k = 0; k < o.months; k++){
+        var r = o.rows[k];
+        var mm = (o.sM-1+k) % 12, yy = o.sY + Math.floor((o.sM-1+k)/12);
+        var yearEnd = ((k+1) % 12 === 0) || (k === o.months-1);
+        html.push('<tr'+(yearEnd?' class="va-year-end"':'')+'><td>'+(k+1)+'</td><td>'+(mm+1)+'/'+yy+
+          '</td><td>'+m0(r.int)+'</td><td>'+m0(r.princ)+'</td><td>'+m0(r.end)+'</td></tr>');
+      }
+      body.innerHTML = html.join('');
+      $('va-schedSub').textContent = o.months + ' payments';
+    }
+  }
+  function renderChart(o){
+    var ar = annualRows(o), W = 340, H = 250, L = 46, R = 8, T = 12, B = 30;
+    var pw = W-L-R, ph = H-T-B;
+    var maxY = 0;
+    ar.forEach(function(r){ maxY = Math.max(maxY, r.end, r.accI, r.accP); });
+    maxY = Math.max(maxY, o.loan);
+    if(maxY <= 0){ $('va-chartSvg').innerHTML=''; return; }
+    var step = Math.pow(10, Math.floor(Math.log(maxY)/Math.LN10));
+    var top = Math.ceil(maxY/(step/2))*(step/2);
+    var nX = ar.length;
+    function px(idx){ return L + (nX<=1 ? pw/2 : pw*idx/(nX-1)); }
+    function py(v){ return T + ph - ph*(v/top); }
+    var g = '';
+    for(var t = 0; t <= 4; t++){
+      var v = top*t/4, y = py(v);
+      g += '<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#E3E1DA" stroke-width="1"/>';
+      g += '<text x="'+(L-6)+'" y="'+(y+3.5).toFixed(1)+'" text-anchor="end" font-size="9.5" fill="#A6AAB1">'+
+           (v >= 1000 ? '$'+Math.round(v/1000)+'k' : '$'+Math.round(v))+'</text>';
+    }
+    function line(key, color){
+      var d = ar.map(function(r,ix){ return (ix?'L ':'M ')+px(ix).toFixed(1)+' '+py(r[key]).toFixed(1); }).join(' ');
+      return '<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round"/>';
+    }
+    g += line('end','#1E3A5F') + line('accP','#16A34A') + line('accI','#CF3F53');
+    var tickEvery = Math.max(1, Math.ceil(nX/6));
+    for(var ix = 0; ix < nX; ix += tickEvery){
+      g += '<text x="'+px(ix).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle" font-size="9.5" fill="#A6AAB1">'+ar[ix].label+'</text>';
+    }
+    g += '<text x="'+(L+pw/2)+'" y="'+(H-0.5)+'" text-anchor="middle" font-size="9.5" fill="#A6AAB1">Year</text>';
+    $('va-chartSvg').innerHTML = g;
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var o = compute();
+    if(!o){
+      $('va-bigNum').textContent = '$0.00';
+      $('va-bigSub').textContent = 'Enter a home price, term and rate.';
+      $('va-costBody').innerHTML = ''; $('va-loanRows').innerHTML = '';
+      $('va-donutSvg').innerHTML = ''; $('va-donutLegend').innerHTML = '';
+      $('va-schedBody').innerHTML = ''; $('va-schedHead').innerHTML = '';
+      $('va-chartSvg').innerHTML = ''; $('va-bwBox').className = 'va-bw-box';
+      $('va-noteBox').className = 'va-note-box';
+      last = null; return;
+    }
+    last = o;
+
+    var exMonthly = o.rows.length ? o.rows[0].extra : 0;
+    var oopMo = o.M + o.costs.tax.mo + o.costs.ins.mo + o.costs.hoa.mo + o.costs.oth.mo + exMonthly;
+    var oopTot = o.totMort + o.totExtra + o.costs.tax.tot + o.costs.ins.tot + o.costs.hoa.tot + o.costs.oth.tot;
+
+    $('va-bigNum').textContent = m2(o.M);
+    $('va-bigSub').textContent = m2(oopMo) + ' a month with taxes and other costs';
+    $('va-colMo').textContent = (o.early || o.costs.tax.g || o.costs.ins.g || o.costs.hoa.g || o.costs.oth.g) ? 'First month' : 'Monthly';
+
+    /* cost table */
+    var rowsHtml = '<tr><td>Mortgage payment</td><td>'+m2(o.M)+'</td><td>'+m2(o.totMort)+'</td></tr>';
+    if(o.totExtra > 0) rowsHtml += '<tr><td>Extra payment</td><td>'+m2(exMonthly)+'</td><td>'+m2(o.totExtra)+'</td></tr>';
+    rowsHtml += '<tr><td>Property tax</td><td>'+m2(o.costs.tax.mo)+'</td><td>'+m2(o.costs.tax.tot)+'</td></tr>';
+    rowsHtml += '<tr><td>Home insurance</td><td>'+m2(o.costs.ins.mo)+'</td><td>'+m2(o.costs.ins.tot)+'</td></tr>';
+    if(o.costs.hoa.tot > 0) rowsHtml += '<tr><td>HOA fee</td><td>'+m2(o.costs.hoa.mo)+'</td><td>'+m2(o.costs.hoa.tot)+'</td></tr>';
+    if(o.costs.oth.tot > 0) rowsHtml += '<tr><td>Other costs</td><td>'+m2(o.costs.oth.mo)+'</td><td>'+m2(o.costs.oth.tot)+'</td></tr>';
+    rowsHtml += '<tr class="tot"><td>Total out-of-pocket</td><td>'+m2(oopMo)+'</td><td>'+m2(oopTot)+'</td></tr>';
+    $('va-costBody').innerHTML = rowsHtml;
+
+    /* loan rows */
+    var feeLabel = 'VA funding fee (' + (o.feeRate % 1 === 0 ? o.feeRate.toFixed(0) : String(o.feeRate)) + '%)';
+    var lr = '';
+    lr += '<div class="va-result-row"><span>Home price</span><span>'+m2(o.price)+'</span></div>';
+    lr += '<div class="va-result-row"><span>Down payment</span><span>'+m2(o.downAmt)+'</span></div>';
+    lr += '<div class="va-result-row'+(o.feeRate===0?' hl':'')+'"><span>'+feeLabel+
+          (o.financed ? ', rolled in' : ', paid at closing')+'</span><span>'+m2(o.fee)+'</span></div>';
+    lr += '<div class="va-result-row"><span>Loan amount</span><span>'+m2(o.loan)+'</span></div>';
+    lr += '<div class="va-result-row"><span>Total of '+o.months+' payments</span><span>'+m2(o.totMort+o.totExtra)+'</span></div>';
+    lr += '<div class="va-result-row"><span>Total interest</span><span>'+m2(o.totInt)+'</span></div>';
+    lr += '<div class="va-result-row"><span>Paid off by</span><span>'+MON[o.payoff.getMonth()]+' '+o.payoff.getFullYear()+'</span></div>';
+    if(!o.financed && o.fee > 0)
+      lr += '<div class="va-result-row"><span>Cash due at closing</span><span>'+m2(o.downAmt+o.fee)+'</span></div>';
+    $('va-loanRows').innerHTML = lr;
+
+    /* note */
+    var nb = $('va-noteBox');
+    if(o.early){
+      nb.className = 'va-note-box show';
+      nb.innerHTML = 'With the extra payments, the loan clears in <b>'+termLong(o.months)+
+        '</b> instead of '+termLong(o.n)+'.';
+    } else if(o.feeRate === 0){
+      nb.className = 'va-note-box show';
+      nb.innerHTML = 'No funding fee applies to this scenario, which keeps <b>'+
+        m2(o.base*0.0215)+'</b> off the loan compared with the standard 2.15% first-use rate.';
+    } else {
+      nb.className = 'va-note-box';
+    }
+
+    donut(o); renderSchedule(o); renderChart(o);
+
+    /* biweekly */
+    var bw = $('va-bwBox');
+    if($('va-bwChk').checked && o.bwInt !== null && !o.early){
+      bw.className = 'va-bw-box show';
+      $('va-bwPay').textContent = m2(o.bwPay);
+      $('va-bwInt').textContent = m2(o.bwInt);
+      $('va-bwYrs').textContent = o.bwYrs.toFixed(2) + ' years';
+    } else { bw.className = 'va-bw-box'; }
+
+    /* highlight the fee tier in the bottom card */
+    ['va-feeRow0','va-feeRow5','va-feeRow10'].forEach(function(id){ $(id).className = ''; });
+    if(o.feeRate > 0){
+      $(o.downPct < 5 ? 'va-feeRow0' : (o.downPct < 10 ? 'va-feeRow5' : 'va-feeRow10')).className = 'on';
+      $('va-feeNote').textContent = 'The highlighted row is the tier your entries fall into. Rates apply to purchase loans and are charged on the amount borrowed, not the sale price.';
+    } else {
+      $('va-feeNote').textContent = 'Your entries qualify for a full exemption, so none of these rates apply and the fee is $0.';
+    }
+  }
+
+  /* ---------- month dropdowns ---------- */
+  ['va-startMonth','va-exMMonth','va-exYMonth','va-exOMonth'].forEach(function(id){
+    var s = $(id), h = '';
+    for(var m = 1; m <= 12; m++) h += '<option value="'+m+'">'+MON[m-1]+'</option>';
+    s.innerHTML = h;
+  });
+  (function(){
+    var now = new Date(), m = now.getMonth()+1, y = now.getFullYear();
+    ['va-startMonth','va-exMMonth','va-exYMonth','va-exOMonth'].forEach(function(id){ $(id).value = String(m); });
+    ['va-startYear','va-exMYear','va-exYYear','va-exOYear'].forEach(function(id){ $(id).value = String(y); });
+  })();
+
+  /* ---------- wiring ---------- */
+  $('va-advChk').addEventListener('change', function(){
+    $('va-advPanel').className = this.checked ? 'va-panel open' : 'va-panel';
+    render();
+  });
+  $('va-schedAnnualBtn').addEventListener('click', function(){
+    schedView = 'annual'; this.className = 'active'; $('va-schedMonthlyBtn').className = '';
+    if(last) renderSchedule(last);
+  });
+  $('va-schedMonthlyBtn').addEventListener('click', function(){
+    schedView = 'monthly'; this.className = 'active'; $('va-schedAnnualBtn').className = '';
+    if(last) renderSchedule(last);
+  });
+  $('va-calcBtn').addEventListener('click', render);
+  $('va-clearBtn').addEventListener('click', function(){
+    $('va-price').value = DEF.price; $('va-down').value = DEF.down; $('va-downUnit').value = DEF.downUnit;
+    $('va-term').value = DEF.term; $('va-rate').value = DEF.rate;
+    setRadio('va-elig', DEF.elig); setRadio('va-used', DEF.used);
+    setRadio('va-dis', DEF.dis); setRadio('va-fee', DEF.fee);
+    $('va-tax').value = DEF.tax; $('va-taxUnit').value = DEF.taxUnit;
+    $('va-ins').value = DEF.ins; $('va-hoa').value = DEF.hoa; $('va-other').value = DEF.other;
+    $('va-taxInc').value = DEF.taxInc; $('va-insInc').value = DEF.insInc;
+    $('va-hoaInc').value = DEF.hoaInc; $('va-otherInc').value = DEF.otherInc;
+    $('va-exM').value = DEF.exM; $('va-exY').value = DEF.exY; $('va-exO').value = DEF.exO;
+    $('va-advChk').checked = false; $('va-advPanel').className = 'va-panel';
+    $('va-bwChk').checked = true;
+    var now = new Date(), m = String(now.getMonth()+1), y = String(now.getFullYear());
+    ['va-startMonth','va-exMMonth','va-exYMonth','va-exOMonth'].forEach(function(id){ $(id).value = m; });
+    ['va-startYear','va-exMYear','va-exYYear','va-exOYear'].forEach(function(id){ $(id).value = y; });
+    schedView = 'annual';
+    $('va-schedAnnualBtn').className = 'active'; $('va-schedMonthlyBtn').className = '';
+    render();
+  });
+  $('va-bwChk').addEventListener('change', render);
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last) return;
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('VA Loan Payment Summary', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 22;
+    doc.setFontSize(12); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text('Monthly principal & interest: ' + m2(o.M), margin, y); y += 14;
+
+    var exMonthly = o.rows.length ? o.rows[0].extra : 0;
+    var oopMo = o.M + o.costs.tax.mo + o.costs.ins.mo + o.costs.hoa.mo + o.costs.oth.mo + exMonthly;
+    var oopTot = o.totMort + o.totExtra + o.costs.tax.tot + o.costs.ins.tot + o.costs.hoa.tot + o.costs.oth.tot;
+
+    var body = [
+      ['Home price', m2(o.price)],
+      ['Down payment', m2(o.downAmt) + '  (' + o.downPct.toFixed(2) + '%)'],
+      ['VA funding fee', m2(o.fee) + '  (' + o.feeRate + '%, ' + (o.financed ? 'rolled into the loan' : 'paid at closing') + ')'],
+      ['Loan amount', m2(o.loan)],
+      ['Interest rate', o.rate.toFixed(3) + '%'],
+      ['Term', termLong(o.n)],
+      ['Payments made', String(o.months)],
+      ['Total interest', m2(o.totInt)],
+      ['Total of payments', m2(o.totMort + o.totExtra)],
+      ['Paid off by', MON[o.payoff.getMonth()] + ' ' + o.payoff.getFullYear()],
+      ['Monthly out-of-pocket', m2(oopMo)],
+      ['Lifetime out-of-pocket', m2(oopTot)]
+    ];
+    doc.autoTable({ startY: y, head: [['Item','Amount']], body: body, margin:{left:margin,right:margin},
+      styles:{ fontSize:9, cellPadding:5 }, headStyles:{ fillColor:[30,58,95] },
+      alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    var ar = annualRows(o);
+    doc.autoTable({ startY: doc.lastAutoTable.finalY + 18,
+      head: [['Year','Date','Interest','Principal','Balance']],
+      body: ar.map(function(r){ return [r.label, r.date, m0(r.int), m0(r.princ), m0(r.end)]; }),
+      margin:{left:margin,right:margin}, styles:{ fontSize:8, cellPadding:4 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    var pages = doc.internal.getNumberOfPages();
+    for(var p = 1; p <= pages; p++){
+      doc.setPage(p); doc.setFontSize(8); doc.setTextColor(150,150,150);
+      doc.text('Estimate only — not a loan offer or financial advice. calculatorboss.com',
+        margin, doc.internal.pageSize.getHeight() - 22);
+    }
+    doc.save('va-loan-summary.pdf');
+  }
+  $('va-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1452,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>
