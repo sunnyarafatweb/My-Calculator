@@ -887,12 +887,15 @@
     var due = dueFrom(method);
     if(!due) return { error:'blank' };
     if(due.error) return due;
-    /* Week 1 of a 42-week table ends 279 days before the due date. */
-    var week1 = add(due, -279);
+    /* Gestational age is counted in days from the first day of the last period, and the
+       due date is that day plus 280. So on the due date you are 40 weeks 0 days, and week
+       1 runs from the LMP itself. The reference page starts its table a day later, which
+       leaves it reporting 39w6d on the due date — a day behind what a midwife would say. */
+    var week1 = add(due, -280);
     var today = todayUTC();
     var elapsed = diff(today, week1);
     var weekNo = Math.floor(elapsed/7) + 1;
-    var conception = add(week1, 13);
+    var conception = add(week1, 14);
     return { method:method, due:due, week1:week1, today:today, elapsed:elapsed,
              weekNo:weekNo, conception:conception,
              before: elapsed < 0, after: weekNo > 42 };
@@ -940,15 +943,24 @@
       h += '<div class="pg-fact"><span>That is</span><b>in ' + plural(-o.elapsed, 'day') + '</b></div>';
       $('pg-barFill').style.width = '0%';
       $('pg-pct').textContent = 'not started';
+    } else if(o.elapsed > 294){
+      /* More than 42 weeks past the start means the date entered is historic. Reporting
+         "80 weeks pregnant" from it would be nonsense, so say what the date implies. */
+      h += '<div class="pg-fact"><span>Due date</span><b>' + fmt(o.due) + '</b></div>';
+      h += '<div class="pg-fact"><span>That was</span><b>' + plural(o.elapsed - 280, 'day') + ' ago</b></div>';
+      h += '<div class="pg-fact"><span>Note</span><b style="font-weight:400;color:var(--ink-soft);text-align:right">This date is in the past, so no current timeline is shown.<br>Check the date above if that is not what you meant.</b></div>';
+      $('pg-barFill').style.width = '100%';
+      $('pg-pct').textContent = 'complete';
     } else {
       var w = Math.floor(o.elapsed/7), d = o.elapsed % 7;
       var mm = monthsBetween(o.week1, o.today);
       var pct = Math.round(o.elapsed/280*100);
-      h += '<div class="pg-fact"><span>You are currently at</span><b>Week ' + o.weekNo +
-           '<br><span style="font-weight:400;color:var(--ink-faint);font-size:12px">' +
-           plural(w,'week') + ' ' + plural(d,'day') + ' \u00b7 ' +
+      h += '<div class="pg-fact"><span>You are currently</span><b>' +
+           plural(w,'week') + ' ' + plural(d,'day') +
+           '<br><span style="font-weight:400;color:var(--ink-faint);font-size:12px">'
+           + 'in week ' + Math.min(o.weekNo, 42) + ' \u00b7 ' +
            (mm[0] ? plural(mm[0],'month') + (mm[1] ? ' ' + plural(mm[1],'day') : '') : plural(mm[1],'day')) +
-           '</span></b></div>';
+           ' by the calendar</span></b></div>';
       h += '<div class="pg-fact"><span>Trimester</span><b>' + trimesterOf(Math.min(o.weekNo,42)) +
            (o.weekNo >= 37 && o.weekNo <= 42 ? ' \u00b7 full term' : '') + '</b></div>';
       var sz = SIZE[Math.min(o.weekNo, 40)];
@@ -974,9 +986,12 @@
     for(var wk = 1; wk <= 42; wk++){
       var s = add(o.week1, (wk-1)*7), e = add(s, 6);
       var isNow = !o.before && o.today >= s && o.today <= e;
+      var hasDue = o.due >= s && o.due <= e;
       var ms = milestoneOf(wk);
+      var tags = (isNow ? ' <span class="tri">(today)</span>' : '') +
+                 (hasDue ? ' <span class="ms">(due date)</span>' : '');
       rows += '<tr' + (isNow ? ' class="now"' : '') + '><td>Week ' + wk + '</td><td>' +
-              fmt(s) + ' \u2013 ' + fmt(e) + (isNow ? ' <span class="tri">(today)</span>' : '') +
+              fmt(s) + ' \u2013 ' + fmt(e) + tags +
               '</td><td class="tri">' + trimesterOf(wk) + '</td><td' + (ms ? ' class="ms"' : '') + '>' +
               esc(ms) + '</td></tr>';
     }

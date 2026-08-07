@@ -7351,6 +7351,52 @@ Macro 131 · Pregnancy 81 · Due Date 85 — all passing against the live site.
    arguably sounder, but it is a difference.
 
 
+### Both open items closed, and a larger correctness bug found while closing them (Aug 7, 2026)
+
+The owner's instruction was that users must get correct calculations and correct information,
+so both flagged items were resolved rather than left as questions.
+
+**The bigger find: gestational age was a day behind clinical convention.**
+
+Checking what the reference reports on the due date itself — the single most-quoted number on
+either page — it says **39 weeks 6 days**. Convention is unambiguous: gestational age is days
+since the first day of the last period, and the estimated due date is that day plus 280, so on
+the due date you are **40 weeks 0 days**. The reference starts its table a day after the LMP and
+is one day short throughout. We had copied it.
+
+This mattered more than either open item, because it is the figure a woman repeats to a midwife.
+Corrected on both pages: week 1 now begins on the LMP, and the due date opens week 41 at exactly
+40w0d and is tagged in the table. Verified at the boundary — due date reads 40w0d, the day before
+reads 39w6d.
+
+Two related fixes came out of the same pass:
+- A due date more than 42 weeks in the past produced **"80 weeks 0 days"**. It now says the date
+  is historic and suggests checking the input, rather than extrapolating a pregnancy from it.
+- The result line led with the week ordinal, which reads oddly once the due date sits in week 41.
+  It now leads with the gestational age — the number people actually use — with the week number
+  and calendar months beneath it.
+
+**Item 1, Body Fat SI vs USC — no change needed, and now explained.** On inspection the page was
+already correct and self-consistent: it applies the metric Hodgdon & Beckett equations, publishes
+exactly those equations, and states that US entries are converted to centimetres first. Nothing
+wrong was reaching a user. The real gap was that someone comparing against a tool using the
+inch-based form would see a small difference and have no way to know why, so the article now
+explains that the inch form is an algebraic conversion of this one, that rounding puts it a few
+tenths of a point away, and that running one set of equations for both tabs is what stops the
+page contradicting itself when you switch units.
+
+**Item 2, the months restatement — resolved by not copying an inconsistent figure.** The
+reference's own "X months Y days" does not reconcile with its own day count (160 days shown as
+"5 months 10 days", which is about 162). Ours is exact calendar months from the start of week 1
+and is now labelled **"by the calendar"** so the reader knows what is being counted and can check
+it. Matching the reference here would have meant shipping a figure that contradicts the day count
+sitting next to it.
+
+**Verification.** Body Fat 106, Pregnancy 86, Due Date 90 assertions, all passing, with new
+checks covering the due-date convention at the boundary, the historic-date path, and the tagged
+due-date row.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
