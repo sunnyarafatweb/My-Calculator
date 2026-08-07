@@ -375,22 +375,24 @@
 .va-calc-card a:hover{background:rgba(255,255,255,0.07)}
 .va-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
 
-.va-schedule-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:22px;width:100%;overflow:hidden}
-.va-schedule-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.va-schedule-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+/* Schedule and chart are two separate cards side by side, matching the pattern on
+   mortgage-payoff-calculator, rather than one card split down the middle. */
+.va-schedule-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:900px){.va-schedule-grid{grid-template-columns:1fr}}
+.va-sched-card,.va-chart-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.va-card-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.va-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
 .va-schedule-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .va-schedule-sub{font-size:11.5px;color:var(--ink-faint)}
 .va-schedule-toggle{display:flex;gap:6px}
 .va-schedule-toggle button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;border-radius:6px}
 .va-schedule-toggle button.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-.va-schedule-body-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
-@media(max-width:900px){.va-schedule-body-grid{grid-template-columns:1fr}}
-.va-chart-col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.va-chart-body{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1;justify-content:center;min-width:0}
 .va-chart-svg{width:100%;height:auto;display:block}
 .va-chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 .va-chart-legend .lg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)}
 .va-chart-legend .lg i{width:10px;height:10px;border-radius:3px;display:block}
-.va-table-wrap{max-height:430px;overflow-y:auto;overflow-x:auto;border:1px solid var(--border-fine);border-radius:10px}
+.va-table-wrap{max-height:430px;overflow-y:auto;overflow-x:auto}
 .va-table{width:100%;min-width:430px;border-collapse:collapse;font-size:12.5px}
 .va-table th{position:sticky;top:0;background:var(--surface-sunken);text-align:right;padding:9px 10px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border-fine);z-index:1;white-space:nowrap}
 .va-table th:first-child,.va-table td:first-child{text-align:left}
@@ -672,31 +674,37 @@
     </div>
   </div>
 
-  <!-- ============ SCHEDULE ============ -->
-  <div class="va-schedule-card va-area-schedule">
-    <div class="va-schedule-head">
-      <span class="t">Amortization Schedule</span>
-      <div class="va-schedule-right">
-        <span class="va-schedule-sub" id="va-schedSub"></span>
-        <div class="va-schedule-toggle">
-          <button type="button" id="va-schedAnnualBtn" class="active">Annual</button>
-          <button type="button" id="va-schedMonthlyBtn">Monthly</button>
+  <!-- ============ SCHEDULE + CHART (two cards, side by side) ============ -->
+  <div class="va-area-schedule">
+    <div class="va-schedule-grid">
+      <div class="va-sched-card">
+        <div class="va-card-head">
+          <span class="t">Amortization Schedule</span>
+          <div class="va-schedule-right">
+            <span class="va-schedule-sub" id="va-schedSub"></span>
+            <div class="va-schedule-toggle">
+              <button type="button" id="va-schedAnnualBtn" class="active">Annual</button>
+              <button type="button" id="va-schedMonthlyBtn">Monthly</button>
+            </div>
+          </div>
+        </div>
+        <div class="va-table-wrap">
+          <table class="va-table">
+            <thead id="va-schedHead"></thead>
+            <tbody id="va-schedBody"></tbody>
+          </table>
         </div>
       </div>
-    </div>
-    <div class="va-schedule-body-grid">
-      <div class="va-table-wrap">
-        <table class="va-table">
-          <thead id="va-schedHead"></thead>
-          <tbody id="va-schedBody"></tbody>
-        </table>
-      </div>
-      <div class="va-chart-col">
-        <svg class="va-chart-svg" id="va-chartSvg" viewBox="0 0 340 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loan balance and cumulative interest over time"></svg>
-        <div class="va-chart-legend">
-          <span class="lg"><i style="background:#1E3A5F"></i>Balance</span>
-          <span class="lg"><i style="background:#16A34A"></i>Principal paid</span>
-          <span class="lg"><i style="background:#CF3F53"></i>Interest paid</span>
+
+      <div class="va-chart-card">
+        <div class="va-card-head"><span class="t">Balance Over Time</span></div>
+        <div class="va-chart-body">
+          <svg class="va-chart-svg" id="va-chartSvg" viewBox="0 0 340 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loan balance and cumulative interest over time"></svg>
+          <div class="va-chart-legend">
+            <span class="lg"><i style="background:#1E3A5F"></i>Balance</span>
+            <span class="lg"><i style="background:#16A34A"></i>Principal paid</span>
+            <span class="lg"><i style="background:#CF3F53"></i>Interest paid</span>
+          </div>
         </div>
       </div>
     </div>

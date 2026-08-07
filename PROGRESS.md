@@ -6732,6 +6732,34 @@ behaviour is part of parity, with the exact `clearForm()` semantics written out 
 not have to be rediscovered.
 
 
+### VA Mortgage Calculator — schedule and chart split into two cards (Aug 7, 2026)
+
+Owner: the schedule table and the chart were sitting inside one card; every other page keeps
+them as two separate cards in the same position.
+
+Correct — `mortgage-payoff-calculator` is the house pattern: a `minmax(0,1fr) 400px` grid
+holding a schedule card and a chart card as siblings, each with its own header bar and border.
+The VA page had them as one `.va-schedule-card` containing a `.va-schedule-body-grid` that
+split the interior, which reads as a single card with a divider rather than two cards. The
+donor page for this build (`amortization-calculator`) uses the older combined form, which is
+how it got copied in.
+
+Rebuilt to match mortgage-payoff: `.va-schedule-grid` wrapping `.va-sched-card` (header with
+the year count and the Annual/Monthly toggle, then the scrolling table) and `.va-chart-card`
+(header, then the SVG and legend, vertically centred so the chart does not sit at the top of a
+tall card). Both stretch to equal height; at 900px they stack full width. Dead CSS for the old
+combined layout removed.
+
+Verified at 1280/430/390px: two distinct cards, same row with a 16px gap and equal height on
+desktop, single full-width track stacked on mobile with zero horizontal overflow. Three
+assertions added, including one that fails if the chart card is ever nested inside the schedule
+card again. Suite now 100 assertions.
+
+Worth noting for future builds: when copying structure from a donor page, check the donor is
+current for the component being copied. `amortization-calculator` was the right donor for the
+grid areas and is the wrong one for the schedule/chart card split.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

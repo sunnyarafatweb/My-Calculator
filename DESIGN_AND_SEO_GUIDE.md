@@ -126,6 +126,12 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
    Intentional differences (if any): ...
    ```
 
+### Schedule and chart are two cards, not one (added Aug 7, 2026)
+
+Where a page shows a schedule table alongside a chart, they are **two separate cards side by side**, each with its own border and header bar — not one card with a divider down the middle. The reference implementation is `mortgage-payoff-calculator`: a `minmax(0,1fr) 400px` grid holding a schedule card and a chart card as siblings, stretched to equal height, collapsing to one full-width column at 900px. `amortization-calculator` still uses the older combined form; **do not copy the schedule/chart structure from it**, and fix it if that page is ever rebuilt.
+
+More generally: when lifting structure from a donor page, confirm the donor is current for the *specific component* being copied, not just for the page skeleton.
+
 ### The buttons are part of parity too (added Aug 7, 2026, third correction)
 
 **Clear means clear.** calculator.net's `clearForm()` sets every `text`/`number`/`date`/`textarea` input to an empty string, leaves selects, radios and checkboxes untouched, and does not scroll or recalculate. That is the behaviour to reproduce. The VA Mortgage Calculator shipped with a Clear that restored default values instead of emptying the boxes, and a later 'fix' made it worse by adding a scroll-to-form and a result flash — so pressing Clear jumped the page the same way Calculate does, while the boxes still held numbers the visitor had not typed. Both were invented behaviour, neither was asked for.
