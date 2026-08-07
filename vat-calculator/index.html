@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>VAT Calculator | CalculatorBoss</title><meta name="description" content="Add VAT to a net price, or extract VAT from a gross total, with quick-select rates for the UK, EU and other common jurisdictions."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/vat-calculator/"/><meta property="og:title" content="VAT Calculator | CalculatorBoss"/><meta property="og:description" content="Add or remove VAT at any rate, with common country presets."/><meta property="og:url" content="https://calculatorboss.com/vat-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>VAT Calculator — Add or Remove VAT at 20%, 5% or Any Rate</title><meta name="description" content="Free VAT calculator: add VAT to a net price or remove it from a gross total at 20%, 5% or any rate, with country presets for the UK, EU and beyond."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="vat calculator,reverse vat calculator,remove vat calculator,add vat calculator,uk vat calculator,vat calculator 20 percent,work out vat,vat rates by country"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/vat-calculator/"/><meta property="og:title" content="VAT Calculator — Add or Remove VAT at 20%, 5% or Any Rate"/><meta property="og:description" content="Free VAT calculator: add VAT to a net price or remove it from a gross total at 20%, 5% or any rate, with country presets for the UK, EU and beyond."/><meta property="og:url" content="https://calculatorboss.com/vat-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/vat-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="VAT Calculator — Add or Remove VAT at 20%, 5% or Any Rate"/><meta name="twitter:description" content="Free VAT calculator: add VAT to a net price or remove it from a gross total at 20%, 5% or any rate, with country presets for the UK, EU and beyond."/><meta name="twitter:image" content="https://calculatorboss.com/og/vat-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,110 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.vt-wrap{width:100%}
+.vt-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.vt-bar-text{display:flex;align-items:center;gap:10px}
+.vt-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.vt-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.vt-bar-pdf-btn:hover{background:#f0f0f0}
+.vt-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.vt-grid{display:grid;grid-template-columns:384px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.vt-area-bar{grid-area:bar}
+.vt-area-tabs{grid-area:tabs}
+.vt-area-form{grid-area:form}
+.vt-area-result{grid-area:result}
+.vt-area-sidebar{grid-area:sidebar}
+.vt-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .vt-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.vt-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.vt-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.vt-tab:hover{border-color:var(--border)}
+.vt-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.vt-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.vt-card-pad{padding:22px}
+.vt-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+.vt-sec:first-child{margin-top:0}
+.vt-field{display:flex;align-items:center;gap:8px;padding:6px 0;flex-wrap:wrap}
+.vt-field-label{width:140px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.vt-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:130px}
+.vt-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.vt-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12.5px;flex-shrink:0}
+.vt-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.vt-input-group.solved input{background:var(--gold-tint);color:var(--ink);font-weight:600}
+.vt-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.vt-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.vt-subnote{font-size:11.5px;color:var(--ink-faint);margin:4px 0 0;line-height:1.55}
+
+.vt-chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 4px}
+.vt-chip{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.vt-chip:hover{border-color:var(--gold)}
+.vt-chip.on{background:var(--gold-tint);border-color:var(--gold);color:var(--gold-deep)}
+
+.vt-btn-row{display:flex;gap:8px;padding-top:16px}
+.vt-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.vt-btn-calc:hover{background:#128A3D}
+.vt-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.vt-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.vt-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.vt-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.vt-result-head .bignum{font-size:32px;font-weight:700;line-height:1.2;margin-top:2px}
+.vt-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.vt-result-body{padding:14px 20px 4px}
+.vt-result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:14px;color:var(--ink-soft)}
+.vt-result-row:first-child{border-top:none}
+.vt-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.vt-result-row.big span:last-child{font-size:15px;font-weight:700}
+.vt-err{margin:0 20px 16px;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.vt-err.show{display:block}
+.vt-hint{margin:0 20px 16px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--ink-soft);line-height:1.55}
+.vt-donut-box{padding:4px 20px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.vt-donut-svg{width:126px;height:126px;flex-shrink:0}
+.vt-donut-legend{display:flex;flex-direction:column;gap:9px;flex:1;min-width:150px}
+.vt-donut-legend .lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft)}
+.vt-donut-legend .lg i{width:11px;height:11px;border-radius:3px;display:block;flex-shrink:0}
+.vt-donut-legend .lg b{color:var(--ink);margin-left:auto;padding-left:10px}
+
+.vt-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.vt-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.vt-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.vt-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.vt-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.vt-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.vt-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.vt-bottom-grid{grid-template-columns:1fr}}
+.vt-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.vt-info-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:12px;display:block}
+.vt-rate-wrap{max-height:330px;overflow-y:auto;border:1px solid var(--border-fine);border-radius:10px}
+.vt-rate-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.vt-rate-table th{position:sticky;top:0;background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine);z-index:1}
+.vt-rate-table th:first-child{text-align:left}
+.vt-rate-table td{padding:7px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.vt-rate-table td:first-child{text-align:left;color:var(--ink-soft)}
+.vt-rate-table tr:last-child td{border-bottom:none}
+.vt-rate-table tbody tr:nth-child(even){background:var(--surface-sunken)}
+.vt-rate-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.vt-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+.vt-info-list{display:flex;flex-direction:column;gap:8px}
+.vt-info-item{font-size:12.5px;color:var(--ink-soft);background:var(--surface-sunken);border-radius:8px;padding:10px 12px;line-height:1.55}
+.vt-info-item b{color:var(--ink);font-weight:700;display:block;margin-bottom:3px}
+.vt-info-item code{font-family:var(--f-mono);font-size:12px;color:var(--ink)}
+
+@media(max-width:520px){
+  .vt-field{flex-wrap:wrap}
+  .vt-field-label{width:100%}
+  .vt-tab{flex:1;text-align:center;padding:10px 12px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"VAT","item":"https://calculatorboss.com/vat-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +451,233 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the difference between VAT and US-style sales tax?","acceptedAnswer":{"@type":"Answer","text":"VAT is collected at each stage of production and distribution, with businesses reclaiming what they paid on inputs — only the final consumer effectively bears the full cost. US sales tax is collected once, at the final retail sale. The arithmetic for a consumer at checkout works out similarly, which is what this calculator handles."}},{"@type":"Question","name":"Can a business reclaim VAT it pays?","acceptedAnswer":{"@type":"Answer","text":"Generally yes, if VAT-registered — businesses reclaim VAT paid on their own purchases against VAT collected on their sales, remitting only the difference. This calculator covers the consumer-facing price math, not a full VAT return."}},{"@type":"Question","name":"Why do rates vary so much by country?","acceptedAnswer":{"@type":"Answer","text":"Each country sets its own standard VAT/GST rate, and many also apply reduced rates to specific categories like food or books — the presets here cover standard rates only; check local rules for category-specific exceptions."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VAT Calculator","url":"https://calculatorboss.com/vat-calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">VAT Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">VAT Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Add VAT to a net price, or pull it back out of a VAT-inclusive total — with quick presets for common countries.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full transition-colors bg-accent text-white">Add VAT to price</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">Extract VAT from total</button></div><div><label class="text-sm text-ink-soft mb-2 block">Price excluding VAT</label><div class="flex items-center gap-1 rounded-lg border border-border px-3 py-2"><span class="text-ink-faint">$</span><input type="number" class="w-full bg-transparent outline-none tabular text-ink" value="100"/></div></div><div><label class="text-sm text-ink-soft mb-2 block">VAT rate: <!-- -->20<!-- -->%</label><input type="range" min="0" max="27" step="0.5" class="w-full accent-accent h-1.5 rounded-full bg-surface-sunken cursor-pointer mb-3" value="20"/><div class="flex flex-wrap gap-2"><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">UK<!-- --> (<!-- -->20<!-- -->%)</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">Germany<!-- --> (<!-- -->19<!-- -->%)</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">France<!-- --> (<!-- -->20<!-- -->%)</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">Ireland<!-- --> (<!-- -->23<!-- -->%)</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">Australia (GST)<!-- --> (<!-- -->10<!-- -->%)</button><button class="text-xs px-2.5 py-1 rounded-full border border-border text-ink-soft hover:border-accent">Canada (GST)<!-- --> (<!-- -->5<!-- -->%)</button></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Price including VAT</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">$120.00</div><dl class="grid grid-cols-2 gap-4 text-sm"><div><dt class="text-ink-faint mb-1">VAT amount</dt><dd class="tabular text-ink font-medium">$20.00</dd></div><div><dt class="text-ink-faint mb-1">Price excluding VAT</dt><dd class="tabular text-ink font-medium">$100.00</dd></div></dl><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">VAT-registered businesses can typically reclaim VAT paid on purchases — this calculator shows the consumer-facing math only, not a VAT return.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A <span class="tabular">$100</span> net price at the UK&#x27;s standard <span class="tabular">20%</span> VAT rate comes to <span class="tabular">$120</span> including VAT — a <span class="tabular">$20</span> VAT charge. Switch to the reverse mode and enter <span class="tabular">$120</span> as the VAT-inclusive total, and it correctly pulls out exactly <span class="tabular">$100</span> as the net price.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">What&#x27;s the difference between VAT and US-style sales tax?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">VAT is collected at each stage of production and distribution, with businesses reclaiming what they paid on inputs — only the final consumer effectively bears the full cost. US sales tax is collected once, at the final retail sale. The arithmetic for a consumer at checkout works out similarly, which is what this calculator handles.</p></div><div><h3 class="font-medium text-ink mb-1.5">Can a business reclaim VAT it pays?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Generally yes, if VAT-registered — businesses reclaim VAT paid on their own purchases against VAT collected on their sales, remitting only the difference. This calculator covers the consumer-facing price math, not a full VAT return.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why do rates vary so much by country?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Each country sets its own standard VAT/GST rate, and many also apply reduced rates to specific categories like food or books — the presets here cover standard rates only; check local rules for category-specific exceptions.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides general estimates only. Confirm the exact applicable VAT/GST rate for your specific product category and jurisdiction with an official source.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"VAT Calculator","item":"https://calculatorboss.com/vat-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I remove VAT from a price?","acceptedAnswer":{"@type":"Answer","text":"Divide the gross price by 1 plus the rate as a decimal. At the UK standard rate of 20% that means dividing by 1.20: a gross total of £2,340 becomes £1,950 net, with £390 of VAT. Do not subtract 20% from the gross figure — that gives £1,872, which is £78 short, because the 20% was charged on the smaller net price rather than on the total."}},{"@type":"Question","name":"How do I add VAT to a price?","acceptedAnswer":{"@type":"Answer","text":"Multiply the net price by 1 plus the rate as a decimal. At 20%, multiply by 1.20 — a net price of £480 becomes £576 gross, with £96 of VAT. At the reduced 5% rate you multiply by 1.05 instead, so £850 net becomes £892.50."}},{"@type":"Question","name":"What is the VAT rate in the UK?","acceptedAnswer":{"@type":"Answer","text":"The standard rate is 20% and has been since January 2011. A reduced rate of 5% applies to a limited list including domestic fuel and power, children's car seats and some energy-saving materials, and a zero rate applies to most food, children's clothing, books and newspapers. Which rate applies depends on what is being sold, not on who is selling it."}},{"@type":"Question","name":"What is the quick way to work out VAT in my head?","acceptedAnswer":{"@type":"Answer","text":"Use the VAT fraction. At 20% the VAT contained in a gross price is exactly one sixth of it, so a £2,340 total divides by 6 to give £390 of VAT. At the 5% rate the fraction is one twenty-first. This is the same arithmetic as dividing by 1.20, just easier to do without a calculator."}},{"@type":"Question","name":"What is the difference between zero-rated and exempt?","acceptedAnswer":{"@type":"Answer","text":"Zero-rated supplies are inside the VAT system but charged at 0%, so the business still reclaims the VAT it paid on its own costs. Exempt supplies are outside the system altogether: no VAT is charged and the related input VAT generally cannot be reclaimed. The customer pays nothing either way, but the effect on the seller's costs is very different."}},{"@type":"Question","name":"Is VAT the same as GST?","acceptedAnswer":{"@type":"Answer","text":"Mechanically, yes. Australia, New Zealand, Canada, Singapore and India call their value-added tax a goods and services tax, and it works the same way — charged at each stage, reclaimed by businesses, borne by the final consumer. The rates and the lists of exceptions differ a great deal, so the name is worth less than the local rules. No country runs a VAT and a GST side by side."}},{"@type":"Question","name":"Why does the US not have VAT?","acceptedAnswer":{"@type":"Answer","text":"It is the only large economy without one. American states levy a retail sales tax instead, collected once at the final sale rather than at every stage of the supply chain. A US business selling to customers in the UK or EU may still have to register for VAT there, which is the usual reason an American visitor ends up on a page like this one."}},{"@type":"Question","name":"Does VAT get rounded per item or per invoice?","acceptedAnswer":{"@type":"Answer","text":"Tax authorities generally let you calculate VAT on the invoice total rather than line by line, and rounding conventions vary between them — some allow rounding down to the nearest penny or cent, others require normal rounding. Line-by-line and total-based calculations can differ by a penny or two on a long invoice, which is normal rather than an error. This calculator rounds the final figures to two decimal places."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"VAT Calculator","url":"https://calculatorboss.com/vat-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Adds VAT to a net price or removes it from a gross total at any rate, and solves for the rate or the VAT amount from any two known figures.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">VAT Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">VAT Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Add VAT to a price that excludes it, or strip VAT out of a total that includes it — at 20%, 5% or any rate you need, with presets for the UK, the EU and the main GST countries.</p><div class="vt-wrap">
+<div class="vt-grid">
+
+  <div class="vt-bar vt-area-bar">
+    <span class="vt-bar-text"><span class="vt-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="vt-bar-pdf-btn" id="vt-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="vt-tabs vt-area-tabs" role="tablist" aria-label="Calculation mode">
+    <button type="button" class="vt-tab active" id="vt-tabAdd" role="tab" aria-selected="true">Add VAT</button>
+    <button type="button" class="vt-tab" id="vt-tabRemove" role="tab" aria-selected="false">Remove VAT</button>
+    <button type="button" class="vt-tab" id="vt-tabAny" role="tab" aria-selected="false">Any two values</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="vt-card vt-area-form">
+    <div class="vt-card-pad">
+
+      <div class="vt-sec">Rate</div>
+      <div class="vt-field">
+        <label class="vt-field-label" for="vt-country">Country preset</label>
+        <div class="vt-field-control"><select class="vt-select-plain" id="vt-country"></select></div>
+      </div>
+      <div class="vt-field">
+        <label class="vt-field-label" for="vt-rate">VAT rate</label>
+        <div class="vt-field-control"><div class="vt-input-group" id="vt-rateGroup"><input type="text" inputmode="decimal" id="vt-rate" value="20"><span>%</span></div></div>
+      </div>
+      <div class="vt-chips" id="vt-rateChips"></div>
+      <p class="vt-subnote" id="vt-rateNote">UK standard rate. Pick a country above to switch, or type any rate.</p>
+
+      <div class="vt-divider"></div>
+
+      <div class="vt-sec">Amount</div>
+      <div class="vt-field">
+        <label class="vt-field-label" for="vt-currency">Currency</label>
+        <div class="vt-field-control"><select class="vt-select-plain" id="vt-currency"></select></div>
+      </div>
+
+      <div class="vt-field" id="vt-rowNet">
+        <label class="vt-field-label" for="vt-net">Net price <span style="color:var(--ink-faint)">(excl. VAT)</span></label>
+        <div class="vt-field-control"><div class="vt-input-group" id="vt-netGroup"><span class="vt-cur">£</span><input type="text" inputmode="decimal" id="vt-net" value="1200"></div></div>
+      </div>
+      <div class="vt-field" id="vt-rowGross">
+        <label class="vt-field-label" for="vt-gross">Gross price <span style="color:var(--ink-faint)">(incl. VAT)</span></label>
+        <div class="vt-field-control"><div class="vt-input-group" id="vt-grossGroup"><span class="vt-cur">£</span><input type="text" inputmode="decimal" id="vt-gross" value=""></div></div>
+      </div>
+      <div class="vt-field" id="vt-rowTax">
+        <label class="vt-field-label" for="vt-tax">VAT amount</label>
+        <div class="vt-field-control"><div class="vt-input-group" id="vt-taxGroup"><span class="vt-cur">£</span><input type="text" inputmode="decimal" id="vt-tax" value=""></div></div>
+      </div>
+      <p class="vt-subnote" id="vt-formNote">Fill in any two boxes above — including the rate — and the other two are worked out for you.</p>
+
+      <div class="vt-btn-row">
+        <button type="button" class="vt-btn-calc" id="vt-calcBtn">Calculate</button>
+        <button type="button" class="vt-btn-clear" id="vt-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="vt-result-card vt-area-result">
+    <div class="vt-result-head">
+      <div class="label" id="vt-bigLabel">Gross price (incl. VAT)</div>
+      <div class="bignum" id="vt-bigNum">—</div>
+      <div class="sub" id="vt-bigSub">—</div>
+    </div>
+    <div class="vt-err" id="vt-err"></div>
+    <div class="vt-result-body" id="vt-rows"></div>
+    <div class="vt-hint" id="vt-hint"></div>
+    <div class="vt-donut-box">
+      <svg class="vt-donut-svg" id="vt-donutSvg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Split of the gross price between net price and VAT"></svg>
+      <div class="vt-donut-legend" id="vt-donutLegend"></div>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="vt-sidecol vt-area-sidebar">
+    <div class="vt-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/sales-tax-calculator/">Sales Tax <span class="arrow">→</span></a>
+      <a href="/percentage-calculator/">Percentage <span class="arrow">→</span></a>
+      <a href="/margin-calculator/">Profit Margin <span class="arrow">→</span></a>
+      <a href="/discount-calculator/">Discount <span class="arrow">→</span></a>
+      <a href="/income-tax-calculator/">Income Tax <span class="arrow">→</span></a>
+      <a href="/currency-calculator/">Currency Converter <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="vt-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="vt-area-bottomgrid">
+    <div class="vt-bottom-grid">
+      <div class="vt-info-card">
+        <span class="t">VAT &amp; GST Rates by Country</span>
+        <div class="vt-rate-wrap">
+          <table class="vt-rate-table">
+            <thead><tr><th>Country</th><th>Standard</th><th>Reduced</th></tr></thead>
+            <tbody id="vt-rateBody"></tbody>
+          </table>
+        </div>
+        <p class="vt-note">Standard rates as published for 2026. Reduced rates apply only to specific goods and services, and several countries operate more than one. Rates change with national budgets — confirm with the relevant tax authority before you file or invoice.</p>
+      </div>
+      <div class="vt-info-card">
+        <span class="t">The Four Formulas</span>
+        <div class="vt-info-list">
+          <div class="vt-info-item"><b>Add VAT to a net price</b><code>gross = net × (1 + rate ÷ 100)</code><br>At 20%, multiply by 1.20.</div>
+          <div class="vt-info-item"><b>Remove VAT from a gross price</b><code>net = gross ÷ (1 + rate ÷ 100)</code><br>At 20%, divide by 1.20. Do not subtract 20% — that gives a different, wrong answer.</div>
+          <div class="vt-info-item"><b>Find the rate from two prices</b><code>rate = (gross − net) ÷ net × 100</code></div>
+          <div class="vt-info-item"><b>The VAT fraction shortcut</b>At 20% the VAT inside a gross price is exactly one sixth of it; at 5% it is one twenty-first. Handy for checking a receipt in your head.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.vt-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.vt-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.vt-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.vt-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.vt-seo-article strong{color:var(--ink);font-weight:600}
+.vt-seo-article a{color:#128A3D;text-decoration:underline}
+.vt-seo-article code{font-family:var(--f-mono);font-size:13px;background:var(--surface-sunken);padding:2px 6px;border-radius:5px;color:var(--ink)}
+.vt-seo-article ul,.vt-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.vt-seo-article ul li strong,.vt-seo-article ol li strong{color:var(--ink)}
+.vt-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);line-height:1.7;word-break:break-word}
+.vt-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.vt-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.vt-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.vt-toc a:hover{color:#1E3A5F}
+.vt-seo-article h2[id]{scroll-margin-top:88px}
+.vt-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.vt-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="vt-seo-article">
+<p class="vt-byline">Written by the CalculatorBoss Finance Team · Reviewed against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<nav class="vt-toc" aria-label="On this page">
+  <a href="#what">What VAT is, and who actually pays it</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#mistake">The mistake that makes reverse VAT wrong</a>
+  <a href="#rates">Standard, reduced, zero — and exempt</a>
+  <a href="#world">VAT around the world, and why GST is the same thing</a>
+  <a href="#salestax">VAT compared with US sales tax</a>
+  <a href="#invoices">Invoices, rounding and registration</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="what">What VAT is, and who actually pays it</h2>
+<p>Value-added tax is charged at every stage of a supply chain, but only once in economic terms. A business adds VAT to what it sells, reclaims the VAT on what it buys, and hands the difference to the tax authority. Do that at each link in the chain and the total collected comes to exactly the rate applied to the final retail price — the tax lands on the end consumer, while every business in between is really acting as an unpaid collector.</p>
+<p>That design is why VAT is so widely used. More than 170 countries operate one, and it accounts for a large share of government revenue almost everywhere it exists. It is also why VAT resists the evasion that a single-stage tax invites: because each business reclaims what its supplier charged, both sides have a paper trail and an incentive to declare the transaction.</p>
+<p>For anyone using a calculator, the practical consequence is that two different prices exist for the same thing. The <strong>net</strong> price excludes VAT and is what a VAT-registered buyer effectively pays, since they reclaim the tax. The <strong>gross</strong> price includes it and is what a consumer pays. Business-to-business quotes are usually net; retail prices in the UK and the EU must be shown gross. Confusing the two is the single most common source of a mispriced quote.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>All of it rests on one relationship. VAT is a percentage <em>of the net price</em>, and the gross price is the two added together:</p>
+<div class="vt-formula">gross = net + VAT<br>VAT = net × rate ÷ 100</div>
+<p>Rearranging that gives everything else. The three tabs are three ways into the same equation:</p>
+<ul>
+  <li><strong>Add VAT</strong> — you have a net price and want the total. <code>gross = net × (1 + rate ÷ 100)</code>. At 20%, £480 × 1.20 = £576, of which £96 is VAT.</li>
+  <li><strong>Remove VAT</strong> — you have a gross total from a receipt or invoice and want the figure underneath it. <code>net = gross ÷ (1 + rate ÷ 100)</code>. At 20%, £2,340 ÷ 1.20 = £1,950, so the VAT was £390.</li>
+  <li><strong>Any two values</strong> — fill in any two of rate, net, gross and VAT amount and the other two follow. This covers the cases the first two tabs do not: working out what rate was applied when you have both prices, or recovering the prices when all you know is the rate and the VAT charged.</li>
+</ul>
+<p>The rate itself can be derived whenever you have two amounts:</p>
+<div class="vt-formula">rate = (gross − net) ÷ net × 100</div>
+<p>A £480 net price and a £576 total gives (576 − 480) ÷ 480 × 100 = 20%. This is genuinely useful when a supplier sends a total with no breakdown, or when you are checking whether a foreign invoice used the rate you expected.</p>
+<p>One consequence surprises people: VAT is never the same percentage of the gross price as the rate itself. At a 20% rate, the VAT is 20% of the net but only 16.67% of the total. That gap is the whole reason the reverse calculation needs a division rather than a subtraction.</p>
+
+<h2 id="mistake">The mistake that makes reverse VAT wrong</h2>
+<p>Take £2,340 including VAT at 20% and subtract 20% of it. You get £1,872. It looks like the answer and it is not: the correct net price is £1,950, and the two differ by £78.</p>
+<p>The reason is that the 20% was applied to £1,950, not to £2,340. Twenty per cent of the smaller figure is £390; twenty per cent of the larger one is £468. Subtracting the wrong one leaves you short. The error scales with the amount, so it stays invisible on a coffee receipt and becomes expensive on a £40,000 invoice.</p>
+<p>There are two reliable ways to avoid it. Divide by 1.20 rather than subtracting, or use the VAT fraction: at 20% the tax inside any gross figure is exactly one sixth of it, so £2,340 ÷ 6 = £390 of VAT, leaving £1,950. At the 5% reduced rate the fraction is one twenty-first. The calculator shows the applicable fraction under each result so you can sanity-check the arithmetic without trusting the tool blindly.</p>
+
+<h2 id="rates">Standard, reduced, zero — and exempt</h2>
+<p>Most VAT systems run several rates at once. The UK's structure is typical: a 20% standard rate on the great majority of goods and services, a 5% reduced rate on a short list including domestic fuel and power and children's car seats, and a 0% rate on most food, children's clothing, books and newspapers. Which rate applies depends on what is sold, not on who sells it — the same shop can be charging all three in a single transaction.</p>
+<p>The distinction worth understanding is between <strong>zero-rated</strong> and <strong>exempt</strong>, because they look identical to the customer and are not at all the same for the seller. A zero-rated supply sits inside the VAT system at a rate of 0%: no VAT is charged, but the business still reclaims the VAT on its own costs. An exempt supply — insurance, most education, health services, residential rent — sits outside the system: no VAT is charged and the related input VAT generally cannot be reclaimed, so the tax becomes a cost the business absorbs.</p>
+<p>The practical upshot is that a business making only exempt supplies usually cannot register for VAT at all, while one making zero-rated supplies often registers voluntarily and ends up reclaiming more than it charges.</p>
+
+<h2 id="world">VAT around the world, and why GST is the same thing</h2>
+<p>Standard rates vary far more than people expect. Within the EU they run from 17% in Luxembourg to 27% in Hungary, against an average of roughly 22% and a legal floor of 15% that member states may not go below. Switzerland, outside the EU, charges 8.1% — the lowest in western Europe by a wide margin, and a well-known driver of cross-border shopping from France, Germany and Austria.</p>
+<p>Outside Europe the same tax usually answers to a different name. Australia, New Zealand, Canada, Singapore and India all call theirs a goods and services tax, and the mechanism is identical: charged at each stage, reclaimed by businesses, borne by the final consumer. The rates tend to be lower — 10% in Australia, 15% in New Zealand, 5% for Canada's federal GST — and the exception lists differ enough that the local rules matter far more than the label. No country operates a VAT and a GST as two separate taxes.</p>
+<p>The rate table beside the calculator covers the jurisdictions people ask about most often, and the country selector loads the right standard rate straight into the form. Rates move with national budgets more often than you would think, so treat any table — including this one — as a starting point rather than the last word before you file a return.</p>
+
+<h2 id="salestax">VAT compared with US sales tax</h2>
+<p>The United States is the only large economy without a national VAT. It uses retail sales tax instead, set by states and often by counties and cities on top, and collected once at the final sale rather than at every stage.</p>
+<p>Three differences matter in practice. Sales tax rates are much lower — typically 4% to 10% against 15% to 27% for VAT — because a single-stage tax has to be collected in one hit rather than accumulated. Sales tax is added at the till and quoted separately, so the shelf price is the net price, whereas UK and EU retail prices must be shown VAT-inclusive. And sales tax can cascade: when a business buys something taxed and resells it without a valid exemption certificate, the tax is charged twice on the same value, which VAT's reclaim mechanism prevents by design.</p>
+<p>Neither system is obviously fairer. VAT is regressive in its raw form, taking a larger share of a low income than a high one, which is why most VAT countries zero-rate or reduce the rate on food, children's clothing and domestic energy. Sales tax has the same problem and generally the same partial remedy. If you need US figures rather than VAT, the <a href="/sales-tax-calculator/">sales tax calculator</a> handles state and local rates directly.</p>
+
+<h2 id="invoices">Invoices, rounding and registration</h2>
+<p>A compliant VAT invoice needs more than a total. It generally has to show the supplier's VAT number, the rate applied, the net amount, the VAT amount and the gross total as separate figures — which is exactly the breakdown the result panel produces, so it can be copied straight across.</p>
+<p>Rounding causes more confusion than it deserves. Tax authorities generally permit VAT to be calculated on the invoice total rather than line by line, and their rounding conventions differ: some allow rounding down to the nearest penny, others require ordinary rounding. A line-by-line total and an invoice-level total can therefore differ by a penny or two on a long document. That is normal and accepted, not an error to chase.</p>
+<p>Registration is a separate question from calculation. Every country sets a turnover threshold above which registering becomes compulsory — the UK's has been £90,000 of taxable turnover in any rolling twelve-month period since 2024, while some EU states set it at zero for non-resident sellers. Voluntary registration below the threshold can still pay off if your customers are themselves VAT-registered and reclaim what you charge them, since it lets you reclaim your own input VAT while costing your customers nothing.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<p>A rate-and-amount tool answers one question well and deliberately leaves the harder ones alone.</p>
+<ul>
+  <li><strong>Which rate applies to your product.</strong> Classification is where most VAT disputes actually happen, and it turns on detail no calculator can see. The tool applies whatever rate you give it.</li>
+  <li><strong>Place-of-supply rules.</strong> For cross-border and digital sales the country whose VAT applies is often the customer's, not yours, and schemes such as the EU's One Stop Shop change how it is reported rather than which rate is due.</li>
+  <li><strong>Flat rate and margin schemes.</strong> Simplified schemes charge a fixed percentage of gross turnover or tax only the margin on second-hand goods. Neither follows the standard arithmetic here.</li>
+  <li><strong>Reverse charge.</strong> On many B2B cross-border supplies the buyer accounts for the VAT rather than the seller, so the invoice shows no VAT at all.</li>
+  <li><strong>Exemptions and partial exemption.</strong> Whether input VAT is reclaimable, and in what proportion, is a separate calculation from the tax on a sale.</li>
+</ul>
+<p>For anything you will actually file, check the rate and the treatment with the relevant tax authority or an accountant.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>How do I remove VAT from a price?</h3>
+<p>Divide the gross price by 1 plus the rate as a decimal. At the UK standard rate of 20% that means dividing by 1.20: a gross total of £2,340 becomes £1,950 net, with £390 of VAT. Do not subtract 20% from the gross figure — that gives £1,872, which is £78 short, because the 20% was charged on the smaller net price rather than on the total.</p>
+<h3>How do I add VAT to a price?</h3>
+<p>Multiply the net price by 1 plus the rate as a decimal. At 20%, multiply by 1.20 — a net price of £480 becomes £576 gross, with £96 of VAT. At the reduced 5% rate you multiply by 1.05 instead, so £850 net becomes £892.50.</p>
+<h3>What is the VAT rate in the UK?</h3>
+<p>The standard rate is 20% and has been since January 2011. A reduced rate of 5% applies to a limited list including domestic fuel and power, children's car seats and some energy-saving materials, and a zero rate applies to most food, children's clothing, books and newspapers. Which rate applies depends on what is being sold, not on who is selling it.</p>
+<h3>What is the quick way to work out VAT in my head?</h3>
+<p>Use the VAT fraction. At 20% the VAT contained in a gross price is exactly one sixth of it, so a £2,340 total divides by 6 to give £390 of VAT. At the 5% rate the fraction is one twenty-first. This is the same arithmetic as dividing by 1.20, just easier to do without a calculator.</p>
+<h3>What is the difference between zero-rated and exempt?</h3>
+<p>Zero-rated supplies are inside the VAT system but charged at 0%, so the business still reclaims the VAT it paid on its own costs. Exempt supplies are outside the system altogether: no VAT is charged and the related input VAT generally cannot be reclaimed. The customer pays nothing either way, but the effect on the seller's costs is very different.</p>
+<h3>Is VAT the same as GST?</h3>
+<p>Mechanically, yes. Australia, New Zealand, Canada, Singapore and India call their value-added tax a goods and services tax, and it works the same way — charged at each stage, reclaimed by businesses, borne by the final consumer. The rates and the lists of exceptions differ a great deal, so the name is worth less than the local rules. No country runs a VAT and a GST side by side.</p>
+<h3>Why does the US not have VAT?</h3>
+<p>It is the only large economy without one. American states levy a retail sales tax instead, collected once at the final sale rather than at every stage of the supply chain. A US business selling to customers in the UK or EU may still have to register for VAT there, which is the usual reason an American visitor ends up on a page like this one.</p>
+<h3>Does VAT get rounded per item or per invoice?</h3>
+<p>Tax authorities generally let you calculate VAT on the invoice total rather than line by line, and rounding conventions vary between them — some allow rounding down to the nearest penny or cent, others require normal rounding. Line-by-line and total-based calculations can differ by a penny or two on a long invoice, which is normal rather than an error. This calculator rounds the final figures to two decimal places.</p>
+
+<p class="vt-disclaimer">This calculator provides estimates for general information only and is not tax, accounting or legal advice. VAT and GST rates, thresholds, exemptions and rounding rules are set by national tax authorities and change regularly; confirm current figures with the relevant authority or a qualified adviser before invoicing or filing. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +712,470 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var mode = 'add', last = null;
+
+  var FIELD = { rate:'vt-rate', net:'vt-net', gross:'vt-gross', tax:'vt-tax' };
+  var GROUP = { rate:'vt-rateGroup', net:'vt-netGroup', gross:'vt-grossGroup', tax:'vt-taxGroup' };
+
+  /* Which two boxes the visitor owns, oldest first. This is tracked explicitly rather
+     than inferred from which boxes are non-empty, because the calculator writes its own
+     answers back into the empty ones — inferring would make it read its own output as
+     input on the next render and lose track of what was actually typed. */
+  var owned = ['rate','net'];
+
+  function own(key){
+    var i = owned.indexOf(key);
+    if(i >= 0) owned.splice(i, 1);
+    owned.push(key);
+    while(owned.length > 2){
+      var drop = owned.shift();
+      $(FIELD[drop]).value = '';
+      $(GROUP[drop]).className = 'vt-input-group';
+    }
+  }
+  function activeKeys(){
+    if(mode === 'add')    return ['rate','net'];
+    if(mode === 'remove') return ['rate','gross'];
+    return owned.slice(0, 2);
+  }
+
+  /* Standard rates as published for 2026. Only jurisdictions corroborated across
+     multiple current sources are listed; reduced rates are the headline ones, not
+     every bracket a country operates. */
+  var RATES = [
+    ['United Kingdom','GBP','£',20,'5, 0'],
+    ['Ireland','EUR','€',23,'13.5, 9, 0'],
+    ['Germany','EUR','€',19,'7'],
+    ['France','EUR','€',20,'10, 5.5, 2.1'],
+    ['Spain','EUR','€',21,'10, 4'],
+    ['Italy','EUR','€',22,'10, 5, 4'],
+    ['Netherlands','EUR','€',21,'9'],
+    ['Belgium','EUR','€',21,'12, 6'],
+    ['Austria','EUR','€',20,'13, 10'],
+    ['Portugal','EUR','€',23,'13, 6'],
+    ['Poland','PLN','zł',23,'8, 5'],
+    ['Sweden','SEK','kr',25,'12, 6'],
+    ['Denmark','DKK','kr',25,'—'],
+    ['Finland','EUR','€',25.5,'13.5, 10'],
+    ['Norway','NOK','kr',25,'15, 12'],
+    ['Switzerland','CHF','CHF',8.1,'3.8, 2.6'],
+    ['Hungary','HUF','Ft',27,'18, 5'],
+    ['Croatia','EUR','€',25,'13, 5'],
+    ['Czechia','CZK','Kč',21,'12'],
+    ['Romania','RON','lei',21,'11'],
+    ['Estonia','EUR','€',24,'9'],
+    ['Greece','EUR','€',24,'13, 6'],
+    ['Luxembourg','EUR','€',17,'8, 3'],
+    ['Malta','EUR','€',18,'7, 5'],
+    ['Cyprus','EUR','€',19,'9, 5'],
+    ['Australia (GST)','AUD','A$',10,'0'],
+    ['New Zealand (GST)','NZD','NZ$',15,'0'],
+    ['Canada (GST)','CAD','C$',5,'0'],
+    ['Singapore (GST)','SGD','S$',9,'0'],
+    ['India (GST)','INR','\u20B9',18,'12, 5'],
+    ['South Africa','ZAR','R',15,'0'],
+    ['United Arab Emirates','AED','AED',5,'0'],
+    ['Saudi Arabia','SAR','SAR',15,'0'],
+    ['Japan (Consumption Tax)','JPY','\u00A5',10,'8']
+  ];
+  var CURRENCIES = [
+    ['£','GBP — British pound'], ['€','EUR — Euro'], ['$','USD — US dollar'],
+    ['A$','AUD — Australian dollar'], ['C$','CAD — Canadian dollar'],
+    ['NZ$','NZD — New Zealand dollar'], ['CHF','CHF — Swiss franc'],
+    ['kr','SEK/NOK/DKK — Krona / krone'], ['zł','PLN — Polish złoty'],
+    ['Kč','CZK — Czech koruna'], ['Ft','HUF — Hungarian forint'],
+    ['lei','RON — Romanian leu'], ['S$','SGD — Singapore dollar'],
+    ['\u20B9','INR — Indian rupee'], ['R','ZAR — South African rand'],
+    ['AED','AED — UAE dirham'], ['SAR','SAR — Saudi riyal'], ['\u00A5','JPY — Japanese yen']
+  ];
+
+  /* ---------- helpers ---------- */
+  function raw(id){ return String($(id).value).replace(/[,\s]/g,'').trim(); }
+  function val(id){
+    var s = raw(id);
+    if(s === '') return null;
+    var v = parseFloat(s);
+    return isNaN(v) ? null : v;
+  }
+  function cur(){ return $('vt-currency').value; }
+  function money(x){
+    return cur() + (Math.round((x + Number.EPSILON)*100)/100)
+      .toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function pct(x){
+    var r = Math.round((x + Number.EPSILON)*1000)/1000;
+    return (Math.abs(r - Math.round(r)) < 1e-9 ? String(Math.round(r)) : String(r)) + '%';
+  }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  /* Solve any two of {rate, net, gross, tax}. Field order sets priority when more
+     than two are filled, which is what the reference tool does too. */
+  function solve(rate, net, gross, tax){
+    var given = [];
+    if(rate  !== null) given.push('rate');
+    if(net   !== null) given.push('net');
+    if(gross !== null) given.push('gross');
+    if(tax   !== null) given.push('tax');
+    if(given.length < 2) return { error:'need2' };
+    var k = given[0] + '+' + given[1];
+    var r = rate, n = net, g = gross, t = tax;
+    if(k === 'rate+net'){        t = n*r/100;          g = n + t; }
+    else if(k === 'rate+gross'){ n = g/(1 + r/100);    t = g - n; }
+    else if(k === 'rate+tax'){   if(r === 0) return {error:'ratezero'};
+                                 n = t/(r/100);        g = n + t; }
+    else if(k === 'net+gross'){  t = g - n;
+                                 if(n === 0) return {error:'netzero'};
+                                 r = t/n*100; }
+    else if(k === 'net+tax'){    if(n === 0) return {error:'netzero'};
+                                 r = t/n*100;          g = n + t; }
+    else if(k === 'gross+tax'){  if(t > g) return {error:'taxbig'};
+                                 n = g - t;
+                                 if(n === 0) return {error:'netzero'};
+                                 r = t/n*100; }
+    if(g < n) return { error:'grosssmall' };
+    if(r < 0 || n < 0 || g < 0 || t < 0) return { error:'negative' };
+    return { rate:r, net:n, gross:g, tax:t, solved:k, given:given };
+  }
+
+  var ERRORS = {
+    need2:      'Enter two values and the rest will be worked out. In this mode that means the rate plus one amount.',
+    need2any:   'Fill in any two of the four boxes — the other two are calculated from them.',
+    ratezero:   'A VAT amount cannot be worked back to a price when the rate is 0%, since no tax would have been charged.',
+    netzero:    'The net price works out as zero, so there is no base to charge VAT on. Check the figures you entered.',
+    taxbig:     'The VAT amount cannot be larger than the gross price — the gross price already includes the VAT.',
+    grosssmall: 'The gross price cannot be smaller than the net price. Gross is the total after VAT is added.',
+    negative:   'Please enter positive amounts. Negative prices and rates are not supported.'
+  };
+
+  /* ---------- donut ---------- */
+  function donut(o){
+    var segs = [
+      { n:'Net price', v:o.net, c:'#1E3A5F' },
+      { n:'VAT',       v:o.tax, c:'#16A34A' }
+    ].filter(function(s){ return s.v > 0; });
+    var total = segs.reduce(function(a,s){ return a + s.v; }, 0);
+    if(total <= 0){ $('vt-donutSvg').innerHTML = ''; $('vt-donutLegend').innerHTML = ''; return; }
+    var svg = '', ang = -90, R = 44, C = 60, SW = 19;
+    segs.forEach(function(s){
+      var sweep = s.v/total*360;
+      if(sweep >= 359.99){
+        svg += '<circle cx="'+C+'" cy="'+C+'" r="'+R+'" fill="none" stroke="'+s.c+'" stroke-width="'+SW+'"/>';
+      } else {
+        var a0 = ang*Math.PI/180, a1 = (ang+sweep)*Math.PI/180;
+        svg += '<path d="M '+(C+R*Math.cos(a0)).toFixed(2)+' '+(C+R*Math.sin(a0)).toFixed(2)+
+               ' A '+R+' '+R+' 0 '+(sweep>180?1:0)+' 1 '+
+               (C+R*Math.cos(a1)).toFixed(2)+' '+(C+R*Math.sin(a1)).toFixed(2)+
+               '" fill="none" stroke="'+s.c+'" stroke-width="'+SW+'"/>';
+      }
+      ang += sweep;
+    });
+    $('vt-donutSvg').innerHTML = svg;
+    $('vt-donutLegend').innerHTML = segs.map(function(s){
+      return '<span class="lg"><i style="background:'+s.c+'"></i>'+esc(s.n)+
+             '<b>'+money(s.v)+'</b></span>';
+    }).join('') +
+      '<span class="lg" style="border-top:1px solid var(--border-fine);padding-top:8px;margin-top:2px">' +
+      '<i style="background:transparent"></i>Gross<b>'+money(o.gross)+'</b></span>';
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var keys = activeKeys();
+    function get(k){ return keys.indexOf(k) >= 0 ? val(FIELD[k]) : null; }
+    var o = solve(get('rate'), get('net'), get('gross'), get('tax'));
+    var err = $('vt-err');
+
+    if(o.error){
+      var key = (o.error === 'need2' && mode === 'any') ? 'need2any' : o.error;
+      err.className = 'vt-err show';
+      err.textContent = ERRORS[key];
+      $('vt-bigNum').textContent = '—';
+      $('vt-bigSub').textContent = '\u00a0';
+      $('vt-rows').innerHTML = '';
+      $('vt-hint').textContent = '';
+      $('vt-donutSvg').innerHTML = ''; $('vt-donutLegend').innerHTML = '';
+      ['vt-netGroup','vt-grossGroup','vt-taxGroup'].forEach(function(i){ $(i).className = 'vt-input-group'; });
+      last = null;
+      return;
+    }
+    err.className = 'vt-err';
+    last = o;
+
+    /* Write the answers back into the boxes the visitor does not own, and tint them so
+       it is obvious which figures were typed and which were calculated. */
+    ['rate','net','gross','tax'].forEach(function(k){
+      var g = $(GROUP[k]);
+      if(keys.indexOf(k) >= 0){ g.className = 'vt-input-group'; return; }
+      $(FIELD[k]).value = (k === 'rate')
+        ? String(Math.round((o.rate + Number.EPSILON)*1000)/1000)
+        : (Math.round((o[k] + Number.EPSILON)*100)/100).toFixed(2);
+      g.className = 'vt-input-group solved';
+    });
+
+    /* headline depends on what the visitor is actually asking */
+    if(mode === 'add'){
+      $('vt-bigLabel').textContent = 'Gross price (incl. VAT)';
+      $('vt-bigNum').textContent = money(o.gross);
+      $('vt-bigSub').textContent = money(o.net) + ' + ' + money(o.tax) + ' VAT at ' + pct(o.rate);
+    } else if(mode === 'remove'){
+      $('vt-bigLabel').textContent = 'Net price (excl. VAT)';
+      $('vt-bigNum').textContent = money(o.net);
+      $('vt-bigSub').textContent = money(o.gross) + ' less ' + money(o.tax) + ' VAT at ' + pct(o.rate);
+    } else {
+      $('vt-bigLabel').textContent = 'VAT amount';
+      $('vt-bigNum').textContent = money(o.tax);
+      $('vt-bigSub').textContent = pct(o.rate) + ' of ' + money(o.net) + ' net';
+    }
+
+    $('vt-rows').innerHTML =
+      '<div class="vt-result-row"><span>VAT rate</span><span>' + pct(o.rate) + '</span></div>' +
+      '<div class="vt-result-row"><span>Net price (excl. VAT)</span><span>' + money(o.net) + '</span></div>' +
+      '<div class="vt-result-row"><span>VAT amount</span><span>' + money(o.tax) + '</span></div>' +
+      '<div class="vt-result-row big"><span>Gross price (incl. VAT)</span><span>' + money(o.gross) + '</span></div>';
+
+    /* the VAT fraction is the check people actually do on a receipt */
+    var hint = '';
+    if(o.rate > 0){
+      var frac = (100 + o.rate)/o.rate;
+      var rounded = Math.round(frac);
+      if(Math.abs(frac - rounded) < 0.005){
+        hint = 'At ' + pct(o.rate) + ', the VAT inside a gross price is exactly one ' +
+               (rounded === 6 ? 'sixth' : rounded === 21 ? 'twenty-first' : rounded === 5 ? 'fifth' :
+                rounded === 11 ? 'eleventh' : rounded === 7 ? 'seventh' : rounded === 26 ? 'twenty-sixth' :
+                rounded === 21 ? 'twenty-first' : rounded + 'th') +
+               ' of it — ' + money(o.gross) + ' ÷ ' + rounded + ' = ' + money(o.tax) + '.';
+      } else {
+        hint = 'VAT is ' + (o.tax/o.gross*100).toFixed(2) + '% of the gross price, because the rate is charged on the net figure rather than the total.';
+      }
+    } else {
+      hint = 'At a zero rate no VAT is added, so the net and gross prices are the same. Zero-rated is not the same as exempt — see the article below.';
+    }
+    $('vt-hint').textContent = hint;
+
+    donut(o);
+    highlightRate(o.rate);
+  }
+
+  /* ---------- populate selects, chips, table ---------- */
+  (function(){
+    var c = $('vt-country');
+    c.innerHTML = '<option value="">Custom rate…</option>' + RATES.map(function(r,i){
+      return '<option value="'+i+'">'+esc(r[0])+' — '+r[3]+'%</option>';
+    }).join('');
+    c.value = '0';
+
+    $('vt-currency').innerHTML = CURRENCIES.map(function(x){
+      return '<option value="'+esc(x[0])+'">'+esc(x[1])+'</option>';
+    }).join('');
+    $('vt-currency').value = '£';
+
+    $('vt-rateBody').innerHTML = RATES.map(function(r,i){
+      return '<tr data-rate="'+r[3]+'"><td>'+esc(r[0])+'</td><td>'+r[3]+'%</td><td>'+esc(r[4])+'</td></tr>';
+    }).join('');
+  })();
+
+  function buildChips(){
+    var idx = $('vt-country').value;
+    var chips;
+    if(idx === ''){ chips = [20,5,0]; }
+    else {
+      var r = RATES[parseInt(idx,10)];
+      chips = [r[3]];
+      r[4].split(',').forEach(function(s){
+        s = s.trim();
+        if(s && s !== '—' && chips.indexOf(parseFloat(s)) < 0) chips.push(parseFloat(s));
+      });
+      if(chips.indexOf(0) < 0) chips.push(0);
+    }
+    var current = parseFloat(raw('vt-rate'));
+    $('vt-rateChips').innerHTML = chips.map(function(v){
+      return '<button type="button" class="vt-chip'+(v === current ? ' on' : '')+'" data-rate="'+v+'">'+v+'%</button>';
+    }).join('');
+  }
+  $('vt-rateChips').addEventListener('click', function(e){
+    var b = e.target.closest('.vt-chip');
+    if(!b) return;
+    $('vt-rate').value = b.getAttribute('data-rate');
+    clearDerived();
+    buildChips(); render();
+  });
+
+  function highlightRate(r){
+    var rows = $('vt-rateBody').querySelectorAll('tr');
+    for(var i = 0; i < rows.length; i++){
+      rows[i].className = (Math.abs(parseFloat(rows[i].getAttribute('data-rate')) - r) < 1e-9) ? 'on' : '';
+    }
+  }
+
+  /* Wipe values the calculator wrote itself, so a fresh entry is not treated as
+     something the visitor supplied. */
+  /* Changing the rate makes the rate a value the visitor owns; whatever the calculator
+     derived is dropped so it can be worked out again from the new rate. */
+  function clearDerived(){
+    ['net','gross','tax'].forEach(function(k){
+      var g = $(GROUP[k]);
+      if(g.className.indexOf('solved') >= 0){ $(FIELD[k]).value = ''; g.className = 'vt-input-group'; }
+    });
+    $('vt-rateGroup').className = 'vt-input-group';
+    if(mode === 'any') own('rate');
+  }
+
+  $('vt-country').addEventListener('change', function(){
+    var idx = this.value;
+    if(idx !== ''){
+      var r = RATES[parseInt(idx,10)];
+      $('vt-rate').value = r[3];
+      $('vt-currency').value = r[2];
+      $('vt-rateNote').textContent = r[0] + ' standard rate. Reduced rates: ' + r[4] + '.';
+    } else {
+      $('vt-rateNote').textContent = 'Type any rate you need, or pick a country above.';
+    }
+    clearDerived(); buildChips(); render();
+  });
+  $('vt-currency').addEventListener('change', function(){
+    var s = document.querySelectorAll('.vt-cur');
+    for(var i = 0; i < s.length; i++) s[i].textContent = this.value;
+    render();
+  });
+
+  /* ---------- tabs ---------- */
+  function setMode(m){
+    mode = m;
+    var map = { add:'vt-tabAdd', remove:'vt-tabRemove', any:'vt-tabAny' };
+    Object.keys(map).forEach(function(k){
+      var b = $(map[k]);
+      b.className = 'vt-tab' + (k === m ? ' active' : '');
+      b.setAttribute('aria-selected', k === m ? 'true' : 'false');
+    });
+    $('vt-rowNet').style.display   = (m === 'remove') ? 'none' : 'flex';
+    $('vt-rowGross').style.display = (m === 'add')    ? 'none' : 'flex';
+    $('vt-rowTax').style.display   = (m === 'any')    ? 'flex' : 'none';
+    $('vt-formNote').textContent =
+      m === 'add'    ? 'Enter the price before VAT. The VAT and the gross total are added for you.' :
+      m === 'remove' ? 'Enter the VAT-inclusive total from an invoice or receipt to recover the net price.' :
+                       'Fill in any two of the four boxes — including the rate — and the other two are worked out.';
+    /* Clear the boxes this mode does not use, so a stale figure cannot be picked up. */
+    if(m === 'add'){ $('vt-gross').value = ''; $('vt-tax').value = ''; }
+    if(m === 'remove'){ $('vt-net').value = ''; $('vt-tax').value = ''; }
+    ['vt-netGroup','vt-grossGroup','vt-taxGroup'].forEach(function(i){ $(i).className = 'vt-input-group'; });
+    if(m === 'remove' && raw('vt-gross') === '') $('vt-gross').value = '1440';
+    if(m === 'add'    && raw('vt-net')   === '') $('vt-net').value = '1200';
+    if(m === 'any'){
+      /* Start the free-form tab from the rate plus the amount that is on screen, so it
+         opens showing a worked answer rather than an error. */
+      if(raw('vt-net') !== '')        owned = ['rate','net'];
+      else if(raw('vt-gross') !== '') owned = ['rate','gross'];
+      else { $('vt-net').value = '1200'; owned = ['rate','net']; }
+    }
+    render();
+  }
+  $('vt-tabAdd').addEventListener('click', function(){ setMode('add'); });
+  $('vt-tabRemove').addEventListener('click', function(){ setMode('remove'); });
+  $('vt-tabAny').addEventListener('click', function(){ setMode('any'); });
+
+  /* Typing in a box means the visitor now owns that value; the oldest of the previous
+     two is released and cleared so exactly two inputs drive the answer. */
+  Object.keys(FIELD).forEach(function(k){
+    $(FIELD[k]).addEventListener('input', function(){
+      if(mode === 'any'){
+        if(raw(FIELD[k]) === ''){
+          /* Emptying a box hands it back, so it becomes something to solve for again
+             rather than an input pinned at nothing. */
+          var i = owned.indexOf(k);
+          if(i >= 0) owned.splice(i, 1);
+        } else {
+          own(k);
+        }
+      }
+      $(GROUP[k]).className = 'vt-input-group';
+      buildChips();
+    });
+  });
+
+  $('vt-calcBtn').addEventListener('click', render);
+  $('vt-clearBtn').addEventListener('click', function(){
+    $('vt-country').value = '0';
+    $('vt-rate').value = '20';
+    $('vt-currency').value = '£';
+    var s = document.querySelectorAll('.vt-cur');
+    for(var i = 0; i < s.length; i++) s[i].textContent = '£';
+    $('vt-net').value = '1200'; $('vt-gross').value = ''; $('vt-tax').value = '';
+    $('vt-rateNote').textContent = 'United Kingdom standard rate. Reduced rates: 5, 0.';
+    ['vt-rateGroup','vt-netGroup','vt-grossGroup','vt-taxGroup'].forEach(function(i){ $(i).className = 'vt-input-group'; });
+    owned = ['rate','net'];
+    setMode('add'); buildChips();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last){ render(); }
+    if(!last){ alert('Enter two values first, then save the result as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('VAT Calculation', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+
+    var label = $('vt-country').options[$('vt-country').selectedIndex].text;
+    doc.autoTable({ startY:y, head:[['Item','Amount']], body:[
+        ['VAT rate', pct(o.rate)],
+        ['Rate basis', label],
+        ['Net price (excl. VAT)', money(o.net)],
+        ['VAT amount', money(o.tax)],
+        ['Gross price (incl. VAT)', money(o.gross)]
+      ], margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    var yy = doc.lastAutoTable.finalY + 22;
+    doc.setFontSize(10); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text('How this was worked out', margin, yy); yy += 14;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(71,76,85);
+    doc.text('Gross = Net x (1 + rate / 100)     Net = Gross / (1 + rate / 100)', margin, yy); yy += 12;
+    doc.text('Rate  = (Gross - Net) / Net x 100', margin, yy);
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not tax advice. Confirm rates with the relevant tax authority. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('vat-calculation.pdf');
+  }
+  $('vt-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  buildChips();
+  setMode('add');
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1297,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

@@ -6467,6 +6467,105 @@ originality check should run on the article region alone** — header, footer, n
 shared disclaimer will always match and drown out the one line that actually matters.
 
 
+
+## VAT Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 43KB template stub at `/vat-calculator/` with a full 3-card build (104KB).
+Reference page: calculator.net/vat-calculator.html, supplied by the owner with a
+screenshot.
+
+**Parity (§3a-PRIME).** Input fields 6/6, result fields 11/11, and — the part that
+matters on this tool — **all 6 of the two-of-four solve combinations**. Their calculator
+takes any two of {rate, net price, gross price, tax amount} and derives the other two.
+The result set does not appear in the fetched page at all, so each combination was
+obtained by submitting the form: rate+net, rate+gross, rate+tax, net+gross, net+tax and
+gross+tax were probed individually, along with the rounding and error behaviour.
+
+Behaviour reverse-engineered from those probes and matched exactly:
+- Two-decimal rounding, so 17.5% on 99.99 gives 117.49 gross and 17.50 VAT, and 20% off a
+  gross 100 gives 83.33 net and 16.67 VAT (which still add back to 100).
+- `gross + tax` derives the rate from the implied net, so 100 gross with 20 tax is 25%,
+  not 20%.
+- A tax amount larger than the gross price is rejected rather than returned as a negative
+  net.
+- When more than two boxes are filled their tool takes the first two in field order. Ours
+  cannot reach that state (see below), so the two-field behaviour — which is all six
+  combinations — is identical.
+
+**Formula verification.** A standalone Node engine was asserted against their published
+output before anything was embedded: all 6 combinations plus 10 rounding and edge cases,
+16 assertions, all exact.
+
+**Keyword research (§4) — and a deliberate departure from USA-first.** §8 names the VAT
+calculator as an example of an explicitly region-specific tool, and the SERP confirms it:
+the US has no VAT, and every page ranking for "VAT calculator" is UK-focused
+(vatcalculator.co.uk, calculatethevat.co.uk, contractoruk, vatcalcu.uk, online-vat-calculator).
+Three things are near-universal among them and absent from calculator.net:
+
+1. The framing is **Add VAT / Remove VAT**, not "provide any two values".
+2. £ and a 20% default, with 5% and 0% one click away.
+3. A "reverse VAT calculator" cluster with its own dedicated pages, and a recurring
+   "don't subtract 20%" common-mistake angle.
+
+So the page defaults to £ at 20% and leads with Add/Remove tabs, while a third
+**Any two values** tab carries the full reference capability. Title:
+"VAT Calculator — Add or Remove VAT at 20%, 5% or Any Rate" (57 chars); description 147.
+
+**Beyond parity.** Country presets for 34 jurisdictions that set the rate and switch the
+currency, an 18-currency selector, rate chips per country, a live VAT-fraction hint (at
+20% the VAT in a gross price is exactly one sixth of it), a rates-by-country reference
+table that highlights every country using the current rate, and a formulas card. Rates
+were cross-checked across several 2026 sources; only well-corroborated ones are listed,
+and the card says plainly that rates move with national budgets. Where sources conflicted
+(Luxembourg 16 vs 17 in a single internally inconsistent page) the corroborated figure was
+used.
+
+**Content.** 2,463-word article, 9 H2s, 8 FAQs, byline, TOC, visible breadcrumb, a "what
+this calculator does not cover" section (rate classification, place-of-supply, flat-rate
+and margin schemes, reverse charge, partial exemption) and a disclaimer. Every worked
+figure is computed and verified rather than borrowed. Originality: **0.00% 8-gram overlap
+with calculator.net**; the only internal overlap is the standing byline, the disclaimer
+opener and one shared H2 heading — no duplicated body prose.
+
+**Verification.** 82 Playwright assertions at 1280 / 430 / 390px: zero console errors,
+zero horizontal overflow on all three tabs, single-track mobile grid with every child at
+least 90% width, h1 weight 700, jsPDF fetching nothing until clicked, all six solve
+combinations correct through the UI, country preset and chip behaviour, error states, and
+tab isolation. Protected shared style block byte-identical. Three JSON-LD blocks valid,
+FAQ schema equal to the visible text on all 8 pairs. New OG image.
+
+### The bug the screenshot caught, and why it was structural
+
+In the free-form tab the calculator writes its answers back into the boxes the visitor
+left empty, tinting them so it is clear which figures were typed and which were worked
+out. A screenshot review showed the derived **rate** rendering untinted.
+
+The cause was not styling. `render()` decided which two fields were "given" by looking at
+which boxes were non-empty — so on the second render it read its own output back as user
+input. The values happened to stay correct because the relationship is self-consistent
+(net 1200 + gross 1440 implies rate 20, and rate 20 + net 1200 implies gross 1440), which
+is exactly why it was invisible to every numeric assertion. What it broke was the editing
+model: once nothing was marked derived, typing a new figure no longer released the stale
+ones, and the solver could end up reading a pair the visitor never chose.
+
+The fix is to track ownership explicitly — an `owned` list of the two fields the visitor
+has typed into, most recent last. Typing in a third box releases and clears the oldest;
+emptying a box hands it back so it becomes something to solve for again. `render()` now
+reads only the owned fields and never re-infers from the DOM. A side effect is that our
+version can never hold more than two user-supplied values, so the reference tool's
+"first two in field order" tie-break is unreachable rather than unmatched.
+
+Two regression assertions were added for it: that `net + gross` leaves rate and tax marked
+derived, and that the marking survives a second render.
+
+**Process note — `scrollIntoView` is muted, so it cannot position a screenshot harness.**
+The guide already says this about measuring scroll behaviour; it applies to taking
+screenshots too. A capture script that scrolled to the bottom grid with `scrollIntoView`
+silently produced a screenshot of the top of the page, because the shared cb_ux snippet
+mutes that method around an auto-run. Use `mouse.wheel` after letting the ~700ms mute
+expire.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
