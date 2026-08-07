@@ -7016,6 +7016,50 @@ a cluster, not just against the reference. The whole-page check would have hidde
 shared chrome.
 
 
+### Other Units: wrong converter on TDEE, incomplete unit lists on Body Fat (Aug 7, 2026)
+
+The owner sent a screenshot of the reference's five-category converter and asked whether ours
+needed updating. It did, in two ways.
+
+**TDEE had the wrong converter entirely.** Checking which script each reference page loads
+settles it: Body Fat and TDEE both embed `/converter/converter.php` (five categories), while
+BMR loads `/js/quick-conversion.js` (Height and Weight only). I had given TDEE the BMR-style
+pair because I built it from the BMR page and assumed neighbouring calculators shared a
+converter. They do not. TDEE now has the five-category version; BMR keeps Height/Weight,
+which is correct for it.
+
+**Body Fat's unit lists were incomplete.** I had transcribed them from a screenshot rather
+than from `/js/conversion.js`, and a scrolling list box hides most of its contents. Against
+their actual tables:
+
+| Category | Theirs | Ours before | Missing |
+|---|---|---|---|
+| Length | 11 | 11 | — |
+| Temperature | 3 | 3 | — |
+| Area | 11 | 10 | Acre |
+| Volume | 23 | 17 | all six Imperial units |
+| Weight | 10 | 10 | — |
+
+Several volume factors were also rounded versions of theirs (`0.003785412` against their
+`0.00378541`, `0.764555` against `0.764554857984`), which would have put us a digit or two
+apart on any US-gallon or cubic-yard conversion. The table is now generated directly from
+their script rather than typed, so transcription error is designed out.
+
+Both pages now report 11 / 3 / 11 / 23 / 10 units, asserted as a dict in both suites so a
+dropped unit fails a test rather than passing quietly.
+
+### A stray `</div>` that silenced cb_ux
+
+Splicing the new panel into the TDEE markup left one extra `</div>`, which nested the result
+card inside the form card. Nothing looked wrong and no JavaScript errored — but `apply_cb_ux.py`
+could no longer resolve the result card, so `data-cb-result` was never set and the Calculate
+flash stopped working. The suite caught it only because it asserts the flash.
+
+Added a direct guard to all three suites: `document.querySelector('[data-cb-result]')` must
+exist. That fails immediately and points at the cause, instead of surfacing three viewports
+later as a missing animation. Suites now 106 (Body Fat), 115 (TDEE), 103 (BMR).
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

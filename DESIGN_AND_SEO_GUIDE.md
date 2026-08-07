@@ -130,8 +130,9 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
 
 Several calculator.net pages carry a third tab beside US Units and Metric Units called **Other Units**, holding a unit converter. It is easy to dismiss as a generic site widget rather than part of the calculator. **It is not optional.** It shipped missing from both Body Fat and BMR, and the owner caught it.
 
-The converter differs per page and must be read from their scripts, not assumed:
+The converter differs per page and must be read from their scripts, not assumed — **check which script each page loads** (`grep -o "quick-conversion.js\|converter.php"`), because neighbouring calculators in the same section do not necessarily share one:
 - **Body Fat** embeds `/converter/converter.php` — the generic five-category converter (Length, Temperature, Area, Volume, Weight), unit tables in `/js/conversion.js`.
+- **Body Fat and TDEE** embed `/converter/converter.php` — the generic five-category converter. Unit tables live in `/js/conversion.js` and must be transcribed in full: **Length 11, Temperature 3, Area 11, Volume 23, Weight 10**. The easy mistakes are dropping **Acre** from Area and the **six Imperial units** from Volume (Imperial Gallon, Quart, Pint, Fluid Ounce, Table Spoon, Tea Spoon) — both happened on the first pass. Copy their factors verbatim including the rounded ones (`US Gallon 0.00378541`, `Pound 0.453592`), and format output to ten significant digits with trailing zeros stripped, which is what their `formatNum` does.
 - **BMR** uses `/js/quick-conversion.js` — two purpose-built converters, Height (meter, centimeter, millimeter, yard, foot, inch; defaults meter→inch) and Weight (kilogram, gram, milligram, metric ton, long ton, short ton, pound, ounce, carrat; defaults kilogram→pound).
 
 Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so the numbers agree. Output is trimmed to ten significant digits with trailing zeros dropped.

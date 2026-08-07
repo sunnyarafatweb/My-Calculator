@@ -1130,23 +1130,15 @@
      expressed relative to the category's base unit; temperature needs its own pair of
      conversions because it is offset, not just scaled. */
   var CONV = {
-    Length: { base:'Meter', units:[['Meter',1],['Kilometer',1000],['Centimeter',0.01],['Millimeter',0.001],
-      ['Micrometer',1e-6],['Nanometer',1e-9],['Mile',1609.344],['Yard',0.9144],['Foot',0.3048],
-      ['Inch',0.0254],['Light Year',9.46066e15]], from:'Centimeter', to:'Inch' },
+    Length: { units:[['Meter',1],['Kilometer',1000],['Centimeter',0.01],['Millimeter',0.001],['Micrometer',0.000001],['Nanometer',0.000000001],['Mile',1609.344],['Yard',0.9144],['Foot',0.3048],['Inch',0.0254],['Light Year',9.46066e+15]],
+      from:'Centimeter', to:'Inch' },
     Temperature: { special:true, units:[['Celsius'],['Kelvin'],['Fahrenheit']], from:'Celsius', to:'Fahrenheit' },
-    Area: { units:[['Square Meter',1],['Square Kilometer',1e6],['Square Centimeter',1e-4],
-      ['Square Millimeter',1e-6],['Square Micrometer',1e-12],['Hectare',1e4],['Square Mile',2589990],
-      ['Square Yard',0.83612736],['Square Foot',0.09290304],['Square Inch',0.00064516]],
+    Area: { units:[['Square Meter',1],['Square Kilometer',1000000],['Square Centimeter',0.0001],['Square Millimeter',0.000001],['Square Micrometer',0.000000000001],['Hectare',10000],['Square Mile',2589990],['Square Yard',0.83612736],['Square Foot',0.09290304],['Square Inch',0.000645160],['Acre',4046.8564224]],
       from:'Square Meter', to:'Square Foot' },
-    Volume: { units:[['Cubic Meter',1],['Cubic Kilometer',1e9],['Cubic Centimeter',1e-6],
-      ['Cubic Millimeter',1e-9],['Liter',0.001],['Milliliter',1e-6],['US Gallon',0.003785412],
-      ['US Quart',0.000946353],['US Pint',0.000473176],['US Cup',0.00023658823],
-      ['US Fluid Ounce',2.95735e-5],['US Tablespoon',1.47868e-5],['US Teaspoon',4.92892e-6],
-      ['Cubic Mile',4168180000],['Cubic Yard',0.764555],['Cubic Foot',0.0283168],['Cubic Inch',1.63871e-5]],
+    Volume: { units:[['Cubic Meter',1],['Cubic Kilometer',1000000000],['Cubic Centimeter',0.000001],['Cubic Millimeter',1.0e-9],['Liter',0.001],['Milliliter',0.000001],['US Gallon',0.00378541],['US Quart',0.0009463525],['US Pint',0.00047317625],['US Cup',0.000236588125],['US Fluid Ounce',0.000029573515625],['US Table Spoon',0.0000147867578125],['US Tea Spoon',4.9289192708333333333333333333333e-6],['Imperial Gallon',0.00454609],['Imperial Quart',0.0011365225],['Imperial Pint',0.00056826125],['Imperial Fluid Ounce',0.0000284130625],['Imperial Table Spoon',0.0000177581640625],['Imperial Tea Spoon',5.9193880208333333333333333333333e-6],['Cubic Mile',4.16818e+9],['Cubic Yard',0.764554857984],['Cubic Foot',0.028316846592],['Cubic Inch',0.000016387064]],
       from:'Liter', to:'US Cup' },
-    Weight: { units:[['Kilogram',1],['Gram',0.001],['Milligram',1e-6],['Metric Ton',1000],
-      ['Long Ton',1016.04608],['Short Ton',907.184],['Pound',0.453592],['Ounce',0.0283495],
-      ['Carrat',0.0002],['Atomic Mass Unit',1.6605401999104288e-27]], from:'Kilogram', to:'Pound' }
+    Weight: { units:[['Kilogram',1],['Gram',0.001],['Milligram',0.000001],['Metric Ton',1000],['Long Ton',1016.04608],['Short Ton',907.184],['Pound',0.453592],['Ounce',0.0283495],['Carrat',0.0002],['Atomic Mass Unit',1.6605401999104288e-27]],
+      from:'Kilogram', to:'Pound' },
   };
   var CONV_ORDER = ['Length','Temperature','Area','Volume','Weight'];
   var convCat = 'Length';
