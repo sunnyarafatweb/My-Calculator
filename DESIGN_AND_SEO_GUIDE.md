@@ -126,6 +126,18 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
    Intentional differences (if any): ...
    ```
 
+### "Other Units" is a tab, and tabs are parity (added Aug 7, 2026)
+
+Several calculator.net pages carry a third tab beside US Units and Metric Units called **Other Units**, holding a unit converter. It is easy to dismiss as a generic site widget rather than part of the calculator. **It is not optional.** It shipped missing from both Body Fat and BMR, and the owner caught it.
+
+The converter differs per page and must be read from their scripts, not assumed:
+- **Body Fat** embeds `/converter/converter.php` — the generic five-category converter (Length, Temperature, Area, Volume, Weight), unit tables in `/js/conversion.js`.
+- **BMR** uses `/js/quick-conversion.js` — two purpose-built converters, Height (meter, centimeter, millimeter, yard, foot, inch; defaults meter→inch) and Weight (kilogram, gram, milligram, metric ton, long ton, short ton, pound, ounce, carrat; defaults kilogram→pound).
+
+Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so the numbers agree. Output is trimmed to ten significant digits with trailing zeros dropped.
+
+**The wider rule this broke:** an omission is only "intentional" once the owner has agreed to it. Flagging it in the completion report is not agreement — §3a-PRIME step 2 says a deliberate omission is *flagged with a reason*, and that means raised as a question before shipping, not recorded afterwards.
+
 ### One colour scheme sitewide (added Aug 7, 2026)
 
 **Every calculator page uses the same accent colours, whatever category it is in.** Result card head and Calculate button `#16A34A`, hover and in-article links `#128A3D`, status bar / active tab / sidebar card `#1E3A5F`, View More `#22C55E`, radio and checkbox `accent-color:#16A34A`.

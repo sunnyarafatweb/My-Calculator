@@ -371,6 +371,27 @@
   .bf-field-label{width:100%}
   .bf-tab{flex:1;text-align:center;padding:10px 12px}
 }
+
+/* Other Units converter — shared markup between calculators, prefixed per page */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+@media(max-width:520px){.cv-row{grid-template-columns:1fr}}
+.cv-col{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cv-col label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-col input,.cv-col select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-col input[readonly]{background:var(--gold-tint);font-weight:600}
+.cv-eq{font-size:16px;color:var(--ink-faint);text-align:center;padding-top:20px}
+@media(max-width:520px){.cv-eq{padding-top:0;text-align:left}}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:10px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
 </head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
@@ -457,11 +478,31 @@
   <div class="bf-tabs bf-area-tabs" role="tablist" aria-label="Measurement units">
     <button type="button" class="bf-tab active" id="bf-tabUs" role="tab" aria-selected="true">US Units</button>
     <button type="button" class="bf-tab" id="bf-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+    <button type="button" class="bf-tab" id="bf-tabOther" role="tab" aria-selected="false">Other Units</button>
   </div>
 
   <!-- ============ FORM ============ -->
   <div class="bf-card bf-area-form">
     <div class="bf-card-pad">
+  <div class="cv-panel" id="bf-convPanel" style="display:none">
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form.</p>
+    <div class="cv-cats" id="bf-convCats"></div>
+    <div class="cv-row">
+      <div class="cv-col">
+        <label for="bf-convFromVal">From</label>
+        <input type="text" inputmode="decimal" id="bf-convFromVal" value="1">
+        <select id="bf-convFrom"></select>
+      </div>
+      <div class="cv-eq">=</div>
+      <div class="cv-col">
+        <label for="bf-convToVal">To</label>
+        <input type="text" id="bf-convToVal" readonly>
+        <select id="bf-convTo"></select>
+      </div>
+    </div>
+    <p class="cv-out" id="bf-convOut"></p>
+  </div>
+
 
       <div class="bf-field">
         <span class="bf-field-label">Gender</span>
@@ -970,14 +1011,21 @@
   }).join('');
 
   /* ---------- units + gender ---------- */
+  /* Three tabs, matching the reference: two input systems plus a unit converter.
+     "Other Units" shows the converter above whichever input system is active, so the
+     visitor can convert a figure and type it straight in without losing their entries. */
   function setUnit(u){
-    unit = u;
-    $('bf-tabUs').className = 'bf-tab' + (u === 'us' ? ' active' : '');
-    $('bf-tabMetric').className = 'bf-tab' + (u === 'metric' ? ' active' : '');
-    $('bf-tabUs').setAttribute('aria-selected', u === 'us' ? 'true' : 'false');
-    $('bf-tabMetric').setAttribute('aria-selected', u === 'metric' ? 'true' : 'false');
-    $('bf-usBlock').style.display     = u === 'us' ? '' : 'none';
-    $('bf-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    var map = { us:'bf-tabUs', metric:'bf-tabMetric', other:'bf-tabOther' };
+    Object.keys(map).forEach(function(k){
+      $(map[k]).className = 'bf-tab' + (k === u ? ' active' : '');
+      $(map[k]).setAttribute('aria-selected', k === u ? 'true' : 'false');
+    });
+    $('bf-convPanel').style.display = u === 'other' ? '' : 'none';
+    if(u !== 'other'){
+      unit = u;
+      $('bf-usBlock').style.display     = u === 'us' ? '' : 'none';
+      $('bf-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    }
     render();
   }
   /* Hip is only used by the female equation, so it is only shown for women — the
@@ -989,6 +1037,7 @@
   }
   $('bf-tabUs').addEventListener('click', function(){ setUnit('us'); });
   $('bf-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('bf-tabOther').addEventListener('click', function(){ setUnit('other'); });
   var sexRadios = document.querySelectorAll('input[name="bf-sex"]');
   for(var i = 0; i < sexRadios.length; i++){
     sexRadios[i].addEventListener('change', function(){ syncHip(); render(); });
@@ -1069,6 +1118,88 @@
       alert('The PDF library could not be loaded. Please check your connection and try again.');
     });
   });
+
+
+  /* ---------- Other Units converter ----------
+     Unit sets and factors taken from the reference tool's own converter. Everything is
+     expressed relative to the category's base unit; temperature needs its own pair of
+     conversions because it is offset, not just scaled. */
+  var CONV = {
+    Length: { base:'Meter', units:[['Meter',1],['Kilometer',1000],['Centimeter',0.01],['Millimeter',0.001],
+      ['Micrometer',1e-6],['Nanometer',1e-9],['Mile',1609.344],['Yard',0.9144],['Foot',0.3048],
+      ['Inch',0.0254],['Light Year',9.46066e15]], from:'Centimeter', to:'Inch' },
+    Temperature: { special:true, units:[['Celsius'],['Kelvin'],['Fahrenheit']], from:'Celsius', to:'Fahrenheit' },
+    Area: { units:[['Square Meter',1],['Square Kilometer',1e6],['Square Centimeter',1e-4],
+      ['Square Millimeter',1e-6],['Square Micrometer',1e-12],['Hectare',1e4],['Square Mile',2589990],
+      ['Square Yard',0.83612736],['Square Foot',0.09290304],['Square Inch',0.00064516]],
+      from:'Square Meter', to:'Square Foot' },
+    Volume: { units:[['Cubic Meter',1],['Cubic Kilometer',1e9],['Cubic Centimeter',1e-6],
+      ['Cubic Millimeter',1e-9],['Liter',0.001],['Milliliter',1e-6],['US Gallon',0.003785412],
+      ['US Quart',0.000946353],['US Pint',0.000473176],['US Cup',0.00023658823],
+      ['US Fluid Ounce',2.95735e-5],['US Tablespoon',1.47868e-5],['US Teaspoon',4.92892e-6],
+      ['Cubic Mile',4168180000],['Cubic Yard',0.764555],['Cubic Foot',0.0283168],['Cubic Inch',1.63871e-5]],
+      from:'Liter', to:'US Cup' },
+    Weight: { units:[['Kilogram',1],['Gram',0.001],['Milligram',1e-6],['Metric Ton',1000],
+      ['Long Ton',1016.04608],['Short Ton',907.184],['Pound',0.453592],['Ounce',0.0283495],
+      ['Carrat',0.0002],['Atomic Mass Unit',1.6605401999104288e-27]], from:'Kilogram', to:'Pound' }
+  };
+  var CONV_ORDER = ['Length','Temperature','Area','Volume','Weight'];
+  var convCat = 'Length';
+
+  /* Trim to ten significant digits and drop trailing zeros, the way the reference does. */
+  function convFmt(x){
+    if(!isFinite(x)) return '';
+    var s = Math.abs(x) >= 1e16 || (Math.abs(x) > 0 && Math.abs(x) < 1e-9)
+      ? x.toExponential(6) : String(parseFloat(x.toPrecision(10)));
+    return s;
+  }
+  function toBase(cat, unit, v){
+    if(CONV[cat].special){
+      if(unit === 'Celsius') return v;
+      if(unit === 'Kelvin') return v - 273.15;
+      return 5/9*(v - 32);
+    }
+    var u = CONV[cat].units.filter(function(x){ return x[0] === unit; })[0];
+    return v * u[1];
+  }
+  function fromBase(cat, unit, v){
+    if(CONV[cat].special){
+      if(unit === 'Celsius') return v;
+      if(unit === 'Kelvin') return v + 273.15;
+      return 9/5*v + 32;
+    }
+    var u = CONV[cat].units.filter(function(x){ return x[0] === unit; })[0];
+    return v / u[1];
+  }
+  function convFill(){
+    var c = CONV[convCat];
+    var opts = c.units.map(function(u){ return '<option value="'+esc(u[0])+'">'+esc(u[0])+'</option>'; }).join('');
+    $('bf-convFrom').innerHTML = opts; $('bf-convTo').innerHTML = opts;
+    $('bf-convFrom').value = c.from; $('bf-convTo').value = c.to;
+    $('bf-convCats').innerHTML = CONV_ORDER.map(function(k){
+      return '<button type="button" class="cv-cat'+(k === convCat ? ' on' : '')+'" data-cat="'+k+'">'+k+'</button>';
+    }).join('');
+    convRun();
+  }
+  function convRun(){
+    var raw = String($('bf-convFromVal').value).replace(/[,\s]/g,'').trim();
+    var v = parseFloat(raw);
+    if(raw === '' || isNaN(v)){ $('bf-convToVal').value = ''; $('bf-convOut').textContent = ''; return; }
+    var f = $('bf-convFrom').value, t = $('bf-convTo').value;
+    var res = fromBase(convCat, t, toBase(convCat, f, v));
+    $('bf-convToVal').value = convFmt(res);
+    $('bf-convOut').innerHTML = '<b>' + esc(convFmt(v)) + '</b> ' + esc(f) + ' = <b>' +
+      esc(convFmt(res)) + '</b> ' + esc(t);
+  }
+  $('bf-convCats').addEventListener('click', function(e){
+    var b = e.target.closest('.cv-cat'); if(!b) return;
+    convCat = b.getAttribute('data-cat'); convFill();
+  });
+  ['bf-convFromVal','bf-convFrom','bf-convTo'].forEach(function(id){
+    $(id).addEventListener('input', convRun);
+    $(id).addEventListener('change', convRun);
+  });
+  convFill();
 
   syncHip();
   render();

@@ -378,6 +378,27 @@
   .br-field-label{width:100%}
   .br-tab{flex:1;text-align:center;padding:10px 12px}
 }
+
+/* Other Units converter — shared markup between calculators, prefixed per page */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+@media(max-width:520px){.cv-row{grid-template-columns:1fr}}
+.cv-col{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cv-col label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-col input,.cv-col select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-col input[readonly]{background:var(--gold-tint);font-weight:600}
+.cv-eq{font-size:16px;color:var(--ink-faint);text-align:center;padding-top:20px}
+@media(max-width:520px){.cv-eq{padding-top:0;text-align:left}}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:10px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
 </head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
@@ -464,11 +485,50 @@
   <div class="br-tabs br-area-tabs" role="tablist" aria-label="Measurement units">
     <button type="button" class="br-tab active" id="br-tabUs" role="tab" aria-selected="true">US Units</button>
     <button type="button" class="br-tab" id="br-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+    <button type="button" class="br-tab" id="br-tabOther" role="tab" aria-selected="false">Other Units</button>
   </div>
 
   <!-- ============ FORM ============ -->
   <div class="br-card br-area-form">
     <div class="br-card-pad">
+  <div class="cv-panel" id="br-convPanel" style="display:none">
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form.</p>
+    <div class="cv-block">
+      <p class="cv-title">Height converter</p>
+      <div class="cv-row">
+        <div class="cv-col">
+          <label for="br-hFromVal">From</label>
+          <input type="text" inputmode="decimal" id="br-hFromVal" value="1">
+          <select id="br-hFrom"></select>
+        </div>
+        <div class="cv-eq">=</div>
+        <div class="cv-col">
+          <label for="br-hToVal">To</label>
+          <input type="text" id="br-hToVal" readonly>
+          <select id="br-hTo"></select>
+        </div>
+      </div>
+      <p class="cv-out" id="br-hOut"></p>
+    </div>
+    <div class="cv-block">
+      <p class="cv-title">Weight converter</p>
+      <div class="cv-row">
+        <div class="cv-col">
+          <label for="br-wFromVal">From</label>
+          <input type="text" inputmode="decimal" id="br-wFromVal" value="1">
+          <select id="br-wFrom"></select>
+        </div>
+        <div class="cv-eq">=</div>
+        <div class="cv-col">
+          <label for="br-wToVal">To</label>
+          <input type="text" id="br-wToVal" readonly>
+          <select id="br-wTo"></select>
+        </div>
+      </div>
+      <p class="cv-out" id="br-wOut"></p>
+    </div>
+  </div>
+
 
       <div class="br-field">
         <label class="br-field-label" for="br-age">Age</label>
@@ -855,18 +915,26 @@
   }
 
   /* ---------- units + settings ---------- */
+  /* Three tabs, matching the reference: two input systems plus the converters.
+     "Other Units" shows them above whichever input system is active, so a converted
+     figure can be typed straight in without losing the existing entries. */
   function setUnit(u){
-    unit = u;
-    $('br-tabUs').className = 'br-tab' + (u === 'us' ? ' active' : '');
-    $('br-tabMetric').className = 'br-tab' + (u === 'metric' ? ' active' : '');
-    $('br-tabUs').setAttribute('aria-selected', u === 'us' ? 'true' : 'false');
-    $('br-tabMetric').setAttribute('aria-selected', u === 'metric' ? 'true' : 'false');
-    $('br-usBlock').style.display     = u === 'us' ? '' : 'none';
-    $('br-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    var map = { us:'br-tabUs', metric:'br-tabMetric', other:'br-tabOther' };
+    Object.keys(map).forEach(function(k){
+      $(map[k]).className = 'br-tab' + (k === u ? ' active' : '');
+      $(map[k]).setAttribute('aria-selected', k === u ? 'true' : 'false');
+    });
+    $('br-convPanel').style.display = u === 'other' ? '' : 'none';
+    if(u !== 'other'){
+      unit = u;
+      $('br-usBlock').style.display     = u === 'us' ? '' : 'none';
+      $('br-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    }
     render();
   }
   $('br-tabUs').addEventListener('click', function(){ setUnit('us'); });
   $('br-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('br-tabOther').addEventListener('click', function(){ setUnit('other'); });
   $('br-settingsChk').addEventListener('change', function(){
     $('br-settingsPanel').className = this.checked ? 'br-panel open' : 'br-panel';
   });
@@ -939,6 +1007,46 @@
       alert('The PDF library could not be loaded. Please check your connection and try again.');
     });
   });
+
+
+  /* ---------- Other Units converters ----------
+     The reference pairs this calculator with two purpose-built converters rather than the
+     generic one; unit sets and factors are taken from its own script. */
+  var H_UNITS = [['meter',1],['centimeter',0.01],['millimeter',0.001],
+                 ['yard',0.9144],['foot',0.3048],['inch',0.0254]];
+  var W_UNITS = [['kilogram',1],['gram',0.001],['milligram',1e-6],['metric ton',1000],
+                 ['long ton',1016.04608],['short ton',907.184],['pound',0.453592],
+                 ['ounce',0.0283495],['carrat',0.0002]];
+
+  function cvFmt(x){
+    if(!isFinite(x)) return '';
+    return String(parseFloat(x.toPrecision(10)));
+  }
+  function cvWire(units, fromSel, toSel, valId, outId, defFrom, defTo){
+    var opts = units.map(function(u){ return '<option value="'+esc(u[0])+'">'+esc(u[0])+'</option>'; }).join('');
+    $(fromSel).innerHTML = opts; $(toSel).innerHTML = opts;
+    $(fromSel).value = defFrom; $(toSel).value = defTo;
+    function factor(name){
+      var u = units.filter(function(x){ return x[0] === name; })[0];
+      return u ? u[1] : 1;
+    }
+    function run(){
+      var raw = String($(valId).value).replace(/[,\s]/g,'').trim();
+      var v = parseFloat(raw);
+      var outEl = $(outId), toEl = $(valId.replace('FromVal','ToVal'));
+      if(raw === '' || isNaN(v)){ toEl.value = ''; outEl.textContent = ''; return; }
+      var f = $(fromSel).value, t = $(toSel).value;
+      var res = v*factor(f)/factor(t);
+      toEl.value = cvFmt(res);
+      outEl.innerHTML = '<b>' + esc(cvFmt(v)) + '</b> ' + esc(f) + ' = <b>' + esc(cvFmt(res)) + '</b> ' + esc(t);
+    }
+    [valId, fromSel, toSel].forEach(function(id){
+      $(id).addEventListener('input', run); $(id).addEventListener('change', run);
+    });
+    run();
+  }
+  cvWire(H_UNITS, 'br-hFrom', 'br-hTo', 'br-hFromVal', 'br-hOut', 'meter', 'inch');
+  cvWire(W_UNITS, 'br-wFrom', 'br-wTo', 'br-wFromVal', 'br-wOut', 'kilogram', 'pound');
 
   render();
 })();

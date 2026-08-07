@@ -6919,6 +6919,44 @@ body-fat article. Both rewritten; overlap with the reference fell from 2.37% to 
 what remains is formula constants and the form's field-label sequence.
 
 
+### Body Fat and BMR — the missing "Other Units" tab (Aug 7, 2026)
+
+The owner noticed that both pages were missing the third tab the reference carries. He is
+right, and the way it went missing is worse than the omission: I recorded it in the Body Fat
+completion report as an "intentional difference — it is calculator.net's global unit-converter
+widget, not a mode of this calculator" and shipped. Nobody agreed to that. §3a-PRIME says a
+deliberate omission is flagged **with a reason**, which means asked before shipping, not
+noted afterwards. Then I repeated the same omission on BMR without even flagging it.
+
+**Full re-audit of both pages first**, since the question was "what else is missing":
+Body Fat inputs 17/17 and results 7/7; BMR inputs 13/13 and results 7/7. The Other Units tab
+was the only gap on either page.
+
+**What was actually there**, read from their scripts rather than assumed from screenshots —
+the two pages use *different* converters:
+- Body Fat embeds `/converter/converter.php` in an iframe: the generic five-category converter
+  (Length, Temperature, Area, Volume, Weight) with unit tables in `/js/conversion.js`.
+- BMR uses `/js/quick-conversion.js`: two purpose-built converters, Height (meter, centimeter,
+  millimeter, yard, foot, inch, defaulting meter to inch) and Weight (kilogram through carrat,
+  defaulting kilogram to pound).
+
+Both now implemented to match, in our own design, as a third tab that shows the converter above
+the form so a converted figure can be typed straight in without losing existing entries.
+Temperature is handled with its own offset conversions rather than a scale factor. Their pound
+factor is `0.453592` rather than the exact `0.45359237`, and matching it is what makes 80 kg
+come out at 176.3699536 lb on both sites.
+
+Verified: 180 cm to 70.86614173 in, 6 ft to 72 in, 80 kg to 176.3699536 lb, 100 C to 212 F,
+0 C to 273.15 K, 1 m² to 10.76391042 ft², 1.75 m to 68.8976378 in, 12 oz to 340.194 g.
+Each suite grew to 97 assertions, adding the tab count, the category list, every conversion
+above, blank-input clearing, and that calculator entries survive a trip to the converter tab
+and back.
+
+**Guide updated** with the per-page converter definitions so this does not have to be
+rediscovered, and with the rule that an omission counts as intentional only once the owner has
+agreed to it.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
