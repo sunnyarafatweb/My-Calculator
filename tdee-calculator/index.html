@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>TDEE Calculator | CalculatorBoss</title><meta name="description" content="Calculate your Total Daily Energy Expenditure — your estimated maintenance calories including activity level."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/tdee-calculator/"/><meta property="og:title" content="TDEE Calculator | CalculatorBoss"/><meta property="og:description" content="Your total daily calorie burn including activity."/><meta property="og:url" content="https://calculatorboss.com/tdee-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>TDEE Calculator — Daily Calories to Maintain, Lose or Gain</title><meta name="description" content="Free TDEE calculator: your total daily energy expenditure plus intake targets for losing or gaining weight, using Mifflin St Jeor or Katch-McArdle."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="tdee calculator,total daily energy expenditure calculator,maintenance calories calculator,how many calories do i burn a day,tdee and bmr calculator,calorie deficit calculator,daily calorie needs calculator,tdee calculator with body fat"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/tdee-calculator/"/><meta property="og:title" content="TDEE Calculator — Daily Calories to Maintain, Lose or Gain"/><meta property="og:description" content="Free TDEE calculator: your total daily energy expenditure plus intake targets for losing or gaining weight, using Mifflin St Jeor or Katch-McArdle."/><meta property="og:url" content="https://calculatorboss.com/tdee-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/tdee-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="TDEE Calculator — Daily Calories to Maintain, Lose or Gain"/><meta name="twitter:description" content="Free TDEE calculator: your total daily energy expenditure plus intake targets for losing or gaining weight, using Mifflin St Jeor or Katch-McArdle."/><meta name="twitter:image" content="https://calculatorboss.com/og/tdee-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,153 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.td-wrap{width:100%}
+.td-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.td-bar-text{display:flex;align-items:center;gap:10px}
+.td-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.td-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.td-bar-pdf-btn:hover{background:#f0f0f0}
+.td-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.td-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.td-area-bar{grid-area:bar}
+.td-area-tabs{grid-area:tabs}
+.td-area-form{grid-area:form}
+.td-area-result{grid-area:result}
+.td-area-sidebar{grid-area:sidebar}
+.td-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .td-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.td-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.td-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.td-tab:hover{border-color:var(--border)}
+.td-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.td-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.td-card-pad{padding:22px}
+.td-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.td-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.td-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.td-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.td-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.td-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.td-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.td-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.td-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.td-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.td-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.td-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.td-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+.td-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
+.td-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.td-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
+.td-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
+.td-fat .td-input-group{width:96px;flex:none}
+.td-toggle{display:flex;align-items:center;gap:8px;padding:12px 0 2px;cursor:pointer;user-select:none}
+.td-toggle input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
+.td-toggle span{font-size:13px;font-weight:600;color:var(--ink)}
+.td-panel{display:none;background:var(--surface-sunken);border-radius:10px;padding:14px;margin-top:6px}
+.td-panel.open{display:block}
+/* TDEE-specific: the lose/gain intake tables */
+.td-goal{margin-top:16px}
+.td-goal-h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+.td-goal-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--border-fine);border-radius:10px;background:var(--surface-sunken)}
+.td-goal-row+.td-goal-row{margin-top:7px}
+.td-goal-row .n{font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.3}
+.td-goal-row .p{font-size:11.5px;color:var(--ink-faint);display:block;font-weight:400;margin-top:1px}
+.td-goal-row .v{text-align:right;white-space:nowrap}
+.td-goal-row .v b{font-size:16px;font-weight:700;color:var(--ink)}
+.td-goal-row .v i{font-style:normal;font-size:11.5px;color:var(--ink-faint);display:block}
+.td-goal-row.lose .v b{color:#128A3D}
+.td-goal-row.gain .v b{color:#1E3A5F}
+.td-warn{font-size:12px;color:#8E2233;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:10px 12px;margin-top:8px;line-height:1.5}
+.td-bmi{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border-fine);border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft);flex-wrap:wrap}
+.td-bmi b{color:var(--ink);font-weight:600}
+.td-act-table{width:100%;border-collapse:collapse;font-size:13px}
+.td-act-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.td-act-table th:first-child{text-align:left}
+.td-act-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);font-weight:600}
+.td-act-table td:first-child{text-align:left;color:var(--ink-soft);font-weight:400}
+.td-act-table tr:last-child td{border-bottom:none}
+
+.td-btn-row{display:flex;gap:8px;padding-top:16px}
+.td-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.td-btn-calc:hover{background:#128A3D}
+.td-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.td-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.td-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.td-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.td-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
+.td-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.td-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.td-err.show{display:block}
+
+
+.td-result-body{padding:10px 20px 20px}
+.td-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.td-row:first-child{border-top:none}
+.td-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.td-row.hl span:last-child{color:#128A3D}
+
+.td-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.td-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.td-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.td-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.td-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.td-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.td-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.td-bottom-grid{grid-template-columns:1fr}}
+.td-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.td-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.td-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.td-card-body{padding:18px}
+.td-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.td-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.td-ref-table th:first-child{text-align:left}
+.td-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.td-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.td-ref-table tr:last-child td{border-bottom:none}
+.td-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.td-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+@media(max-width:520px){
+  .td-field{flex-wrap:wrap}
+  .td-field-label{width:100%}
+  .td-tab{flex:1;text-align:center;padding:10px 12px}
+}
+
+
+
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Tdee","item":"https://calculatorboss.com/tdee-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +494,292 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is TDEE different from BMR?","acceptedAnswer":{"@type":"Answer","text":"BMR is resting calorie burn alone. TDEE adds your activity level on top — it's the more practical number, since it actually reflects your real day-to-day energy needs rather than a hypothetical resting state."}},{"@type":"Question","name":"Should I eat exactly at my TDEE?","acceptedAnswer":{"@type":"Answer","text":"Eating at TDEE maintains your current weight. Eating below it creates the deficit needed for weight loss, and above it creates the surplus needed for weight gain — see the Calorie Calculator for ready-made cut/maintain/gain targets."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"TDEE Calculator","url":"https://calculatorboss.com/tdee-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">TDEE Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">TDEE Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Your estimated maintenance calories — resting burn plus activity.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-5"><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full capitalize transition-colors bg-accent text-white">male</button><button class="text-xs px-3 py-1.5 rounded-full capitalize transition-colors text-ink-soft">female</button></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Age</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="30"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:20%;background:var(--accent)"></div><input type="range" min="15" max="90" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Age" value="30"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(20% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Weight</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="170"/><span style="color:var(--ink-faint)">lb</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:30.303030303030305%;background:var(--accent)"></div><input type="range" min="70" max="400" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Weight" value="170"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(30.303030303030305% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div class="grid grid-cols-2 gap-4"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Height (ft)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="5"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50%;background:var(--accent)"></div><input type="range" min="3" max="7" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Height (ft)" value="5"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Height (in)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="9"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:81.81818181818183%;background:var(--accent)"></div><input type="range" min="0" max="11" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Height (in)" value="9"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(81.81818181818183% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div><label class="text-sm text-ink-soft mb-2 block">Activity level</label><select class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border"><option value="sedentary">Sedentary (little or no exercise)</option><option value="light">Light exercise (1-3 days/week)</option><option value="moderate" selected="">Moderate exercise (3-5 days/week)</option><option value="active">Active (6-7 days/week)</option><option value="very_active">Very active (hard daily exercise)</option></select></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Total Daily Energy Expenditure</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">2668<!-- --> cal/day</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">This is your estimated maintenance calories — eat around this much to maintain your current weight. For a goal-based calorie target (cutting or bulking), see the Calorie Calculator.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A 30-year-old male at <span class="tabular">170 lb</span>, <span class="tabular">5&#x27;9&quot;</span>, with moderate activity (exercising 3-5 days a week) has an estimated TDEE of about <span class="tabular">2,668</span> calories a day.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How is TDEE different from BMR?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">BMR is resting calorie burn alone. TDEE adds your activity level on top — it&#x27;s the more practical number, since it actually reflects your real day-to-day energy needs rather than a hypothetical resting state.</p></div><div><h3 class="font-medium text-ink mb-1.5">Should I eat exactly at my TDEE?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Eating at TDEE maintains your current weight. Eating below it creates the deficit needed for weight loss, and above it creates the surplus needed for weight gain — see the Calorie Calculator for ready-made cut/maintain/gain targets.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"TDEE Calculator","item":"https://calculatorboss.com/tdee-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is TDEE and how is it different from BMR?","acceptedAnswer":{"@type":"Answer","text":"BMR is what your body burns at complete rest. TDEE is everything you burn in a day: BMR plus movement, exercise and the energy used to digest food. TDEE is the larger number and the one that matters for eating, because it is what you have to match to hold your weight steady. The calculator works out BMR first and multiplies it by an activity factor to reach TDEE."}},{"@type":"Question","name":"How many calories should I eat to lose weight?","acceptedAnswer":{"@type":"Answer","text":"The intake table shows the arithmetic: roughly 500 Calories a day below TDEE tends to produce about a pound a week, and 250 below produces about half that. Those are starting estimates, not prescriptions. Nothing below about 1,500 Calories a day is shown, because going lower is something to plan with a doctor or dietitian rather than from a web page."}},{"@type":"Question","name":"Which activity level should I choose?","acceptedAnswer":{"@type":"Answer","text":"Pick the one that describes your whole week, not your best day. Three or four gym sessions alongside a desk job is light to moderate; \"very active\" means daily hard training or a physically demanding job. This is the single largest source of error in the calculation — the gap between sedentary and extra active is over 1,200 Calories a day on the same body — and most people pick too high."}},{"@type":"Question","name":"How accurate is a TDEE estimate?","acceptedAnswer":{"@type":"Answer","text":"It is a starting point with real uncertainty. The BMR equation underneath carries roughly 10% error for most people, and the activity multiplier is a coarse step rather than a measurement. Treat the figure as a hypothesis: eat close to it for two or three weeks, track your weight, and adjust based on what actually happens rather than on what the equation predicted."}},{"@type":"Question","name":"Why is my weight not changing even though I eat my TDEE?","acceptedAnswer":{"@type":"Answer","text":"That is the calculator working as intended — eating at TDEE is meant to hold your weight steady. If you wanted a change, use the lose or gain rows instead. If you are eating a deficit and nothing is moving after a few weeks, the usual explanations are that intake is being under-recorded, the activity level was set too high, or the deficit is small enough to be hidden by normal water-weight variation."}},{"@type":"Question","name":"Should I use Mifflin St Jeor or Katch-McArdle?","acceptedAnswer":{"@type":"Answer","text":"Mifflin St Jeor unless you have a reliable body fat measurement. It is the more accurate of the two for the general population and needs nothing you cannot measure at home. Katch-McArdle works from lean mass and has the edge on very lean or heavily built physiques — but only where the body fat figure is good, since a guess feeds straight into the answer."}},{"@type":"Question","name":"Does TDEE change as I lose weight?","acceptedAnswer":{"@type":"Answer","text":"Yes, and this is why plateaus happen. A smaller body costs less to run, so TDEE falls as you lose, and a deficit that worked at the start becomes maintenance later on. Recalculate every 10 to 15 pounds or so. Long stretches of dieting also push expenditure down further than the lighter body by itself would explain."}},{"@type":"Question","name":"Why does the calculator show my BMI too?","acceptedAnswer":{"@type":"Answer","text":"As context for the intake numbers rather than as a second verdict. Below a healthy BMI the calculator stops offering weight-loss targets entirely. BMI takes no account of build, so a muscular person can read as overweight while carrying very little fat — which is exactly the case where the body fat calculator and Katch-McArdle tell you more."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"TDEE Calculator","url":"https://calculatorboss.com/tdee-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates total daily energy expenditure from BMR and an activity level, with daily intake targets for losing or gaining weight and a BMI reading for context.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">TDEE Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">TDEE Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Work out the calories you burn in a day, then the intake that holds your weight steady — plus targets for losing or gaining, at a pace you choose.</p><div class="td-wrap">
+<div class="td-grid">
+
+  <div class="td-bar td-area-bar">
+    <span class="td-bar-text"><span class="td-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="td-bar-pdf-btn" id="td-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="td-tabs td-area-tabs" role="tablist" aria-label="Measurement units">
+    <button type="button" class="td-tab active" id="td-tabUs" role="tab" aria-selected="true">US Units</button>
+    <button type="button" class="td-tab" id="td-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+    <button type="button" class="td-tab" id="td-tabOther" role="tab" aria-selected="false">Other Units</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="td-card td-area-form">
+    <div class="td-card-pad">
+
+  <div class="cv-panel" id="td-convPanel" style="display:none">
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form below.</p>
+    <div class="cv-block">
+      <p class="cv-title">Height converter</p>
+      <div class="cv-line">
+        <label for="td-hFromVal">From</label>
+        <div class="cv-pair">
+          <input type="text" inputmode="decimal" id="td-hFromVal" value="1">
+          <select id="td-hFrom" aria-label="Height convert from unit"></select>
+        </div>
+      </div>
+      <div class="cv-arrow" aria-hidden="true">↓</div>
+      <div class="cv-line">
+        <label for="td-hToVal">To</label>
+        <div class="cv-pair">
+          <input type="text" id="td-hToVal" readonly>
+          <select id="td-hTo" aria-label="Height convert to unit"></select>
+        </div>
+      </div>
+      <p class="cv-out" id="td-hOut"></p>
+    </div>
+    <div class="cv-block">
+      <p class="cv-title">Weight converter</p>
+      <div class="cv-line">
+        <label for="td-wFromVal">From</label>
+        <div class="cv-pair">
+          <input type="text" inputmode="decimal" id="td-wFromVal" value="1">
+          <select id="td-wFrom" aria-label="Weight convert from unit"></select>
+        </div>
+      </div>
+      <div class="cv-arrow" aria-hidden="true">↓</div>
+      <div class="cv-line">
+        <label for="td-wToVal">To</label>
+        <div class="cv-pair">
+          <input type="text" id="td-wToVal" readonly>
+          <select id="td-wTo" aria-label="Weight convert to unit"></select>
+        </div>
+      </div>
+      <p class="cv-out" id="td-wOut"></p>
+    </div>
+  </div>
+
+      <div class="td-field">
+        <label class="td-field-label" for="td-age">Age</label>
+        <div class="td-field-control"><div class="td-input-group"><input type="text" inputmode="decimal" id="td-age" value="34"><span>18 – 80</span></div></div>
+      </div>
+      <div class="td-field">
+        <span class="td-field-label">Gender</span>
+        <div class="td-field-control td-sex" role="radiogroup" aria-label="Gender">
+          <label class="td-radio"><input type="radio" name="td-sex" value="m" checked><span>Male</span></label>
+          <label class="td-radio"><input type="radio" name="td-sex" value="f"><span>Female</span></label>
+        </div>
+      </div>
+
+      <div id="td-usBlock">
+        <div class="td-field">
+          <label class="td-field-label" for="td-heightFt">Height</label>
+          <div class="td-field-control">
+            <div class="td-input-group"><input type="text" inputmode="decimal" id="td-heightFt" value="5"><span>feet</span></div>
+            <div class="td-input-group"><input type="text" inputmode="decimal" id="td-heightIn" value="9"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="td-field">
+          <label class="td-field-label" for="td-weightLb">Weight</label>
+          <div class="td-field-control"><div class="td-input-group"><input type="text" inputmode="decimal" id="td-weightLb" value="178"><span>pounds</span></div></div>
+        </div>
+      </div>
+
+      <div id="td-metricBlock" style="display:none">
+        <div class="td-field">
+          <label class="td-field-label" for="td-heightCm">Height</label>
+          <div class="td-field-control"><div class="td-input-group"><input type="text" inputmode="decimal" id="td-heightCm" value="176"><span>cm</span></div></div>
+        </div>
+        <div class="td-field">
+          <label class="td-field-label" for="td-weightKg">Weight</label>
+          <div class="td-field-control"><div class="td-input-group"><input type="text" inputmode="decimal" id="td-weightKg" value="81"><span>kg</span></div></div>
+        </div>
+      </div>
+
+      <div class="td-field">
+        <label class="td-field-label" for="td-activity">Activity</label>
+        <div class="td-field-control"><select class="td-select-plain" id="td-activity"></select></div>
+      </div>
+
+      <label class="td-toggle" for="td-settingsChk"><input type="checkbox" id="td-settingsChk"><span>Settings</span></label>
+      <div class="td-panel" id="td-settingsPanel">
+        <div class="td-sec">Results unit</div>
+        <div class="td-opt" role="radiogroup" aria-label="Results unit">
+          <label><input type="radio" name="td-out" value="c" checked><span>Calories</span></label>
+          <label><input type="radio" name="td-out" value="j"><span>Kilojoules</span></label>
+        </div>
+        <div class="td-sec">BMR estimation formula</div>
+        <div class="td-opt" role="radiogroup" aria-label="BMR formula">
+          <label><input type="radio" name="td-formula" value="m" checked><span>Mifflin&nbsp;St&nbsp;Jeor</span></label>
+          <label><input type="radio" name="td-formula" value="k"><span>Katch-McArdle</span>
+            <span class="td-fat"><span style="font-size:12px;color:var(--ink-faint)">Body fat</span>
+              <div class="td-input-group"><input type="text" inputmode="decimal" id="td-fatPct" value="20"><span>%</span></div>
+            </span>
+          </label>
+        </div>
+        <p class="td-subnote">Katch-McArdle works from lean mass, so it needs your body fat percentage. If you do not know it, the <a href="/body-fat-calculator/" style="color:#128A3D">body fat calculator</a> will estimate it from a tape measure.</p>
+      </div>
+
+      <div class="td-btn-row">
+        <button type="button" class="td-btn-calc" id="td-calcBtn">Calculate</button>
+        <button type="button" class="td-btn-clear" id="td-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="td-result-card td-area-result">
+    <div class="td-result-head">
+      <div class="label" id="td-bigLabel">Total daily energy expenditure (TDEE)</div>
+      <div class="bignum" id="td-bigNum">—</div>
+      <div class="sub" id="td-bigSub">—</div>
+    </div>
+    <div class="td-err" id="td-err"></div>
+    <div class="td-result-body" id="td-resultBody">
+      <div class="td-bmi" id="td-bmiRow"></div>
+      <div id="td-goals"></div>
+      <p class="td-subnote" style="margin-top:14px">How to read the activity levels: <b>exercise</b> means a session of
+      roughly a quarter to half an hour with your pulse up; <b>intense</b> means three quarters of an hour to two
+      hours at that effort; <b>very intense</b> means more than two hours, or a job that keeps you on your feet all day.</p>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="td-sidecol td-area-sidebar">
+    <div class="td-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/bmr-calculator/">BMR <span class="arrow">→</span></a>
+      <a href="/calorie-calculator/">Calorie <span class="arrow">→</span></a>
+      <a href="/macro-calculator/">Macros <span class="arrow">→</span></a>
+      <a href="/bmi-calculator/">BMI <span class="arrow">→</span></a>
+      <a href="/body-fat-calculator/">Body Fat <span class="arrow">→</span></a>
+      <a href="/ideal-weight-calculator/">Ideal Weight <span class="arrow">→</span></a>
+      <a href="/lean-body-mass-calculator/">Lean Body Mass <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="td-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="td-area-bottomgrid">
+    <div class="td-bottom-grid">
+      <div class="td-info-card">
+        <div class="td-card-head"><span class="t">Activity Multipliers</span></div>
+        <div class="td-card-body">
+          <table class="td-ref-table">
+            <thead><tr><th>Activity level</th><th>BMR ×</th></tr></thead>
+            <tbody id="td-multBody"></tbody>
+          </table>
+          <p class="td-note">The level you pick multiplies your BMR to give TDEE, and it is the largest source of error in the whole calculation. Most people overestimate: three gym sessions a week alongside a desk job is light to moderate, not very active.</p>
+        </div>
+      </div>
+      <div class="td-info-card">
+        <div class="td-card-head"><span class="t">BMI Categories</span></div>
+        <div class="td-card-body">
+          <table class="td-ref-table">
+            <thead><tr><th>Category</th><th>BMI</th></tr></thead>
+            <tbody id="td-bmiBody"></tbody>
+          </table>
+          <p class="td-note">BMI is shown alongside TDEE as context, not as a second verdict. It takes no account of build or body composition, so a muscular person can read as overweight while carrying very little fat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.td-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.td-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.td-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.td-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.td-seo-article strong{color:var(--ink);font-weight:600}
+.td-seo-article a{color:#128A3D;text-decoration:underline}
+.td-seo-article ul,.td-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.td-seo-article ul li strong,.td-seo-article ol li strong{color:var(--ink)}
+.td-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.td-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.td-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.td-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.td-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.td-toc a:hover{color:#1E3A5F}
+.td-seo-article h2[id]{scroll-margin-top:88px}
+.td-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.td-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="td-seo-article">
+<p class="td-byline">Written by the CalculatorBoss Health Team · Formulas verified against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<nav class="td-toc" aria-label="On this page">
+  <a href="#what">What TDEE is made of</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#activity">Choosing an activity level honestly</a>
+  <a href="#intake">Reading the intake tables</a>
+  <a href="#adjust">Why the number moves, and what to do about it</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="what">What TDEE is made of</h2>
+<p>Total daily energy expenditure is everything your body spends in twenty-four hours. It breaks into three parts, and they are wildly unequal.</p>
+<p><strong>Basal metabolic rate</strong> is the largest, usually 60 to 70% of the total — the cost of keeping your heart, brain, liver and kidneys running while you do nothing. <strong>Activity</strong> is roughly 20%, and it covers far more than deliberate exercise: walking to the bus, standing, fidgeting and everything else physiologists group under non-exercise activity thermogenesis. <strong>The thermic effect of food</strong> is the remaining 10% or so, the energy spent digesting and absorbing what you eat. Protein costs noticeably more to process than fat, which is why the figure shifts a little with diet composition.</p>
+<p>Put plainly: the majority of the bill is already settled before you decide anything, and the portion genuinely under your control on a given day is the minority of it. That is not an argument against exercise; it is an argument against expecting a single workout to move the total much.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>Two steps. First it estimates BMR from your body, then it multiplies by an activity factor.</p>
+<div class="td-formula2"><b>Mifflin St Jeor</b><br>Men: BMR = 10W + 6.25H − 5A + 5<br>Women: BMR = 10W + 6.25H − 5A − 161<br><br><b>Katch-McArdle</b><br>BMR = 370 + 21.6 × (1 − F) × W<br><br><b>Then</b><br>TDEE = BMR × activity multiplier<br><br>W = weight in kg · H = height in cm · A = age · F = body fat as a decimal</div>
+<p>Run the page defaults through it — a 34-year-old man of 5&prime;9&Prime; and 178 lb who trains four or five times a week. His BMR lands near 1,738 Calories under Mifflin St Jeor, and the moderate multiplier of 1.465 lifts that to a TDEE of 2,546 Calories a day.</p>
+<p>The intake tables then step away from that figure in fixed amounts. A pound a week is treated as 500 Calories a day, half a pound as 250, two pounds as 1,000; in metric the steps are a quarter, a half and a full kilo a week. The percentage beside each row shows what that target is as a share of maintenance, which is a more useful way to judge how aggressive a deficit is than the raw number.</p>
+<p>Choosing <strong>Basal Metabolic Rate</strong> from the activity list is a special case: it returns BMR on its own, with no intake targets, because that figure is not something to eat at.</p>
+
+<h2 id="activity">Choosing an activity level honestly</h2>
+<p>This is where the estimate is won or lost. On the default figures, sedentary gives 2,085 Calories and extra active gives 3,302 — a spread of over 1,200 Calories a day for the same person. No refinement of the BMR equation matters next to picking the wrong band.</p>
+<ul>
+  <li><strong>Sedentary (1.2)</strong> — desk job, little deliberate exercise, not much walking.</li>
+  <li><strong>Light (1.375)</strong> — one to three sessions a week, otherwise mostly seated.</li>
+  <li><strong>Moderate (1.465)</strong> — four or five sessions a week. This describes a lot of people who think they are more active than this.</li>
+  <li><strong>Active (1.55)</strong> — daily exercise, or hard training three or four times a week.</li>
+  <li><strong>Very active (1.725)</strong> — intense training six or seven times a week.</li>
+  <li><strong>Extra active (1.9)</strong> — twice-daily training, or manual work all day on top of exercise.</li>
+</ul>
+<p>The common error runs in one direction. If your job is seated, start one band lower than instinct suggests and let a few weeks of weight data correct you upward if it is wrong. It is easier to notice you have set the target too low than to work out why a supposed deficit is not producing anything.</p>
+
+<h2 id="intake">Reading the intake tables</h2>
+<p>The lose and gain rows are arithmetic, not advice. Roughly 3,500 Calories corresponds to a pound of body weight, so a 500-a-day deficit lines up with about a pound a week. Real bodies do not follow that as cleanly — water shifts mask the trend for days at a time, and expenditure itself drifts — but as a planning figure it holds up.</p>
+<p>Two guardrails are built in, both matching what the reference tool does. Any target that would fall below about 1,500 Calories a day is withheld, with a note, because sustained intake at that level is a medical conversation rather than a self-service one. And if your BMI is already below the healthy range, the weight-loss section does not appear at all.</p>
+<p>The percentages are worth more attention than the absolute numbers. A deficit at 90% of maintenance is gentle and generally sustainable; one at 60% is aggressive and much harder to hold without losing lean mass alongside fat. If you want to keep muscle while the fat comes off, the shallower rows plus resistance training do that far better than the steepest row does.</p>
+
+<h2 id="adjust">Why the number moves, and what to do about it</h2>
+<p>TDEE is not a constant. It falls as you lose weight, because there is less body to run — which is the ordinary mechanism behind a stall that seems to arrive from nowhere. Extended dieting drags it lower again, past what the shrinking body by itself would explain, as the system quietly economises. It also moves with the seasons, with sleep, with illness and with how much you unconsciously fidget.</p>
+<p>So treat the output as a starting hypothesis and let your own data correct it. Hold roughly to a target for two to three weeks, weigh yourself consistently, and compare the trend to what the calculator predicted. If your weight is flat on a supposed 500-a-day deficit, the activity level is the first thing to revisit, and intake tracking the second. Recalculate every ten to fifteen pounds of change rather than once at the start.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<ul>
+  <li><strong>What to eat.</strong> A daily total says nothing about how to divide it between protein, carbohydrate and fat, and that split matters for whether a deficit costs you muscle. The <a href="/macro-calculator/">macro calculator</a> picks that up.</li>
+  <li><strong>Anyone outside 18 to 80.</strong> The underlying research covers working-age adults. Rather than extend a curve past its data, the tool simply refuses those ages.</li>
+  <li><strong>Pregnancy and nursing.</strong> Requirements rise sharply and follow their own trajectory, which nothing on this page attempts to represent.</li>
+  <li><strong>Illness and prescriptions.</strong> An under- or over-active thyroid can shift daily expenditure by hundreds of Calories, and a long list of everyday prescriptions nudge it one way or the other.</li>
+  <li><strong>Bodies at the extremes.</strong> Competitive physiques and very high body fat both sit where population averages fit worst. A measured body fat reading with Katch-McArdle narrows the gap; nothing closes it.</li>
+  <li><strong>Anyone with a difficult history around food.</strong> A number that frames eating as a target to hit can be actively harmful, and no calculator can judge whether that applies to you. Bring this to a clinician instead.</li>
+</ul>
+<p>For the pieces either side of this one, the <a href="/bmr-calculator/">BMR calculator</a> shows the resting figure on its own and the <a href="/calorie-calculator/">calorie calculator</a> approaches intake from a different angle.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>What is TDEE and how is it different from BMR?</h3>
+<p>BMR is what your body burns at complete rest. TDEE is everything you burn in a day: BMR plus movement, exercise and the energy used to digest food. TDEE is the larger number and the one that matters for eating, because it is what you have to match to hold your weight steady. The calculator works out BMR first and multiplies it by an activity factor to reach TDEE.</p>
+<h3>How many calories should I eat to lose weight?</h3>
+<p>The intake table shows the arithmetic: roughly 500 Calories a day below TDEE tends to produce about a pound a week, and 250 below produces about half that. Those are starting estimates, not prescriptions. Nothing below about 1,500 Calories a day is shown, because going lower is something to plan with a doctor or dietitian rather than from a web page.</p>
+<h3>Which activity level should I choose?</h3>
+<p>Pick the one that describes your whole week, not your best day. Three or four gym sessions alongside a desk job is light to moderate; "very active" means daily hard training or a physically demanding job. This is the single largest source of error in the calculation — the gap between sedentary and extra active is over 1,200 Calories a day on the same body — and most people pick too high.</p>
+<h3>How accurate is a TDEE estimate?</h3>
+<p>It is a starting point with real uncertainty. The BMR equation underneath carries roughly 10% error for most people, and the activity multiplier is a coarse step rather than a measurement. Treat the figure as a hypothesis: eat close to it for two or three weeks, track your weight, and adjust based on what actually happens rather than on what the equation predicted.</p>
+<h3>Why is my weight not changing even though I eat my TDEE?</h3>
+<p>That is the calculator working as intended — eating at TDEE is meant to hold your weight steady. If you wanted a change, use the lose or gain rows instead. If you are eating a deficit and nothing is moving after a few weeks, the usual explanations are that intake is being under-recorded, the activity level was set too high, or the deficit is small enough to be hidden by normal water-weight variation.</p>
+<h3>Should I use Mifflin St Jeor or Katch-McArdle?</h3>
+<p>Mifflin St Jeor unless you have a reliable body fat measurement. It is the more accurate of the two for the general population and needs nothing you cannot measure at home. Katch-McArdle works from lean mass and has the edge on very lean or heavily built physiques — but only where the body fat figure is good, since a guess feeds straight into the answer.</p>
+<h3>Does TDEE change as I lose weight?</h3>
+<p>Yes, and this is why plateaus happen. A smaller body costs less to run, so TDEE falls as you lose, and a deficit that worked at the start becomes maintenance later on. Recalculate every 10 to 15 pounds or so. Long stretches of dieting also push expenditure down further than the lighter body by itself would explain.</p>
+<h3>Why does the calculator show my BMI too?</h3>
+<p>As context for the intake numbers rather than as a second verdict. Below a healthy BMI the calculator stops offering weight-loss targets entirely. BMI takes no account of build, so a muscular person can read as overweight while carrying very little fat — which is exactly the case where the body fat calculator and Katch-McArdle tell you more.</p>
+
+<p class="td-disclaimer">Everything here is an educational estimate. It carries no clinical weight, replaces no consultation, and diagnoses nothing — and a predicted figure can sit a long way from what a metabolic cart would actually measure on you. The intake rows in particular are arithmetic, not a plan: before adopting any of them as a daily target, talk to a physician or a registered dietitian. That applies with real force during pregnancy or nursing, below the age of 18, alongside any diagnosed condition or medication that touches metabolism, and for anyone who has struggled with food in the past. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +814,306 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var IN = 2.54, LB = 0.45359237, KJ = 4.1868;
+  var unit = 'us', last = null;
+
+  var ACTS = [
+    [1,     'Basal Metabolic Rate (BMR)'],
+    [1.2,   'Sedentary: little or no exercise'],
+    [1.375, 'Light: exercise 1\u20133 times/week'],
+    [1.465, 'Moderate: exercise 4\u20135 times/week'],
+    [1.55,  'Active: daily exercise or intense exercise 3\u20134 times/week'],
+    [1.725, 'Very Active: intense exercise 6\u20137 times/week'],
+    [1.9,   'Extra Active: very intense exercise daily, or physical job']
+  ];
+  var BMI_CATS = [[16,'Severe thinness'],[17,'Moderate thinness'],[18.5,'Mild thinness'],
+    [25,'Normal'],[30,'Overweight'],[35,'Obese Class I'],[40,'Obese Class II'],[Infinity,'Obese Class III']];
+  /* Step sizes differ per unit system, matching the reference: pounds in US, kilos in metric.
+     A pound a week is treated as 500 Calories a day either way. */
+  var STEPS = {
+    us:     [['Mild weight loss','0.5 lb/week',250],['Weight loss','1 lb/week',500],['Extreme weight loss','2 lb/week',1000]],
+    metric: [['Mild weight loss','0.25 kg/week',250],['Weight loss','0.5 kg/week',500],['Extreme weight loss','1 kg/week',1000]]
+  };
+  var GAIN = {
+    us:     [['Mild weight gain','0.5 lb/week',250],['Weight gain','1 lb/week',500],['Fast weight gain','2 lb/week',1000]],
+    metric: [['Mild weight gain','0.25 kg/week',250],['Weight gain','0.5 kg/week',500],['Fast weight gain','1 kg/week',1000]]
+  };
+  var MIN_CAL = 1500;
+
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).replace(/,/g,'').trim()); }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function n0(x){ return Math.round(x).toLocaleString('en-US'); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function bmiCat(b){ for(var i=0;i<BMI_CATS.length;i++) if(b < BMI_CATS[i][0]) return BMI_CATS[i][1]; return 'Obese Class III'; }
+
+  function bmrOf(sex, age, kg, cm, formula, fat){
+    if(formula === 'k') return 370 + 21.6*(1 - fat/100)*kg;
+    return sex === 'm' ? 10*kg + 6.25*cm - 5*age + 5 : 10*kg + 6.25*cm - 5*age - 161;
+  }
+
+  function compute(){
+    var age = num('td-age'), sex = radio('td-sex');
+    var formula = radio('td-formula'), out = radio('td-out');
+    var mult = parseFloat($('td-activity').value);
+    var kg, cm;
+    if(unit === 'us'){
+      var ft = num('td-heightFt'), inch = num('td-heightIn'), lb = num('td-weightLb');
+      if((isNaN(ft) && isNaN(inch)) || isNaN(lb)) return { error:'blank' };
+      cm = ((isNaN(ft)?0:ft)*12 + (isNaN(inch)?0:inch))*IN;
+      kg = lb*LB;
+    } else {
+      cm = num('td-heightCm'); kg = num('td-weightKg');
+      if(isNaN(cm) || isNaN(kg)) return { error:'blank' };
+    }
+    if(isNaN(age)) return { error:'blank' };
+    if(age < 18 || age > 80) return { error:'age' };
+    if(!(kg > 0) || !(cm > 0)) return { error:'positive' };
+    var fat = num('td-fatPct');
+    if(formula === 'k' && (isNaN(fat) || fat <= 0 || fat >= 100)) return { error:'fat' };
+
+    var bmr = bmrOf(sex, age, kg, cm, formula, fat);
+    if(!isFinite(bmr) || bmr <= 0) return { error:'positive' };
+    var tdee = bmr*mult;
+    var bmi = kg/Math.pow(cm/100, 2);
+
+    /* Energy figures are rounded to whole Calories first and only then converted to
+       kilojoules — the BMR page converts the unrounded value instead, so the two pages on
+       the reference site differ by a unit or two. Each is matched to its own page. */
+    function conv(v){ return out === 'j' ? Math.round(Math.round(v)*KJ) : Math.round(v); }
+
+    var loss = STEPS[unit].map(function(s){
+      return { label:s[0], per:s[1], cal:tdee - s[2], v:conv(tdee - s[2]),
+               pct:Math.round((tdee - s[2])/tdee*100) };
+    });
+    var gain = GAIN[unit].map(function(s){
+      return { label:s[0], per:s[1], cal:tdee + s[2], v:conv(tdee + s[2]),
+               pct:Math.round((tdee + s[2])/tdee*100) };
+    });
+    var shown = loss.filter(function(r){ return Math.round(r.cal) >= MIN_CAL; });
+
+    return { bmr:conv(bmr), tdee:conv(tdee), rawTdee:tdee, bmi:bmi, cat:bmiCat(bmi),
+             loss:shown, hidLoss:shown.length < loss.length, gain:gain,
+             isBmrOnly: mult === 1, underweight: bmi < 18.5,
+             out:out, unit:unit, minLabel:conv(MIN_CAL), formula:formula,
+             actLabel:$('td-activity').options[$('td-activity').selectedIndex].text };
+  }
+
+  var ERRORS = {
+    blank:    'Fill in your age, height and weight to see your TDEE.',
+    age:      'Please enter an age between 18 and 80. The equations were derived on adults and are not reliable outside that range.',
+    positive: 'Height and weight need to be greater than zero.',
+    fat:      'Katch-McArdle needs a body fat percentage between 0 and 100. Switch to Mifflin St Jeor if you do not know yours.'
+  };
+
+  function render(){
+    var o = compute();
+    var err = $('td-err');
+    if(o.error){
+      err.className = 'td-err show';
+      err.textContent = ERRORS[o.error];
+      $('td-bigLabel').textContent = 'Total daily energy expenditure (TDEE)';
+      $('td-bigNum').textContent = '—';
+      $('td-bigSub').textContent = '\u00a0';
+      $('td-bmiRow').innerHTML = '';
+      $('td-goals').innerHTML = '';
+      last = null;
+      return;
+    }
+    err.className = 'td-err';
+    last = o;
+    var u = o.out === 'j' ? 'kJ' : 'Calories';
+
+    /* Choosing "Basal Metabolic Rate" as the activity level means the visitor is asking for
+       BMR, not TDEE — the reference drops the BMI line and both intake tables in that case,
+       and so do we. */
+    if(o.isBmrOnly){
+      $('td-bigLabel').textContent = 'Basal metabolic rate (BMR)';
+      $('td-bigNum').textContent = n0(o.bmr) + ' ' + u;
+      $('td-bigSub').textContent = 'per day at complete rest';
+      $('td-bmiRow').innerHTML = '';
+      $('td-goals').innerHTML = '';
+      return;
+    }
+
+    $('td-bigLabel').textContent = 'Total daily energy expenditure (TDEE)';
+    $('td-bigNum').textContent = n0(o.tdee) + ' ' + u;
+    $('td-bigSub').textContent = 'per day to maintain your weight \u00b7 ' +
+      (o.formula === 'm' ? 'Mifflin St Jeor' : 'Katch-McArdle');
+
+    $('td-bmiRow').innerHTML =
+      '<span>BMI score <b>' + (Math.round(o.bmi*10)/10).toFixed(1) + ' kg/m\u00b2</b> (' + esc(o.cat) + ')</span>' +
+      '<span>Healthy range <b>18.5 \u2013 25</b></span>';
+
+    function rows(list, cls){
+      return list.map(function(r){
+        return '<div class="td-goal-row ' + cls + '"><span class="n">' + esc(r.label) +
+               '<span class="p">' + esc(r.per) + '</span></span>' +
+               '<span class="v"><b>' + n0(r.v) + '</b><i>' + r.pct + '% \u00b7 ' + u + '/day</i></span></div>';
+      }).join('');
+    }
+    var h = '';
+    /* Below a healthy BMI the reference stops offering a deficit at all. */
+    if(!o.underweight && o.loss.length){
+      h += '<div class="td-goal"><p class="td-goal-h">Energy intake to lose weight</p>' + rows(o.loss, 'lose');
+      if(o.hidLoss){
+        h += '<p class="td-warn">Faster loss than this is not shown, because it would put you below the ' +
+             n0(o.minLabel) + ' ' + u + ' a day generally treated as a floor. Losing at that pace is something to ' +
+             'discuss with a doctor rather than plan alone.</p>';
+      }
+      h += '</div>';
+    } else if(o.underweight){
+      h += '<div class="td-goal"><p class="td-warn">Your BMI is below the healthy range, so no weight-loss ' +
+           'targets are shown. If losing weight is your goal, speak to a doctor first.</p></div>';
+    }
+    h += '<div class="td-goal"><p class="td-goal-h">Energy intake to gain weight</p>' + rows(o.gain, 'gain') + '</div>';
+    $('td-goals').innerHTML = h;
+  }
+
+  /* ---------- populate selects and reference tables ---------- */
+  $('td-activity').innerHTML = ACTS.map(function(a){
+    return '<option value="'+a[0]+'">'+esc(a[1])+'</option>';
+  }).join('');
+  $('td-activity').value = '1.465';
+  $('td-multBody').innerHTML = ACTS.slice(1).map(function(a){
+    return '<tr><td>'+esc(a[1].split(':')[0])+'</td><td>'+a[0].toFixed(3)+'</td></tr>';
+  }).join('');
+  $('td-bmiBody').innerHTML = [
+    ['Severe thinness','under 16'],['Moderate thinness','16 – 17'],['Mild thinness','17 – 18.5'],
+    ['Normal','18.5 – 25'],['Overweight','25 – 30'],['Obese Class I','30 – 35'],
+    ['Obese Class II','35 – 40'],['Obese Class III','40 and over']
+  ].map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>'; }).join('');
+
+  /* ---------- units + settings ---------- */
+  function setUnit(u){
+    var map = { us:'td-tabUs', metric:'td-tabMetric', other:'td-tabOther' };
+    Object.keys(map).forEach(function(k){
+      $(map[k]).className = 'td-tab' + (k === u ? ' active' : '');
+      $(map[k]).setAttribute('aria-selected', k === u ? 'true' : 'false');
+    });
+    $('td-convPanel').style.display = u === 'other' ? '' : 'none';
+    if(u !== 'other'){
+      unit = u;
+      $('td-usBlock').style.display     = u === 'us' ? '' : 'none';
+      $('td-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    }
+    render();
+  }
+  $('td-tabUs').addEventListener('click', function(){ setUnit('us'); });
+  $('td-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('td-tabOther').addEventListener('click', function(){ setUnit('other'); });
+  $('td-settingsChk').addEventListener('change', function(){
+    $('td-settingsPanel').className = this.checked ? 'td-panel open' : 'td-panel';
+  });
+  ['td-sex','td-out','td-formula'].forEach(function(nm){
+    var r = document.querySelectorAll('input[name="'+nm+'"]');
+    for(var i=0;i<r.length;i++) r[i].addEventListener('change', render);
+  });
+  $('td-activity').addEventListener('change', render);
+
+  $('td-calcBtn').addEventListener('click', render);
+  /* Clear empties the typed boxes and nothing else, the way the reference does. */
+  $('td-clearBtn').addEventListener('click', function(){
+    ['td-age','td-heightFt','td-heightIn','td-weightLb','td-heightCm','td-weightKg','td-fatPct']
+      .forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- Other Units converters ---------- */
+  var H_UNITS = [['meter',1],['centimeter',0.01],['millimeter',0.001],
+                 ['yard',0.9144],['foot',0.3048],['inch',0.0254]];
+  var W_UNITS = [['kilogram',1],['gram',0.001],['milligram',1e-6],['metric ton',1000],
+                 ['long ton',1016.04608],['short ton',907.184],['pound',0.453592],
+                 ['ounce',0.0283495],['carrat',0.0002]];
+  function cvFmt(x){ return isFinite(x) ? String(parseFloat(x.toPrecision(10))) : ''; }
+  function cvWire(units, fromSel, toSel, valId, outId, toValId, defFrom, defTo){
+    var opts = units.map(function(u){ return '<option value="'+esc(u[0])+'">'+esc(u[0])+'</option>'; }).join('');
+    $(fromSel).innerHTML = opts; $(toSel).innerHTML = opts;
+    $(fromSel).value = defFrom; $(toSel).value = defTo;
+    function factor(n){ var u = units.filter(function(x){ return x[0] === n; })[0]; return u ? u[1] : 1; }
+    function run(){
+      var raw = String($(valId).value).replace(/[,\s]/g,'').trim();
+      var v = parseFloat(raw);
+      if(raw === '' || isNaN(v)){ $(toValId).value = ''; $(outId).textContent = ''; return; }
+      var f = $(fromSel).value, t = $(toSel).value, res = v*factor(f)/factor(t);
+      $(toValId).value = cvFmt(res);
+      $(outId).innerHTML = '<b>' + esc(cvFmt(v)) + '</b> ' + esc(f) + ' = <b>' + esc(cvFmt(res)) + '</b> ' + esc(t);
+    }
+    [valId, fromSel, toSel].forEach(function(id){
+      $(id).addEventListener('input', run); $(id).addEventListener('change', run);
+    });
+    run();
+  }
+  cvWire(H_UNITS, 'td-hFrom', 'td-hTo', 'td-hFromVal', 'td-hOut', 'td-hToVal', 'meter', 'inch');
+  cvWire(W_UNITS, 'td-wFrom', 'td-wTo', 'td-wFromVal', 'td-wOut', 'td-wToVal', 'kilogram', 'pound');
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Fill in your age, height and weight first, then save the result as a PDF.'); return; }
+    var o = last, u = o.out === 'j' ? 'kJ' : 'Calories';
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Total Daily Energy Expenditure', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(12); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text((o.isBmrOnly ? 'BMR: ' : 'TDEE: ') + n0(o.isBmrOnly ? o.bmr : o.tdee) + ' ' + u + '/day', margin, y); y += 16;
+
+    var body = [['Activity level', o.actLabel],
+                ['Equation', o.formula === 'm' ? 'Mifflin St Jeor' : 'Katch-McArdle']];
+    if(!o.isBmrOnly){
+      body.push(['BMI', (Math.round(o.bmi*10)/10).toFixed(1) + ' kg/m2 (' + o.cat + ')']);
+      o.loss.forEach(function(r){ body.push([r.label + ' (' + r.per + ')', n0(r.v) + ' ' + u + '/day']); });
+      o.gain.forEach(function(r){ body.push([r.label + ' (' + r.per + ')', n0(r.v) + ' ' + u + '/day']); });
+    }
+    doc.autoTable({ startY:y, head:[['Item','Value']], body:body,
+      margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not medical or nutritional advice. Speak to a healthcare professional before acting on it. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('tdee-estimate.pdf');
+  }
+  $('td-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1235,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

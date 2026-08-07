@@ -6957,6 +6957,65 @@ rediscovered, and with the rule that an omission counts as intentional only once
 agreed to it.
 
 
+## TDEE Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 44KB template stub at `/tdee-calculator/` with a full 3-card build (102KB).
+Reference: calculator.net/tdee-calculator.html.
+
+**Parity (§3a-PRIME).** Input fields 14/14 including the Other Units tab, result fields
+15/15 (TDEE headline, BMI line with category and healthy range, three weight-loss rows and
+three weight-gain rows each with a percentage of maintenance).
+
+**Formula verification.** 6 Node assertions against the reference's own output before any
+code was embedded, all exact: US moderate 2,549 with BMI 23.7; metric 2,425 with BMI 20.1;
+metric female 2,181; Katch at 20% 2,188; metric kJ 10,153; and an obese case at 2,937 with
+BMI 30.9 that keeps all three loss rows.
+
+Conventions reverse-engineered:
+1. **Step sizes are per unit system.** US shows 0.5 / 1 / 2 lb per week, metric 0.25 / 0.5 /
+   1 kg per week, and both map to 250 / 500 / 1000 Calories a day. A pound a week and half a
+   kilo a week are both treated as 500.
+2. **kJ converts the *rounded* Calorie value here** — and the BMR page converts the
+   unrounded one. Their own two pages disagree by a unit or two, so each is matched to its
+   own page rather than unified. Getting this wrong put the headline at 10,151 against their
+   10,153.
+3. **Any loss row that would fall below 1,500 Calories is withheld** and replaced with a
+   note, and **below a healthy BMI the entire weight-loss section disappears**.
+4. **Choosing "Basal Metabolic Rate" as the activity level** returns BMR alone, with no BMI
+   line and no intake tables.
+5. Age range is 18-80 here, not the BMR page's 15-80.
+
+**Keyword research (§4).** Head term "tdee calculator"; the intent behind it is nearly always
+a calorie target, so the title leads with the outcome ("Daily Calories to Maintain, Lose or
+Gain") rather than the acronym's expansion. Title 58 chars, description 147.
+
+**Content.** 1,930-word article, 7 H2s, 8 FAQs, and a limitations section that puts "what to
+eat" and "anyone with a difficult history around food" in it explicitly.
+
+**Verification.** 102 Playwright assertions at 1280/430/390px: all reference cases exact
+through the UI, the BMR-only mode, the 1,500 floor, the underweight path, age bounds at 17/18
+and 80/81, Katch rejecting 0% fat, the converters, sitewide colours by computed value, Clear
+with 0px drift.
+
+### The originality check earned its keep
+
+First build came in at **8.04% article overlap with the BMR page** — far above the ~1% these
+pages normally sit at. Inspecting the grams showed why: I had reused my own BMR limitations
+bullets and the health disclaimer nearly verbatim, plus three individual sentences. None of it
+was copied from the reference; it was self-plagiarism between two neighbouring pages, which is
+exactly what Google's helpful-content guidance treats as thin.
+
+Rewrote the limitations list and the disclaimer from scratch rather than adapting them, and
+replaced the three repeated sentences. Overlap fell to **2.45%**, and what remains is the
+Mifflin/Katch equations (identical by necessity), the standing byline, the about/privacy
+sentence and two shared H2 headings.
+
+**Worth generalising:** two calculators in the same family will share formulas and audience,
+so the article-only originality check needs running *between our own pages* on every build in
+a cluster, not just against the reference. The whole-page check would have hidden this behind
+shared chrome.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
