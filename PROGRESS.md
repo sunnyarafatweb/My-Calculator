@@ -7199,6 +7199,64 @@ reads 2026-07-03 regardless of when a page was rebuilt, so today's work is not b
 fresh. Both worth a pass of their own.
 
 
+## Pregnancy Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 39KB template stub at `/pregnancy-calculator/` with a full build (96KB).
+Reference: calculator.net/pregnancy-calculator.html.
+
+**Parity (§3a-PRIME).** All five dating methods with their own input panels — due date, last
+period with cycle length 22-44, ultrasound with gestational age, conception date, and IVF
+transfer with day-3/5/6 embryo — plus the full 42-week table with trimesters, milestones and
+a today marker.
+
+**Formula verification.** 11 Node assertions against the reference's own output, all exact
+first run:
+
+| Method | Rule |
+|---|---|
+| Last period | +280 days, shifted by (cycle − 28) |
+| Conception | +266 days |
+| IVF transfer | +266 days − embryo age at transfer |
+| Ultrasound | scan date + (280 − gestational age in days) |
+
+Also reverse-engineered: week 1 begins 279 days before the due date (so week 40 *ends* on it),
+trimesters are 1-12 / 13-27 / 28-42, and the fetal size table was extracted week by week by
+probing 39 due dates and reading the reported figures back.
+
+**A bug in the reference, handled rather than copied.** Past week 40 it has no size data and
+falls back to printing "your baby weight less than 1 gram at this stage" — obviously wrong for
+a term baby, and the sort of line that would alarm someone at 41 weeks. We hold the week-40
+figures and label them "average size at week 40" instead.
+
+**Open question for the owner.** The reference's secondary "X months Y days" restatement could
+not be reproduced exactly. Calendar months from week 1 matches it in 11 of 13 probes; the two
+misses are off by 3 days and 1 day. Their own figure is internally inconsistent (160 days shown
+as "5 months 10 days", which is ~162 days), so ours is arguably the sounder conversion — but it
+is a difference and it is flagged rather than assumed.
+
+**YMYL treatment, heavier than usual.** A disclaimer sits *above* the article as well as below
+it, saying plainly that where these dates disagree with a midwife or doctor, theirs win. The
+limitations section leads with twins, and the closing disclaimer names bleeding, pain and
+reduced movements as reasons to call, including things the reader is unsure are worth
+mentioning. Milestone wording was rewritten from the reference's ("gender can be found out"
+became sex usually being visible on a scan).
+
+**Verification.** 81 Playwright assertions: all 11 dating cases exact through the UI, panel
+switching, the 42-row table with both trimester boundaries and the single today marker, week 1
+and week 40 dates, a future due date reading as not started, scan-day validation, sitewide
+colours, Clear with 0px drift. Originality 0.15% against the reference.
+
+### A CSS class collision the assertions missed
+
+The status bar and the progress bar both ended up named `.pg-bar` — the progress bar inherited
+the navy background and flex layout, collapsing "Week 1 / 57% through / Week 40" into one
+unreadable line. Every assertion passed; it was caught by looking at the screenshot. Renamed to
+`.pg-prog`, and there is now a computed-style assertion that the progress bar is *not* styled
+like the status bar. **Worth generalising:** these pages are built by prefix-renaming a sibling,
+so a new component can silently land on a class the template already uses. Grep the new prefix
+for duplicate class names before building.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

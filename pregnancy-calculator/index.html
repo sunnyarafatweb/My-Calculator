@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Pregnancy Calculator — How Far Along You Are | CalculatorBoss</title><meta name="description" content="Find out how many weeks pregnant you are, your current trimester, and your estimated due date from your last menstrual period."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/pregnancy-calculator/"/><meta property="og:title" content="Pregnancy Calculator | CalculatorBoss"/><meta property="og:description" content="How far along you are, your trimester, and due date."/><meta property="og:url" content="https://calculatorboss.com/pregnancy-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Pregnancy Calculator — Due Date and Week-by-Week Timeline</title><meta name="description" content="Free pregnancy calculator: your due date and full week-by-week timeline from your last period, an ultrasound, conception date or IVF transfer."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="pregnancy calculator,due date calculator,how many weeks pregnant am i,pregnancy week calculator,ivf due date calculator,pregnancy due date from ultrasound,conception date calculator,pregnancy timeline"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/pregnancy-calculator/"/><meta property="og:title" content="Pregnancy Calculator — Due Date and Week-by-Week Timeline"/><meta property="og:description" content="Free pregnancy calculator: your due date and full week-by-week timeline from your last period, an ultrasound, conception date or IVF transfer."/><meta property="og:url" content="https://calculatorboss.com/pregnancy-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/pregnancy-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Pregnancy Calculator — Due Date and Week-by-Week Timeline"/><meta name="twitter:description" content="Free pregnancy calculator: your due date and full week-by-week timeline from your last period, an ultrasound, conception date or IVF transfer."/><meta name="twitter:image" content="https://calculatorboss.com/og/pregnancy-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,156 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.pg-wrap{width:100%}
+.pg-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pg-bar-text{display:flex;align-items:center;gap:10px}
+.pg-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.pg-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pg-bar-pdf-btn:hover{background:#f0f0f0}
+.pg-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.pg-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.pg-area-bar{grid-area:bar}
+.pg-area-tabs{grid-area:tabs}
+.pg-area-form{grid-area:form}
+.pg-area-result{grid-area:result}
+.pg-area-sidebar{grid-area:sidebar}
+.pg-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .pg-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.pg-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.pg-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.pg-tab:hover{border-color:var(--border)}
+.pg-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.pg-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pg-card-pad{padding:22px}
+.pg-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.pg-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.pg-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.pg-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.pg-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.pg-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.pg-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.pg-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.pg-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.pg-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.pg-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.pg-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.pg-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+/* More Options control, matching mortgage-calculator exactly. */
+.pg-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.pg-hidden{display:none !important}
+.pg-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.pg-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
+.pg-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.pg-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
+.pg-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
+.pg-fat .pg-input-group{width:96px;flex:none}
+/* TDEE-specific: the lose/gain intake tables */
+.pg-act-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.pg-act-table th:first-child{text-align:left}
+.pg-act-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);font-weight:600}
+.pg-act-table td:first-child{text-align:left;color:var(--ink-soft);font-weight:400}
+.pg-act-table tr:last-child td{border-bottom:none}
+
+.pg-btn-row{display:flex;gap:8px;padding-top:16px}
+.pg-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.pg-btn-calc:hover{background:#128A3D}
+.pg-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.pg-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.pg-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.pg-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.pg-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
+.pg-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.pg-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.pg-err.show{display:block}
+
+
+.pg-result-body{padding:10px 20px 20px}
+.pg-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.pg-row:first-child{border-top:none}
+.pg-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.pg-row.hl span:last-child{color:#128A3D}
+
+.pg-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.pg-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.pg-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.pg-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.pg-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.pg-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.pg-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.pg-bottom-grid{grid-template-columns:1fr}}
+.pg-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.pg-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.pg-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.pg-card-body{padding:18px}
+/* Diet selector inside the result card, plus the macro rows */
+/* Progress bar, fact rows and the week-by-week table */
+.pg-fact{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.pg-fact:first-child{border-top:none}
+.pg-fact b{color:var(--ink);font-weight:600;text-align:right}
+.pg-prog{margin:14px 0 4px}
+.pg-prog-track{height:12px;border-radius:6px;background:var(--surface-sunken);overflow:hidden;border:1px solid var(--border-fine)}
+.pg-prog-fill{height:100%;background:#16A34A;border-radius:6px 0 0 6px;transition:width .35s ease}
+.pg-prog-lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-faint);margin-top:5px}
+.pg-tri{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--gold-tint);color:#128A3D;margin-top:2px}
+.pg-wk-wrap{max-height:460px;overflow-y:auto;border:1px solid var(--border-fine);border-radius:10px}
+.pg-wk{width:100%;border-collapse:collapse;font-size:12.5px}
+.pg-wk thead th{position:sticky;top:0;background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border-fine);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.pg-wk td{padding:8px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft);vertical-align:top}
+.pg-wk td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+.pg-wk tr:last-child td{border-bottom:none}
+.pg-wk tr.now td{background:var(--gold-tint);color:var(--ink);font-weight:600}
+.pg-wk .ms{color:#128A3D;font-weight:600}
+.pg-wk .tri{font-size:11px;color:var(--ink-faint);white-space:nowrap}
+.pg-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.pg-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.pg-ref-table th:first-child{text-align:left}
+.pg-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.pg-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.pg-ref-table tr:last-child td{border-bottom:none}
+.pg-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.pg-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+@media(max-width:520px){
+  .pg-field{flex-wrap:wrap}
+  .pg-field-label{width:100%}
+  .pg-tab{flex:1;text-align:center;padding:10px 12px}
+}
+
+
+
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Pregnancy","item":"https://calculatorboss.com/pregnancy-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +497,259 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is pregnancy dated from the last period, not conception?","acceptedAnswer":{"@type":"Answer","text":"Conception date is rarely known precisely, but the start of the last period usually is — using LMP as the reference point gives a consistent, practical starting line for dating a pregnancy, even though conception happens about two weeks later."}},{"@type":"Question","name":"When does each trimester actually start?","acceptedAnswer":{"@type":"Answer","text":"By convention: first trimester is weeks 1-13, second is weeks 14-27, third is week 28 onward. Your provider may use slightly different week cutoffs."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pregnancy Calculator","url":"https://calculatorboss.com/pregnancy-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Pregnancy Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pregnancy Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Enter the first day of your last period to see exactly how far along you are.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><h2 class="font-display text-lg text-ink">First day of last period</h2><input type="date" class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="2026-04-01"/><p class="text-xs text-ink-faint">Based on the first day of your last menstrual period (LMP), assuming a typical 28-day cycle.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">You are</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">13<!-- -->w <!-- -->3<!-- -->d</div><dl class="grid grid-cols-2 gap-4 text-sm"><div><dt class="text-ink-faint mb-1">Trimester</dt><dd class="text-ink font-medium">Second</dd></div><div><dt class="text-ink-faint mb-1">Estimated due date</dt><dd class="text-ink font-medium">January 6, 2027</dd></div></dl><div class="mt-4"><div class="h-2 rounded-full bg-border overflow-hidden"><div class="h-full bg-accent rounded-full" style="width:33.57142857142857%"></div></div><div class="text-xs text-ink-faint mt-1">34<!-- -->% through pregnancy</div></div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">This is a dating estimate based on LMP, not an ultrasound-confirmed gestational age — your provider&#x27;s dating may differ slightly.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Why is pregnancy dated from the last period, not conception?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Conception date is rarely known precisely, but the start of the last period usually is — using LMP as the reference point gives a consistent, practical starting line for dating a pregnancy, even though conception happens about two weeks later.</p></div><div><h3 class="font-medium text-ink mb-1.5">When does each trimester actually start?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">By convention: first trimester is weeks 1-13, second is weeks 14-27, third is week 28 onward. Your provider may use slightly different week cutoffs.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice. Your healthcare provider&#x27;s dating, especially from an early ultrasound, takes precedence over an LMP-based estimate.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Pregnancy Calculator","item":"https://calculatorboss.com/pregnancy-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is a due date?","acceptedAnswer":{"@type":"Answer","text":"It is an estimate, and a fairly loose one. Fewer than one baby in twenty arrives on the estimated date. Around 60% arrive within a week either side and close to 90% within two weeks. A date is useful for planning care and judging whether labour is early or late — it was never meant to predict a particular day."}},{"@type":"Question","name":"Which method gives the most reliable date?","acceptedAnswer":{"@type":"Answer","text":"An ultrasound in the first trimester. Early fetal growth varies little between pregnancies, so a scan before about 14 weeks dates a pregnancy more tightly than anything else. Last-period dating is the usual starting point but assumes ovulation on day 14, which is why an irregular or long cycle can shift it by several days."}},{"@type":"Question","name":"Why does pregnancy start counting two weeks before conception?","acceptedAnswer":{"@type":"Answer","text":"Because it is counted from the first day of your last period, which is a date most people can identify, whereas conception usually cannot be pinned down. The convention means you are already called \"four weeks pregnant\" about a fortnight after conception. Weeks 1 and 2 of the count precede conception entirely."}},{"@type":"Question","name":"How is the IVF due date different?","acceptedAnswer":{"@type":"Answer","text":"It is the most precise of the five, because the date of fertilisation is known rather than estimated. The calculator counts 266 days from conception and then subtracts the embryo's age at transfer — three, five or six days — since that much development had already happened before the transfer took place."}},{"@type":"Question","name":"What does my cycle length change?","acceptedAnswer":{"@type":"Answer","text":"Where ovulation is assumed to fall. The standard calculation assumes a 28-day cycle with ovulation on day 14. On a 35-day cycle ovulation typically comes about a week later, so the due date moves back by roughly the same amount. Setting your average length makes last-period dating meaningfully better if your cycles are not 28 days."}},{"@type":"Question","name":"Can my due date change during pregnancy?","acceptedAnswer":{"@type":"Answer","text":"Yes, and it commonly does. If an early scan disagrees with last-period dating by more than about five to seven days, clinicians usually adopt the scan date. Later scans are not used to re-date a pregnancy, because by then growth varies enough between babies that size no longer tells you age reliably."}},{"@type":"Question","name":"What counts as full term?","acceptedAnswer":{"@type":"Answer","text":"From 37 weeks. Before that is preterm; from 42 weeks is post-term. Within the term window the distinctions still matter clinically — 39 to 40 weeks is generally considered the best window for the baby — which is one reason induction is not usually offered simply for reaching the due date."}},{"@type":"Question","name":"Do these figures apply to twins?","acceptedAnswer":{"@type":"Answer","text":"No. Everything on this page describes a single pregnancy. Twins and higher multiples grow on a different curve, are dated and monitored differently, and very often arrive well before 40 weeks. If you are carrying more than one baby, use the dates your care team gives you rather than these."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pregnancy Calculator","url":"https://calculatorboss.com/pregnancy-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates a due date from a last period, ultrasound, conception date or IVF transfer, and builds the full week-by-week pregnancy timeline from it.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Pregnancy Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pregnancy Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Work out your due date from whichever date you have — last period, scan, conception or IVF transfer — and see the whole timeline week by week.</p><div class="pg-wrap">
+<div class="pg-grid">
+
+  <div class="pg-bar pg-area-bar" style="margin:0">
+    <span class="pg-bar-text"><span class="pg-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="pg-bar-pdf-btn" id="pg-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="pg-card pg-area-form">
+    <div class="pg-card-pad">
+
+      <div class="pg-field">
+        <label class="pg-field-label" for="pg-method">Calculate based on</label>
+        <div class="pg-field-control"><select class="pg-select-plain" id="pg-method"></select></div>
+      </div>
+
+      <div id="pg-panelDue">
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-due">Your due date</label>
+          <div class="pg-field-control"><input type="date" class="pg-select-plain" id="pg-due"></div>
+        </div>
+      </div>
+
+      <div id="pg-panelLmp" style="display:none">
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-lmp">First day of your last period</label>
+          <div class="pg-field-control"><input type="date" class="pg-select-plain" id="pg-lmp"></div>
+        </div>
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-cycle">Average cycle length</label>
+          <div class="pg-field-control"><select class="pg-select-plain" id="pg-cycle"></select></div>
+        </div>
+      </div>
+
+      <div id="pg-panelUltrasound" style="display:none">
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-scan">Ultrasound date</label>
+          <div class="pg-field-control"><input type="date" class="pg-select-plain" id="pg-scan"></div>
+        </div>
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-scanWeeks">Age on that date</label>
+          <div class="pg-field-control">
+            <div class="pg-input-group"><input type="text" inputmode="numeric" id="pg-scanWeeks" value="22"><span>weeks</span></div>
+            <div class="pg-input-group"><input type="text" inputmode="numeric" id="pg-scanDays" value="6"><span>days</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pg-panelConception" style="display:none">
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-conception">Conception date</label>
+          <div class="pg-field-control"><input type="date" class="pg-select-plain" id="pg-conception"></div>
+        </div>
+      </div>
+
+      <div id="pg-panelIvf" style="display:none">
+        <div class="pg-field">
+          <label class="pg-field-label" for="pg-transfer">IVF transfer date</label>
+          <div class="pg-field-control"><input type="date" class="pg-select-plain" id="pg-transfer"></div>
+        </div>
+        <div class="pg-field">
+          <span class="pg-field-label">Embryo age at transfer</span>
+          <div class="pg-field-control pg-sex" role="radiogroup" aria-label="Embryo age at transfer">
+            <label class="pg-radio"><input type="radio" name="pg-embryo" value="3"><span>Day 3</span></label>
+            <label class="pg-radio"><input type="radio" name="pg-embryo" value="5" checked><span>Day 5</span></label>
+            <label class="pg-radio"><input type="radio" name="pg-embryo" value="6"><span>Day 6</span></label>
+          </div>
+        </div>
+      </div>
+
+      <p class="pg-subnote">Every figure here is an estimate. Fewer than one baby in twenty arrives on the estimated due date, and most births fall within a fortnight either side of it.</p>
+
+      <div class="pg-btn-row">
+        <button type="button" class="pg-btn-calc" id="pg-calcBtn">Calculate</button>
+        <button type="button" class="pg-btn-clear" id="pg-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="pg-result-card pg-area-result">
+    <div class="pg-result-head">
+      <div class="label">Estimated due date</div>
+      <div class="bignum" id="pg-bigNum">—</div>
+      <div class="sub" id="pg-bigSub">—</div>
+    </div>
+    <div class="pg-err" id="pg-err"></div>
+    <div class="pg-result-body" id="pg-resultBody">
+      <div class="pg-prog" id="pg-progress">
+        <div class="pg-prog-track"><div class="pg-prog-fill" id="pg-barFill" style="width:0%"></div></div>
+        <div class="pg-prog-lab"><span>Week 1</span><span id="pg-pct">—</span><span>Week 40</span></div>
+      </div>
+      <div id="pg-facts"></div>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="pg-sidecol pg-area-sidebar">
+    <div class="pg-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/due-date-calculator/">Due Date <span class="arrow">→</span></a>
+      <a href="/ovulation-calculator/">Ovulation <span class="arrow">→</span></a>
+      <a href="/conception-calculator/">Conception <span class="arrow">→</span></a>
+      <a href="/period-calculator/">Period <span class="arrow">→</span></a>
+      <a href="/pregnancy-weight-gain-calculator/">Pregnancy Weight Gain <span class="arrow">→</span></a>
+      <a href="/bmi-calculator/">BMI <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="pg-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="pg-area-bottomgrid">
+    <div class="pg-info-card" style="margin-bottom:16px">
+      <div class="pg-card-head"><span class="t">Week by Week</span></div>
+      <div class="pg-card-body">
+        <div class="pg-wk-wrap">
+          <table class="pg-wk">
+            <thead><tr><th>Week</th><th>Dates</th><th>Trimester</th><th>Milestone</th></tr></thead>
+            <tbody id="pg-wkBody"></tbody>
+          </table>
+        </div>
+        <p class="pg-note">Dates run from the first day of your last period, which is how pregnancy is counted clinically — so the first fortnight precedes conception. Milestones are typical averages, not a schedule any individual pregnancy has to follow. These figures describe a single pregnancy; twins and other multiples run differently throughout.</p>
+      </div>
+    </div>
+    <div class="pg-bottom-grid">
+      <div class="pg-info-card">
+        <div class="pg-card-head"><span class="t">The Five Methods</span></div>
+        <div class="pg-card-body">
+          <table class="pg-ref-table">
+            <thead><tr><th>Based on</th><th>Due date is</th></tr></thead>
+            <tbody>
+              <tr><td>Last period</td><td>+280 days, adjusted for cycle length</td></tr>
+              <tr><td>Conception date</td><td>+266 days</td></tr>
+              <tr><td>IVF transfer</td><td>+266 days, less the embryo's age</td></tr>
+              <tr><td>Ultrasound</td><td>scan date + the time still to run</td></tr>
+              <tr><td>Due date</td><td>taken as given</td></tr>
+            </tbody>
+          </table>
+          <p class="pg-note">A dating ultrasound in the first trimester is the most accurate of these. Last-period dating assumes ovulation on day 14, which is why the cycle-length field matters if yours is not 28 days.</p>
+        </div>
+      </div>
+      <div class="pg-info-card">
+        <div class="pg-card-head"><span class="t">Trimesters</span></div>
+        <div class="pg-card-body">
+          <table class="pg-ref-table">
+            <thead><tr><th>Trimester</th><th>Weeks</th></tr></thead>
+            <tbody>
+              <tr><td>First</td><td>1 – 12</td></tr>
+              <tr><td>Second</td><td>13 – 27</td></tr>
+              <tr><td>Third</td><td>28 – 42</td></tr>
+            </tbody>
+          </table>
+          <p class="pg-note">Full term runs from week 37. A birth before 37 weeks is preterm and after 42 is post-term, both of which are managed rather than simply waited out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.pg-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.pg-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.pg-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.pg-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.pg-seo-article strong{color:var(--ink);font-weight:600}
+.pg-seo-article a{color:#128A3D;text-decoration:underline}
+.pg-seo-article ul,.pg-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.pg-seo-article ul li strong,.pg-seo-article ol li strong{color:var(--ink)}
+.pg-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.pg-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.pg-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.pg-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.pg-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.pg-toc a:hover{color:#1E3A5F}
+.pg-seo-article h2[id]{scroll-margin-top:88px}
+.pg-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.pg-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="pg-seo-article">
+<p class="pg-byline">Written by the CalculatorBoss Health Team · Dating methods verified against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<p class="pg-disclaimer" style="border-top:none;border-bottom:1px solid var(--border-fine);padding:0 0 16px;margin:0 0 20px">This page is educational and nothing on it is medical advice or a substitute for antenatal care. Dates it produces are estimates. Where they disagree with the dates your midwife, obstetrician or doctor has given you, theirs are the ones to go by — they have your scans and your history, and this page has neither.</p>
+
+<nav class="pg-toc" aria-label="On this page">
+  <a href="#counting">How pregnancy is counted</a>
+  <a href="#methods">The five ways to date a pregnancy</a>
+  <a href="#accuracy">What a due date can and cannot tell you</a>
+  <a href="#trimesters">Trimesters and the week-by-week table</a>
+  <a href="#size">Reading the size figures</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="counting">How pregnancy is counted</h2>
+<p>Pregnancy is counted from the <strong>first day of your last period</strong>, not from conception. That sounds wrong the first time you hear it, and it has a practical reason: almost everyone can name the day their last period started, while almost nobody can name the day they conceived.</p>
+<p>The consequence is that the count runs about two weeks ahead of the biology. Weeks 1 and 2 happen before there is an embryo at all. Conception falls in week 3, and by the time a test reads positive you are usually called four weeks pregnant despite the pregnancy being around a fortnight old. Every clinic, scan report and app uses this convention, so it is worth getting used to rather than mentally correcting.</p>
+<p>A full term is 40 weeks from that first day — 280 days. The table on this page runs to 42 weeks, because that is the outer edge of what is considered normal rather than post-term.</p>
+
+<h2 id="methods">The five ways to date a pregnancy</h2>
+<p>The calculator accepts whichever piece of information you actually have, and every route ends at the same place: an estimated due date, from which the whole timeline is built.</p>
+<div class="pg-formula2"><b>Last period</b> · due = first day + 280 days, shifted by (your cycle − 28)<br><b>Conception date</b> · due = conception + 266 days<br><b>IVF transfer</b> · due = transfer + 266 days − the embryo's age at transfer<br><b>Ultrasound</b> · due = scan date + however much of the 280 days was still to run<br><b>Due date</b> · taken as given, and the timeline built backwards</div>
+<p>The cycle adjustment is the part most calculators skip. Standard dating assumes you ovulate on day 14, which holds for a 28-day cycle and drifts for anything else. On a 35-day cycle ovulation usually comes about a week later, so the due date moves back about a week too — a real difference when you are being told whether you are early or late.</p>
+<p>The IVF route is the most precise available, because fertilisation happened on a known date in a laboratory. Subtracting the embryo's age matters: a day-5 blastocyst had already been developing for five days when it was transferred, and dating that ignored it would run five days late.</p>
+
+<h2 id="accuracy">What a due date can and cannot tell you</h2>
+<p>A due date is a midpoint, not an appointment. Fewer than one baby in twenty is born on it. Roughly 60% arrive within a week either side and close to 90% within two — which means the honest way to read your date is as the centre of a month-wide window.</p>
+<p>Accuracy also depends on where the date came from. A first-trimester ultrasound is the best of the five, because embryos grow at almost the same rate early on, so size genuinely indicates age. That stops being true later: by the third trimester babies differ enough in size that a scan tells you how big this baby is, not how old. This is why a clinic will re-date a pregnancy from an early scan but not a late one.</p>
+<p>If an early scan and your last period disagree by more than about five to seven days, clinicians generally go with the scan. That is not the calculator being wrong — it is better information arriving.</p>
+
+<h2 id="trimesters">Trimesters and the week-by-week table</h2>
+<p>The three trimesters used here are weeks 1 to 12, 13 to 27, and 28 onward. Boundaries vary a little between sources, and nothing physiological happens the moment one ends; they are a convenient way to talk about phases that do genuinely differ.</p>
+<p>The table marks the week you are in now and flags the milestones that are widely used as landmarks — a heartbeat visible on a scan around week 6, the sharp drop in miscarriage risk around week 13, movements becoming noticeable somewhere in the late teens, viability with intensive care around week 23, and full term from 37.</p>
+<p>Treat those as averages with wide spread around them, particularly the movement one: a first pregnancy often feels movement several weeks later than a second, and both are entirely normal. The table describes a typical pregnancy, not a schedule yours is failing to keep.</p>
+
+<h2 id="size">Reading the size figures</h2>
+<p>The length and weight shown for your week are population averages, and the spread around them is wide. Two healthy babies at the same gestational age can differ by a pound or more near term.</p>
+<p>One quirk worth knowing: measured length jumps sharply around week 21. That is not a growth spurt but a change of ruler. Before that, babies are measured crown to rump, because the legs are curled and cannot be measured reliably; from then on the measurement runs crown to heel. The jump in the numbers is the measurement changing, not the baby.</p>
+<p>Beyond week 40 no separate figures are published, so the calculator holds the week-40 values and says so rather than inventing a number.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<ul>
+  <li><strong>Twins and higher multiples.</strong> Different growth, different dating, different expected arrival. None of this applies.</li>
+  <li><strong>Your particular pregnancy.</strong> These are population averages. Your care team has your scans and your history; a web page has neither.</li>
+  <li><strong>Anything to do with risk.</strong> This tool counts days. It cannot tell you whether anything is going well or badly, and it is not a screening test.</li>
+  <li><strong>Irregular or absent cycles.</strong> If your cycles vary a lot, last-period dating is weak from the start. An early scan is worth far more.</li>
+  <li><strong>Re-dating.</strong> If a scan has already moved your date, use that date here rather than recalculating from your last period.</li>
+</ul>
+<p>If anything about your dates or your pregnancy concerns you, contact your midwife, obstetrician or doctor — that is what they are there for, and it is never too small a question.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>How accurate is a due date?</h3>
+<p>It is an estimate, and a fairly loose one. Fewer than one baby in twenty arrives on the estimated date. Around 60% arrive within a week either side and close to 90% within two weeks. A date is useful for planning care and judging whether labour is early or late — it was never meant to predict a particular day.</p>
+<h3>Which method gives the most reliable date?</h3>
+<p>An ultrasound in the first trimester. Early fetal growth varies little between pregnancies, so a scan before about 14 weeks dates a pregnancy more tightly than anything else. Last-period dating is the usual starting point but assumes ovulation on day 14, which is why an irregular or long cycle can shift it by several days.</p>
+<h3>Why does pregnancy start counting two weeks before conception?</h3>
+<p>Because it is counted from the first day of your last period, which is a date most people can identify, whereas conception usually cannot be pinned down. The convention means you are already called "four weeks pregnant" about a fortnight after conception. Weeks 1 and 2 of the count precede conception entirely.</p>
+<h3>How is the IVF due date different?</h3>
+<p>It is the most precise of the five, because the date of fertilisation is known rather than estimated. The calculator counts 266 days from conception and then subtracts the embryo's age at transfer — three, five or six days — since that much development had already happened before the transfer took place.</p>
+<h3>What does my cycle length change?</h3>
+<p>Where ovulation is assumed to fall. The standard calculation assumes a 28-day cycle with ovulation on day 14. On a 35-day cycle ovulation typically comes about a week later, so the due date moves back by roughly the same amount. Setting your average length makes last-period dating meaningfully better if your cycles are not 28 days.</p>
+<h3>Can my due date change during pregnancy?</h3>
+<p>Yes, and it commonly does. If an early scan disagrees with last-period dating by more than about five to seven days, clinicians usually adopt the scan date. Later scans are not used to re-date a pregnancy, because by then growth varies enough between babies that size no longer tells you age reliably.</p>
+<h3>What counts as full term?</h3>
+<p>From 37 weeks. Before that is preterm; from 42 weeks is post-term. Within the term window the distinctions still matter clinically — 39 to 40 weeks is generally considered the best window for the baby — which is one reason induction is not usually offered simply for reaching the due date.</p>
+<h3>Do these figures apply to twins?</h3>
+<p>No. Everything on this page describes a single pregnancy. Twins and higher multiples grow on a different curve, are dated and monitored differently, and very often arrive well before 40 weeks. If you are carrying more than one baby, use the dates your care team gives you rather than these.</p>
+
+<p class="pg-disclaimer">This pregnancy calculator is an educational tool. It does not provide medical advice, diagnose anything, monitor a pregnancy, or replace antenatal care, and every date and measurement on it is a population estimate rather than a statement about you or your baby. It describes single pregnancies only. Always follow the dates and guidance given by your midwife, obstetrician or doctor, and contact them promptly about bleeding, pain, reduced movements, or anything else that worries you — including things you are not sure are worth mentioning. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +784,305 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var D = 86400000, last = null;
+
+  var METHODS = [
+    ['due',        'Due date'],
+    ['lmp',        'Last period'],
+    ['ultrasound', 'Ultrasound'],
+    ['conception', 'Conception date'],
+    ['ivf',        'IVF transfer date']
+  ];
+  var PANELS = { due:'pg-panelDue', lmp:'pg-panelLmp', ultrasound:'pg-panelUltrasound',
+                 conception:'pg-panelConception', ivf:'pg-panelIvf' };
+
+  /* Fetal length and weight by completed week, as the reference reports them. Below week 9
+     no figure is given; beyond week 40 the reference falls back to a "less than 1 gram"
+     line, which is plainly wrong for a term baby, so we hold the week-40 figures and say so. */
+  var SIZE = {
+    9:[0.9,2.3,2],      10:[1.22,3.1,4],    11:[1.61,4.1,7],    12:[2.13,5.4,14],
+    13:[2.91,7.4,23],   14:[3.42,8.7,43],   15:[3.98,10.1,70],  16:[4.57,11.6,100],
+    17:[5.12,13.0,140], 18:[5.59,14.2,190], 19:[6.02,15.3,240], 20:[6.46,16.4,300],
+    21:[10.51,26.7,360],22:[10.94,27.8,430],23:[11.38,28.9,501],24:[11.81,30.0,600],
+    25:[13.62,34.6,660],26:[14.02,35.6,760],27:[14.41,36.6,875],28:[14.80,37.6,1005],
+    29:[15.20,38.6,1153],30:[15.71,39.9,1319],31:[16.18,41.1,1502],32:[16.69,42.4,1702],
+    33:[17.20,43.7,1918],34:[17.72,45.0,2146],35:[18.19,46.2,2383],36:[18.66,47.4,2622],
+    37:[19.13,48.6,2859],38:[19.61,49.8,3083],39:[19.96,50.7,3288],40:[20.16,51.2,3462]
+  };
+  /* [firstWeek, lastWeek, text] */
+  var MILESTONES = [
+    [3,3,'Conception'],
+    [4,4,'A pregnancy test can read positive'],
+    [6,7,'Heartbeat becomes visible on an ultrasound'],
+    [13,13,'Risk of miscarriage drops sharply'],
+    [18,21,'Movements become noticeable, hearing develops, and sex is usually visible on a scan'],
+    [23,23,'Survival outside the womb becomes possible with intensive care'],
+    [28,28,'The lungs can manage breathing'],
+    [37,42,'Full term']
+  ];
+  var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function parseDate(v){
+    if(!v) return null;
+    var p = String(v).split('-');
+    if(p.length !== 3) return null;
+    var d = new Date(Date.UTC(+p[0], +p[1]-1, +p[2]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function add(dt, n){ return new Date(dt.getTime() + n*D); }
+  function diff(a, b){ return Math.round((a - b)/D); }
+  function fmt(dt){ return MONTH[dt.getUTCMonth()] + ' ' + dt.getUTCDate() + ', ' + dt.getUTCFullYear(); }
+  function todayUTC(){ var n = new Date(); return new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())); }
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).trim()); }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function plural(n, w){ return n + ' ' + w + (n === 1 ? '' : 's'); }
+
+  /* Calendar months elapsed between two dates, with the leftover days. */
+  function addMonths(dt, n){
+    var y = dt.getUTCFullYear(), m = dt.getUTCMonth() + n, d = dt.getUTCDate();
+    var t = new Date(Date.UTC(y, m, 1));
+    var lastDay = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth()+1, 0)).getUTCDate();
+    return new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), Math.min(d, lastDay)));
+  }
+  function monthsBetween(start, end){
+    var n = 0;
+    while(addMonths(start, n+1) <= end) n++;
+    return [n, diff(end, addMonths(start, n))];
+  }
+
+  function dueFrom(method){
+    if(method === 'due') return parseDate($('pg-due').value);
+    if(method === 'lmp'){
+      var l = parseDate($('pg-lmp').value);
+      if(!l) return null;
+      return add(l, 280 + (parseInt($('pg-cycle').value, 10) - 28));
+    }
+    if(method === 'conception'){
+      var c = parseDate($('pg-conception').value);
+      return c ? add(c, 266) : null;
+    }
+    if(method === 'ivf'){
+      var t = parseDate($('pg-transfer').value);
+      return t ? add(t, 266 - parseInt(radio('pg-embryo'), 10)) : null;
+    }
+    if(method === 'ultrasound'){
+      var s = parseDate($('pg-scan').value);
+      var w = num('pg-scanWeeks'), dd = num('pg-scanDays');
+      if(!s || isNaN(w) || isNaN(dd)) return null;
+      if(w < 0 || w > 42 || dd < 0 || dd > 6) return { error:'scan' };
+      return add(s, 280 - (w*7 + dd));
+    }
+    return null;
+  }
+
+  function compute(){
+    var method = $('pg-method').value;
+    var due = dueFrom(method);
+    if(!due) return { error:'blank' };
+    if(due.error) return due;
+    /* Week 1 of a 42-week table ends 279 days before the due date. */
+    var week1 = add(due, -279);
+    var today = todayUTC();
+    var elapsed = diff(today, week1);
+    var weekNo = Math.floor(elapsed/7) + 1;
+    var conception = add(week1, 13);
+    return { method:method, due:due, week1:week1, today:today, elapsed:elapsed,
+             weekNo:weekNo, conception:conception,
+             before: elapsed < 0, after: weekNo > 42 };
+  }
+
+  var ERRORS = {
+    blank: 'Choose a date above to see your pregnancy timeline.',
+    scan:  'Enter the gestational age from the scan as whole weeks plus 0 to 6 days.'
+  };
+
+  function trimesterOf(w){ return w <= 12 ? 'First' : (w <= 27 ? 'Second' : 'Third'); }
+  function milestoneOf(w){
+    for(var i=0;i<MILESTONES.length;i++){
+      if(w >= MILESTONES[i][0] && w <= MILESTONES[i][1]) return MILESTONES[i][2];
+    }
+    return '';
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('pg-err');
+    if(o.error){
+      err.className = 'pg-err show';
+      err.textContent = ERRORS[o.error];
+      $('pg-bigNum').textContent = '—';
+      $('pg-bigSub').textContent = '\u00a0';
+      $('pg-facts').innerHTML = '';
+      $('pg-wkBody').innerHTML = '';
+      $('pg-barFill').style.width = '0%';
+      $('pg-pct').textContent = '—';
+      last = null;
+      return;
+    }
+    err.className = 'pg-err';
+    last = o;
+
+    $('pg-bigNum').textContent = fmt(o.due);
+    $('pg-bigSub').textContent = o.method === 'due'
+      ? 'as entered \u00b7 timeline below'
+      : 'estimated from your ' + METHODS.filter(function(m){ return m[0] === o.method; })[0][1].toLowerCase();
+
+    var h = '';
+    if(o.before){
+      h += '<div class="pg-fact"><span>Pregnancy starts on</span><b>' + fmt(o.week1) + '</b></div>';
+      h += '<div class="pg-fact"><span>That is</span><b>in ' + plural(-o.elapsed, 'day') + '</b></div>';
+      $('pg-barFill').style.width = '0%';
+      $('pg-pct').textContent = 'not started';
+    } else {
+      var w = Math.floor(o.elapsed/7), d = o.elapsed % 7;
+      var mm = monthsBetween(o.week1, o.today);
+      var pct = Math.round(o.elapsed/280*100);
+      h += '<div class="pg-fact"><span>You are currently at</span><b>Week ' + o.weekNo +
+           '<br><span style="font-weight:400;color:var(--ink-faint);font-size:12px">' +
+           plural(w,'week') + ' ' + plural(d,'day') + ' \u00b7 ' +
+           (mm[0] ? plural(mm[0],'month') + (mm[1] ? ' ' + plural(mm[1],'day') : '') : plural(mm[1],'day')) +
+           '</span></b></div>';
+      h += '<div class="pg-fact"><span>Trimester</span><b>' + trimesterOf(Math.min(o.weekNo,42)) +
+           (o.weekNo >= 37 && o.weekNo <= 42 ? ' \u00b7 full term' : '') + '</b></div>';
+      var sz = SIZE[Math.min(o.weekNo, 40)];
+      if(o.weekNo < 9){
+        h += '<div class="pg-fact"><span>Size</span><b>under a gram at this stage</b></div>';
+      } else if(sz){
+        var lb = sz[2]/453.59237, oz = sz[2]/28.349523;
+        var wt = sz[2] >= 454 ? (Math.round(lb*100)/100) + ' lb' : (Math.round(oz*100)/100) + ' oz';
+        h += '<div class="pg-fact"><span>Average size' + (o.weekNo > 40 ? ' at week 40' : '') +
+             '</span><b>' + sz[0].toFixed(2) + ' in (' + sz[1].toFixed(1) + ' cm)<br>' +
+             '<span style="font-weight:400;color:var(--ink-faint);font-size:12px">' + wt +
+             ' \u00b7 ' + sz[2].toLocaleString('en-US') + ' g</span></b></div>';
+      }
+      h += '<div class="pg-fact"><span>Likely conceived around</span><b>' + fmt(o.conception) + '</b></div>';
+      h += '<div class="pg-fact"><span>Days remaining</span><b>' +
+           (o.elapsed >= 280 ? 'past the due date' : plural(280 - o.elapsed, 'day')) + '</b></div>';
+      $('pg-barFill').style.width = Math.max(0, Math.min(100, pct)) + '%';
+      $('pg-pct').textContent = Math.min(pct, 100) + '% through';
+    }
+    $('pg-facts').innerHTML = h;
+
+    var rows = '';
+    for(var wk = 1; wk <= 42; wk++){
+      var s = add(o.week1, (wk-1)*7), e = add(s, 6);
+      var isNow = !o.before && o.today >= s && o.today <= e;
+      var ms = milestoneOf(wk);
+      rows += '<tr' + (isNow ? ' class="now"' : '') + '><td>Week ' + wk + '</td><td>' +
+              fmt(s) + ' \u2013 ' + fmt(e) + (isNow ? ' <span class="tri">(today)</span>' : '') +
+              '</td><td class="tri">' + trimesterOf(wk) + '</td><td' + (ms ? ' class="ms"' : '') + '>' +
+              esc(ms) + '</td></tr>';
+    }
+    $('pg-wkBody').innerHTML = rows;
+  }
+
+  /* ---------- populate ---------- */
+  $('pg-method').innerHTML = METHODS.map(function(m){
+    return '<option value="'+m[0]+'">'+esc(m[1])+'</option>';
+  }).join('');
+  var cyc = '';
+  for(var c = 22; c <= 44; c++) cyc += '<option value="'+c+'"'+(c===28?' selected':'')+'>'+c+' days</option>';
+  $('pg-cycle').innerHTML = cyc;
+
+  /* Sensible starting dates relative to today, so the page is never blank. */
+  (function seed(){
+    var t = todayUTC();
+    function iso(d){ return d.toISOString().slice(0,10); }
+    $('pg-due').value        = iso(add(t, 119));
+    $('pg-lmp').value        = iso(add(t, -161));
+    $('pg-conception').value = iso(add(t, -147));
+    $('pg-scan').value       = iso(t);
+    $('pg-transfer').value   = iso(add(t, -152));
+  })();
+
+  function setMethod(){
+    var m = $('pg-method').value;
+    Object.keys(PANELS).forEach(function(k){
+      $(PANELS[k]).style.display = (k === m) ? '' : 'none';
+    });
+    render();
+  }
+  $('pg-method').addEventListener('change', setMethod);
+  ['pg-due','pg-lmp','pg-cycle','pg-scan','pg-scanWeeks','pg-scanDays','pg-conception','pg-transfer']
+    .forEach(function(id){ var el = $(id); if(el){ el.addEventListener('input', render); el.addEventListener('change', render); } });
+  var emb = document.querySelectorAll('input[name="pg-embryo"]');
+  for(var i=0;i<emb.length;i++) emb[i].addEventListener('change', render);
+
+  $('pg-calcBtn').addEventListener('click', render);
+  /* Clear empties the typed boxes and nothing else, the way the reference does. */
+  $('pg-clearBtn').addEventListener('click', function(){
+    ['pg-due','pg-lmp','pg-scan','pg-conception','pg-transfer','pg-scanWeeks','pg-scanDays']
+      .forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Choose a date first, then save the timeline as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Pregnancy Timeline', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(12); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text('Estimated due date: ' + fmt(o.due), margin, y); y += 16;
+
+    var body = [];
+    for(var wk = 1; wk <= 42; wk++){
+      var s = add(o.week1, (wk-1)*7), e = add(s, 6);
+      body.push(['Week ' + wk, fmt(s) + ' - ' + fmt(e), trimesterOf(wk), milestoneOf(wk)]);
+    }
+    doc.autoTable({ startY:y, head:[['Week','Dates','Trimester','Milestone']], body:body,
+      margin:{left:margin,right:margin}, styles:{ fontSize:8, cellPadding:3 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimates for a single pregnancy — not medical advice. Discuss your dates with your midwife or doctor. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('pregnancy-timeline.pdf');
+  }
+  $('pg-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  setMethod();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -480,6 +1178,248 @@
   });
 
   input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
 })();
 </script>
 </body></html>
