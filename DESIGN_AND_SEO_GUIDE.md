@@ -126,6 +126,12 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
    Intentional differences (if any): ...
    ```
 
+### The buttons are part of parity too (added Aug 7, 2026, third correction)
+
+**Clear means clear.** calculator.net's `clearForm()` sets every `text`/`number`/`date`/`textarea` input to an empty string, leaves selects, radios and checkboxes untouched, and does not scroll or recalculate. That is the behaviour to reproduce. The VA Mortgage Calculator shipped with a Clear that restored default values instead of emptying the boxes, and a later 'fix' made it worse by adding a scroll-to-form and a result flash — so pressing Clear jumped the page the same way Calculate does, while the boxes still held numbers the visitor had not typed. Both were invented behaviour, neither was asked for.
+
+Concretely, for every page: Clear empties the typed boxes and nothing else, and **the page must not move** (verify by measuring the drift of the button that was pressed, not `window.scrollY` — emptying a schedule legitimately shortens the page). Do not call `.focus()` on a field after clearing either; focusing an off-screen input scrolls it into view, which is the same jump by another route.
+
 ### Standing rule on scope (added Aug 7, 2026, after two corrections in one day)
 
 **Parity is the specification, and it is a ceiling as well as a floor.** Match the reference tool's fields, results and maths exactly. Do not add modes, tabs, presets, selectors or extra controls on top of it because research suggests they would be useful — the VAT Calculator shipped with three tabs, a 34-country preset dropdown, a currency selector and rate chips, and the owner's report was that he was confused using his own page, so a visitor would be too. It was stripped back to the reference's single four-field form the same day.

@@ -894,11 +894,6 @@
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var schedView = 'annual', last = null;
 
-  var DEF = { price:'425000', down:'0', downUnit:'pct', term:'30', rate:'6.45',
-    elig:'v', used:'n', dis:'n', fee:'f',
-    tax:'1.1', taxUnit:'pct', ins:'2100', hoa:'0', other:'3600',
-    taxInc:'0', insInc:'0', hoaInc:'0', otherInc:'0',
-    exM:'0', exY:'0', exO:'0' };
 
   /* ---------- helpers ---------- */
   function num(id){ var el = $(id); if(!el) return 0;
@@ -1226,72 +1221,20 @@
     schedView = 'monthly'; this.className = 'active'; $('va-schedAnnualBtn').className = '';
     if(last) renderSchedule(last);
   });
-  /* The form on this page is tall enough that the Calculate/Clear row sits well below
-     the fields it resets — on a phone none of them are on screen at all. Resetting
-     silently therefore reads as "the button did nothing", which is the same complaint
-     the shared snippet fixes for Calculate. So Clear confirms itself the same way:
-     bring the top of the form back into view, then flash the result card.
-
-     The scroll is driven by scrollTop rather than window.scrollTo because the shared
-     snippet mutes scrollTo for 700ms after any click inside the grid that is not the
-     Calculate button — which includes this one. That mute exists to stop auto-calculate
-     from yanking the page around while someone is typing; a deliberate press is the
-     case Calculate itself is exempted from, and this is the same exemption. */
-  function smoothScrollTo(target){
-    var el = document.scrollingElement || document.documentElement;
-    var start = el.scrollTop;
-    var end = Math.max(0, Math.min(target, Math.max(0, el.scrollHeight - window.innerHeight)));
-    var dist = end - start;
-    if(Math.abs(dist) < 2){ el.scrollTop = end; return; }
-    var t0 = null, dur = 360;
-    function step(ts){
-      if(t0 === null) t0 = ts;
-      var k = Math.min(1, (ts - t0)/dur);
-      el.scrollTop = start + dist*(k < 0.5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2)/2);
-      if(k < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function confirmCleared(){
-    var form = document.querySelector('.va-area-form');
-    if(!form) return;
-    var res = document.querySelector('[data-cb-result]') ||
-              document.querySelector('.va-result-card');
-    var el = document.scrollingElement || document.documentElement;
-    var r = form.getBoundingClientRect();
-    var settled = r.top >= 60 && r.top <= window.innerHeight*0.5;
-    if(!settled) smoothScrollTo(el.scrollTop + r.top - 88);
-    setTimeout(function(){
-      if(!res) return;
-      res.classList.remove('cb-flash');
-      void res.offsetWidth;
-      res.classList.add('cb-flash');
-      setTimeout(function(){ res.classList.remove('cb-flash'); }, 1000);
-    }, settled ? 0 : 420);
-  }
-
   $('va-calcBtn').addEventListener('click', render);
+  /* Clear matches the reference tool: it empties the typed boxes and nothing else.
+     Selects, radios and checkboxes keep their current setting, exactly as
+     calculator.net's clearForm() does, and the page does not move. The result panel
+     falls back to its empty state because this page calculates as you type. */
   $('va-clearBtn').addEventListener('click', function(){
-    $('va-price').value = DEF.price; $('va-down').value = DEF.down; $('va-downUnit').value = DEF.downUnit;
-    $('va-term').value = DEF.term; $('va-rate').value = DEF.rate;
-    setRadio('va-elig', DEF.elig); setRadio('va-used', DEF.used);
-    setRadio('va-dis', DEF.dis); setRadio('va-fee', DEF.fee);
-    $('va-tax').value = DEF.tax; $('va-taxUnit').value = DEF.taxUnit;
-    $('va-ins').value = DEF.ins; $('va-hoa').value = DEF.hoa; $('va-other').value = DEF.other;
-    $('va-taxInc').value = DEF.taxInc; $('va-insInc').value = DEF.insInc;
-    $('va-hoaInc').value = DEF.hoaInc; $('va-otherInc').value = DEF.otherInc;
-    $('va-exM').value = DEF.exM; $('va-exY').value = DEF.exY; $('va-exO').value = DEF.exO;
-    $('va-advChk').checked = false; $('va-advPanel').className = 'va-panel';
-    $('va-bwChk').checked = true;
-    var now = new Date(), m = String(now.getMonth()+1), y = String(now.getFullYear());
-    ['va-startMonth','va-exMMonth','va-exYMonth','va-exOMonth'].forEach(function(id){ $(id).value = m; });
-    ['va-startYear','va-exMYear','va-exYYear','va-exOYear'].forEach(function(id){ $(id).value = y; });
-    schedView = 'annual';
-    $('va-schedAnnualBtn').className = 'active'; $('va-schedMonthlyBtn').className = '';
+    ['va-price','va-down','va-term','va-rate',
+     'va-tax','va-ins','va-hoa','va-other','va-startYear',
+     'va-taxInc','va-insInc','va-hoaInc','va-otherInc',
+     'va-exM','va-exMYear','va-exY','va-exYYear','va-exO','va-exOYear'
+    ].forEach(function(id){ var el = $(id); if(el) el.value = ''; });
     render();
-    confirmCleared();
   });
+
   $('va-bwChk').addEventListener('change', render);
 
   /* ---------- lazy PDF ---------- */

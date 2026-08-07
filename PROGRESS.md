@@ -6692,6 +6692,46 @@ put to the owner before building, not a decision to make inside a build — the 
 conclusion the USD correction reached hours earlier, which should have been enough.
 
 
+### VA Mortgage Calculator — Clear rewritten to match the reference (Aug 7, 2026, third correction)
+
+The owner's report: pressing Clear redirects to the result card exactly like Calculate does,
+so what is Clear even for — it is supposed to empty the value boxes.
+
+Both halves of that are right, and both were my own invention rather than anything the
+reference does.
+
+1. **Clear was restoring default values, not clearing.** It put 425000 / 6.45 / 30 back into
+   the boxes. Fetching calculator.net's `common.js` settles it: `clearForm()` sets every
+   `text`, `number`, `date` and `textarea` element to `''`, leaves selects, radios and
+   checkboxes alone, and does not recalculate or scroll.
+2. **The earlier "fix" made it worse.** Diagnosing the button as feeling dead, I added a
+   scroll-to-form plus a result-card flash — so Clear moved the page like Calculate while
+   the boxes still held values nobody typed. That was solving a problem the reference does
+   not have, by inventing behaviour instead of copying it.
+
+Clear now blanks all 19 typed boxes, keeps every select, radio and checkbox as the visitor
+left them, and does not move the page. The result panel returns to its empty prompt because
+this page calculates as you type. The `smoothScrollTo`/`confirmCleared` helpers and the
+now-unused `DEF` defaults object were deleted.
+
+A second jump survived the first attempt: `$('va-price').focus()` at the end of the handler
+scrolled the off-screen input into view, moving the page 489px on desktop and 812px on
+mobile. Removed. **Focusing a field after clearing is the same jump by another route.**
+
+Verified at 1280/430/390px, measuring the drift of the pressed button rather than
+`window.scrollY`, since emptying the schedule legitimately shortens the page: every typed
+box empty, selects and radios untouched, 0px drift, no flash, empty-state prompt restored,
+and the form immediately usable again. Typing still does not move the page. Suite now 97
+assertions. Audited the VAT calculator the same way — its Clear already blanks all four
+boxes correctly.
+
+**Pattern to stop.** This is the third correction on the same theme in one day: USD default,
+feature scope, and now button behaviour. Each time the reference already specified the
+answer and I substituted judgement for it. Guide updated with a section stating that button
+behaviour is part of parity, with the exact `clearForm()` semantics written out so it does
+not have to be rediscovered.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
