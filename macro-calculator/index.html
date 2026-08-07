@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Macro Calculator — Protein, Carb | CalculatorBoss</title><meta name="description" content="Split your daily calorie target into protein, carb and fat grams, with presets for balanced, low-carb, high-carb and ketogenic diets."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/macro-calculator/"/><meta property="og:title" content="Macro Calculator | CalculatorBoss"/><meta property="og:description" content="Daily protein, carb and fat targets from your calorie goal."/><meta property="og:url" content="https://calculatorboss.com/macro-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Macro Calculator — Daily Protein, Carbs and Fat in Grams</title><meta name="description" content="Free macro calculator: daily protein, carb and fat targets in grams for a balanced, low fat, low carb or high protein split, or build your own."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="macro calculator,macronutrient calculator,how many grams of protein per day,macro split calculator,iifym calculator,carb protein fat calculator,macros for weight loss,daily macro targets"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/macro-calculator/"/><meta property="og:title" content="Macro Calculator — Daily Protein, Carbs and Fat in Grams"/><meta property="og:description" content="Free macro calculator: daily protein, carb and fat targets in grams for a balanced, low fat, low carb or high protein split, or build your own."/><meta property="og:url" content="https://calculatorboss.com/macro-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/macro-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Macro Calculator — Daily Protein, Carbs and Fat in Grams"/><meta name="twitter:description" content="Free macro calculator: daily protein, carb and fat targets in grams for a balanced, low fat, low carb or high protein split, or build your own."/><meta name="twitter:image" content="https://calculatorboss.com/og/macro-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,157 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.ma-wrap{width:100%}
+.ma-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.ma-bar-text{display:flex;align-items:center;gap:10px}
+.ma-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.ma-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.ma-bar-pdf-btn:hover{background:#f0f0f0}
+.ma-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.ma-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.ma-area-bar{grid-area:bar}
+.ma-area-tabs{grid-area:tabs}
+.ma-area-form{grid-area:form}
+.ma-area-result{grid-area:result}
+.ma-area-sidebar{grid-area:sidebar}
+.ma-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .ma-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.ma-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.ma-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.ma-tab:hover{border-color:var(--border)}
+.ma-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.ma-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.ma-card-pad{padding:22px}
+.ma-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.ma-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.ma-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.ma-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.ma-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.ma-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.ma-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.ma-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.ma-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.ma-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.ma-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.ma-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.ma-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+/* More Options control, matching mortgage-calculator exactly. */
+.ma-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.ma-hidden{display:none !important}
+.ma-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.ma-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
+.ma-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.ma-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
+.ma-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
+.ma-fat .ma-input-group{width:96px;flex:none}
+/* TDEE-specific: the lose/gain intake tables */
+.ma-act-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.ma-act-table th:first-child{text-align:left}
+.ma-act-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);font-weight:600}
+.ma-act-table td:first-child{text-align:left;color:var(--ink-soft);font-weight:400}
+.ma-act-table tr:last-child td{border-bottom:none}
+
+.ma-btn-row{display:flex;gap:8px;padding-top:16px}
+.ma-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.ma-btn-calc:hover{background:#128A3D}
+.ma-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.ma-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.ma-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.ma-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.ma-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
+.ma-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.ma-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.ma-err.show{display:block}
+
+
+.ma-result-body{padding:10px 20px 20px}
+.ma-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.ma-row:first-child{border-top:none}
+.ma-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.ma-row.hl span:last-child{color:#128A3D}
+
+.ma-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.ma-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.ma-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.ma-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ma-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.ma-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.ma-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.ma-bottom-grid{grid-template-columns:1fr}}
+.ma-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.ma-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.ma-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.ma-card-body{padding:18px}
+/* Diet selector inside the result card, plus the macro rows */
+.ma-diets{display:flex;gap:6px;flex-wrap:wrap;padding:14px 20px 0}
+.ma-diet{background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.ma-diet:hover{border-color:var(--border)}
+.ma-diet.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.ma-macro{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--border-fine);border-radius:10px;background:var(--surface-sunken)}
+.ma-macro+.ma-macro{margin-top:7px}
+.ma-macro .n{font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.3}
+.ma-macro .n span{display:block;font-size:11px;color:var(--ink-faint);font-weight:400;margin-top:1px}
+.ma-macro .v{text-align:right;white-space:nowrap}
+.ma-macro .v b{font-size:18px;font-weight:700;color:var(--ink)}
+.ma-macro .v i{font-style:normal;font-size:11.5px;color:var(--ink-faint);display:block}
+.ma-macro.energy{background:var(--gold-tint);border-color:#cfe9d8}
+.ma-macro.energy .v b{color:#128A3D}
+.ma-slider{padding:4px 0 0}
+.ma-slider label{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:3px}
+.ma-slider label b{color:var(--ink)}
+.ma-slider input[type=range]{width:100%;accent-color:#16A34A;cursor:pointer}
+.ma-slider+.ma-slider{margin-top:10px}
+.ma-slide-note{font-size:11.5px;color:var(--ink-faint);margin-top:8px;line-height:1.5}
+.ma-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ma-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.ma-ref-table th:first-child{text-align:left}
+.ma-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.ma-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.ma-ref-table tr:last-child td{border-bottom:none}
+.ma-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.ma-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+@media(max-width:520px){
+  .ma-field{flex-wrap:wrap}
+  .ma-field-label{width:100%}
+  .ma-tab{flex:1;text-align:center;padding:10px 12px}
+}
+
+
+
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Macro","item":"https://calculatorboss.com/macro-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +498,288 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where do I get my calorie target?","acceptedAnswer":{"@type":"Answer","text":"Start with your TDEE (or a goal-adjusted version from the Calorie Calculator), then enter that number here to see how it breaks down by macro."}},{"@type":"Question","name":"Which preset should I pick?","acceptedAnswer":{"@type":"Answer","text":"Balanced works well for most general health goals. Lower-carb or higher-carb suit specific training styles or preferences. Keto is a much more restrictive approach that some people use for specific metabolic or medical reasons — it's worth understanding the trade-offs before adopting it long-term."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Macro Calculator","url":"https://calculatorboss.com/macro-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Macro Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Macro Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Pick a calorie target and a split — get exact protein, carb and fat grams.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Daily calorie target</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="2200"/><span style="color:var(--ink-faint)">cal</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:26.31578947368421%;background:var(--accent)"></div><input type="range" min="1200" max="5000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Daily calorie target" value="2200"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(26.31578947368421% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><label class="text-sm text-ink-soft mb-2 block">Macro split</label><div class="flex flex-wrap gap-2"><button class="text-xs px-3 py-1.5 rounded-full border transition-colors bg-accent text-white border-accent">Balanced</button><button class="text-xs px-3 py-1.5 rounded-full border transition-colors border-border text-ink-soft hover:border-accent">Lower-carb</button><button class="text-xs px-3 py-1.5 rounded-full border transition-colors border-border text-ink-soft hover:border-accent">Higher-carb (endurance)</button><button class="text-xs px-3 py-1.5 rounded-full border transition-colors border-border text-ink-soft hover:border-accent">Ketogenic</button></div><p class="text-xs text-ink-faint mt-3">30<!-- -->% protein / <!-- -->40<!-- -->% carb / <!-- -->30<!-- -->% fat</p></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Daily macro targets</div><div class="tabular text-3xl sm:text-4xl font-medium text-accent-strong value-transition mb-6">165<!-- -->g · <!-- -->220<!-- -->g · <!-- -->73<!-- -->g</div><dl class="grid grid-cols-3 gap-3 text-sm"><div><dt class="text-ink-faint mb-1">Protein</dt><dd class="tabular text-ink font-medium">165<!-- -->g</dd></div><div><dt class="text-ink-faint mb-1">Carbs</dt><dd class="tabular text-ink font-medium">220<!-- -->g</dd></div><div><dt class="text-ink-faint mb-1">Fat</dt><dd class="tabular text-ink font-medium">73<!-- -->g</dd></div></dl><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Protein and carbs provide 4 calories per gram; fat provides 9 — that&#x27;s why fat grams look smaller for the same calorie share.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A <span class="tabular">2,200</span> calorie target on a balanced 30/40/30 split breaks down to <span class="tabular">165g</span> protein, <span class="tabular">220g</span> carbs, and <span class="tabular">73g</span> fat.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Where do I get my calorie target?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Start with your TDEE (or a goal-adjusted version from the Calorie Calculator), then enter that number here to see how it breaks down by macro.</p></div><div><h3 class="font-medium text-ink mb-1.5">Which preset should I pick?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Balanced works well for most general health goals. Lower-carb or higher-carb suit specific training styles or preferences. Keto is a much more restrictive approach that some people use for specific metabolic or medical reasons — it&#x27;s worth understanding the trade-offs before adopting it long-term.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical or dietary advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Macro Calculator","item":"https://calculatorboss.com/macro-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are macros, exactly?","acceptedAnswer":{"@type":"Answer","text":"Protein, carbohydrate and fat — the three nutrients your body needs in gram quantities and the only ones that supply energy. Vitamins and minerals are micronutrients, needed in milligrams. Alcohol also carries calories but is not counted as a macronutrient. Everything you eat breaks down into these three plus water, fibre and micronutrients."}},{"@type":"Question","name":"How many grams of protein should I eat a day?","acceptedAnswer":{"@type":"Answer","text":"This calculator shows a range rather than one figure. The floor is 1 gram per kilogram of body weight, and the ceiling is 35% of your daily energy. Where you sit inside that depends on what you are doing: the higher end suits someone training hard or eating in a deficit, since protein protects lean mass when calories are short."}},{"@type":"Question","name":"Which macro split is best?","acceptedAnswer":{"@type":"Answer","text":"For most people the split matters far less than hitting the calorie total and getting enough protein. Balanced at 25/50/25 is a reasonable default. Low carb suits people who prefer it or manage blood sugar; high protein suits anyone in a deficit or building muscle. All four splits on this page produce the same daily calories — they only divide it differently."}},{"@type":"Question","name":"Why does this calculator use 4.1, 3.75 and 8.8 calories per gram?","acceptedAnswer":{"@type":"Answer","text":"Those are the Atwater specific factors, which are slightly more precise than the 4/4/9 shorthand on food labels. Protein and carbohydrate are not perfectly absorbed, so their usable energy is a little under 4, while fat comes in a little under 9. The difference is small — a percent or two on a daily total — but it is why a gram figure here can differ slightly from a tool using round numbers."}},{"@type":"Question","name":"Do I have to hit my macros exactly?","acceptedAnswer":{"@type":"Answer","text":"No, and treating them as exact targets is usually counterproductive. They are a guide with real uncertainty baked in: the calorie total behind them is an estimate with roughly 10% error, and daily expenditure varies anyway. Landing within about ten grams of protein and fat and twenty of carbohydrate is close enough for the plan to work."}},{"@type":"Question","name":"What are the sugar and saturated fat limits?","acceptedAnswer":{"@type":"Answer","text":"Both are capped at 10% of daily energy, following World Health Organization and Dietary Guidelines advice. They are ceilings rather than targets — there is no requirement to eat any added sugar at all. Note that the sugar figure sits inside your carbohydrate total and the saturated fat inside your fat total; they are not extra."}},{"@type":"Question","name":"Should the split change if I am losing weight?","acceptedAnswer":{"@type":"Answer","text":"Protein is the one worth raising. In a calorie deficit the body will draw on lean tissue as well as fat, and a higher protein intake alongside resistance training limits how much muscle goes. The high-protein split on this page is built for exactly that. Carbohydrate and fat can then be divided however you find easiest to stick to."}},{"@type":"Question","name":"Does the timing of my macros matter?","acceptedAnswer":{"@type":"Answer","text":"Much less than the daily totals. Spreading protein across three or four meals is mildly better for muscle than loading it into one, and eating carbohydrate around training is convenient if you train hard. Beyond that, meal timing is a rounding error next to consistently hitting your numbers over weeks."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Macro Calculator","url":"https://calculatorboss.com/macro-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Turns a daily calorie total into protein, carbohydrate and fat targets in grams across four macro splits, with sugar and saturated fat limits.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Macro Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Macro Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Turn your daily calories into protein, carb and fat targets in grams — balanced, low fat, low carb, high protein, or a split you build yourself.</p><div class="ma-wrap">
+<div class="ma-grid">
+
+  <div class="ma-bar ma-area-bar">
+    <span class="ma-bar-text"><span class="ma-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="ma-bar-pdf-btn" id="ma-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="ma-tabs ma-area-tabs" role="tablist" aria-label="Measurement units">
+    <button type="button" class="ma-tab active" id="ma-tabUs" role="tab" aria-selected="true">US Units</button>
+    <button type="button" class="ma-tab" id="ma-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+    <button type="button" class="ma-tab" id="ma-tabOther" role="tab" aria-selected="false">Other Units</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="ma-card ma-area-form">
+    <div class="ma-card-pad">
+
+  <div class="cv-panel" id="ma-convPanel" style="display:none">
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form below.</p>
+    <div class="cv-cats" id="ma-convCats"></div>
+    <div class="cv-line">
+      <label for="ma-convFromVal">From</label>
+      <div class="cv-pair">
+        <input type="text" inputmode="decimal" id="ma-convFromVal" value="1">
+        <select id="ma-convFrom" aria-label="Convert from unit"></select>
+      </div>
+    </div>
+    <div class="cv-arrow" aria-hidden="true">↓</div>
+    <div class="cv-line">
+      <label for="ma-convToVal">To</label>
+      <div class="cv-pair">
+        <input type="text" id="ma-convToVal" readonly>
+        <select id="ma-convTo" aria-label="Convert to unit"></select>
+      </div>
+    </div>
+    <p class="cv-out" id="ma-convOut"></p>
+  </div>
+
+      <div class="ma-field">
+        <label class="ma-field-label" for="ma-age">Age</label>
+        <div class="ma-field-control"><div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-age" value="34"><span>18 – 80</span></div></div>
+      </div>
+      <div class="ma-field">
+        <span class="ma-field-label">Gender</span>
+        <div class="ma-field-control ma-sex" role="radiogroup" aria-label="Gender">
+          <label class="ma-radio"><input type="radio" name="ma-sex" value="m" checked><span>Male</span></label>
+          <label class="ma-radio"><input type="radio" name="ma-sex" value="f"><span>Female</span></label>
+        </div>
+      </div>
+
+      <div id="ma-usBlock">
+        <div class="ma-field">
+          <label class="ma-field-label" for="ma-heightFt">Height</label>
+          <div class="ma-field-control">
+            <div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-heightFt" value="5"><span>feet</span></div>
+            <div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-heightIn" value="9"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="ma-field">
+          <label class="ma-field-label" for="ma-weightLb">Weight</label>
+          <div class="ma-field-control"><div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-weightLb" value="178"><span>pounds</span></div></div>
+        </div>
+      </div>
+
+      <div id="ma-metricBlock" style="display:none">
+        <div class="ma-field">
+          <label class="ma-field-label" for="ma-heightCm">Height</label>
+          <div class="ma-field-control"><div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-heightCm" value="176"><span>cm</span></div></div>
+        </div>
+        <div class="ma-field">
+          <label class="ma-field-label" for="ma-weightKg">Weight</label>
+          <div class="ma-field-control"><div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-weightKg" value="81"><span>kg</span></div></div>
+        </div>
+      </div>
+
+      <div class="ma-field">
+        <label class="ma-field-label" for="ma-activity">Activity</label>
+        <div class="ma-field-control"><select class="ma-select-plain" id="ma-activity"></select></div>
+      </div>
+      <div class="ma-field">
+        <label class="ma-field-label" for="ma-goal">Your goal</label>
+        <div class="ma-field-control"><select class="ma-select-plain" id="ma-goal"></select></div>
+      </div>
+
+      <button type="button" class="ma-more-btn" id="ma-moreBtn">+ More Options</button>
+
+      <div id="ma-settingsPanel" class="ma-hidden">
+        <p class="ma-section-title">BMR estimation formula</p>
+        <div class="ma-opt" role="radiogroup" aria-label="BMR formula">
+          <label><input type="radio" name="ma-formula" value="m" checked><span>Mifflin&nbsp;St&nbsp;Jeor</span></label>
+          <label><input type="radio" name="ma-formula" value="k"><span>Katch-McArdle</span>
+            <span class="ma-fat"><span style="font-size:12px;color:var(--ink-faint)">Body fat</span>
+              <div class="ma-input-group"><input type="text" inputmode="decimal" id="ma-fatPct" value="20"><span>%</span></div>
+            </span>
+          </label>
+        </div>
+        <p class="ma-subnote">Katch-McArdle works from lean mass, so it needs your body fat percentage. If you do not know it, the <a href="/body-fat-calculator/" style="color:#128A3D">body fat calculator</a> will estimate it from a tape measure.</p>
+      </div>
+
+      <div class="ma-btn-row">
+        <button type="button" class="ma-btn-calc" id="ma-calcBtn">Calculate</button>
+        <button type="button" class="ma-btn-clear" id="ma-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="ma-result-card ma-area-result">
+    <div class="ma-result-head">
+      <div class="label">Daily food energy</div>
+      <div class="bignum" id="ma-bigNum">—</div>
+      <div class="sub" id="ma-bigSub">—</div>
+    </div>
+    <div class="ma-err" id="ma-err"></div>
+    <div class="ma-diets" id="ma-diets" role="tablist" aria-label="Macronutrient split"></div>
+    <div class="ma-result-body" id="ma-resultBody">
+      <div id="ma-sliders" style="display:none">
+        <div class="ma-slider">
+          <label for="ma-slP">Protein <b><span id="ma-slPv">25</span>%</b></label>
+          <input type="range" id="ma-slP" min="10" max="45" step="1" value="25">
+        </div>
+        <div class="ma-slider">
+          <label for="ma-slC">Carbs <b><span id="ma-slCv">50</span>%</b></label>
+          <input type="range" id="ma-slC" min="20" max="70" step="1" value="50">
+        </div>
+        <div class="ma-slider">
+          <label for="ma-slF">Fat <b><span id="ma-slFv">25</span>%</b></label>
+          <input type="range" id="ma-slF" min="15" max="45" step="1" value="25">
+        </div>
+        <p class="ma-slide-note" id="ma-slNote"></p>
+      </div>
+      <div id="ma-macros"></div>
+      <p class="ma-subnote" style="margin-top:14px">Ranges come from the accepted intake bands: protein from 1&nbsp;g per kg of body weight up to 35% of energy, carbohydrate 40&ndash;65%, fat 20&ndash;35%. Sugar and saturated fat are each capped at 10% of energy.</p>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="ma-sidecol ma-area-sidebar">
+    <div class="ma-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/tdee-calculator/">TDEE <span class="arrow">→</span></a>
+      <a href="/calorie-calculator/">Calorie <span class="arrow">→</span></a>
+      <a href="/bmr-calculator/">BMR <span class="arrow">→</span></a>
+      <a href="/protein-calculator/">Protein <span class="arrow">→</span></a>
+      <a href="/carbohydrate-calculator/">Carbohydrate <span class="arrow">→</span></a>
+      <a href="/fat-intake-calculator/">Fat Intake <span class="arrow">→</span></a>
+      <a href="/body-fat-calculator/">Body Fat <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="ma-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="ma-area-bottomgrid">
+    <div class="ma-bottom-grid">
+      <div class="ma-info-card">
+        <div class="ma-card-head"><span class="t">The Four Splits</span></div>
+        <div class="ma-card-body">
+          <table class="ma-ref-table">
+            <thead><tr><th>Plan</th><th>Protein</th><th>Carbs</th><th>Fat</th></tr></thead>
+            <tbody id="ma-splitBody"></tbody>
+          </table>
+          <p class="ma-note">Percentages of total energy. Every split adds to 100% and lands on the same calorie total — they differ in how that total is divided, not in how much you eat.</p>
+        </div>
+      </div>
+      <div class="ma-info-card">
+        <div class="ma-card-head"><span class="t">Energy per Gram</span></div>
+        <div class="ma-card-body">
+          <table class="ma-ref-table">
+            <thead><tr><th>Macronutrient</th><th>Calories per gram</th></tr></thead>
+            <tbody>
+              <tr><td>Protein</td><td>4.1</td></tr>
+              <tr><td>Carbohydrate</td><td>3.75</td></tr>
+              <tr><td>Fat</td><td>8.8</td></tr>
+              <tr><td>Alcohol</td><td>7.0</td></tr>
+            </tbody>
+          </table>
+          <p class="ma-note">These are Atwater specific factors, slightly different from the 4/4/9 shorthand most labels use. They are what this calculator applies, which is why a gram figure here can differ by a percent or two from a tool using the rounder numbers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.ma-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.ma-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.ma-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.ma-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.ma-seo-article strong{color:var(--ink);font-weight:600}
+.ma-seo-article a{color:#128A3D;text-decoration:underline}
+.ma-seo-article ul,.ma-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.ma-seo-article ul li strong,.ma-seo-article ol li strong{color:var(--ink)}
+.ma-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.ma-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.ma-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.ma-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.ma-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.ma-toc a:hover{color:#1E3A5F}
+.ma-seo-article h2[id]{scroll-margin-top:88px}
+.ma-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.ma-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="ma-seo-article">
+<p class="ma-byline">Written by the CalculatorBoss Health Team · Formulas verified against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<nav class="ma-toc" aria-label="On this page">
+  <a href="#what">What macros are, and what they are not</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#splits">Choosing between the four splits</a>
+  <a href="#ranges">Reading the ranges rather than the single number</a>
+  <a href="#practice">Hitting macros in practice</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="what">What macros are, and what they are not</h2>
+<p>Three nutrients supply the energy your body runs on: protein, carbohydrate and fat. Everything else you eat — vitamins, minerals, fibre, water — is essential in its own way but contributes no usable calories. That is the whole of what "macros" means, and the reason a diet can be described completely by three numbers.</p>
+<p><strong>Protein</strong> supplies amino acids for building and repairing tissue, and it is the macro your body is least willing to improvise around. <strong>Carbohydrate</strong> is the fuel your muscles and brain reach for first, and the one most easily adjusted up or down without harm. <strong>Fat</strong> is structural as well as energetic — hormones and cell membranes depend on it — and it is the most energy-dense of the three, which is why small changes in fat intake move a calorie total quickly.</p>
+<p>What macros are not is a measure of food quality. A day of chicken, rice and olive oil and a day of protein bars, soda and butter can hit identical numbers. The split tells you the shape of a diet, not whether it is a good one.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>Three steps. It estimates your resting metabolic rate, multiplies by your activity level and applies your weight goal to get a daily calorie total, then divides that total into grams.</p>
+<div class="ma-formula2"><b>Step 1 — daily energy</b><br>BMR × activity multiplier + goal adjustment<br>Mifflin St Jeor by default, Katch-McArdle if you know your body fat<br><br><b>Step 2 — split the energy</b><br>protein grams = energy × share ÷ 4.1<br>carb grams = energy × share ÷ 3.75<br>fat grams = energy × share ÷ 8.8</div>
+<p>Those divisors are the Atwater specific factors rather than the familiar 4/4/9. They account for the fact that none of the three is perfectly absorbed, and they are what this calculator applies throughout — which is why a figure here can sit a percent or two away from a tool using round numbers.</p>
+<p>Running the page defaults through it — a 25-year-old man, 5&prime;10&Prime;, 165 lb, training four or five times a week, maintaining weight — gives 2,549 Calories a day. Split the balanced way, that is 155 g of protein, 340 g of carbohydrate and 72 g of fat.</p>
+<p>Two limits sit on top of the split. <strong>Sugar</strong> and <strong>saturated fat</strong> are each capped at 10% of energy, following WHO and Dietary Guidelines advice. Both are ceilings inside the totals above, not additions to them.</p>
+
+<h2 id="splits">Choosing between the four splits</h2>
+<p>Every split produces the same calorie total. They differ only in how it is divided, which is worth remembering before agonising over the choice.</p>
+<ul>
+  <li><strong>Balanced (25 / 50 / 25)</strong> — the default, and a sensible starting point for most people with no particular constraint.</li>
+  <li><strong>Low Fat (27.5 / 52.5 / 20)</strong> — drops fat to the bottom of the accepted range and moves the energy into carbohydrate and protein. Suits high-volume endurance training.</li>
+  <li><strong>Low Carb (30 / 40 / 30)</strong> — pulls carbohydrate to its floor. Useful for people managing blood sugar, or who simply find they eat better this way.</li>
+  <li><strong>High Protein (35 / 42.5 / 22.5)</strong> — the one to pick in a calorie deficit or while building muscle, because protein is what protects lean mass when energy is short.</li>
+</ul>
+<p><strong>Create Your Own</strong> opens three sliders if none of the four fits. Keep the three percentages adding to 100 and the grams will match your calorie total; the note under the sliders tells you when they do not.</p>
+
+<h2 id="ranges">Reading the ranges rather than the single number</h2>
+<p>Each macro shows a range beside its figure, and the range carries more information than the number.</p>
+<p><strong>Protein</strong> runs from 1 gram per kilogram of body weight up to 35% of energy. The floor is tied to your body rather than your calories, because protein needs scale with the tissue being maintained, not with how much you happen to be eating. <strong>Carbohydrate</strong> runs from 40% of energy up to whatever is left once protein and fat are at their minimums. <strong>Fat</strong> runs from 20% to 35% of energy — the lower bound matters, since going far below it interferes with hormone production and the absorption of fat-soluble vitamins.</p>
+<p>Anywhere inside those bands is defensible. The single figure is one point in a wide space, and treating it as a precise requirement gives a calorie estimate more authority than it has earned.</p>
+
+<h2 id="practice">Hitting macros in practice</h2>
+<p>Protein is the one to plan around, because it is the hardest to reach by accident and the one with the clearest consequence for missing it. Build meals from a protein source outward and the other two tend to fall into place.</p>
+<p>Precision matters less than most tracking apps imply. Landing within about ten grams on protein and fat, and twenty on carbohydrate, is close enough — the calorie total underneath carries roughly 10% uncertainty, so chasing single grams is precision applied to an estimate that cannot support it.</p>
+<p>Consistency over weeks is what actually decides the outcome. Track for two or three weeks, watch your weight trend, and adjust the calorie total if reality disagrees with the arithmetic. That correction is worth far more than any refinement of the split.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<ul>
+  <li><strong>Food quality.</strong> Identical macros can come from very different diets. Fibre, micronutrients and how processed the food is are all invisible here.</li>
+  <li><strong>Fibre.</strong> It sits inside the carbohydrate total and has its own guidance — roughly 25 to 38 grams a day — which this does not report.</li>
+  <li><strong>Anyone outside 18 to 80.</strong> The calorie equations underneath were built on working-age adults, so the tool refuses ages either side rather than stretching a curve past its evidence.</li>
+  <li><strong>Pregnancy and nursing.</strong> Both protein and energy requirements climb on their own schedule, governed by guidance this page makes no attempt to reproduce.</li>
+  <li><strong>Medical conditions.</strong> Kidney disease, diabetes and several other conditions place real constraints on macro intake that override anything here.</li>
+  <li><strong>Sport-specific needs.</strong> Endurance and strength athletes at high volume often need more than these ranges suggest, and are better served by a sports dietitian.</li>
+</ul>
+<p>Either side of this page sit its neighbours: the <a href="/tdee-calculator/">TDEE calculator</a> goes deeper on where the calorie total comes from, and the <a href="/protein-calculator/">protein</a>, <a href="/carbohydrate-calculator/">carbohydrate</a> and <a href="/fat-intake-calculator/">fat intake</a> calculators each take one macro further.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>What are macros, exactly?</h3>
+<p>Protein, carbohydrate and fat — the three nutrients your body needs in gram quantities and the only ones that supply energy. Vitamins and minerals are micronutrients, needed in milligrams. Alcohol also carries calories but is not counted as a macronutrient. Everything you eat breaks down into these three plus water, fibre and micronutrients.</p>
+<h3>How many grams of protein should I eat a day?</h3>
+<p>This calculator shows a range rather than one figure. The floor is 1 gram per kilogram of body weight, and the ceiling is 35% of your daily energy. Where you sit inside that depends on what you are doing: the higher end suits someone training hard or eating in a deficit, since protein protects lean mass when calories are short.</p>
+<h3>Which macro split is best?</h3>
+<p>For most people the split matters far less than hitting the calorie total and getting enough protein. Balanced at 25/50/25 is a reasonable default. Low carb suits people who prefer it or manage blood sugar; high protein suits anyone in a deficit or building muscle. All four splits on this page produce the same daily calories — they only divide it differently.</p>
+<h3>Why does this calculator use 4.1, 3.75 and 8.8 calories per gram?</h3>
+<p>Those are the Atwater specific factors, which are slightly more precise than the 4/4/9 shorthand on food labels. Protein and carbohydrate are not perfectly absorbed, so their usable energy is a little under 4, while fat comes in a little under 9. The difference is small — a percent or two on a daily total — but it is why a gram figure here can differ slightly from a tool using round numbers.</p>
+<h3>Do I have to hit my macros exactly?</h3>
+<p>No, and treating them as exact targets is usually counterproductive. They are a guide with real uncertainty baked in: the calorie total behind them is an estimate with roughly 10% error, and daily expenditure varies anyway. Landing within about ten grams of protein and fat and twenty of carbohydrate is close enough for the plan to work.</p>
+<h3>What are the sugar and saturated fat limits?</h3>
+<p>Both are capped at 10% of daily energy, following World Health Organization and Dietary Guidelines advice. They are ceilings rather than targets — there is no requirement to eat any added sugar at all. Note that the sugar figure sits inside your carbohydrate total and the saturated fat inside your fat total; they are not extra.</p>
+<h3>Should the split change if I am losing weight?</h3>
+<p>Protein is the one worth raising. In a calorie deficit the body will draw on lean tissue as well as fat, and a higher protein intake alongside resistance training limits how much muscle goes. The high-protein split on this page is built for exactly that. Carbohydrate and fat can then be divided however you find easiest to stick to.</p>
+<h3>Does the timing of my macros matter?</h3>
+<p>Much less than the daily totals. Spreading protein across three or four meals is mildly better for muscle than loading it into one, and eating carbohydrate around training is convenient if you train hard. Beyond that, meal timing is a rounding error next to consistently hitting your numbers over weeks.</p>
+
+<p class="ma-disclaimer">Treat these gram targets as teaching material, not instruction. Nothing on this page has been reviewed for your circumstances, stands in for a professional opinion, or identifies a condition — and the calorie figure the grams are cut from is an approximation to begin with, so the precision they appear to offer is borrowed. Run them past a physician or registered dietitian before you build meals around them. That request is firmer than usual if you are expecting or feeding an infant, if you are younger than 18, if kidney disease, diabetes or any comparable diagnosis is in the picture, or if counting what you eat has ever become difficult to stop. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +814,344 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var IN = 2.54, LB = 0.45359237, KJ = 4.1868;
+  var unit = 'us', last = null;
+
+  var ACTS = [
+    [1,     'Basal Metabolic Rate (BMR)'],
+    [1.2,   'Sedentary: little or no exercise'],
+    [1.375, 'Light: exercise 1\u20133 times/week'],
+    [1.465, 'Moderate: exercise 4\u20135 times/week'],
+    [1.55,  'Active: daily exercise or intense exercise 3\u20134 times/week'],
+    [1.725, 'Very Active: intense exercise 6\u20137 times/week'],
+    [1.9,   'Extra Active: very intense exercise daily, or physical job']
+  ];
+  var GOALS = [
+    ['m',  0,     'Maintain weight'],
+    ['l',  -250,  'Mild weight loss \u2014 0.5 lb (0.25 kg) per week'],
+    ['l1', -500,  'Weight loss \u2014 1 lb (0.5 kg) per week'],
+    ['l2', -1000, 'Extreme weight loss \u2014 2 lb (1 kg) per week'],
+    ['g',  250,   'Mild weight gain \u2014 0.5 lb (0.25 kg) per week'],
+    ['g1', 500,   'Weight gain \u2014 1 lb (0.5 kg) per week'],
+    ['g2', 1000,  'Extreme weight gain \u2014 2 lb (1 kg) per week']
+  ];
+  /* Atwater specific factors, which is what the reference applies — not the 4/4/9 shorthand. */
+  var KP = 4.1, KC = 3.75, KF = 8.8;
+  var DIETS = [
+    ['Balanced',     0.25,  0.50,  0.25],
+    ['Low Fat',      0.275, 0.525, 0.20],
+    ['Low Carb',     0.30,  0.40,  0.30],
+    ['High Protein', 0.35,  0.425, 0.225]
+  ];
+  var diet = 0;                       /* index into DIETS, or -1 for Create Your Own */
+  var own = { p:25, c:50, f:25 };
+
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).replace(/,/g,'').trim()); }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function n0(x){ return Math.round(x).toLocaleString('en-US'); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function bmrOf(sex, age, kg, cm, formula, fat){
+    if(formula === 'k') return 370 + 21.6*(1 - fat/100)*kg;
+    return sex === 'm' ? 10*kg + 6.25*cm - 5*age + 5 : 10*kg + 6.25*cm - 5*age - 161;
+  }
+
+  function compute(){
+    var age = num('ma-age'), sex = radio('ma-sex'), formula = radio('ma-formula');
+    var mult = parseFloat($('ma-activity').value);
+    var goalKey = $('ma-goal').value;
+    var goal = GOALS.filter(function(g){ return g[0] === goalKey; })[0];
+    var kg, cm;
+    if(unit === 'us'){
+      var ft = num('ma-heightFt'), inch = num('ma-heightIn'), lb = num('ma-weightLb');
+      if((isNaN(ft) && isNaN(inch)) || isNaN(lb)) return { error:'blank' };
+      cm = ((isNaN(ft)?0:ft)*12 + (isNaN(inch)?0:inch))*IN;
+      kg = lb*LB;
+    } else {
+      cm = num('ma-heightCm'); kg = num('ma-weightKg');
+      if(isNaN(cm) || isNaN(kg)) return { error:'blank' };
+    }
+    if(isNaN(age)) return { error:'blank' };
+    if(age < 18 || age > 80) return { error:'age' };
+    if(!(kg > 0) || !(cm > 0)) return { error:'positive' };
+    var fat = num('ma-fatPct');
+    if(formula === 'k' && (isNaN(fat) || fat <= 0 || fat >= 100)) return { error:'fat' };
+
+    var bmr = bmrOf(sex, age, kg, cm, formula, fat);
+    if(!isFinite(bmr) || bmr <= 0) return { error:'positive' };
+    /* Energy is rounded to whole Calories before the macros come off it — the reference's
+       low-carb protein is exactly E*0.30/4.1 using the rounded E, not the raw product. */
+    var E = Math.round(bmr*mult + goal[1]);
+    if(E <= 0) return { error:'positive' };
+
+    var split = diet >= 0 ? [DIETS[diet][1], DIETS[diet][2], DIETS[diet][3]]
+                          : [own.p/100, own.c/100, own.f/100];
+    return {
+      E:E, kJ:Math.round(E*KJ), split:split,
+      protein:E*split[0]/KP, carbs:E*split[1]/KC, fat:E*split[2]/KF,
+      pMin:kg, pMax:E*0.35/KP,
+      cMin:E*0.40/KC, cMax:(E - kg*KP - E*0.20)/KC,
+      fMin:E*0.20/KF, fMax:E*0.35/KF,
+      sugar:E*0.10/KC, satFat:E*0.10/KF,
+      goalLabel:goal[2], dietName: diet >= 0 ? DIETS[diet][0] : 'Your own split',
+      isBmrOnly: mult === 1
+    };
+  }
+
+  var ERRORS = {
+    blank:    'Fill in your age, height and weight to see your macros.',
+    age:      'Please enter an age between 18 and 80. The equations were derived on adults and are not reliable outside that range.',
+    positive: 'Height and weight need to be greater than zero.',
+    fat:      'Katch-McArdle needs a body fat percentage between 0 and 100. Switch to Mifflin St Jeor if you do not know yours.'
+  };
+
+  function row(name, sub, grams, range, cls){
+    return '<div class="ma-macro ' + (cls||'') + '"><span class="n">' + esc(name) +
+      (sub ? '<span>' + esc(sub) + '</span>' : '') + '</span>' +
+      '<span class="v"><b>' + n0(grams) + '</b><i>' + range + '</i></span></div>';
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('ma-err');
+    if(o.error){
+      err.className = 'ma-err show';
+      err.textContent = ERRORS[o.error];
+      $('ma-bigNum').textContent = '\u2014';
+      $('ma-bigSub').textContent = '\u00a0';
+      $('ma-macros').innerHTML = '';
+      last = null;
+      return;
+    }
+    err.className = 'ma-err';
+    last = o;
+
+    $('ma-bigNum').textContent = n0(o.E) + ' Calories';
+    $('ma-bigSub').textContent = n0(o.kJ) + ' kJ per day \u00b7 ' + o.goalLabel.split(' \u2014 ')[0];
+
+    var h = '';
+    h += row('Protein', null, o.protein, 'grams/day \u00b7 range ' + n0(o.pMin) + '\u2013' + n0(o.pMax));
+    h += row('Carbs', 'includes sugar', o.carbs, 'grams/day \u00b7 range ' + n0(o.cMin) + '\u2013' + n0(o.cMax));
+    h += row('Fat', 'includes saturated fat', o.fat, 'grams/day \u00b7 range ' + n0(o.fMin) + '\u2013' + n0(o.fMax));
+    h += row('Sugar', 'upper limit', o.sugar, 'grams/day or less');
+    h += row('Saturated fat', 'upper limit', o.satFat, 'grams/day or less');
+    h += row('Food energy', o.dietName, o.E, n0(o.kJ) + ' kJ/day', 'energy');
+    $('ma-macros').innerHTML = h;
+
+    $('ma-diets').innerHTML = DIETS.map(function(d, i){
+      return '<button type="button" class="ma-diet' + (i === diet ? ' on' : '') + '" data-diet="' + i + '">' + esc(d[0]) + '</button>';
+    }).join('') + '<button type="button" class="ma-diet' + (diet < 0 ? ' on' : '') + '" data-diet="-1">Create Your Own</button>';
+
+    $('ma-sliders').style.display = diet < 0 ? '' : 'none';
+    if(diet < 0){
+      var tot = own.p + own.c + own.f;
+      $('ma-slNote').textContent = tot === 100
+        ? 'Your split adds up to 100% of energy.'
+        : 'Your split currently adds up to ' + tot + '% \u2014 the grams above assume it as entered, so bring it to 100% for a plan that matches your calorie total.';
+    }
+  }
+  /* ---------- populate selects and reference tables ---------- */
+  $('ma-activity').innerHTML = ACTS.map(function(a){
+    return '<option value="'+a[0]+'">'+esc(a[1])+'</option>';
+  }).join('');
+  $('ma-activity').value = '1.465';
+  $('ma-goal').innerHTML = GOALS.map(function(g){
+    return '<option value="'+g[0]+'">'+esc(g[2])+'</option>';
+  }).join('');
+  $('ma-splitBody').innerHTML = DIETS.map(function(d){
+    return '<tr><td>'+esc(d[0])+'</td><td>'+Math.round(d[1]*1000)/10+'%</td><td>'+
+           Math.round(d[2]*1000)/10+'%</td><td>'+Math.round(d[3]*1000)/10+'%</td></tr>';
+  }).join('');
+
+  $('ma-diets').addEventListener('click', function(e){
+    var b = e.target.closest('.ma-diet'); if(!b) return;
+    diet = parseInt(b.getAttribute('data-diet'), 10);
+    render();
+  });
+  [['ma-slP','p','ma-slPv'],['ma-slC','c','ma-slCv'],['ma-slF','f','ma-slFv']].forEach(function(x){
+    $(x[0]).addEventListener('input', function(){
+      own[x[1]] = parseInt(this.value, 10);
+      $(x[2]).textContent = this.value;
+      render();
+    });
+  });
+
+  /* ---------- units + settings ---------- */
+  function setUnit(u){
+    var map = { us:'ma-tabUs', metric:'ma-tabMetric', other:'ma-tabOther' };
+    Object.keys(map).forEach(function(k){
+      $(map[k]).className = 'ma-tab' + (k === u ? ' active' : '');
+      $(map[k]).setAttribute('aria-selected', k === u ? 'true' : 'false');
+    });
+    $('ma-convPanel').style.display = u === 'other' ? '' : 'none';
+    if(u !== 'other'){
+      unit = u;
+      $('ma-usBlock').style.display     = u === 'us' ? '' : 'none';
+      $('ma-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    }
+    render();
+  }
+  $('ma-tabUs').addEventListener('click', function(){ setUnit('us'); });
+  $('ma-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('ma-tabOther').addEventListener('click', function(){ setUnit('other'); });
+  /* More Options toggle, same behaviour and wording as mortgage-calculator. */
+  $('ma-moreBtn').addEventListener('click', function(){
+    var hidden = $('ma-settingsPanel').classList.toggle('ma-hidden');
+    this.textContent = hidden ? '+ More Options' : '- Fewer Options';
+  });
+  ['ma-sex','ma-formula'].forEach(function(nm){
+    var r = document.querySelectorAll('input[name="'+nm+'"]');
+    for(var i=0;i<r.length;i++) r[i].addEventListener('change', render);
+  });
+  $('ma-activity').addEventListener('change', render);
+  $('ma-goal').addEventListener('change', render);
+
+  $('ma-calcBtn').addEventListener('click', render);
+  /* Clear empties the typed boxes and nothing else, the way the reference does. */
+  $('ma-clearBtn').addEventListener('click', function(){
+    ['ma-age','ma-heightFt','ma-heightIn','ma-weightLb','ma-heightCm','ma-weightKg','ma-fatPct']
+      .forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- Other Units converter ----------
+     Unit sets and factors are taken verbatim from the reference tool's own converter
+     script, including the ones it rounds (its pound is 0.453592, not 0.45359237) so the
+     two sites agree digit for digit. Temperature is offset rather than scaled, so it gets
+     its own pair of conversions. */
+  var CONV = {
+    Length: { units:[['Meter',1],['Kilometer',1000],['Centimeter',0.01],['Millimeter',0.001],['Micrometer',0.000001],['Nanometer',0.000000001],['Mile',1609.344],['Yard',0.9144],['Foot',0.3048],['Inch',0.0254],['Light Year',9.46066e+15]],
+      from:'Centimeter', to:'Inch' },
+    Temperature: { special:true, units:[['Celsius'],['Kelvin'],['Fahrenheit']], from:'Celsius', to:'Fahrenheit' },
+    Area: { units:[['Square Meter',1],['Square Kilometer',1000000],['Square Centimeter',0.0001],['Square Millimeter',0.000001],['Square Micrometer',0.000000000001],['Hectare',10000],['Square Mile',2589990],['Square Yard',0.83612736],['Square Foot',0.09290304],['Square Inch',0.000645160],['Acre',4046.8564224]],
+      from:'Square Meter', to:'Square Foot' },
+    Volume: { units:[['Cubic Meter',1],['Cubic Kilometer',1000000000],['Cubic Centimeter',0.000001],['Cubic Millimeter',1.0e-9],['Liter',0.001],['Milliliter',0.000001],['US Gallon',0.00378541],['US Quart',0.0009463525],['US Pint',0.00047317625],['US Cup',0.000236588125],['US Fluid Ounce',0.000029573515625],['US Table Spoon',0.0000147867578125],['US Tea Spoon',4.9289192708333333333333333333333e-6],['Imperial Gallon',0.00454609],['Imperial Quart',0.0011365225],['Imperial Pint',0.00056826125],['Imperial Fluid Ounce',0.0000284130625],['Imperial Table Spoon',0.0000177581640625],['Imperial Tea Spoon',5.9193880208333333333333333333333e-6],['Cubic Mile',4.16818e+9],['Cubic Yard',0.764554857984],['Cubic Foot',0.028316846592],['Cubic Inch',0.000016387064]],
+      from:'Liter', to:'US Cup' },
+    Weight: { units:[['Kilogram',1],['Gram',0.001],['Milligram',0.000001],['Metric Ton',1000],['Long Ton',1016.04608],['Short Ton',907.184],['Pound',0.453592],['Ounce',0.0283495],['Carrat',0.0002],['Atomic Mass Unit',1.6605401999104288e-27]],
+      from:'Kilogram', to:'Pound' },
+  };
+  var CONV_ORDER = ['Length','Temperature','Area','Volume','Weight'];
+  var convCat = 'Length';
+
+  function convFmt(x){
+    if(!isFinite(x)) return '';
+    return Math.abs(x) >= 1e16 || (Math.abs(x) > 0 && Math.abs(x) < 1e-9)
+      ? x.toExponential(6) : String(parseFloat(x.toPrecision(10)));
+  }
+  function toBase(cat, unit, v){
+    if(CONV[cat].special){
+      if(unit === 'Celsius') return v;
+      if(unit === 'Kelvin') return v - 273.15;
+      return 5/9*(v - 32);
+    }
+    return v * CONV[cat].units.filter(function(x){ return x[0] === unit; })[0][1];
+  }
+  function fromBase(cat, unit, v){
+    if(CONV[cat].special){
+      if(unit === 'Celsius') return v;
+      if(unit === 'Kelvin') return v + 273.15;
+      return 9/5*v + 32;
+    }
+    return v / CONV[cat].units.filter(function(x){ return x[0] === unit; })[0][1];
+  }
+  function convFill(){
+    var c = CONV[convCat];
+    var opts = c.units.map(function(u){ return '<option value="'+esc(u[0])+'">'+esc(u[0])+'</option>'; }).join('');
+    $('ma-convFrom').innerHTML = opts; $('ma-convTo').innerHTML = opts;
+    $('ma-convFrom').value = c.from; $('ma-convTo').value = c.to;
+    $('ma-convCats').innerHTML = CONV_ORDER.map(function(k){
+      return '<button type="button" class="cv-cat'+(k === convCat ? ' on' : '')+'" data-cat="'+k+'">'+k+'</button>';
+    }).join('');
+    convRun();
+  }
+  function convRun(){
+    var raw = String($('ma-convFromVal').value).replace(/[,\s]/g,'').trim();
+    var v = parseFloat(raw);
+    if(raw === '' || isNaN(v)){ $('ma-convToVal').value = ''; $('ma-convOut').textContent = ''; return; }
+    var f = $('ma-convFrom').value, t = $('ma-convTo').value;
+    var res = fromBase(convCat, t, toBase(convCat, f, v));
+    $('ma-convToVal').value = convFmt(res);
+    $('ma-convOut').innerHTML = '<b>' + esc(convFmt(v)) + '</b> ' + esc(f) + ' = <b>' +
+      esc(convFmt(res)) + '</b> ' + esc(t);
+  }
+  $('ma-convCats').addEventListener('click', function(e){
+    var b = e.target.closest('.cv-cat'); if(!b) return;
+    convCat = b.getAttribute('data-cat'); convFill();
+  });
+  ['ma-convFromVal','ma-convFrom','ma-convTo'].forEach(function(id){
+    $(id).addEventListener('input', convRun);
+    $(id).addEventListener('change', convRun);
+  });
+  convFill();
+
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Fill in your age, height and weight first, then save the result as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Daily Macronutrient Targets', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(12); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text(n0(o.E) + ' Calories/day  (' + n0(o.kJ) + ' kJ)  \u00b7  ' + o.dietName, margin, y); y += 16;
+
+    doc.autoTable({ startY:y, head:[['Macronutrient','Grams/day','Range']], body:[
+        ['Protein', n0(o.protein), n0(o.pMin) + ' - ' + n0(o.pMax)],
+        ['Carbs (incl. sugar)', n0(o.carbs), n0(o.cMin) + ' - ' + n0(o.cMax)],
+        ['Fat (incl. saturated)', n0(o.fat), n0(o.fMin) + ' - ' + n0(o.fMax)],
+        ['Sugar', 'under ' + n0(o.sugar), 'upper limit'],
+        ['Saturated fat', 'under ' + n0(o.satFat), 'upper limit'],
+        ['Goal', o.goalLabel, '']
+      ], margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not medical or nutritional advice. Speak to a healthcare professional before acting on it. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('macro-targets.pdf');
+  }
+  $('ma-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1273,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

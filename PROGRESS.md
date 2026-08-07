@@ -7110,6 +7110,55 @@ Guide updated with the exact markup and CSS so the next page with an optional se
 without going to look.
 
 
+## Macro Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 42KB template stub at `/macro-calculator/` with a full 3-card build (103KB).
+Reference: calculator.net/macro-calculator.html.
+
+**Parity (§3a-PRIME).** Input fields 15/15 (age, sex, height, weight, activity, **Your Goal**,
+the More Options formula and body-fat pair, three unit tabs with the five-category converter),
+result fields 6/6 across **five diet tabs** including Create Your Own.
+
+**Formula verification.** The diet tabs are client-side, so rather than reverse-engineering
+from two screenshots I pulled the reference's own server-emitted variables
+(`balancedProtein`, `lowfatCarbs`, and so on) off a calculated page. That gave twelve exact
+figures to solve against, and the model fell out cleanly. 4 Node assertions, all exact.
+
+What the numbers turned out to be:
+- **Atwater specific factors, not 4/4/9.** Protein 4.1, carbs 3.75, fat 8.8 Cal/g. Balanced
+  protein is exactly `E * 0.25 / 4.1`. Using 4/4/9 would have been wrong on every row.
+- **Four fixed percentage splits**, each summing to 100%: Balanced 25/50/25, Low Fat
+  27.5/52.5/20, Low Carb 30/40/30, High Protein 35/42.5/22.5.
+- **Energy is rounded to whole Calories before the macros are derived.** Their low-carb
+  protein is `2549 * 0.30 / 4.1`, not the unrounded 2548.63 equivalent — the difference showed
+  up as 186 against their 187 and nowhere else.
+- **kJ converts the rounded Calorie figure**, matching their TDEE page.
+- Ranges: protein from **1 g per kg of body weight** (not a percentage) to 35% of energy; fat
+  20-35%; carbs from 40% up to *whatever is left* once protein and fat sit at their minimums.
+  Sugar and saturated fat are each 10% of energy.
+- Goal adjustments are the same +/-250/500/1000 as TDEE, and the age range is 18-80.
+
+**Content.** 1,736-word article, 7 H2s, 8 FAQs. Leads with what macros do and do not tell you
+(identical numbers can describe very different diets), and explains the Atwater factors, since
+that is why our gram figures differ slightly from tools using round numbers.
+
+**Verification.** 122 Playwright assertions: all four splits exact against the reference, every
+range, sugar and saturated fat, kJ, Katch, a goal adjustment, the Create Your Own sliders
+including the "does not total 100%" note, age bounds, the converter, More Options, sitewide
+colours by computed value, Clear with 0px drift.
+
+### The same originality trap, caught again
+
+First build shared 3.7% of its article with TDEE and the reuse was in exactly the two places it
+was last time: the **limitations bullets** and the **YMYL disclaimer**. I had adapted rather
+than rewritten them. Both rewritten from scratch; non-boilerplate overlap with every sibling is
+now a single shared H2 heading, and the reference comparison sits at 0.53%.
+
+This is now a standing guide rule rather than a note in one build log: for any page in a family,
+run the article-only check against our own siblings and expect the limitations list and the
+disclaimer to be the offenders.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
