@@ -141,6 +141,12 @@ Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so
 
 **The wider rule this broke:** an omission is only "intentional" once the owner has agreed to it. Flagging it in the completion report is not agreement — §3a-PRIME step 2 says a deliberate omission is *flagged with a reason*, and that means raised as a question before shipping, not recorded afterwards.
 
+### Sweep the reference, do not spot-check it (added Aug 7, 2026)
+
+Four hand-picked test cases passed on the Macro Calculator and the page still had a real bug. It only surfaced when the owner asked whether the maths was right and a **40-case randomised sweep** was run against the reference — varying sex, unit system, activity, goal, formula and body across the whole input space, comparing all twelve emitted macro figures per case.
+
+**Hand-picked cases test the path you already understand.** They cluster around defaults, so any rule that only fires at the edges of the input space survives them. For every calculator, after the targeted assertions pass, run a randomised sweep across the full input range and diff every output field. Where the reference exposes internals (emitted JS variables, slider `min`/`max` attributes), read the rule off them directly instead of inferring it from displayed values — the Macro protein floor was settled in one probe by reading the protein slider's `min`, after several wrong inferences from the rendered numbers.
+
 ### Run the article-only originality check against sibling pages, every time (added Aug 7, 2026)
 
 Calculators in the same family share formulas, audience and limitations, so the temptation is to adapt the previous page's article rather than write a new one. That is self-plagiarism and Google's helpful-content guidance treats it as thin. **TDEE came in at 8.04% against BMR and Macro at 3.7% against TDEE**, both times from the same two places: the **limitations bullet list** and the **YMYL disclaimer**. Write both from scratch for each page — same protections, different sentences — and never reuse a worked-example lead-in like "Take the figures this page loads with". The whole-page check hides this behind shared chrome; only the article-only check against our own pages surfaces it. Boilerplate that *should* repeat: the byline, the about/privacy sentence, and H2 headings.

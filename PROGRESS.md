@@ -7159,6 +7159,46 @@ run the article-only check against our own siblings and expect the limitations l
 disclaimer to be the offenders.
 
 
+### Macro Calculator — a real bug found by sweeping, not spot-checking (Aug 7, 2026)
+
+The owner asked whether the page's calculations and SEO were right. The honest answer was that
+I did not know: four hand-picked cases had passed, which tests the path I already understood.
+
+A **40-case randomised sweep** against the reference — varying sex, unit system, activity, goal,
+formula and body, comparing all twelve emitted macro figures per case — found **2 mismatches**.
+Both sat where energy runs low relative to body weight.
+
+**The bug.** The reference puts a floor under protein, and rebuilds the whole split when a diet
+falls below it: protein to the floor, fat down to its 20% minimum, carbohydrate taking the
+remainder. We had no floor at all, so a heavy person on an extreme deficit got protein figures
+well under what the reference gives — for a 240 lb 78-year-old on an extreme deficit, 104 g
+against their 109 g, with carbs and fat wrong to match.
+
+**Finding the rule took four wrong turns.** From displayed values the floor looked like 1 g/kg,
+then 0.83 g/kg, then something energy-dependent — the observed ratio flipped between 1.00 and
+0.83 across cases and none of my triggers held. It was settled in a single probe by reading the
+**protein slider's `min` attribute**, which exposes the floor directly:
+
+> **0.83 g per kg of body weight for BMR and Sedentary, 1.0 g/kg from Light upward.** Set by
+> activity level, independent of energy, sex and formula.
+
+Ported to the page, re-validated: **46 cases, 552 individual figures, all exact.** Suite grew to
+131 assertions with both floor regimes covered, plus a check that an unclamped split on the same
+body is left alone.
+
+**SEO audit alongside.** Title 56 chars, description 143, canonical, robots, OG with a real image
+file, Twitter card, `lang`, viewport, one H1, 7 H2 with all TOC anchors resolving, 8 H3, three
+valid JSON-LD blocks with the FAQ matching the visible copy exactly, 10 internal links and no
+broken ones, in sitemap.xml, not disallowed, not orphaned (5 inbound internal links). Two gaps
+found and one fixed: the exact head term "macro calculator" appeared **zero times** in the
+article body, now twice and naturally.
+
+**Noted, not fixed (different pages):** `crypto-profit-loss-calculator` and
+`crypto-profit-calculator` share an identical title tag. Also every `sitemap.xml` `lastmod` still
+reads 2026-07-03 regardless of when a page was rebuilt, so today's work is not being signalled as
+fresh. Both worth a pass of their own.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

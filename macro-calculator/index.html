@@ -722,7 +722,7 @@
 <p>What macros are not is a measure of food quality. A day of chicken, rice and olive oil and a day of protein bars, soda and butter can hit identical numbers. The split tells you the shape of a diet, not whether it is a good one.</p>
 
 <h2 id="how">How this calculator works</h2>
-<p>Three steps. It estimates your resting metabolic rate, multiplies by your activity level and applies your weight goal to get a daily calorie total, then divides that total into grams.</p>
+<p>Three steps. The macro calculator estimates your resting metabolic rate, multiplies by your activity level and applies your weight goal to reach a daily calorie total, then divides that total into grams.</p>
 <div class="ma-formula2"><b>Step 1 — daily energy</b><br>BMR × activity multiplier + goal adjustment<br>Mifflin St Jeor by default, Katch-McArdle if you know your body fat<br><br><b>Step 2 — split the energy</b><br>protein grams = energy × share ÷ 4.1<br>carb grams = energy × share ÷ 3.75<br>fat grams = energy × share ÷ 8.8</div>
 <p>Those divisors are the Atwater specific factors rather than the familiar 4/4/9. They account for the fact that none of the three is perfectly absorbed, and they are what this calculator applies throughout — which is why a figure here can sit a percent or two away from a tool using round numbers.</p>
 <p>Running the page defaults through it — a 25-year-old man, 5&prime;10&Prime;, 165 lb, training four or five times a week, maintaining weight — gives 2,549 Calories a day. Split the balanced way, that is 155 g of protein, 340 g of carbohydrate and 72 g of fat.</p>
@@ -744,7 +744,7 @@
 <p>Anywhere inside those bands is defensible. The single figure is one point in a wide space, and treating it as a precise requirement gives a calorie estimate more authority than it has earned.</p>
 
 <h2 id="practice">Hitting macros in practice</h2>
-<p>Protein is the one to plan around, because it is the hardest to reach by accident and the one with the clearest consequence for missing it. Build meals from a protein source outward and the other two tend to fall into place.</p>
+<p>Whatever a macro calculator hands you, protein is the one to plan around, because it is the hardest to reach by accident and the one with the clearest consequence for missing it. Build meals from a protein source outward and the other two tend to fall into place.</p>
 <p>Precision matters less than most tracking apps imply. Landing within about ten grams on protein and fat, and twenty on carbohydrate, is close enough — the calorie total underneath carries roughly 10% uncertainty, so chasing single grams is precision applied to an estimate that cannot support it.</p>
 <p>Consistency over weeks is what actually decides the outcome. Track for two or three weeks, watch your weight trend, and adjust the calorie total if reality disagrees with the arithmetic. That correction is worth far more than any refinement of the split.</p>
 
@@ -892,12 +892,26 @@
 
     var split = diet >= 0 ? [DIETS[diet][1], DIETS[diet][2], DIETS[diet][3]]
                           : [own.p/100, own.c/100, own.f/100];
+    /* The protein floor is set by activity, not by energy: 0.83 g per kg of body weight
+       for BMR and sedentary, 1.0 g/kg from "light" upward. When a split's protein share
+       falls below it the plan is rebuilt — protein to the floor, fat down to its 20%
+       minimum, and carbohydrate taking whatever is left. */
+    var pFloor = (mult <= 1.2 ? 0.83 : 1.0) * kg;
+    var fMinG = E*0.20/KF;
+    var protein = E*split[0]/KP, carbs = E*split[1]/KC, fatG = E*split[2]/KF;
+    var clamped = false;
+    if(protein < pFloor){
+      clamped = true;
+      protein = pFloor;
+      fatG = fMinG;
+      carbs = (E - protein*KP - fatG*KF)/KC;
+    }
     return {
-      E:E, kJ:Math.round(E*KJ), split:split,
-      protein:E*split[0]/KP, carbs:E*split[1]/KC, fat:E*split[2]/KF,
-      pMin:kg, pMax:E*0.35/KP,
-      cMin:E*0.40/KC, cMax:(E - kg*KP - E*0.20)/KC,
-      fMin:E*0.20/KF, fMax:E*0.35/KF,
+      E:E, kJ:Math.round(E*KJ), split:split, clamped:clamped,
+      protein:protein, carbs:carbs, fat:fatG,
+      pMin:pFloor, pMax:E*0.35/KP,
+      cMin:E*0.40/KC, cMax:(E - pFloor*KP - E*0.20)/KC,
+      fMin:fMinG, fMax:E*0.35/KF,
       sugar:E*0.10/KC, satFat:E*0.10/KF,
       goalLabel:goal[2], dietName: diet >= 0 ? DIETS[diet][0] : 'Your own split',
       isBmrOnly: mult === 1
