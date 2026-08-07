@@ -298,7 +298,7 @@
 .bf-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
 .bf-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
 .bf-tab:hover{border-color:var(--border)}
-.bf-tab.active{background:#0C9268;color:#fff;border-color:#0C9268}
+.bf-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 
 .bf-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .bf-card-pad{padding:22px}
@@ -310,17 +310,17 @@
 .bf-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
 .bf-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
 .bf-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
-.bf-radio input{width:15px;height:15px;accent-color:#0C9268;cursor:pointer}
+.bf-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
 .bf-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
 .bf-divider{border-top:1px solid var(--border-fine);margin:14px 0}
 
 .bf-btn-row{display:flex;gap:8px;padding-top:16px}
-.bf-btn-calc{flex:1.3;background:#0C9268;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
-.bf-btn-calc:hover{background:#0A7B57}
+.bf-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.bf-btn-calc:hover{background:#128A3D}
 .bf-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
 .bf-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
-.bf-result-head{padding:18px 20px;background:#0C9268;color:#fff}
+.bf-result-head{padding:18px 20px;background:#16A34A;color:#fff}
 .bf-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
 .bf-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
 .bf-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
@@ -341,7 +341,7 @@
 .bf-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
 .bf-row:first-child{border-top:none}
 .bf-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
-.bf-row.hl span:last-child{color:#0C9268}
+.bf-row.hl span:last-child{color:#128A3D}
 
 .bf-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .bf-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -622,7 +622,7 @@
 .bf-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
 .bf-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
 .bf-seo-article strong{color:var(--ink);font-weight:600}
-.bf-seo-article a{color:#0C9268;text-decoration:underline}
+.bf-seo-article a{color:#128A3D;text-decoration:underline}
 .bf-seo-article ul,.bf-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
 .bf-seo-article ul li strong,.bf-seo-article ol li strong{color:var(--ink)}
 .bf-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
@@ -630,7 +630,7 @@
 .bf-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
 .bf-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
 .bf-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
-.bf-toc a:hover{color:#0C9268}
+.bf-toc a:hover{color:#1E3A5F}
 .bf-seo-article h2[id]{scroll-margin-top:88px}
 .bf-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
 .bf-disclaimer a{color:var(--ink-faint)}
@@ -776,7 +776,8 @@
               f:[[10,'Less than Essential Fat'],[14,'Essential Fat'],[21,'Athletes'],[25,'Fitness'],[32,'Average'],[Infinity,'Obese']] };
   /* Gauge stops used to draw the scale, matching the category bands. */
   var BANDS = { m:[2,6,14,18,25], f:[10,14,21,25,32] };
-  var BAND_COL = ['#3B82F6','#22C55E','#0C9268','#EAB308','#F97316','#DC2626'];
+  /* Site palette only. Both extremes read as caution, the middle bands as healthy. */
+  var BAND_COL = ['#CF3F53','#E0A93B','#22C55E','#16A34A','#E0A93B','#CF3F53'];
 
   function num(id){ var el = $(id); if(!el) return NaN;
     var v = parseFloat(String(el.value).replace(/,/g,'').trim());
@@ -1028,7 +1029,7 @@
     var mU = unit === 'us' ? ' lbs' : ' kg';
     var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
     var margin = 40, y = 50;
-    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(12,146,104);
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
     doc.text('Body Fat Estimate', margin, y); y += 18;
     doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
     doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
@@ -1051,7 +1052,7 @@
 
     doc.autoTable({ startY:y, head:[['Measure','Result']], body:body,
       margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
-      headStyles:{ fillColor:[12,146,104] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
 
     doc.setFontSize(8); doc.setTextColor(150,150,150);
     doc.text('Estimate only — not medical advice. Speak to a healthcare professional before acting on it. calculatorboss.com',

@@ -126,6 +126,12 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
    Intentional differences (if any): ...
    ```
 
+### One colour scheme sitewide (added Aug 7, 2026)
+
+**Every calculator page uses the same accent colours, whatever category it is in.** Result card head and Calculate button `#16A34A`, hover and in-article links `#128A3D`, status bar / active tab / sidebar card `#1E3A5F`, View More `#22C55E`, radio and checkbox `accent-color:#16A34A`.
+
+The `--fin` / `--hea` / `--mat` / `--oth` tokens in `:root` are for **colour-coding category listings** (all-calculators, cards, chips). They are **not** a per-page theme. The Body Fat Calculator shipped with the health token `#0C9268` used for its result head, Calculate button and active tab, which made it the only page on the site that looked different; the owner caught it immediately. Chart and gauge fills should also come from the site palette (`#1E3A5F`, `#CF3F53`, `#16A34A`, `#22C55E`, `#4B4ED8`, `#E0A93B`, `#787D86`) rather than new hex values picked per page.
+
 ### Schedule and chart are two cards, not one (added Aug 7, 2026)
 
 Where a page shows a schedule table alongside a chart, they are **two separate cards side by side**, each with its own border and header bar — not one card with a divider down the middle. The reference implementation is `mortgage-payoff-calculator`: a `minmax(0,1fr) 400px` grid holding a schedule card and a chart card as siblings, stretched to equal height, collapsing to one full-width column at 900px. `amortization-calculator` still uses the older combined form; **do not copy the schedule/chart structure from it**, and fix it if that page is ever rebuilt.

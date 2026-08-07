@@ -6834,6 +6834,27 @@ pointer a fixed element that gets repositioned, and a regression assertion now c
 pointers after repeated recalculation rather than checking one exists.
 
 
+### Body Fat Calculator — colours brought back to the sitewide scheme (Aug 7, 2026)
+
+Shipped using the health category token `#0C9268` for the result card head, the Calculate
+button, the active unit tab, the radios, the highlighted row and the article links, plus a
+non-palette gauge ramp (`#3B82F6`, `#EAB308`, `#F97316`, `#DC2626`). The owner sent a
+screenshot of the VA page and pointed out that every page on the site uses one scheme.
+
+Corrected to the standard: `#16A34A` result head and Calculate, `#128A3D` hover and links,
+`#1E3A5F` bar, active tab and sidebar. The gauge now uses only site-palette colours, mapped
+so both extremes read as caution and the middle bands as healthy. OG image regenerated in
+the standard green, and the PDF header switched from the health green to navy.
+
+The mistake was reading `--hea` as a page theme when it is a **category-listing** token —
+it colour-codes entries on all-calculators, not the page itself. Guide updated with the
+exact standard values and that distinction stated explicitly, since this is the first
+Health & Fitness build and would otherwise have propagated across the whole section.
+
+83 assertions still pass; computed colours verified against the VA page
+(`rgb(22,163,74)` and `rgb(30,58,95)`).
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
