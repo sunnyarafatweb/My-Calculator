@@ -6602,6 +6602,49 @@ bypasses the mute — typing still does not move the page (measured as drift of 
 control, 0px at every width). Suite now 87 assertions.
 
 
+### VAT Calculator — built UK-first, corrected to USD-first (Aug 7, 2026)
+
+The owner rejected the build within hours: it defaulted to GBP, preselected the United
+Kingdom country preset, and used pound examples throughout the article. Corrected the same
+day to USD-first.
+
+**What happened.** §8 of the guide read "default to USD / US units / US conventions unless
+the tool is explicitly region-specific (e.g. a UK-mortgage or **VAT calculator**)" — VAT
+calculator was named in the guide as an example of a region-specific tool. Competitive
+research agreed: every page ranking for "VAT calculator" is a .co.uk site in GBP at 20%.
+So the page shipped UK-first.
+
+**Why that was still wrong.** The guide line was ambiguous and the research was about
+ranking pages, not about this site's audience. ~70% of traffic here is American. A US
+visitor reaches a VAT page because they sell into VAT countries, buy from them, or travel
+— none of which is served by a GBP default. And a UK-mortgage calculator is genuinely
+about one country's system; VAT is a concept that exists in 170 countries. The two are not
+the same kind of exception.
+
+**The actual mistake is a process one, not a research one.** Parity was fine — 6/6 inputs,
+6/6 solve combinations, 11/11 result fields, all verified. What went wrong is that a
+decision about the site's primary market was made *inside a build*, on the strength of one
+ambiguous line, without asking. A US-first default is the kind of thing to raise before
+building, not to quietly reverse.
+
+**What changed.** Currency list reordered with USD first and defaulted to `$`; no country
+preselected (the dropdown opens on "Custom rate…"); rate note, form hints and Clear reset
+all follow. The article was rewritten rather than find-and-replaced: every example is now
+in dollars, and two new sections lead the page — "VAT and US sales tax are not the same
+tax" and "When a US business has to deal with VAT" (digital services, shipping abroad,
+overseas suppliers, travel refunds). Two FAQs were replaced with the two a US reader
+actually asks first. Picking a country still switches the currency with it, so the
+international use case is unharmed. Title and description no longer name the UK.
+
+Zero pound signs remain in the page body. Article 2,588 words, 9 H2s, 8 FAQs, still 0.00%
+8-gram overlap with the reference page. Suite extended to 89 assertions, adding explicit
+checks that the page defaults to USD with no country preselected at all three widths.
+
+**Guide corrected.** §8's Defaults bullet no longer cites the VAT calculator as an
+exception, states plainly that it is not one, and adds a standing rule: a US-first default
+is never deviated from without asking the owner first.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
