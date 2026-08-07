@@ -6760,6 +6760,80 @@ current for the component being copied. `amortization-calculator` was the right 
 grid areas and is the wrong one for the schedule/chart card split.
 
 
+## Body Fat Calculator — rebuilt from stub (Aug 7, 2026) — first Health & Fitness build
+
+Replaced a 46KB template stub at `/body-fat-calculator/` with a full 3-card build (100KB).
+Reference: calculator.net/body-fat-calculator.html.
+
+**Parity (§3a-PRIME).** Input fields 17/17, result fields 7/7, both unit tabs, the
+female-only hip row, and the reference's conditional row behaviour.
+
+**The reference's implemented formula does not match its own published formula.** Its
+article prints the U.S.-customary Navy equations (86.010 x log10(waist-neck) - 70.041 x
+log10(height) + 36.76 for men). Its calculator does not use them. Feeding the US tab
+inputs where the two formulas diverge shows it converting to centimetres and applying the
+SI equation instead:
+
+| Case (male, 152 lb, 5'10.5", neck 19.5") | USC formula | SI via conversion | calculator.net |
+|---|---|---|---|
+| waist 32" | 1.7% | **2.4%** | 2.4% |
+| waist 48" | 32.4% | **32.5%** | 32.5% |
+| female default | 21.8% | **21.5%** | 21.5% |
+
+The default inputs hide this — both formulas give 15.3% there, which is presumably why it
+has survived. We match the implementation (SI throughout), so our numbers agree with
+theirs everywhere, and our article publishes the SI equations we actually use rather than
+a different pair. **Flagged to the owner for a decision** rather than changed unilaterally:
+switching the US tab to the USC equation would match the published Navy method and their
+article text, at the cost of the two unit tabs disagreeing by up to ~0.7 points for the
+same body.
+
+**Formula verification.** 17 Node assertions against the reference's own output before any
+code was embedded — all exact on the first run. Covered both sexes, both unit systems,
+every category band, the 0% clamp, Jackson & Pollock interpolation, and the age rules.
+
+Conventions reverse-engineered and matched:
+- Jackson & Pollock ideal body fat interpolates linearly between five-year steps (age 33 ->
+  13.3%) and is **omitted entirely outside ages 20-55** rather than extrapolated.
+- The row label flips to "Body fat to **gain** to reach ideal" when below the ideal figure.
+- The BMI-method equation switches to the youth version under 18 and the adult version from
+  18 (verified at 17 -> 18.4% and 18 -> 13.7%).
+- Body fat percentage clamps at 0.0% and the category becomes "Less than Essential Fat".
+
+**Keyword research (§4).** Head term "body fat calculator"; the distinguishing cluster is
+"navy body fat calculator" / "body fat calculator with tape measure", which is what the
+tool actually is and what competitors title around. Title: "Body Fat Calculator — U.S. Navy
+Method With Tape Measure" (56 chars); description 143.
+
+**Health-category conventions applied.** `HealthApplication` schema, Health & Fitness
+breadcrumb to `#hea`, `--hea` accent (#0C9268) instead of the finance navy/green, named
+sources for every formula, and a YMYL disclaimer that says plainly it is not medical advice
+and names low body fat as something to discuss with a doctor rather than chase.
+
+**Content.** 2,387-word article, 9 H2s, 8 FAQs, byline, TOC, breadcrumb, "what this does not
+cover" (fat distribution, pregnancy, children, unusual builds, medical conditions). Every
+worked figure computed from the page's own defaults. Originality: 2.20% 8-gram overlap with
+the reference, all of it unavoidable — 42 grams are formula constants and ACE range numbers,
+17 are the form's field-label sequence; **zero prose overlap**. Internal overlap is the
+standing byline only.
+
+**Verification.** 83 Playwright assertions at 1280/430/390px: all 9 reference cases exact
+through the UI, both unit tabs, hip row visibility by gender, gain/lose wording, ideal-row
+omission at 18 and 70, the 0% clamp, category table highlighting, error states, Clear
+emptying the boxes with 0px page drift, zero console errors, zero overflow, single-track
+mobile grid, jsPDF fetching nothing until clicked.
+
+### A rendering bug the assertions missed
+
+The gauge pointer was inserted with `insertAdjacentHTML` on every render, so it stacked a
+new marker on each recalculation — after three keystrokes the scale read
+"17.9 18.9 20.7%" on top of itself. Every DOM assertion passed throughout, because
+`querySelector('.bf-gauge-ptr')` finds the first of many. It was caught by looking at the
+screenshot, which is exactly the failure mode §3a-PRIME warns about. Fixed by giving the
+pointer a fixed element that gets repositioned, and a regression assertion now counts the
+pointers after repeated recalculation rather than checking one exists.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

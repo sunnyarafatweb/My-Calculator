@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Body Fat Calculator | CalculatorBoss</title><meta name="description" content="Estimate body fat percentage from neck, waist and (for women) hip measurements using the U.S. Navy circumference method — no scale required."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/body-fat-calculator/"/><meta property="og:title" content="Body Fat Calculator | CalculatorBoss"/><meta property="og:description" content="Estimate body fat percentage from tape-measure circumferences."/><meta property="og:url" content="https://calculatorboss.com/body-fat-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Body Fat Calculator — U.S. Navy Method With Tape Measure</title><meta name="description" content="Free body fat calculator using the U.S. Navy tape method. Get your body fat percentage, category, fat mass and lean mass in US or metric units."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="body fat calculator,body fat percentage calculator,navy body fat calculator,body fat calculator with tape measure,lean body mass calculator,body fat percentage chart,how to measure body fat at home"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/body-fat-calculator/"/><meta property="og:title" content="Body Fat Calculator — U.S. Navy Method With Tape Measure"/><meta property="og:description" content="Free body fat calculator using the U.S. Navy tape method. Get your body fat percentage, category, fat mass and lean mass in US or metric units."/><meta property="og:url" content="https://calculatorboss.com/body-fat-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/body-fat-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Body Fat Calculator — U.S. Navy Method With Tape Measure"/><meta name="twitter:description" content="Free body fat calculator using the U.S. Navy tape method. Get your body fat percentage, category, fat mass and lean mass in US or metric units."/><meta name="twitter:image" content="https://calculatorboss.com/og/body-fat-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,105 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.bf-wrap{width:100%}
+.bf-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bf-bar-text{display:flex;align-items:center;gap:10px}
+.bf-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.bf-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.bf-bar-pdf-btn:hover{background:#f0f0f0}
+.bf-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.bf-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.bf-area-bar{grid-area:bar}
+.bf-area-tabs{grid-area:tabs}
+.bf-area-form{grid-area:form}
+.bf-area-result{grid-area:result}
+.bf-area-sidebar{grid-area:sidebar}
+.bf-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .bf-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.bf-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.bf-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.bf-tab:hover{border-color:var(--border)}
+.bf-tab.active{background:#0C9268;color:#fff;border-color:#0C9268}
+
+.bf-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.bf-card-pad{padding:22px}
+.bf-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.bf-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.bf-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.bf-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.bf-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.bf-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.bf-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.bf-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.bf-radio input{width:15px;height:15px;accent-color:#0C9268;cursor:pointer}
+.bf-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.bf-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+
+.bf-btn-row{display:flex;gap:8px;padding-top:16px}
+.bf-btn-calc{flex:1.3;background:#0C9268;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.bf-btn-calc:hover{background:#0A7B57}
+.bf-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.bf-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.bf-result-head{padding:18px 20px;background:#0C9268;color:#fff}
+.bf-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.bf-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
+.bf-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.bf-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.bf-err.show{display:block}
+
+.bf-gauge{padding:18px 20px 6px}
+.bf-gauge-bar{position:relative;height:22px;border-radius:5px;overflow:hidden;display:flex}
+.bf-gauge-bar i{display:block;height:100%}
+.bf-gauge-ticks{position:relative;height:15px;margin-top:3px}
+.bf-gauge-ticks span{position:absolute;font-size:10px;color:var(--ink-faint);transform:translateX(-50%);white-space:nowrap}
+.bf-gauge-names{position:relative;height:14px;margin-top:1px}
+.bf-gauge-names span{position:absolute;font-size:9.5px;color:var(--muted-2);transform:translateX(-50%);white-space:nowrap}
+.bf-gauge-ptr{position:absolute;top:-9px;font-size:11px;color:var(--ink);transform:translateX(-50%);white-space:nowrap;font-weight:700}
+.bf-gauge-wrap{position:relative;padding-top:14px}
+
+.bf-result-body{padding:10px 20px 20px}
+.bf-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.bf-row:first-child{border-top:none}
+.bf-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.bf-row.hl span:last-child{color:#0C9268}
+
+.bf-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.bf-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.bf-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.bf-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.bf-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.bf-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.bf-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.bf-bottom-grid{grid-template-columns:1fr}}
+.bf-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.bf-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.bf-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.bf-card-body{padding:18px}
+.bf-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.bf-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.bf-ref-table th:first-child{text-align:left}
+.bf-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.bf-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.bf-ref-table tr:last-child td{border-bottom:none}
+.bf-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.bf-jp-wrap{max-height:300px;overflow-y:auto}
+.bf-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+@media(max-width:520px){
+  .bf-field{flex-wrap:wrap}
+  .bf-field-label{width:100%}
+  .bf-tab{flex:1;text-align:center;padding:10px 12px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Body Fat","item":"https://calculatorboss.com/body-fat-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +446,286 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is the tape-measure method compared to other ways of testing?","acceptedAnswer":{"@type":"Answer","text":"It's generally within a few percentage points of more expensive methods like DEXA scans or hydrostatic weighing for most people, which makes it a solid free option — though it can be less reliable for people at the extremes of very low or very high body fat."}},{"@type":"Question","name":"Where exactly should I measure?","acceptedAnswer":{"@type":"Answer","text":"Neck: just below the larynx (Adam's apple), tape sloping slightly downward toward the front. Waist: at the navel, standing relaxed, not after sucking in or flexing. Hip (for women): around the widest part of the hips and buttocks."}},{"@type":"Question","name":"Why does this method need different inputs for men and women?","acceptedAnswer":{"@type":"Answer","text":"Men and women tend to store fat differently — more around the abdomen for men, more around the hips for women — so the Navy method uses a formula calibrated separately for each, which is why women also enter a hip measurement."}},{"@type":"Question","name":"What body fat percentage is considered healthy?","acceptedAnswer":{"@type":"Answer","text":"Common reference ranges put 'fit' around 14–17% for men and 21–24% for women, with 'average' running somewhat higher for both — though healthy ranges shift with age and individual factors, so these are general guides rather than strict targets."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Body Fat Calculator","url":"https://calculatorboss.com/body-fat-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Body Fat Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Body Fat Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Grab a soft tape measure, enter a few circumferences, and get a body fat estimate that&#x27;s usually within a few points of a clinical test.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div class="flex items-center justify-between"><h2 class="font-display text-lg text-ink">Measurements</h2><div class="flex gap-1 bg-surface-sunken rounded-full p-1"><button class="text-xs px-3 py-1 rounded-full transition-colors bg-accent text-white">cm</button><button class="text-xs px-3 py-1 rounded-full transition-colors text-ink-soft">in</button></div></div><div class="flex gap-2"><button class="flex-1 text-sm py-2 rounded-lg border capitalize transition-colors bg-accent text-white border-accent">male</button><button class="flex-1 text-sm py-2 rounded-lg border capitalize transition-colors border-border text-ink-soft hover:border-accent">female</button></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Height</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="175"/><span style="color:var(--ink-faint)">cm</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:55.00000000000001%;background:var(--accent)"></div><input type="range" min="120" max="220" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Height" value="175"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(55.00000000000001% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Neck</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="38"/><span style="color:var(--ink-faint)">cm</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:37.142857142857146%;background:var(--accent)"></div><input type="range" min="25" max="60" step="0.5" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Neck" value="38"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(37.142857142857146% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Waist (at navel)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="85"/><span style="color:var(--ink-faint)">cm</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:31.818181818181817%;background:var(--accent)"></div><input type="range" min="50" max="160" step="0.5" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Waist (at navel)" value="85"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(31.818181818181817% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Estimated body fat</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-2">16.9<!-- -->%</div><div class="text-base font-medium text-ink mb-6">Fit</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">This uses the U.S. Navy circumference method. Measure the waist at the navel and the neck just below the larynx for the most accurate reading — a soft tape measure pulled snug, not tight, gives the best result.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">Why circumferences can estimate body fat</h2><p class="text-ink-soft leading-relaxed">The U.S. Navy developed this method in the 1980s as a practical field alternative to skinfold calipers or underwater weighing. It works because waist and neck circumference correlate fairly reliably with body fat across a wide population, even though it can&#x27;t see fat distribution the way a scan can.</p></section><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">For a man at <span class="tabular">175 cm</span> tall with a<!-- --> <span class="tabular">38 cm</span> neck and<!-- --> <span class="tabular">85 cm</span> waist, the formula gives roughly <span class="tabular">16.9%</span>body fat — solidly in the &quot;athletic to fit&quot; range. Increase the waist measurement by a few centimetres in the calculator above and watch how sensitive the estimate is to that one number.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How accurate is the tape-measure method compared to other ways of testing?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It&#x27;s generally within a few percentage points of more expensive methods like DEXA scans or hydrostatic weighing for most people, which makes it a solid free option — though it can be less reliable for people at the extremes of very low or very high body fat.</p></div><div><h3 class="font-medium text-ink mb-1.5">Where exactly should I measure?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Neck: just below the larynx (Adam&#x27;s apple), tape sloping slightly downward toward the front. Waist: at the navel, standing relaxed, not after sucking in or flexing. Hip (for women): around the widest part of the hips and buttocks.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why does this method need different inputs for men and women?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Men and women tend to store fat differently — more around the abdomen for men, more around the hips for women — so the Navy method uses a formula calibrated separately for each, which is why women also enter a hip measurement.</p></div><div><h3 class="font-medium text-ink mb-1.5">What body fat percentage is considered healthy?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Common reference ranges put &#x27;fit&#x27; around 14–17% for men and 21–24% for women, with &#x27;average&#x27; running somewhat higher for both — though healthy ranges shift with age and individual factors, so these are general guides rather than strict targets.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides an estimate for general informational purposes only and is not a substitute for a clinical body composition test.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Body Fat Calculator","item":"https://calculatorboss.com/body-fat-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is the U.S. Navy body fat calculator?","acceptedAnswer":{"@type":"Answer","text":"Studies of the circumference method generally put it within about 3 to 4 percentage points of a DEXA scan for most people, which is close enough to track a trend but not to treat as a precise figure. It is least reliable at the extremes — very lean, very heavy, or heavily muscled builds — because it infers fat from girth rather than measuring it. Its real strength is repeatability: measured the same way each time, the direction of change is meaningful even when the absolute number is not."}},{"@type":"Question","name":"What is a healthy body fat percentage?","acceptedAnswer":{"@type":"Answer","text":"By the American Council on Exercise ranges, men sit in the fitness band from 14% to 17% and the average band from 18% to 24%, with 25% and above classed as obese. For women the same bands are 21% to 24% and 25% to 31%, with 32% and above classed as obese. Women carry more essential fat than men for reproductive and hormonal reasons, which is why every band sits roughly 8 to 10 points higher."}},{"@type":"Question","name":"How do I measure my neck and waist correctly?","acceptedAnswer":{"@type":"Answer","text":"Use a flexible tape, keep it snug without compressing the skin, and measure to the nearest quarter inch or half centimetre. Neck goes just below the larynx with the tape sloping slightly downward at the front. Waist goes at the navel for men and at the narrowest point for women. Women also measure the hips at their widest point. Measure at the same time of day, ideally in the morning before eating, and do not pull your stomach in."}},{"@type":"Question","name":"Why does the calculator ask for my hip measurement only if I am female?","acceptedAnswer":{"@type":"Answer","text":"The Navy equation for women includes hip circumference and the one for men does not. Female fat distribution is weighted more toward the hips and thighs, so waist alone predicts it poorly. The hip row appears when you select female and is hidden otherwise, because the male equation has no term to put it in."}},{"@type":"Question","name":"Why do the Navy method and the BMI method give different numbers?","acceptedAnswer":{"@type":"Answer","text":"They measure different things. The Navy method estimates fat from where your body actually carries girth, so it responds to your shape. The BMI method infers it from height, weight and age only, so two people with the same BMI get the same answer regardless of build. The BMI figure is shown as a cross-check: a large gap between the two usually means you are more muscular or more lightly built than the BMI formula assumes."}},{"@type":"Question","name":"What is lean body mass?","acceptedAnswer":{"@type":"Answer","text":"Everything that is not fat — muscle, bone, organs, connective tissue and water. It is your total weight minus your fat mass. It is worth tracking alongside body fat, because losing weight while lean mass falls is a different outcome from losing weight while it holds steady, even when the scale moves identically."}},{"@type":"Question","name":"Can body fat be too low?","acceptedAnswer":{"@type":"Answer","text":"Yes. Essential fat is roughly 2 to 5% for men and 10 to 13% for women, and it is needed for hormone production, temperature regulation and organ protection. Sustained levels at or below that range are associated with hormonal disruption, loss of bone density, poor immune function and, in women, disrupted or absent menstruation. Very low body fat is not a fitness goal and is worth discussing with a doctor rather than chasing."}},{"@type":"Question","name":"What does the ideal body fat figure mean?","acceptedAnswer":{"@type":"Answer","text":"It comes from the Jackson & Pollock reference values, which describe the body fat percentage typically associated with good health at a given age, rising gradually as you get older. The calculator interpolates between the published ages, and shows nothing outside 20 to 55 because the underlying data does not cover those ages. Treat it as a reference point rather than a target handed down for you personally."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Body Fat Calculator","url":"https://calculatorboss.com/body-fat-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates body fat percentage from tape measurements using the U.S. Navy circumference method, with fat mass, lean mass and category in US or metric units.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Body Fat Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Body Fat Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Estimate your body fat percentage from a few tape measurements using the U.S. Navy method — with your category, fat mass and lean body mass, in US or metric units.</p><div class="bf-wrap">
+<div class="bf-grid">
+
+  <div class="bf-bar bf-area-bar">
+    <span class="bf-bar-text"><span class="bf-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="bf-bar-pdf-btn" id="bf-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="bf-tabs bf-area-tabs" role="tablist" aria-label="Measurement units">
+    <button type="button" class="bf-tab active" id="bf-tabUs" role="tab" aria-selected="true">US Units</button>
+    <button type="button" class="bf-tab" id="bf-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="bf-card bf-area-form">
+    <div class="bf-card-pad">
+
+      <div class="bf-field">
+        <span class="bf-field-label">Gender</span>
+        <div class="bf-field-control bf-sex" role="radiogroup" aria-label="Gender">
+          <label class="bf-radio"><input type="radio" name="bf-sex" value="m" checked><span>Male</span></label>
+          <label class="bf-radio"><input type="radio" name="bf-sex" value="f"><span>Female</span></label>
+        </div>
+      </div>
+      <div class="bf-field">
+        <label class="bf-field-label" for="bf-age">Age</label>
+        <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-age" value="28"><span>years</span></div></div>
+      </div>
+
+      <div class="bf-divider"></div>
+
+      <!-- US inputs -->
+      <div id="bf-usBlock">
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-weightLb">Weight</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-weightLb" value="176"><span>pounds</span></div></div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-heightFt">Height</label>
+          <div class="bf-field-control">
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-heightFt" value="5"><span>feet</span></div>
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-heightIn" value="11"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-neckFt">Neck</label>
+          <div class="bf-field-control">
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-neckFt" value="1"><span>feet</span></div>
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-neckIn" value="3"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-waistFt">Waist</label>
+          <div class="bf-field-control">
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-waistFt" value="2"><span>feet</span></div>
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-waistIn" value="10"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="bf-field bf-hipRow">
+          <label class="bf-field-label" for="bf-hipFt">Hip</label>
+          <div class="bf-field-control">
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-hipFt" value="3"><span>feet</span></div>
+            <div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-hipIn" value="1"><span>inches</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metric inputs -->
+      <div id="bf-metricBlock" style="display:none">
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-weightKg">Weight</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-weightKg" value="80"><span>kg</span></div></div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-heightCm">Height</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-heightCm" value="180"><span>cm</span></div></div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-neckCm">Neck</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-neckCm" value="38"><span>cm</span></div></div>
+        </div>
+        <div class="bf-field">
+          <label class="bf-field-label" for="bf-waistCm">Waist</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-waistCm" value="86"><span>cm</span></div></div>
+        </div>
+        <div class="bf-field bf-hipRow">
+          <label class="bf-field-label" for="bf-hipCm">Hip</label>
+          <div class="bf-field-control"><div class="bf-input-group"><input type="text" inputmode="decimal" id="bf-hipCm" value="95"><span>cm</span></div></div>
+        </div>
+      </div>
+
+      <p class="bf-subnote">Measure to the nearest quarter inch (0.5 cm). Waist at the navel for men and at the narrowest point for women; neck just below the larynx; hip at the widest point.</p>
+
+      <div class="bf-btn-row">
+        <button type="button" class="bf-btn-calc" id="bf-calcBtn">Calculate</button>
+        <button type="button" class="bf-btn-clear" id="bf-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="bf-result-card bf-area-result">
+    <div class="bf-result-head">
+      <div class="label">Body fat</div>
+      <div class="bignum" id="bf-bigNum">—</div>
+      <div class="sub" id="bf-bigSub">—</div>
+    </div>
+    <div class="bf-err" id="bf-err"></div>
+    <div class="bf-gauge" id="bf-gaugeBox">
+      <div class="bf-gauge-wrap">
+        <span class="bf-gauge-ptr" id="bf-gaugePtr"></span>
+        <div class="bf-gauge-bar" id="bf-gaugeBar"></div>
+        <div class="bf-gauge-ticks" id="bf-gaugeTicks"></div>
+        <div class="bf-gauge-names" id="bf-gaugeNames"></div>
+      </div>
+    </div>
+    <div class="bf-result-body" id="bf-rows"></div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="bf-sidecol bf-area-sidebar">
+    <div class="bf-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/bmi-calculator/">BMI <span class="arrow">→</span></a>
+      <a href="/lean-body-mass-calculator/">Lean Body Mass <span class="arrow">→</span></a>
+      <a href="/ideal-weight-calculator/">Ideal Weight <span class="arrow">→</span></a>
+      <a href="/army-body-fat-calculator/">Army Body Fat <span class="arrow">→</span></a>
+      <a href="/calorie-calculator/">Calorie <span class="arrow">→</span></a>
+      <a href="/bmr-calculator/">BMR <span class="arrow">→</span></a>
+      <a href="/macro-calculator/">Macros <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="bf-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="bf-area-bottomgrid">
+    <div class="bf-bottom-grid">
+      <div class="bf-info-card">
+        <div class="bf-card-head"><span class="t">Body Fat Categories (ACE)</span></div>
+        <div class="bf-card-body">
+          <table class="bf-ref-table">
+            <thead><tr><th>Description</th><th>Women</th><th>Men</th></tr></thead>
+            <tbody id="bf-aceBody">
+              <tr data-cat="Essential Fat"><td>Essential fat</td><td>10–13%</td><td>2–5%</td></tr>
+              <tr data-cat="Athletes"><td>Athletes</td><td>14–20%</td><td>6–13%</td></tr>
+              <tr data-cat="Fitness"><td>Fitness</td><td>21–24%</td><td>14–17%</td></tr>
+              <tr data-cat="Average"><td>Average</td><td>25–31%</td><td>18–24%</td></tr>
+              <tr data-cat="Obese"><td>Obese</td><td>32%+</td><td>25%+</td></tr>
+            </tbody>
+          </table>
+          <p class="bf-note">Ranges published by the American Council on Exercise. The row matching your result is highlighted. Falling below the essential range is not a fitness goal — that level of fat is needed for normal hormonal and organ function.</p>
+        </div>
+      </div>
+      <div class="bf-info-card">
+        <div class="bf-card-head"><span class="t">Ideal Body Fat by Age (Jackson &amp; Pollock)</span></div>
+        <div class="bf-card-body">
+          <div class="bf-jp-wrap">
+            <table class="bf-ref-table">
+              <thead><tr><th>Age</th><th>Women</th><th>Men</th></tr></thead>
+              <tbody id="bf-jpBody"></tbody>
+            </table>
+          </div>
+          <p class="bf-note">These are the reference values the calculator interpolates between. They apply from age 20 to 55; outside that range no ideal figure is shown, because the underlying data does not cover it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.bf-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.bf-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.bf-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.bf-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.bf-seo-article strong{color:var(--ink);font-weight:600}
+.bf-seo-article a{color:#0C9268;text-decoration:underline}
+.bf-seo-article ul,.bf-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.bf-seo-article ul li strong,.bf-seo-article ol li strong{color:var(--ink)}
+.bf-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.bf-formula b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.bf-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.bf-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.bf-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.bf-toc a:hover{color:#0C9268}
+.bf-seo-article h2[id]{scroll-margin-top:88px}
+.bf-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.bf-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="bf-seo-article">
+<p class="bf-byline">Written by the CalculatorBoss Health Team · Formulas verified against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<nav class="bf-toc" aria-label="On this page">
+  <a href="#what">What body fat percentage actually tells you</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#measure">Taking the measurements properly</a>
+  <a href="#ranges">What the ranges mean</a>
+  <a href="#bmi">Why the two methods disagree</a>
+  <a href="#accuracy">How accurate is the tape method?</a>
+  <a href="#change">Changing your body fat</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="what">What body fat percentage actually tells you</h2>
+<p>Body fat percentage is the share of your total weight made up of fat tissue. Everything else — muscle, bone, organs, connective tissue, water — is lean body mass. Two people can weigh exactly the same and sit ten points apart on body fat, which is precisely why the number is more useful than the scale on its own.</p>
+<p>Not all of that fat is spare. <strong>Essential fat</strong> is the amount needed for the body to work: it cushions organs, insulates, and is bound up in cell membranes and hormone production. It runs around 2–5% in men and 10–13% in women, and the gap is not a matter of fitness — women carry more essential fat for reproductive and hormonal reasons. <strong>Storage fat</strong> is what accumulates on top of that, some under the skin and some, more consequentially, packed around the abdominal organs as visceral fat.</p>
+<p>That distinction matters more than the headline number. Visceral fat is metabolically active tissue that releases signalling proteins affecting insulin sensitivity and inflammation, and it tracks with waist size specifically. Subcutaneous fat on the hips and thighs carries far less of that risk. A tape measure around the waist is picking up the more informative kind almost by accident.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>The primary estimate uses the <strong>U.S. Navy circumference method</strong>, developed at the Naval Health Research Center in the 1980s. It predicts body fat from the ratio between your girth measurements and your height, on the basis that fat accumulates in predictable places. The equations are:</p>
+<div class="bf-formula"><b>Men</b><br>BFP = 495 ÷ (1.0324 − 0.19077 × log<sub>10</sub>(waist − neck) + 0.15456 × log<sub>10</sub>(height)) − 450<br><br><b>Women</b><br>BFP = 495 ÷ (1.29579 − 0.35004 × log<sub>10</sub>(waist + hip − neck) + 0.22100 × log<sub>10</sub>(height)) − 450<br><br>All measurements in centimetres. US entries are converted first.</div>
+<p>Notice what the equations use and what they ignore. Weight appears nowhere in them — your body fat <em>percentage</em> comes purely from girth and height. Weight is used afterwards, to turn that percentage into pounds or kilograms:</p>
+<div class="bf-formula">Fat mass = BFP × weight&nbsp;&nbsp;·&nbsp;&nbsp;Lean mass = weight − fat mass</div>
+<p>Worked through with the values this page opens on — a 28-year-old man, 176 lb, 5&prime;11&Prime;, 15&Prime; neck, 34&Prime; waist — the result is 17.0% body fat, which is 29.9 lb of fat mass against 146.1 lb of lean mass, landing in the fitness band.</p>
+<p>The second estimate on the result card uses the <strong>BMI method</strong>, which infers body fat from height, weight and age instead of girth. For adults it is 1.20 × BMI + 0.23 × age, minus 16.2 for men or 5.4 for women; under 18 a separate pair of equations applies. It is shown as a cross-check, not as a competing answer — see the section below on why the two disagree.</p>
+<p>The <strong>ideal body fat</strong> row draws on the Jackson &amp; Pollock reference values, interpolating linearly between the published five-year steps. It covers ages 20 to 55; outside that range the row is hidden rather than extrapolated, because the source data does not support it.</p>
+
+<h2 id="measure">Taking the measurements properly</h2>
+<p>The arithmetic is fixed; the measuring is where the error comes from. A one-inch mistake on the neck moves the result by around two percentage points, which is larger than most of the change you would see from a month of genuine effort. Getting it consistent matters more than getting it perfect.</p>
+<ul>
+  <li><strong>Neck</strong> — just below the larynx, with the tape sloping slightly downward toward the front. Keep your shoulders down and do not flare the neck outward.</li>
+  <li><strong>Waist</strong> — at the navel for men, at the narrowest point for women. Measure at the end of a normal breath out. Do not pull your stomach in; it is the single most common way people flatter their own result.</li>
+  <li><strong>Hips (women)</strong> — around the widest part of the buttocks, tape level all the way round.</li>
+  <li><strong>Height</strong> — without shoes, heels together, standing tall.</li>
+</ul>
+<p>Use a flexible tape, snug enough not to sag but not tight enough to compress the skin. Measure to the nearest quarter inch or half centimetre. Take each measurement in the morning before eating, and repeat each one twice — if the two readings disagree by more than a quarter inch, take a third.</p>
+
+<h2 id="ranges">What the ranges mean</h2>
+<p>The categories on this page come from the American Council on Exercise. For men: 2–5% essential, 6–13% athletes, 14–17% fitness, 18–24% average, 25% and above obese. For women each band sits roughly eight to ten points higher: 10–13% essential, 14–20% athletes, 21–24% fitness, 25–31% average, 32% and above obese.</p>
+<p>Two cautions about reading those bands. The first is that "athletes" describes a body composition, not an achievement — sitting in that range without the training behind it is not the same thing. The second, and more important, is that lower is not uniformly better. Dropping to or below the essential range is associated with hormonal disruption, reduced bone density, impaired immune function and, in women, disrupted or absent menstruation. The bands describe a distribution, not a ladder to climb.</p>
+
+<h2 id="bmi">Why the two methods disagree</h2>
+<p>The result card shows two numbers, and they frequently differ by several points. That gap is informative rather than a fault.</p>
+<p>The Navy method responds to your shape: it asks where your body carries girth, so a lean, broad-shouldered build and a soft, narrow one get different answers even at identical weights. The BMI method has no shape input at all — feed it the same height, weight and age and it returns the same figure whether the weight is muscle or fat. That is BMI's well-known weakness, and it does not disappear when BMI is converted into a body fat estimate.</p>
+<p>So when the BMI figure comes out well above the Navy figure, it usually means you carry more muscle than the formula assumes. When it comes out well below, the reverse. With the default figures on this page the Navy method gives 17.0% and the BMI method 19.7% — a gap of under three points, which is unremarkable. A gap of eight or ten points is worth noticing, and generally says more about your build than about either calculation being wrong.</p>
+
+<h2 id="accuracy">How accurate is the tape method?</h2>
+<p>Honestly: useful, not precise. Research on the circumference method generally places it within about three to four percentage points of a DEXA scan for most adults. Hydrostatic weighing, air displacement plethysmography and DEXA are all substantially more accurate, and all require equipment you do not have at home.</p>
+<p>The error is not evenly spread. The method performs worst at the extremes — very lean people, very heavy people, and heavily muscled builds — because it is inferring fat from girth, and a thick waist from abdominal muscle reads the same to a tape as a thick waist from fat. It also cannot see where fat sits, so two people at the same percentage can carry very different visceral loads.</p>
+<p>What it does well is repeat. Measured the same way, in the same conditions, week after week, the direction and size of change are meaningful even when the absolute number carries a few points of uncertainty. Treat a single reading as a rough position and a series of readings as the actual signal.</p>
+
+<h2 id="change">Changing your body fat</h2>
+<p>Body fat percentage is a ratio, so it moves when either part of it moves. Losing fat lowers it; gaining lean mass lowers it too, even at unchanged weight. That second route is why the scale can sit still for weeks while the number here falls.</p>
+<p>The practical implication is that fat loss and muscle retention are one problem, not two. A large calorie deficit strips lean mass alongside fat, which lowers the weight without improving the ratio much; a moderate deficit combined with resistance training and adequate protein preserves far more of it. This is also why the calculator reports lean body mass as its own row — watching that figure hold while fat mass falls tells you the deficit is the right size, and watching it drop tells you it is not.</p>
+<p>Expect slow movement. A percentage point a month is a realistic pace for most people, and it is small enough to be buried under measurement noise from a single reading, which is the case for measuring consistently rather than often.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<p>Being clear about the edges matters more than the estimate looking authoritative.</p>
+<ul>
+  <li><strong>Where the fat is.</strong> Visceral fat around the organs carries far more health risk than subcutaneous fat, and a single percentage cannot separate them.</li>
+  <li><strong>Pregnancy.</strong> The equations assume a non-pregnant body; the measurements are not meaningful during pregnancy.</li>
+  <li><strong>Children.</strong> The Navy equations were developed on adults. The BMI method here switches to youth equations under 18, but body composition in growing bodies is properly assessed against age- and sex-specific growth charts by a clinician.</li>
+  <li><strong>Unusual builds.</strong> Competitive strength athletes, people with significant muscle loss, amputees and anyone with fluid retention will all get distorted results.</li>
+  <li><strong>Medical conditions.</strong> Oedema, thyroid disorders and some medications change body composition and water balance in ways this cannot account for.</li>
+</ul>
+<p>If your result concerns you, or you are making decisions about your health from it, take it to a doctor or a registered dietitian rather than acting on it alone. If you want the related figures, the <a href="/bmi-calculator/">BMI calculator</a>, <a href="/lean-body-mass-calculator/">lean body mass calculator</a> and <a href="/ideal-weight-calculator/">ideal weight calculator</a> approach the same question from different angles.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>How accurate is the U.S. Navy body fat calculator?</h3>
+<p>Studies of the circumference method generally put it within about 3 to 4 percentage points of a DEXA scan for most people, which is close enough to track a trend but not to treat as a precise figure. It is least reliable at the extremes — very lean, very heavy, or heavily muscled builds — because it infers fat from girth rather than measuring it. Its real strength is repeatability: measured the same way each time, the direction of change is meaningful even when the absolute number is not.</p>
+<h3>What is a healthy body fat percentage?</h3>
+<p>By the American Council on Exercise ranges, men sit in the fitness band from 14% to 17% and the average band from 18% to 24%, with 25% and above classed as obese. For women the same bands are 21% to 24% and 25% to 31%, with 32% and above classed as obese. Women carry more essential fat than men for reproductive and hormonal reasons, which is why every band sits roughly 8 to 10 points higher.</p>
+<h3>How do I measure my neck and waist correctly?</h3>
+<p>Use a flexible tape, keep it snug without compressing the skin, and measure to the nearest quarter inch or half centimetre. Neck goes just below the larynx with the tape sloping slightly downward at the front. Waist goes at the navel for men and at the narrowest point for women. Women also measure the hips at their widest point. Measure at the same time of day, ideally in the morning before eating, and do not pull your stomach in.</p>
+<h3>Why does the calculator ask for my hip measurement only if I am female?</h3>
+<p>The Navy equation for women includes hip circumference and the one for men does not. Female fat distribution is weighted more toward the hips and thighs, so waist alone predicts it poorly. The hip row appears when you select female and is hidden otherwise, because the male equation has no term to put it in.</p>
+<h3>Why do the Navy method and the BMI method give different numbers?</h3>
+<p>They measure different things. The Navy method estimates fat from where your body actually carries girth, so it responds to your shape. The BMI method infers it from height, weight and age only, so two people with the same BMI get the same answer regardless of build. The BMI figure is shown as a cross-check: a large gap between the two usually means you are more muscular or more lightly built than the BMI formula assumes.</p>
+<h3>What is lean body mass?</h3>
+<p>Everything that is not fat — muscle, bone, organs, connective tissue and water. It is your total weight minus your fat mass. It is worth tracking alongside body fat, because losing weight while lean mass falls is a different outcome from losing weight while it holds steady, even when the scale moves identically.</p>
+<h3>Can body fat be too low?</h3>
+<p>Yes. Essential fat is roughly 2 to 5% for men and 10 to 13% for women, and it is needed for hormone production, temperature regulation and organ protection. Sustained levels at or below that range are associated with hormonal disruption, loss of bone density, poor immune function and, in women, disrupted or absent menstruation. Very low body fat is not a fitness goal and is worth discussing with a doctor rather than chasing.</p>
+<h3>What does the ideal body fat figure mean?</h3>
+<p>It comes from the Jackson & Pollock reference values, which describe the body fat percentage typically associated with good health at a given age, rising gradually as you get older. The calculator interpolates between the published ages, and shows nothing outside 20 to 55 because the underlying data does not cover those ages. Treat it as a reference point rather than a target handed down for you personally.</p>
+
+<p class="bf-disclaimer">This calculator provides an estimate for general information and educational purposes only. It is not medical advice, a diagnosis, or a substitute for professional care, and the U.S. Navy circumference method is an approximation that can differ meaningfully from a clinical body composition measurement. Do not use it to diagnose or treat any condition. If you have concerns about your weight, body composition or eating patterns, speak with a doctor or registered dietitian. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +760,320 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var L = Math.log10 || function(x){ return Math.log(x)/Math.LN10; };
+  var IN = 2.54, LB = 0.45359237;
+  var unit = 'us', last = null;
+
+  /* Jackson & Pollock reference values, ages 20-55 only. */
+  var JP_AGES = [20,25,30,35,40,45,50,55];
+  var JP = { m:[8.5,10.5,12.7,13.7,15.3,16.4,18.9,20.9],
+             f:[17.7,18.4,19.3,21.5,22.2,22.9,25.2,26.3] };
+  /* American Council on Exercise categories. */
+  var CAT = { m:[[2,'Less than Essential Fat'],[6,'Essential Fat'],[14,'Athletes'],[18,'Fitness'],[25,'Average'],[Infinity,'Obese']],
+              f:[[10,'Less than Essential Fat'],[14,'Essential Fat'],[21,'Athletes'],[25,'Fitness'],[32,'Average'],[Infinity,'Obese']] };
+  /* Gauge stops used to draw the scale, matching the category bands. */
+  var BANDS = { m:[2,6,14,18,25], f:[10,14,21,25,32] };
+  var BAND_COL = ['#3B82F6','#22C55E','#0C9268','#EAB308','#F97316','#DC2626'];
+
+  function num(id){ var el = $(id); if(!el) return NaN;
+    var v = parseFloat(String(el.value).replace(/,/g,'').trim());
+    return String(el.value).trim() === '' ? NaN : v; }
+  function sex(){ var r = document.querySelectorAll('input[name="bf-sex"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return 'm'; }
+  function r1(x){ return Math.round((x + Number.EPSILON)*10)/10; }
+  function f1(x){ return r1(x).toFixed(1); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function idealFat(s, age){
+    if(!(age >= 20 && age <= 55)) return null;
+    var t = JP[s];
+    for(var i = 0; i < JP_AGES.length; i++){
+      if(age === JP_AGES[i]) return t[i];
+      if(age > JP_AGES[i] && age < JP_AGES[i+1]){
+        var a = JP_AGES[i], b = JP_AGES[i+1];
+        return t[i] + (t[i+1] - t[i])*(age - a)/(b - a);
+      }
+    }
+    return null;
+  }
+  function category(s, bfp){
+    var c = CAT[s];
+    for(var i = 0; i < c.length; i++) if(bfp < c[i][0]) return c[i][1];
+    return 'Obese';
+  }
+
+  /* Reads the form, converting US entries to metric. The reference tool applies the
+     SI (metric) Navy equations to both unit tabs, converting inches and pounds first
+     rather than using the separate US-customary equations — verified against its own
+     output on cases where the two formulas diverge. */
+  function readInputs(){
+    var s = sex(), age = num('bf-age');
+    var weightKg, heightCm, neckCm, waistCm, hipCm;
+    if(unit === 'us'){
+      var lb = num('bf-weightLb');
+      var hFt = num('bf-heightFt'), hIn = num('bf-heightIn');
+      var nFt = num('bf-neckFt'),   nIn = num('bf-neckIn');
+      var wFt = num('bf-waistFt'),  wIn = num('bf-waistIn');
+      var pFt = num('bf-hipFt'),    pIn = num('bf-hipIn');
+      if(isNaN(hFt) && isNaN(hIn)) return null;
+      var h = (isNaN(hFt)?0:hFt)*12 + (isNaN(hIn)?0:hIn);
+      var n = (isNaN(nFt)?0:nFt)*12 + (isNaN(nIn)?0:nIn);
+      var w = (isNaN(wFt)?0:wFt)*12 + (isNaN(wIn)?0:wIn);
+      var p = (isNaN(pFt)?0:pFt)*12 + (isNaN(pIn)?0:pIn);
+      weightKg = lb*LB; heightCm = h*IN; neckCm = n*IN; waistCm = w*IN; hipCm = p*IN;
+    } else {
+      weightKg = num('bf-weightKg'); heightCm = num('bf-heightCm');
+      neckCm = num('bf-neckCm'); waistCm = num('bf-waistCm'); hipCm = num('bf-hipCm');
+    }
+    return { s:s, age:age, weightKg:weightKg, heightCm:heightCm,
+             neckCm:neckCm, waistCm:waistCm, hipCm:hipCm };
+  }
+
+  function compute(){
+    var i = readInputs();
+    if(!i) return { error:'blank' };
+    var s = i.s;
+    var need = [i.age, i.weightKg, i.heightCm, i.neckCm, i.waistCm];
+    if(s === 'f') need.push(i.hipCm);
+    for(var k = 0; k < need.length; k++) if(isNaN(need[k])) return { error:'blank' };
+    if(need.some(function(v){ return v <= 0; })) return { error:'positive' };
+    if(i.age < 2 || i.age > 120) return { error:'age' };
+
+    var girth = s === 'm' ? (i.waistCm - i.neckCm) : (i.waistCm + i.hipCm - i.neckCm);
+    if(girth <= 0) return { error:'girth' };
+
+    var bfp = s === 'm'
+      ? 495/(1.0324 - 0.19077*L(girth) + 0.15456*L(i.heightCm)) - 450
+      : 495/(1.29579 - 0.35004*L(girth) + 0.22100*L(i.heightCm)) - 450;
+    if(!isFinite(bfp)) return { error:'girth' };
+    if(bfp < 0) bfp = 0;
+    if(bfp > 100) return { error:'girth' };
+
+    var bmi = i.weightKg/Math.pow(i.heightCm/100, 2);
+    var bmiBfp = i.age < 18
+      ? (s === 'm' ? 1.51*bmi - 0.70*i.age - 2.2 : 1.51*bmi - 0.70*i.age + 1.4)
+      : (s === 'm' ? 1.20*bmi + 0.23*i.age - 16.2 : 1.20*bmi + 0.23*i.age - 5.4);
+
+    var fatKg = bfp/100*i.weightKg;
+    var leanKg = i.weightKg - fatKg;
+    var ideal = idealFat(s, i.age);
+    var deltaKg = ideal === null ? null : (bfp - ideal)/100*i.weightKg;
+
+    return { bfp:bfp, bmiBfp:bmiBfp, fatKg:fatKg, leanKg:leanKg, ideal:ideal,
+             deltaKg:deltaKg, cat:category(s, bfp), bmi:bmi, s:s, age:i.age,
+             weightKg:i.weightKg, heightCm:i.heightCm };
+  }
+
+  var ERRORS = {
+    blank:    'Fill in every measurement above to see your body fat estimate.',
+    positive: 'All measurements need to be greater than zero.',
+    age:      'Enter an age between 2 and 120.',
+    girth:    'These measurements do not produce a usable result. Check that the waist is larger than the neck and that each figure is in the unit shown.'
+  };
+
+  /* ---------- gauge ---------- */
+  function gauge(o){
+    var stops = BANDS[o.s];
+    var max = stops[stops.length-1] * 1.6;           /* headroom past the obese line */
+    var pts = [0].concat(stops).concat([max]);
+    var html = '';
+    for(var i = 0; i < pts.length-1; i++){
+      var wpc = (pts[i+1]-pts[i])/max*100;
+      html += '<i style="width:'+wpc.toFixed(2)+'%;background:'+BAND_COL[i]+'"></i>';
+    }
+    $('bf-gaugeBar').innerHTML = html;
+
+    var ticks = '';
+    for(var j = 0; j < stops.length; j++){
+      ticks += '<span style="left:'+(stops[j]/max*100).toFixed(2)+'%">'+stops[j]+'%</span>';
+    }
+    $('bf-gaugeTicks').innerHTML = ticks;
+
+    var names = ['Essential','Athletes','Fitness','Average','Obese'];
+    var mids = [], nm = '';
+    for(var k = 0; k < stops.length; k++){
+      var lo = stops[k], hi = (k+1 < stops.length) ? stops[k+1] : max;
+      mids.push((lo+hi)/2);
+    }
+    for(var m = 0; m < names.length; m++){
+      nm += '<span style="left:'+(mids[m]/max*100).toFixed(2)+'%">'+names[m]+'</span>';
+    }
+    $('bf-gaugeNames').innerHTML = nm;
+
+    /* The pointer is a fixed element that gets repositioned, not one inserted on each
+       render — inserting would stack a new marker every time the result updated. */
+    var pos = Math.max(0, Math.min(100, o.bfp/max*100));
+    var ptr = $('bf-gaugePtr');
+    ptr.style.left = pos.toFixed(2) + '%';
+    ptr.textContent = '\u25BC ' + f1(o.bfp) + '%';
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var o = compute();
+    var err = $('bf-err');
+    if(o.error){
+      err.className = 'bf-err show';
+      err.textContent = ERRORS[o.error];
+      $('bf-bigNum').textContent = '—';
+      $('bf-bigSub').textContent = '\u00a0';
+      $('bf-rows').innerHTML = '';
+      $('bf-gaugeBox').style.display = 'none';
+      var rows = $('bf-aceBody').querySelectorAll('tr');
+      for(var i=0;i<rows.length;i++) rows[i].className = '';
+      last = null;
+      return;
+    }
+    err.className = 'bf-err';
+    $('bf-gaugeBox').style.display = '';
+    last = o;
+
+    var mUnit = unit === 'us' ? ' lbs' : ' kg';
+    var conv = unit === 'us' ? function(kg){ return kg/LB; } : function(kg){ return kg; };
+
+    $('bf-bigNum').textContent = f1(o.bfp) + '%';
+    $('bf-bigSub').textContent = o.cat + ' range for ' + (o.s === 'm' ? 'men' : 'women');
+
+    var h = '';
+    h += '<div class="bf-row"><span>Body fat (U.S. Navy method)</span><span>' + f1(o.bfp) + '%</span></div>';
+    h += '<div class="bf-row"><span>Body fat category</span><span>' + esc(o.cat) + '</span></div>';
+    h += '<div class="bf-row"><span>Body fat mass</span><span>' + f1(conv(o.fatKg)) + mUnit + '</span></div>';
+    h += '<div class="bf-row"><span>Lean body mass</span><span>' + f1(conv(o.leanKg)) + mUnit + '</span></div>';
+    if(o.ideal !== null){
+      h += '<div class="bf-row"><span>Ideal body fat for your age (Jackson &amp; Pollock)</span><span>' + f1(o.ideal) + '%</span></div>';
+      var d = conv(o.deltaKg);
+      h += '<div class="bf-row hl"><span>Body fat to ' + (d >= 0 ? 'lose' : 'gain') +
+           ' to reach ideal</span><span>' + f1(Math.abs(d)) + mUnit + '</span></div>';
+    }
+    h += '<div class="bf-row"><span>Body fat (BMI method)</span><span>' + f1(o.bmiBfp) + '%</span></div>';
+    $('bf-rows').innerHTML = h;
+
+    gauge(o);
+
+    var trs = $('bf-aceBody').querySelectorAll('tr');
+    for(var t = 0; t < trs.length; t++){
+      trs[t].className = (trs[t].getAttribute('data-cat') === o.cat) ? 'on' : '';
+    }
+    var jp = $('bf-jpBody').querySelectorAll('tr');
+    for(var q = 0; q < jp.length; q++){
+      jp[q].className = (o.ideal !== null && parseFloat(jp[q].getAttribute('data-age')) === Math.round(o.age) && o.age % 5 === 0) ? 'on' : '';
+    }
+  }
+
+  /* ---------- reference table ---------- */
+  $('bf-jpBody').innerHTML = JP_AGES.map(function(a, i){
+    return '<tr data-age="'+a+'"><td>'+a+'</td><td>'+JP.f[i].toFixed(1)+'%</td><td>'+JP.m[i].toFixed(1)+'%</td></tr>';
+  }).join('');
+
+  /* ---------- units + gender ---------- */
+  function setUnit(u){
+    unit = u;
+    $('bf-tabUs').className = 'bf-tab' + (u === 'us' ? ' active' : '');
+    $('bf-tabMetric').className = 'bf-tab' + (u === 'metric' ? ' active' : '');
+    $('bf-tabUs').setAttribute('aria-selected', u === 'us' ? 'true' : 'false');
+    $('bf-tabMetric').setAttribute('aria-selected', u === 'metric' ? 'true' : 'false');
+    $('bf-usBlock').style.display     = u === 'us' ? '' : 'none';
+    $('bf-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    render();
+  }
+  /* Hip is only used by the female equation, so it is only shown for women — the
+     reference tool hides the same row the same way. */
+  function syncHip(){
+    var show = sex() === 'f';
+    var rows = document.querySelectorAll('.bf-hipRow');
+    for(var i = 0; i < rows.length; i++) rows[i].style.display = show ? '' : 'none';
+  }
+  $('bf-tabUs').addEventListener('click', function(){ setUnit('us'); });
+  $('bf-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  var sexRadios = document.querySelectorAll('input[name="bf-sex"]');
+  for(var i = 0; i < sexRadios.length; i++){
+    sexRadios[i].addEventListener('change', function(){ syncHip(); render(); });
+  }
+
+  $('bf-calcBtn').addEventListener('click', render);
+  /* Clear empties the typed boxes and nothing else, the way the reference does. */
+  $('bf-clearBtn').addEventListener('click', function(){
+    ['bf-age','bf-weightLb','bf-heightFt','bf-heightIn','bf-neckFt','bf-neckIn',
+     'bf-waistFt','bf-waistIn','bf-hipFt','bf-hipIn',
+     'bf-weightKg','bf-heightCm','bf-neckCm','bf-waistCm','bf-hipCm'
+    ].forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Fill in your measurements first, then save the result as a PDF.'); return; }
+    var o = last;
+    var conv = unit === 'us' ? function(kg){ return kg/LB; } : function(kg){ return kg; };
+    var mU = unit === 'us' ? ' lbs' : ' kg';
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(12,146,104);
+    doc.text('Body Fat Estimate', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+
+    var body = [
+      ['Body fat (U.S. Navy method)', f1(o.bfp) + '%'],
+      ['Body fat category', o.cat],
+      ['Body fat mass', f1(conv(o.fatKg)) + mU],
+      ['Lean body mass', f1(conv(o.leanKg)) + mU]
+    ];
+    if(o.ideal !== null){
+      body.push(['Ideal body fat for age (Jackson & Pollock)', f1(o.ideal) + '%']);
+      var d = conv(o.deltaKg);
+      body.push([(d >= 0 ? 'Body fat to lose to reach ideal' : 'Body fat to gain to reach ideal'),
+                 f1(Math.abs(d)) + mU]);
+    }
+    body.push(['Body fat (BMI method)', f1(o.bmiBfp) + '%']);
+    body.push(['BMI', f1(o.bmi)]);
+
+    doc.autoTable({ startY:y, head:[['Measure','Result']], body:body,
+      margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[12,146,104] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not medical advice. Speak to a healthcare professional before acting on it. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('body-fat-estimate.pdf');
+  }
+  $('bf-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  syncHip();
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1195,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>
