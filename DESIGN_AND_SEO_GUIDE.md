@@ -141,6 +141,17 @@ Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so
 
 **The wider rule this broke:** an omission is only "intentional" once the owner has agreed to it. Flagging it in the completion report is not agreement — §3a-PRIME step 2 says a deliberate omission is *flagged with a reason*, and that means raised as a question before shipping, not recorded afterwards.
 
+### Optional sections use the More Options button (added Aug 7, 2026)
+
+Where a form hides secondary inputs behind a toggle, use the **mortgage-calculator pattern**, not a checkbox:
+
+```
+<button type="button" class="X-more-btn" id="X-moreBtn">+ More Options</button>
+<div id="X-settingsPanel" class="X-hidden"> <p class="X-section-title">…</p> … </div>
+```
+
+`.X-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}` · `.X-hidden{display:none !important}` · `.X-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}`. The click handler toggles `X-hidden` and swaps the label between **+ More Options** and **- Fewer Options**. No panel background, no checkbox. BMR and TDEE shipped with a checkbox first and were converted; verify with computed styles against mortgage-calculator rather than by eye.
+
 ### One colour scheme sitewide (added Aug 7, 2026)
 
 **Every calculator page uses the same accent colours, whatever category it is in.** Result card head and Calculate button `#16A34A`, hover and in-article links `#128A3D`, status bar / active tab / sidebar card `#1E3A5F`, View More `#22C55E`, radio and checkbox `accent-color:#16A34A`.

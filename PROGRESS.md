@@ -7060,6 +7060,56 @@ exist. That fails immediately and points at the cause, instead of surfacing thre
 later as a missing animation. Suites now 106 (Body Fat), 115 (TDEE), 103 (BMR).
 
 
+## Ideal Weight Calculator — rebuilt from stub, and More Options rolled out (Aug 7, 2026)
+
+Two pieces of work.
+
+### Ideal Weight Calculator (45KB stub -> 96KB build)
+
+Reference: calculator.net/ideal-weight-calculator.html. Input fields 8/8 (age, sex, height in
+either system, three tabs including the five-category converter), result fields 5/5 (Robinson,
+Miller, Devine, Hamwi, plus the healthy BMI range).
+
+**Formula verification.** 4 Node assertions against the reference's output, all exact on the
+first run: US male 5'10" gives 156.5 / 155.0 / 160.9 / 165.3 lbs with a 128.9-174.2 range;
+metric male 180cm gives 72.6 / 71.5 / 75.0 / 77.3 kg; metric female 165cm gives
+57.4 / 59.8 / 56.9 / 56.4 kg.
+
+Three things the reference does that had to be found rather than assumed:
+
+1. **Under 21 the healthy range is not BMI 18.5-25.** It switches to CDC growth-chart
+   percentiles for that age and sex, while the four formulas stay unchanged. The switch is at
+   21, not 18. The table is not published anywhere on their page, so it was extracted by
+   probing ages 2-20 for both sexes at a fixed height and dividing out h^2 — 38 requests at
+   250cm for resolution, which recovers the underlying one-decimal BMI values.
+2. **Heights below 5 feet are refused.** Every formula is "base weight at 5 feet plus an
+   increment per inch above", so under 60 inches there is nothing to build on. 152cm errors,
+   153cm works.
+3. **Age range is 2-80**, wider than BMR's 15-80 and TDEE's 18-80. Each page differs.
+
+Content: 1,751-word article that leads with the fact these formulas were written for drug
+dosing rather than fitness, which is the single most useful thing a visitor can know before
+reading their number. Originality 0.14% against the reference; internal overlap is byline
+level, the disclaimer having been written fresh after the TDEE lesson.
+
+86 Playwright assertions, including the CDC-vs-adult switch at 20/21 and the 5-foot floor in
+both unit systems.
+
+### More Options control on BMR and TDEE
+
+The owner asked for the Settings checkbox on the health calculators to match
+mortgage-calculator's "+ More Options" button. Copied exactly: same markup shape, same
+`#131313` full-width button, same `.X-hidden` display rule, same label swap to
+"- Fewer Options" on open. Verified by reading computed styles off all three pages side by
+side rather than by eye — background, colour, font size, weight, padding and radius all match.
+
+**mortgage-calculator itself is byte-identical**, confirmed by md5 against `git show HEAD`
+before committing, since the instruction was explicit that it must not change.
+
+Guide updated with the exact markup and CSS so the next page with an optional section uses it
+without going to look.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

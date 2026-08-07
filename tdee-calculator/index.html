@@ -315,16 +315,15 @@
 .td-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
 .td-divider{border-top:1px solid var(--border-fine);margin:14px 0}
 .td-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+/* More Options control, matching mortgage-calculator exactly. */
+.td-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.td-hidden{display:none !important}
+.td-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
 .td-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
 .td-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
 .td-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
 .td-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
 .td-fat .td-input-group{width:96px;flex:none}
-.td-toggle{display:flex;align-items:center;gap:8px;padding:12px 0 2px;cursor:pointer;user-select:none}
-.td-toggle input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
-.td-toggle span{font-size:13px;font-weight:600;color:var(--ink)}
-.td-panel{display:none;background:var(--surface-sunken);border-radius:10px;padding:14px;margin-top:6px}
-.td-panel.open{display:block}
 /* TDEE-specific: the lose/gain intake tables */
 .td-goal{margin-top:16px}
 .td-goal-h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
@@ -575,14 +574,15 @@
         <div class="td-field-control"><select class="td-select-plain" id="td-activity"></select></div>
       </div>
 
-      <label class="td-toggle" for="td-settingsChk"><input type="checkbox" id="td-settingsChk"><span>Settings</span></label>
-      <div class="td-panel" id="td-settingsPanel">
-        <div class="td-sec">Results unit</div>
+      <button type="button" class="td-more-btn" id="td-moreBtn">+ More Options</button>
+
+      <div id="td-settingsPanel" class="td-hidden">
+        <p class="td-section-title">Results unit</p>
         <div class="td-opt" role="radiogroup" aria-label="Results unit">
           <label><input type="radio" name="td-out" value="c" checked><span>Calories</span></label>
           <label><input type="radio" name="td-out" value="j"><span>Kilojoules</span></label>
         </div>
-        <div class="td-sec">BMR estimation formula</div>
+        <p class="td-section-title">BMR estimation formula</p>
         <div class="td-opt" role="radiogroup" aria-label="BMR formula">
           <label><input type="radio" name="td-formula" value="m" checked><span>Mifflin&nbsp;St&nbsp;Jeor</span></label>
           <label><input type="radio" name="td-formula" value="k"><span>Katch-McArdle</span>
@@ -986,8 +986,10 @@
   $('td-tabUs').addEventListener('click', function(){ setUnit('us'); });
   $('td-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
   $('td-tabOther').addEventListener('click', function(){ setUnit('other'); });
-  $('td-settingsChk').addEventListener('change', function(){
-    $('td-settingsPanel').className = this.checked ? 'td-panel open' : 'td-panel';
+  /* More Options toggle, same behaviour and wording as mortgage-calculator. */
+  $('td-moreBtn').addEventListener('click', function(){
+    var hidden = $('td-settingsPanel').classList.toggle('td-hidden');
+    this.textContent = hidden ? '+ More Options' : '- Fewer Options';
   });
   ['td-sex','td-out','td-formula'].forEach(function(nm){
     var r = document.querySelectorAll('input[name="'+nm+'"]');

@@ -314,16 +314,15 @@
 .br-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
 .br-divider{border-top:1px solid var(--border-fine);margin:14px 0}
 .br-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+/* More Options control, matching mortgage-calculator exactly. */
+.br-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.br-hidden{display:none !important}
+.br-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
 .br-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
 .br-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
 .br-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
 .br-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
 .br-fat .br-input-group{width:96px;flex:none}
-.br-toggle{display:flex;align-items:center;gap:8px;padding:12px 0 2px;cursor:pointer;user-select:none}
-.br-toggle input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
-.br-toggle span{font-size:13px;font-weight:600;color:var(--ink)}
-.br-panel{display:none;background:var(--surface-sunken);border-radius:10px;padding:14px;margin-top:6px}
-.br-panel.open{display:block}
 .br-act-table{width:100%;border-collapse:collapse;font-size:13px}
 .br-act-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
 .br-act-table th:first-child{text-align:left}
@@ -574,14 +573,15 @@
         </div>
       </div>
 
-      <label class="br-toggle" for="br-settingsChk"><input type="checkbox" id="br-settingsChk"><span>Settings</span></label>
-      <div class="br-panel" id="br-settingsPanel">
-        <div class="br-sec">Results unit</div>
+      <button type="button" class="br-more-btn" id="br-moreBtn">+ More Options</button>
+
+      <div id="br-settingsPanel" class="br-hidden">
+        <p class="br-section-title">Results unit</p>
         <div class="br-opt" role="radiogroup" aria-label="Results unit">
           <label><input type="radio" name="br-out" value="c" checked><span>Calories</span></label>
           <label><input type="radio" name="br-out" value="j"><span>Kilojoules</span></label>
         </div>
-        <div class="br-sec">BMR estimation formula</div>
+        <p class="br-section-title">BMR estimation formula</p>
         <div class="br-opt" role="radiogroup" aria-label="BMR formula">
           <label><input type="radio" name="br-formula" value="m" checked><span>Mifflin&nbsp;St&nbsp;Jeor</span></label>
           <label><input type="radio" name="br-formula" value="h"><span>Revised&nbsp;Harris-Benedict</span></label>
@@ -942,8 +942,10 @@
   $('br-tabUs').addEventListener('click', function(){ setUnit('us'); });
   $('br-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
   $('br-tabOther').addEventListener('click', function(){ setUnit('other'); });
-  $('br-settingsChk').addEventListener('change', function(){
-    $('br-settingsPanel').className = this.checked ? 'br-panel open' : 'br-panel';
+  /* More Options toggle, same behaviour and wording as mortgage-calculator. */
+  $('br-moreBtn').addEventListener('click', function(){
+    var hidden = $('br-settingsPanel').classList.toggle('br-hidden');
+    this.textContent = hidden ? '+ More Options' : '- Fewer Options';
   });
   ['br-sex','br-out','br-formula'].forEach(function(nm){
     var r = document.querySelectorAll('input[name="'+nm+'"]');
