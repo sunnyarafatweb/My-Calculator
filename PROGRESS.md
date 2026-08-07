@@ -7257,6 +7257,55 @@ so a new component can silently land on a class the template already uses. Grep 
 for duplicate class names before building.
 
 
+## Due Date Calculator — rebuilt from stub (Aug 7, 2026)
+
+Replaced a 39KB template stub at `/due-date-calculator/` with a full build (97KB).
+Reference: calculator.net/due-date-calculator.html.
+
+**Parity (§3a-PRIME).** Four dating methods — last period with cycle length 22-44, dating
+ultrasound, conception date, and IVF transfer with day-3/5/6 embryo. No due-date input, because
+here the due date is the output. Full 42-week schedule with trimesters, milestones and a today
+marker.
+
+**Formula verification.** The engine is the one built for the pregnancy calculator, and running
+it against *this* page's reference gave 10/10 exact on a completely different set of dates
+(LMP 2026-06-08 across four cycle lengths, conception, all three embryo ages, two scan ages).
+That is a useful independent confirmation: the same rules reproduced two separate reference
+pages without adjustment.
+
+**Content.** 1,787-word article, 8 H2s, 8 FAQs, deliberately angled away from the pregnancy
+page: the Naegele sum and the assumption inside it, the 4% figure, when clinicians re-date and
+when they refuse to, the early/full/late/post-term bands and why term was split in 2013, and
+what going past the date actually means. Originality against the reference: **0.00%**.
+
+### The real risk on this page was internal, not external
+
+Pregnancy and Due Date compute the same thing from the same inputs. The first draft shared
+**6.61%** of its article with the pregnancy calculator — and the offenders were the same two
+places as every previous time, the **YMYL disclaimers** top and bottom, plus repeated statistic
+phrasing ("roughly 60% arrive within a week either side", "the centre of a month-wide window").
+
+Both disclaimers rewritten from scratch and the shared phrasings replaced. Overlap fell to
+**1.96%**, of which the non-boilerplate remainder is the formula block (identical by necessity)
+and two section headings.
+
+Two smaller things the prefix-rename carried over, now both asserted:
+- a **self-link** — the sidebar still listed "Due Date" while sitting on the due date page;
+  swapped for the pregnancy calculator, with an assertion that no `main` link points at the
+  page's own slug.
+- the **PDF filename and heading** still said "Pregnancy Timeline" / `pregnancy-timeline.pdf`;
+  the suite only checked the extension, so it passed. Now asserts the exact filename.
+
+Also ran the duplicate-class guard the pregnancy build's `.pg-bar` collision prompted: six
+duplicates reported, all legitimate media-query overrides or a more-specific selector, none a
+collision.
+
+**Verification.** 85 Playwright assertions: all 10 dating cases exact, four-method panel
+switching, the 42-row table with both trimester boundaries and a single today marker, scan
+validation, no self-link, cross-link to the pregnancy calculator, exact PDF filename, Clear with
+0px drift.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is

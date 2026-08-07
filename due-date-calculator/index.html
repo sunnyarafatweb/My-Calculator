@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Due Date Calculator | CalculatorBoss</title><meta name="description" content="Calculate your estimated due date from the first day of your last menstrual period, or from a known conception date."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/due-date-calculator/"/><meta property="og:title" content="Due Date Calculator | CalculatorBoss"/><meta property="og:description" content="Estimated due date from LMP or conception date."/><meta property="og:url" content="https://calculatorboss.com/due-date-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Due Date Calculator — Estimate Your Delivery Date</title><meta name="description" content="Free due date calculator using your last period, an ultrasound, conception date or IVF transfer, with the full week-by-week schedule and term windows."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="due date calculator,estimated due date,edd calculator,due date calculator by ultrasound,ivf due date calculator,due date from last period,when is my baby due,delivery date calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/due-date-calculator/"/><meta property="og:title" content="Due Date Calculator — Estimate Your Delivery Date"/><meta property="og:description" content="Free due date calculator using your last period, an ultrasound, conception date or IVF transfer, with the full week-by-week schedule and term windows."/><meta property="og:url" content="https://calculatorboss.com/due-date-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/due-date-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Due Date Calculator — Estimate Your Delivery Date"/><meta name="twitter:description" content="Free due date calculator using your last period, an ultrasound, conception date or IVF transfer, with the full week-by-week schedule and term windows."/><meta name="twitter:image" content="https://calculatorboss.com/og/due-date-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,156 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.dd-wrap{width:100%}
+.dd-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.dd-bar-text{display:flex;align-items:center;gap:10px}
+.dd-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.dd-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.dd-bar-pdf-btn:hover{background:#f0f0f0}
+.dd-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.dd-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.dd-area-bar{grid-area:bar}
+.dd-area-tabs{grid-area:tabs}
+.dd-area-form{grid-area:form}
+.dd-area-result{grid-area:result}
+.dd-area-sidebar{grid-area:sidebar}
+.dd-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .dd-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.dd-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.dd-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.dd-tab:hover{border-color:var(--border)}
+.dd-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.dd-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.dd-card-pad{padding:22px}
+.dd-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.dd-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.dd-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.dd-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.dd-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.dd-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.dd-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.dd-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.dd-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.dd-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.dd-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.dd-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.dd-sec{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+/* More Options control, matching mortgage-calculator exactly. */
+.dd-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.dd-hidden{display:none !important}
+.dd-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.dd-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
+.dd-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.dd-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
+.dd-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
+.dd-fat .dd-input-group{width:96px;flex:none}
+/* TDEE-specific: the lose/gain intake tables */
+.dd-act-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.dd-act-table th:first-child{text-align:left}
+.dd-act-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);font-weight:600}
+.dd-act-table td:first-child{text-align:left;color:var(--ink-soft);font-weight:400}
+.dd-act-table tr:last-child td{border-bottom:none}
+
+.dd-btn-row{display:flex;gap:8px;padding-top:16px}
+.dd-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.dd-btn-calc:hover{background:#128A3D}
+.dd-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.dd-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dd-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.dd-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.dd-result-head .bignum{font-size:34px;font-weight:700;line-height:1.15;margin-top:2px}
+.dd-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.dd-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.dd-err.show{display:block}
+
+
+.dd-result-body{padding:10px 20px 20px}
+.dd-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.dd-row:first-child{border-top:none}
+.dd-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.dd-row.hl span:last-child{color:#128A3D}
+
+.dd-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.dd-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.dd-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.dd-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.dd-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.dd-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.dd-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+@media(max-width:760px){.dd-bottom-grid{grid-template-columns:1fr}}
+.dd-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.dd-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.dd-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.dd-card-body{padding:18px}
+/* Diet selector inside the result card, plus the macro rows */
+/* Progress bar, fact rows and the week-by-week table */
+.dd-fact{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.dd-fact:first-child{border-top:none}
+.dd-fact b{color:var(--ink);font-weight:600;text-align:right}
+.dd-prog{margin:14px 0 4px}
+.dd-prog-track{height:12px;border-radius:6px;background:var(--surface-sunken);overflow:hidden;border:1px solid var(--border-fine)}
+.dd-prog-fill{height:100%;background:#16A34A;border-radius:6px 0 0 6px;transition:width .35s ease}
+.dd-prog-lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-faint);margin-top:5px}
+.dd-tri{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--gold-tint);color:#128A3D;margin-top:2px}
+.dd-wk-wrap{max-height:460px;overflow-y:auto;border:1px solid var(--border-fine);border-radius:10px}
+.dd-wk{width:100%;border-collapse:collapse;font-size:12.5px}
+.dd-wk thead th{position:sticky;top:0;background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border-fine);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.dd-wk td{padding:8px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft);vertical-align:top}
+.dd-wk td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+.dd-wk tr:last-child td{border-bottom:none}
+.dd-wk tr.now td{background:var(--gold-tint);color:var(--ink);font-weight:600}
+.dd-wk .ms{color:#128A3D;font-weight:600}
+.dd-wk .tri{font-size:11px;color:var(--ink-faint);white-space:nowrap}
+.dd-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.dd-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.dd-ref-table th:first-child{text-align:left}
+.dd-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.dd-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.dd-ref-table tr:last-child td{border-bottom:none}
+.dd-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.dd-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+@media(max-width:520px){
+  .dd-field{flex-wrap:wrap}
+  .dd-field-label{width:100%}
+  .dd-tab{flex:1;text-align:center;padding:10px 12px}
+}
+
+
+
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Due Date","item":"https://calculatorboss.com/due-date-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +497,265 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is an LMP-based due date?","acceptedAnswer":{"@type":"Answer","text":"It assumes a textbook 28-day cycle with ovulation on day 14 — for people with longer or shorter cycles, the actual due date can shift by several days either direction. An early ultrasound dating is generally more precise."}},{"@type":"Question","name":"Why 280 days specifically?","acceptedAnswer":{"@type":"Answer","text":"That's 40 weeks, the traditional full-term length counted from the last period (not from conception, which happens roughly two weeks later) — a convention called Naegele's rule."}},{"@type":"Question","name":"Will my baby actually arrive on this date?","acceptedAnswer":{"@type":"Answer","text":"Unlikely as the exact day — only a small percentage of babies are born precisely on their estimated due date. It's a useful planning target, not a firm deadline."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Due Date Calculator","url":"https://calculatorboss.com/due-date-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Due Date Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Due Date Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Calculate from your last period or a known conception date.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full transition-colors bg-accent text-white">By last period</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">By conception date</button></div><div><label class="text-sm text-ink-soft mb-2 block">First day of last period</label><input type="date" class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="2026-04-01"/></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Estimated due date</div><div class="font-display text-2xl sm:text-3xl text-accent-strong value-transition mb-6">Wednesday, January 6, 2027</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Uses Naegele&#x27;s rule: LMP + 280 days (40 weeks), assuming a typical 28-day cycle.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A last period starting <span class="tabular">April 1, 2026</span> gives an estimated due date of <span class="tabular">January 6, 2027</span> — exactly 280 days later.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How accurate is an LMP-based due date?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It assumes a textbook 28-day cycle with ovulation on day 14 — for people with longer or shorter cycles, the actual due date can shift by several days either direction. An early ultrasound dating is generally more precise.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why 280 days specifically?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">That&#x27;s 40 weeks, the traditional full-term length counted from the last period (not from conception, which happens roughly two weeks later) — a convention called Naegele&#x27;s rule.</p></div><div><h3 class="font-medium text-ink mb-1.5">Will my baby actually arrive on this date?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Unlikely as the exact day — only a small percentage of babies are born precisely on their estimated due date. It&#x27;s a useful planning target, not a firm deadline.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Due Date Calculator","item":"https://calculatorboss.com/due-date-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is a due date worked out?","acceptedAnswer":{"@type":"Answer","text":"By adding 280 days — forty weeks — to the first day of your last period, adjusted if your cycle is not 28 days. The other three routes reach the same place from a different starting point: 266 days from conception, the same less the embryo's age for an IVF transfer, or whatever is left of the 280 days at the time of a dating scan."}},{"@type":"Question","name":"How likely am I to give birth on my due date?","acceptedAnswer":{"@type":"Answer","text":"Roughly one time in twenty-five. Around 60% of births fall within a week of the estimate and close to 90% within two weeks. The date is a midpoint of a wide distribution, not a prediction, which is why clinicians talk about a due window rather than a due day."}},{"@type":"Question","name":"Which estimate should I trust if two disagree?","acceptedAnswer":{"@type":"Answer","text":"The earlier ultrasound, generally. Embryos grow at nearly the same rate in the first trimester, so a scan before about 14 weeks measures age well. If a scan and your last period differ by more than about five to seven days, most guidelines say to adopt the scan date and stop using the period-based one."}},{"@type":"Question","name":"Why does an IVF due date use a different sum?","acceptedAnswer":{"@type":"Answer","text":"Because the starting point is known rather than estimated. Fertilisation happened on a recorded date, so the calculation counts 266 days from conception and then subtracts however many days the embryo had already been developing when it was transferred — three, five or six. Skipping that subtraction pushes the date out by the same number of days."}},{"@type":"Question","name":"Does my cycle length really change the date?","acceptedAnswer":{"@type":"Answer","text":"It can move it by a week or more. The standard sum assumes ovulation on day 14 of a 28-day cycle. On a 35-day cycle ovulation usually falls around day 21, so the pregnancy began a week later than the standard assumption — and the due date moves back accordingly. If your cycles are long, short or irregular, set the length here and treat a dating scan as the better answer."}},{"@type":"Question","name":"What is the difference between early, full, late and post term?","acceptedAnswer":{"@type":"Answer","text":"They are the four bands inside and beyond the term window. Early term is 37 weeks to 38 weeks 6 days, full term 39 weeks to 40 weeks 6 days, late term 41 weeks to 41 weeks 6 days, and post term from 42 weeks. Outcomes are best in the full-term band, which is why induction is not usually offered simply for passing the due date."}},{"@type":"Question","name":"What happens if I go past my due date?","acceptedAnswer":{"@type":"Answer","text":"Usually nothing dramatic. Most units start monitoring more closely after 41 weeks and discuss induction somewhere between 41 and 42, because the placenta becomes less efficient as a pregnancy runs long. The specific point and the options vary by country and by your own circumstances, so it is a conversation to have with your care team rather than a fixed rule."}},{"@type":"Question","name":"Can I use this if I am expecting twins?","acceptedAnswer":{"@type":"Answer","text":"The date it produces is calculated the same way, but the expectation around it is not. Twins are usually delivered well before 40 weeks — often between 36 and 38 — and are monitored on a different schedule throughout. Use the dates and plan your obstetric team gives you rather than this page."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Due Date Calculator","url":"https://calculatorboss.com/due-date-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates a delivery date from a last menstrual period, dating ultrasound, conception date or IVF transfer, with the week-by-week schedule.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Due Date Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Due Date Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Estimate your delivery date from your last period, a dating scan, conception or an IVF transfer — with the week-by-week schedule it implies.</p><div class="dd-wrap">
+<div class="dd-grid">
+
+  <div class="dd-bar dd-area-bar" style="margin:0">
+    <span class="dd-bar-text"><span class="dd-bar-badge">%</span>Just enter your values below — results update automatically.</span>
+    <button type="button" class="dd-bar-pdf-btn" id="dd-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="dd-card dd-area-form">
+    <div class="dd-card-pad">
+
+      <div class="dd-field">
+        <label class="dd-field-label" for="dd-method">Estimate based on</label>
+        <div class="dd-field-control"><select class="dd-select-plain" id="dd-method"></select></div>
+      </div>
+
+      <div id="dd-panelLmp">
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-lmp">First day of your last period</label>
+          <div class="dd-field-control"><input type="date" class="dd-select-plain" id="dd-lmp"></div>
+        </div>
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-cycle">Average cycle length</label>
+          <div class="dd-field-control"><select class="dd-select-plain" id="dd-cycle"></select></div>
+        </div>
+      </div>
+
+      <div id="dd-panelUltrasound" style="display:none">
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-scan">Ultrasound date</label>
+          <div class="dd-field-control"><input type="date" class="dd-select-plain" id="dd-scan"></div>
+        </div>
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-scanWeeks">Age on that date</label>
+          <div class="dd-field-control">
+            <div class="dd-input-group"><input type="text" inputmode="numeric" id="dd-scanWeeks" value="22"><span>weeks</span></div>
+            <div class="dd-input-group"><input type="text" inputmode="numeric" id="dd-scanDays" value="6"><span>days</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dd-panelConception" style="display:none">
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-conception">Conception date</label>
+          <div class="dd-field-control"><input type="date" class="dd-select-plain" id="dd-conception"></div>
+        </div>
+      </div>
+
+      <div id="dd-panelIvf" style="display:none">
+        <div class="dd-field">
+          <label class="dd-field-label" for="dd-transfer">IVF transfer date</label>
+          <div class="dd-field-control"><input type="date" class="dd-select-plain" id="dd-transfer"></div>
+        </div>
+        <div class="dd-field">
+          <span class="dd-field-label">Embryo age at transfer</span>
+          <div class="dd-field-control dd-sex" role="radiogroup" aria-label="Embryo age at transfer">
+            <label class="dd-radio"><input type="radio" name="dd-embryo" value="3"><span>Day 3</span></label>
+            <label class="dd-radio"><input type="radio" name="dd-embryo" value="5" checked><span>Day 5</span></label>
+            <label class="dd-radio"><input type="radio" name="dd-embryo" value="6"><span>Day 6</span></label>
+          </div>
+        </div>
+      </div>
+
+      <p class="dd-subnote">Every figure here is an estimate. Fewer than one baby in twenty arrives on the estimated due date, and most births fall within a fortnight either side of it.</p>
+
+      <div class="dd-btn-row">
+        <button type="button" class="dd-btn-calc" id="dd-calcBtn">Calculate</button>
+        <button type="button" class="dd-btn-clear" id="dd-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="dd-result-card dd-area-result">
+    <div class="dd-result-head">
+      <div class="label">Estimated due date</div>
+      <div class="bignum" id="dd-bigNum">—</div>
+      <div class="sub" id="dd-bigSub">—</div>
+    </div>
+    <div class="dd-err" id="dd-err"></div>
+    <div class="dd-result-body" id="dd-resultBody">
+      <div class="dd-prog" id="dd-progress">
+        <div class="dd-prog-track"><div class="dd-prog-fill" id="dd-barFill" style="width:0%"></div></div>
+        <div class="dd-prog-lab"><span>Week 1</span><span id="dd-pct">—</span><span>Week 40</span></div>
+      </div>
+      <div id="dd-facts"></div>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="dd-sidecol dd-area-sidebar">
+    <div class="dd-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/pregnancy-calculator/">Pregnancy <span class="arrow">→</span></a>
+      <a href="/ovulation-calculator/">Ovulation <span class="arrow">→</span></a>
+      <a href="/conception-calculator/">Conception <span class="arrow">→</span></a>
+      <a href="/period-calculator/">Period <span class="arrow">→</span></a>
+      <a href="/pregnancy-weight-gain-calculator/">Pregnancy Weight Gain <span class="arrow">→</span></a>
+      <a href="/bmi-calculator/">BMI <span class="arrow">→</span></a>
+      <a href="/all-calculators/" class="dd-viewmore">View More <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="dd-area-bottomgrid">
+    <div class="dd-info-card" style="margin-bottom:16px">
+      <div class="dd-card-head"><span class="t">Week by Week</span></div>
+      <div class="dd-card-body">
+        <div class="dd-wk-wrap">
+          <table class="dd-wk">
+            <thead><tr><th>Week</th><th>Dates</th><th>Trimester</th><th>Milestone</th></tr></thead>
+            <tbody id="dd-wkBody"></tbody>
+          </table>
+        </div>
+        <p class="dd-note">Dates run from the first day of your last period, which is how pregnancy is counted clinically — so the first fortnight precedes conception. Milestones are typical averages, not a schedule any individual pregnancy has to follow. These figures describe a single pregnancy; twins and other multiples run differently throughout.</p>
+      </div>
+    </div>
+    <div class="dd-bottom-grid">
+      <div class="dd-info-card">
+        <div class="dd-card-head"><span class="t">The Five Methods</span></div>
+        <div class="dd-card-body">
+          <table class="dd-ref-table">
+            <thead><tr><th>Based on</th><th>Due date is</th></tr></thead>
+            <tbody>
+              <tr><td>Last period</td><td>+280 days, adjusted for cycle length</td></tr>
+              <tr><td>Conception date</td><td>+266 days</td></tr>
+              <tr><td>IVF transfer</td><td>+266 days, less the embryo's age</td></tr>
+              <tr><td>Ultrasound</td><td>scan date + the time still to run</td></tr>
+              <tr><td>Due date</td><td>taken as given</td></tr>
+            </tbody>
+          </table>
+          <p class="dd-note">A dating ultrasound in the first trimester is the most accurate of these. Last-period dating assumes ovulation on day 14, which is why the cycle-length field matters if yours is not 28 days.</p>
+        </div>
+      </div>
+      <div class="dd-info-card">
+        <div class="dd-card-head"><span class="t">Trimesters</span></div>
+        <div class="dd-card-body">
+          <table class="dd-ref-table">
+            <thead><tr><th>Trimester</th><th>Weeks</th></tr></thead>
+            <tbody>
+              <tr><td>First</td><td>1 – 12</td></tr>
+              <tr><td>Second</td><td>13 – 27</td></tr>
+              <tr><td>Third</td><td>28 – 42</td></tr>
+            </tbody>
+          </table>
+          <p class="dd-note">Full term runs from week 37. A birth before 37 weeks is preterm and after 42 is post-term, both of which are managed rather than simply waited out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.dd-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.dd-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.dd-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.dd-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.dd-seo-article strong{color:var(--ink);font-weight:600}
+.dd-seo-article a{color:#128A3D;text-decoration:underline}
+.dd-seo-article ul,.dd-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.dd-seo-article ul li strong,.dd-seo-article ol li strong{color:var(--ink)}
+.dd-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.dd-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.dd-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.dd-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.dd-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.dd-toc a:hover{color:#1E3A5F}
+.dd-seo-article h2[id]{scroll-margin-top:88px}
+.dd-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.dd-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="dd-seo-article">
+<p class="dd-byline">Written by the CalculatorBoss Health Team · Dating methods verified against a reference implementation with a recorded test suite · Last updated August 2026</p>
+
+<p class="dd-disclaimer" style="border-top:none;border-bottom:1px solid var(--border-fine);padding:0 0 16px;margin:0 0 20px">Read this as reference material rather than clinical guidance — it is written for general understanding and cannot stand in for the care you receive. Should the estimate below sit differently from the one recorded in your notes, defer to your notes: whoever wrote them has seen your scans.</p>
+
+<nav class="dd-toc" aria-label="On this page">
+  <a href="#sum">The sum behind the date</a>
+  <a href="#four">Four starting points, one answer</a>
+  <a href="#odds">The odds of arriving on the day</a>
+  <a href="#redate">When a due date gets moved</a>
+  <a href="#terms">Early, full, late and post term</a>
+  <a href="#late">Going past the date</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="sum">The sum behind the date</h2>
+<p>An estimated due date is 280 days — forty weeks — from the first day of your last period. That single line carries an assumption worth knowing about: it takes ovulation to have happened on day 14, and conception with it.</p>
+<p>The rule dates back to Franz Naegele in the early nineteenth century and has survived largely because it is easy and roughly right. Its weakness is exactly where the assumption sits. Cycles are not all 28 days, ovulation is not reliably on day 14 even when they are, and the fortnight of uncertainty that introduces lands directly on the date. That is why this calculator asks for your average cycle length instead of assuming, and why a scan beats arithmetic.</p>
+<p>Everything downstream inherits that uncertainty. The week-by-week schedule below is exact arithmetic built on an estimated starting point — precise, but no more accurate than the date it grew from.</p>
+
+<h2 id="four">Four starting points, one answer</h2>
+<p>Whichever date you have, the calculator converts it to the same estimate.</p>
+<div class="dd-formula2"><b>Last period</b> · +280 days, shifted by (your cycle − 28)<br><b>Conception date</b> · +266 days<br><b>IVF transfer</b> · +266 days − the embryo's age at transfer<br><b>Dating ultrasound</b> · scan date + however much of the 280 days remained</div>
+<p>The gap between the first two is the same fortnight the Naegele rule assumes: conception dating drops the two weeks before it, so it counts 266 rather than 280.</p>
+<p>IVF is the most precise of the four and the one most often got wrong elsewhere. Fertilisation happened on a known day in a laboratory, so there is no ovulation guesswork — but a day-5 blastocyst had already been growing for five days when it was transferred. Subtracting that is what keeps the date honest; skipping it runs five days late.</p>
+<p>A dating scan works backwards from measured size. In the first trimester embryos grow so consistently that size genuinely indicates age, which makes an early scan the most reliable input on this list.</p>
+
+<h2 id="odds">The odds of arriving on the day</h2>
+<p>About 4% of babies are born on their estimated due date. Somewhere near three in five land inside a seven-day band around it, and nearly nine in ten inside a fortnight. Spontaneous labour clusters somewhere around 40 weeks but spreads across several weeks in both directions.</p>
+<p>So the useful mental model is a four-week landing zone with your date in the middle of it, not an appointment. Plan for the window: have the bag ready a fortnight early, and expect the last fortnight to feel longer than it is because a specific date has been sitting in your calendar for months.</p>
+<p>It also explains a common frustration. Being "overdue" at 40 weeks and 3 days is not late in any medical sense — it is squarely inside the normal distribution. Only after 41 to 42 weeks does the timing itself start to matter clinically.</p>
+
+<h2 id="redate">When a due date gets moved</h2>
+<p>Due dates are revised more often than people expect, and a revision is usually better information rather than an earlier mistake.</p>
+<p>What usually prompts it is an early scan that lands five to seven days or more away from what the period-based sum predicted. Guidelines in most countries say to adopt the scan date at that point and stop using the old one. The larger the disagreement and the earlier the scan, the stronger the case.</p>
+<p>What does not happen is re-dating from a late scan. By the third trimester babies vary enough in size that a large measurement means a large baby, not an older one — so a growth scan at 34 weeks measures growth, and your dates stay as they were. If a clinician has already moved your date, enter that revised date's underlying information here rather than recalculating from your last period.</p>
+
+<h2 id="terms">Early, full, late and post term</h2>
+<p>"Term" is not one block. It was formally split in 2013 because outcomes differ measurably across it.</p>
+<ul>
+  <li><strong>Preterm</strong> — before 37 weeks.</li>
+  <li><strong>Early term</strong> — 37 weeks to 38 weeks 6 days.</li>
+  <li><strong>Full term</strong> — 39 weeks to 40 weeks 6 days.</li>
+  <li><strong>Late term</strong> — 41 weeks to 41 weeks 6 days.</li>
+  <li><strong>Post term</strong> — 42 weeks and beyond.</li>
+</ul>
+<p>The reason for the split is that early-term babies, despite counting as term, have slightly higher rates of breathing difficulty and feeding problems than full-term ones. That evidence is why elective delivery before 39 weeks without a medical reason fell out of favour — those last two weeks do measurable work.</p>
+
+<h2 id="late">Going past the date</h2>
+<p>Passing your due date is ordinary. Around half of first-time mothers do.</p>
+<p>Monitoring typically steps up after 41 weeks, and induction is usually discussed somewhere between 41 and 42. The reasoning is that the placenta gradually becomes less efficient as a pregnancy runs long, while the baby keeps growing and needing more — so the margin narrows. The exact threshold, and whether it is offered or recommended, varies by country and by your own circumstances.</p>
+<p>This is also where a wrong due date does real damage. If dating was off by a week, "42 weeks" may actually be 41, and decisions get made against a date rather than a pregnancy. It is the strongest argument for getting an early scan and for using its date afterwards.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<ul>
+  <li><strong>Twins and higher multiples.</strong> The sum is the same; the expectation is not. Multiples usually arrive weeks earlier and are monitored differently throughout.</li>
+  <li><strong>Whether anything is going well.</strong> This counts days. It is not a screening test and cannot tell you about the health of a pregnancy.</li>
+  <li><strong>Cycles that vary or have stopped.</strong> Where no typical cycle exists to count from, the period route is guesswork before it begins, and a scan carries the whole answer.</li>
+  <li><strong>Induction and delivery planning.</strong> Timing decisions belong with your care team, who have your history alongside the date.</li>
+  <li><strong>Dates already revised.</strong> Once a scan has reset your dates, feed the scan in above; going back to the period sum reintroduces the error the scan removed.</li>
+</ul>
+<p>For the fuller picture week by week — trimesters, milestones and typical size — the <a href="/pregnancy-calculator/">pregnancy calculator</a> works from the same dates. The <a href="/conception-calculator/">conception calculator</a> and <a href="/ovulation-calculator/">ovulation calculator</a> work backwards from them.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>How is a due date worked out?</h3>
+<p>By adding 280 days — forty weeks — to the first day of your last period, adjusted if your cycle is not 28 days. The other three routes reach the same place from a different starting point: 266 days from conception, the same less the embryo's age for an IVF transfer, or whatever is left of the 280 days at the time of a dating scan.</p>
+<h3>How likely am I to give birth on my due date?</h3>
+<p>Roughly one time in twenty-five. Around 60% of births fall within a week of the estimate and close to 90% within two weeks. The date is a midpoint of a wide distribution, not a prediction, which is why clinicians talk about a due window rather than a due day.</p>
+<h3>Which estimate should I trust if two disagree?</h3>
+<p>The earlier ultrasound, generally. Embryos grow at nearly the same rate in the first trimester, so a scan before about 14 weeks measures age well. If a scan and your last period differ by more than about five to seven days, most guidelines say to adopt the scan date and stop using the period-based one.</p>
+<h3>Why does an IVF due date use a different sum?</h3>
+<p>Because the starting point is known rather than estimated. Fertilisation happened on a recorded date, so the calculation counts 266 days from conception and then subtracts however many days the embryo had already been developing when it was transferred — three, five or six. Skipping that subtraction pushes the date out by the same number of days.</p>
+<h3>Does my cycle length really change the date?</h3>
+<p>It can move it by a week or more. The standard sum assumes ovulation on day 14 of a 28-day cycle. On a 35-day cycle ovulation usually falls around day 21, so the pregnancy began a week later than the standard assumption — and the due date moves back accordingly. If your cycles are long, short or irregular, set the length here and treat a dating scan as the better answer.</p>
+<h3>What is the difference between early, full, late and post term?</h3>
+<p>They are the four bands inside and beyond the term window. Early term is 37 weeks to 38 weeks 6 days, full term 39 weeks to 40 weeks 6 days, late term 41 weeks to 41 weeks 6 days, and post term from 42 weeks. Outcomes are best in the full-term band, which is why induction is not usually offered simply for passing the due date.</p>
+<h3>What happens if I go past my due date?</h3>
+<p>Usually nothing dramatic. Most units start monitoring more closely after 41 weeks and discuss induction somewhere between 41 and 42, because the placenta becomes less efficient as a pregnancy runs long. The specific point and the options vary by country and by your own circumstances, so it is a conversation to have with your care team rather than a fixed rule.</p>
+<h3>Can I use this if I am expecting twins?</h3>
+<p>The date it produces is calculated the same way, but the expectation around it is not. Twins are usually delivered well before 40 weeks — often between 36 and 38 — and are monitored on a different schedule throughout. Use the dates and plan your obstetric team gives you rather than this page.</p>
+
+<p class="dd-disclaimer">What this tool offers is arithmetic and context, nothing clinical. It makes no assessment of how a pregnancy is progressing, identifies no condition, and stands outside the care you are already receiving; the figure it returns describes a population, not the person reading it, and assumes one baby rather than two. Where your notes and this page disagree, your notes decide. Anything that unsettles you — blood, pain, a quieter baby than usual, or a worry you cannot quite articulate — warrants a call to your maternity team the same day, and none of those calls are a waste of their time. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +790,301 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var D = 86400000, last = null;
+
+  var METHODS = [
+    ['lmp',        'Last period'],
+    ['ultrasound', 'Ultrasound'],
+    ['conception', 'Conception date'],
+    ['ivf',        'IVF transfer date']
+  ];
+  var PANELS = { lmp:'dd-panelLmp', ultrasound:'dd-panelUltrasound',
+                 conception:'dd-panelConception', ivf:'dd-panelIvf' };
+
+  /* Fetal length and weight by completed week, as the reference reports them. Below week 9
+     no figure is given; beyond week 40 the reference falls back to a "less than 1 gram"
+     line, which is plainly wrong for a term baby, so we hold the week-40 figures and say so. */
+  var SIZE = {
+    9:[0.9,2.3,2],      10:[1.22,3.1,4],    11:[1.61,4.1,7],    12:[2.13,5.4,14],
+    13:[2.91,7.4,23],   14:[3.42,8.7,43],   15:[3.98,10.1,70],  16:[4.57,11.6,100],
+    17:[5.12,13.0,140], 18:[5.59,14.2,190], 19:[6.02,15.3,240], 20:[6.46,16.4,300],
+    21:[10.51,26.7,360],22:[10.94,27.8,430],23:[11.38,28.9,501],24:[11.81,30.0,600],
+    25:[13.62,34.6,660],26:[14.02,35.6,760],27:[14.41,36.6,875],28:[14.80,37.6,1005],
+    29:[15.20,38.6,1153],30:[15.71,39.9,1319],31:[16.18,41.1,1502],32:[16.69,42.4,1702],
+    33:[17.20,43.7,1918],34:[17.72,45.0,2146],35:[18.19,46.2,2383],36:[18.66,47.4,2622],
+    37:[19.13,48.6,2859],38:[19.61,49.8,3083],39:[19.96,50.7,3288],40:[20.16,51.2,3462]
+  };
+  /* [firstWeek, lastWeek, text] */
+  var MILESTONES = [
+    [3,3,'Conception'],
+    [4,4,'A pregnancy test can read positive'],
+    [6,7,'Heartbeat becomes visible on an ultrasound'],
+    [13,13,'Risk of miscarriage drops sharply'],
+    [18,21,'Movements become noticeable, hearing develops, and sex is usually visible on a scan'],
+    [23,23,'Survival outside the womb becomes possible with intensive care'],
+    [28,28,'The lungs can manage breathing'],
+    [37,42,'Full term']
+  ];
+  var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function parseDate(v){
+    if(!v) return null;
+    var p = String(v).split('-');
+    if(p.length !== 3) return null;
+    var d = new Date(Date.UTC(+p[0], +p[1]-1, +p[2]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function add(dt, n){ return new Date(dt.getTime() + n*D); }
+  function diff(a, b){ return Math.round((a - b)/D); }
+  function fmt(dt){ return MONTH[dt.getUTCMonth()] + ' ' + dt.getUTCDate() + ', ' + dt.getUTCFullYear(); }
+  function todayUTC(){ var n = new Date(); return new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())); }
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).trim()); }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function plural(n, w){ return n + ' ' + w + (n === 1 ? '' : 's'); }
+
+  /* Calendar months elapsed between two dates, with the leftover days. */
+  function addMonths(dt, n){
+    var y = dt.getUTCFullYear(), m = dt.getUTCMonth() + n, d = dt.getUTCDate();
+    var t = new Date(Date.UTC(y, m, 1));
+    var lastDay = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth()+1, 0)).getUTCDate();
+    return new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), Math.min(d, lastDay)));
+  }
+  function monthsBetween(start, end){
+    var n = 0;
+    while(addMonths(start, n+1) <= end) n++;
+    return [n, diff(end, addMonths(start, n))];
+  }
+
+  function dueFrom(method){
+    if(method === 'lmp'){
+      var l = parseDate($('dd-lmp').value);
+      if(!l) return null;
+      return add(l, 280 + (parseInt($('dd-cycle').value, 10) - 28));
+    }
+    if(method === 'conception'){
+      var c = parseDate($('dd-conception').value);
+      return c ? add(c, 266) : null;
+    }
+    if(method === 'ivf'){
+      var t = parseDate($('dd-transfer').value);
+      return t ? add(t, 266 - parseInt(radio('dd-embryo'), 10)) : null;
+    }
+    if(method === 'ultrasound'){
+      var s = parseDate($('dd-scan').value);
+      var w = num('dd-scanWeeks'), dd = num('dd-scanDays');
+      if(!s || isNaN(w) || isNaN(dd)) return null;
+      if(w < 0 || w > 42 || dd < 0 || dd > 6) return { error:'scan' };
+      return add(s, 280 - (w*7 + dd));
+    }
+    return null;
+  }
+
+  function compute(){
+    var method = $('dd-method').value;
+    var due = dueFrom(method);
+    if(!due) return { error:'blank' };
+    if(due.error) return due;
+    /* Week 1 of a 42-week table ends 279 days before the due date. */
+    var week1 = add(due, -279);
+    var today = todayUTC();
+    var elapsed = diff(today, week1);
+    var weekNo = Math.floor(elapsed/7) + 1;
+    var conception = add(week1, 13);
+    return { method:method, due:due, week1:week1, today:today, elapsed:elapsed,
+             weekNo:weekNo, conception:conception,
+             before: elapsed < 0, after: weekNo > 42 };
+  }
+
+  var ERRORS = {
+    blank: 'Choose a date above to see your pregnancy timeline.',
+    scan:  'Enter the gestational age from the scan as whole weeks plus 0 to 6 days.'
+  };
+
+  function trimesterOf(w){ return w <= 12 ? 'First' : (w <= 27 ? 'Second' : 'Third'); }
+  function milestoneOf(w){
+    for(var i=0;i<MILESTONES.length;i++){
+      if(w >= MILESTONES[i][0] && w <= MILESTONES[i][1]) return MILESTONES[i][2];
+    }
+    return '';
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('dd-err');
+    if(o.error){
+      err.className = 'dd-err show';
+      err.textContent = ERRORS[o.error];
+      $('dd-bigNum').textContent = '—';
+      $('dd-bigSub').textContent = '\u00a0';
+      $('dd-facts').innerHTML = '';
+      $('dd-wkBody').innerHTML = '';
+      $('dd-barFill').style.width = '0%';
+      $('dd-pct').textContent = '—';
+      last = null;
+      return;
+    }
+    err.className = 'dd-err';
+    last = o;
+
+    $('dd-bigNum').textContent = fmt(o.due);
+    $('dd-bigSub').textContent = 'estimated from your ' +
+      METHODS.filter(function(m){ return m[0] === o.method; })[0][1].toLowerCase();
+
+    var h = '';
+    if(o.before){
+      h += '<div class="dd-fact"><span>Pregnancy starts on</span><b>' + fmt(o.week1) + '</b></div>';
+      h += '<div class="dd-fact"><span>That is</span><b>in ' + plural(-o.elapsed, 'day') + '</b></div>';
+      $('dd-barFill').style.width = '0%';
+      $('dd-pct').textContent = 'not started';
+    } else {
+      var w = Math.floor(o.elapsed/7), d = o.elapsed % 7;
+      var mm = monthsBetween(o.week1, o.today);
+      var pct = Math.round(o.elapsed/280*100);
+      h += '<div class="dd-fact"><span>You are currently at</span><b>Week ' + o.weekNo +
+           '<br><span style="font-weight:400;color:var(--ink-faint);font-size:12px">' +
+           plural(w,'week') + ' ' + plural(d,'day') + ' \u00b7 ' +
+           (mm[0] ? plural(mm[0],'month') + (mm[1] ? ' ' + plural(mm[1],'day') : '') : plural(mm[1],'day')) +
+           '</span></b></div>';
+      h += '<div class="dd-fact"><span>Trimester</span><b>' + trimesterOf(Math.min(o.weekNo,42)) +
+           (o.weekNo >= 37 && o.weekNo <= 42 ? ' \u00b7 full term' : '') + '</b></div>';
+      var sz = SIZE[Math.min(o.weekNo, 40)];
+      if(o.weekNo < 9){
+        h += '<div class="dd-fact"><span>Size</span><b>under a gram at this stage</b></div>';
+      } else if(sz){
+        var lb = sz[2]/453.59237, oz = sz[2]/28.349523;
+        var wt = sz[2] >= 454 ? (Math.round(lb*100)/100) + ' lb' : (Math.round(oz*100)/100) + ' oz';
+        h += '<div class="dd-fact"><span>Average size' + (o.weekNo > 40 ? ' at week 40' : '') +
+             '</span><b>' + sz[0].toFixed(2) + ' in (' + sz[1].toFixed(1) + ' cm)<br>' +
+             '<span style="font-weight:400;color:var(--ink-faint);font-size:12px">' + wt +
+             ' \u00b7 ' + sz[2].toLocaleString('en-US') + ' g</span></b></div>';
+      }
+      h += '<div class="dd-fact"><span>Likely conceived around</span><b>' + fmt(o.conception) + '</b></div>';
+      h += '<div class="dd-fact"><span>Days remaining</span><b>' +
+           (o.elapsed >= 280 ? 'past the due date' : plural(280 - o.elapsed, 'day')) + '</b></div>';
+      $('dd-barFill').style.width = Math.max(0, Math.min(100, pct)) + '%';
+      $('dd-pct').textContent = Math.min(pct, 100) + '% through';
+    }
+    $('dd-facts').innerHTML = h;
+
+    var rows = '';
+    for(var wk = 1; wk <= 42; wk++){
+      var s = add(o.week1, (wk-1)*7), e = add(s, 6);
+      var isNow = !o.before && o.today >= s && o.today <= e;
+      var ms = milestoneOf(wk);
+      rows += '<tr' + (isNow ? ' class="now"' : '') + '><td>Week ' + wk + '</td><td>' +
+              fmt(s) + ' \u2013 ' + fmt(e) + (isNow ? ' <span class="tri">(today)</span>' : '') +
+              '</td><td class="tri">' + trimesterOf(wk) + '</td><td' + (ms ? ' class="ms"' : '') + '>' +
+              esc(ms) + '</td></tr>';
+    }
+    $('dd-wkBody').innerHTML = rows;
+  }
+
+  /* ---------- populate ---------- */
+  $('dd-method').innerHTML = METHODS.map(function(m){
+    return '<option value="'+m[0]+'">'+esc(m[1])+'</option>';
+  }).join('');
+  var cyc = '';
+  for(var c = 22; c <= 44; c++) cyc += '<option value="'+c+'"'+(c===28?' selected':'')+'>'+c+' days</option>';
+  $('dd-cycle').innerHTML = cyc;
+
+  /* Sensible starting dates relative to today, so the page is never blank. */
+  (function seed(){
+    var t = todayUTC();
+    function iso(d){ return d.toISOString().slice(0,10); }
+    $('dd-lmp').value        = iso(add(t, -161));
+    $('dd-conception').value = iso(add(t, -147));
+    $('dd-scan').value       = iso(t);
+    $('dd-transfer').value   = iso(add(t, -152));
+  })();
+
+  function setMethod(){
+    var m = $('dd-method').value;
+    Object.keys(PANELS).forEach(function(k){
+      $(PANELS[k]).style.display = (k === m) ? '' : 'none';
+    });
+    render();
+  }
+  $('dd-method').addEventListener('change', setMethod);
+  ['dd-lmp','dd-cycle','dd-scan','dd-scanWeeks','dd-scanDays','dd-conception','dd-transfer']
+    .forEach(function(id){ var el = $(id); if(el){ el.addEventListener('input', render); el.addEventListener('change', render); } });
+  var emb = document.querySelectorAll('input[name="dd-embryo"]');
+  for(var i=0;i<emb.length;i++) emb[i].addEventListener('change', render);
+
+  $('dd-calcBtn').addEventListener('click', render);
+  /* Clear empties the typed boxes and nothing else, the way the reference does. */
+  $('dd-clearBtn').addEventListener('click', function(){
+    ['dd-lmp','dd-scan','dd-conception','dd-transfer','dd-scanWeeks','dd-scanDays']
+      .forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Choose a date first, then save the timeline as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Estimated Due Date', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(12); doc.setTextColor(24,26,31); doc.setFont('helvetica','bold');
+    doc.text('Estimated due date: ' + fmt(o.due), margin, y); y += 16;
+
+    var body = [];
+    for(var wk = 1; wk <= 42; wk++){
+      var s = add(o.week1, (wk-1)*7), e = add(s, 6);
+      body.push(['Week ' + wk, fmt(s) + ' - ' + fmt(e), trimesterOf(wk), milestoneOf(wk)]);
+    }
+    doc.autoTable({ startY:y, head:[['Week','Dates','Trimester','Milestone']], body:body,
+      margin:{left:margin,right:margin}, styles:{ fontSize:8, cellPadding:3 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimates for a single pregnancy — not medical advice. Discuss your dates with your midwife or doctor. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('due-date.pdf');
+  }
+  $('dd-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  setMethod();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -480,6 +1180,248 @@
   });
 
   input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
 })();
 </script>
 </body></html>

@@ -141,6 +141,16 @@ Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so
 
 **The wider rule this broke:** an omission is only "intentional" once the owner has agreed to it. Flagging it in the completion report is not agreement — §3a-PRIME step 2 says a deliberate omission is *flagged with a reason*, and that means raised as a question before shipping, not recorded afterwards.
 
+### Near-duplicate calculators need the article written apart, not adapted (added Aug 7, 2026)
+
+Some pages compute nearly the same thing — Pregnancy and Due Date share an identical dating engine, and calculator.net runs both because the search intents differ. Building the second from the first is right for the code and wrong for the copy: the first draft of Due Date shared **6.61%** of its article with Pregnancy, and the offenders were the usual two (the YMYL disclaimers, top and bottom) plus repeated statistics phrasing.
+
+Give each page its **own angle** and write to it: Pregnancy covers how gestation is counted, trimesters and fetal size; Due Date covers the Naegele sum, the 4% statistic, re-dating rules, the early/full/late/post-term bands and going overdue. Same facts may appear; the sentences must not. Rewritten, overlap fell to **1.96%**, the remainder being the shared formula block and two section headings.
+
+Also check for a **self-link**: prefix-renaming a sibling carries its sidebar over, so the new page ends up linking to itself. Assert `main a[href="/<own-slug>/"]` does not exist.
+
+And after any prefix rename, grep the new CSS for duplicate class definitions — media-query overrides are fine, a second base rule is a collision.
+
 ### Sweep the reference, do not spot-check it (added Aug 7, 2026)
 
 Four hand-picked test cases passed on the Macro Calculator and the page still had a real bug. It only surfaced when the owner asked whether the maths was right and a **40-case randomised sweep** was run against the reference — varying sex, unit system, activity, goal, formula and body across the whole input space, comparing all twelve emitted macro figures per case.
