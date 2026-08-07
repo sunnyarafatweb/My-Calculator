@@ -126,6 +126,14 @@ This is the standing SEO spec. Follow this for every page whether new or upgrade
    Intentional differences (if any): ...
    ```
 
+### Standing rule on scope (added Aug 7, 2026, after two corrections in one day)
+
+**Parity is the specification, and it is a ceiling as well as a floor.** Match the reference tool's fields, results and maths exactly. Do not add modes, tabs, presets, selectors or extra controls on top of it because research suggests they would be useful — the VAT Calculator shipped with three tabs, a 34-country preset dropdown, a currency selector and rate chips, and the owner's report was that he was confused using his own page, so a visitor would be too. It was stripped back to the reference's single four-field form the same day.
+
+Extras are a **proposal to put to the owner before building**, never a decision made inside a build. This is the same conclusion as the USD-default correction earlier that day; the two together mean it is now a rule, not a note. The site's own 3-card shell (bar, form, result, sidebar, bottomgrid, article) is not an "extra" — that is the established design system and stays.
+
+If a page's prose describes a feature that is later removed, **the prose has to be rewritten in the same commit**. Four separate sentences on that page still described tabs, a country selector and an on-result hint after they were deleted.
+
 ### Standing rule
 
 Do not ask the owner to re-check fields one by one. That verification is the assistant's responsibility, every time, before reporting a calculator finished.

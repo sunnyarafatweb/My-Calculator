@@ -6645,6 +6645,53 @@ exception, states plainly that it is not one, and adds a standing rule: a US-fir
 is never deviated from without asking the owner first.
 
 
+### VAT Calculator — stripped back to the reference layout (Aug 7, 2026)
+
+Second correction the same day, and the more important one. The owner's words: as a user
+he was confused by the page, so other users would be too. Everything added on top of the
+reference tool came out.
+
+**Removed:** the Add VAT / Remove VAT / Any two values tabs, the 34-country preset
+dropdown, the 18-currency selector, the rate chips, and the VAT-fraction hint under the
+result. The calculator is now what calculator.net has and nothing more — one card, four
+boxes (VAT rate, Net price, Gross price, Tax amount), Calculate and Clear. Fill any two,
+get the other two. Clear blanks all four, as theirs does.
+
+**Kept:** the site's own 3-card shell, since that is the established design system and was
+never what confused anyone — status bar with PDF export, result card with the donut, navy
+related-calculators sidebar, the two bottom reference cards, and the article. Also kept
+the shading that marks which boxes the calculator filled in, because without it a
+four-box any-two form gives no clue which numbers were yours.
+
+**One deliberate difference from the reference, flagged rather than silent.** Their result
+strips trailing zeros, printing $17.5 where the tax is 17.50. Ours prints two decimal
+places for money. The arithmetic is identical; only the formatting differs.
+
+**Feature claims in the prose had to be rewritten, not just the markup.** The article
+described "the three tabs", told the reader to use "Remove VAT" for a refund estimate,
+said the calculator "shows the applicable fraction under each result", and referred to the
+"country selector" and "country presets". All four described things that no longer exist.
+Leaving them would have been a content-accuracy problem in its own right, and §10 of the
+guide is explicit about never claiming a feature the page does not have. The relevant
+paragraphs were rewritten to describe the four ways two inputs can be combined, and the
+subhead and meta description no longer promise country presets either. Dead CSS for the
+removed components was deleted too (1.2KB).
+
+Page went 105KB to 95KB. Suite rewritten to 74 assertions: all six reference combinations
+through the UI, rounding parity, error states, the derived-field shading and that it
+survives a re-render, the headline naming whichever value was solved for, Clear blanking
+all four boxes and the form still working afterwards, and explicit assertions that the
+form contains exactly four inputs, zero dropdowns, and none of the removed elements.
+Overlap with the reference page is 0.03% — a single 8-gram, which is the four field labels
+in order and unavoidable.
+
+**The lesson, stated plainly.** Two corrections in one day on this page, both from adding
+judgement the owner had not asked for. The first was a market default; this one was
+feature scope. The reference is the specification. Additions beyond it are a proposal to
+put to the owner before building, not a decision to make inside a build — the same
+conclusion the USD correction reached hours earlier, which should have been enough.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
