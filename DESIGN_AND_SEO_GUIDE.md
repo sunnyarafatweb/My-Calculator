@@ -136,6 +136,8 @@ The converter differs per page and must be read from their scripts, not assumed:
 
 Their pound factor is `0.453592`, not the exact `0.45359237` — match theirs so the numbers agree. Output is trimmed to ten significant digits with trailing zeros dropped.
 
+**Layout:** From goes on its own line, To underneath it, with a downward arrow between — not side by side. Reading top to bottom as "this becomes that" is what makes it obvious which box is the answer; a left-right pair reads as two independent fields and the owner flagged it as confusing. Value input on the left of each line, unit dropdown on the right, result box tinted and read-only.
+
 **The wider rule this broke:** an omission is only "intentional" once the owner has agreed to it. Flagging it in the completion report is not agreement — §3a-PRIME step 2 says a deliberate omission is *flagged with a reason*, and that means raised as a question before shipping, not recorded afterwards.
 
 ### One colour scheme sitewide (added Aug 7, 2026)

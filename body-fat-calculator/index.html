@@ -372,22 +372,26 @@
   .bf-tab{flex:1;text-align:center;padding:10px 12px}
 }
 
-/* Other Units converter — shared markup between calculators, prefixed per page */
+
+
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
 .cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
 .cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
 .cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
 .cv-cat:hover{border-color:var(--border)}
 .cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-.cv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
-@media(max-width:520px){.cv-row{grid-template-columns:1fr}}
-.cv-col{display:flex;flex-direction:column;gap:6px;min-width:0}
-.cv-col label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
-.cv-col input,.cv-col select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
-.cv-col input[readonly]{background:var(--gold-tint);font-weight:600}
-.cv-eq{font-size:16px;color:var(--ink-faint);text-align:center;padding-top:20px}
-@media(max-width:520px){.cv-eq{padding-top:0;text-align:left}}
-.cv-out{font-size:13px;color:var(--ink-soft);margin:10px 0 0;line-height:1.55;min-height:19px}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
 .cv-out b{color:var(--ink)}
 .cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
 .cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
@@ -485,24 +489,25 @@
   <div class="bf-card bf-area-form">
     <div class="bf-card-pad">
   <div class="cv-panel" id="bf-convPanel" style="display:none">
-    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form.</p>
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form below.</p>
     <div class="cv-cats" id="bf-convCats"></div>
-    <div class="cv-row">
-      <div class="cv-col">
-        <label for="bf-convFromVal">From</label>
+    <div class="cv-line">
+      <label for="bf-convFromVal">From</label>
+      <div class="cv-pair">
         <input type="text" inputmode="decimal" id="bf-convFromVal" value="1">
-        <select id="bf-convFrom"></select>
+        <select id="bf-convFrom" aria-label="Convert from unit"></select>
       </div>
-      <div class="cv-eq">=</div>
-      <div class="cv-col">
-        <label for="bf-convToVal">To</label>
+    </div>
+    <div class="cv-arrow" aria-hidden="true">↓</div>
+    <div class="cv-line">
+      <label for="bf-convToVal">To</label>
+      <div class="cv-pair">
         <input type="text" id="bf-convToVal" readonly>
-        <select id="bf-convTo"></select>
+        <select id="bf-convTo" aria-label="Convert to unit"></select>
       </div>
     </div>
     <p class="cv-out" id="bf-convOut"></p>
   </div>
-
 
       <div class="bf-field">
         <span class="bf-field-label">Gender</span>
