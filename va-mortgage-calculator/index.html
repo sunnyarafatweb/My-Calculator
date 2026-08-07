@@ -1226,6 +1226,51 @@
     schedView = 'monthly'; this.className = 'active'; $('va-schedAnnualBtn').className = '';
     if(last) renderSchedule(last);
   });
+  /* The form on this page is tall enough that the Calculate/Clear row sits well below
+     the fields it resets — on a phone none of them are on screen at all. Resetting
+     silently therefore reads as "the button did nothing", which is the same complaint
+     the shared snippet fixes for Calculate. So Clear confirms itself the same way:
+     bring the top of the form back into view, then flash the result card.
+
+     The scroll is driven by scrollTop rather than window.scrollTo because the shared
+     snippet mutes scrollTo for 700ms after any click inside the grid that is not the
+     Calculate button — which includes this one. That mute exists to stop auto-calculate
+     from yanking the page around while someone is typing; a deliberate press is the
+     case Calculate itself is exempted from, and this is the same exemption. */
+  function smoothScrollTo(target){
+    var el = document.scrollingElement || document.documentElement;
+    var start = el.scrollTop;
+    var end = Math.max(0, Math.min(target, Math.max(0, el.scrollHeight - window.innerHeight)));
+    var dist = end - start;
+    if(Math.abs(dist) < 2){ el.scrollTop = end; return; }
+    var t0 = null, dur = 360;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var k = Math.min(1, (ts - t0)/dur);
+      el.scrollTop = start + dist*(k < 0.5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2)/2);
+      if(k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function confirmCleared(){
+    var form = document.querySelector('.va-area-form');
+    if(!form) return;
+    var res = document.querySelector('[data-cb-result]') ||
+              document.querySelector('.va-result-card');
+    var el = document.scrollingElement || document.documentElement;
+    var r = form.getBoundingClientRect();
+    var settled = r.top >= 60 && r.top <= window.innerHeight*0.5;
+    if(!settled) smoothScrollTo(el.scrollTop + r.top - 88);
+    setTimeout(function(){
+      if(!res) return;
+      res.classList.remove('cb-flash');
+      void res.offsetWidth;
+      res.classList.add('cb-flash');
+      setTimeout(function(){ res.classList.remove('cb-flash'); }, 1000);
+    }, settled ? 0 : 420);
+  }
+
   $('va-calcBtn').addEventListener('click', render);
   $('va-clearBtn').addEventListener('click', function(){
     $('va-price').value = DEF.price; $('va-down').value = DEF.down; $('va-downUnit').value = DEF.downUnit;
@@ -1245,6 +1290,7 @@
     schedView = 'annual';
     $('va-schedAnnualBtn').className = 'active'; $('va-schedMonthlyBtn').className = '';
     render();
+    confirmCleared();
   });
   $('va-bwChk').addEventListener('change', render);
 

@@ -6566,6 +6566,42 @@ mutes that method around an auto-run. Use `mouse.wheel` after letting the ~700ms
 expire.
 
 
+### VA Mortgage Calculator — Clear looked dead on a tall form (Aug 7, 2026)
+
+Owner report: Calculate works, Clear does not. Clear was in fact resetting every field
+and re-rendering correctly on both local and live — the defect was that **nothing it
+changed was on screen**. This page's form is the tallest of the 3-card builds (loan
+basics, entitlement, costs, advanced toggle), so the button row sits far below the fields
+it resets. Measured from the position a visitor actually clicks from: on a 390px phone
+none of `#va-price`, `#va-rate`, `#va-down` or the result card are in the viewport, and on
+desktop only the rate field is. Calculate feels responsive purely because the shared cb_ux
+snippet scrolls and flashes the result for it; Clear had no such confirmation.
+
+Checked the other 3-card pages the owner was comparing against — amortization,
+mortgage-payoff and the new vat-calculator all keep their first field visible from the
+button, which is why their Clear reads as working. This page is the outlier, so the fix is
+page-level rather than a change to the shared snippet.
+
+Clear now confirms itself the same way Calculate does: scroll the top of the form back
+into view, then flash the result card.
+
+**The part worth remembering.** The first attempt used `window.scrollTo` and silently did
+nothing. cb_ux installs a capture-phase click listener on the whole grid that arms a
+700ms scroll mute for any click that is not `[data-cb-calc]` or `.cb-jump` — Clear is
+neither, so it muted its own scroll. Instrumenting the call showed `scrollTo` being invoked
+with the correct target and the page not moving, which is what pointed at the wrapper
+rather than at the maths. The mute exists to stop auto-calculate from yanking the page
+while someone types, and a real press of Calculate is explicitly exempted from it via
+`releaseScroll()`; a real press of Clear deserves the same exemption. Since `releaseScroll`
+is not exposed, the scroll is driven through `scrollingElement.scrollTop` with a small
+rAF easing loop, which the snippet does not wrap.
+
+Regression assertions added at all three widths: Clear resets the form, Clear brings the
+reset fields back on screen, Clear flashes the result card, and — because this deliberately
+bypasses the mute — typing still does not move the page (measured as drift of the touched
+control, 0px at every width). Suite now 87 assertions.
+
+
 - **Workflow / no repo clutter**: all scratch work (`build_*.py`,
   `test_*.js`, `verify_*.js`, screenshots) lives in the sandbox's
   `/home/claude/work/` scratch directory for that session only — it is
