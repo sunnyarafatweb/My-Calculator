@@ -7533,3 +7533,41 @@ tab panels, the three sub-modes, bottomgrid swapping, sidebar computed colours, 
 class, cb_ux auto-calculate, Clear with 0px drift, zero console errors and zero overflow.
 Numbers unchanged and still matched against the reference. Article 2,378 words, 0.00% overlap
 with the reference, 0.04% with our own pages (byline boilerplate).
+
+### Pace Calculator — squeezed input fields (Aug 8, 2026, third pass)
+
+The owner circled the Pace box in "I want my time" mode and asked why it was empty. **It was
+not empty.** `00:07:55` was in the DOM the whole time; the input had been squeezed to **24px
+wide**, so the value was rendered outside the visible box.
+
+The cause is `min-width:auto` on flex items. `.pc-w-unit` set `flex:0 0 124px`, but a `<select>`
+whose longest option is "Kilometers Per Hour" has a min-content width near 180px, and
+min-content wins over flex-basis unless `min-width:0` is set explicitly. The select therefore
+took ~180px of a ~207px control and left 24px for the input beside it. The distance rows looked
+fine purely because their four options (Miles / Kilometers / Meters / Yards) are short enough
+to fit — which is exactly why this was invisible during review.
+
+Fixed in three places:
+- The eight-option pace-unit selects (main calculator, converter "From") now sit on **their own
+  labelled row** rather than sharing a line with the value box. Same fields, same values, just
+  not competing for one row.
+- Floors added so it cannot recur silently: text inputs `min-width:90px`, all field selects
+  `min-width:0`, `.pc-w-unit` changed to `flex:0 1 124px`.
+- The multipoint table's per-row unit selects were also cramped (66px, showing "Kilomete…").
+  Their display labels are now `km / mi / m / yd` with the full name kept in `aria-label`; the
+  submitted values are unchanged. Column widths rebalanced so distance and time inputs land at
+  ~121px and the select at 60px.
+
+**New standing assertion.** The suite now runs a `widthGuard` in every mode and every tab,
+asserting that no visible text input is under 80px and no visible select under 58px. Two rounds
+of tuning it were needed — the first threshold flagged the legitimately-narrow `km` selects —
+which is itself the point: the guard forces a deliberate answer about every cramped control
+rather than letting one hide. It caught the multipoint case immediately after fixing the pace
+case. Screenshots of both panels were checked by eye afterwards, per §"Verify in a browser, not
+just in the DOM".
+
+**The wider lesson.** Every previous check on this page asserted that a *value was correct*.
+None asserted that the value was *visible*. A `pg.input_value()` assertion passes on a 24px
+box, and so did all 54 earlier assertions. Value-correctness and value-legibility are separate
+properties and need separate tests; the width guard is now the second one and should be carried
+to any page with a value-plus-unit-select row.

@@ -307,10 +307,10 @@
 .pc-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
 .pc-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
 .pc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
-.pc-field-control input[type=text]{flex:1;min-width:0;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
-.pc-field-control select{padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
+.pc-field-control input[type=text]{flex:1;min-width:90px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
+.pc-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
 .pc-field-control input:focus,.pc-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
-.pc-w-unit{flex:0 0 124px}
+.pc-w-unit{flex:0 1 124px;min-width:0}
 .pc-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 173px}
 .pc-divider{border-top:1px solid var(--border-fine);margin:12px 0}
 .pc-btn-row{display:flex;gap:10px;margin-top:16px}
@@ -351,8 +351,10 @@
 .pc-mp-table{width:100%;border-collapse:collapse;font-size:12.5px}
 .pc-mp-table th{padding:6px 5px;font-size:10.5px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em;text-align:left}
 .pc-mp-table td{padding:5px;border-bottom:1px solid var(--border-fine)}
-.pc-mp-table input,.pc-mp-table select{width:100%;padding:6px 7px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
-.pc-mp-idx{width:22px;color:var(--ink-faint);font-size:11.5px;text-align:right}
+.pc-mp-table input,.pc-mp-table select{width:100%;padding:6px 5px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
+.pc-mp-table select{min-width:60px}
+.pc-mp-table td{padding:5px 4px}
+.pc-mp-idx{width:18px;color:var(--ink-faint);font-size:11.5px;text-align:right}
 .pc-chart-wrap{padding:16px 12px 8px}
 .pc-chart{width:100%;height:auto;display:block}
 .pc-conv-eq{text-align:center;font-size:15px;font-weight:700;color:var(--ink-faint);padding:2px 0 6px}
@@ -366,7 +368,7 @@
   .pc-field-label{width:100%}
   .pc-hint{margin-left:0}
   .pc-result-head .v{font-size:25px}
-  .pc-w-unit{flex:0 0 116px}
+  .pc-w-unit{flex:0 1 116px;min-width:0}
 }
 </style>
 <style>
@@ -522,7 +524,12 @@
         <label class="pc-field-label" for="pc-pace">Pace</label>
         <div class="pc-field-control">
           <input type="text" id="pc-pace" value="00:07:55" inputmode="numeric" autocomplete="off">
-          <select id="pc-paceUnit" class="pc-w-unit" aria-label="Pace unit">
+        </div>
+      </div>
+      <div class="pc-field pc-hidden" id="pc-fPaceUnit">
+        <label class="pc-field-label" for="pc-paceUnit">Pace unit</label>
+        <div class="pc-field-control">
+          <select id="pc-paceUnit" aria-label="Pace unit">
             <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
             <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
             <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
@@ -566,7 +573,12 @@
         <label class="pc-field-label" for="pc-cvFrom">From</label>
         <div class="pc-field-control">
           <input type="text" id="pc-cvFrom" value="9:20" inputmode="numeric" autocomplete="off">
-          <select id="pc-cvFromUnit" class="pc-w-unit" aria-label="Convert from unit">
+        </div>
+      </div>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-cvFromUnit">From unit</label>
+        <div class="pc-field-control">
+          <select id="pc-cvFromUnit" aria-label="Convert from unit">
             <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
             <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
             <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
@@ -1039,6 +1051,7 @@ function setMode(m){
   show('pc-fDist',  m!=='distance');
   show('pc-fEvent', m!=='distance');
   show('pc-fPace',  m!=='pace');
+  show('pc-fPaceUnit', m!=='pace');
   show('pc-paceHint', m!=='pace' && !!TIME_UNITS[$('pc-paceUnit').value]);
   calcMain();
 }
@@ -1099,7 +1112,7 @@ function buildMpRows(){
   for (var i=0;i<MP_ROWS;i++){
     h += '<tr><td class="pc-mp-idx">'+(i+1)+'.</td>'+
          '<td><input type="text" id="pc-mpD'+i+'" value="'+d[i]+'" inputmode="decimal" aria-label="Cumulative distance at point '+(i+1)+'"></td>'+
-         '<td><select id="pc-mpU'+i+'" aria-label="Unit at point '+(i+1)+'"><option value="Kilometers">Kilometers</option><option value="Miles">Miles</option><option value="Meters">Meters</option><option value="Yards">Yards</option></select></td>'+
+         '<td><select id="pc-mpU'+i+'" aria-label="Distance unit at point '+(i+1)+'"><option value="Kilometers">km</option><option value="Miles">mi</option><option value="Meters">m</option><option value="Yards">yd</option></select></td>'+
          '<td><input type="text" id="pc-mpT'+i+'" value="'+t[i]+'" inputmode="numeric" aria-label="Cumulative time at point '+(i+1)+'"></td></tr>';
   }
   $('pc-mpBody').innerHTML = h;
