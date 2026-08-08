@@ -8065,3 +8065,57 @@ Suite updated: the previous "zero `<img>` in main" assertion was correct when th
 raster images and is now wrong, so it is replaced by two better ones — every `main` image is
 served from our own `/img/`, and the content image carries alt text, explicit dimensions and lazy
 loading. The third-party-image-request guard still stands and now covers `.webp` too. 51/51.
+
+## Calories Burned Calculator — built (Aug 8, 2026)
+
+Two calculators on one page at `/calories-burned-calculator/` (99KB): 106 activities by duration,
+and walking/running/cycling by distance. Reference: calculator.net/calories-burned-calculator.html.
+
+### The reference does not follow the formula it publishes
+
+Their page prints `Calories = Time × MET × Body Weight / 200`, which is linear in weight. It is
+not. Measured at 10 hours of slow walking, kcal per kg per hour reads 2.246 at 40 kg, 2.070 at
+80 kg and 2.057 from 85 kg up. Duration scales perfectly linearly; weight does not.
+
+A one-kilogram sweep showed the curve is **piecewise linear**, and sweeping in pounds put the
+breakpoints at **125, 155 and 185 lb** — the column headings of the classic published calorie
+tables. So each activity carries three anchor rates, the per-pound rate is interpolated linearly
+between them, and it is held flat outside. That reproduces their output exactly, including their
+own default (45 min, 150 lb, walking slow = 108) which the printed formula gives as 105.
+
+The distance calculator uses the same anchors with a second interpolation over speed. Fitting
+lines to sampled points left ±1 calorie errors; the fix was noticing the fitted nodes matched
+named activities **exactly** — walking fast at 3.5 mph has the same rate as "Walking: fast", to
+four decimals. Rebuilding the curves from the exact anchor rates rather than fitted lines made it
+exact. Recovered speeds: walking 2.0/2.8/3.5/4.0, running 5.0/6.0/7.5/10.0, cycling
+13/15/17.5/21 mph.
+
+**Three rounded unit constants** also had to be measured rather than assumed: km/h→mph uses
+0.621, min/km uses 0.6215 and yd/s uses 2.045, not the exact conversions. Miles, meters and m/s
+are exact. Found by brute-forcing the constant against collected reference cases.
+
+### Two broken entries in their data
+
+- **Cycling, Stationary: vigorous** — total calories at 155 lb come out *below* the 125 lb figure
+  (556,000 vs 630,000 over 1000 h), which cannot be right. As METs the 125 and 185 anchors read
+  11.1 and 10.5, both sane, while 155 reads 7.9. Fixed by interpolating the middle anchor.
+- **Walk/Jog: jog <10 min.** — the radio value contains a raw `<`, and their own server answers
+  "Please select an activity" for it, so the activity can never be calculated on their site.
+  Included here using the Compendium MET of 6.0.
+
+The other 104 reproduce exactly.
+
+**Verification.** Engine written standalone, Node-verified, then re-extracted from the shipped
+file: 45 duration cases (random activities, both weight units, 5–900 minutes) and 45 distance
+cases (all three activities, all six speed units, all four distance units) — **0 mismatches** —
+plus a 40-case unit-conversion sweep, also 0. Then 38 Playwright assertions at three viewports,
+including that all 106 activities are reachable across the five categories, both reference
+worked examples, and both edge-alignment guards.
+
+One assertion failed on first run because I had guessed 640 calories for running fast where the
+reference gives 657. The engine was right and my guess was wrong — the article's illustrative
+figures were all replaced with queried values rather than estimates.
+
+**Content.** 1,550-word article, 8 H2s, 8 FAQs. Overlap with the reference **0.00%**. Against our
+own pages 2.48% versus body-type, which is entirely the shared disclaimer and byline — the eating
+disorder helpline text is deliberately identical across both.
