@@ -7571,3 +7571,76 @@ None asserted that the value was *visible*. A `pg.input_value()` assertion passe
 box, and so did all 54 earlier assertions. Value-correctness and value-legibility are separate
 properties and need separate tests; the width guard is now the second one and should be carried
 to any page with a value-plus-unit-select row.
+
+## Army Body Fat Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced a 42KB template stub at `/army-body-fat-calculator/` with a full 3-card build (86KB).
+Reference: calculator.net/army-body-fat-calculator.html, supplied by the owner with a screenshot.
+
+**Parity (§3a-PRIME).** A genuinely simple reference page: one form, no tabs, no unit switcher,
+US units only. Inputs are gender radio, age, weight in pounds, and waist as separate feet and
+inches boxes. Confirmed no "Other Units" tab by grepping their markup for `converter.php` and
+`quick-conversion.js` — neither is loaded on this page. Outputs are the body fat percent, a
+compliance sentence naming the standard for the age, and, when over, the percentage and pound
+reduction needed.
+
+### Fitting their maths cost most of the session, and blind fitting was the wrong tool
+
+Their calculation is server-side, so the engine had to be reconstructed from live responses. A
+linear fit over a probe grid looked convincing — 2.0 per inch of waist, −0.12 per pound for men
+— and then broke on boundary cases in ways that made no sense: the same modelled value of 29.33
+produced 30, 30 and 29 at three different weights.
+
+Two rounding steps were the reason, and neither is visible in the outputs:
+- **Abdominal circumference is rounded to the nearest half inch** before the equation runs.
+  Every AC crossing I measured landed on x.25 or x.75, which I first read as evidence about the
+  coefficient when it was actually evidence of the bucket midpoints.
+- **Weight is rounded to the nearest pound.** Weight crossings all landed on x.5 for the same
+  reason.
+
+Because both inputs are quantised, no amount of binary searching on the *inputs* can recover
+the true coefficients — the function is a step surface, and I was fitting a plane to stairs.
+Switching to a web search for the published equation settled it in one step:
+
+```
+Male:    %BF = 1.99 x waist  - 0.12  x weight - 26.97
+Female:  %BF = 1.27 x waist  - 0.015 x weight -  9.15
+```
+with waist in inches, weight in pounds, both inputs pre-rounded as above and the result rounded
+to a whole percent, clamped at zero (their page shows 0%, not a negative, for absurd inputs).
+
+**The lesson.** When a reference implements a *published standard*, find the published source
+before fitting. I spent most of the build inferring coefficients that were a search away, and
+the inferred ones were wrong — 2.0 versus the real 1.99, and a female intercept that failed
+half the boundary cases. Fitting is the right tool for a house formula with no public spec; it
+is the wrong first move for a regulation. Add to the §3a-PRIME step-1 audit: ask whether the
+reference is implementing something documented, and if so read the document.
+
+**Verification.** Engine written standalone and run in Node before embedding: 85 live reference
+comparisons during fitting, then 40 held-out cases (randomised across sex, all four age bands,
+100-300 lb, quarter-inch waist steps, and both the pass and fail branches) comparing the full
+output string set — **0 mismatches**. Re-extracted from the shipped file afterwards and re-run,
+per the rule about verifying the code actually written.
+
+Then 38 Playwright assertions at 1280/390/430px: both worked reference cases exact, pass and
+fail banner wording and colour, the age-band row highlighting, the gauge pointer, the target
+table, cb_ux auto-calculate, Clear emptying typed boxes while leaving the gender radio alone
+with 0px drift, the width guard in every viewport, zero console errors, zero overflow, no jsPDF
+before click.
+
+**Content.** 1,761-word article, 9 H2s, 8 FAQs. Overlap with the reference page is **0.57%**,
+and every match is the standards table digits (`17 20 20 30 21 27 22 32`…) — unavoidable
+regulatory data, the same category as the CPI series name noted earlier. Overlap with our own
+pages fell to **0.40%** after one fix: the first draft reused the phrase "worked through with
+the values this page loads with" from the pace calculator, which is precisely the worked-example
+lead-in §"article-only originality check" warns against. Rewritten; no non-boilerplate matches
+remain.
+
+**Keyword research.** Head term "army body fat calculator". Competitors are a mix of calculator
+sites and Army-adjacent explainers (BodySpec, gigacalculator, calculator.academy). Distinct
+clusters with their own pages: "army tape test calculator", "ABCP calculator", "army body fat
+standards by age", "one-site tape test". The gap worth taking is the **2023 one-site** framing —
+many pages still describe the retired neck-and-waist method, so the title leads with it.
+
+**OG image generated as part of the build this time**, not retrofitted after the owner found it
+missing on the pace calculator.
