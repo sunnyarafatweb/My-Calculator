@@ -277,80 +277,96 @@
 </style><style>
 .pc-wrap{width:100%}
 .pc-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.pc-bar-text{display:flex;align-items:center;gap:9px;min-width:0}
+.pc-bar-text{display:flex;align-items:center;gap:10px}
 .pc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.16);font-size:12px;flex:0 0 auto}
-.pc-bar-pdf-btn{flex:0 0 auto;background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.pc-bar-pdf-btn{flex:0 0 auto;background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
 .pc-bar-pdf-btn:hover{background:#EAF0F7}
 .pc-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
-.pc-tabs{grid-area:tabs;display:flex;gap:6px;flex-wrap:wrap}
-.pc-tab{background:var(--surface-sunken,#EFEDE6);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:8px 16px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.18s}
-.pc-tab:hover{color:var(--ink)}
-.pc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
-.pc-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 268px;grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid";align-items:start;margin-top:6px}
-.pc-card{background:var(--surface,#fff);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--sh-sm)}
-.pc-calc-card{grid-area:form}
-.pc-result-card{grid-area:result}
-.pc-sidecol{grid-area:sidebar}
+
+.pc-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 268px;grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid";align-items:start}
+.pc-area-bar{grid-area:bar}
+.pc-area-tabs{grid-area:tabs}
+.pc-area-form{grid-area:form}
+.pc-area-result{grid-area:result}
+.pc-area-sidebar{grid-area:sidebar}
 .pc-area-bottomgrid{grid-area:bottomgrid}
-.pc-card-head{padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;background:var(--surface-sunken,#EFEDE6);border-bottom:1px solid var(--border-fine);color:var(--ink)}
-.pc-result-head{padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;background:#16A34A;color:#fff}
-.pc-card-pad{padding:16px}
-.pc-field{margin-bottom:12px}
-.pc-field-label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px}
-.pc-field-control{display:flex;gap:8px;align-items:center}
-.pc-field-control input[type=text],.pc-field-control input[type=number],.pc-field-control select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff}
+
+.pc-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.pc-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.pc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.pc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pc-card-pad{padding:24px}
+.pc-card-head{padding:14px 20px;font-size:13px;font-weight:700;letter-spacing:.02em;background:var(--surface-sunken);border-bottom:1px solid var(--border-fine);color:var(--ink)}
+
+.pc-mode-toggle{display:flex;gap:8px;margin-bottom:14px}
+.pc-mode-btn{flex:1;background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:9px 10px;font-size:12px;font-weight:600;cursor:pointer;text-align:center}
+.pc-mode-btn.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.pc-intro{font-size:12.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 14px}
+.pc-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.pc-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.pc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.pc-field-control input[type=text]{flex:1;min-width:0;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
+.pc-field-control select{padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
 .pc-field-control input:focus,.pc-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
-.pc-field-control select{cursor:pointer}
-.pc-w-unit{flex:0 0 132px}
-.pc-hint{font-size:11.5px;color:var(--ink-faint);margin-top:4px}
-.pc-btn-row{display:flex;gap:10px;margin-top:14px}
-.pc-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.pc-w-unit{flex:0 0 124px}
+.pc-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 173px}
+.pc-divider{border-top:1px solid var(--border-fine);margin:12px 0}
+.pc-btn-row{display:flex;gap:10px;margin-top:16px}
+.pc-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
 .pc-btn-calc:hover{background:#128A3D}
-.pc-btn-clear{flex:1;background:var(--surface-sunken,#EFEDE6);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.pc-btn-clear{flex:1;background:var(--surface-sunken);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
 .pc-btn-clear:hover{color:var(--ink)}
-.pc-err{display:none;margin-top:10px;padding:9px 11px;border-radius:9px;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C;font-size:12.5px}
+.pc-err{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C;font-size:12.5px}
 .pc-err.show{display:block}
-.pc-big{font-size:25px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.25;margin:2px 0 3px}
-.pc-big-sub{font-size:12.5px;color:var(--ink-faint);margin-bottom:14px}
-.pc-rows{border-top:1px solid var(--border-fine)}
-.pc-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px}
+
+.pc-result-card{overflow:hidden;border-radius:16px;border:1px solid var(--border-fine);background:var(--surface);box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pc-result-head{background:#16A34A;color:#fff;padding:20px 24px}
+.pc-result-head .k{font-size:13px;font-weight:600;opacity:.92;margin-bottom:4px}
+.pc-result-head .v{font-size:29px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.pc-result-head .s{font-size:12.5px;opacity:.92;margin-top:5px}
+.pc-result-body{padding:8px 24px 20px}
+.pc-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px}
+.pc-row:last-child{border-bottom:none}
 .pc-row span:first-child{color:var(--ink-soft)}
-.pc-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
-.pc-row.pc-lead span:last-child{color:#128A3D}
-.pc-side-card{background:#1E3A5F;border-radius:16px;padding:18px;color:#fff}
-.pc-side-card h3{font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;margin:0 0 12px;color:rgba(255,255,255,.72)}
-.pc-side-card a{display:block;padding:8px 0;font-size:13.5px;color:#fff;border-bottom:1px solid rgba(255,255,255,.13);transition:.2s}
-.pc-side-card a:last-child{border-bottom:none}
-.pc-side-card a:hover{color:#22C55E}
+.pc-row span:last-child{font-weight:700;color:var(--ink);text-align:right}
+
+.pc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.pc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.pc-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.pc-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.pc-calc-card a:hover{background:rgba(255,255,255,0.06)}
+.pc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+.pc-viewmore:hover{background:#16A34A}
+
 .pc-bottom-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
 .pc-table{width:100%;border-collapse:collapse;font-size:13px}
-.pc-table th{text-align:left;font-weight:700;color:var(--ink-soft);padding:7px 8px;border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
-.pc-table td{padding:6px 8px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.pc-table th{text-align:left;font-weight:700;color:var(--ink-soft);padding:8px 10px;border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+.pc-table td{padding:7px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
 .pc-table td.pc-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 .pc-table tr:last-child td{border-bottom:none}
-.pc-scroll{max-height:330px;overflow-y:auto}
-.pc-empty{padding:14px 16px;font-size:13px;color:var(--ink-faint)}
-.pc-sec{margin-top:34px}
-.pc-sec-h{font-size:20px;font-weight:700;color:var(--ink);margin:0 0 6px;letter-spacing:-.01em}
-.pc-sec-p{font-size:14px;color:var(--ink-soft);line-height:1.65;margin:0 0 14px;max-width:820px}
-.pc-sec-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.pc-scroll{max-height:340px;overflow-y:auto}
+
 .pc-mp-table{width:100%;border-collapse:collapse;font-size:12.5px}
-.pc-mp-table th{padding:6px 5px;font-size:11px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em}
+.pc-mp-table th{padding:6px 5px;font-size:10.5px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em;text-align:left}
 .pc-mp-table td{padding:5px;border-bottom:1px solid var(--border-fine)}
-.pc-mp-table input,.pc-mp-table select{width:100%;padding:6px 7px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;font-family:inherit;background:#fff;color:var(--ink)}
+.pc-mp-table input,.pc-mp-table select{width:100%;padding:6px 7px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
 .pc-mp-idx{width:22px;color:var(--ink-faint);font-size:11.5px;text-align:right}
-.pc-chart-wrap{padding:14px 10px 6px}
+.pc-chart-wrap{padding:16px 12px 8px}
 .pc-chart{width:100%;height:auto;display:block}
-.pc-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.pc-conv-eq{text-align:center;font-size:15px;font-weight:700;color:var(--ink-faint);padding:2px 0 6px}
 .pc-hidden{display:none !important}
-.pc-conv-eq{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink-faint);padding:4px 0}
-.pc-note{font-size:12px;color:var(--ink-faint);line-height:1.6;margin-top:10px}
+
 @media(max-width:980px){.pc-grid{grid-template-columns:minmax(0,1fr) 250px;grid-template-areas:"bar bar" "tabs tabs" "form sidebar" "result sidebar" "bottomgrid bottomgrid"}}
 @media(max-width:860px){
   .pc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
-  .pc-bottom-grid,.pc-sec-grid{grid-template-columns:1fr}
-  .pc-w-unit{flex:0 0 118px}
-  .pc-big{font-size:22px}
+  .pc-bottom-grid{grid-template-columns:1fr}
+  .pc-card-pad{padding:18px}
+  .pc-field-label{width:100%}
+  .pc-hint{margin-left:0}
+  .pc-result-head .v{font-size:25px}
+  .pc-w-unit{flex:0 0 116px}
 }
 </style>
 <style>
@@ -361,17 +377,17 @@
 .pc-seo-article ul,.pc-seo-article ol{margin:0 0 16px 20px;padding:0}
 .pc-seo-article li{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-bottom:8px}
 .pc-seo-article a{color:#128A3D;text-decoration:underline;text-underline-offset:2px}
-.pc-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:14px;margin-bottom:6px}
-.pc-toc{background:var(--surface-sunken,#EFEDE6);border:1px solid var(--border-fine);border-radius:12px;padding:14px 18px;margin:18px 0 26px}
+.pc-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:16px;margin-bottom:16px}
+.pc-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
 .pc-toc p{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin:0 0 8px}
 .pc-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
-.pc-toc a:hover{color:#128A3D}
-.pc-formula{background:var(--surface-sunken,#EFEDE6);border:1px solid var(--border-fine);border-radius:10px;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);margin:0 0 16px;line-height:1.8;overflow-x:auto}
+.pc-toc a:hover{color:#1E3A5F}
+.pc-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink);line-height:1.8;overflow-x:auto}
 .pc-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
 .pc-disclaimer a{color:var(--ink-faint)}
 .pc-seo-article table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 18px}
-.pc-seo-article table th{text-align:left;padding:8px 9px;background:var(--surface-sunken,#EFEDE6);border-bottom:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft)}
-.pc-seo-article table td{padding:7px 9px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
+.pc-seo-article table th{text-align:left;padding:8px 12px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft)}
+.pc-seo-article table td{padding:8px 12px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
 </style>
 </head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
@@ -450,32 +466,38 @@
 </header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Pace Calculator","item":"https://calculatorboss.com/pace-calculator/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pace Calculator","url":"https://calculatorboss.com/pace-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","description":"Work out running pace, elapsed time or distance covered, with kilometer and mile splits, race-distance times, a segment analyzer, a pace unit converter and a finish-time projector.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
-<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style>
-<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/">All Calculators</a><span class="sep">/</span><span class="cur">Pace Calculator</span></nav>
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Pace Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pace Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Work out your pace, time or distance, read your kilometer and mile splits, analyse each segment of a run, convert between pace units, or project your finish time mid-race.</p>
 
-<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pace Calculator</h1>
-<p class="text-ink-soft" style="font-size:15.5px;line-height:1.7;max-width:760px;margin-bottom:4px">Work out your pace for running, walking or cycling &mdash; then read your kilometer and mile splits, the times those paces produce from 400&nbsp;meters to the marathon, and what you are on track to finish in.</p>
-
+<div class="pc-wrap">
 <div class="pc-grid">
-  <div class="pc-bar">
-    <span class="pc-bar-text"><span class="pc-bar-badge">&#9201;</span><span>Just enter your values below &mdash; results update automatically.</span></span>
-    <button type="button" class="pc-bar-pdf-btn" id="pc-pdfBtn">&#128190; Save as PDF</button>
-  </div>
 
-  <div class="pc-tabs" role="tablist" aria-label="What to solve for">
-    <button type="button" class="pc-tab active" id="pc-tabPace" role="tab" aria-selected="true">Pace</button>
-    <button type="button" class="pc-tab" id="pc-tabTime" role="tab" aria-selected="false">Time</button>
-    <button type="button" class="pc-tab" id="pc-tabDist" role="tab" aria-selected="false">Distance</button>
-  </div>
+<div class="pc-bar pc-area-bar">
+  <span class="pc-bar-text"><span class="pc-bar-badge">&#9201;</span>Just enter your values below &mdash; results update automatically.</span>
+  <button type="button" class="pc-bar-pdf-btn" id="pc-pdfBtn">&#128190; Save as PDF</button>
+</div>
 
-  <div class="pc-card pc-calc-card">
-    <div class="pc-card-head" id="pc-formHead">Solving for pace</div>
-    <div class="pc-card-pad">
+<div class="pc-tabs pc-area-tabs" role="tablist" aria-label="Choose a calculator">
+  <button type="button" class="pc-tab active" data-calc="main" role="tab" aria-selected="true">Pace Calculator</button>
+  <button type="button" class="pc-tab" data-calc="mp" role="tab" aria-selected="false">Multipoint Pace Calculator</button>
+  <button type="button" class="pc-tab" data-calc="cv" role="tab" aria-selected="false">Pace Converter</button>
+  <button type="button" class="pc-tab" data-calc="ft" role="tab" aria-selected="false">Finish Time Calculator</button>
+</div>
+
+<div class="pc-card pc-area-form">
+  <div class="pc-card-pad">
+
+    <!-- ============ Pace Calculator ============ -->
+    <div id="pc-panel-main">
+      <div class="pc-mode-toggle">
+        <button type="button" class="pc-mode-btn active" data-mode="pace">I want my pace</button>
+        <button type="button" class="pc-mode-btn" data-mode="time">I want my time</button>
+        <button type="button" class="pc-mode-btn" data-mode="distance">I want my distance</button>
+      </div>
       <div class="pc-field" id="pc-fTime">
         <label class="pc-field-label" for="pc-time">Time</label>
         <div class="pc-field-control"><input type="text" id="pc-time" value="00:47:30" inputmode="numeric" autocomplete="off"></div>
-        <div class="pc-hint">hh:mm:ss &mdash; leading zeros are optional, so 8:30 works.</div>
       </div>
+      <div class="pc-hint" id="pc-timeHint">hh:mm:ss &mdash; leading zeros are optional, so 8:30 works.</div>
       <div class="pc-field" id="pc-fDist">
         <label class="pc-field-label" for="pc-dist">Distance</label>
         <div class="pc-field-control">
@@ -485,15 +507,16 @@
             <option value="Meters">Meters</option><option value="Yards">Yards</option>
           </select>
         </div>
-        <div class="pc-field-control" style="margin-top:8px">
-          <select id="pc-event" aria-label="Pick a standard event">
-            <option value="">&mdash; Or pick an event &mdash;</option>
-            <option value="M">Marathon</option><option value="HM">Half-Marathon</option>
-            <option value="1K">1K</option><option value="5K">5K</option><option value="10K">10K</option>
-            <option value="1M">1 Mile</option><option value="5M">5 Miles</option><option value="10M">10 Miles</option>
-            <option value="800m">800 meters</option><option value="1500m">1500 meters</option>
-          </select>
-        </div>
+      </div>
+      <div class="pc-field" id="pc-fEvent">
+        <label class="pc-field-label" for="pc-event">Or pick an event</label>
+        <div class="pc-field-control"><select id="pc-event">
+          <option value="">&mdash; Standard distances &mdash;</option>
+          <option value="M">Marathon</option><option value="HM">Half-Marathon</option>
+          <option value="1K">1K</option><option value="5K">5K</option><option value="10K">10K</option>
+          <option value="1M">1 Mile</option><option value="5M">5 Miles</option><option value="10M">10 Miles</option>
+          <option value="800m">800 meters</option><option value="1500m">1500 meters</option>
+        </select></div>
       </div>
       <div class="pc-field pc-hidden" id="pc-fPace">
         <label class="pc-field-label" for="pc-pace">Pace</label>
@@ -506,188 +529,154 @@
             <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
           </select>
         </div>
-        <div class="pc-hint" id="pc-paceHint">hh:mm:ss</div>
       </div>
+      <div class="pc-hint pc-hidden" id="pc-paceHint">hh:mm:ss</div>
       <div class="pc-btn-row">
         <button type="button" class="pc-btn-calc" id="pc-calcBtn">Calculate</button>
         <button type="button" class="pc-btn-clear" id="pc-clearBtn">Clear</button>
       </div>
       <div class="pc-err" id="pc-err"></div>
     </div>
-  </div>
 
-  <div class="pc-card pc-result-card" id="pc-resultCard">
-    <div class="pc-result-head" id="pc-resultHead">Your pace</div>
-    <div class="pc-card-pad">
-      <div class="pc-big" id="pc-bigVal">&mdash;</div>
-      <div class="pc-big-sub" id="pc-bigSub"></div>
-      <div class="pc-rows" id="pc-resultRows"></div>
-    </div>
-  </div>
-
-  <div class="pc-sidecol">
-    <div class="pc-side-card">
-      <h3>Related Calculators</h3>
-      <a href="/calories-burned-calculator/">Calories Burned Calculator</a>
-      <a href="/bmi-calculator/">BMI Calculator</a>
-      <a href="/tdee-calculator/">TDEE Calculator</a>
-      <a href="/bmr-calculator/">BMR Calculator</a>
-      <a href="/macro-calculator/">Macro Calculator</a>
-      <a href="/body-fat-calculator/">Body Fat Calculator</a>
-      <a href="/all-calculators/">Browse all calculators</a>
-    </div>
-  </div>
-
-  <div class="pc-area-bottomgrid">
-    <div class="pc-bottom-grid">
-      <div class="pc-card" id="pc-raceCard">
-        <div class="pc-card-head">Times at this pace, by race distance</div>
-        <div class="pc-card-pad" style="padding:8px 16px 12px"><table class="pc-table"><tbody id="pc-raceBody"></tbody></table></div>
+    <!-- ============ Multipoint ============ -->
+    <div id="pc-panel-mp" class="pc-hidden">
+      <p class="pc-intro">Enter the running totals at each point you took the clock &mdash; lap markers, aid stations, the top of a climb. Each row is cumulative distance and cumulative time, and the calculator works out the leg between each pair of points.</p>
+      <table class="pc-mp-table"><thead><tr><th></th><th>Distance</th><th>Unit</th><th>Time (hh:mm:ss)</th></tr></thead><tbody id="pc-mpBody"></tbody></table>
+      <div class="pc-divider"></div>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-mpUnit">Preferred pace unit</label>
+        <div class="pc-field-control"><select id="pc-mpUnit">
+          <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
+          <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+          <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+          <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+        </select></div>
       </div>
-      <div class="pc-card" id="pc-splitCard">
-        <div class="pc-card-head">Splits</div>
-        <div class="pc-scroll" id="pc-splitScroll"><div class="pc-card-pad" style="padding:8px 16px 12px"><table class="pc-table"><tbody id="pc-splitBody"></tbody></table></div></div>
+      <div class="pc-btn-row">
+        <button type="button" class="pc-btn-calc" id="pc-mpCalc">Calculate</button>
+        <button type="button" class="pc-btn-clear" id="pc-mpClear">Clear</button>
       </div>
+      <div class="pc-err" id="pc-mpErr"></div>
     </div>
-  </div>
-</div>
 
-<section class="pc-sec" id="multipoint">
-  <h2 class="pc-sec-h">Multipoint Pace Calculator</h2>
-  <p class="pc-sec-p">If you recorded the clock at points along a route &mdash; lap markers, aid stations, the top of each climb &mdash; enter the running totals here. Each row is the cumulative distance and cumulative time at that point, and the calculator works out how fast you covered the leg between each pair of points. Run the same route repeatedly and the segment column shows which part of it is costing you.</p>
-  <div class="pc-sec-grid">
-    <div class="pc-card">
-      <div class="pc-card-head">Points along the route</div>
-      <div class="pc-card-pad" style="padding:10px 12px 14px">
-        <table class="pc-mp-table"><thead><tr><th></th><th>Distance</th><th>Unit</th><th>Time (hh:mm:ss)</th></tr></thead><tbody id="pc-mpBody"></tbody></table>
-        <div class="pc-field" style="margin-top:12px">
-          <label class="pc-field-label" for="pc-mpUnit">Your preferred pace unit</label>
-          <div class="pc-field-control"><select id="pc-mpUnit">
+    <!-- ============ Converter ============ -->
+    <div id="pc-panel-cv" class="pc-hidden">
+      <p class="pc-intro">Move one pace between any two units &mdash; minutes per mile to minutes per kilometer, a treadmill&rsquo;s miles per hour into the pace your watch shows, or either into meters per second.</p>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-cvFrom">From</label>
+        <div class="pc-field-control">
+          <input type="text" id="pc-cvFrom" value="9:20" inputmode="numeric" autocomplete="off">
+          <select id="pc-cvFromUnit" class="pc-w-unit" aria-label="Convert from unit">
             <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
             <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
             <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
             <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
-          </select></div>
+          </select>
         </div>
-        <div class="pc-btn-row">
-          <button type="button" class="pc-btn-calc" id="pc-mpCalc">Calculate</button>
-          <button type="button" class="pc-btn-clear" id="pc-mpClear">Clear</button>
-        </div>
-        <div class="pc-err" id="pc-mpErr"></div>
       </div>
+      <div class="pc-hint" id="pc-cvHint">hh:mm:ss</div>
+      <div class="pc-conv-eq">&#8595;</div>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-cvToUnit">To</label>
+        <div class="pc-field-control"><select id="pc-cvToUnit" aria-label="Convert to unit">
+          <option value="tpm">Per Mile</option><option value="tpk" selected>Per Kilometer</option>
+          <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+          <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+          <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+        </select></div>
+      </div>
+      <div class="pc-btn-row">
+        <button type="button" class="pc-btn-calc" id="pc-cvCalc">Calculate</button>
+        <button type="button" class="pc-btn-clear" id="pc-cvClear">Clear</button>
+      </div>
+      <div class="pc-err" id="pc-cvErr"></div>
     </div>
-    <div>
-      <div class="pc-card" id="pc-mpResultCard">
-        <div class="pc-result-head">Segment breakdown</div>
-        <div class="pc-card-pad" style="padding:8px 12px 12px">
-          <div class="pc-scroll"><table class="pc-mp-table"><thead id="pc-mpHead"></thead><tbody id="pc-mpOut"></tbody></table></div>
-          <div class="pc-row pc-lead" style="border-bottom:none;padding-top:10px"><span>Average pace</span><span id="pc-mpAvg">&mdash;</span></div>
-        </div>
-      </div>
-      <div class="pc-card" style="margin-top:18px">
-        <div class="pc-card-head">Pace trend by segment</div>
-        <div class="pc-chart-wrap"><svg class="pc-chart" id="pc-mpChart" viewBox="0 0 460 230" role="img" aria-label="Bar chart of pace for each segment"></svg></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="pc-sec" id="converter">
-  <h2 class="pc-sec-h">Pace Converter</h2>
-  <p class="pc-sec-p">Move a single pace between any two units &mdash; minutes per mile to minutes per kilometer, a treadmill&rsquo;s miles per hour into the pace your watch shows, or either into meters per second.</p>
-  <div class="pc-sec-grid">
-    <div class="pc-card">
-      <div class="pc-card-head">Convert a pace</div>
-      <div class="pc-card-pad">
-        <div class="pc-field">
-          <label class="pc-field-label" for="pc-cvFrom">From</label>
-          <div class="pc-field-control">
-            <input type="text" id="pc-cvFrom" value="9:20" inputmode="numeric" autocomplete="off">
-            <select id="pc-cvFromUnit" class="pc-w-unit" aria-label="Convert from unit">
-              <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
-              <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
-              <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
-              <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
-            </select>
-          </div>
-          <div class="pc-hint" id="pc-cvHint">hh:mm:ss</div>
+    <!-- ============ Finish Time ============ -->
+    <div id="pc-panel-ft" class="pc-hidden">
+      <p class="pc-intro">Part-way through a race? Enter how far you have covered and how long it has taken, plus the full race distance, and this projects the finish time you are on for if you hold the same pace.</p>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-ftNow">Distance covered</label>
+        <div class="pc-field-control">
+          <input type="text" id="pc-ftNow" value="4" inputmode="decimal" autocomplete="off">
+          <select id="pc-ftNowUnit" class="pc-w-unit" aria-label="Unit of distance covered">
+            <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
+            <option value="Meters">Meters</option><option value="Yards">Yards</option>
+          </select>
         </div>
-        <div class="pc-conv-eq">&#8595;</div>
-        <div class="pc-field">
-          <label class="pc-field-label" for="pc-cvToUnit">To</label>
-          <div class="pc-field-control"><select id="pc-cvToUnit" aria-label="Convert to unit">
-            <option value="tpm">Per Mile</option><option value="tpk" selected>Per Kilometer</option>
-            <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
-            <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
-            <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
-          </select></div>
-        </div>
-        <div class="pc-btn-row">
-          <button type="button" class="pc-btn-calc" id="pc-cvCalc">Calculate</button>
-          <button type="button" class="pc-btn-clear" id="pc-cvClear">Clear</button>
-        </div>
-        <div class="pc-err" id="pc-cvErr"></div>
       </div>
-    </div>
-    <div class="pc-card" id="pc-cvResultCard">
-      <div class="pc-result-head">Converted pace</div>
-      <div class="pc-card-pad">
-        <div class="pc-big" id="pc-cvBig">&mdash;</div>
-        <div class="pc-big-sub" id="pc-cvSub"></div>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-ftTime">Elapsed time</label>
+        <div class="pc-field-control"><input type="text" id="pc-ftTime" value="33:40" inputmode="numeric" autocomplete="off"></div>
       </div>
+      <div class="pc-hint">hh:mm:ss</div>
+      <div class="pc-field">
+        <label class="pc-field-label" for="pc-ftFull">Full race distance</label>
+        <div class="pc-field-control">
+          <input type="text" id="pc-ftFull" value="13.1" inputmode="decimal" autocomplete="off">
+          <select id="pc-ftFullUnit" class="pc-w-unit" aria-label="Unit of full distance">
+            <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
+            <option value="Meters">Meters</option><option value="Yards">Yards</option>
+          </select>
+        </div>
+      </div>
+      <div class="pc-btn-row">
+        <button type="button" class="pc-btn-calc" id="pc-ftCalc">Calculate</button>
+        <button type="button" class="pc-btn-clear" id="pc-ftClear">Clear</button>
+      </div>
+      <div class="pc-err" id="pc-ftErr"></div>
     </div>
-  </div>
-</section>
 
-<section class="pc-sec" id="finish-time">
-  <h2 class="pc-sec-h">Finish Time Calculator</h2>
-  <p class="pc-sec-p">Part-way through a race and want to know where you are heading? Enter how far you have covered and how long it has taken, plus the full race distance, and this projects the finish time you are currently on for &mdash; assuming you hold the same pace to the line.</p>
-  <div class="pc-sec-grid">
-    <div class="pc-card">
-      <div class="pc-card-head">Where you are now</div>
-      <div class="pc-card-pad">
-        <div class="pc-field">
-          <label class="pc-field-label" for="pc-ftNow">Distance covered so far</label>
-          <div class="pc-field-control">
-            <input type="text" id="pc-ftNow" value="4" inputmode="decimal" autocomplete="off">
-            <select id="pc-ftNowUnit" class="pc-w-unit" aria-label="Unit of distance covered">
-              <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
-              <option value="Meters">Meters</option><option value="Yards">Yards</option>
-            </select>
-          </div>
-        </div>
-        <div class="pc-field">
-          <label class="pc-field-label" for="pc-ftTime">Elapsed time</label>
-          <div class="pc-field-control"><input type="text" id="pc-ftTime" value="33:40" inputmode="numeric" autocomplete="off"></div>
-          <div class="pc-hint">hh:mm:ss</div>
-        </div>
-        <div class="pc-field">
-          <label class="pc-field-label" for="pc-ftFull">Full race distance</label>
-          <div class="pc-field-control">
-            <input type="text" id="pc-ftFull" value="13.1" inputmode="decimal" autocomplete="off">
-            <select id="pc-ftFullUnit" class="pc-w-unit" aria-label="Unit of full distance">
-              <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
-              <option value="Meters">Meters</option><option value="Yards">Yards</option>
-            </select>
-          </div>
-        </div>
-        <div class="pc-btn-row">
-          <button type="button" class="pc-btn-calc" id="pc-ftCalc">Calculate</button>
-          <button type="button" class="pc-btn-clear" id="pc-ftClear">Clear</button>
-        </div>
-        <div class="pc-err" id="pc-ftErr"></div>
-      </div>
-    </div>
-    <div class="pc-card" id="pc-ftResultCard">
-      <div class="pc-result-head">Projected finish</div>
-      <div class="pc-card-pad">
-        <div class="pc-big" id="pc-ftBig">&mdash;</div>
-        <div class="pc-big-sub" id="pc-ftSub"></div>
-        <div class="pc-rows" id="pc-ftRows"></div>
-      </div>
+  </div>
+</div>
+
+<div class="pc-result-card pc-area-result" id="pc-resultCard">
+  <div class="pc-result-head">
+    <div class="k" id="pc-resKey">Your pace</div>
+    <div class="v" id="pc-resVal">&mdash;</div>
+    <div class="s" id="pc-resSub"></div>
+  </div>
+  <div class="pc-result-body">
+    <div id="pc-res-rows"></div>
+    <div id="pc-res-mp" class="pc-hidden">
+      <div class="pc-scroll"><table class="pc-mp-table"><thead id="pc-mpHead"></thead><tbody id="pc-mpOut"></tbody></table></div>
     </div>
   </div>
-</section>
+</div>
+
+<div class="pc-sidecol pc-area-sidebar">
+  <div class="pc-calc-card">
+    <div class="h">Health &amp; Fitness</div>
+    <a href="/calories-burned-calculator/"><span>Calories Burned</span><span>&#8594;</span></a>
+    <a href="/bmi-calculator/"><span>BMI Calculator</span><span>&#8594;</span></a>
+    <a href="/tdee-calculator/"><span>TDEE Calculator</span><span>&#8594;</span></a>
+    <a href="/bmr-calculator/"><span>BMR Calculator</span><span>&#8594;</span></a>
+    <a href="/macro-calculator/"><span>Macro Calculator</span><span>&#8594;</span></a>
+    <a href="/body-fat-calculator/"><span>Body Fat</span><span>&#8594;</span></a>
+    <a href="/ideal-weight-calculator/"><span>Ideal Weight</span><span>&#8594;</span></a>
+    <a class="pc-viewmore" href="/all-calculators/">View More &#8594;</a>
+  </div>
+</div>
+
+<div class="pc-area-bottomgrid">
+  <div class="pc-bottom-grid" id="pc-bottom-main">
+    <div class="pc-card">
+      <div class="pc-card-head">Times at this pace, by race distance</div>
+      <div style="padding:6px 14px 12px"><table class="pc-table"><tbody id="pc-raceBody"></tbody></table></div>
+    </div>
+    <div class="pc-card">
+      <div class="pc-card-head">Splits</div>
+      <div class="pc-scroll"><div style="padding:6px 14px 12px"><table class="pc-table"><tbody id="pc-splitBody"></tbody></table></div></div>
+    </div>
+  </div>
+  <div class="pc-card pc-hidden" id="pc-bottom-mp">
+    <div class="pc-card-head">Pace trend by segment</div>
+    <div class="pc-chart-wrap"><svg class="pc-chart" id="pc-mpChart" viewBox="0 0 760 240" role="img" aria-label="Bar chart of pace for each segment"></svg></div>
+  </div>
+</div>
+
+</div>
+</div>
 
 <article class="pc-seo-article">
   <div class="pc-byline">Written by the CalculatorBoss Health &amp; Fitness Team &middot; Every result on this page is checked against a reference implementation &middot; Last updated Aug 2026</div>
@@ -717,7 +706,7 @@
   <p>The race-distance table applies that per-unit cost to each standard distance, and the splits table applies it to each whole kilometer and each whole mile you would pass. Both are the same multiplication repeated, which is why they agree with each other by construction.</p>
 
   <h2 id="three-modes">Pace, time, distance: which one to solve for</h2>
-  <p>The three tabs at the top change which box the calculator fills in rather than changing the maths.</p>
+  <p>The three buttons at the top of the form change which box the calculator fills in rather than changing the maths.</p>
   <ul>
     <li><strong>Pace</strong> is the one to use after a run. You know the distance and you know what the watch said, and you want to know how fast that actually was.</li>
     <li><strong>Time</strong> is the planning mode. You have a distance in mind and a pace you believe you can hold, and you want the finish time that combination produces. This is how you check whether a goal is arithmetically possible before you build a training block around it.</li>
@@ -734,11 +723,11 @@
 
   <h2 id="units">Minutes per mile, minutes per kilometer, miles per hour</h2>
   <p>Runners in the United States mostly think in minutes per mile; almost everywhere else, and in track and road racing internationally, minutes per kilometer is standard. Treadmills and bike computers add a third convention by showing speed instead. None of these is more correct than the others, and switching between them is a frequent source of confusion &mdash; a 5:00 kilometer and a 5:00 mile are wildly different efforts.</p>
-  <p>Because a mile is roughly 1.609 kilometers, a per-mile pace is always the larger number. The rough mental conversion is to add about 60 percent: a 5:00 kilometer is close to 8:03 per mile. Going the other way, take about five-eighths of the per-mile figure. The Pace Converter above does the exact version, including the speed units, so you never have to trust the shortcut when it matters.</p>
+  <p>Because a mile is roughly 1.609 kilometers, a per-mile pace is always the larger number. The rough mental conversion is to add about 60 percent: a 5:00 kilometer is close to 8:03 per mile. Going the other way, take about five-eighths of the per-mile figure. The Pace Converter tab does the exact version, including the speed units, so you never have to trust the shortcut when it matters.</p>
   <p>One practical use for it: gym treadmills are almost always calibrated in miles per hour, so if your training plan is written in minutes per kilometer, the converter tells you which button to hold down.</p>
 
   <h2 id="segments">Finding the leg where you slowed down</h2>
-  <p>The Multipoint calculator exists for the run where the average tells you nothing useful. You take the clock at intermittent points &mdash; each lap of a track, each aid station, the top and bottom of a hill &mdash; and enter the running totals. It reconstructs each leg by subtracting one row from the row above, then reports the pace for that leg alongside the pace for everything up to that point.</p>
+  <p>The Multipoint Pace Calculator tab exists for the run where the average tells you nothing useful. You take the clock at intermittent points &mdash; each lap of a track, each aid station, the top and bottom of a hill &mdash; and enter the running totals. It reconstructs each leg by subtracting one row from the row above, then reports the pace for that leg alongside the pace for everything up to that point.</p>
   <p>Two things fall out of that pair of columns. The segment column shows the shape of the effort: whether you faded, whether one climb cost far more than it looked like it did, whether your track intervals are drifting slower as the session goes on. The accumulated column shows how much any single bad leg is dragging on the whole, which is often less than it feels at the time.</p>
   <p>Each row must be larger than the one above it in both distance and time, because the entries are cumulative rather than per-leg. Rows can each carry their own unit, so a route measured partly in miles and partly in kilometers still works.</p>
 
@@ -789,6 +778,7 @@
 
   <p class="pc-disclaimer">This calculator is provided for general fitness and planning purposes and is not medical advice. Estimates such as the 220-minus-age maximum heart rate are population averages with wide individual variation. If you are starting or significantly changing an exercise programme, or have a heart, respiratory or other health condition, speak to a qualified healthcare professional first. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
 </article>
+</div></main>
 </div></main>
 <footer>
   <div class="wrap">
@@ -1002,97 +992,105 @@ var TIME_UNITS = { tpm:1, tpk:1 };
 var UNIT_LABEL = { tpm:'Per Mile', tpk:'Per Kilometer', mph:'Miles Per Hour', kph:'Kilometers Per Hour',
                    mpm:'Meters Per Minute', mps:'Meters Per Second', ypm:'Yards Per Minute', yps:'Yards Per Second' };
 function showErr(el, msg){ if(!el) return; if(msg){ el.textContent = msg; el.className = 'pc-err show'; } else { el.textContent=''; el.className='pc-err'; } }
-function rowsHTML(pairs, leadCount){
+function rowsHTML(pairs){
   var h = '';
   for (var i=0;i<pairs.length;i++){
-    h += '<div class="pc-row'+(i<(leadCount||0)?' pc-lead':'')+'"><span>'+pairs[i][1]+'</span><span>'+pairs[i][0]+'</span></div>';
+    h += '<div class="pc-row"><span>'+pairs[i][1]+'</span><span>'+pairs[i][0]+'</span></div>';
   }
   return h;
 }
+function setResult(key, val, sub){
+  $('pc-resKey').textContent = key; $('pc-resVal').textContent = val; $('pc-resSub').textContent = sub || '';
+}
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
-/* ---------------- main calculator ---------------- */
-var mode = 'pace';
+/* ---------------- Pace Calculator (tab 1) ---------------- */
+var calcTab = 'main', mode = 'pace';
 var EVENTS = { M:['42.195','Kilometers'], HM:['21.0975','Kilometers'], '1K':['1','Kilometers'],
   '5K':['5','Kilometers'], '10K':['10','Kilometers'], '1M':['1','Miles'], '5M':['5','Miles'],
   '10M':['10','Miles'], '800m':['800','Meters'], '1500m':['1500','Meters'] };
 
+function show(id, on){ var e=$(id); if(e) e.className = e.className.replace(/\s*pc-hidden/g,'') + (on?'':' pc-hidden'); }
+
+function setCalc(t){
+  calcTab = t;
+  var btns = document.querySelectorAll('.pc-tab');
+  for (var i=0;i<btns.length;i++){
+    var on = btns[i].getAttribute('data-calc')===t;
+    btns[i].className = on ? 'pc-tab active' : 'pc-tab';
+    btns[i].setAttribute('aria-selected', on?'true':'false');
+  }
+  show('pc-panel-main', t==='main'); show('pc-panel-mp', t==='mp');
+  show('pc-panel-cv', t==='cv'); show('pc-panel-ft', t==='ft');
+  show('pc-bottom-main', t==='main'); show('pc-bottom-mp', t==='mp');
+  show('pc-res-rows', true); show('pc-res-mp', t==='mp');
+  if (t==='main') calcMain(); else if (t==='mp') calcMp(); else if (t==='cv') calcCv(); else calcFt();
+}
+
 function setMode(m){
   mode = m;
-  var tabs = { pace:$('pc-tabPace'), time:$('pc-tabTime'), distance:$('pc-tabDist') };
-  for (var k in tabs){
-    if (!tabs[k]) continue;
-    var on = (k===m);
-    tabs[k].className = on ? 'pc-tab active' : 'pc-tab';
-    tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
+  var btns = document.querySelectorAll('.pc-mode-btn');
+  for (var i=0;i<btns.length;i++){
+    var on = btns[i].getAttribute('data-mode')===m;
+    btns[i].className = on ? 'pc-mode-btn active' : 'pc-mode-btn';
   }
-  $('pc-fTime').className  = (m==='time')     ? 'pc-field pc-hidden' : 'pc-field';
-  $('pc-fDist').className  = (m==='distance') ? 'pc-field pc-hidden' : 'pc-field';
-  $('pc-fPace').className  = (m==='pace')     ? 'pc-field pc-hidden' : 'pc-field';
-  $('pc-formHead').textContent = m==='pace' ? 'Solving for pace' : (m==='time' ? 'Solving for time' : 'Solving for distance');
-  $('pc-resultHead').textContent = m==='pace' ? 'Your pace' : (m==='time' ? 'Time required' : 'Distance covered');
+  show('pc-fTime',  m!=='time');
+  show('pc-timeHint', m!=='time');
+  show('pc-fDist',  m!=='distance');
+  show('pc-fEvent', m!=='distance');
+  show('pc-fPace',  m!=='pace');
+  show('pc-paceHint', m!=='pace' && !!TIME_UNITS[$('pc-paceUnit').value]);
   calcMain();
 }
-function paceHint(){
-  var u = $('pc-paceUnit').value;
-  $('pc-paceHint').textContent = TIME_UNITS[u] ? 'hh:mm:ss' : '';
-}
+function paceHint(){ show('pc-paceHint', mode!=='pace' && !!TIME_UNITS[$('pc-paceUnit').value]); }
+
 function calcMain(){
-  var errEl = $('pc-err'), spm, distM, big='', sub='', rows=[];
-  showErr(errEl, '');
+  if (calcTab!=='main') return;
+  showErr($('pc-err'), '');
   var dv = parseFloat($('pc-dist').value), du = PDU[$('pc-distUnit').value];
-  var tv = pParseTime($('pc-time').value);
+  var tv = pParseTime($('pc-time').value), spm, distM;
   if (mode === 'pace'){
-    if (!(tv > 0) || !(dv > 0)){ return blankMain(); }
+    if (!(tv > 0) || !(dv > 0)) return blankMain();
     distM = dv * du; spm = tv / distM;
     var pr = pPaceRows(spm);
-    big = pr[0][0]; sub = 'per mile';
-    rows = pr.slice(1);
+    setResult('Your pace', pr[0][0], 'per mile \u00b7 ' + pr[1][0] + ' per kilometer');
+    $('pc-res-rows').innerHTML = rowsHTML(pr.slice(1));
   } else if (mode === 'time'){
     spm = pPaceToSpm($('pc-pace').value, $('pc-paceUnit').value);
-    if (!(spm > 0) || !isFinite(spm) || !(dv > 0)){ return blankMain(); }
+    if (!(spm > 0) || !isFinite(spm) || !(dv > 0)) return blankMain();
     distM = dv * du;
-    big = pWords(distM * spm); sub = 'to cover ' + esc($('pc-dist').value) + ' ' + $('pc-distUnit').value.toLowerCase();
-    rows = pPaceRows(spm);
+    setResult('Time required', pWords(distM * spm), 'to cover ' + esc($('pc-dist').value) + ' ' + $('pc-distUnit').value.toLowerCase());
+    $('pc-res-rows').innerHTML = rowsHTML(pPaceRows(spm));
   } else {
     spm = pPaceToSpm($('pc-pace').value, $('pc-paceUnit').value);
-    if (!(spm > 0) || !isFinite(spm) || !(tv > 0)){ return blankMain(); }
+    if (!(spm > 0) || !isFinite(spm) || !(tv > 0)) return blankMain();
     distM = tv / spm;
     var dr = pDistRows(distM);
-    big = dr[0][0] + ' Miles'; sub = 'in ' + pWords(tv);
-    rows = dr.slice(1);
+    setResult('Distance covered', dr[0][0] + ' Miles', 'in ' + pWords(tv));
+    $('pc-res-rows').innerHTML = rowsHTML(dr.slice(1));
   }
-  $('pc-bigVal').textContent = big;
-  $('pc-bigSub').textContent = sub;
-  $('pc-resultRows').innerHTML = rowsHTML(rows, mode==='distance' ? 3 : 1);
-  /* race table */
   var rt = pRaceTable(spm), h = '';
-  for (var i=0;i<rt.length;i++){
+  for (var i=0;i<rt.length;i++)
     h += '<tr><td>'+rt[i][0]+'</td><td class="pc-num">'+rt[i][1]+'</td><td>'+rt[i][2]+'</td><td class="pc-num">'+rt[i][3]+'</td></tr>';
-  }
   $('pc-raceBody').innerHTML = h;
-  /* splits */
-  var sp = pSplits(spm, distM), s = '';
+  var sp = pSplits(spm, distM);
   if (!sp){
-    $('pc-splitBody').innerHTML = '<tr><td colspan="4" style="color:var(--ink-faint);padding:12px 0">Splits appear once the distance passes 2 kilometers.</td></tr>';
+    $('pc-splitBody').innerHTML = '<tr><td colspan="4" style="color:var(--ink-faint)">Splits appear once the distance passes 2 kilometers.</td></tr>';
   } else {
-    var n = Math.max(sp.km.length, sp.mi.length);
+    var n = Math.max(sp.km.length, sp.mi.length), s = '';
     for (var j=0;j<n;j++){
       var a = sp.km[j], b = sp.mi[j];
       s += '<tr><td>'+(a?a[0]:'')+'</td><td class="pc-num">'+(a?a[1]:'')+'</td><td>'+(b?b[0]:'')+'</td><td class="pc-num">'+(b?b[1]:'')+'</td></tr>';
     }
     $('pc-splitBody').innerHTML = s;
   }
-  window.__pcLast = { mode:mode, spm:spm, distM:distM, big:big, sub:sub, rows:rows, race:rt, splits:sp };
+  window.__pcLast = { mode:mode, spm:spm, distM:distM, key:$('pc-resKey').textContent,
+                      val:$('pc-resVal').textContent, race:rt, splits:sp,
+                      rows:(mode==='distance'?pDistRows(distM).slice(1):(mode==='pace'?pPaceRows(spm).slice(1):pPaceRows(spm))) };
 }
-function blankMain(){
-  $('pc-bigVal').textContent = '\u2014'; $('pc-bigSub').textContent = '';
-  $('pc-resultRows').innerHTML = ''; $('pc-raceBody').innerHTML = '';
-  $('pc-splitBody').innerHTML = '';
-  window.__pcLast = null;
-}
+function blankMain(){ setResult('Your pace','\u2014',''); $('pc-res-rows').innerHTML=''; $('pc-raceBody').innerHTML=''; $('pc-splitBody').innerHTML=''; window.__pcLast=null; }
 
-/* ---------------- multipoint ---------------- */
+/* ---------------- Multipoint (tab 2) ---------------- */
 var MP_ROWS = 12;
 function buildMpRows(){
   var d = ['1','2','3','4','5','','','','','','',''];
@@ -1107,84 +1105,82 @@ function buildMpRows(){
   $('pc-mpBody').innerHTML = h;
 }
 function calcMp(){
-  var unit = $('pc-mpUnit').value, rows = [], i;
+  if (calcTab!=='mp') return;
   showErr($('pc-mpErr'), '');
+  var unit = $('pc-mpUnit').value, rows = [], i;
   for (i=0;i<MP_ROWS;i++){
     var dv = $('pc-mpD'+i).value.trim(), tv = $('pc-mpT'+i).value.trim();
     if (!dv && !tv) continue;
     var d = parseFloat(dv), t = pParseTime(tv);
-    if (!(d > 0) || !(t > 0)) { showErr($('pc-mpErr'), 'Row ' + (i+1) + ' needs both a distance and a time.'); return mpBlank(); }
+    if (!(d > 0) || !(t > 0)){ showErr($('pc-mpErr'), 'Row ' + (i+1) + ' needs both a distance and a time.'); return mpBlank(); }
     rows.push({ d: d * PDU[$('pc-mpU'+i).value], t: t, unitName: $('pc-mpU'+i).value });
   }
-  if (rows.length === 0) return mpBlank();
-  var hdrU = PDU[rows[0].unitName], hdrName = rows[0].unitName;
-  var isTime = !!TIME_UNITS[unit];
-  var pd = 0, pt = 0, out = [], secs = [];
+  if (!rows.length) return mpBlank();
+  var hdrU = PDU[rows[0].unitName], hdrName = rows[0].unitName, isTime = !!TIME_UNITS[unit];
+  var pd = 0, pt = 0, out = '', secs = [];
   for (i=0;i<rows.length;i++){
     var sd = rows[i].d - pd, st = rows[i].t - pt;
     if (!(sd > 0) || !(st > 0)){ showErr($('pc-mpErr'), 'Each row must be further and later than the row above it \u2014 the entries are running totals.'); return mpBlank(); }
     var segSpm = st / sd, accSpm = rows[i].t / rows[i].d;
-    out.push([ i+1, pNum(sd / hdrU, 2), pHMS(st).replace(/^0:/, ''),
-               isTime ? pClock(segSpm * (unit==='tpm'?PMI:1000)) : pSpmToUnit(segSpm, unit),
-               isTime ? pClock(accSpm * (unit==='tpm'?PMI:1000)) : pSpmToUnit(accSpm, unit) ]);
+    out += '<tr><td class="pc-mp-idx">'+(i+1)+'.</td><td>'+pNum(sd/hdrU,2)+'</td><td>'+pHMS(st).replace(/^0:/,'')+'</td>'+
+           '<td><strong>'+(isTime ? pClock(segSpm*(unit==='tpm'?PMI:1000)) : pSpmToUnit(segSpm,unit))+'</strong></td>'+
+           '<td>'+(isTime ? pClock(accSpm*(unit==='tpm'?PMI:1000)) : pSpmToUnit(accSpm,unit))+'</td></tr>';
     secs.push(segSpm * (unit==='tpk'||unit==='kph'||unit==='mpm'||unit==='mps' ? 1000 : PMI));
     pd = rows[i].d; pt = rows[i].t;
   }
-  $('pc-mpHead').innerHTML = '<tr><th></th><th>Distance ('+hdrName+')</th><th>Segment time</th><th>Segment pace</th><th>Accumulated pace</th></tr>';
-  var h = '';
-  for (i=0;i<out.length;i++){
-    h += '<tr><td class="pc-mp-idx">'+out[i][0]+'.</td><td>'+out[i][1]+'</td><td>'+out[i][2]+'</td><td><strong>'+out[i][3]+'</strong></td><td>'+out[i][4]+'</td></tr>';
-  }
-  $('pc-mpOut').innerHTML = h;
-  $('pc-mpAvg').textContent = pSpmToUnit(pt / pd, unit) + ' ' + UNIT_LABEL[unit];
+  $('pc-mpHead').innerHTML = '<tr><th></th><th>Dist ('+hdrName+')</th><th>Segment time</th><th>Segment pace</th><th>Accumulated</th></tr>';
+  $('pc-mpOut').innerHTML = out;
+  setResult('Average pace', pSpmToUnit(pt/pd, unit), UNIT_LABEL[unit] + ' \u00b7 ' + rows.length + ' segment' + (rows.length===1?'':'s'));
+  $('pc-res-rows').innerHTML = '';
   drawChart(secs, isTime, unit);
 }
-function mpBlank(){ $('pc-mpOut').innerHTML=''; $('pc-mpHead').innerHTML=''; $('pc-mpAvg').textContent='\u2014'; drawChart([], true, 'tpm'); }
+function mpBlank(){ $('pc-mpOut').innerHTML=''; $('pc-mpHead').innerHTML=''; setResult('Average pace','\u2014',''); drawChart([], true, 'tpm'); }
 function drawChart(vals, isTime, unit){
-  var svg = $('pc-mpChart');
-  if (!vals.length){ svg.innerHTML = '<text x="230" y="115" text-anchor="middle" fill="#787D86" font-size="13" font-family="IBM Plex Sans,sans-serif">Enter at least one point</text>'; return; }
-  var W=460,H=230,L=52,R=12,T=26,B=34, pw=W-L-R, ph=H-T-B;
-  var max=Math.max.apply(null,vals), min=0, top=max*1.15 || 1;
-  var n=vals.length, gap=pw/n*0.28, bw=(pw/n)-gap, g='';
-  g += '<text x="'+(L+pw/2)+'" y="14" text-anchor="middle" fill="#181A1F" font-size="12.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">Pace per segment ('+(isTime?'seconds':UNIT_LABEL[unit])+')</text>';
+  var svg = $('pc-mpChart'); if (!svg) return;
+  if (!vals.length){ svg.innerHTML = '<text x="380" y="120" text-anchor="middle" fill="#787D86" font-size="14" font-family="IBM Plex Sans,sans-serif">Enter at least one point</text>'; return; }
+  var W=760,H=240,L=64,R=16,T=30,B=38, pw=W-L-R, ph=H-T-B;
+  var top = Math.max.apply(null, vals)*1.15 || 1, n=vals.length;
+  var gap = pw/n*0.3, bw = (pw/n)-gap, g='';
+  g += '<text x="'+(L+pw/2)+'" y="16" text-anchor="middle" fill="#181A1F" font-size="13" font-weight="600" font-family="IBM Plex Sans,sans-serif">Pace per segment ('+(isTime?'seconds':UNIT_LABEL[unit])+')</text>';
   for (var t=0;t<=4;t++){
-    var y=T+ph-(ph*t/4), v=top*t/4;
+    var y = T+ph-(ph*t/4), v = top*t/4;
     g += '<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#E3E0D8" stroke-width="1"/>';
-    g += '<text x="'+(L-7)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" fill="#787D86" font-size="10" font-family="IBM Plex Sans,sans-serif">'+(isTime?Math.round(v):pNum(v,1))+'</text>';
+    g += '<text x="'+(L-8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" fill="#787D86" font-size="11" font-family="IBM Plex Sans,sans-serif">'+(isTime?Math.round(v):pNum(v,1))+'</text>';
   }
   for (var i=0;i<n;i++){
-    var hgt=ph*(vals[i]/top), x=L+i*(bw+gap)+gap/2, y=T+ph-hgt;
-    g += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(hgt,1).toFixed(1)+'" fill="#1E3A5F" rx="3"><title>Segment '+(i+1)+'</title></rect>';
-    g += '<text x="'+(x+bw/2).toFixed(1)+'" y="'+(T+ph+15)+'" text-anchor="middle" fill="#787D86" font-size="10.5" font-family="IBM Plex Sans,sans-serif">'+(i+1)+'</text>';
+    var hgt = ph*(vals[i]/top), x = L+i*(bw+gap)+gap/2, y = T+ph-hgt;
+    g += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(hgt,1).toFixed(1)+'" fill="#1E3A5F" rx="4"><title>Segment '+(i+1)+'</title></rect>';
+    g += '<text x="'+(x+bw/2).toFixed(1)+'" y="'+(T+ph+17)+'" text-anchor="middle" fill="#787D86" font-size="11" font-family="IBM Plex Sans,sans-serif">'+(i+1)+'</text>';
   }
   svg.innerHTML = g;
 }
 
-/* ---------------- converter ---------------- */
+/* ---------------- Converter (tab 3) ---------------- */
 function calcCv(){
+  if (calcTab!=='cv') return;
   showErr($('pc-cvErr'), '');
   var from = $('pc-cvFromUnit').value, to = $('pc-cvToUnit').value;
-  $('pc-cvHint').textContent = TIME_UNITS[from] ? 'hh:mm:ss' : '';
+  show('pc-cvHint', !!TIME_UNITS[from]);
   var spm = pPaceToSpm($('pc-cvFrom').value, from);
-  if (!(spm > 0) || !isFinite(spm)){ $('pc-cvBig').textContent='\u2014'; $('pc-cvSub').textContent=''; return; }
-  $('pc-cvBig').textContent = pSpmToUnit(spm, to);
-  $('pc-cvSub').textContent = UNIT_LABEL[to] + '  \u00b7  from ' + pSpmToUnit(spm, from) + ' ' + UNIT_LABEL[from];
+  $('pc-res-rows').innerHTML = '';
+  if (!(spm > 0) || !isFinite(spm)) return setResult('Converted pace','\u2014','');
+  setResult('Converted pace', pSpmToUnit(spm, to), UNIT_LABEL[to] + ' \u00b7 from ' + pSpmToUnit(spm, from) + ' ' + UNIT_LABEL[from]);
+  $('pc-res-rows').innerHTML = rowsHTML(pPaceRows8(spm));
 }
 
-/* ---------------- finish time ---------------- */
+/* ---------------- Finish time (tab 4) ---------------- */
 function calcFt(){
+  if (calcTab!=='ft') return;
   showErr($('pc-ftErr'), '');
   var dn = parseFloat($('pc-ftNow').value), du = PDU[$('pc-ftNowUnit').value];
   var t = pParseTime($('pc-ftTime').value);
   var df = parseFloat($('pc-ftFull').value), fu = PDU[$('pc-ftFullUnit').value];
-  if (!(dn > 0) || !(t > 0) || !(df > 0)){ $('pc-ftBig').textContent='\u2014'; $('pc-ftSub').textContent=''; $('pc-ftRows').innerHTML=''; return; }
-  var spm = t / (dn * du), total = spm * df * fu;
-  $('pc-ftBig').textContent = pWords(total);
-  $('pc-ftSub').textContent = 'to finish ' + esc($('pc-ftFull').value) + ' ' + $('pc-ftFullUnit').value + ' at your current pace';
-  $('pc-ftRows').innerHTML = rowsHTML(pPaceRows8(spm), 2);
-  window.__pcFt = { total: pWords(total), rows: pPaceRows8(spm) };
+  $('pc-res-rows').innerHTML = '';
+  if (!(dn > 0) || !(t > 0) || !(df > 0)) return setResult('Projected finish','\u2014','');
+  var spm = t / (dn * du);
+  setResult('Projected finish', pWords(spm * df * fu), 'to finish ' + esc($('pc-ftFull').value) + ' ' + $('pc-ftFullUnit').value + ' at your current pace');
+  $('pc-res-rows').innerHTML = rowsHTML(pPaceRows8(spm));
 }
-
 /* ---------------- PDF (lazy) ---------------- */
 var pdfPromise = null;
 function loadScriptOnce(src){
@@ -1207,7 +1203,7 @@ function generatePdf(){
   doc.text('calculatorboss.com/pace-calculator/', 40, 64);
   doc.setTextColor(30); doc.setFontSize(13);
   if (L){
-    doc.text((L.mode==='pace'?'Pace: ':(L.mode==='time'?'Time: ':'Distance: ')) + L.big + (L.sub? ' ' + L.sub : ''), 40, 94);
+    doc.text(L.key + ': ' + L.val, 40, 94);
     doc.autoTable({ startY: 110, head: [['Metric','Value']], body: L.rows.map(function(r){ return [r[1], r[0]]; }),
                     theme:'grid', headStyles:{ fillColor:[30,58,95] }, styles:{ fontSize:9 } });
     doc.autoTable({ startY: doc.lastAutoTable.finalY + 16, head: [['Distance','Time','Distance','Time']],
@@ -1228,36 +1224,37 @@ function generatePdf(){
 /* ---------------- wiring ---------------- */
 function init(){
   buildMpRows();
-  $('pc-tabPace').addEventListener('click', function(){ setMode('pace'); });
-  $('pc-tabTime').addEventListener('click', function(){ setMode('time'); });
-  $('pc-tabDist').addEventListener('click', function(){ setMode('distance'); });
+  var tabs = document.querySelectorAll('.pc-tab');
+  for (var i=0;i<tabs.length;i++)
+    tabs[i].addEventListener('click', (function(el){ return function(){ setCalc(el.getAttribute('data-calc')); }; })(tabs[i]));
+  var modes = document.querySelectorAll('.pc-mode-btn');
+  for (var j=0;j<modes.length;j++)
+    modes[j].addEventListener('click', (function(el){ return function(){ setMode(el.getAttribute('data-mode')); }; })(modes[j]));
+
   $('pc-paceUnit').addEventListener('change', function(){ paceHint(); calcMain(); });
   $('pc-event').addEventListener('change', function(){
     var e = EVENTS[this.value];
     if (e){ $('pc-dist').value = e[0]; $('pc-distUnit').value = e[1]; calcMain(); }
   });
-  ['pc-time','pc-dist'].forEach(function(id){ $(id).addEventListener('input', calcMain); });
-  $('pc-pace').addEventListener('input', calcMain);
+  ['pc-time','pc-dist','pc-pace'].forEach(function(id){ $(id).addEventListener('input', calcMain); });
   $('pc-distUnit').addEventListener('change', calcMain);
   $('pc-calcBtn').addEventListener('click', calcMain);
   $('pc-clearBtn').addEventListener('click', function(){
-    ['pc-time','pc-dist','pc-pace'].forEach(function(id){ $(id).value = ''; });
-    calcMain();
+    ['pc-time','pc-dist','pc-pace'].forEach(function(id){ $(id).value=''; }); calcMain();
   });
 
-  for (var i=0;i<MP_ROWS;i++){
-    $('pc-mpD'+i).addEventListener('input', calcMp);
-    $('pc-mpT'+i).addEventListener('input', calcMp);
-    $('pc-mpU'+i).addEventListener('change', calcMp);
+  for (var k=0;k<MP_ROWS;k++){
+    $('pc-mpD'+k).addEventListener('input', calcMp);
+    $('pc-mpT'+k).addEventListener('input', calcMp);
+    $('pc-mpU'+k).addEventListener('change', calcMp);
   }
   $('pc-mpUnit').addEventListener('change', calcMp);
   $('pc-mpCalc').addEventListener('click', calcMp);
   $('pc-mpClear').addEventListener('click', function(){
-    for (var i=0;i<MP_ROWS;i++){ $('pc-mpD'+i).value=''; $('pc-mpT'+i).value=''; }
-    calcMp();
+    for (var i=0;i<MP_ROWS;i++){ $('pc-mpD'+i).value=''; $('pc-mpT'+i).value=''; } calcMp();
   });
 
-  ['pc-cvFrom'].forEach(function(id){ $(id).addEventListener('input', calcCv); });
+  $('pc-cvFrom').addEventListener('input', calcCv);
   $('pc-cvFromUnit').addEventListener('change', calcCv);
   $('pc-cvToUnit').addEventListener('change', calcCv);
   $('pc-cvCalc').addEventListener('click', calcCv);
@@ -1267,20 +1264,18 @@ function init(){
   ['pc-ftNowUnit','pc-ftFullUnit'].forEach(function(id){ $(id).addEventListener('change', calcFt); });
   $('pc-ftCalc').addEventListener('click', calcFt);
   $('pc-ftClear').addEventListener('click', function(){
-    ['pc-ftNow','pc-ftTime','pc-ftFull'].forEach(function(id){ $(id).value=''; });
-    calcFt();
+    ['pc-ftNow','pc-ftTime','pc-ftFull'].forEach(function(id){ $(id).value=''; }); calcFt();
   });
 
   var btn = $('pc-pdfBtn');
   btn.addEventListener('click', function(){
     var old = btn.textContent;
     btn.disabled = true; btn.textContent = 'Loading\u2026';
-    ensurePdfLibs().then(function(){
-      btn.disabled = false; btn.textContent = old; generatePdf();
-    }).catch(function(){ btn.disabled = false; btn.textContent = old; });
+    ensurePdfLibs().then(function(){ btn.disabled=false; btn.textContent=old; generatePdf(); })
+                   .catch(function(){ btn.disabled=false; btn.textContent=old; });
   });
 
-  paceHint(); setMode('pace'); calcMp(); calcCv(); calcFt();
+  paceHint(); setMode('pace'); setCalc('main');
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

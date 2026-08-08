@@ -7490,3 +7490,46 @@ representation inside their code at a relative difference of ~6e-6. 3,218.69 m i
 probe found where they show 2 mile rows and we show 1; the 17,600-yard case goes the other way
 and we match it. Both are boundary values no visitor types, and no single constant reproduces
 both. Recorded rather than papered over.
+
+### Pace Calculator — layout corrected to the site pattern (Aug 8, 2026, same day)
+
+The owner sent a screenshot of `business-loan-calculator` and pointed out the first build had
+drifted from the house pattern in four ways. All four were structural, none were caught by the
+48-assertion suite, because that suite tested *behaviour* and every one of these is *shape*.
+
+1. **The four calculators were stacked as `<section>`s below the grid instead of being tabs.**
+   The correct pattern is what business-loan does with Loan Payment / DSCR / MCA: one grid, one
+   form card, one result card, and the top tab row switches which calculator occupies them. Now
+   the tabs read Pace Calculator | Multipoint Pace Calculator | Pace Converter | Finish Time
+   Calculator, and the bottomgrid swaps between the race/splits pair and the segment chart.
+2. **Pace / Time / Distance were top-level tabs; they are sub-modes of one calculator.**
+   They now sit inside the form card as a `.pc-mode-toggle` segmented control, mirroring
+   business-loan's "I know the loan amount / I know my target payment".
+3. **The header block above the bar was bespoke.** The subhead carried an inline style instead
+   of `class="text-ink-soft text-lg max-w-2xl mb-6"`, and the crumb margin differed. Both now
+   match business-loan exactly.
+4. **The sidebar had been rebuilt rather than reused.** It was a plain navy panel with
+   underlined text links. The house component is `.pc-calc-card` — navy, a titled header rule,
+   one row per link with a right-hand arrow, and a green `.pc-viewmore` button at the foot.
+   Restored, including the arrow glyphs and the green.
+
+The result card also changed shape to the house form: coloured head carrying label, big value
+and sub-line (`.k` / `.v` / `.s`), body holding the supporting rows, instead of the value
+living in the white body.
+
+**The lesson worth keeping.** Every one of these four was a case of building the component from
+the design tokens rather than lifting the existing component. §5's note already says to confirm
+the donor is current for the *specific component* being copied — the gap is that the first
+build picked `body-fat-calculator` as donor for the whole page and never checked whether a
+closer donor existed for the parts it lacked. Body Fat has no multi-calculator tab set and no
+sub-mode toggle, so both were invented. **Before building any page with more than one
+calculator or a solve-for switch, diff against `business-loan-calculator` specifically** — it
+is the current reference for tab sets, segmented mode toggles, the sidebar card and the result
+card head. Checking that the maths matches the reference site says nothing about whether the
+page matches our own.
+
+Re-verified after the rewrite: 54 Playwright assertions at 1280/390/430px, covering all four
+tab panels, the three sub-modes, bottomgrid swapping, sidebar computed colours, the subhead
+class, cb_ux auto-calculate, Clear with 0px drift, zero console errors and zero overflow.
+Numbers unchanged and still matched against the reference. Article 2,378 words, 0.00% overlap
+with the reference, 0.04% with our own pages (byline boilerplate).
