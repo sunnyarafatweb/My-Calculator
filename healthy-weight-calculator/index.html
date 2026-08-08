@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Healthy Weight Calculator | CalculatorBoss</title><meta name="description" content="Find the healthy weight range for your height, based on the standard 18.5-24.9 BMI band."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/healthy-weight-calculator/"/><meta property="og:title" content="Healthy Weight Calculator | CalculatorBoss"/><meta property="og:description" content="The healthy weight range for your height."/><meta property="og:url" content="https://calculatorboss.com/healthy-weight-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Healthy Weight Calculator — Your Range For Your Height</title><meta name="description" content="Free healthy weight calculator: the weight range for your height at a BMI of 18.5 to 25, in pounds or kilograms, with every BMI category shown."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="healthy weight calculator,healthy weight for height,ideal weight range calculator,bmi weight range calculator,how much should i weigh,normal weight range,healthy weight range chart,weight for height calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/healthy-weight-calculator/"/><meta property="og:title" content="Healthy Weight Calculator — Your Range For Your Height"/><meta property="og:description" content="Free healthy weight calculator: the weight range for your height at a BMI of 18.5 to 25, in pounds or kilograms, with every BMI category shown."/><meta property="og:url" content="https://calculatorboss.com/healthy-weight-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/healthy-weight-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Healthy Weight Calculator — Your Range For Your Height"/><meta name="twitter:description" content="Free healthy weight calculator: the weight range for your height at a BMI of 18.5 to 25, in pounds or kilograms, with every BMI category shown."/><meta name="twitter:image" content="https://calculatorboss.com/og/healthy-weight-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,114 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.hw-wrap{width:100%}
+.hw-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.hw-bar-text{display:flex;align-items:center;gap:10px}
+.hw-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.hw-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.hw-bar-pdf-btn:hover{background:#f0f0f0}
+.hw-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.hw-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.hw-area-bar{grid-area:bar}
+.hw-area-tabs{grid-area:tabs}
+.hw-area-form{grid-area:form}
+.hw-area-result{grid-area:result}
+.hw-area-sidebar{grid-area:sidebar}
+.hw-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .hw-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.hw-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.hw-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.hw-tab:hover{border-color:var(--border)}
+.hw-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.hw-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.hw-card-pad{padding:22px}
+.hw-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.hw-field-label{width:70px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.hw-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.hw-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.hw-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.hw-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.hw-subnote{font-size:11.5px;color:var(--ink-faint);margin:10px 0 0;line-height:1.55}
+.hw-subnote a{color:#128A3D}
+
+.hw-btn-row{display:flex;gap:8px;padding-top:16px}
+.hw-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.hw-btn-calc:hover{background:#128A3D}
+.hw-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.hw-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.hw-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.hw-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.hw-result-head .bignum{font-size:33px;font-weight:700;line-height:1.15;margin-top:2px}
+.hw-result-head .bignum small{font-size:16px;font-weight:600;opacity:.9;margin-left:4px}
+.hw-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.hw-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.hw-err.show{display:block}
+.hw-result-body{padding:16px 20px 20px}
+.hw-sec-h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px}
+
+/* The scale is schematic, not a linear axis: on a true axis the healthy band would be a
+   sliver and the top class would run to infinity. Band widths are fixed so every category
+   stays readable, and the boundary figures sit on the joins they belong to. */
+.hw-scale{margin:2px 0 4px}
+.hw-scale-ticks{display:flex;font-size:11px;color:var(--ink-soft);font-weight:600;margin-bottom:3px;position:relative;height:15px}
+.hw-scale-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.hw-scale-band{display:flex;height:16px;border-radius:5px;overflow:hidden}
+.hw-scale-band i{display:block;height:100%}
+.hw-scale-names{display:flex;font-size:9.5px;color:var(--ink-faint);margin-top:4px;line-height:1.25}
+.hw-scale-names span{text-align:center;padding:0 1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.hw-band-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+.hw-band-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.hw-band-table th:first-child{text-align:left}
+.hw-band-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);white-space:nowrap}
+.hw-band-table td:first-child{text-align:left;color:var(--ink-soft);white-space:normal}
+.hw-band-table td:nth-child(2){color:var(--ink-faint);font-size:11.5px}
+.hw-band-table tr:last-child td{border-bottom:none}
+.hw-band-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.hw-band-table tr.on td:nth-child(2){color:#128A3D}
+.hw-band-table td i{font-style:normal;display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:7px;vertical-align:0}
+
+.hw-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.hw-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.hw-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.hw-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.hw-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.hw-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.hw-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:900px){.hw-bottom-grid{grid-template-columns:1fr}}
+.hw-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.hw-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.hw-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.hw-card-body{padding:18px;overflow-x:auto}
+.hw-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.hw-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.hw-ref-table th:first-child{text-align:left}
+.hw-ref-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.hw-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.hw-ref-table tr:last-child td{border-bottom:none}
+.hw-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+.hw-miss{margin:0;padding-left:18px;font-size:13px;color:var(--ink-soft);line-height:1.7}
+.hw-miss li+li{margin-top:8px}
+.hw-miss b{color:var(--ink)}
+
+@media(max-width:520px){
+  .hw-field{flex-wrap:wrap}
+  .hw-field-label{width:100%}
+  .hw-tab{flex:1;text-align:center;padding:10px 12px}
+  .hw-result-head .bignum{font-size:27px}
+  .hw-scale-names{font-size:8.5px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Healthy Weight","item":"https://calculatorboss.com/healthy-weight-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +455,226 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is this different from the BMI Calculator?","acceptedAnswer":{"@type":"Answer","text":"The BMI Calculator tells you where your specific current weight falls. This works the other direction — given just your height, it shows the entire range of weights that would land in the healthy BMI band."}},{"@type":"Question","name":"Why is the range so wide?","acceptedAnswer":{"@type":"Answer","text":"Because BMI itself is a fairly broad screening tool — the same height can carry a wide range of healthy weights depending on frame size, muscle mass, and individual build. The range reflects that built-in flexibility."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Healthy Weight Calculator","url":"https://calculatorboss.com/healthy-weight-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Healthy Weight Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Healthy Weight Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Just your height — see the full range of weights considered healthy for it.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><h2 class="font-display text-lg text-ink">Your height</h2><div class="grid grid-cols-2 gap-4"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Feet</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="5"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50%;background:var(--accent)"></div><input type="range" min="3" max="7" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Feet" value="5"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Inches</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="8"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:72.72727272727273%;background:var(--accent)"></div><input type="range" min="0" max="11" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Inches" value="8"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(72.72727272727273% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><p class="text-xs text-ink-faint">Based on the standard healthy BMI band of 18.5–24.9, applied to your height.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Healthy weight range</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-2">122<!-- --> – <!-- -->164<!-- --> lb</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">This is a population-level range based on height alone — it doesn&#x27;t account for muscle mass, frame size, or body composition. A very muscular person may weigh more than this range while still being lean and healthy.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">At <span class="tabular">5&#x27;8&quot;</span>, the healthy BMI band of 18.5–24.9 corresponds to a weight range of roughly <span class="tabular">122–164 lb</span>.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How is this different from the BMI Calculator?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The BMI Calculator tells you where your specific current weight falls. This works the other direction — given just your height, it shows the entire range of weights that would land in the healthy BMI band.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why is the range so wide?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Because BMI itself is a fairly broad screening tool — the same height can carry a wide range of healthy weights depending on frame size, muscle mass, and individual build. The range reflects that built-in flexibility.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Healthy Weight Calculator","item":"https://calculatorboss.com/healthy-weight-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a healthy weight for my height?","acceptedAnswer":{"@type":"Answer","text":"It is a range rather than a number, and this page works it out from your height alone. The range spans a BMI of 18.5 to 25, so a person of 5 ft 6 in lands somewhere between about 115 and 155 pounds, and someone of 170 cm between about 53 and 72 kilograms. The band is deliberately wide because two people of the same height can both be healthy at weights fifteen kilograms apart."}},{"@type":"Question","name":"Why does the calculator not ask my age or sex?","acceptedAnswer":{"@type":"Answer","text":"Because BMI does not use them. The same height gives the same range for everyone, which is both the method's convenience and its main weakness. Age and sex genuinely change what a sensible weight looks like, and equations that do account for them, such as the ones behind an ideal weight estimate, will give you a narrower and different answer."}},{"@type":"Question","name":"Is BMI accurate for muscular people?","acceptedAnswer":{"@type":"Answer","text":"No, and this is its best-known failure. BMI weighs you and squares your height; it has no way of telling muscle from fat. A rugby forward and a sedentary person of the same height and weight get identical results. If you carry a lot of muscle, expect the number to place you higher than your body composition warrants, and treat a waist measurement or a body fat estimate as the more informative figure."}},{"@type":"Question","name":"What if I am just outside the healthy range?","acceptedAnswer":{"@type":"Answer","text":"A pound or two either side of a boundary means very little. The cut-offs are round numbers chosen for population statistics, not thresholds where anything changes in the body, and your weight naturally swings by a couple of kilograms across a week with hydration, food in the gut and hormonal cycles. What is worth attention is a sustained trend over months, not which side of a line you land on today."}},{"@type":"Question","name":"Does a healthy BMI mean I am healthy?","acceptedAnswer":{"@type":"Answer","text":"Not on its own. Blood pressure, blood sugar, cholesterol, fitness, sleep and smoking all matter more to health outcomes than which BMI band you sit in, and it is entirely possible to be inside the range with poor markers or outside it with good ones. Read the range as one screening number among several rather than a verdict."}},{"@type":"Question","name":"Should the same range apply to everyone?","acceptedAnswer":{"@type":"Answer","text":"There is good evidence it should not. Health authorities in several countries use lower cut-offs for people of South Asian, Chinese and other Asian ancestry, because cardiometabolic risk appears at lower BMI values in those populations. The World Health Organization has discussed additional trigger points around 23 for public health action. This calculator uses the standard international bands, so if that guidance applies to you, read the boundaries as sitting a little lower."}},{"@type":"Question","name":"Does this work for children?","acceptedAnswer":{"@type":"Answer","text":"No. Children and teenagers are assessed with age and sex specific percentile charts rather than fixed BMI cut-offs, because body composition changes a great deal through growth. A fixed adult band applied to a twelve-year-old will usually be wrong in one direction or the other. Ask a paediatrician or use a growth chart designed for the age instead."}},{"@type":"Question","name":"Does it apply during pregnancy?","acceptedAnswer":{"@type":"Answer","text":"No. Weight gain in pregnancy is expected and is assessed against pre-pregnancy BMI using separate guidance, not against a fixed range. Reading a normal pregnancy weight against these bands would be misleading. Ask your midwife or doctor what gain is appropriate for you."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Healthy Weight Calculator","url":"https://calculatorboss.com/healthy-weight-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Works out the weight range corresponding to a BMI of 18.5 to 25 for a given height, and shows where each BMI category falls in pounds or kilograms.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Healthy Weight Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Healthy Weight Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Enter your height and see the weight range that sits inside the healthy BMI band &mdash; plus where every other category falls, in pounds or kilograms.</p><div class="hw-wrap">
+<div class="hw-grid">
+
+  <div class="hw-bar hw-area-bar">
+    <span class="hw-bar-text"><span class="hw-bar-badge">%</span>Just enter your values below &mdash; results update automatically.</span>
+    <button type="button" class="hw-bar-pdf-btn" id="hw-pdfBtn">&#128190; Save as PDF</button>
+  </div>
+
+  <div class="hw-tabs hw-area-tabs" role="tablist" aria-label="Measurement units">
+    <button type="button" class="hw-tab active" id="hw-tabUs" role="tab" aria-selected="true">US Unit</button>
+    <button type="button" class="hw-tab" id="hw-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="hw-card hw-area-form">
+    <div class="hw-card-pad">
+
+      <div id="hw-usBlock">
+        <div class="hw-field">
+          <label class="hw-field-label" for="hw-heightFt">Height</label>
+          <div class="hw-field-control">
+            <div class="hw-input-group"><input type="text" inputmode="decimal" id="hw-heightFt" value="5"><span>feet</span></div>
+            <div class="hw-input-group"><input type="text" inputmode="decimal" id="hw-heightIn" value="6"><span>inches</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="hw-metricBlock" style="display:none">
+        <div class="hw-field">
+          <label class="hw-field-label" for="hw-heightCm">Height</label>
+          <div class="hw-field-control"><div class="hw-input-group"><input type="text" inputmode="decimal" id="hw-heightCm" value="168"><span>cm</span></div></div>
+        </div>
+      </div>
+
+      <p class="hw-subnote">Height is the only input, because that is all the body mass index uses. No age, sex or build goes into the answer &mdash; which is the method&rsquo;s convenience and its main weakness at the same time.</p>
+
+      <div class="hw-btn-row">
+        <button type="button" class="hw-btn-calc" id="hw-calcBtn">Calculate</button>
+        <button type="button" class="hw-btn-clear" id="hw-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="hw-result-card hw-area-result">
+    <div class="hw-result-head">
+      <div class="label">Healthy weight for this height</div>
+      <div class="bignum" id="hw-bigNum">&mdash;</div>
+      <div class="sub" id="hw-bigSub">&mdash;</div>
+    </div>
+    <div class="hw-err" id="hw-err"></div>
+    <div class="hw-result-body" id="hw-resultBody">
+      <p class="hw-sec-h">Where the categories fall</p>
+      <div class="hw-scale">
+        <div class="hw-scale-ticks" id="hw-scaleTicks"></div>
+        <div class="hw-scale-band" id="hw-scaleBand"></div>
+        <div class="hw-scale-names" id="hw-scaleNames"></div>
+      </div>
+      <table class="hw-band-table">
+        <thead><tr><th>Category</th><th>BMI</th><th>Weight</th></tr></thead>
+        <tbody id="hw-bandBody"></tbody>
+      </table>
+      <p class="hw-subnote">The boundaries are round numbers chosen for population statistics, not points where anything changes in the body. A pound either side of a line makes no practical difference.</p>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="hw-sidecol hw-area-sidebar">
+    <div class="hw-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/bmi-calculator/">BMI <span class="arrow">&rarr;</span></a>
+      <a href="/ideal-weight-calculator/">Ideal Weight <span class="arrow">&rarr;</span></a>
+      <a href="/body-fat-calculator/">Body Fat <span class="arrow">&rarr;</span></a>
+      <a href="/lean-body-mass-calculator/">Lean Body Mass <span class="arrow">&rarr;</span></a>
+      <a href="/body-surface-area-calculator/">Body Surface Area <span class="arrow">&rarr;</span></a>
+      <a href="/calorie-calculator/">Calorie <span class="arrow">&rarr;</span></a>
+      <a href="/tdee-calculator/">TDEE <span class="arrow">&rarr;</span></a>
+      <a href="/all-calculators/" class="hw-viewmore">View More <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="hw-area-bottomgrid">
+    <div class="hw-bottom-grid">
+      <div class="hw-info-card">
+        <div class="hw-card-head"><span class="t">What This Range Cannot See</span></div>
+        <div class="hw-card-body">
+          <ul class="hw-miss">
+            <li><b>Muscle versus fat.</b> Weight is weight to the formula. A heavily trained athlete often reads as overweight while carrying very little fat.</li>
+            <li><b>Where the fat sits.</b> Abdominal fat carries more risk than the same weight on hips and thighs. A waist measurement picks that up; height and weight cannot.</li>
+            <li><b>Ancestry.</b> Several countries use lower cut-offs for people of South Asian and East Asian descent, because risk appears at lower BMI values.</li>
+            <li><b>Age and life stage.</b> Older adults may do better slightly above the band, and children, pregnancy and breastfeeding are assessed on entirely separate guidance.</li>
+          </ul>
+          <p class="hw-note">A useful companion measure that takes ten seconds: keep your waist under half your height. It captures the abdominal fat this page is blind to.</p>
+        </div>
+      </div>
+      <div class="hw-info-card">
+        <div class="hw-card-head"><span class="t">WHO BMI Bands</span></div>
+        <div class="hw-card-body">
+          <table class="hw-ref-table">
+            <tbody>
+              <tr><td>Severe thinness</td><td>under 16</td></tr>
+              <tr><td>Moderate thinness</td><td>16 &ndash; 17</td></tr>
+              <tr><td>Mild thinness</td><td>17 &ndash; 18.5</td></tr>
+              <tr><td>Healthy</td><td>18.5 &ndash; 25</td></tr>
+              <tr><td>Overweight</td><td>25 &ndash; 30</td></tr>
+              <tr><td>Obese class I</td><td>30 &ndash; 35</td></tr>
+              <tr><td>Obese class II</td><td>35 &ndash; 40</td></tr>
+              <tr><td>Obese class III</td><td>40 and above</td></tr>
+            </tbody>
+          </table>
+          <p class="hw-note">The scale above splits the thin end at 16.5 rather than at 16 and 17, matching the reference tool. Read its lowest tick as approximate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.hw-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.hw-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.hw-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.hw-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.hw-seo-article strong{color:var(--ink);font-weight:600}
+.hw-seo-article em{font-style:italic}
+.hw-seo-article a{color:#128A3D;text-decoration:underline}
+.hw-seo-article ul,.hw-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.hw-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:2;word-break:break-word}
+.hw-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.hw-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.hw-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.hw-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.hw-toc a:hover{color:#1E3A5F}
+.hw-seo-article h2[id]{scroll-margin-top:88px}
+.hw-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.hw-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="hw-seo-article">
+<p class="hw-byline">Written by the CalculatorBoss Health Team &middot; Formulas verified against a reference implementation with a recorded test suite &middot; Last updated August 2026</p>
+
+<nav class="hw-toc" aria-label="On this page">
+  <a href="#range">Why the answer is a range</a>
+  <a href="#how">How the number is worked out</a>
+  <a href="#reading">Reading the scale</a>
+  <a href="#limits">What BMI cannot see</a>
+  <a href="#beyond">Better questions than &ldquo;what should I weigh&rdquo;</a>
+  <a href="#whowho">Where the categories came from</a>
+  <a href="#notfor">When this calculator does not apply</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="range">Why the answer is a range</h2>
+<p>Ask what someone of a given height should weigh and the honest answer is a span of twenty or thirty pounds, not a figure. That span exists because the healthy category of the body mass index is itself a span: a BMI from 18.5 up to 25. Fix the height and those two boundaries become two weights, and everything between them counts as healthy.</p>
+<p>The width is not vagueness. People of identical height differ in frame size, bone density, muscle and where they store fat, and all of that sits inside a single BMI reading. A range acknowledges that a taller-framed, heavier-boned person and a lightly built one can both be perfectly well at weights a long way apart.</p>
+
+<h2 id="how">How the number is worked out</h2>
+<p>BMI is weight in kilograms divided by height in metres squared. Rearranged, it gives weight from a BMI and a height, and that rearrangement is the whole calculator.</p>
+<div class="hw-formula2">
+<b>The healthy band</b><br>
+lower weight = 18.5 &times; height(m)<sup>2</sup><br>
+upper weight = 25 &times; height(m)<sup>2</sup><br><br>
+<b>Worked through for 170 cm</b><br>
+height<sup>2</sup> = 1.70 &times; 1.70 = 2.89 m<sup>2</sup><br>
+18.5 &times; 2.89 = 53.5 kg &nbsp;&middot;&nbsp; 25 &times; 2.89 = 72.3 kg<br><br>
+<b>In pounds</b><br>
+the kilogram figures are converted, not recalculated &mdash; 53.5 kg is 118 lb, 72.3 kg is 159 lb
+</div>
+<p>Notice what is <em>not</em> in there: no age, no sex, no measure of build. That is why the same range comes back for a nineteen-year-old and a seventy-year-old of the same height, and it is the single biggest thing to hold in mind when reading the result.</p>
+<p>One detail worth stating because it trips people up. The pound figures on this page are produced by working the weight out in kilograms and converting, rather than by the shortcut formula that multiplies pounds by 703 over height in inches squared. The two agree almost always and differ by a pound at a handful of heights.</p>
+
+<h2 id="reading">Reading the scale</h2>
+<p>The coloured band shows every BMI category translated into weights for the height you entered, with the boundary figures sitting on the joins. It is deliberately schematic rather than a true axis: drawn to scale, the healthy band would be a narrow sliver and the top class would run off the page, which would make the categories that matter least the most prominent.</p>
+<p>The boundaries themselves are round numbers picked for population statistics. There is nothing that changes inside the body as the scale crosses from 24.9 to 25.1. A person sitting a pound over a line and a person sitting a pound under it are, for every practical purpose, in the same position.</p>
+<p>The lowest boundary on this scale is a BMI of 16.5, matching the reference tool. The World Health Organization actually splits the thin end more finely than that &mdash; severe thinness below 16, moderate from 16 to 17, mild from 17 to 18.5 &mdash; so treat that first tick as approximate rather than as a formal cut-off.</p>
+
+<h2 id="limits">What BMI cannot see</h2>
+<p>BMI has survived since the 1830s because it needs only two measurements and predicts population health outcomes reasonably well. It was never designed to assess an individual, and the gap shows in four places.</p>
+<p><strong>It cannot tell muscle from fat.</strong> Weight is weight to the formula. A heavily trained athlete routinely reads as overweight or obese on BMI while carrying very little fat, and someone with low muscle mass can sit inside the healthy band with a high fat percentage &mdash; a pattern common enough in older adults to have its own name.</p>
+<p><strong>It ignores where fat sits.</strong> Fat around the abdomen carries more cardiometabolic risk than the same weight on hips and thighs, and BMI cannot distinguish them. A waist measurement, or waist divided by height, picks this up and takes ten seconds with a tape.</p>
+<p><strong>It squares height, and people are not squares.</strong> The exponent of two is an approximation that suits average heights and drifts at the extremes, tending to read tall people as heavier than they are and very short people as lighter.</p>
+<p><strong>It uses one set of cut-offs for everyone.</strong> Risk of type 2 diabetes and heart disease appears at lower BMI values in South Asian and East Asian populations, which is why several countries apply lower thresholds than the international ones used here.</p>
+
+<h2 id="beyond">Better questions than "what should I weigh"</h2>
+<p>If the aim is to know whether your weight is a problem, the range on this page is a starting point and a poor stopping point. Three things tell you more.</p>
+<p><strong>Waist-to-height ratio.</strong> Keeping your waist under half your height is a simple, widely endorsed rule that captures abdominal fat, which is what BMI misses most.</p>
+<p><strong>The direction of travel.</strong> A stable weight inside or slightly outside the band matters far less than a steady climb or an unexplained fall. Unintentional loss in particular is worth a conversation with a doctor rather than celebration.</p>
+<p><strong>The markers themselves.</strong> Blood pressure, fasting glucose or HbA1c, lipids and cardiorespiratory fitness are what the weight is a proxy for. If those are good, a BMI of 26 is a very different situation from one where they are not.</p>
+
+<h2 id="whowho">Where the categories came from</h2>
+<p>The index was devised by the Belgian statistician Adolphe Quetelet in the 1830s as a way of describing populations, and it carried his name for a century and a half. It became "body mass index" in a 1972 paper by Ancel Keys, which found it the best of several simple weight-for-height indices as a proxy for body fat &mdash; while explicitly noting it was suitable for population studies rather than individual diagnosis.</p>
+<p>The 18.5 to 25 band and the obesity classes were set by the World Health Organization in the 1990s, chosen because mortality and disease risk in large cohorts rose outside them. They are statistical thresholds derived from mostly European-ancestry populations, which is precisely why the question of whether one set of cut-offs suits everyone has stayed open.</p>
+
+<h2 id="notfor">When this calculator does not apply</h2>
+<p>Several groups should not read these bands as written. <strong>Children and adolescents</strong> are assessed on age and sex specific percentile charts, because a growing body's composition changes month to month. <strong>Pregnant and breastfeeding women</strong> are assessed against pre-pregnancy BMI using separate gain guidance. <strong>Older adults</strong> may do better slightly above the standard band, and there is reasonable evidence that being at the very bottom of it carries risk after seventy. <strong>Competitive athletes and anyone with a lot of muscle</strong> will read high for reasons that are not fat, and <strong>people with conditions that affect fluid balance or limb loss</strong> cannot be assessed by weight-for-height at all.</p>
+<p>If you want a figure that does account for sex and frame, the <a href="/ideal-weight-calculator/">ideal weight calculator</a> uses equations built for that, and the <a href="/bmi-calculator/">BMI calculator</a> works the other way round if you already know your weight. For what BMI cannot see, the <a href="/body-fat-calculator/">body fat calculator</a> estimates composition from tape measurements.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>What is a healthy weight for my height?</h3>
+<p>It is a range rather than a number, and this page works it out from your height alone. The range spans a BMI of 18.5 to 25, so a person of 5 ft 6 in lands somewhere between about 115 and 155 pounds, and someone of 170 cm between about 53 and 72 kilograms. The band is deliberately wide because two people of the same height can both be healthy at weights fifteen kilograms apart.</p>
+<h3>Why does the calculator not ask my age or sex?</h3>
+<p>Because BMI does not use them. The same height gives the same range for everyone, which is both the method's convenience and its main weakness. Age and sex genuinely change what a sensible weight looks like, and equations that do account for them, such as the ones behind an ideal weight estimate, will give you a narrower and different answer.</p>
+<h3>Is BMI accurate for muscular people?</h3>
+<p>No, and this is its best-known failure. BMI weighs you and squares your height; it has no way of telling muscle from fat. A rugby forward and a sedentary person of the same height and weight get identical results. If you carry a lot of muscle, expect the number to place you higher than your body composition warrants, and treat a waist measurement or a body fat estimate as the more informative figure.</p>
+<h3>What if I am just outside the healthy range?</h3>
+<p>A pound or two either side of a boundary means very little. The cut-offs are round numbers chosen for population statistics, not thresholds where anything changes in the body, and your weight naturally swings by a couple of kilograms across a week with hydration, food in the gut and hormonal cycles. What is worth attention is a sustained trend over months, not which side of a line you land on today.</p>
+<h3>Does a healthy BMI mean I am healthy?</h3>
+<p>Not on its own. Blood pressure, blood sugar, cholesterol, fitness, sleep and smoking all matter more to health outcomes than which BMI band you sit in, and it is entirely possible to be inside the range with poor markers or outside it with good ones. Read the range as one screening number among several rather than a verdict.</p>
+<h3>Should the same range apply to everyone?</h3>
+<p>There is good evidence it should not. Health authorities in several countries use lower cut-offs for people of South Asian, Chinese and other Asian ancestry, because cardiometabolic risk appears at lower BMI values in those populations. The World Health Organization has discussed additional trigger points around 23 for public health action. This calculator uses the standard international bands, so if that guidance applies to you, read the boundaries as sitting a little lower.</p>
+<h3>Does this work for children?</h3>
+<p>No. Children and teenagers are assessed with age and sex specific percentile charts rather than fixed BMI cut-offs, because body composition changes a great deal through growth. A fixed adult band applied to a twelve-year-old will usually be wrong in one direction or the other. Ask a paediatrician or use a growth chart designed for the age instead.</p>
+<h3>Does it apply during pregnancy?</h3>
+<p>No. Weight gain in pregnancy is expected and is assessed against pre-pregnancy BMI using separate guidance, not against a fixed range. Reading a normal pregnancy weight against these bands would be misleading. Ask your midwife or doctor what gain is appropriate for you.</p>
+
+
+<p class="hw-disclaimer">This calculator is a general screening tool and is not medical advice. A weight inside the band is not a clean bill of health and a weight outside it is not a diagnosis; BMI cannot see body composition, fat distribution, fitness or any blood marker. It does not apply to children, to pregnancy or breastfeeding, or to anyone whose body composition is unusual for their height. Discuss any concern about your weight with a doctor rather than acting on a number from a web page. If thinking about your weight or your eating is affecting your daily life, support is available &mdash; in the US, the National Alliance for Eating Disorders helpline is free and staffed by clinicians on 1-866-662-1235. More about how we build and check these tools is on our <a href="/about/">About</a> page, and our <a href="/privacy-policy/">Privacy Policy</a> explains what we do and do not collect.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +709,216 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* The reference does not use the 703 shortcut: inches convert to centimetres, the weight
+     is worked out in kilograms, and only then converted to pounds. It also squares the
+     centimetres before dividing by 10,000 rather than dividing first — algebraically the
+     same, one bit apart in a double, and enough to move a displayed tenth of a kilo at
+     230 cm. Both behaviours were measured against it. */
+  var INCH_CM = 2.54, LB = 0.453592;
+
+  /* Six BMI boundaries. The lowest is 16.5, not the WHO severe-thinness cut-off of 16 —
+     that is the reference's value and it is matched here. */
+  var BOUNDS = [16.5, 18.5, 25, 30, 35, 40];
+
+  /* Band widths are layout, not data: a true linear axis would squeeze the healthy band
+     to a sliver and let the top class run off the page. */
+  var BANDS = [
+    ['Severely underweight', null, 16.5, 13, '#C0392B', 'Severe'],
+    ['Underweight',          16.5, 18.5, 11, '#E08A3C', 'Under'],
+    ['Healthy',              18.5, 25,   22, '#16A34A', 'Healthy'],
+    ['Overweight',           25,   30,   15, '#8FBF4A', 'Over'],
+    ['Obese class I',        30,   35,   13, '#E0A93C', 'Obese I'],
+    ['Obese class II',       35,   40,   12, '#D4713A', 'Obese II'],
+    ['Obese class III',      40,   null, 14, '#A93226', 'Obese III']
+  ];
+
+  var unit = 'us', last = null;
+
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).replace(/,/g,'').trim()); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function r0(x){ return Math.round(x); }
+  function r1(x){ return Math.round(x*10)/10; }
+
+  function fmtW(kg){
+    return unit === 'us' ? r0(kg/LB).toLocaleString('en-US') : r1(kg).toFixed(1);
+  }
+  function unitLabel(){ return unit === 'us' ? 'lbs' : 'kg'; }
+
+  function compute(){
+    var cm;
+    if(unit === 'us'){
+      var ft = num('hw-heightFt'), inch = num('hw-heightIn');
+      if(isNaN(ft) && isNaN(inch)) return { error:'height' };
+      cm = ((isNaN(ft)?0:ft)*12 + (isNaN(inch)?0:inch)) * INCH_CM;
+    } else {
+      cm = num('hw-heightCm');
+      if(isNaN(cm)) return { error:'height' };
+    }
+    if(!(cm > 0)) return { error:'height' };
+    var m2 = cm*cm/10000;
+    return { cm:cm, m2:m2, ticks: BOUNDS.map(function(b){ return b*m2; }) };
+  }
+
+  var ERRORS = {
+    height: 'Please enter a height greater than zero. The healthy range is worked out from height alone.'
+  };
+
+  function heightLabel(o){
+    if(unit === 'us'){
+      var totalIn = Math.round(o.cm/INCH_CM);
+      return Math.floor(totalIn/12) + ' ft ' + (totalIn % 12) + ' in';
+    }
+    return (Math.round(o.cm*10)/10) + ' cm';
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('hw-err');
+    if(o.error){
+      err.className = 'hw-err show';
+      err.textContent = ERRORS[o.error];
+      $('hw-bigNum').innerHTML = '\u2014';
+      $('hw-bigSub').textContent = '\u00a0';
+      $('hw-resultBody').style.display = 'none';
+      last = null;
+      return;
+    }
+    err.className = 'hw-err';
+    $('hw-resultBody').style.display = '';
+    last = o;
+
+    var lo = fmtW(o.ticks[1]), hi = fmtW(o.ticks[2]);
+    $('hw-bigNum').innerHTML = lo + ' \u2013 ' + hi + '<small>' + unitLabel() + '</small>';
+    $('hw-bigSub').textContent = 'BMI 18.5 to 25 \u00b7 for a height of ' + heightLabel(o);
+
+    /* scale: coloured bands, boundary figures sitting on the joins between them */
+    var total = BANDS.reduce(function(s,b){ return s + b[3]; }, 0);
+    var band = '', names = '', ticks = '', acc = 0;
+    BANDS.forEach(function(b, i){
+      var pct = 100*b[3]/total;
+      band  += '<i style="width:' + pct + '%;background:' + b[4] + '"></i>';
+      names += '<span style="width:' + pct + '%" title="' + esc(b[0]) + '">' + esc(b[5]) + '</span>';
+      acc += pct;
+      if(i < BANDS.length - 1){
+        ticks += '<span style="left:' + acc + '%">' + fmtW(o.ticks[i]) + '</span>';
+      }
+    });
+    $('hw-scaleTicks').innerHTML = ticks;
+    $('hw-scaleBand').innerHTML = band;
+    $('hw-scaleNames').innerHTML = names;
+
+    /* every band as a weight range for this height, healthy row highlighted */
+    $('hw-bandBody').innerHTML = BANDS.map(function(b, i){
+      var from = b[1] === null ? null : fmtW(b[1]*o.m2);
+      var to   = b[2] === null ? null : fmtW(b[2]*o.m2);
+      var u = ' ' + unitLabel();
+      var w = from === null ? ('under ' + to + u)
+            : to === null   ? (from + u + ' and above')
+            : (from + ' \u2013 ' + to + u);
+      var bmi = b[1] === null ? ('under ' + b[2])
+              : b[2] === null ? (b[1] + ' and above')
+              : (b[1] + ' \u2013 ' + b[2]);
+      return '<tr' + (b[0] === 'Healthy' ? ' class="on"' : '') + '>' +
+             '<td><i style="background:' + b[4] + '"></i>' + esc(b[0]) + '</td>' +
+             '<td>BMI ' + esc(bmi) + '</td>' +
+             '<td>' + esc(w) + '</td></tr>';
+    }).join('');
+  }
+
+  /* ---------- units ---------- */
+  function setUnit(u){
+    unit = u;
+    $('hw-tabUs').className = 'hw-tab' + (u === 'us' ? ' active' : '');
+    $('hw-tabMetric').className = 'hw-tab' + (u === 'metric' ? ' active' : '');
+    $('hw-tabUs').setAttribute('aria-selected', u === 'us' ? 'true' : 'false');
+    $('hw-tabMetric').setAttribute('aria-selected', u === 'metric' ? 'true' : 'false');
+    $('hw-usBlock').style.display = u === 'us' ? '' : 'none';
+    $('hw-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    render();
+  }
+  $('hw-tabUs').addEventListener('click', function(){ setUnit('us'); });
+  $('hw-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('hw-calcBtn').addEventListener('click', render);
+
+  /* Clear empties the typed boxes and nothing else — no defaults restored, no scrolling,
+     no refocus. */
+  $('hw-clearBtn').addEventListener('click', function(){
+    ['hw-heightFt','hw-heightIn','hw-heightCm'].forEach(function(id){
+      var el = $(id); if(el) el.value = '';
+    });
+    render();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Enter a height first, then save the result as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Healthy Weight Range', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(11); doc.setTextColor(24,26,31);
+    doc.text('Height: ' + heightLabel(o) + '   \u00b7   Healthy range: ' +
+             fmtW(o.ticks[1]) + ' \u2013 ' + fmtW(o.ticks[2]) + ' ' + unitLabel() +
+             '   (BMI 18.5 to 25)', margin, y); y += 18;
+
+    doc.autoTable({ startY:y, head:[['Category','BMI','Weight (' + unitLabel() + ')']],
+      body: BANDS.map(function(b){
+        var from = b[1] === null ? null : fmtW(b[1]*o.m2);
+        var to   = b[2] === null ? null : fmtW(b[2]*o.m2);
+        return [b[0],
+                b[1] === null ? 'under ' + b[2] : (b[2] === null ? b[1] + ' and above' : b[1] + ' - ' + b[2]),
+                from === null ? 'under ' + to : (to === null ? from + ' and above' : from + ' - ' + to)];
+      }),
+      margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('BMI is a population screening tool, not a diagnosis, and it says nothing about body composition. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('healthy-weight-range.pdf');
+  }
+  $('hw-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1040,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

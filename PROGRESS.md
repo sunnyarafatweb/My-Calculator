@@ -8500,3 +8500,88 @@ actionable wording), **45 browser cases against the engine, 0 mismatches**, **35
 cases on the three original equations, 0 mismatches**, FAQ schema still exact at 8/8, article
 originality 0.00% against the reference. Description trimmed back to 153 characters after the
 first rewrite came in at 169.
+
+## Healthy Weight Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the 44KB template stub at `/healthy-weight-calculator/` with a full 3-card build
+(90KB, `hw-` prefix). Reference: calculator.net/healthy-weight-calculator.html, supplied by
+the owner with US and metric screenshots. Donor `tdee-calculator`; protected style block,
+header and footer byte-identical afterwards. The simplest page built so far — one input,
+height — which made the two constants below the whole of the difficulty.
+
+**Keyword research.** "healthy weight calculator" is held by the NHS, calculator.net and a
+long tail of BMI tools. The variants with their own competitor pages are "how much should I
+weigh", "healthy weight for height" and "normal weight range", all of which are the same
+question phrased as a person would actually type it; they drive the H1 subhead, the result
+label and the first FAQ. Title 54 chars, description 143.
+
+### Two things measured off the reference, not assumed
+
+**1. It does not use the 703 shortcut.** The obvious way to get pounds is
+`BMI x inches² / 703`. Theirs converts inches to centimetres, works the weight out in
+kilograms, and converts to pounds at the end. Brute-forcing every height from 3'0" to 7'11"
+across the six BMI boundaries found exactly four inputs where the two routes differ by a
+pound; three were put to the reference and it sided with the metric route every time.
+6'1" is the cleanest: 703 gives 190 lb at BMI 25, the metric route gives 189, and the
+reference says 189.
+
+**2. It squares the centimetres before dividing by 10,000.** `(cm/100)²` and `cm²/10000` are
+algebraically identical and one bit apart in a double. At 230 cm the first gives 132.2 kg at
+BMI 25 and the second gives 132.3 — the reference says 132.3. Caught by the first 40-case
+sweep, on the single tallest input it generated. A spot check at ordinary heights would never
+have found it.
+
+Also worth recording: **the lowest boundary is BMI 16.5**, not the WHO severe-thinness cut-off
+of 16. Matched for parity, and the page states the actual WHO sub-bands (severe under 16,
+moderate 16–17, mild 17–18.5) in a reference card so the number is not passed off as WHO's.
+
+### Verification
+
+Engine swept against the live reference twice — **85 cases, 0 mismatches** — comparing the
+healthy-range sentence and all six boundary figures, across US heights 3'0"–7'11" and metric
+90–230 cm. Then the shipped page driven in Chromium over **45 fresh cases**, checking the
+headline, the six scale ticks and all seven category weight ranges: **0 mismatches, 0 console
+errors**. **55 browser assertions, 0 failed**, including explicit regression guards on both
+constants (6'1" must read 140–189, and 230 cm must read 132.3).
+
+### Design decisions
+
+The reference renders its scale as a **fixed PNG** with the tick numbers positioned in a
+table above it. Ours is built from the same six numbers and seven labels as coloured `<i>`
+segments with the boundary figures absolutely positioned on the joins, so it recolours and
+relabels live and survives a 390px viewport. Band widths are layout rather than data: on a
+true linear axis the healthy band would be a sliver and the top class would run off the page,
+so the widths are fixed and that is stated on the page rather than left to look like an axis.
+
+Underneath it, a category table gives every band as a weight range for the entered height —
+the same six numbers expanded, which is what a visitor actually wants to read.
+
+Two things were caught by looking at the screenshot rather than by the assertions, both
+readability rather than correctness: the full category names were breaking mid-word under the
+band ("Severely underwei / ght") at every viewport, so the strip now carries short labels with
+the full names in the table below and a `title` attribute on each; and the top band read
+"248 and above lbs", now "248 lbs and above".
+
+### Wellbeing
+
+This is the first weight-range page built since the eating-disorder wording was standardised
+on `body-type-calculator`, and it follows it: the National Alliance for Eating Disorders
+helpline with its number, **not NEDA**, whose line is disconnected. There are no calorie
+targets, no diet or exercise plans and no goal weights anywhere on the page — the article
+deliberately routes the "what should I do about it" question to waist-to-height, trend over
+time and blood markers rather than to a number. Four assertions now enforce this: the helpline
+must be named, NEDA must not appear, no calorie or meal-plan language, and the disclaimer must
+say plainly that a weight inside the band is not a clean bill of health.
+
+**Content.** 1,983-word article, 8 H2s, 8 FAQs. Overlap with the reference **0.00%** — notable
+because the reference's article covers the same ground at length, so the sections were chosen
+to attack it from different angles (where the categories came from, what BMI cannot see,
+better questions than "what should I weigh"). Against our own pages the worst is 1.77%
+(gfr and carbohydrate), which is byline and disclaimer boilerplate, plus 1.06% against
+body-type-calculator, which is the shared helpline sentence — deliberately identical wording.
+
+**Also shipped**: OG image at `/og/healthy-weight-calculator.png`, using the page's own
+category band with the healthy segment marked rather than the ring the last few pages used.
+`calculators-index.json`, `sitemap.xml` and `llms.txt` already carried the slug. calorie,
+height and ideal-weight already linked here; reciprocal links added from **body-fat, bmr and
+gfr**. bmi-calculator has no standard sidebar anchor and was left alone.
