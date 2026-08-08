@@ -7791,3 +7791,40 @@ page is built so it cannot be read as permission:
 **Content.** 1,988-word article, 9 H2s, 8 FAQs. Overlap with the reference **0.00%**; highest
 against our own pages 0.42%, all of it the shared byline and about/privacy boilerplate. OG image
 generated as part of the build.
+
+### Unit labels overflowing their card — army and BAC (Aug 8, 2026)
+
+The owner sent a screenshot of the Army page with the waist row running off the right edge of
+the form card, the "inches" box half-cut, and asked for it to line up with the Age field above.
+
+**Root cause: `.af-unit-tag` and `.bc-unit-tag` were used in the markup and never written in
+the CSS.** Both pages shipped with unstyled `<span>`s carrying the unit words. With no width on
+them and `min-width:90px` on every text input, a two-input row (feet + inches) demanded more
+than the control could give, so the trailing span was pushed past the card, which has
+`overflow:hidden` and quietly clipped it. Nothing errored and the width guard passed, because
+the guard measures *inputs* and the thing overflowing was a span.
+
+Fixed on both pages:
+- `.{prefix}-unit-tag{flex:0 0 32px;...}` — a real, fixed width, so tags cannot be squeezed and
+  cannot push siblings out.
+- Field labels narrowed from 165px to 80px, which is what actually creates room for a two-input
+  row; the hint indent follows at 88px.
+- Unit words shortened to `lb`, `ft`, `in`, `hrs`, `min` so they fit a uniform tag width, with
+  the full wording moved into the hint line under the waist row.
+- Age gets an empty tag of the same width, so its input ends exactly where the rows that do
+  carry a unit end.
+
+Result: on the Army page all three input rows now share one right edge, verified at 1280, 430
+and 390px (425 / 357 / 317 px respectively, identical across rows at each width). On the BAC
+page the same fix removes the overflow; its two rows deliberately keep different inner edges
+because one ends in a dropdown and one in a unit tag, while the outer control edges align.
+
+**Check added to the standing suite:** assert that within a form card, every field's *last*
+input shares the same right edge, and that no child extends past its control. The existing
+width guard would never have caught this — it only looked at inputs and selects, and the
+element being clipped was a span. Any element inside a field control can overflow, so the
+assertion now measures against the control's right edge rather than against a minimum width.
+
+Re-verified after the change: army 38/38 and BAC 36/36 browser assertions, both engines
+re-extracted from the shipped files and still exact (40 and 42 reference cases), protected
+style block byte-identical on both, FAQ schema still matching visible text.

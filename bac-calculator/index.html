@@ -324,13 +324,15 @@
 
 .bc-intro{font-size:12.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 14px}
 .bc-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
-.bc-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.bc-field-label{width:80px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
 .bc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
 .bc-field-control input[type=text]{flex:1;min-width:90px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
 .bc-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
 .bc-field-control input:focus,.bc-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
 .bc-w-unit{flex:0 1 124px;min-width:0}
-.bc-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 173px}
+.bc-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 88px}
+.bc-unit-tag{flex:0 0 32px;font-size:12.5px;color:var(--ink-faint);white-space:nowrap}
+
 .bc-divider{border-top:1px solid var(--border-fine);margin:12px 0}
 .bc-btn-row{display:flex;gap:10px;margin-top:16px}
 .bc-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
@@ -386,6 +388,7 @@
   .bc-card-pad{padding:18px}
   .bc-field-label{width:100%}
   .bc-hint{margin-left:0}
+  .bc-unit-tag{flex:0 0 32px}
   .bc-result-head .v{font-size:25px}
   .bc-w-unit{flex:0 1 116px;min-width:0}
 }
@@ -519,7 +522,7 @@
       <label class="bc-field-label" for="bc-hours">Time since first drink</label>
       <div class="bc-field-control">
         <input type="text" id="bc-hours" value="3" inputmode="numeric" autocomplete="off" aria-label="Hours since first drink">
-        <span class="bc-unit-tag">hours</span>
+        <span class="bc-unit-tag">hrs</span>
         <input type="text" id="bc-mins" value="30" inputmode="numeric" autocomplete="off" aria-label="Minutes since first drink">
         <span class="bc-unit-tag">min</span>
       </div>

@@ -315,13 +315,15 @@
 
 .af-intro{font-size:12.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 14px}
 .af-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
-.af-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.af-field-label{width:80px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
 .af-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
 .af-field-control input[type=text]{flex:1;min-width:90px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
 .af-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
 .af-field-control input:focus,.af-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
 .af-w-unit{flex:0 1 124px;min-width:0}
-.af-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 173px}
+.af-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 88px}
+.af-unit-tag{flex:0 0 32px;font-size:12.5px;color:var(--ink-faint);white-space:nowrap}
+
 .af-divider{border-top:1px solid var(--border-fine);margin:12px 0}
 .af-btn-row{display:flex;gap:10px;margin-top:16px}
 .af-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
@@ -377,6 +379,7 @@
   .af-card-pad{padding:18px}
   .af-field-label{width:100%}
   .af-hint{margin-left:0}
+  .af-unit-tag{flex:0 0 32px}
   .af-result-head .v{font-size:25px}
   .af-w-unit{flex:0 1 116px;min-width:0}
 }
@@ -500,25 +503,25 @@
     </div>
     <div class="af-field">
       <label class="af-field-label" for="af-age">Age</label>
-      <div class="af-field-control"><input type="text" id="af-age" value="24" inputmode="numeric" autocomplete="off"></div>
+      <div class="af-field-control"><input type="text" id="af-age" value="24" inputmode="numeric" autocomplete="off"><span class="af-unit-tag"></span></div>
     </div>
     <div class="af-field">
       <label class="af-field-label" for="af-weight">Weight</label>
       <div class="af-field-control">
         <input type="text" id="af-weight" value="178" inputmode="decimal" autocomplete="off">
-        <span class="af-unit-tag">pounds</span>
+        <span class="af-unit-tag">lb</span>
       </div>
     </div>
     <div class="af-field">
       <label class="af-field-label" for="af-waistFt">Waist</label>
       <div class="af-field-control">
         <input type="text" id="af-waistFt" value="2" inputmode="numeric" autocomplete="off" aria-label="Waist, feet">
-        <span class="af-unit-tag">feet</span>
+        <span class="af-unit-tag">ft</span>
         <input type="text" id="af-waistIn" value="11.5" inputmode="decimal" autocomplete="off" aria-label="Waist, inches">
-        <span class="af-unit-tag">inches</span>
+        <span class="af-unit-tag">in</span>
       </div>
     </div>
-    <div class="af-hint">Abdominal circumference at the level of the belly button.</div>
+    <div class="af-hint">Waist in feet and inches — abdominal circumference at the level of the belly button.</div>
     <div class="af-btn-row">
       <button type="button" class="af-btn-calc" id="af-calcBtn">Calculate</button>
       <button type="button" class="af-btn-clear" id="af-clearBtn">Clear</button>
