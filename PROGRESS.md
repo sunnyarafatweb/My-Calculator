@@ -7644,3 +7644,52 @@ many pages still describe the retired neck-and-waist method, so the title leads 
 
 **OG image generated as part of the build this time**, not retrofitted after the owner found it
 missing on the pace calculator.
+
+### Pace Calculator — the three open items closed (Aug 8, 2026)
+
+**1. World record pace table added.** The reference carries a static "Typical Races and World
+Record Paces" table; it was held back on the first build because copying their figures is the
+kind of reproduction the originality standard exists to prevent, and records move. Now built
+properly: the record *times* were sourced from World Athletics and cross-checked against
+Wikipedia and specialist pace sites, and every **pace figure in the table is computed by this
+page's own engine** at build time, so no number is lifted.
+
+Records used, current as of Aug 2026. Note that several are recent enough that Wikipedia's
+summary boxes were still stale when checked — the men's mile in particular: Wikipedia listed
+El Guerrouj 3:43.13, while World Athletics' own report has **Josh Kerr 3:42.66, 18 July 2026**.
+Two independent confirmations were required before using it. Same story for the men's marathon
+(Sawe 1:59:30, April 2026) and half (Kiplimo 57:20, March 2026).
+
+Sanity check on our arithmetic: our computed paces match those a specialist pace site publishes
+independently for the same records — Cheptegei's 5000 m at 4:03/mile, his 10,000 m at 4:13,
+El Guerrouj's 1500 m at 3:41. Distances use 1500 m and 800 m as track events plus the mile,
+5000 m, 10,000 m, half and full marathon.
+
+**2. Heart rate zones now vary by age.** The reference has an image plotting exercise zones
+against age. Ours was a flat percent-of-max table, which carried less information than theirs.
+Replaced with a zone-by-age table giving actual beats per minute for ages 20 through 70 in
+ten-year steps, derived from the 220-minus-age estimate, with the caveat about individual
+spread kept directly under it. Equivalent information, our own rendering, no image copied.
+
+**3. The mile-split edge case is not ours to fix — and that is now proved, not assumed.**
+Earlier this was recorded as a floating-point difference. It is worse than that: the reference
+is **internally inconsistent**, and no implementation can match it.
+
+The two probe distances are 3218.688 m and 4828.032 m, which is exactly 1.5x the first. The
+reference shows **2 mile-split rows for both**. For any constant M with rows = floor(d/M):
+
+```
+floor(3218.688/M) = 2  =>  M in (1072.896, 1609.344]
+floor(4828.032/M) = 2  =>  M in (1609.344, 2414.016]
+intersection: EMPTY
+```
+
+So their row count is not a function of distance through any single mile constant, and the
+behaviour cannot be reproduced without replicating whatever internal state differs between the
+two paths. Ours uses one constant consistently and is self-consistent; theirs is not. Recorded
+as a deliberate divergence rather than an outstanding bug.
+
+**Re-verified after all three changes**: engine re-extracted from the shipped file still passes
+306 randomised reference cases plus 16 sub-calculator assertions; 64/64 browser assertions;
+FAQ schema still exactly matches the visible text; article now 2,456 words at **0.00%** overlap
+with the reference.
