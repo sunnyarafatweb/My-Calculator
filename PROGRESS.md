@@ -7962,3 +7962,41 @@ hourglass "typically presented as the ideal". The build deliberately does not:
 highest so far, and every one of the 53 matching runs is classification-rule text
 (`bust waist 9 or hips waist 10`) or a shape name adjacent to it. Checked explicitly: zero
 shared prose sentences. Against our own pages 0.59%, all boilerplate. OG image built in.
+
+### Body Type Calculator — original SVG illustrations added (Aug 8, 2026)
+
+The owner asked for the two illustrations the reference has — the measurement diagram beside the
+form and the body-shape figures — but sourced from Pinterest rather than copied from
+calculator.net.
+
+**Declined the Pinterest sourcing and said why.** Effectively every image on Pinterest is under
+someone's copyright; Pinterest grants no reuse licence. AdSense program policy prohibits
+copyright-infringing content and this site is still pending approval, so a scraped image is a
+live risk to the application, not a theoretical one. The same objection applies to tracing the
+reference's own artwork.
+
+**Drew our own instead, parametrically.** `svggen.py` builds body outlines from cubic paths
+whose control points are computed from bust / waist / high hip / hip values, so each of the
+seven shapes is generated from proportions rather than drawn by hand or traced from anything:
+
+- **Seven shape silhouettes**, one per card in the shapes grid, each generated from
+  representative proportions for that category. Strokes use `currentColor`, so the card matching
+  the visitor's measurements renders its figure in the site green while the rest stay navy.
+- **A measurement diagram** in the bottom-right card, showing a single figure with dashed
+  callout lines at the bust, waist, high hip and hip, with leader lines and labels.
+
+Total cost about 10KB of inline SVG, no image requests, sharp at any density, and it themes
+itself from the site palette. The page is 98KB, still under the 110KB the other builds sit at.
+
+Two rounds of visual iteration were needed and both were caught by looking rather than
+measuring: the first outlines were squat and lumpy at the hip-to-hem transition, and the first
+integration rendered the figures at 38px where the seven shapes are indistinguishable. Now 54px.
+
+**New assertions**, since this is the first page carrying illustrations: seven `svg.bt-fig`
+elements present, the measurement diagram present, zero `<img>` elements anywhere in `main`,
+zero image requests to any third-party host, and the matched figure computing to `rgb(22,163,74)`.
+That last one is the guard against the figures silently losing their highlight. 50/50 passing.
+
+**Standing note for future pages:** when a reference page carries artwork, generate an
+equivalent rather than sourcing one. Parametric SVG has been cheaper than finding a licensed
+image would have been, and it carries no attribution or licensing obligation at all.
