@@ -8035,3 +8035,33 @@ Also re-asserted after the edit, because this was a surgical change to an alread
 rather than a rebuild: protected style block still byte-identical *both* to the reference page
 and to this page's own previous version, FAQ schema still matching visible text, title and H2
 count unchanged, zero console errors, zero overflow.
+
+### Body Type Calculator — owner-supplied illustration added (Aug 8, 2026)
+
+The owner supplied an AI-generated four-shape illustration (the filename showed it was generated
+in ChatGPT, so it is their own asset — the copyright objection raised against the earlier
+Pinterest suggestion does not apply here) and asked for the heading and footer text cropped off,
+since that copy already exists in our article.
+
+**Crop was measured, not eyeballed.** Profiled the row and column variance of the source to find
+where the heading block, the coloured dot row, and the "Remember" strip actually end, then cropped
+to those lines: `(146, 228)` to `(1415, 912)`. The first pass cut at y=198 and left the dot row
+visible, which the profile made obvious on review.
+
+**Delivered at 47KB.** Resized to 1200px wide and saved as WebP at q82, which is 47KB against
+630KB for the equivalent PNG. No PNG fallback shipped — WebP has universal support now and a
+630KB fallback would defeat the point.
+
+**Placed where it is actually relevant.** The image shows the *four* fashion shapes while this
+calculator uses the *seven*-category research system, so dropping it at the top would contradict
+the tool. It sits in the "Why fashion says four and research says seven" section instead, with a
+caption that states the relationship explicitly. The seven parametric SVG silhouettes stay where
+they are, in the shapes grid.
+
+Shipped with `width`, `height`, `loading="lazy"`, `decoding="async"` and a 125-character alt
+describing what the figure shows — dimensions present so it cannot cause layout shift.
+
+Suite updated: the previous "zero `<img>` in main" assertion was correct when the page had no
+raster images and is now wrong, so it is replaced by two better ones — every `main` image is
+served from our own `/img/`, and the content image carries alt text, explicit dimensions and lazy
+loading. The third-party-image-request guard still stands and now covers `.webp` too. 51/51.
