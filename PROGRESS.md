@@ -7828,3 +7828,65 @@ assertion now measures against the control's right edge rather than against a mi
 Re-verified after the change: army 38/38 and BAC 36/36 browser assertions, both engines
 re-extracted from the shipped files and still exact (40 and 42 reference cases), protected
 style block byte-identical on both, FAQ schema still matching visible text.
+
+## Body Surface Area (BSA) Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the stub at `/body-surface-area-calculator/` with a full 3-card build (86KB).
+Reference: calculator.net/body-surface-area-calculator.html. H1 carries the full name with the
+abbreviation, matching the convention set on the BAC page.
+
+**Parity (§3a-PRIME).** One form: gender radio, weight with three units, height as feet plus
+inches OR centimeters. Output is all eight formulas in three units each, plus the BMI line.
+No tabs, no "Other Units" converter — confirmed by grepping their markup for `converter.php`
+and `quick-conversion.js`, neither of which this page loads.
+
+### Their own page contradicts their own code on Fujimoto
+
+Seven of the eight formulas reproduced exactly on the first attempt, straight from the equations
+printed in their article. Fujimoto did not: ours read 1.80 m² where theirs read 1.79.
+
+Fitting a curve to five probe points showed the ratio was flat at **0.99403** across the whole
+range, so only the leading constant differed, not the exponents. Solving it out gives **0.00883**
+— and testing that against six cases reproduced their in² figures 6/6, while the constant they
+print on their own page, 0.008883, matched 0/6.
+
+So their article states the correct published Fujimoto constant and their code uses a value with
+a digit dropped. Per the standing rule on this — *match the field but not the error, and say so*
+— **we use the published 0.008883**. Our Fujimoto row therefore reads about 0.6% higher than
+theirs. This is the same call made on the FHA upfront-MIP case earlier.
+
+Everything else matched exactly, including the display rules: m² and ft² to two decimals, in² to
+a whole number with a thousands comma, and BMI to one decimal with a trailing zero stripped
+("50", not "50.0").
+
+**Verification.** Engine written standalone and run in Node before embedding, then re-extracted
+from the shipped file: 30 randomised reference cases across both sexes, all three weight units
+and both height paths, comparing all eight formulas in all three units plus BMI — **720 compared
+values, 0 mismatches** (excluding the deliberate Fujimoto difference). Then 49 Playwright
+assertions at 1280/430/390px.
+
+### A CSS specificity bug the new alignment guard caught
+
+The unit column would not take its width: `.sa-w-unit{flex:0 0 60px}` was being beaten by
+`.sa-field-control select{flex:1}`, which has one more element in the selector and therefore
+higher specificity. The select stayed at flex:1, so the weight row's input ended 97px short of
+the height rows' inputs.
+
+This is worth flagging because **the same pattern exists on every page built from this
+stylesheet** — a bare `.x-w-unit` class will always lose to `.x-field-control select`. Fixed
+here with `.sa-field-control select.sa-w-unit`. Also had to drop the text-input floor from 90px
+to 56px, because a row with two inputs and two 60px unit columns cannot fit a 90px floor in the
+available width.
+
+The assertion added after the Army overflow — every field's last input shares one right edge,
+and nothing extends past its control — is what surfaced both problems, at all three viewports.
+It failed three times during this build and each failure was a real defect.
+
+**Content.** 1,573-word article, 8 H2s, 8 FAQs. Overlap with the reference **1.21%**, and every
+match is a formula coefficient string (`0 007184 w 0 425 h 0 725`) — unavoidable, the same
+category as the Army standards table digits. Against our own pages 0.51%, all boilerplate.
+OG image generated as part of the build.
+
+The article carries a clear line that BSA estimates must not be used to calculate or check
+medication doses, since per-square-meter chemotherapy dosing is the main reason people look this
+up and it is not something a web page should be trusted for.

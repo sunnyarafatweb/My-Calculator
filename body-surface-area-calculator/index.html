@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Body Surface Area Calculator | CalculatorBoss</title><meta name="description" content="Calculate body surface area (BSA) in square meters using the Mosteller formula, commonly used in clinical medication dosing."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/body-surface-area-calculator/"/><meta property="og:title" content="Body Surface Area Calculator | CalculatorBoss"/><meta property="og:description" content="BSA in m² using the Mosteller formula."/><meta property="og:url" content="https://calculatorboss.com/body-surface-area-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Body Surface Area (BSA) Calculator — All 8 Formulas</title><meta name="description" content="Free body surface area calculator. Enter height and weight to get BSA from the Du Bois, Mosteller, Haycock, Boyd, Schlich and other published formulas."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="body surface area calculator,bsa calculator,mosteller formula calculator,du bois bsa formula,bsa chemotherapy dosing,body surface area chart,how to calculate bsa"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/body-surface-area-calculator/"/><meta property="og:title" content="Body Surface Area (BSA) Calculator — All 8 Formulas"/><meta property="og:description" content="Free body surface area calculator. Enter height and weight to get BSA from the Du Bois, Mosteller, Haycock, Boyd, Schlich and other published formulas."/><meta property="og:url" content="https://calculatorboss.com/body-surface-area-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/body-surface-area-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Body Surface Area (BSA) Calculator — All 8 Formulas"/><meta name="twitter:description" content="Free body surface area calculator. Enter height and weight to get BSA from the Du Bois, Mosteller, Haycock, Boyd, Schlich and other published formulas."/><meta name="twitter:image" content="https://calculatorboss.com/og/body-surface-area-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,145 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.sa-wrap{width:100%}
+.sa-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.sa-bar-text{display:flex;align-items:center;gap:10px}
+.sa-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.16);font-size:12px;flex:0 0 auto}
+.sa-bar-pdf-btn{flex:0 0 auto;background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.sa-bar-pdf-btn:hover{background:#EAF0F7}
+.sa-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.sa-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 268px;grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid";align-items:start}
+.sa-area-bar{grid-area:bar}
+.sa-area-tabs{grid-area:tabs}
+.sa-area-form{grid-area:form}
+.sa-area-result{grid-area:result}
+.sa-area-sidebar{grid-area:sidebar}
+.sa-area-bottomgrid{grid-area:bottomgrid}
+
+.sa-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.sa-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.sa-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.sa-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.sa-card-pad{padding:24px}
+.sa-card-head{padding:16px 18px;font-size:15px;font-weight:700;color:var(--ink);background:var(--surface);border-bottom:1px solid var(--border-fine);letter-spacing:-.01em;text-transform:none}
+
+.sa-or{display:flex;align-items:center;gap:10px;margin:10px 0 6px 88px;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink-faint)}
+.sa-or:before,.sa-or:after{content:"";flex:1;height:1px;background:var(--border-fine)}
+.sa-res-table{width:100%;border-collapse:collapse;font-size:13px}
+.sa-res-table th{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
+.sa-res-table td{padding:7px 8px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.sa-res-table td.sa-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.sa-res-table tr:last-child td{border-bottom:none}
+.sa-res-table tr.sa-lead td{background:var(--gold-tint,#E4F5EA);font-weight:700}
+.sa-radio-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.sa-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13.5px;color:var(--ink)}
+.sa-radio input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
+.sa-status{margin:0 0 4px;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.6}
+.sa-status.pass{background:#E4F5EA;border:1px solid #BCE3C9;color:#12653A}
+.sa-status.fail{background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C}
+.sa-gauge{margin:14px 0 4px}
+.sa-gauge-bar{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,#16A34A 0%,#E0A93B 62%,#CF3F53 100%)}
+.sa-gauge-ptr{position:absolute;top:-5px;width:3px;height:22px;background:var(--ink);border-radius:2px}
+.sa-gauge-ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-faint);margin-top:7px}
+.sa-mode-toggle{display:flex;gap:8px;margin-bottom:14px}
+.sa-mode-btn{flex:1;background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:9px 10px;font-size:12px;font-weight:600;cursor:pointer;text-align:center}
+.sa-mode-btn.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.sa-intro{font-size:12.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 14px}
+.sa-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.sa-field-label{width:80px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.sa-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.sa-field-control input[type=text]{flex:1;min-width:56px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
+.sa-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
+.sa-field-control input:focus,.sa-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
+.sa-field-control select.sa-w-unit{flex:0 0 60px;min-width:0;padding:9px 4px;text-align:center}
+.sa-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 88px}
+.sa-unit-tag{flex:0 0 60px;font-size:12.5px;color:var(--ink-faint);white-space:nowrap}
+
+.sa-divider{border-top:1px solid var(--border-fine);margin:12px 0}
+.sa-btn-row{display:flex;gap:10px;margin-top:16px}
+.sa-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.sa-btn-calc:hover{background:#128A3D}
+.sa-btn-clear{flex:1;background:var(--surface-sunken);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.sa-btn-clear:hover{color:var(--ink)}
+.sa-err{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C;font-size:12.5px}
+.sa-err.show{display:block}
+
+.sa-result-card{overflow:hidden;border-radius:16px;border:1px solid var(--border-fine);background:var(--surface);box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.sa-result-head{background:#16A34A;color:#fff;padding:20px 24px}
+.sa-result-head .k{font-size:13px;font-weight:600;opacity:.92;margin-bottom:4px}
+.sa-result-head .v{font-size:29px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.sa-result-head .s{font-size:12.5px;opacity:.92;margin-top:5px}
+.sa-result-body{padding:8px 24px 20px}
+.sa-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px}
+.sa-row:last-child{border-bottom:none}
+.sa-row span:first-child{color:var(--ink-soft)}
+.sa-row span:last-child{font-weight:700;color:var(--ink);text-align:right}
+
+.sa-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.sa-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.sa-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.sa-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sa-calc-card a:hover{background:rgba(255,255,255,0.06)}
+.sa-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+.sa-viewmore:hover{background:#16A34A}
+
+.sa-bottom-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+.sa-table{width:100%;border-collapse:collapse;font-size:13px}
+.sa-table th{text-align:left;font-weight:700;color:var(--ink-soft);padding:8px 10px;border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+.sa-table td{padding:7px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.sa-table td.sa-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.sa-table tr:last-child td{border-bottom:none}
+.sa-scroll{max-height:340px;overflow-y:auto}
+
+.sa-mp-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.sa-mp-table th{padding:6px 5px;font-size:10.5px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em;text-align:left}
+.sa-mp-table td{padding:5px;border-bottom:1px solid var(--border-fine)}
+.sa-mp-table input,.sa-mp-table select{width:100%;padding:6px 5px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
+.sa-mp-table select{min-width:60px}
+.sa-mp-table td{padding:5px 4px}
+.sa-mp-idx{width:18px;color:var(--ink-faint);font-size:11.5px;text-align:right}
+.sa-chart-wrap{padding:16px 12px 8px}
+.sa-chart{width:100%;height:auto;display:block}
+.sa-conv-eq{text-align:center;font-size:15px;font-weight:700;color:var(--ink-faint);padding:2px 0 6px}
+.sa-hidden{display:none !important}
+
+@media(max-width:980px){.sa-grid{grid-template-columns:minmax(0,1fr) 250px;grid-template-areas:"bar bar" "form sidebar" "result sidebar" "bottomgrid bottomgrid"}}
+@media(max-width:860px){
+  .sa-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .sa-bottom-grid{grid-template-columns:1fr}
+  .sa-card-pad{padding:18px}
+  .sa-field-label{width:100%}
+  .sa-hint{margin-left:0}
+  .sa-unit-tag{flex:0 0 60px}
+  .sa-result-head .v{font-size:25px}
+  .sa-field-control select.sa-w-unit{flex:0 0 60px;min-width:0}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Body Surface Area","item":"https://calculatorboss.com/body-surface-area-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+<style>
+.sa-seo-article{margin-top:36px;max-width:900px;color:var(--ink)}
+.sa-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-.01em}
+.sa-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.sa-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin:0 0 14px}
+.sa-seo-article ul,.sa-seo-article ol{margin:0 0 16px 20px;padding:0}
+.sa-seo-article li{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-bottom:8px}
+.sa-seo-article a{color:#128A3D;text-decoration:underline;text-underline-offset:2px}
+.sa-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:16px;margin-bottom:16px}
+.sa-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.sa-toc p{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin:0 0 8px}
+.sa-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.sa-toc a:hover{color:#1E3A5F}
+.sa-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink);line-height:1.8;overflow-x:auto}
+.sa-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.sa-disclaimer a{color:var(--ink-faint)}
+.sa-seo-article table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 18px}
+.sa-seo-article table th{text-align:left;padding:8px 12px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft)}
+.sa-seo-article table td{padding:8px 12px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
+</style>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +486,202 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does BSA matter for medication dosing?","acceptedAnswer":{"@type":"Answer","text":"Some medications, especially chemotherapy drugs, are dosed per square meter of body surface rather than by weight alone, since BSA correlates well with blood volume, cardiac output, and other physiological factors relevant to how a drug distributes through the body."}},{"@type":"Question","name":"Why the Mosteller formula specifically?","acceptedAnswer":{"@type":"Answer","text":"It's simpler to calculate than alternatives like the DuBois formula while producing very similar results for most adults, which is why it's widely used in clinical practice today."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Body Surface Area Calculator","url":"https://calculatorboss.com/body-surface-area-calculator","applicationCategory":"MedicalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Body Surface Area Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Body Surface Area Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Height and weight — calculate BSA using the Mosteller formula.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Weight</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="170"/><span style="color:var(--ink-faint)">lb</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:41.77215189873418%;background:var(--accent)"></div><input type="range" min="5" max="400" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Weight" value="170"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(41.77215189873418% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div class="grid grid-cols-2 gap-4"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Height (ft)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="5"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:66.66666666666666%;background:var(--accent)"></div><input type="range" min="1" max="7" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Height (ft)" value="5"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(66.66666666666666% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Height (in)</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="9"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:81.81818181818183%;background:var(--accent)"></div><input type="range" min="0" max="11" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Height (in)" value="9"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(81.81818181818183% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Body surface area</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">1.94<!-- --> m²</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Uses the Mosteller formula, the most widely used BSA estimate in clinical practice — often used for medication dosing (especially chemotherapy) and cardiac index calculations. Always defer to a clinician&#x27;s dosing decision, not a calculator.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A person at <span class="tabular">170 lb</span> and <span class="tabular">5&#x27;9&quot;</span> has an estimated BSA of about <span class="tabular">1.94 m²</span> — close to the commonly cited average adult value of roughly 1.7-2.0 m².</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Why does BSA matter for medication dosing?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Some medications, especially chemotherapy drugs, are dosed per square meter of body surface rather than by weight alone, since BSA correlates well with blood volume, cardiac output, and other physiological factors relevant to how a drug distributes through the body.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why the Mosteller formula specifically?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It&#x27;s simpler to calculate than alternatives like the DuBois formula while producing very similar results for most adults, which is why it&#x27;s widely used in clinical practice today.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice. Medication dosing must always be determined by a qualified healthcare professional.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Body Surface Area (BSA) Calculator","item":"https://calculatorboss.com/body-surface-area-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Body Surface Area (BSA) Calculator","url":"https://calculatorboss.com/body-surface-area-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","description":"Estimate body surface area from height and weight using the Du Bois, Mosteller, Haycock, Gehan and George, Boyd, Fujimoto, Takahira and Schlich formulas.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Body Surface Area Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Body Surface Area (BSA) Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Estimate the total surface area of the human body from height and weight, across the eight formulas clinicians actually use &mdash; and see how much they disagree.</p>
+
+<div class="sa-wrap">
+<div class="sa-grid">
+
+<div class="sa-bar sa-area-bar">
+  <span class="sa-bar-text"><span class="sa-bar-badge">&#9633;</span>Just enter your values below &mdash; results update automatically.</span>
+  <button type="button" class="sa-bar-pdf-btn" id="sa-pdfBtn">&#128190; Save as PDF</button>
+</div>
+
+<div class="sa-card sa-area-form">
+  <div class="sa-card-pad">
+    <p class="sa-intro">Direct measurement of body surface area is impractical, so it is estimated from height and weight. Several formulas have been published and they do not fully agree &mdash; all eight are shown side by side.</p>
+    <div class="sa-field">
+      <span class="sa-field-label">Gender</span>
+      <div class="sa-field-control sa-radio-row">
+        <label class="sa-radio"><input type="radio" name="sa-sex" value="m" checked> Male</label>
+        <label class="sa-radio"><input type="radio" name="sa-sex" value="f"> Female</label>
+      </div>
+    </div>
+    <div class="sa-hint">Only the Schlich formula uses gender; the other seven ignore it.</div>
+    <div class="sa-field">
+      <label class="sa-field-label" for="sa-weight">Weight</label>
+      <div class="sa-field-control">
+        <input type="text" id="sa-weight" value="162" inputmode="decimal" autocomplete="off">
+        <select id="sa-weightUnit" class="sa-w-unit" aria-label="Weight unit">
+          <option value="pound" selected>lb</option><option value="kilogram">kg</option><option value="gram">g</option>
+        </select>
+      </div>
+    </div>
+    <div class="sa-field">
+      <label class="sa-field-label" for="sa-ft">Height</label>
+      <div class="sa-field-control">
+        <input type="text" id="sa-ft" value="5" inputmode="numeric" autocomplete="off" aria-label="Height, feet">
+        <span class="sa-unit-tag">ft</span>
+        <input type="text" id="sa-in" value="10" inputmode="decimal" autocomplete="off" aria-label="Height, inches">
+        <span class="sa-unit-tag">in</span>
+      </div>
+    </div>
+    <div class="sa-or">OR</div>
+    <div class="sa-field">
+      <label class="sa-field-label" for="sa-cm">Height</label>
+      <div class="sa-field-control">
+        <input type="text" id="sa-cm" value="" inputmode="decimal" autocomplete="off" aria-label="Height in centimeters">
+        <span class="sa-unit-tag">cm</span>
+      </div>
+    </div>
+    <div class="sa-hint">Fill either row &mdash; centimeters wins if both are filled.</div>
+    <div class="sa-btn-row">
+      <button type="button" class="sa-btn-calc" id="sa-calcBtn">Calculate</button>
+      <button type="button" class="sa-btn-clear" id="sa-clearBtn">Clear</button>
+    </div>
+    <div class="sa-err" id="sa-err"></div>
+  </div>
+</div>
+
+<div class="sa-result-card sa-area-result" id="sa-resultCard">
+  <div class="sa-result-head">
+    <div class="k">Body surface area &middot; Du Bois</div>
+    <div class="v" id="sa-resVal">&mdash;</div>
+    <div class="s" id="sa-resSub"></div>
+  </div>
+  <div class="sa-result-body">
+    <div style="overflow-x:auto"><table class="sa-res-table">
+      <thead><tr><th>Formula</th><th style="text-align:right">m&sup2;</th><th style="text-align:right">ft&sup2;</th><th style="text-align:right">in&sup2;</th></tr></thead>
+      <tbody id="sa-resBody"></tbody>
+    </table></div>
+    <div id="sa-rows"></div>
+  </div>
+</div>
+
+<div class="sa-sidecol sa-area-sidebar">
+  <div class="sa-calc-card">
+    <div class="h">Health &amp; Fitness</div>
+    <a href="/bmi-calculator/"><span>BMI Calculator</span><span>&#8594;</span></a>
+    <a href="/body-fat-calculator/"><span>Body Fat</span><span>&#8594;</span></a>
+    <a href="/ideal-weight-calculator/"><span>Ideal Weight</span><span>&#8594;</span></a>
+    <a href="/bmr-calculator/"><span>BMR Calculator</span><span>&#8594;</span></a>
+    <a href="/calorie-calculator/"><span>Calorie Calculator</span><span>&#8594;</span></a>
+    <a href="/army-body-fat-calculator/"><span>Army Body Fat</span><span>&#8594;</span></a>
+    <a class="sa-viewmore" href="/all-calculators/">View More &#8594;</a>
+  </div>
+</div>
+
+<div class="sa-area-bottomgrid">
+  <div class="sa-bottom-grid">
+    <div class="sa-card">
+      <div class="sa-card-head">How the formulas compare</div>
+      <div class="sa-chart-wrap" style="padding:16px 12px 8px"><svg class="sa-chart" id="sa-chart" viewBox="0 0 560 260" role="img" aria-label="Bar chart comparing the body surface area formulas" style="width:100%;height:auto;display:block"></svg></div>
+    </div>
+    <div class="sa-card">
+      <div class="sa-card-head">Typical body surface areas</div>
+      <div style="padding:6px 14px 12px"><table class="sa-table">
+        <thead><tr><th>Person</th><th class="sa-num">m&sup2;</th><th class="sa-num">ft&sup2;</th></tr></thead>
+        <tbody>
+          <tr><td>Newborn child</td><td class="sa-num">0.25</td><td class="sa-num">2.69</td></tr>
+          <tr><td>Two-year-old child</td><td class="sa-num">0.50</td><td class="sa-num">5.38</td></tr>
+          <tr><td>Ten-year-old child</td><td class="sa-num">1.14</td><td class="sa-num">12.27</td></tr>
+          <tr><td>Adult female</td><td class="sa-num">1.60</td><td class="sa-num">17.22</td></tr>
+          <tr><td>Adult male</td><td class="sa-num">1.90</td><td class="sa-num">20.45</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<article class="sa-seo-article">
+  <div class="sa-byline">Written by the CalculatorBoss Health &amp; Fitness Team &middot; Every formula reproduced from its original publication and checked numerically &middot; Last updated Aug 2026</div>
+  <nav class="sa-toc" aria-label="On this page">
+    <p>On this page</p>
+    <a href="#what-is-bsa">What body surface area is</a>
+    <a href="#why-not-weight">Why medicine uses it instead of weight</a>
+    <a href="#formulas">The eight formulas, in full</a>
+    <a href="#which-one">Which formula to use</a>
+    <a href="#disagree">How much they disagree, and when it matters</a>
+    <a href="#chemo">The argument about chemotherapy dosing</a>
+    <a href="#limits">Where the estimate breaks down</a>
+    <a href="#faq">Frequently asked questions</a>
+  </nav>
+
+  <h2 id="what-is-bsa">What body surface area is</h2>
+  <p>Body surface area is the total area of the outside of a human body, measured in square meters. An average adult sits somewhere near 1.7 m&sup2;, roughly the area of a small dining table.</p>
+  <p>Measuring it directly is close to impossible outside a laboratory &mdash; the historical methods involved wrapping subjects in paper or coating them in plaster and then measuring the mold. So it is estimated instead, from the two numbers every clinic already has: height and weight. Every formula on this page is a curve fitted to a set of those laborious direct measurements, which is why they are named after the researchers who did the measuring.</p>
+
+  <h2 id="why-not-weight">Why medicine uses it instead of weight</h2>
+  <p>Weight scales with volume; surface area does not. Double a person&rsquo;s mass and their surface area rises by far less than double, because area grows with the square of length while volume grows with the cube. Metabolic processes track surface area more closely than mass, which makes it the better yardstick whenever the question is how much of something a body needs or can handle.</p>
+  <p>That is why it turns up in cardiac index, where cardiac output is divided by body surface area so a small patient and a large one can be compared on the same scale, in renal clearance measurements, in burn assessment, and most visibly in chemotherapy dosing, where doses are prescribed in milligrams per square meter.</p>
+  <p>It is also a reasonable proxy for fat-free mass &mdash; bone, muscle, organs, blood, everything that is metabolically active &mdash; in a way body weight alone is not, since weight cannot distinguish muscle from fat.</p>
+
+  <h2 id="formulas">The eight formulas, in full</h2>
+  <p>All eight take weight in kilograms and height in centimeters and return square meters. The calculator converts your input before applying them.</p>
+  <div class="sa-formula">Du Bois&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.007184 &times; W<sup>0.425</sup> &times; H<sup>0.725</sup><br>
+Mosteller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.016667 &times; W<sup>0.5</sup> &times; H<sup>0.5</sup><br>
+Haycock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.024265 &times; W<sup>0.5378</sup> &times; H<sup>0.3964</sup><br>
+Gehan &amp; George&nbsp; BSA = 0.0235 &times; W<sup>0.51456</sup> &times; H<sup>0.42246</sup><br>
+Boyd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.0333 &times; W<sup>(0.6157 &minus; 0.0188 log<sub>10</sub>W)</sup> &times; H<sup>0.3</sup><br>
+Fujimoto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.008883 &times; W<sup>0.444</sup> &times; H<sup>0.663</sup><br>
+Takahira&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSA = 0.007241 &times; W<sup>0.425</sup> &times; H<sup>0.725</sup><br>
+Schlich (women) BSA = 0.000975482 &times; W<sup>0.46</sup> &times; H<sup>1.08</sup><br>
+Schlich (men)&nbsp;&nbsp; BSA = 0.000579479 &times; W<sup>0.38</sup> &times; H<sup>1.24</sup></div>
+  <p>Two things stand out. Boyd is the only one whose weight exponent is not fixed &mdash; it shrinks as weight rises, which is an attempt to handle very large and very small bodies with one curve. Schlich is the only one that splits by sex, and it leans much harder on height than any of the others, with an exponent above 1.</p>
+  <p>Takahira is Du Bois with a different constant. Fujimoto and Takahira were both fitted on Japanese populations, which is why they sit at opposite ends of the range for a tall Western frame.</p>
+  <p>Worked through with the numbers the form opens on &mdash; a 162-pound man of 5&prime;10&Prime;, which is 73.48 kg and 177.8 cm &mdash; Du Bois gives 0.007184 &times; 73.48<sup>0.425</sup> &times; 177.8<sup>0.725</sup>, or about 1.91 m&sup2;.</p>
+
+  <h2 id="which-one">Which formula to use</h2>
+  <p><strong>Mosteller</strong> is the practical default. It is the simplest &mdash; the square root of height times weight divided by 3600 &mdash; it can be done on any calculator, and it agrees closely with Du Bois across the normal adult range. Most hospital protocols specify it for that reason.</p>
+  <p><strong>Du Bois</strong> is the historical standard, published in 1916 from just nine subjects, and still the reference most papers compare against. It is known to underestimate in obese patients.</p>
+  <p><strong>Haycock</strong> and <strong>Gehan &amp; George</strong> were both fitted with children included, so they behave better at small body sizes than Du Bois does.</p>
+  <p>The right answer in a clinical setting is whichever one the local protocol names, because consistency matters more than picking the theoretically best curve. If you are checking a dose someone else calculated, use the same formula they did.</p>
+
+  <h2 id="disagree">How much they disagree, and when it matters</h2>
+  <p>For an average adult the eight results usually fall within about 5% of each other, and the chart above shows the spread for whatever you entered. That sounds small until you remember what the number is used for: a 5% swing on a chemotherapy dose is a real difference in both effect and toxicity.</p>
+  <p>The spread widens at the extremes. Very tall, very short, very heavy and very light bodies all sit outside the ranges these curves were fitted on, and the formulas diverge most exactly where confidence should be lowest. Schlich in particular, with its height exponent above 1, pulls away from the others for unusually tall people.</p>
+
+  <h2 id="chemo">The argument about chemotherapy dosing</h2>
+  <p>Dosing cytotoxic drugs per square meter has been standard since the 1950s, and it is genuinely contested. The case against is that body surface area was adopted partly for convenience &mdash; it let animal doses be scaled to humans &mdash; and that it correlates poorly with the things that actually determine how a drug behaves, such as liver enzyme activity and renal clearance. For drugs with a narrow therapeutic index, where the gap between an effective dose and a toxic one is small, an imprecise scaling factor is a real hazard.</p>
+  <p>The case for is more practical: dosing by surface area still produces less variation in exposure than dosing by weight alone, and decades of trial data are expressed in those units. Some drugs have since moved to flat dosing or to targets based on measured clearance, but per-square-meter dosing remains widespread, and this calculator is not a substitute for a pharmacist&rsquo;s calculation.</p>
+
+  <h2 id="limits">Where the estimate breaks down</h2>
+  <ul>
+    <li><strong>It is a curve fit, not a measurement.</strong> Du Bois was built on nine people. Even the larger studies used tens to low hundreds of subjects.</li>
+    <li><strong>Body shape is invisible to it.</strong> Two people of identical height and weight with different builds get identical results and do not have identical surface areas.</li>
+    <li><strong>Accuracy falls at the extremes</strong> of height and weight, and for very obese patients some clinicians prefer body mass index or an adjusted weight instead.</li>
+    <li><strong>Amputation, edema and pregnancy</strong> all break the assumptions, and none of the formulas account for them.</li>
+    <li><strong>It says nothing about composition.</strong> A high surface area does not mean high muscle mass or good health.</li>
+  </ul>
+
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a normal body surface area?", "acceptedAnswer": {"@type": "Answer", "text": "Around 1.9 m² for an average adult man and about 1.6 m² for an average adult woman. A newborn is near 0.25 m² and a ten-year-old around 1.14 m²."}}, {"@type": "Question", "name": "Which body surface area formula is most accurate?", "acceptedAnswer": {"@type": "Answer", "text": "No single one is best for everybody. Mosteller is the usual clinical default because it is simple and agrees well with Du Bois across normal adult sizes; Haycock and Gehan & George behave better in children. In practice, use whichever your local protocol specifies."}}, {"@type": "Question", "name": "How do you calculate BSA with the Mosteller formula?", "acceptedAnswer": {"@type": "Answer", "text": "Take height in centimeters times weight in kilograms, divide by 3600, and take the square root. For 177.8 cm and 73.48 kg that is the square root of 3.629, or about 1.90 m²."}}, {"@type": "Question", "name": "Why do the formulas give different answers?", "acceptedAnswer": {"@type": "Answer", "text": "Each was fitted to a different set of directly measured people, in different decades and different populations. Fujimoto and Takahira were built on Japanese subjects, Du Bois on nine Americans in 1916. Different data produces different curves."}}, {"@type": "Question", "name": "Does body surface area depend on gender?", "acceptedAnswer": {"@type": "Answer", "text": "Only in the Schlich formula, which has separate equations for men and women. The other seven use height and weight alone, so a man and a woman of the same size get the same answer."}}, {"@type": "Question", "name": "Why is chemotherapy dosed by body surface area?", "acceptedAnswer": {"@type": "Answer", "text": "Because drug handling tracks metabolic size better than it tracks weight, and surface area is a closer proxy for metabolic size. It is an imperfect standard and is actively debated, but decades of trial data are expressed in milligrams per square meter."}}, {"@type": "Question", "name": "Is BSA the same thing as BMI?", "acceptedAnswer": {"@type": "Answer", "text": "No. Body surface area estimates how much outside surface a body has, in square meters. Body mass index is weight divided by height squared and is used to classify weight status. They answer different questions from the same two inputs."}}, {"@type": "Question", "name": "How is body surface area actually measured?", "acceptedAnswer": {"@type": "Answer", "text": "Historically by coating or wrapping subjects and measuring the covering, and more recently with three-dimensional body scanning, which is how the Schlich equations were derived. Both are research procedures rather than anything done in a clinic."}}]}</script>
+<h2 id="faq">Frequently asked questions</h2>
+  <h3>What is a normal body surface area?</h3>
+  <p>Around 1.9 m&sup2; for an average adult man and about 1.6 m&sup2; for an average adult woman. A newborn is near 0.25 m&sup2; and a ten-year-old around 1.14 m&sup2;.</p>
+  <h3>Which body surface area formula is most accurate?</h3>
+  <p>No single one is best for everybody. Mosteller is the usual clinical default because it is simple and agrees well with Du Bois across normal adult sizes; Haycock and Gehan &amp; George behave better in children. In practice, use whichever your local protocol specifies.</p>
+  <h3>How do you calculate BSA with the Mosteller formula?</h3>
+  <p>Take height in centimeters times weight in kilograms, divide by 3600, and take the square root. For 177.8 cm and 73.48 kg that is the square root of 3.629, or about 1.90 m&sup2;.</p>
+  <h3>Why do the formulas give different answers?</h3>
+  <p>Each was fitted to a different set of directly measured people, in different decades and different populations. Fujimoto and Takahira were built on Japanese subjects, Du Bois on nine Americans in 1916. Different data produces different curves.</p>
+  <h3>Does body surface area depend on gender?</h3>
+  <p>Only in the Schlich formula, which has separate equations for men and women. The other seven use height and weight alone, so a man and a woman of the same size get the same answer.</p>
+  <h3>Why is chemotherapy dosed by body surface area?</h3>
+  <p>Because drug handling tracks metabolic size better than it tracks weight, and surface area is a closer proxy for metabolic size. It is an imperfect standard and is actively debated, but decades of trial data are expressed in milligrams per square meter.</p>
+  <h3>Is BSA the same thing as BMI?</h3>
+  <p>No. Body surface area estimates how much outside surface a body has, in square meters. Body mass index is weight divided by height squared and is used to classify weight status. They answer different questions from the same two inputs.</p>
+  <h3>How is body surface area actually measured?</h3>
+  <p>Historically by coating or wrapping subjects and measuring the covering, and more recently with three-dimensional body scanning, which is how the Schlich equations were derived. Both are research procedures rather than anything done in a clinic.</p>
+
+  <p class="sa-disclaimer">This calculator is provided for general education and is not medical advice. Body surface area estimates must not be used to calculate or check medication doses; drug dosing is carried out by qualified clinicians and pharmacists using the formula and the patient data their protocol specifies. If you have a question about a dose or a treatment, speak to the prescribing team. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</article>
+</div></main>
+<footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +716,142 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+function $(id){ return document.getElementById(id); }
+
+/* ---- engine: the eight published BSA formulas (W kg, H cm -> m^2) ---- */
+var SA_LB = 0.45359237, SA_IN = 2.54;
+var SA_WU = { pound: SA_LB, kilogram: 1, gram: 0.001 };
+function saFormulas(W, H, sex){
+  var lg = Math.log(W) / Math.LN10;
+  return [
+    ['Du Bois',        0.007184 * Math.pow(W,0.425)   * Math.pow(H,0.725)],
+    ['Mosteller',      0.016667 * Math.pow(W,0.5)     * Math.pow(H,0.5)],
+    ['Haycock',        0.024265 * Math.pow(W,0.5378)  * Math.pow(H,0.3964)],
+    ['Gehan & George', 0.0235   * Math.pow(W,0.51456) * Math.pow(H,0.42246)],
+    ['Boyd',           0.0333   * Math.pow(W,0.6157 - 0.0188*lg) * Math.pow(H,0.3)],
+    ['Fujimoto',       0.008883 * Math.pow(W,0.444)   * Math.pow(H,0.663)],
+    ['Takahira',       0.007241 * Math.pow(W,0.425)   * Math.pow(H,0.725)],
+    ['Schlich',        (sex==='f') ? 0.000975482 * Math.pow(W,0.46) * Math.pow(H,1.08)
+                                   : 0.000579479 * Math.pow(W,0.38) * Math.pow(H,1.24)]
+  ];
+}
+function saFt(m2){ return m2 * 10.7639; }
+function saIn(m2){ return m2 * 1550.0031; }
+function saBmi(W,H){ return W / Math.pow(H/100,2); }
+function saComma(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function saBmiFmt(x){ var s=x.toFixed(1); return s.slice(-2)==='.0' ? s.slice(0,-2) : s; }
+
+/* ---- UI ---- */
+function sex(){ var r=document.querySelector('input[name="sa-sex"]:checked'); return r?r.value:'m'; }
+function showErr(m){ var e=$('sa-err'); if(m){e.textContent=m;e.className='sa-err show';}else{e.textContent='';e.className='sa-err';} }
+function num(v){ v=String(v==null?'':v).trim(); if(!v) return 0; if(!/^[0-9]*\.?[0-9]*$/.test(v)) return NaN; var n=parseFloat(v); return isNaN(n)?0:n; }
+function blank(){
+  $('sa-resVal').textContent='\u2014'; $('sa-resSub').textContent='';
+  $('sa-resBody').innerHTML=''; $('sa-rows').innerHTML=''; drawChart([]);
+  window.__saLast=null;
+}
+function calc(){
+  showErr('');
+  var w=num($('sa-weight').value), wu=SA_WU[$('sa-weightUnit').value];
+  var ft=num($('sa-ft').value), inch=num($('sa-in').value), cm=num($('sa-cm').value);
+  if (isNaN(w)||isNaN(ft)||isNaN(inch)||isNaN(cm)) return blank();
+  var W=w*wu;
+  var H = (cm>0) ? cm : (ft*12+inch)*SA_IN;
+  if (!(W>0) || !(H>0)) return blank();
+  if (inch>=12) showErr('Inches should be under 12 \u2014 put whole feet in the feet box.');
+
+  var rows=saFormulas(W,H,sex()), h='', vals=[];
+  for (var i=0;i<rows.length;i++){
+    var n=rows[i][0], v=rows[i][1];
+    vals.push([n,v]);
+    h += '<tr'+(i===0?' class="sa-lead"':'')+'><td>'+n+'</td><td class="sa-num">'+v.toFixed(2)+
+         '</td><td class="sa-num">'+saFt(v).toFixed(2)+'</td><td class="sa-num">'+saComma(Math.floor(saIn(v)+0.5))+'</td></tr>';
+  }
+  $('sa-resBody').innerHTML=h;
+  $('sa-resVal').textContent = rows[0][1].toFixed(2) + ' m\u00b2';
+  $('sa-resSub').textContent = saFt(rows[0][1]).toFixed(2) + ' ft\u00b2 \u00b7 ' + saComma(Math.floor(saIn(rows[0][1])+0.5)) + ' in\u00b2';
+
+  var only=vals.map(function(x){return x[1];});
+  var lo=Math.min.apply(null,only), hi=Math.max.apply(null,only);
+  var mean=only.reduce(function(a,b){return a+b;},0)/only.length;
+  $('sa-rows').innerHTML =
+    '<div class="sa-row"><span>Average of the eight formulas</span><span>'+mean.toFixed(2)+' m\u00b2</span></div>'+
+    '<div class="sa-row"><span>Range across the formulas</span><span>'+lo.toFixed(2)+'\u2013'+hi.toFixed(2)+' m\u00b2</span></div>'+
+    '<div class="sa-row"><span>Spread between highest and lowest</span><span>'+((hi-lo)/mean*100).toFixed(1)+'%</span></div>'+
+    '<div class="sa-row"><span>Body mass index for these figures</span><span>'+saBmiFmt(saBmi(W,H))+' kg/m\u00b2</span></div>'+
+    '<div class="sa-row"><span>Height and weight used</span><span>'+H.toFixed(1)+' cm \u00b7 '+W.toFixed(1)+' kg</span></div>';
+  drawChart(vals);
+  window.__saLast={vals:vals,W:W,H:H,bmi:saBmiFmt(saBmi(W,H))};
+}
+function drawChart(vals){
+  var svg=$('sa-chart'); if(!svg) return;
+  if(!vals.length){ svg.innerHTML='<text x="280" y="130" text-anchor="middle" fill="#787D86" font-size="13" font-family="IBM Plex Sans,sans-serif">Enter height and weight</text>'; return; }
+  var W=560,H=260,L=104,R=20,T=24,B=26, pw=W-L-R, ph=H-T-B;
+  var only=vals.map(function(v){return v[1];});
+  var hi=Math.max.apply(null,only), lo=Math.min.apply(null,only);
+  var top=hi*1.06, bot=Math.max(0,lo-(hi-lo)*1.6);
+  if (top<=bot) { bot=0; top=hi*1.1; }
+  var bh=ph/vals.length, g='';
+  g+='<text x="'+(L+pw/2)+'" y="14" text-anchor="middle" fill="#181A1F" font-size="12.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">Estimated BSA by formula (m\u00b2)</text>';
+  for (var i=0;i<vals.length;i++){
+    var y=T+i*bh+bh*0.18, hgt=bh*0.64;
+    var wpx=pw*((vals[i][1]-bot)/(top-bot));
+    g+='<text x="'+(L-8)+'" y="'+(y+hgt/2+4).toFixed(1)+'" text-anchor="end" fill="#474C55" font-size="11" font-family="IBM Plex Sans,sans-serif">'+vals[i][0].replace('&','&amp;')+'</text>';
+    g+='<rect x="'+L+'" y="'+y.toFixed(1)+'" width="'+Math.max(wpx,2).toFixed(1)+'" height="'+hgt.toFixed(1)+'" fill="'+(i===0?'#16A34A':'#1E3A5F')+'" rx="3"/>';
+    g+='<text x="'+(L+Math.max(wpx,2)+7).toFixed(1)+'" y="'+(y+hgt/2+4).toFixed(1)+'" fill="#474C55" font-size="11" font-weight="600" font-family="IBM Plex Sans,sans-serif">'+vals[i][1].toFixed(2)+'</text>';
+  }
+  svg.innerHTML=g;
+}
+
+/* ---- PDF (lazy) ---- */
+var pdfPromise=null;
+function loadScriptOnce(s){ return new Promise(function(res,rej){var e=document.createElement('script');e.src=s;e.onload=res;e.onerror=rej;document.head.appendChild(e);}); }
+function ensurePdfLibs(){
+  if(pdfPromise) return pdfPromise;
+  pdfPromise=loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+    .then(function(){ return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+  return pdfPromise;
+}
+function generatePdf(){
+  var jsPDF=window.jspdf.jsPDF, doc=new jsPDF({unit:'pt',format:'letter'}), L=window.__saLast;
+  doc.setFontSize(17); doc.text('Body Surface Area (BSA) Calculator',40,48);
+  doc.setFontSize(10); doc.setTextColor(120); doc.text('calculatorboss.com/body-surface-area-calculator/',40,64);
+  doc.setTextColor(30); doc.setFontSize(12);
+  if(L){
+    doc.text(L.H.toFixed(1)+' cm, '+L.W.toFixed(1)+' kg   (BMI '+L.bmi+')',40,92);
+    doc.autoTable({startY:108, head:[['Formula','m2','ft2','in2']],
+      body:L.vals.map(function(v){ return [v[0], v[1].toFixed(2), saFt(v[1]).toFixed(2), saComma(Math.floor(saIn(v[1])+0.5))]; }),
+      theme:'grid', headStyles:{fillColor:[30,58,95]}, styles:{fontSize:9}});
+    doc.setFontSize(9); doc.setTextColor(120);
+    doc.text('Educational estimate. Not for calculating or checking medication doses.',40,doc.lastAutoTable.finalY+20);
+  }
+  doc.save('body-surface-area-calculator.pdf');
+}
+
+function init(){
+  ['sa-weight','sa-ft','sa-in','sa-cm'].forEach(function(id){ $(id).addEventListener('input',calc); });
+  $('sa-weightUnit').addEventListener('change',calc);
+  var rs=document.querySelectorAll('input[name="sa-sex"]');
+  for(var i=0;i<rs.length;i++) rs[i].addEventListener('change',calc);
+  $('sa-calcBtn').addEventListener('click',calc);
+  $('sa-clearBtn').addEventListener('click',function(){
+    ['sa-weight','sa-ft','sa-in','sa-cm'].forEach(function(id){ $(id).value=''; }); calc();
+  });
+  var btn=$('sa-pdfBtn');
+  btn.addEventListener('click',function(){
+    var old=btn.textContent; btn.disabled=true; btn.textContent='Loading\u2026';
+    ensurePdfLibs().then(function(){btn.disabled=false;btn.textContent=old;generatePdf();})
+                   .catch(function(){btn.disabled=false;btn.textContent=old;});
+  });
+  calc();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +973,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>
