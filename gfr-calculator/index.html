@@ -341,6 +341,12 @@
 .gfr-eq-row.main{background:var(--gold-tint);border-color:#BFE3CC}
 .gfr-stage{display:flex;justify-content:space-between;gap:12px;padding:12px 0 2px;margin-top:14px;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft);flex-wrap:wrap}
 .gfr-stage b{color:var(--ink);font-weight:600}
+/* The stage table sits inside the result card, the way the reference orders it,
+   so it has to survive the narrower middle column. */
+.gfr-stage-table{margin-top:2px}
+.gfr-stage-table td,.gfr-stage-table th{padding:8px 8px;font-size:12px}
+.gfr-stage-table td:first-child{white-space:nowrap;font-weight:600;color:var(--ink)}
+.gfr-stage-table td:last-child{white-space:normal;color:var(--ink-soft)}
 
 .gfr-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
 .gfr-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
@@ -538,7 +544,15 @@
       <p class="gfr-eq-h" id="gfr-eqHead">All three equations</p>
       <div id="gfr-eqs"></div>
       <div class="gfr-stage" id="gfr-stageRow"></div>
-      <p class="gfr-subnote">These are estimates from a single blood test, not a diagnosis. Where the three equations disagree widely, creatinine is doing a poor job of pinning down the answer for this particular body.</p>
+      <div id="gfr-stageBlock">
+        <p class="gfr-eq-h" style="margin-top:18px">Chronic Kidney Disease Stages</p>
+        <table class="gfr-ref-table gfr-stage-table">
+          <thead><tr><th>Stage</th><th style="text-align:left">GFR Value (mL/min/1.73 m<sup>2</sup>)</th></tr></thead>
+          <tbody id="gfr-stageBody"></tbody>
+        </table>
+        <p class="gfr-subnote">The row matching your CKD-EPI figure is highlighted. Normal and CKD1 share the same band &mdash; what separates them is evidence of kidney damage, usually albumin in the urine. A figure under 60 has to persist for three months before it counts as chronic kidney disease.</p>
+      </div>
+      <p class="gfr-subnote" id="gfr-closingNote"></p>
     </div>
   </div>
 
@@ -561,13 +575,18 @@
   <div class="gfr-area-bottomgrid">
     <div class="gfr-bottom-grid">
       <div class="gfr-info-card">
-        <div class="gfr-card-head"><span class="t">Chronic Kidney Disease Stages</span></div>
+        <div class="gfr-card-head"><span class="t">The Three Equations</span></div>
         <div class="gfr-card-body">
           <table class="gfr-ref-table">
-            <thead><tr><th>Stage</th><th style="text-align:left">GFR Value (mL/min/1.73 m<sup>2</sup>)</th></tr></thead>
-            <tbody id="gfr-stageBody"></tbody>
+            <thead><tr><th>Equation</th><th style="text-align:left">Fitted on</th><th style="text-align:left">Reads best</th></tr></thead>
+            <tbody>
+              <tr><td>MDRD 4-Variable</td><td style="text-align:left;white-space:normal">People who already had kidney disease</td><td style="text-align:left;white-space:normal">Below 60; understates healthy kidneys</td></tr>
+              <tr><td>CKD-EPI (2009)</td><td style="text-align:left;white-space:normal">A broad population including normal function</td><td style="text-align:left;white-space:normal">Across the whole range</td></tr>
+              <tr><td>Mayo Quadratic</td><td style="text-align:left;white-space:normal">A cohort with mostly preserved function</td><td style="text-align:left;white-space:normal">At the high end</td></tr>
+              <tr><td>Bedside Schwartz</td><td style="text-align:left;white-space:normal">Children, using height for muscle mass</td><td style="text-align:left;white-space:normal">Ages 1 to 17</td></tr>
+            </tbody>
           </table>
-          <p class="gfr-note">The row matching your CKD-EPI result is highlighted. Normal and CKD1 share the same filtration band &mdash; what separates them is evidence of kidney damage, usually albumin in the urine. A figure under 60 has to persist for three months before it counts as chronic kidney disease.</p>
+          <p class="gfr-note">None of these is the equation your laboratory reports today. US labs moved to the race-free 2021 CKD-EPI equation after the NKF&ndash;ASN task force recommendation, so expect a few units of difference against a real lab report.</p>
         </div>
       </div>
       <div class="gfr-info-card">
@@ -836,6 +855,7 @@ with S<sub>Cr</sub> floored at 0.8 mg/dL<br><br>
       $('gfr-bigNum').innerHTML = '\u2014';
       $('gfr-bigSub').textContent = '\u00a0';
       $('gfr-resultBody').style.display = 'none';
+      $('gfr-stageBlock').style.display = 'none';
       markStage(null);
       last = null;
       return;
@@ -855,7 +875,12 @@ with S<sub>Cr</sub> floored at 0.8 mg/dL<br><br>
         '<span class="v"><b>' + d1(o.gfr) + '</b><i>' + esc(UNIT.trim()) + '</i></span></div>';
       $('gfr-eqHead').textContent = 'Equation used';
       $('gfr-stageRow').innerHTML =
-        '<span>Reading against adult CKD stages</span><span><b>Not applicable</b></span>';
+        '<span>Adult CKD staging</span><span><b>Does not apply to children</b></span>';
+      /* The reference prints no stage table under the children's result, and adult bands
+         are not meaningful for a growing child, so the block is hidden rather than shown
+         with nothing highlighted. */
+      $('gfr-stageBlock').style.display = 'none';
+      $('gfr-closingNote').textContent = 'This is an estimate from a single blood test, not a diagnosis. The Schwartz formula assumes a child of typical build for their height, so it reads least reliably in infants and in adolescents close to adult body composition.';
       markStage(null);
       return;
     }
@@ -879,10 +904,15 @@ with S<sub>Cr</sub> floored at 0.8 mg/dL<br><br>
 
     var spread = Math.max(r1(o.mdrd), r1(o.ckdepi), r1(o.mayo)) -
                  Math.min(r1(o.mdrd), r1(o.ckdepi), r1(o.mayo));
+    var si = stageIndex(r1(o.ckdepi));
     $('gfr-stageRow').innerHTML =
-      '<span>Stage on the CKD-EPI figure <b>' + esc(stageOf(r1(o.ckdepi))) + '</b></span>' +
+      '<span>Stage on the CKD-EPI figure <b>' + esc(stageOf(r1(o.ckdepi))) + '</b>' +
+      '<i style="font-style:normal;display:block;font-size:11.5px;color:var(--ink-faint);margin-top:2px">' +
+      esc(STAGES[si][1]) + '</i></span>' +
       '<span>Spread across equations <b>' + d1(spread) + '</b></span>';
-    markStage(stageIndex(r1(o.ckdepi)));
+    $('gfr-stageBlock').style.display = '';
+    $('gfr-closingNote').textContent = 'This is an estimate from a single blood test, not a diagnosis. Where the three equations disagree widely, creatinine is doing a poor job of pinning down the answer for this particular body.';
+    markStage(si);
   }
 
   function markStage(idx){

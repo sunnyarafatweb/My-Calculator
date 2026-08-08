@@ -8397,3 +8397,46 @@ in prose. Against our own pages the raw worst is 1.75% (conception-calculator) a
 and `llms.txt` already carried the slug. Reciprocal sidebar links added from **bmi, bmr,
 body-fat and body-surface-area** — four files, scoped to this build, not the deferred
 site-wide sweep.
+
+### GFR Calculator — the CKD stage table belonged in the result, not the bottom grid (Aug 8, 2026)
+
+Owner reported, on the day of the build, that the adult result card looked like it carried
+less than the reference and did not read the way theirs does. He was right, and the
+completion report had said "Result fields: 10/10" — so this is worth recording, because the
+checklist passed while the page was still wrong to a reader.
+
+Dumped the reference's result region as plain text and read it in order:
+
+1. Result heading
+2. "The following are the GFR results based on 3 formulas often used:"
+3. Formula / Result table, three rows, each with the unit
+4. **"Chronic Kidney Disease Stages" heading and the six-row stage table**
+
+Item 4 is *inside their result block*. Ours had it in the bottom grid, two cards down. Every
+field existed, so a field-presence check passed — but on screen the visitor got three bare
+numbers and no way to read them, which is exactly the complaint. **Presence is not parity if
+the reader has to go looking.** A result element the reference prints under its result belongs
+under ours.
+
+Fixed by moving the stage table into the result card in the reference's order, with the row
+matching the current CKD-EPI figure highlighted, and by spelling the band out on the stage
+line itself (`CKD3 (Moderate)` now carries `30 to 59` underneath) rather than making the
+visitor match a code against a table. The bottom grid slot it vacated became a new
+**The Three Equations** card — each equation, the population it was fitted on, and where it
+reads best — which is genuinely new information rather than a second copy of the table.
+
+Children's tab checked at the same time and matches the reference exactly: their paediatric
+result is the single Schwartz number and nothing else, no stage table. The block is therefore
+hidden on that tab and while the form is in error, rather than shown with nothing highlighted.
+
+One thing the screenshot caught that the assertions had not: the closing note under the
+result still read "where the three equations disagree widely" on the children's tab, which
+shows one equation. That is the §"if a page's prose describes a feature that is later removed,
+the prose has to be rewritten" failure in miniature. The note is now written per mode.
+
+Re-verified after the change: **59 browser assertions, 0 failed** (four new ones covering
+where the stage table lives, that it hides on the children tab and in the error state, and
+that the closing note is mode-appropriate), plus **40 fresh browser cases against the engine,
+0 mismatches**. One assertion failed on the first run because it expected the "60 to 89" band
+for the reference's own worked example, which actually lands in Normal/CKD1 — the test was
+wrong, not the page, and it was corrected rather than the page bent to fit it.
