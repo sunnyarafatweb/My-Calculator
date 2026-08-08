@@ -7693,3 +7693,32 @@ as a deliberate divergence rather than an outstanding bug.
 306 randomised reference cases plus 16 sub-calculator assertions; 64/64 browser assertions;
 FAQ schema still exactly matches the visible text; article now 2,456 words at **0.00%** overlap
 with the reference.
+
+### Card headers switched to the white house style (Aug 8, 2026)
+
+The owner flagged the two bottom-grid card headers on the pace and army pages as looking wrong
+— a beige `--surface-sunken` fill that sits oddly against the white card body — and asked for
+white or the deep navy.
+
+Checked the house pattern before choosing rather than picking by eye. `mortgage-payoff-calculator`,
+which §"Schedule and chart are two cards, not one" already names as the reference for exactly
+this side-by-side card layout, uses a **white header with a bottom hairline** and a 15px/700
+title in `--ink`. No fill. Navy would have been a new invention on this site; white is what the
+reference component already does, so both pages now match it:
+
+`padding:16px 18px; font-size:15px; font-weight:700; color:var(--ink);
+ background:var(--surface); border-bottom:1px solid var(--border-fine)`
+
+Result card heads stay green and the status bar and sidebar stay navy — the sitewide colour
+rule is unchanged; only the neutral card headers moved.
+
+**This is the second time a component was built from tokens instead of lifted from the current
+donor** (the first was the tab set, mode toggle and sidebar on the pace calculator). Both times
+the fix was to go and read `business-loan-calculator` or `mortgage-payoff-calculator` for the
+specific component. Worth stating plainly: for any card, header, toggle or table on a 3-card
+page, find the page that already ships that component and copy it, and only style from tokens
+when nothing on the site has the component yet.
+
+Re-verified after the change: 64/64 pace and 38/38 army browser assertions, both engines still
+exact against the reference (306 + 16 and 40 cases), protected style block byte-identical on
+both, FAQ schema still matching the visible text on both.
