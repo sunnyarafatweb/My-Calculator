@@ -8298,3 +8298,102 @@ pregnancy-calculator already link here from their sidebars. **No new reciprocal 
 added**: the four other natural linkers — ovulation, period, pregnancy-conception and
 pregnancy-weight-gain — are all still React/Tailwind stubs with no sidebar card to insert
 into. They should pick this page up when each is rebuilt; nothing was edited in them.
+
+## GFR Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the 44KB template stub at `/gfr-calculator/` with a full 3-card build (96KB,
+`gfr-` prefix). Reference: calculator.net/gfr-calculator.html, supplied by the owner with
+two screenshots showing both calculators. Donor for the shared chrome was `tdee-calculator`;
+protected style block, header and footer confirmed byte-identical afterwards.
+
+**Keyword research.** Head term "gfr calculator" is held by MDCalc, the National Kidney
+Foundation and calculator.net. The variants with their own competitor pages are "egfr
+calculator", "ckd-epi calculator", "creatinine clearance calculator" and "schwartz formula
+calculator"; the first three are folded into the tab labels, result rows and FAQ, and the
+fourth is the children's tab. Title *GFR Calculator — Kidney Function From Serum Creatinine*
+(56 chars), description 148.
+
+### The maths
+
+Two calculators on one page, presented as tabs the way `calories-burned-calculator` does
+rather than as two stacked forms. All four equations reproduce exactly:
+
+- **MDRD 4-variable** — 175 × Scr^−1.154 × age^−0.203, × 0.742 female, × 1.212 Black
+- **CKD-EPI (2009)** — base × (Scr/k)^a × 0.993^age, k 0.7/0.9, base 144/141 non-Black and
+  166/163 Black, exponent −0.329/−0.411 below k and −1.209 above
+- **Mayo quadratic** — exp(1.911 + 5.249/Scr − 2.114/Scr² − 0.00686·age − 0.205 female),
+  with Scr floored at 0.8
+- **Bedside Schwartz** (children) — 0.413 × height in cm ÷ Scr
+
+**The micromole divisor is 88.4, not 88.42**, and that had to be measured. Three
+purpose-built discriminating cases — inputs where the two candidates disagree in the last
+displayed digit — were put to the reference, and it sided with 88.4 all three times. Same
+technique as the pound constant on the carbohydrate page; it is now the standard way to
+settle a rounded constant here rather than assuming the textbook value.
+
+### Verification
+
+Engine written standalone and swept against the live reference twice — **85 cases, 0
+mismatches** — mixing adult and paediatric cases, both creatinine units, both height units,
+both sexes and both race settings, across creatinine 0.3–9 mg/dL and 25–800 µmol/L. Then the
+shipped page was driven in Chromium over **55 fresh random cases** against the same engine:
+**0 mismatches, 0 console errors**.
+
+**52 browser assertions, all passing.** Beyond the usual set: the reference's own worked
+examples reproduce exactly (89.3 / 99.2 / 120.3 for 0.9 mg/dL, age 50, male, not Black; 50.5
+for the child default), the CKD stage table and the population-mean table match theirs row
+for row, the stage row matching the current result is highlighted and no row is highlighted
+on the children's tab, age under 18 is refused on the adult tab and a zero creatinine is
+refused on both, and — per the tabbed-page warning in section 5a — auto-calculate was
+re-checked **after** switching tabs, not just on the first one.
+
+### The race coefficient — parity kept, deprecation stated
+
+The reference's adult form has a **Race** radio (Black / Not Black) which multiplies MDRD by
+1.212 and switches the CKD-EPI base constants. That coefficient is no longer clinical
+practice: in September 2021 a joint NKF–ASN task force concluded it lacked biological
+justification and called for immediate adoption of the race-free **2021 CKD-EPI creatinine
+equation**, which US laboratories now report. Verified against NKF, ASN and the AJKD/KDOQI
+position statement before writing a word of it.
+
+Handled as follows, and the reasoning is worth carrying forward because this will recur:
+
+- **The field is kept and the maths is unchanged.** Removing it would silently alter what the
+  reproduced equations produce, and parity is the specification.
+- **It is flagged in three places** — a caution box directly under the Race control linking to
+  the explanation, the "The 2009 version, with a race coefficient" subtitle on the CKD-EPI
+  result row, and a dedicated H2 covering the task force decision and its practical effect
+  (delayed staging, referral and transplant listing for Black patients).
+- **The 2021 race-free equation was deliberately NOT added as a fourth result row.** It would
+  be genuinely useful and it is what a visitor's lab actually reports — but adding an equation
+  the reference does not have is an extra, and §"Standing rule on scope" says extras are a
+  proposal to the owner before building, never a decision made inside one. **Raised with the
+  owner in the completion report; not built.** If he says yes it is a small change: one more
+  row and one more paragraph.
+
+The caution box originally used a new amber palette and was recoloured to the existing
+sitewide caution pair (`#8E2233` on `#FCEDEF`, border `#F0C6CC`) before shipping — no new hex
+values were introduced, per §"One colour scheme sitewide".
+
+### Other deliberate differences
+
+- **A headline number.** The reference prints three equal results and no primary figure; our
+  result card needs a big number, so it uses CKD-EPI, labelled "CKD-EPI 2009" in the subtitle.
+  All three still appear as rows, and none is presented as more correct than the others.
+- **Defaults differ per §3a-PRIME**: 1.1 mg/dL, age 42, female (theirs: 0.9, age 50, male);
+  children 0.6 mg/dL and 132 cm (theirs: 0.9 and 110 cm). Race stays on "Not Black", which is
+  the no-multiplier setting rather than a value worth varying.
+- **A spread figure** under the results, showing the gap between the highest and lowest of the
+  three equations. It is derived entirely from numbers already on screen, and it makes the
+  point the article makes: a wide spread means creatinine is pinning the answer down poorly
+  for this body.
+
+**Content.** 2,305-word article, 9 H2s, 8 FAQs. Overlap with the reference **0.00%** despite
+both pages necessarily printing the same four formulas — the formulas live in a code block, not
+in prose. Against our own pages the raw worst is 1.75% (conception-calculator) and 1.71%
+(carbohydrate-calculator), both entirely byline and disclaimer boilerplate.
+
+**Also shipped**: OG image at `/og/gfr-calculator.png`. `calculators-index.json`, `sitemap.xml`
+and `llms.txt` already carried the slug. Reciprocal sidebar links added from **bmi, bmr,
+body-fat and body-surface-area** — four files, scoped to this build, not the deferred
+site-wide sweep.
