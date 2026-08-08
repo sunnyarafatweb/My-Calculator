@@ -8119,3 +8119,89 @@ figures were all replaced with queried values rather than estimates.
 **Content.** 1,550-word article, 8 H2s, 8 FAQs. Overlap with the reference **0.00%**. Against our
 own pages 2.48% versus body-type, which is entirely the shared disclaimer and byline — the eating
 disorder helpline text is deliberately identical across both.
+
+## Carbohydrate Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the 44KB template stub at `/carbohydrate-calculator/` with a full 3-card build
+(106KB, `carb-` prefix). Reference: calculator.net/carbohydrate-calculator.html, supplied by
+the owner with four screenshots covering US units, metric units, the Other Units converter
+and the expanded Settings panel. Donor for the shared chrome was `tdee-calculator` — the
+protected style block, header and footer were confirmed byte-identical afterwards.
+
+**Keyword research.** Head term "carbohydrate calculator" is dominated by calculator.net
+itself plus a long tail of macro tools; the higher-intent variants that have their own
+competitor pages are "how many carbs should i eat a day", "carbs per day calculator" and
+"carb calculator for weight loss" — the first is a question the page now answers in its own
+H2 and FAQ rather than only in the tool. Title written for the click rather than the
+impression: *Carbohydrate Calculator — Daily Carb Grams for Your Goal* (56 chars, inside the
+40–65 band), description 144 chars leading with the gram outcome and the four percentages.
+
+### Their published formula is not the formula they use
+
+The page prints nothing about energy density, and every diet source quotes 4 Calories per
+gram of carbohydrate. Their numbers do not follow from 4. Measured against the live page the
+divisor is **3.75** — the FAO/INFOODS factor for available carbohydrate as monosaccharide
+equivalents. This is defensible rather than a bug, so it was matched and then explained on
+the page in its own H2, which is a genuine differentiator: no competing calculator surfaces
+it, and it accounts for the ~6% gap between this page and any 4-based tool.
+
+Two further details had to be measured, not assumed:
+
+- **The percentage cells are computed from the unrounded calorie allowance**, while the
+  calorie column shows that same value rounded. Deriving grams from the displayed calories
+  is off by one gram in a good fraction of cases.
+- **Their pound is `0.453592`, not `0.45359237`.** Found through a single failing case in the
+  first 40-case sweep: one ounce figure read 25.89 where the exact constant gives 25.895 and
+  rounds to 25.90. Before changing it, three purpose-built discriminating cases were put to
+  the reference to rule out the alternative explanation (that the ounce divisor was 28.35
+  rather than 28.3495) — the reference sided with 28.3495 all three times, which left the
+  pound constant as the only candidate. Gram-per-ounce and gram-per-pound are **not** rounded:
+  28.3495 and 453.592.
+
+### Verification
+
+Engine written standalone in Python and swept against the live reference twice with different
+seeds — **90 cases, 0 mismatches** — comparing every row label, the calorie column and all
+four percentage cells including Oz and lb, across both unit systems, both formulas, both
+sexes and the full 18–80 / 1.2–1.9 input space. Then the *shipped* page was driven in
+Chromium over a fresh **60 random cases** against the same engine: **0 mismatches, 0 console
+errors**. Hand-picked cases would not have found the pound constant; the sweep did, on case 31.
+
+Separately, the Other Units converter's unit tables were diffed field by field against the
+reference's own `/js/conversion.js` (fetched live): Length 11, Area 11, Volume 23, Weight 10,
+**0 mismatches** on both names and factors, with Temperature handled as offsets. Note the
+script also carries a time array (`mA`, 11 units) that this page's converter does not expose —
+the rendered tab set is five, confirmed against the owner's screenshot.
+
+**48 browser assertions, all passing**: H1 computed weight 700, sitewide status-bar sentence,
+More Options button computed style identical to mortgage-calculator's, result head and
+Calculate both `#16A34A`, six activity multipliers matching theirs exactly, US vs metric row
+labels and the metric grams-only cells, converter category and unit counts, Clear emptying
+every typed box while leaving selects and radios alone and moving the pressed button under
+40px, `__cbAutoRuns` incrementing on input with no page movement, `.cb-flash` and `.cb-jump`
+present, jsPDF fetching zero bytes before the click, no horizontal overflow and a single grid
+track at 1280/430/390px with every child at full column width, and card edge alignment.
+
+### One deliberate wording difference from the reference
+
+Their footnote attributes a **40% to 65%** range to the Institute of Medicine. The IOM AMDR
+for carbohydrate is **45% to 65%** (RDA 130 g/day), verified against the DRI literature before
+writing. The 40/55/65/75 columns were kept exactly as theirs so the numbers stay in parity,
+but our footnote states the ranges correctly and says plainly that the 40% column sits below
+the IOM floor as a lower-carbohydrate option rather than a recommendation. Repeating a wrong
+attribution on a YMYL page was not worth field-level fidelity in prose. Flagged to the owner
+in the completion report, not made quietly.
+
+**Content.** 2,422-word article, 9 H2s, 8 FAQs, table of contents, byline and YMYL disclaimer.
+Overlap with the reference **0.00%**. Against our own health pages the worst is **0.95%**
+(bmr-calculator), with macro, tdee and body-fat all at 0.83% — boilerplate level, well under
+the ~1.2% this repo has been running at. The near-duplicate trap was live here: Macro, TDEE and
+BMR share this page's inputs and its whole first calculation step, so the limitations section
+and the disclaimer were written from scratch rather than adapted.
+
+**Also shipped**: OG image at `/og/carbohydrate-calculator.png` in the house style (IBM Plex
+Sans is not installed in the build environment, so the display face falls back to DejaVu Sans;
+the mono chips use real IBM Plex Mono). `calculators-index.json`, `sitemap.xml` and `llms.txt`
+already carried the slug from the stub, so no entry was needed. Reciprocal sidebar links added
+from **tdee, bmr and calorie**; macro and fat-intake already linked here. That is four files,
+scoped to this build — **not** the site-wide inbound-link sweep, which stays deferred.

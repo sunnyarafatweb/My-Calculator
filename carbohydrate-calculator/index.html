@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Carbohydrate Calculator | CalculatorBoss</title><meta name="description" content="Find your recommended daily carbohydrate range based on the AMDR (45-65% of calories), from your daily calorie target."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/carbohydrate-calculator/"/><meta property="og:title" content="Carbohydrate Calculator | CalculatorBoss"/><meta property="og:description" content="Recommended daily carb range from your calorie target."/><meta property="og:url" content="https://calculatorboss.com/carbohydrate-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Carbohydrate Calculator — Daily Carb Grams for Your Goal</title><meta name="description" content="Free carb calculator: how many grams of carbohydrate a day at 40%, 55%, 65% and 75% of your calories, for maintaining, losing or gaining weight."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="carbohydrate calculator,carb calculator,how many carbs should i eat a day,daily carb intake calculator,carbs per day calculator,carb calculator for weight loss,grams of carbs per day,carbohydrate intake calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/carbohydrate-calculator/"/><meta property="og:title" content="Carbohydrate Calculator — Daily Carb Grams for Your Goal"/><meta property="og:description" content="Free carb calculator: how many grams of carbohydrate a day at 40%, 55%, 65% and 75% of your calories, for maintaining, losing or gaining weight."/><meta property="og:url" content="https://calculatorboss.com/carbohydrate-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/carbohydrate-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Carbohydrate Calculator — Daily Carb Grams for Your Goal"/><meta name="twitter:description" content="Free carb calculator: how many grams of carbohydrate a day at 40%, 55%, 65% and 75% of your calories, for maintaining, losing or gaining weight."/><meta name="twitter:image" content="https://calculatorboss.com/og/carbohydrate-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,141 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.carb-wrap{width:100%}
+.carb-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.carb-bar-text{display:flex;align-items:center;gap:10px}
+.carb-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.carb-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.carb-bar-pdf-btn:hover{background:#f0f0f0}
+.carb-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.carb-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.carb-area-bar{grid-area:bar}
+.carb-area-tabs{grid-area:tabs}
+.carb-area-form{grid-area:form}
+.carb-area-result{grid-area:result}
+.carb-area-sidebar{grid-area:sidebar}
+.carb-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .carb-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.carb-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.carb-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:10px 20px;font-size:13.5px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.carb-tab:hover{border-color:var(--border)}
+.carb-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.carb-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.carb-card-pad{padding:22px}
+.carb-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.carb-field-label{width:96px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.carb-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.carb-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.carb-input-group span{padding:0 9px;color:var(--ink-faint);font-size:12px;flex-shrink:0;white-space:nowrap}
+.carb-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.carb-sex{display:flex;gap:18px;flex-wrap:wrap;padding:2px 0}
+.carb-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.carb-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.carb-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.carb-subnote a{color:#128A3D}
+.carb-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+/* More Options control, matching mortgage-calculator exactly. */
+.carb-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.carb-hidden{display:none !important}
+.carb-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.carb-opt{display:flex;flex-direction:column;gap:7px;padding:2px 0}
+.carb-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap}
+.carb-opt input[type=radio]{width:15px;height:15px;accent-color:#16A34A;cursor:pointer;flex-shrink:0}
+.carb-fat{display:flex;align-items:center;gap:6px;margin-left:6px}
+.carb-fat .carb-input-group{width:96px;flex:none}
+
+.carb-btn-row{display:flex;gap:8px;padding-top:16px}
+.carb-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.carb-btn-calc:hover{background:#128A3D}
+.carb-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.carb-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.carb-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.carb-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.carb-result-head .bignum{font-size:32px;font-weight:700;line-height:1.15;margin-top:2px}
+.carb-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.carb-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.carb-err.show{display:block}
+.carb-result-body{padding:12px 20px 20px}
+.carb-cal{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft);flex-wrap:wrap}
+.carb-cal b{color:var(--ink);font-weight:600}
+.carb-split-h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:16px 0 8px}
+.carb-split-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--border-fine);border-radius:10px;background:var(--surface-sunken)}
+.carb-split-row+.carb-split-row{margin-top:7px}
+.carb-split-row .n{font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.3}
+.carb-split-row .p{font-size:11.5px;color:var(--ink-faint);display:block;font-weight:400;margin-top:1px}
+.carb-split-row .v{text-align:right;white-space:nowrap}
+.carb-split-row .v b{font-size:16px;font-weight:700;color:#128A3D}
+.carb-split-row .v i{font-style:normal;font-size:11.5px;color:var(--ink-faint);display:block}
+.carb-split-row.mid{background:var(--gold-tint);border-color:#BFE3CC}
+
+.carb-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.carb-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.carb-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.carb-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.carb-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.carb-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.carb-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:900px){.carb-bottom-grid{grid-template-columns:1fr}}
+.carb-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.carb-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.carb-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.carb-card-body{padding:18px;overflow-x:auto}
+.carb-goal-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.carb-goal-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 8px;text-align:center;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.carb-goal-table th:first-child{text-align:left}
+.carb-goal-table td{padding:9px 8px;border-bottom:1px solid var(--border-fine);text-align:center;color:var(--ink);white-space:nowrap}
+.carb-goal-table td:first-child{text-align:left;color:var(--ink-soft);white-space:normal}
+.carb-goal-table tr:last-child td{border-bottom:none}
+.carb-goal-table tr.on td{background:var(--gold-tint)}
+.carb-goal-table td b{font-weight:700}
+.carb-goal-table td i{font-style:normal;display:block;font-size:11px;color:var(--ink-faint);margin-top:1px}
+.carb-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.carb-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;text-align:right;border-bottom:1px solid var(--border-fine)}
+.carb-ref-table th:first-child{text-align:left}
+.carb-ref-table td{padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink)}
+.carb-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.carb-ref-table tr:last-child td{border-bottom:none}
+.carb-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+.carb-acts{margin:14px 0 0;padding-left:18px;font-size:12px;color:var(--ink-soft);line-height:1.7}
+.carb-acts li+li{margin-top:4px}
+.carb-acts b{color:var(--ink)}
+
+@media(max-width:520px){
+  .carb-field{flex-wrap:wrap}
+  .carb-field-label{width:100%}
+  .carb-tab{flex:1;text-align:center;padding:10px 12px}
+  .carb-result-head .bignum{font-size:27px}
+}
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Carbohydrate","item":"https://calculatorboss.com/carbohydrate-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +482,287 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the AMDR?","acceptedAnswer":{"@type":"Answer","text":"The Acceptable Macronutrient Distribution Range — a evidence-based range set by nutrition science bodies for each macronutrient, wide enough to accommodate different healthy eating patterns rather than prescribing one ideal number."}},{"@type":"Question","name":"Is going below this range automatically bad?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily — some approaches (like ketogenic diets) deliberately go below the AMDR for specific goals. The range reflects a 'works well for most people in most cases' guideline, not an absolute floor."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Carbohydrate Calculator","url":"https://calculatorboss.com/carbohydrate-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Carbohydrate Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Carbohydrate Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Your calorie target — get a recommended daily carb range in grams.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Daily calorie target</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="2200"/><span style="color:var(--ink-faint)">cal</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:26.31578947368421%;background:var(--accent)"></div><input type="range" min="1200" max="5000" step="50" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Daily calorie target" value="2200"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(26.31578947368421% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><p class="text-xs text-ink-faint">Based on the Acceptable Macronutrient Distribution Range (AMDR) of 45-65% of calories from carbohydrate.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Recommended carbohydrate range</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">248<!-- -->–<!-- -->358<!-- -->g</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Where you fall in this range depends on your goals and activity level — endurance athletes often sit toward the high end, while lower-carb approaches deliberately go below it.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A <span class="tabular">2,200</span> calorie target gives a recommended carb range of about <span class="tabular">248-358g</span> a day.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">What is the AMDR?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The Acceptable Macronutrient Distribution Range — a evidence-based range set by nutrition science bodies for each macronutrient, wide enough to accommodate different healthy eating patterns rather than prescribing one ideal number.</p></div><div><h3 class="font-medium text-ink mb-1.5">Is going below this range automatically bad?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Not necessarily — some approaches (like ketogenic diets) deliberately go below the AMDR for specific goals. The range reflects a &#x27;works well for most people in most cases&#x27; guideline, not an absolute floor.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical or dietary advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Carbohydrate Calculator","item":"https://calculatorboss.com/carbohydrate-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many carbs should I eat a day?","acceptedAnswer":{"@type":"Answer","text":"There is no single number, which is why this page gives a range rather than one figure. Most healthy adults land somewhere between 45% and 65% of their calories from carbohydrate, and on a 2,000 Calorie day that works out at roughly 240 to 350 grams. Your own band depends on how big you are, how much you move and what you are training for. Start in the middle of the range, eat there for a few weeks, and let your energy levels and the scale tell you whether to shift up or down."}},{"@type":"Question","name":"Is 40% of calories from carbohydrate a low-carb diet?","acceptedAnswer":{"@type":"Answer","text":"It is lower than official guidance but nowhere near what most people mean by low-carb. The 40% column sits just under the 45% floor of the Institute of Medicine range, so it is a mild reduction. Genuine low-carb eating usually means under 26% of calories, and ketogenic diets run at roughly 20 to 50 grams a day in total, which for most adults is under 10%. If a ketogenic target is what you are after, this calculator's lowest column is still far above it."}},{"@type":"Question","name":"Why does this calculator use 3.75 Calories per gram of carbohydrate?","acceptedAnswer":{"@type":"Answer","text":"Because that is the factor for available carbohydrate expressed as monosaccharide equivalents, published by the FAO. The familiar 4 Calories per gram is the Atwater general factor, used when carbohydrate is measured by weight. The two describe the same food measured two different ways. Using 3.75 makes each gram figure about 6% larger than a 4-based calculator would show, so do not be surprised if another tool gives you a slightly smaller number from the same calorie total."}},{"@type":"Question","name":"Does fiber count toward my carbohydrate target?","acceptedAnswer":{"@type":"Answer","text":"It depends on which label you are reading. In the United States, the total carbohydrate line on a nutrition panel already includes fiber, so a gram target compared against that line includes it too. Fiber contributes very little usable energy, which is why some people track net carbohydrate instead by subtracting fiber. Whichever you choose, stay consistent: mixing a total-carbohydrate target with net-carbohydrate counting will quietly leave you eating less than you planned."}},{"@type":"Question","name":"How many carbs should I eat to lose weight?","acceptedAnswer":{"@type":"Answer","text":"Use the weight-loss rows rather than the maintenance row. Each pound a week of intended loss removes 500 Calories a day from the allowance, and the carbohydrate figures shrink in step. What matters more than the exact gram count is that the deficit is real and that protein stays high enough to protect muscle while you are in it. Cutting carbohydrate is one way to create the deficit, not a requirement for one."}},{"@type":"Question","name":"Should athletes eat more carbohydrate than this?","acceptedAnswer":{"@type":"Answer","text":"Usually yes, and the upper columns exist for that reason. Endurance athletes in heavy training are commonly advised to eat 6 to 10 grams of carbohydrate per kilogram of body weight a day, which for a 70 kg runner is 420 to 700 grams. That is at or beyond the 75% column for most calorie levels. If you train hard most days, read this page from the right-hand side of the table rather than the left."}},{"@type":"Question","name":"Does it matter when I eat my carbohydrates?","acceptedAnswer":{"@type":"Answer","text":"Far less than the daily total, for most people. Timing starts to matter when sessions are long, hard or close together, because muscle glycogen has to be refilled before the next one. If you are training twice a day or racing, eating carbohydrate soon after finishing helps. For someone exercising a few times a week, spreading intake across meals in a way you can actually stick to beats any particular schedule."}},{"@type":"Question","name":"Why does changing my activity level move the number so much?","acceptedAnswer":{"@type":"Answer","text":"Because activity is the only input here that is a judgement call rather than a measurement. The multipliers run from 1.2 to 1.9, so the same body can be given a calorie allowance that differs by more than half again depending on which line you pick — and the carbohydrate grams follow it directly. Most people choose too high. Describe your average week, not your best one."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Carbohydrate Calculator","url":"https://calculatorboss.com/carbohydrate-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates how many grams of carbohydrate a day fit a person's calorie allowance, at 40%, 55%, 65% and 75% of intake, for weight maintenance and for losing or gaining weight.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Carbohydrate Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Carbohydrate Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Turn your daily calorie allowance into grams of carbohydrate &mdash; at four common shares of intake, for holding your weight steady or for losing and gaining.</p><div class="carb-wrap">
+<div class="carb-grid">
+
+  <div class="carb-bar carb-area-bar">
+    <span class="carb-bar-text"><span class="carb-bar-badge">%</span>Just enter your values below &mdash; results update automatically.</span>
+    <button type="button" class="carb-bar-pdf-btn" id="carb-pdfBtn">&#128190; Save as PDF</button>
+  </div>
+
+  <div class="carb-tabs carb-area-tabs" role="tablist" aria-label="Measurement units">
+    <button type="button" class="carb-tab active" id="carb-tabUs" role="tab" aria-selected="true">US Units</button>
+    <button type="button" class="carb-tab" id="carb-tabMetric" role="tab" aria-selected="false">Metric Units</button>
+    <button type="button" class="carb-tab" id="carb-tabOther" role="tab" aria-selected="false">Other Units</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="carb-card carb-area-form">
+    <div class="carb-card-pad">
+
+  <div class="cv-panel" id="carb-convPanel" style="display:none">
+    <p class="cv-lead">Convert a measurement into the units this calculator accepts, then type the result into the form below.</p>
+    <div class="cv-cats" id="carb-convCats"></div>
+    <div class="cv-line">
+      <label for="carb-convFromVal">From</label>
+      <div class="cv-pair">
+        <input type="text" inputmode="decimal" id="carb-convFromVal" value="1">
+        <select id="carb-convFrom" aria-label="Convert from unit"></select>
+      </div>
+    </div>
+    <div class="cv-arrow" aria-hidden="true">&darr;</div>
+    <div class="cv-line">
+      <label for="carb-convToVal">To</label>
+      <div class="cv-pair">
+        <input type="text" id="carb-convToVal" readonly>
+        <select id="carb-convTo" aria-label="Convert to unit"></select>
+      </div>
+    </div>
+    <p class="cv-out" id="carb-convOut"></p>
+  </div>
+
+      <div class="carb-field">
+        <label class="carb-field-label" for="carb-age">Age</label>
+        <div class="carb-field-control"><div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-age" value="32"><span>18 &ndash; 80</span></div></div>
+      </div>
+      <div class="carb-field">
+        <span class="carb-field-label">Gender</span>
+        <div class="carb-field-control carb-sex" role="radiogroup" aria-label="Gender">
+          <label class="carb-radio"><input type="radio" name="carb-sex" value="m"><span>Male</span></label>
+          <label class="carb-radio"><input type="radio" name="carb-sex" value="f" checked><span>Female</span></label>
+        </div>
+      </div>
+
+      <div id="carb-usBlock">
+        <div class="carb-field">
+          <label class="carb-field-label" for="carb-heightFt">Height</label>
+          <div class="carb-field-control">
+            <div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-heightFt" value="5"><span>feet</span></div>
+            <div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-heightIn" value="6"><span>inches</span></div>
+          </div>
+        </div>
+        <div class="carb-field">
+          <label class="carb-field-label" for="carb-weightLb">Weight</label>
+          <div class="carb-field-control"><div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-weightLb" value="150"><span>pounds</span></div></div>
+        </div>
+      </div>
+
+      <div id="carb-metricBlock" style="display:none">
+        <div class="carb-field">
+          <label class="carb-field-label" for="carb-heightCm">Height</label>
+          <div class="carb-field-control"><div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-heightCm" value="168"><span>cm</span></div></div>
+        </div>
+        <div class="carb-field">
+          <label class="carb-field-label" for="carb-weightKg">Weight</label>
+          <div class="carb-field-control"><div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-weightKg" value="68"><span>kg</span></div></div>
+        </div>
+      </div>
+
+      <div class="carb-field">
+        <label class="carb-field-label" for="carb-activity">Activity</label>
+        <div class="carb-field-control"><select class="carb-select-plain" id="carb-activity"></select></div>
+      </div>
+
+      <button type="button" class="carb-more-btn" id="carb-moreBtn">+ More Options</button>
+
+      <div id="carb-settingsPanel" class="carb-hidden">
+        <p class="carb-section-title">BMR estimation formula</p>
+        <div class="carb-opt" role="radiogroup" aria-label="BMR estimation formula">
+          <label><input type="radio" name="carb-formula" value="m" checked><span>Mifflin&nbsp;St&nbsp;Jeor</span></label>
+          <label><input type="radio" name="carb-formula" value="k"><span>Katch-McArdle</span>
+            <span class="carb-fat"><span style="font-size:12px;color:var(--ink-faint)">Body fat</span>
+              <div class="carb-input-group"><input type="text" inputmode="decimal" id="carb-fatPct" value="25"><span>%</span></div>
+            </span>
+          </label>
+        </div>
+        <p class="carb-subnote">Katch-McArdle is built on lean mass, so it needs a body fat percentage and ignores age, sex and height. If you do not have a measurement, the <a href="/body-fat-calculator/">body fat calculator</a> will estimate one from a tape measure.</p>
+      </div>
+
+      <div class="carb-btn-row">
+        <button type="button" class="carb-btn-calc" id="carb-calcBtn">Calculate</button>
+        <button type="button" class="carb-btn-clear" id="carb-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="carb-result-card carb-area-result">
+    <div class="carb-result-head">
+      <div class="label">Carbohydrate a day to hold your weight</div>
+      <div class="bignum" id="carb-bigNum">&mdash;</div>
+      <div class="sub" id="carb-bigSub">&mdash;</div>
+    </div>
+    <div class="carb-err" id="carb-err"></div>
+    <div class="carb-result-body" id="carb-resultBody">
+      <div class="carb-cal" id="carb-calRow"></div>
+      <p class="carb-split-h">Grams at each share of intake</p>
+      <div id="carb-splits"></div>
+      <p class="carb-subnote" style="margin-top:14px">Grams are worked out at 3.75 Calories per gram, the FAO factor for available carbohydrate as monosaccharide equivalents. Rows for losing and gaining weight are in the table below.</p>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="carb-sidecol carb-area-sidebar">
+    <div class="carb-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/calorie-calculator/">Calorie <span class="arrow">&rarr;</span></a>
+      <a href="/protein-calculator/">Protein <span class="arrow">&rarr;</span></a>
+      <a href="/fat-intake-calculator/">Fat Intake <span class="arrow">&rarr;</span></a>
+      <a href="/macro-calculator/">Macros <span class="arrow">&rarr;</span></a>
+      <a href="/tdee-calculator/">TDEE <span class="arrow">&rarr;</span></a>
+      <a href="/bmr-calculator/">BMR <span class="arrow">&rarr;</span></a>
+      <a href="/bmi-calculator/">BMI <span class="arrow">&rarr;</span></a>
+      <a href="/all-calculators/" class="carb-viewmore">View More <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="carb-area-bottomgrid">
+    <div class="carb-bottom-grid">
+      <div class="carb-info-card">
+        <div class="carb-card-head"><span class="t">Carb Targets by Goal</span></div>
+        <div class="carb-card-body">
+          <table class="carb-goal-table">
+            <thead><tr><th>Goal</th><th>Daily Calories</th><th>40%</th><th>55%</th><th>65%</th><th>75%</th></tr></thead>
+            <tbody id="carb-goalBody"></tbody>
+          </table>
+          <p class="carb-note">Each pound a week of intended loss or gain moves the calorie allowance by 500 a day, and the carbohydrate figures move with it. The Institute of Medicine range is 45% to 65% of energy; the World Health Organization and FAO have recommended 55% to 75%. The 40% column sits deliberately below both, as a lower-carbohydrate option rather than a recommendation.</p>
+        </div>
+      </div>
+      <div class="carb-info-card">
+        <div class="carb-card-head"><span class="t">Reference Points</span></div>
+        <div class="carb-card-body">
+          <table class="carb-ref-table">
+            <tbody>
+              <tr><td>IOM range (adults)</td><td>45&ndash;65%</td></tr>
+              <tr><td>WHO / FAO range</td><td>55&ndash;75%</td></tr>
+              <tr><td>RDA, adults</td><td>130 g/day</td></tr>
+              <tr><td>RDA, pregnancy</td><td>175 g/day</td></tr>
+              <tr><td>RDA, breastfeeding</td><td>210 g/day</td></tr>
+              <tr><td>Free sugars ceiling</td><td>under 10%</td></tr>
+              <tr><td>Energy per gram used here</td><td>3.75 Cal</td></tr>
+            </tbody>
+          </table>
+          <p class="carb-note" style="margin-bottom:0">How to read the activity levels:</p>
+          <ul class="carb-acts">
+            <li><b>Exercise</b> &mdash; a quarter to half an hour with your pulse raised.</li>
+            <li><b>Intense exercise</b> &mdash; three quarters of an hour to two hours at that effort.</li>
+            <li><b>Very intense exercise</b> &mdash; more than two hours, or a job that keeps you moving all day.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.carb-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.carb-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.carb-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.carb-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.carb-seo-article strong{color:var(--ink);font-weight:600}
+.carb-seo-article a{color:#128A3D;text-decoration:underline}
+.carb-seo-article ul,.carb-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.carb-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.carb-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.carb-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.carb-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.carb-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.carb-toc a:hover{color:#1E3A5F}
+.carb-seo-article h2[id]{scroll-margin-top:88px}
+.carb-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.carb-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="carb-seo-article">
+<p class="carb-byline">Written by the CalculatorBoss Health Team &middot; Formulas verified against a reference implementation with a recorded test suite &middot; Last updated August 2026</p>
+
+<nav class="carb-toc" aria-label="On this page">
+  <a href="#percent">What a carbohydrate percentage actually means</a>
+  <a href="#how">How this calculator works</a>
+  <a href="#why375">Why 3.75 Calories a gram and not 4</a>
+  <a href="#ranges">Where 40%, 55%, 65% and 75% come from</a>
+  <a href="#goals">Reading the weight-change rows</a>
+  <a href="#quality">Grams are only half the question</a>
+  <a href="#lowcarb">Low-carbohydrate eating and the 130-gram floor</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="percent">What a carbohydrate percentage actually means</h2>
+<p>Carbohydrate advice is almost always given as a share of calories rather than a fixed weight, and that trips people up. A target of 55% does not mean 55% of the food on your plate. It means 55% of the energy you eat that day arrives as carbohydrate, and the gram figure that corresponds to it moves with how much you eat in total.</p>
+<p>That is why two people can both be following the same guideline and eat wildly different amounts. A small, sedentary adult on 1,600 Calories hitting 55% eats about 235 grams. A tall athlete on 3,600 Calories hitting the same 55% eats about 528 grams — more than twice as much, from an identical percentage. The share is the rule; the grams are what you actually buy, cook and count, so this page converts one into the other.</p>
+
+<h2 id="how">How this calculator works</h2>
+<p>The chain has three links, and none of them is hidden.</p>
+<p>First, your <strong>resting energy cost</strong> is estimated from age, sex, height and weight. Second, that figure is multiplied by an <strong>activity factor</strong> between 1.2 and 1.9 to give the calories you burn across a whole day. Third, a slice of those calories is taken at 40%, 55%, 65% and 75%, and each slice is divided by the energy density of carbohydrate to turn Calories into grams.</p>
+<div class="carb-formula2">
+<b>Step 1 — resting energy (Mifflin St Jeor)</b><br>
+Men: 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5<br>
+Women: 10 × weight(kg) + 6.25 × height(cm) − 5 × age − 161<br><br>
+<b>Step 1 alternative (Katch-McArdle)</b><br>
+370 + 21.6 × lean body mass(kg), where lean mass = weight × (1 − body fat%)<br><br>
+<b>Step 2 — daily calorie allowance</b><br>
+resting energy × activity factor, then ± 500 or ± 1,000 for a weight goal<br><br>
+<b>Step 3 — grams of carbohydrate</b><br>
+(calories × percentage) ÷ 3.75
+</div>
+<p>Worked through with the figures this page loads with — a 32-year-old woman, 5 ft 6 in, 150 lb, exercising four or five times a week — resting energy comes to about 1,407 Calories, the allowance to 2,061, and the 55% slice to 1,134 Calories, which is 302 grams of carbohydrate. Switch the goal to losing a pound a week and the allowance drops to 1,561, taking the same 55% share down to 229 grams.</p>
+<p>The Katch-McArdle option is worth switching to only if you have a measured body fat percentage. It works from lean mass, so it ignores sex, age and height entirely — an advantage for people whose build is unusual for their height, and a liability if the body fat number is a guess, because the guess feeds straight into the answer.</p>
+
+<h2 id="why375">Why 3.75 Calories a gram and not 4</h2>
+<p>Nearly every diet book quotes 4 Calories per gram of carbohydrate. This calculator uses 3.75, and the difference is deliberate rather than sloppy.</p>
+<p>Both figures come from the same body of work. The FAO publishes 4 Calories per gram for carbohydrate measured by weight, and 3.75 for available carbohydrate expressed as monosaccharide equivalents — the form used when starches and sugars are analysed directly rather than estimated by difference. Starch weighs less than the glucose it releases, so the two ways of measuring the same food give different gram totals, and each carries its own energy factor to compensate.</p>
+<p>The practical consequence is small but worth knowing: at any given calorie level, a 3.75-based target is about 6% larger in grams than a 4-based one. On a 2,000 Calorie day at 55%, that is 293 grams against 275. If you compare this page against a calculator that assumes 4, that gap is the reason — not an error in either.</p>
+
+<h2 id="ranges">Where 40%, 55%, 65% and 75% come from</h2>
+<p>The four columns bracket the range that mainstream nutrition bodies actually recommend, plus a little room on either side.</p>
+<p>The <strong>Institute of Medicine</strong> sets an Acceptable Macronutrient Distribution Range for carbohydrate of 45% to 65% of energy for adults and children over one year old, alongside a Recommended Dietary Allowance of 130 grams a day — the amount the brain needs as glucose. The <strong>World Health Organization and FAO</strong>, working from population data rather than individual requirements, have recommended a wider and higher band of 55% to 75% of total energy, with no more than 10% coming from free sugars.</p>
+<p>Read together, 45% is the conventional floor and 75% the conventional ceiling. The 40% column here sits just below that floor on purpose, because a great many people eat there deliberately and want to see the gram figure it implies. Treat it as a lower-carbohydrate option rather than as a recommendation, and note that the calculator's own footnote is the honest one: no authority recommends 40%.</p>
+
+<h2 id="goals">Reading the weight-change rows</h2>
+<p>The table shows five rows because the carbohydrate target moves whenever the calorie allowance moves. Each pound a week of intended loss or gain shifts the allowance by 500 Calories a day, and two pounds a week shifts it by 1,000; in metric units the same 500 and 1,000 steps are labelled as half a kilo and a kilo.</p>
+<p>Two cautions about those rows. The pound-equals-3,500-Calories arithmetic behind them is a rule of thumb from the 1950s that holds up reasonably for the first few weeks and then flatters itself — as you get lighter, your expenditure falls, and the same deficit buys less loss than it did at the start. And the two-pound-a-week row can push the allowance uncomfortably low for smaller people. If the calorie figure in that row drops under about 1,200, the row is arithmetic rather than advice.</p>
+<p>The gain rows have the mirror problem. A 1,000 Calorie daily surplus will add weight quickly, but a good deal of it will not be muscle. For most people adding size deliberately, the milder row is the one that is worth using.</p>
+
+<h2 id="quality">Grams are only half the question</h2>
+<p>A gram target says nothing about what the carbohydrate is attached to, and that omission matters more than any argument about percentages.</p>
+<p>Three hundred grams from oats, beans, fruit, potatoes and whole grains arrives with fiber, potassium, magnesium and B vitamins, digests slowly, and is difficult to overeat. The same 300 grams from soda, white bread and confectionery arrives with almost nothing else, digests fast, and leaves most people hungry again within the hour. The calculator cannot tell these apart, so the judgement stays with you.</p>
+<p>One useful habit: rather than chasing the gram figure directly, aim for fiber first — roughly 14 grams per 1,000 Calories eaten is the usual guidance — and let the carbohydrate total fall where it lands. Hitting a fiber goal almost forces the composition of the diet in a sensible direction, which a percentage target on its own never does.</p>
+
+<h2 id="lowcarb">Low-carbohydrate eating and the 130-gram floor</h2>
+<p>The 130 grams a day figure is not a target and not a minimum for survival. It is the amount that covers the brain's glucose demand without the body having to make glucose from other sources, and it is set well below what most people eat.</p>
+<p>Below that level the body adapts: the liver produces ketones from fat, the brain shifts part of its fuel supply across, and people can function on very little dietary carbohydrate for long periods. Ketogenic diets deliberately run at 20 to 50 grams a day, far under anything this calculator will show you. Randomised trials generally find low-carbohydrate and low-fat approaches produce similar weight loss over a year once calories are matched, so the honest summary is that carbohydrate restriction is one workable strategy rather than the strategy.</p>
+<p>What it does reliably change is water weight in the first fortnight, because glycogen is stored with water. A rapid early drop on a low-carbohydrate diet is mostly that, and it comes back the moment carbohydrate does. Anyone on medication for diabetes or blood pressure should not make a large cut without medical supervision, since doses often need changing alongside it.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<p>It estimates a range from four inputs, so a good deal sits outside it. It does not know your body composition unless you supply a body fat percentage, and two people of the same height and weight can have quite different resting requirements. It does not account for pregnancy or breastfeeding, which raise carbohydrate needs to 175 and 210 grams a day respectively as a floor. It does not adjust for diabetes, insulin resistance, PCOS, thyroid disease, kidney disease, or any medication that changes appetite or metabolism.</p>
+<p>It also treats all carbohydrate as interchangeable, splits nothing out for fiber or added sugar, and says nothing about the protein and fat that make up the rest of the plate. If you want the whole split rather than the carbohydrate share alone, the <a href="/macro-calculator/">macro calculator</a> divides all three, and the <a href="/tdee-calculator/">TDEE calculator</a> shows the calorie side in more detail.</p>
+<p>Finally, the age limits are real. The equations underneath were derived on adults, which is why the form asks for an age between 18 and 80 and refuses to answer outside it. Children, adolescents and the very old have different requirements that a general-population equation does not model.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>How many carbs should I eat a day?</h3>
+<p>There is no single number, which is why this page gives a range rather than one figure. Most healthy adults land somewhere between 45% and 65% of their calories from carbohydrate, and on a 2,000 Calorie day that works out at roughly 240 to 350 grams. Your own band depends on how big you are, how much you move and what you are training for. Start in the middle of the range, eat there for a few weeks, and let your energy levels and the scale tell you whether to shift up or down.</p>
+<h3>Is 40% of calories from carbohydrate a low-carb diet?</h3>
+<p>It is lower than official guidance but nowhere near what most people mean by low-carb. The 40% column sits just under the 45% floor of the Institute of Medicine range, so it is a mild reduction. Genuine low-carb eating usually means under 26% of calories, and ketogenic diets run at roughly 20 to 50 grams a day in total, which for most adults is under 10%. If a ketogenic target is what you are after, this calculator's lowest column is still far above it.</p>
+<h3>Why does this calculator use 3.75 Calories per gram of carbohydrate?</h3>
+<p>Because that is the factor for available carbohydrate expressed as monosaccharide equivalents, published by the FAO. The familiar 4 Calories per gram is the Atwater general factor, used when carbohydrate is measured by weight. The two describe the same food measured two different ways. Using 3.75 makes each gram figure about 6% larger than a 4-based calculator would show, so do not be surprised if another tool gives you a slightly smaller number from the same calorie total.</p>
+<h3>Does fiber count toward my carbohydrate target?</h3>
+<p>It depends on which label you are reading. In the United States, the total carbohydrate line on a nutrition panel already includes fiber, so a gram target compared against that line includes it too. Fiber contributes very little usable energy, which is why some people track net carbohydrate instead by subtracting fiber. Whichever you choose, stay consistent: mixing a total-carbohydrate target with net-carbohydrate counting will quietly leave you eating less than you planned.</p>
+<h3>How many carbs should I eat to lose weight?</h3>
+<p>Use the weight-loss rows rather than the maintenance row. Each pound a week of intended loss removes 500 Calories a day from the allowance, and the carbohydrate figures shrink in step. What matters more than the exact gram count is that the deficit is real and that protein stays high enough to protect muscle while you are in it. Cutting carbohydrate is one way to create the deficit, not a requirement for one.</p>
+<h3>Should athletes eat more carbohydrate than this?</h3>
+<p>Usually yes, and the upper columns exist for that reason. Endurance athletes in heavy training are commonly advised to eat 6 to 10 grams of carbohydrate per kilogram of body weight a day, which for a 70 kg runner is 420 to 700 grams. That is at or beyond the 75% column for most calorie levels. If you train hard most days, read this page from the right-hand side of the table rather than the left.</p>
+<h3>Does it matter when I eat my carbohydrates?</h3>
+<p>Far less than the daily total, for most people. Timing starts to matter when sessions are long, hard or close together, because muscle glycogen has to be refilled before the next one. If you are training twice a day or racing, eating carbohydrate soon after finishing helps. For someone exercising a few times a week, spreading intake across meals in a way you can actually stick to beats any particular schedule.</p>
+<h3>Why does changing my activity level move the number so much?</h3>
+<p>Because activity is the only input here that is a judgement call rather than a measurement. The multipliers run from 1.2 to 1.9, so the same body can be given a calorie allowance that differs by more than half again depending on which line you pick — and the carbohydrate grams follow it directly. Most people choose too high. Describe your average week, not your best one.</p>
+
+
+<p class="carb-disclaimer">This calculator gives a general estimate for healthy adults and is not medical or nutritional advice. Carbohydrate needs change with pregnancy, breastfeeding, diabetes and other conditions, and with any medication that affects appetite or blood sugar. Speak to a doctor or a registered dietitian before making a large change to what you eat, particularly if you take medication for diabetes or blood pressure. More about how we build and check these tools is on our <a href="/about/">About</a> page, and our <a href="/privacy-policy/">Privacy Policy</a> explains what we do and do not collect.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +797,332 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* Unit constants are the ones the reference tool actually uses, measured against its
+     output rather than assumed: its pound is 0.453592 and not the exact 0.45359237, and
+     that one rounding is large enough to flip a displayed ounce figure. */
+  var IN = 2.54, LB = 0.453592, G_OZ = 28.3495, G_LB = 453.592;
+
+  /* Carbohydrate is costed at 3.75 Calories per gram, the FAO/INFOODS factor for
+     available carbohydrate expressed as monosaccharide equivalents — not the familiar
+     Atwater 4. Using 4 here would understate every gram figure by about 6%. */
+  var KCAL_PER_G = 3.75;
+
+  var PCTS = [40, 55, 65, 75];
+  var ROWS = {
+    us: [['Weight Maintenance',0],['Lose 1 lb/week',-500],['Lose 2 lb/week',-1000],
+         ['Gain 1 lb/week',500],['Gain 2 lb/week',1000]],
+    metric: [['Weight Maintenance',0],['Lose 0.5 kg/week',-500],['Lose 1 kg/week',-1000],
+             ['Gain 0.5 kg/week',500],['Gain 1 kg/week',1000]]
+  };
+  var ACTS = [
+    [1.2,   'Sedentary: little or no exercise'],
+    [1.375, 'Light: exercise 1\u20133 times/week'],
+    [1.465, 'Moderate: exercise 4\u20135 times/week'],
+    [1.55,  'Active: daily exercise or intense exercise 3\u20134 times/week'],
+    [1.725, 'Very Active: intense exercise 6\u20137 times/week'],
+    [1.9,   'Extra Active: very intense exercise daily, or physical job']
+  ];
+
+  var unit = 'us', last = null;
+
+  function num(id){ var el = $(id); if(!el) return NaN;
+    if(String(el.value).trim() === '') return NaN;
+    return parseFloat(String(el.value).replace(/,/g,'').trim()); }
+  function radio(name){ var r = document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<r.length;i++) if(r[i].checked) return r[i].value; return ''; }
+  function n0(x){ return Math.round(x).toLocaleString('en-US'); }
+  function dp(x,n){ return (Math.round(x*Math.pow(10,n))/Math.pow(10,n)).toFixed(n); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function bmrOf(sex, age, kg, cm, formula, fat){
+    if(formula === 'k') return 370 + 21.6*kg*(1 - fat/100);
+    return sex === 'm' ? 10*kg + 6.25*cm - 5*age + 5 : 10*kg + 6.25*cm - 5*age - 161;
+  }
+
+  function compute(){
+    var age = num('carb-age'), sex = radio('carb-sex');
+    var formula = radio('carb-formula');
+    var mult = parseFloat($('carb-activity').value);
+    var kg, cm;
+    if(unit === 'us'){
+      var ft = num('carb-heightFt'), inch = num('carb-heightIn'), lb = num('carb-weightLb');
+      if(isNaN(ft) && isNaN(inch) && isNaN(lb) && isNaN(age)) return { error:'blank' };
+      cm = ((isNaN(ft)?0:ft)*12 + (isNaN(inch)?0:inch))*IN;
+      kg = (isNaN(lb)?0:lb)*LB;
+    } else {
+      cm = num('carb-heightCm'); kg = num('carb-weightKg');
+      if(isNaN(cm) && isNaN(kg) && isNaN(age)) return { error:'blank' };
+      if(isNaN(cm)) cm = 0;
+      if(isNaN(kg)) kg = 0;
+    }
+    if(isNaN(age)) return { error:'age' };
+    if(age < 18 || age > 80) return { error:'age' };
+    if(!(cm > 0)) return { error:'height' };
+    if(!(kg > 0)) return { error:'weight' };
+    var fat = num('carb-fatPct');
+    if(formula === 'k' && (isNaN(fat) || fat < 0 || fat >= 100)) return { error:'fat' };
+
+    var bmr = bmrOf(sex, age, kg, cm, formula, fat);
+    var maintain = bmr*mult;
+    if(!isFinite(maintain) || maintain <= 0) return { error:'weight' };
+
+    var rows = ROWS[unit].map(function(r){
+      var cal = maintain + r[1];
+      return {
+        label: r[0], delta: r[1], cal: cal,
+        cells: PCTS.map(function(p){
+          var g = cal*(p/100)/KCAL_PER_G;
+          return { pct:p, g:g, oz:g/G_OZ, lb:g/G_LB };
+        })
+      };
+    });
+    return { unit:unit, bmr:bmr, maintain:maintain, rows:rows, formula:formula,
+             actLabel: $('carb-activity').options[$('carb-activity').selectedIndex].text };
+  }
+
+  var ERRORS = {
+    blank:  'Enter your age, height and weight to see your carbohydrate targets.',
+    age:    'Please enter an age between 18 and 80. The equation underneath was derived on adults and is not reliable outside that range.',
+    height: 'Height needs to be greater than zero.',
+    weight: 'Weight needs to be greater than zero.',
+    fat:    'Katch-McArdle needs a body fat percentage below 100. Switch back to Mifflin St Jeor if you do not know yours.'
+  };
+
+  function cellHtml(c, unitSys){
+    var h = '<b>' + n0(c.g) + '</b> g';
+    if(unitSys === 'us'){
+      h += '<i>' + dp(c.oz,2) + ' oz</i><i>' + dp(c.lb,3) + ' lb</i>';
+    }
+    return h;
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('carb-err');
+    if(o.error){
+      err.className = 'carb-err show';
+      err.textContent = ERRORS[o.error];
+      $('carb-bigNum').textContent = '\u2014';
+      $('carb-bigSub').textContent = '\u00a0';
+      $('carb-resultBody').style.display = 'none';
+      $('carb-goalBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--ink-faint);padding:22px 8px">Fill in the form to build your table.</td></tr>';
+      last = null;
+      return;
+    }
+    err.className = 'carb-err';
+    $('carb-resultBody').style.display = '';
+    last = o;
+
+    var maint = o.rows[0];
+    $('carb-bigNum').textContent = n0(maint.cells[0].g) + ' \u2013 ' + n0(maint.cells[3].g) + ' g';
+    $('carb-bigSub').textContent = '40% to 75% of a ' + n0(maint.cal) + ' Calorie day \u00b7 ' +
+      (o.formula === 'm' ? 'Mifflin St Jeor' : 'Katch-McArdle');
+
+    $('carb-calRow').innerHTML =
+      '<span>Calories to hold your weight <b>' + n0(maint.cal) + '/day</b></span>' +
+      '<span>Estimated BMR <b>' + n0(o.bmr) + '</b></span>';
+
+    var band = { 40:'lower-carb', 55:'moderate', 65:'upper IOM limit', 75:'high-carb' };
+    $('carb-splits').innerHTML = maint.cells.map(function(c){
+      var extra = o.unit === 'us'
+        ? dp(c.oz,2) + ' oz \u00b7 ' + dp(c.lb,3) + ' lb'
+        : 'from ' + n0(c.g*KCAL_PER_G) + ' Calories';
+      return '<div class="carb-split-row' + (c.pct === 55 ? ' mid' : '') + '">' +
+             '<span class="n">' + c.pct + '% of calories<span class="p">' + esc(band[c.pct]) + '</span></span>' +
+             '<span class="v"><b>' + n0(c.g) + ' g</b><i>' + esc(extra) + '</i></span></div>';
+    }).join('');
+
+    $('carb-goalBody').innerHTML = o.rows.map(function(r){
+      return '<tr' + (r.delta === 0 ? ' class="on"' : '') + '><td>' + esc(r.label) + '</td>' +
+             '<td>' + n0(r.cal) + '</td>' +
+             r.cells.map(function(c){ return '<td>' + cellHtml(c, o.unit) + '</td>'; }).join('') +
+             '</tr>';
+    }).join('');
+  }
+
+  /* ---------- populate the activity list ---------- */
+  $('carb-activity').innerHTML = ACTS.map(function(a){
+    return '<option value="'+a[0]+'">'+esc(a[1])+'</option>';
+  }).join('');
+  $('carb-activity').value = '1.465';
+
+  /* ---------- units + settings ---------- */
+  function setUnit(u){
+    var map = { us:'carb-tabUs', metric:'carb-tabMetric', other:'carb-tabOther' };
+    Object.keys(map).forEach(function(k){
+      $(map[k]).className = 'carb-tab' + (k === u ? ' active' : '');
+      $(map[k]).setAttribute('aria-selected', k === u ? 'true' : 'false');
+    });
+    $('carb-convPanel').style.display = u === 'other' ? '' : 'none';
+    if(u !== 'other'){
+      unit = u;
+      $('carb-usBlock').style.display     = u === 'us' ? '' : 'none';
+      $('carb-metricBlock').style.display = u === 'metric' ? '' : 'none';
+    }
+    render();
+  }
+  $('carb-tabUs').addEventListener('click', function(){ setUnit('us'); });
+  $('carb-tabMetric').addEventListener('click', function(){ setUnit('metric'); });
+  $('carb-tabOther').addEventListener('click', function(){ setUnit('other'); });
+
+  /* More Options toggle, same behaviour and wording as mortgage-calculator. */
+  $('carb-moreBtn').addEventListener('click', function(){
+    var hidden = $('carb-settingsPanel').classList.toggle('carb-hidden');
+    this.textContent = hidden ? '+ More Options' : '- Fewer Options';
+  });
+  ['carb-sex','carb-formula'].forEach(function(nm){
+    var r = document.querySelectorAll('input[name="'+nm+'"]');
+    for(var i=0;i<r.length;i++) r[i].addEventListener('change', render);
+  });
+  $('carb-activity').addEventListener('change', render);
+  $('carb-calcBtn').addEventListener('click', render);
+
+  /* Clear empties the typed boxes and nothing else, the way the reference does — it does
+     not restore defaults, does not move the page and does not refocus a field. */
+  $('carb-clearBtn').addEventListener('click', function(){
+    ['carb-age','carb-heightFt','carb-heightIn','carb-weightLb','carb-heightCm','carb-weightKg','carb-fatPct']
+      .forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+    render();
+  });
+
+  /* ---------- Other Units converter ----------
+     Unit sets and factors are taken verbatim from the reference tool's own converter
+     script, including the ones it rounds, so the two sites agree digit for digit.
+     Temperature is offset rather than scaled, so it gets its own pair of conversions. */
+  var CONV = {
+    Length: { units:[['Meter',1],['Kilometer',1000],['Centimeter',0.01],['Millimeter',0.001],['Micrometer',0.000001],['Nanometer',0.000000001],['Mile',1609.344],['Yard',0.9144],['Foot',0.3048],['Inch',0.0254],['Light Year',9.46066e+15]],
+      from:'Centimeter', to:'Inch' },
+    Temperature: { special:true, units:[['Celsius'],['Kelvin'],['Fahrenheit']], from:'Celsius', to:'Fahrenheit' },
+    Area: { units:[['Square Meter',1],['Square Kilometer',1000000],['Square Centimeter',0.0001],['Square Millimeter',0.000001],['Square Micrometer',0.000000000001],['Hectare',10000],['Square Mile',2589990],['Square Yard',0.83612736],['Square Foot',0.09290304],['Square Inch',0.000645160],['Acre',4046.8564224]],
+      from:'Square Meter', to:'Square Foot' },
+    Volume: { units:[['Cubic Meter',1],['Cubic Kilometer',1000000000],['Cubic Centimeter',0.000001],['Cubic Millimeter',1.0e-9],['Liter',0.001],['Milliliter',0.000001],['US Gallon',0.00378541],['US Quart',0.0009463525],['US Pint',0.00047317625],['US Cup',0.000236588125],['US Fluid Ounce',0.000029573515625],['US Table Spoon',0.0000147867578125],['US Tea Spoon',4.9289192708333333333333333333333e-6],['Imperial Gallon',0.00454609],['Imperial Quart',0.0011365225],['Imperial Pint',0.00056826125],['Imperial Fluid Ounce',0.0000284130625],['Imperial Table Spoon',0.0000177581640625],['Imperial Tea Spoon',5.9193880208333333333333333333333e-6],['Cubic Mile',4.16818e+9],['Cubic Yard',0.764554857984],['Cubic Foot',0.028316846592],['Cubic Inch',0.000016387064]],
+      from:'Liter', to:'US Cup' },
+    Weight: { units:[['Kilogram',1],['Gram',0.001],['Milligram',0.000001],['Metric Ton',1000],['Long Ton',1016.04608],['Short Ton',907.184],['Pound',0.453592],['Ounce',0.0283495],['Carrat',0.0002],['Atomic Mass Unit',1.6605401999104288e-27]],
+      from:'Kilogram', to:'Pound' }
+  };
+  var CONV_ORDER = ['Length','Temperature','Area','Volume','Weight'];
+  var convCat = 'Length';
+
+  function convFmt(x){
+    if(!isFinite(x)) return '';
+    return Math.abs(x) >= 1e16 || (Math.abs(x) > 0 && Math.abs(x) < 1e-9)
+      ? x.toExponential(6) : String(parseFloat(x.toPrecision(10)));
+  }
+  function toBase(cat, u, v){
+    if(CONV[cat].special){
+      if(u === 'Celsius') return v;
+      if(u === 'Kelvin') return v - 273.15;
+      return 5/9*(v - 32);
+    }
+    return v * CONV[cat].units.filter(function(x){ return x[0] === u; })[0][1];
+  }
+  function fromBase(cat, u, v){
+    if(CONV[cat].special){
+      if(u === 'Celsius') return v;
+      if(u === 'Kelvin') return v + 273.15;
+      return 9/5*v + 32;
+    }
+    return v / CONV[cat].units.filter(function(x){ return x[0] === u; })[0][1];
+  }
+  function convFill(){
+    var c = CONV[convCat];
+    var opts = c.units.map(function(u){ return '<option value="'+esc(u[0])+'">'+esc(u[0])+'</option>'; }).join('');
+    $('carb-convFrom').innerHTML = opts; $('carb-convTo').innerHTML = opts;
+    $('carb-convFrom').value = c.from; $('carb-convTo').value = c.to;
+    $('carb-convCats').innerHTML = CONV_ORDER.map(function(k){
+      return '<button type="button" class="cv-cat'+(k === convCat ? ' on' : '')+'" data-cat="'+k+'">'+k+'</button>';
+    }).join('');
+    convRun();
+  }
+  function convRun(){
+    var raw = String($('carb-convFromVal').value).replace(/[,\s]/g,'').trim();
+    var v = parseFloat(raw);
+    if(raw === '' || isNaN(v)){ $('carb-convToVal').value = ''; $('carb-convOut').textContent = ''; return; }
+    var f = $('carb-convFrom').value, t = $('carb-convTo').value;
+    var res = fromBase(convCat, t, toBase(convCat, f, v));
+    $('carb-convToVal').value = convFmt(res);
+    $('carb-convOut').innerHTML = '<b>' + esc(convFmt(v)) + '</b> ' + esc(f) + ' = <b>' +
+      esc(convFmt(res)) + '</b> ' + esc(t);
+  }
+  $('carb-convCats').addEventListener('click', function(e){
+    var b = e.target.closest('.cv-cat'); if(!b) return;
+    convCat = b.getAttribute('data-cat'); convFill();
+  });
+  ['carb-convFromVal','carb-convFrom','carb-convTo'].forEach(function(id){
+    $(id).addEventListener('input', convRun);
+    $(id).addEventListener('change', convRun);
+  });
+  convFill();
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Fill in your age, height and weight first, then save the result as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4', orientation:'landscape' });
+    var margin = 40, y = 48;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Daily Carbohydrate Targets', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 22;
+    doc.setFontSize(11); doc.setTextColor(24,26,31);
+    doc.text('Activity: ' + o.actLabel, margin, y); y += 14;
+    doc.text('Equation: ' + (o.formula === 'm' ? 'Mifflin St Jeor' : 'Katch-McArdle') +
+             '   \u00b7   Carbohydrate costed at 3.75 Calories per gram', margin, y); y += 18;
+
+    var head = [['Goal','Daily Calories','40%','55%','65%','75%']];
+    var body = o.rows.map(function(r){
+      return [r.label, n0(r.cal)].concat(r.cells.map(function(c){
+        return o.unit === 'us'
+          ? n0(c.g) + ' g (' + dp(c.oz,2) + ' oz)'
+          : n0(c.g) + ' g';
+      }));
+    });
+    doc.autoTable({ startY:y, head:head, body:body,
+      margin:{left:margin,right:margin}, styles:{ fontSize:9, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not medical or nutritional advice. Speak to a healthcare professional before acting on it. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('carbohydrate-targets.pdf');
+  }
+  $('carb-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1244,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>
