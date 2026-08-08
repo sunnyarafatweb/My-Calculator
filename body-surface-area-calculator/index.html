@@ -325,12 +325,13 @@
 .sa-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
 .sa-field-label{width:80px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
 .sa-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
-.sa-field-control input[type=text]{flex:1;min-width:56px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
+.sa-field-control input[type=text]{flex:1;min-width:50px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
 .sa-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
 .sa-field-control input:focus,.sa-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
-.sa-field-control select.sa-w-unit{flex:0 0 60px;min-width:0;padding:9px 4px;text-align:center}
+.sa-field-control select.sa-w-unit{flex:0 0 110px;min-width:0;padding:9px 8px}
 .sa-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 88px}
-.sa-unit-tag{flex:0 0 60px;font-size:12.5px;color:var(--ink-faint);white-space:nowrap}
+.sa-unit-tag{flex:0 0 110px;font-size:12.5px;color:var(--ink-faint);white-space:nowrap}
+.sa-unit-tag.sa-sm{flex:0 0 30px}
 
 .sa-divider{border-top:1px solid var(--border-fine);margin:12px 0}
 .sa-btn-row{display:flex;gap:10px;margin-top:16px}
@@ -387,9 +388,9 @@
   .sa-card-pad{padding:18px}
   .sa-field-label{width:100%}
   .sa-hint{margin-left:0}
-  .sa-unit-tag{flex:0 0 60px}
+  .sa-unit-tag{flex:0 0 110px}
   .sa-result-head .v{font-size:25px}
-  .sa-field-control select.sa-w-unit{flex:0 0 60px;min-width:0}
+  .sa-field-control select.sa-w-unit{flex:0 0 110px;min-width:0}
 }
 </style>
 <style>
@@ -515,7 +516,7 @@
       <div class="sa-field-control">
         <input type="text" id="sa-weight" value="162" inputmode="decimal" autocomplete="off">
         <select id="sa-weightUnit" class="sa-w-unit" aria-label="Weight unit">
-          <option value="pound" selected>lb</option><option value="kilogram">kg</option><option value="gram">g</option>
+          <option value="pound" selected>pounds</option><option value="kilogram">kilograms</option><option value="gram">grams</option>
         </select>
       </div>
     </div>
@@ -523,7 +524,7 @@
       <label class="sa-field-label" for="sa-ft">Height</label>
       <div class="sa-field-control">
         <input type="text" id="sa-ft" value="5" inputmode="numeric" autocomplete="off" aria-label="Height, feet">
-        <span class="sa-unit-tag">ft</span>
+        <span class="sa-unit-tag sa-sm">ft</span>
         <input type="text" id="sa-in" value="10" inputmode="decimal" autocomplete="off" aria-label="Height, inches">
         <span class="sa-unit-tag">in</span>
       </div>

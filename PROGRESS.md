@@ -7890,3 +7890,28 @@ OG image generated as part of the build.
 The article carries a clear line that BSA estimates must not be used to calculate or check
 medication doses, since per-square-meter chemotherapy dosing is the main reason people look this
 up and it is not something a web page should be trusted for.
+
+### BSA unit column widened, full unit names restored (Aug 8, 2026)
+
+The owner circled the weight dropdown: the shortened `lb / kg / g` labels I had used to make the
+column fit were the wrong trade, and the fields needed to line up on both edges.
+
+The constraint that forced the abbreviations was that a two-input row (feet + inches) plus two
+equal-width unit columns has to fit the control. Solved properly instead: the **trailing** unit
+column is 110px on every row so all rows end at the same x, while the "ft" tag sits *mid-row*
+and is a narrow 30px variant. Text inputs drop to a 50px floor so the height row still fits.
+
+Result at 1280 / 430 / 390px: first inputs all share one left edge (197 / 35 / 35), last inputs
+all share one right edge (347 / 279 / 239), and the dropdown is a full 110px carrying the full
+words again.
+
+Checked that the longest option actually fits rather than assuming: measured the rendered text
+width of each option against the space inside the select minus padding and arrow — pounds 43px,
+kilograms 56px, grams 36px, against 72px available. All three clear.
+
+**Note for the next page with a unit dropdown:** shortening the label is the wrong first move.
+The room comes from making the trailing column uniform and letting mid-row tags be narrow, not
+from abbreviating the thing the visitor reads.
+
+Re-verified: 49/49 browser assertions at three viewports, engine re-extracted from the shipped
+file and still 720/720 exact, protected style block byte-identical, FAQ schema still matching.
