@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>BAC Calculator | CalculatorBoss</title><meta name="description" content="Estimate blood alcohol content using the Widmark formula, for general education and awareness — never a basis for deciding whether to drive."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/bac-calculator/"/><meta property="og:title" content="BAC Calculator | CalculatorBoss"/><meta property="og:description" content="An educational BAC estimate using the Widmark formula."/><meta property="og:url" content="https://calculatorboss.com/bac-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Blood Alcohol Concentration (BAC) Calculator</title><meta name="description" content="Estimate blood alcohol concentration from your drinks, body weight and time elapsed with the Widmark formula, and see how long it takes to clear."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="bac calculator,blood alcohol concentration calculator,blood alcohol content calculator,widmark formula calculator,how long until bac is zero,bac chart by weight,alcohol impairment levels"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/bac-calculator/"/><meta property="og:title" content="Blood Alcohol Concentration (BAC) Calculator"/><meta property="og:description" content="Estimate blood alcohol concentration from your drinks, body weight and time elapsed with the Widmark formula, and see how long it takes to clear."/><meta property="og:url" content="https://calculatorboss.com/bac-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/bac-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Blood Alcohol Concentration (BAC) Calculator"/><meta name="twitter:description" content="Estimate blood alcohol concentration from your drinks, body weight and time elapsed with the Widmark formula, and see how long it takes to clear."/><meta name="twitter:image" content="https://calculatorboss.com/og/bac-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,143 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.bc-wrap{width:100%}
+.bc-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bc-bar-text{display:flex;align-items:center;gap:10px}
+.bc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.16);font-size:12px;flex:0 0 auto}
+.bc-bar-pdf-btn{flex:0 0 auto;background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.bc-bar-pdf-btn:hover{background:#EAF0F7}
+.bc-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.bc-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 268px;grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid";align-items:start}
+.bc-area-bar{grid-area:bar}
+.bc-area-tabs{grid-area:tabs}
+.bc-area-form{grid-area:form}
+.bc-area-result{grid-area:result}
+.bc-area-sidebar{grid-area:sidebar}
+.bc-area-bottomgrid{grid-area:bottomgrid}
+
+.bc-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.bc-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.bc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.bc-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.bc-card-pad{padding:24px}
+.bc-card-head{padding:16px 18px;font-size:15px;font-weight:700;color:var(--ink);background:var(--surface);border-bottom:1px solid var(--border-fine);letter-spacing:-.01em;text-transform:none}
+
+.bc-radio-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.bc-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13.5px;color:var(--ink)}
+.bc-radio input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
+.bc-status{margin:0 0 4px;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.6}
+.bc-status.pass{background:#E4F5EA;border:1px solid #BCE3C9;color:#12653A}
+.bc-status.fail{background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C}
+.bc-gauge{margin:14px 0 4px}
+.bc-gauge-bar{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,#16A34A 0%,#E0A93B 62%,#CF3F53 100%)}
+.bc-gauge-ptr{position:absolute;top:-5px;width:3px;height:22px;background:var(--ink);border-radius:2px}
+.bc-gauge-ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-faint);margin-top:7px}
+.bc-drinks{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+.bc-drinks th{padding:6px 5px;font-size:10.5px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em;text-align:left}
+.bc-drinks td{padding:5px 4px;border-bottom:1px solid var(--border-fine)}
+.bc-drinks td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.bc-drinks input,.bc-drinks select{width:100%;padding:6px 5px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
+.bc-drinks .amt input{min-width:44px}
+.bc-chart-wrap{padding:14px 10px 4px}
+.bc-chart{width:100%;height:auto;display:block}
+.bc-legal{margin:0 0 4px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C}
+.bc-mode-toggle{display:flex;gap:8px;margin-bottom:14px}
+.bc-mode-btn{flex:1;background:var(--surface-sunken);border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:9px 10px;font-size:12px;font-weight:600;cursor:pointer;text-align:center}
+.bc-mode-btn.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+
+.bc-intro{font-size:12.5px;color:var(--ink-faint);line-height:1.6;margin:0 0 14px}
+.bc-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.bc-field-label{width:165px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.bc-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.bc-field-control input[type=text]{flex:1;min-width:90px;padding:9px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
+.bc-field-control select{flex:1;min-width:0;padding:9px 10px;border:1px solid var(--border-fine);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface-sunken);cursor:pointer;max-width:100%}
+.bc-field-control input:focus,.bc-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
+.bc-w-unit{flex:0 1 124px;min-width:0}
+.bc-hint{font-size:11.5px;color:var(--ink-faint);margin:2px 0 6px 173px}
+.bc-divider{border-top:1px solid var(--border-fine);margin:12px 0}
+.bc-btn-row{display:flex;gap:10px;margin-top:16px}
+.bc-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.bc-btn-calc:hover{background:#128A3D}
+.bc-btn-clear{flex:1;background:var(--surface-sunken);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.bc-btn-clear:hover{color:var(--ink)}
+.bc-err{display:none;margin-top:12px;padding:9px 11px;border-radius:8px;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C;font-size:12.5px}
+.bc-err.show{display:block}
+
+.bc-result-card{overflow:hidden;border-radius:16px;border:1px solid var(--border-fine);background:var(--surface);box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.bc-result-head{background:#16A34A;color:#fff;padding:20px 24px}
+.bc-result-head .k{font-size:13px;font-weight:600;opacity:.92;margin-bottom:4px}
+.bc-result-head .v{font-size:29px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.bc-result-head .s{font-size:12.5px;opacity:.92;margin-top:5px}
+.bc-result-body{padding:8px 24px 20px}
+.bc-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px}
+.bc-row:last-child{border-bottom:none}
+.bc-row span:first-child{color:var(--ink-soft)}
+.bc-row span:last-child{font-weight:700;color:var(--ink);text-align:right}
+
+.bc-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.bc-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.bc-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.bc-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.bc-calc-card a:hover{background:rgba(255,255,255,0.06)}
+.bc-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+.bc-viewmore:hover{background:#16A34A}
+
+.bc-bottom-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+.bc-table{width:100%;border-collapse:collapse;font-size:13px}
+.bc-table th{text-align:left;font-weight:700;color:var(--ink-soft);padding:8px 10px;border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+.bc-table td{padding:7px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.bc-table td.bc-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.bc-table tr:last-child td{border-bottom:none}
+.bc-scroll{max-height:340px;overflow-y:auto}
+
+.bc-mp-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.bc-mp-table th{padding:6px 5px;font-size:10.5px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em;text-align:left}
+.bc-mp-table td{padding:5px;border-bottom:1px solid var(--border-fine)}
+.bc-mp-table input,.bc-mp-table select{width:100%;padding:6px 5px;border:1px solid var(--border-fine);border-radius:7px;font-size:12.5px;font-family:inherit;background:var(--surface-sunken);color:var(--ink)}
+.bc-mp-table select{min-width:60px}
+.bc-mp-table td{padding:5px 4px}
+.bc-mp-idx{width:18px;color:var(--ink-faint);font-size:11.5px;text-align:right}
+.bc-chart-wrap{padding:16px 12px 8px}
+.bc-chart{width:100%;height:auto;display:block}
+.bc-conv-eq{text-align:center;font-size:15px;font-weight:700;color:var(--ink-faint);padding:2px 0 6px}
+.bc-hidden{display:none !important}
+
+@media(max-width:980px){.bc-grid{grid-template-columns:minmax(0,1fr) 250px;grid-template-areas:"bar bar" "form sidebar" "result sidebar" "bottomgrid bottomgrid"}}
+@media(max-width:860px){
+  .bc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .bc-bottom-grid{grid-template-columns:1fr}
+  .bc-card-pad{padding:18px}
+  .bc-field-label{width:100%}
+  .bc-hint{margin-left:0}
+  .bc-result-head .v{font-size:25px}
+  .bc-w-unit{flex:0 1 116px;min-width:0}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"BAC","item":"https://calculatorboss.com/bac-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+<style>
+.bc-seo-article{margin-top:36px;max-width:900px;color:var(--ink)}
+.bc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-.01em}
+.bc-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.bc-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin:0 0 14px}
+.bc-seo-article ul,.bc-seo-article ol{margin:0 0 16px 20px;padding:0}
+.bc-seo-article li{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-bottom:8px}
+.bc-seo-article a{color:#128A3D;text-decoration:underline;text-underline-offset:2px}
+.bc-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:16px;margin-bottom:16px}
+.bc-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.bc-toc p{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin:0 0 8px}
+.bc-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.bc-toc a:hover{color:#1E3A5F}
+.bc-formula{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink);line-height:1.8;overflow-x:auto}
+.bc-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.bc-disclaimer a{color:var(--ink-faint)}
+.bc-seo-article table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 18px}
+.bc-seo-article table th{text-align:left;padding:8px 12px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft)}
+.bc-seo-article table td{padding:8px 12px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
+</style>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +484,249 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does this estimate have such a wide margin of error?","acceptedAnswer":{"@type":"Answer","text":"The Widmark formula was developed decades ago from population averages — real individual results are shifted by food intake, medications, drinking speed, hydration, and genuine metabolic differences between people. Research on the formula's accuracy cites error margins of around ±20-30% in practice."}},{"@type":"Question","name":"Does staying under the legal limit mean I'm not impaired?","acceptedAnswer":{"@type":"Answer","text":"No. Reaction time, judgment, and coordination measurably decline starting well below most legal driving limits. The legal limit reflects a policy line, not a safety threshold — impairment exists on a continuum starting from the first drink."}},{"@type":"Question","name":"What should I actually do if I've been drinking and need to get somewhere?","acceptedAnswer":{"@type":"Answer","text":"Use a rideshare service, call a taxi, ask a sober friend or family member, or simply stay where you are. None of these options require knowing an exact BAC number."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BAC Calculator","url":"https://calculatorboss.com/bac-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">BAC Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">BAC Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">A general pharmacology estimate for education and awareness — not a tool for deciding whether it&#x27;s okay to drive.</p><div class="rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="grid lg:grid-cols-[1fr_1fr]"><div class="p-7 sm:p-8 space-y-6"><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full capitalize transition-colors bg-accent text-white">male</button><button class="text-xs px-3 py-1.5 rounded-full capitalize transition-colors text-ink-soft">female</button></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Body weight</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="170"/><span style="color:var(--ink-faint)">lb</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:30.76923076923077%;background:var(--accent)"></div><input type="range" min="90" max="350" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Body weight" value="170"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(30.76923076923077% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Standard drinks consumed</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="3"/></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:20%;background:var(--accent)"></div><input type="range" min="0" max="15" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Standard drinks consumed" value="3"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(20% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Hours since first drink</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="2"/><span style="color:var(--ink-faint)">hrs</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:16.666666666666664%;background:var(--accent)"></div><input type="range" min="0" max="12" step="0.5" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Hours since first drink" value="2"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(16.666666666666664% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div><p class="text-xs text-ink-faint">A standard drink ≈ 12 oz beer (5% ABV), 5 oz wine (12% ABV), or 1.5 oz spirits (40% ABV) — each about 14g of pure alcohol.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Estimated BAC</div><div class="tabular text-4xl sm:text-5xl font-medium text-ink value-transition mb-6">0.050<!-- -->%</div><p class="text-xs text-ink-faint">This is a rough estimate (Widmark formula) with a real-world margin of error around ±20-30% — food, medications, drinking pace, and individual metabolism all shift the actual number.</p></div></div><div class="border-t border-border bg-danger/5 px-7 sm:px-8 py-5"><p class="text-sm text-ink font-medium mb-1">No number here means it&#x27;s safe to drive.</p><p class="text-xs text-ink-soft leading-relaxed">Impairment to judgment and reaction time begins well below the legal limit, and varies in ways this estimate can&#x27;t capture. If you&#x27;ve been drinking, the only safe choice is not to drive — call a rideshare, a taxi, or a sober friend, or stay where you are until you&#x27;re no longer impaired.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">Why this exists, and what it isn&#x27;t for</h2><p class="text-ink-soft leading-relaxed">Understanding roughly how alcohol moves through the body — and how slowly it actually clears — can help people grasp why &quot;sobering up fast&quot; tricks (coffee, cold showers, food) don&#x27;t work: the liver eliminates alcohol at a fixed, slow rate no matter what you do. That&#x27;s useful to understand. It is not useful, and not the intent here, as a way to calculate a number low enough to feel comfortable driving.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Why does this estimate have such a wide margin of error?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">The Widmark formula was developed decades ago from population averages — real individual results are shifted by food intake, medications, drinking speed, hydration, and genuine metabolic differences between people. Research on the formula&#x27;s accuracy cites error margins of around ±20-30% in practice.</p></div><div><h3 class="font-medium text-ink mb-1.5">Does staying under the legal limit mean I&#x27;m not impaired?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">No. Reaction time, judgment, and coordination measurably decline starting well below most legal driving limits. The legal limit reflects a policy line, not a safety threshold — impairment exists on a continuum starting from the first drink.</p></div><div><h3 class="font-medium text-ink mb-1.5">What should I actually do if I&#x27;ve been drinking and need to get somewhere?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Use a rideshare service, call a taxi, ask a sober friend or family member, or simply stay where you are. None of these options require knowing an exact BAC number.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides a rough educational estimate only, using the Widmark formula, and is not a measurement of actual blood alcohol content. It should never be used to decide whether driving, operating machinery, or any safety-critical activity is acceptable after drinking.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Blood Alcohol Concentration (BAC) Calculator","item":"https://calculatorboss.com/bac-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Blood Alcohol Concentration (BAC) Calculator","url":"https://calculatorboss.com/bac-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","description":"Estimate blood alcohol concentration from what you drank, your body weight and the time elapsed, using the Widmark equation.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">BAC Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Blood Alcohol Concentration (BAC) Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Estimate blood alcohol concentration from what you drank, your body weight and how long ago you started, and see roughly how long it takes to clear.</p>
+
+<div class="bc-wrap">
+<div class="bc-grid">
+
+<div class="bc-bar bc-area-bar">
+  <span class="bc-bar-text"><span class="bc-bar-badge">%</span>Just enter your values below &mdash; results update automatically.</span>
+  <button type="button" class="bc-bar-pdf-btn" id="bc-pdfBtn">&#128190; Save as PDF</button>
+</div>
+
+<div class="bc-card bc-area-form">
+  <div class="bc-card-pad">
+    <div class="bc-field">
+      <span class="bc-field-label">Gender</span>
+      <div class="bc-field-control bc-radio-row">
+        <label class="bc-radio"><input type="radio" name="bc-sex" value="m" checked> Male</label>
+        <label class="bc-radio"><input type="radio" name="bc-sex" value="f"> Female</label>
+      </div>
+    </div>
+    <div class="bc-field">
+      <label class="bc-field-label" for="bc-weight">Body weight</label>
+      <div class="bc-field-control">
+        <input type="text" id="bc-weight" value="168" inputmode="decimal" autocomplete="off">
+        <select id="bc-weightUnit" class="bc-w-unit" aria-label="Body weight unit">
+          <option value="pound" selected>pounds</option><option value="kilogram">kilograms</option><option value="gram">grams</option>
+        </select>
+      </div>
+    </div>
+    <div class="bc-field">
+      <label class="bc-field-label" for="bc-hours">Time since first drink</label>
+      <div class="bc-field-control">
+        <input type="text" id="bc-hours" value="3" inputmode="numeric" autocomplete="off" aria-label="Hours since first drink">
+        <span class="bc-unit-tag">hours</span>
+        <input type="text" id="bc-mins" value="30" inputmode="numeric" autocomplete="off" aria-label="Minutes since first drink">
+        <span class="bc-unit-tag">min</span>
+      </div>
+    </div>
+
+    <div class="bc-divider"></div>
+    <p class="bc-section-title">Amount of alcohol consumed</p>
+    <table class="bc-drinks">
+      <thead><tr><th>Type</th><th style="width:58px">Amount</th><th>Size</th><th style="width:74px">ABV</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Beer</td>
+          <td class="amt"><input type="text" id="bc-beerA" value="3" inputmode="decimal" aria-label="Number of beers"></td>
+          <td><select id="bc-beerS" aria-label="Beer size">
+            <option value="b250">250ml bottle</option><option value="b330" selected>12oz/330ml bottle</option>
+            <option value="b500">16oz/500ml bottle</option><option value="c250">250ml bar cup</option>
+            <option value="c330">12oz/330ml bar cup (small)</option><option value="c500">16oz/500ml bar cup</option>
+            <option value="c600">20oz/600ml bar cup (tall)</option><option value="n330">12oz/330ml can</option>
+            <option value="n500">16oz/500ml can</option><option value="n600">20oz/600ml can</option>
+            <option value="1l">1 liter</option>
+          </select></td>
+          <td><select id="bc-beerV" aria-label="Beer ABV">
+            <option value="4.2">4.2%</option><option value="5" selected>5%</option><option value="5.8">5.8%</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td>Wine</td>
+          <td class="amt"><input type="text" id="bc-wineA" value="" inputmode="decimal" aria-label="Number of wines"></td>
+          <td><select id="bc-wineS" aria-label="Wine size">
+            <option value="c60">2oz/60ml cup (small)</option><option value="c150" selected>5oz/150ml cup</option>
+            <option value="c250">8oz/250ml cup (big)</option><option value="b375">375ml bottle</option>
+            <option value="b500">500ml bottle</option><option value="b750">750ml bottle</option>
+            <option value="l1">1 l bottle</option><option value="l15">1.5 l bottle</option>
+          </select></td>
+          <td><select id="bc-wineV" aria-label="Wine ABV">
+            <option value="6">6%</option><option value="7">7%</option><option value="8">8%</option><option value="9">9%</option>
+            <option value="10">10%</option><option value="11">11%</option><option value="12" selected>12%</option>
+            <option value="13">13%</option><option value="14">14%</option><option value="15">15%</option><option value="16">16%</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td>Liquor</td>
+          <td class="amt"><input type="text" id="bc-liqA" value="" inputmode="decimal" aria-label="Number of liquor servings"></td>
+          <td><select id="bc-liqS" aria-label="Liquor size">
+            <option value="s15">0.5oz/15ml shot</option><option value="s30">1oz/30ml shot</option>
+            <option value="s50" selected>1.5oz/50ml shot</option><option value="c250">8oz/250ml cup</option>
+            <option value="b100">100 ml bottle</option><option value="b250">250 ml bottle</option>
+            <option value="b375">375 ml bottle</option><option value="b500">500 ml bottle</option><option value="b750">750 ml bottle</option>
+          </select></td>
+          <td><select id="bc-liqV" aria-label="Liquor ABV">
+            <option value="35">35%</option><option value="40" selected>40%</option><option value="45">45%</option>
+            <option value="50">50%</option><option value="55">55%</option><option value="60">60%</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td>Other</td>
+          <td class="amt"><input type="text" id="bc-othA" value="" inputmode="decimal" aria-label="Number of other drinks"></td>
+          <td>
+            <div style="display:flex;gap:4px">
+              <input type="text" id="bc-othSize" value="250" inputmode="decimal" style="flex:0 0 56px" aria-label="Other drink size">
+              <select id="bc-othUnit" aria-label="Other drink size unit">
+                <option value="ml" selected>Milliliter, ml</option><option value="l">Liter, l</option>
+                <option value="mcup">Cup (Metric)</option><option value="oz">Fluid Oz (US)</option>
+                <option value="pint">Pint (US)</option><option value="cup">Cup (US)</option>
+                <option value="ioz">Fluid Oz (UK)</option><option value="ipint">Pint (UK)</option><option value="icup">Cup (UK)</option>
+              </select>
+            </div>
+          </td>
+          <td><input type="text" id="bc-othV" value="8" inputmode="decimal" aria-label="Other drink ABV percent"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bc-btn-row">
+      <button type="button" class="bc-btn-calc" id="bc-calcBtn">Calculate</button>
+      <button type="button" class="bc-btn-clear" id="bc-clearBtn">Clear</button>
+    </div>
+    <div class="bc-err" id="bc-err"></div>
+  </div>
+</div>
+
+<div class="bc-result-card bc-area-result" id="bc-resultCard">
+  <div class="bc-result-head">
+    <div class="k">Estimated blood alcohol concentration</div>
+    <div class="v" id="bc-resVal">&mdash;</div>
+    <div class="s" id="bc-resSub"></div>
+  </div>
+  <div class="bc-result-body">
+    <p class="bc-legal" id="bc-legal">This is an estimate only. Never use it to decide whether you are safe or legal to drive.</p>
+    <div id="bc-rows"></div>
+  </div>
+</div>
+
+<div class="bc-sidecol bc-area-sidebar">
+  <div class="bc-calc-card">
+    <div class="h">Health &amp; Fitness</div>
+    <a href="/bmi-calculator/"><span>BMI Calculator</span><span>&#8594;</span></a>
+    <a href="/calorie-calculator/"><span>Calorie Calculator</span><span>&#8594;</span></a>
+    <a href="/body-fat-calculator/"><span>Body Fat</span><span>&#8594;</span></a>
+    <a href="/tdee-calculator/"><span>TDEE Calculator</span><span>&#8594;</span></a>
+    <a href="/army-body-fat-calculator/"><span>Army Body Fat</span><span>&#8594;</span></a>
+    <a href="/pace-calculator/"><span>Pace Calculator</span><span>&#8594;</span></a>
+    <a class="bc-viewmore" href="/all-calculators/">View More &#8594;</a>
+  </div>
+</div>
+
+<div class="bc-area-bottomgrid">
+  <div class="bc-bottom-grid">
+    <div class="bc-card">
+      <div class="bc-card-head">How it falls over time</div>
+      <div class="bc-chart-wrap"><svg class="bc-chart" id="bc-chart" viewBox="0 0 560 250" role="img" aria-label="Chart of estimated blood alcohol concentration over time"></svg></div>
+    </div>
+    <div class="bc-card">
+      <div class="bc-card-head">Effects by blood alcohol concentration</div>
+      <div class="bc-scroll"><div style="padding:6px 14px 12px"><table class="bc-table"><thead><tr><th>BAC</th><th>Typical effects</th></tr></thead><tbody id="bc-bandBody"></tbody></table></div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<article class="bc-seo-article">
+  <div class="bc-byline">Written by the CalculatorBoss Health &amp; Fitness Team &middot; Formula and impairment bands checked against published toxicology references &middot; Last updated Aug 2026</div>
+  <nav class="bc-toc" aria-label="On this page">
+    <p>On this page</p>
+    <a href="#what-is-bac">What blood alcohol concentration measures</a>
+    <a href="#formula">The Widmark equation, in full</a>
+    <a href="#standard-drink">What counts as one drink</a>
+    <a href="#elimination">Why only time sobers you up</a>
+    <a href="#legal">Legal limits in the United States</a>
+    <a href="#effects">What different levels do to a person</a>
+    <a href="#why-wrong">Why this number can be badly wrong for you</a>
+    <a href="#help">If drinking has stopped being a choice</a>
+    <a href="#faq">Frequently asked questions</a>
+  </nav>
+
+  <h2 id="what-is-bac">What blood alcohol concentration measures</h2>
+  <p>Blood alcohol concentration is the proportion of your bloodstream that is ethanol, written as a percentage by volume. A BAC of 0.08% means eight hundredths of a gram of alcohol per hundred milliliters of blood. It is the number breathalysers estimate, the number blood draws measure, and the number written into every drink-driving statute in the United States.</p>
+  <p>What it is not is a measure of how drunk you feel. Tolerance changes the feeling enormously and changes the blood chemistry not at all. Two people at the identical BAC can present completely differently, and the one who seems fine is just as impaired where it counts &mdash; reaction time, judgement, divided attention.</p>
+
+  <h2 id="formula">The Widmark equation, in full</h2>
+  <p>This calculator uses the Widmark equation, published by Erik Widmark in the 1930s and still the basis of forensic BAC estimation:</p>
+  <div class="bc-formula">BAC % = (A &times; 5.24) &divide; (W &times; r) &minus; 0.015 &times; H<br><br>A = fluid ounces of pure alcohol consumed<br>W = body weight in pounds<br>r = 0.73 for men, 0.66 for women<br>H = hours since the first drink</div>
+  <p>The ounces of pure alcohol come from the drinks themselves: volume multiplied by the alcohol by volume percentage. Three 12-ounce beers at 5% is 36 ounces of liquid carrying 1.8 ounces of pure alcohol.</p>
+  <p>The <em>r</em> term is the Widmark factor &mdash; the fraction of body mass that behaves like water and therefore dilutes alcohol. Alcohol distributes into body water, not fat, which is why the factor differs by sex on average: women carry proportionally more body fat and less water, so the same drink produces a higher concentration.</p>
+  <p>Take the example the form opens on: three 12-ounce beers at 5% is 1.8 ounces of alcohol, for a 168-pound man, three and a half hours in. That gives (1.8 &times; 5.24) &divide; (168 &times; 0.73) = 0.0769, minus 0.015 &times; 3.5 = 0.0525, leaving roughly 0.024%.</p>
+
+  <h2 id="standard-drink">What counts as one drink</h2>
+  <p>A US standard drink is defined by its alcohol content, not its glass. Each of these contains about 0.6 fluid ounces of pure alcohol:</p>
+  <ul>
+    <li>12 ounces of regular beer at about 5%</li>
+    <li>5 ounces of table wine at about 12%</li>
+    <li>1.5 ounces of 80-proof spirits at 40%</li>
+  </ul>
+  <p>This is where most self-estimates go wrong. A craft IPA at 7.5% in a 16-ounce pour is two standard drinks, not one. A generous home measure of spirits is routinely double a bar shot. A large glass of wine at a restaurant is often 8 or 9 ounces. Enter what was actually in the glass rather than counting glasses, which is why the calculator asks for size and strength separately.</p>
+
+  <h2 id="elimination">Why only time sobers you up</h2>
+  <p>Alcohol leaves the body almost entirely through the liver, which oxidizes it at a nearly constant rate regardless of how much is present. That is the 0.015 per hour in the formula: about one standard drink cleared per hour for most adults, give or take.</p>
+  <p>Because the rate is fixed, nothing speeds it up. Coffee, cold showers, food, exercise, water, sleep &mdash; none of them change how fast the liver works. Caffeine is the dangerous one, because it masks drowsiness without touching impairment, producing a person who feels alert and is not.</p>
+  <p>Food does matter, but earlier in the process: eating before or while drinking slows absorption from the stomach, which lowers the peak. It does not reduce the total. It also means BAC often keeps climbing for a while after the last drink, so a reading taken as you leave can be lower than the one an hour later.</p>
+
+  <h2 id="legal">Legal limits in the United States</h2>
+  <p>The limit for drivers aged 21 and over is 0.08% in every state except Utah, which set 0.05% in 2018. For drivers under 21, zero-tolerance laws apply everywhere, with thresholds typically between 0.00% and 0.02%. Commercial drivers are held to 0.04%.</p>
+  <p>Two things are widely misunderstood. First, being under the limit is not a defence &mdash; every state allows an impaired-driving charge below 0.08% if driving is affected. Second, impairment starts well below any legal threshold: measurable effects on divided attention and reaction time appear from around 0.02%, long before anybody feels drunk.</p>
+
+  <h2 id="effects">What different levels do to a person</h2>
+  <p>The impairment bands shown in the result panel come from the standard toxicology literature. Broadly: subtle effects detectable only by testing below 0.03%; mild euphoria and reduced inhibition to 0.06%; measurable loss of reasoning, depth perception and peripheral vision to 0.10%; loss of motor control and slurred speech to 0.20%; vomiting and blackouts beyond that; and from 0.30% upwards, genuine risk of respiratory depression, coma and death.</p>
+  <p>Alcohol poisoning is a medical emergency, not something to sleep off. Confusion, vomiting while unresponsive, seizures, slow or irregular breathing, blue-tinged or pale skin, or unconsciousness that cannot be roused all warrant an ambulance immediately. Never leave someone in that state alone to sleep, and never assume that lying down is enough to keep an unconscious person&rsquo;s airway clear.</p>
+
+  <h2 id="why-wrong">Why this number can be badly wrong for you</h2>
+  <p>Widmark is a population average fitted in the 1930s. For any individual it can be out by a wide margin in either direction:</p>
+  <ul>
+    <li><strong>Body composition, not just weight.</strong> Two people at the same weight with different fat percentages have different amounts of body water, and the sex-based <em>r</em> value is a crude stand-in for that.</li>
+    <li><strong>Absorption is not instant.</strong> The equation assumes all the alcohol is already in your blood. Drinking over an evening, on an empty or full stomach, changes the curve substantially.</li>
+    <li><strong>Elimination varies.</strong> The 0.015 per hour figure ranges roughly from 0.012 to 0.020 between individuals, and is affected by liver health, medication and regular heavy drinking.</li>
+    <li><strong>Medication and health conditions</strong> can change both absorption and clearance, sometimes dramatically.</li>
+    <li><strong>It cannot know what you actually drank.</strong> Free pours, unclear ABV and topped-up glasses all mean the input is a guess.</li>
+  </ul>
+  <p>An error of 0.02% either way is entirely plausible, which is the whole distance between the legal limit and a charge. That is why this page cannot tell you whether you may drive, and does not try.</p>
+
+  <h2 id="help">If drinking has stopped being a choice</h2>
+  <p>If you have found yourself checking a calculator like this often, or drinking more than you meant to, or unable to cut down when you decide to, that is worth taking seriously and it is common. In the United States, SAMHSA&rsquo;s National Helpline is free, confidential and staffed 24 hours a day, every day, on 1-800-662-4357. It provides treatment referral and information, and you do not need insurance to call.</p>
+
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is blood alcohol concentration calculated?", "acceptedAnswer": {"@type": "Answer", "text": "With the Widmark equation: ounces of pure alcohol times 5.24, divided by body weight in pounds times a distribution factor of 0.73 for men or 0.66 for women, then minus 0.015 for every hour since the first drink."}}, {"@type": "Question", "name": "How long does it take for BAC to reach zero?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the current level by 0.015 and round up. A BAC of 0.06% takes about four hours to clear. The rate is set by the liver and cannot be increased."}}, {"@type": "Question", "name": "Does coffee or a cold shower lower BAC?", "acceptedAnswer": {"@type": "Answer", "text": "No. Neither affects how fast the liver processes alcohol. Caffeine is actively risky because it masks tiredness without reducing impairment, so a person feels more capable than they are."}}, {"@type": "Question", "name": "Can this calculator tell me if I am safe to drive?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it should not be used that way. Individual variation, absorption timing and uncertainty about what was actually poured mean the estimate can easily be out by enough to cross a legal limit. If you have been drinking, do not drive."}}, {"@type": "Question", "name": "Why do men and women get different results?", "acceptedAnswer": {"@type": "Answer", "text": "Alcohol distributes into body water rather than fat. Women on average carry proportionally more body fat, so the same amount of alcohol is diluted into less water and produces a higher concentration."}}, {"@type": "Question", "name": "What is a standard drink?", "acceptedAnswer": {"@type": "Answer", "text": "In the United States, any drink containing about 0.6 fluid ounces of pure alcohol: roughly a 12-ounce beer at 5%, a 5-ounce glass of wine at 12%, or a 1.5-ounce shot of 40% spirits."}}, {"@type": "Question", "name": "Why does my BAC keep rising after I stop drinking?", "acceptedAnswer": {"@type": "Answer", "text": "Because alcohol already in the stomach and small intestine is still being absorbed. Peak concentration typically arrives somewhere between 30 and 90 minutes after the last drink, later if you have eaten."}}, {"@type": "Question", "name": "Is a BAC of 0.08% the limit everywhere in the US?", "acceptedAnswer": {"@type": "Answer", "text": "For drivers 21 and over it is the limit in every state except Utah, where it is 0.05%. Commercial drivers are limited to 0.04%, and under-21 drivers face zero-tolerance thresholds near 0.00%."}}]}</script>
+<h2 id="faq">Frequently asked questions</h2>
+  <h3>How is blood alcohol concentration calculated?</h3>
+  <p>With the Widmark equation: ounces of pure alcohol times 5.24, divided by body weight in pounds times a distribution factor of 0.73 for men or 0.66 for women, then minus 0.015 for every hour since the first drink.</p>
+  <h3>How long does it take for BAC to reach zero?</h3>
+  <p>Divide the current level by 0.015 and round up. A BAC of 0.06% takes about four hours to clear. The rate is set by the liver and cannot be increased.</p>
+  <h3>Does coffee or a cold shower lower BAC?</h3>
+  <p>No. Neither affects how fast the liver processes alcohol. Caffeine is actively risky because it masks tiredness without reducing impairment, so a person feels more capable than they are.</p>
+  <h3>Can this calculator tell me if I am safe to drive?</h3>
+  <p>No, and it should not be used that way. Individual variation, absorption timing and uncertainty about what was actually poured mean the estimate can easily be out by enough to cross a legal limit. If you have been drinking, do not drive.</p>
+  <h3>Why do men and women get different results?</h3>
+  <p>Alcohol distributes into body water rather than fat. Women on average carry proportionally more body fat, so the same amount of alcohol is diluted into less water and produces a higher concentration.</p>
+  <h3>What is a standard drink?</h3>
+  <p>In the United States, any drink containing about 0.6 fluid ounces of pure alcohol: roughly a 12-ounce beer at 5%, a 5-ounce glass of wine at 12%, or a 1.5-ounce shot of 40% spirits.</p>
+  <h3>Why does my BAC keep rising after I stop drinking?</h3>
+  <p>Because alcohol already in the stomach and small intestine is still being absorbed. Peak concentration typically arrives somewhere between 30 and 90 minutes after the last drink, later if you have eaten.</p>
+  <h3>Is a BAC of 0.08% the limit everywhere in the US?</h3>
+  <p>For drivers 21 and over it is the limit in every state except Utah, where it is 0.05%. Commercial drivers are limited to 0.04%, and under-21 drivers face zero-tolerance thresholds near 0.00%.</p>
+
+  <p class="bc-disclaimer">This calculator gives a rough statistical estimate for general education only. It is not medical or legal advice, it cannot measure your actual blood alcohol concentration, and it must never be used to decide whether you are fit or legal to drive, operate machinery, or supervise anyone. Individual results vary widely with body composition, food, medication, health and drinking pattern. If you are worried about your own or someone else&rsquo;s drinking, speak to a doctor, or in the US call SAMHSA&rsquo;s free 24/7 National Helpline on 1-800-662-4357. If someone may have alcohol poisoning, call emergency services immediately. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</article>
+</div></main>
+<footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +761,205 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+function $(id){ return document.getElementById(id); }
+
+/* ---- engine: Widmark, calibrated against the reference implementation ----
+   Every fixed size option is held internally as a US fluid-ounce volume.      */
+var BC_OZ = 29.5735;
+var BC_BEER = {b250:8.5,b330:12,b500:16,c250:8.5,c330:12,c500:17,c600:20,n330:12,n500:17,n600:20,'1l':34};
+var BC_WINE = {c60:2,c150:5,c250:8.5,b375:12.5,b500:17,b750:25,l1:34,l15:50};
+var BC_LIQ  = {s15:0.5,s30:1,s50:1.67,c250:8.5,b100:3.34,b250:8.5,b375:12.5,b500:17,b750:25};
+var BC_UNIT = {ml:1,l:1005.5,mcup:250,oz:BC_OZ,pint:473.176,cup:236.588,ioz:28.4131,ipint:568.261,icup:284.131};
+var BC_WU   = {pound:1,kilogram:1000/453.59237,gram:1/453.59237};
+var BC_BANDS = [
+ [0.029,'Average individual appears normal','Subtle effects detectable only with special tests'],
+ [0.059,'Mild euphoria, relaxation, talkativeness, lowered inhibition','Concentration'],
+ [0.099,'Blunted feelings, reduced sensitivity to pain, disinhibition','Reasoning, depth perception, peripheral vision, glare recovery'],
+ [0.199,'Over-expression, boisterousness, possible nausea and vomiting','Reflexes, reaction time, gross motor control, staggering, slurred speech'],
+ [0.299,'Nausea, vomiting, emotional swings, partial loss of understanding','Severe motor impairment, loss of consciousness, memory blackout'],
+ [0.399,'Stupor, central nervous system depression, lapses in and out of consciousness','Bladder function, breathing, heart rate, dysequilibrium'],
+ [0.5,'Severe central nervous system depression, coma, possible death','Breathing, heart rate, positional alcohol nystagmus'],
+ [99,'High possibility of death','']
+];
+/* 2 decimal places, widened to 2 significant figures for small values */
+function bcFmt(x){
+  if (!(x > 0)) return '0';
+  var d = Math.max(2, 1 - Math.floor(Math.log(x)/Math.LN10));
+  var s = x.toFixed(d);
+  if (s.indexOf('.') > -1) s = s.replace(/0+$/,'').replace(/\.$/,'');
+  return s || '0';
+}
+function bcNum(v){
+  v = String(v == null ? '' : v).trim();
+  if (!v) return 0;
+  if (!/^[0-9]*\.?[0-9]*$/.test(v)) return NaN;
+  var n = parseFloat(v);
+  return isNaN(n) ? NaN : n;
+}
+function bcPureOz(d){
+  var t = 0;
+  if (d.beerA > 0) t += d.beerA * BC_BEER[d.beerS] * d.beerV / 100;
+  if (d.wineA > 0) t += d.wineA * BC_WINE[d.wineS] * d.wineV / 100;
+  if (d.liqA  > 0) t += d.liqA  * BC_LIQ[d.liqS]  * d.liqV  / 100;
+  if (d.othA  > 0 && d.othSize > 0) t += d.othA * d.othSize * BC_UNIT[d.othUnit] / BC_OZ * d.othV / 100;
+  return t;
+}
+function bcPeak(d){
+  var A = bcPureOz(d), W = d.weight * BC_WU[d.weightUnit], r = (d.sex === 'm') ? 0.73 : 0.66;
+  if (!(W > 0)) return NaN;
+  return A * 5.24 / (W * r);
+}
+function bcAt(peak, hours){ return Math.max(0, peak - 0.015 * hours); }
+function bcHoursToZero(b){ return Math.ceil(b / 0.015 - 1e-9); }
+function bcBand(b){
+  for (var i=0;i<BC_BANDS.length;i++) if (b <= BC_BANDS[i][0]) return BC_BANDS[i];
+  return BC_BANDS[BC_BANDS.length-1];
+}
+
+/* ---- UI ---- */
+function sex(){ var r=document.querySelector('input[name="bc-sex"]:checked'); return r?r.value:'m'; }
+function showErr(m){ var e=$('bc-err'); if(m){e.textContent=m;e.className='bc-err show';}else{e.textContent='';e.className='bc-err';} }
+function read(){
+  return { sex:sex(), weight:bcNum($('bc-weight').value), weightUnit:$('bc-weightUnit').value,
+    hours:bcNum($('bc-hours').value), mins:bcNum($('bc-mins').value),
+    beerA:bcNum($('bc-beerA').value), beerS:$('bc-beerS').value, beerV:bcNum($('bc-beerV').value),
+    wineA:bcNum($('bc-wineA').value), wineS:$('bc-wineS').value, wineV:bcNum($('bc-wineV').value),
+    liqA:bcNum($('bc-liqA').value),  liqS:$('bc-liqS').value,  liqV:bcNum($('bc-liqV').value),
+    othA:bcNum($('bc-othA').value),  othSize:bcNum($('bc-othSize').value), othUnit:$('bc-othUnit').value,
+    othV:bcNum($('bc-othV').value) };
+}
+function buildBands(){
+  var lo=0, h='';
+  var lab=['0.001-0.029','0.030-0.059','0.060-0.099','0.100-0.199','0.200-0.299','0.300-0.399','0.400-0.500','over 0.50'];
+  for (var i=0;i<BC_BANDS.length;i++)
+    h += '<tr id="bc-band'+i+'"><td style="white-space:nowrap">'+lab[i]+'%</td><td>'+BC_BANDS[i][1]+
+         (BC_BANDS[i][2] ? '<br><span style="font-size:12px;color:var(--ink-faint)">Impairs: '+BC_BANDS[i][2]+'</span>' : '')+'</td></tr>';
+  $('bc-bandBody').innerHTML = h;
+}
+function blank(){
+  $('bc-resVal').textContent='\u2014'; $('bc-resSub').textContent=''; $('bc-rows').innerHTML='';
+  drawChart(0,0); highlight(-1); window.__bcLast=null;
+}
+function highlight(idx){
+  for (var i=0;i<BC_BANDS.length;i++){
+    var tr=$('bc-band'+i); if(!tr) continue;
+    tr.style.background = (i===idx) ? 'var(--gold-tint,#E4F5EA)' : '';
+    tr.style.fontWeight = (i===idx) ? '600' : '';
+  }
+}
+function calc(){
+  showErr('');
+  var d=read();
+  for (var k in d) if (typeof d[k]==='number' && isNaN(d[k])) return blank();
+  if (!(d.weight>0)) return blank();
+  if (d.mins>=60) showErr('Minutes should be under 60 \u2014 put whole hours in the hours box.');
+  var hours=(d.hours||0)+(d.mins||0)/60;
+  var peak=bcPeak(d);
+  if (!isFinite(peak)) return blank();
+  var now=bcAt(peak,hours);
+  $('bc-resVal').textContent = bcFmt(now) + '%';
+  var b=bcBand(now);
+  $('bc-resSub').textContent = (now>0)
+    ? b[1].charAt(0).toLowerCase()+b[1].slice(1)
+    : 'no measurable alcohol remaining on this estimate';
+  var htz=bcHoursToZero(now);
+  $('bc-rows').innerHTML =
+    row('Peak if all of it were absorbed', bcFmt(peak)+'%') +
+    row('Cleared since the first drink', bcFmt(Math.min(peak,0.015*hours))+'%') +
+    row('Time until it reaches zero', now>0 ? ('about '+htz+' more hour'+(htz===1?'':'s')) : 'already there') +
+    row('Pure alcohol consumed', bcPureOz(d).toFixed(2)+' fl oz') +
+    row('Equivalent standard drinks', (bcPureOz(d)/0.6).toFixed(1)) +
+    row('US driving limit for age 21+', '0.08%');
+  var idx=0; for (var i=0;i<BC_BANDS.length;i++) if (now<=BC_BANDS[i][0]) { idx=i; break; }
+  highlight(now>0 ? idx : -1);
+  drawChart(peak,hours);
+  window.__bcLast={now:bcFmt(now),peak:bcFmt(peak),htz:htz,oz:bcPureOz(d).toFixed(2)};
+}
+function row(a,b){ return '<div class="bc-row"><span>'+a+'</span><span>'+b+'</span></div>'; }
+
+function drawChart(peak,hoursNow){
+  var svg=$('bc-chart'); if(!svg) return;
+  if (!(peak>0)){ svg.innerHTML='<text x="280" y="125" text-anchor="middle" fill="#787D86" font-size="13" font-family="IBM Plex Sans,sans-serif">Enter a drink to see the curve</text>'; return; }
+  var total=peak/0.015, span=Math.max(total, hoursNow)+0.5;
+  var W=560,H=250,L=58,R=16,T=26,B=38, pw=W-L-R, ph=H-T-B;
+  var top=peak*1.15;
+  function X(h){ return L+pw*(h/span); }
+  function Y(v){ return T+ph-ph*(v/top); }
+  var g='<text x="'+(L+pw/2)+'" y="14" text-anchor="middle" fill="#181A1F" font-size="12.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">Estimated BAC over time</text>';
+  for (var t=0;t<=4;t++){
+    var y=T+ph-(ph*t/4);
+    g+='<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#E3E0D8" stroke-width="1"/>';
+    g+='<text x="'+(L-8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" fill="#787D86" font-size="10.5" font-family="IBM Plex Sans,sans-serif">'+(top*t/4).toFixed(3)+'</text>';
+  }
+  var steps=Math.max(1,Math.ceil(span));
+  for (var h=0;h<=steps;h++)
+    g+='<text x="'+X(Math.min(h,span)).toFixed(1)+'" y="'+(T+ph+16)+'" text-anchor="middle" fill="#787D86" font-size="10.5" font-family="IBM Plex Sans,sans-serif">'+h+'h</text>';
+  if (peak>=0.08 && 0.08<=top){
+    g+='<line x1="'+L+'" y1="'+Y(0.08).toFixed(1)+'" x2="'+(W-R)+'" y2="'+Y(0.08).toFixed(1)+'" stroke="#CF3F53" stroke-width="1.5" stroke-dasharray="5 4"/>';
+    g+='<text x="'+(W-R-4)+'" y="'+(Y(0.08)-6).toFixed(1)+'" text-anchor="end" fill="#CF3F53" font-size="10.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">0.08% US driving limit</text>';
+  }
+  var hNow=Math.min(hoursNow,total);
+  g+='<polyline fill="none" stroke="#1E3A5F" stroke-width="2.5" points="'+X(0)+','+Y(peak)+' '+X(hNow)+','+Y(bcAt(peak,hNow))+'"/>';
+  g+='<polyline fill="none" stroke="#16A34A" stroke-width="2.5" points="'+X(hNow)+','+Y(bcAt(peak,hNow))+' '+X(total)+','+Y(0)+'"/>';
+  g+='<circle cx="'+X(hNow).toFixed(1)+'" cy="'+Y(bcAt(peak,hNow)).toFixed(1)+'" r="4.5" fill="#16A34A"/>';
+  g+='<text x="'+(L+8)+'" y="'+(T+ph-6)+'" fill="#1E3A5F" font-size="10.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">elapsed</text>';
+  svg.innerHTML=g;
+}
+
+/* ---- PDF (lazy) ---- */
+var pdfPromise=null;
+function loadScriptOnce(src){ return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);}); }
+function ensurePdfLibs(){
+  if (pdfPromise) return pdfPromise;
+  pdfPromise=loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+    .then(function(){ return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+  return pdfPromise;
+}
+function generatePdf(){
+  var jsPDF=window.jspdf.jsPDF, doc=new jsPDF({unit:'pt',format:'letter'}), L=window.__bcLast;
+  doc.setFontSize(17); doc.text('Blood Alcohol Concentration (BAC) Calculator',40,48);
+  doc.setFontSize(10); doc.setTextColor(120); doc.text('calculatorboss.com/bac-calculator/',40,64);
+  doc.setTextColor(30); doc.setFontSize(13);
+  if (L){
+    doc.text('Estimated BAC: '+L.now+'%',40,94);
+    var body=[];
+    document.querySelectorAll('#bc-rows .bc-row').forEach(function(r){ body.push([r.children[0].textContent,r.children[1].textContent]); });
+    doc.autoTable({startY:110,head:[['Metric','Value']],body:body,theme:'grid',headStyles:{fillColor:[30,58,95]},styles:{fontSize:9}});
+    doc.setFontSize(9); doc.setTextColor(150,40,60);
+    doc.text('Estimate only. Never use this to decide whether you are fit or legal to drive.',40,doc.lastAutoTable.finalY+22);
+  }
+  doc.save('bac-calculator.pdf');
+}
+
+function init(){
+  buildBands();
+  ['bc-weight','bc-hours','bc-mins','bc-beerA','bc-wineA','bc-liqA','bc-othA','bc-othSize','bc-othV']
+    .forEach(function(id){ $(id).addEventListener('input', calc); });
+  ['bc-weightUnit','bc-beerS','bc-beerV','bc-wineS','bc-wineV','bc-liqS','bc-liqV','bc-othUnit']
+    .forEach(function(id){ $(id).addEventListener('change', calc); });
+  var rs=document.querySelectorAll('input[name="bc-sex"]');
+  for (var i=0;i<rs.length;i++) rs[i].addEventListener('change', calc);
+  $('bc-calcBtn').addEventListener('click', calc);
+  $('bc-clearBtn').addEventListener('click', function(){
+    ['bc-weight','bc-hours','bc-mins','bc-beerA','bc-wineA','bc-liqA','bc-othA','bc-othSize','bc-othV']
+      .forEach(function(id){ $(id).value=''; });
+    calc();
+  });
+  var btn=$('bc-pdfBtn');
+  btn.addEventListener('click', function(){
+    var old=btn.textContent; btn.disabled=true; btn.textContent='Loading\u2026';
+    ensurePdfLibs().then(function(){btn.disabled=false;btn.textContent=old;generatePdf();})
+                   .catch(function(){btn.disabled=false;btn.textContent=old;});
+  });
+  calc();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1081,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

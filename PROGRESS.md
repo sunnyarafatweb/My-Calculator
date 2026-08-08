@@ -7722,3 +7722,72 @@ when nothing on the site has the component yet.
 Re-verified after the change: 64/64 pace and 38/38 army browser assertions, both engines still
 exact against the reference (306 + 16 and 40 cases), protected style block byte-identical on
 both, FAQ schema still matching the visible text on both.
+
+## Blood Alcohol Concentration (BAC) Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the stub at `/bac-calculator/` with a full 3-card build (92KB). Reference:
+calculator.net/bac-calculator.html. Owner asked for the full name in the H1 with "(BAC)" kept,
+so the H1 and title read **Blood Alcohol Concentration (BAC) Calculator** while the slug stays.
+
+**Parity (§3a-PRIME).** One form, no tabs: gender radio, body weight with three units, time
+since first drink in hours and minutes, and four drink rows (beer, wine, liquor, other) each
+with amount, size and ABV. 28 size options, 9 volume units for the free-form row. All present.
+
+### The maths took the longest and the first three attempts were wrong
+
+Server-side again, so it had to be reconstructed. Three false starts worth recording, because
+each was a reasoning error rather than a typo:
+
+1. **A clamped search bracket produced garbage constants.** The first probe used a fixed
+   `lo=60` pound bracket, and every drink whose crossing weight fell below 60 lb silently
+   returned the bracket edge. That made the Widmark factor look inconsistent across drink types
+   when it was fine — the measurement was broken, not the model. Any binary search over a
+   physical quantity needs its bracket validated against the answer, not assumed.
+2. **The dropdown sizes are not the millilitres on their labels.** Every fixed size is held
+   internally as a whole or half **US fluid ounce**: "12oz/330ml bottle" is 12 oz (354.882 ml),
+   "250ml bottle" is 8.5 oz (251.375 ml), "1 liter" is 34 oz (1005.5 ml). Their own data is
+   inconsistent here — `b500` and `c500` are both labelled "16oz/500ml" but one stores 16 oz and
+   the other 17. Measured all 28 options individually rather than trusting any label.
+3. **The display format is not a fixed precision.** It is 2 decimal places, widened to 2
+   significant figures when that would round a small value to one digit: 3.662 shows as 3.66,
+   0.0107 as 0.011, 0.0071 as 0.0071. Reading it as "2 significant figures" matched the small
+   values and failed on everything above 1.
+
+Settled formula, matching to every case tested:
+
+```
+BAC % = (A x 5.24) / (W x r) - 0.015 x H
+A = fluid ounces of pure alcohol, W = body weight in pounds
+r = 0.73 male / 0.66 female,  H = hours elapsed
+```
+
+The r ratio came out as 1.1060601 against 0.73/0.66 = 1.1060606 — seven-figure agreement, which
+is what identified those two values rather than any other pair with the same ratio. Volume and
+weight units are all standard (1 kg = 1000 g, 1 lb = 453.592 g, US fl oz = 29.5735 ml, UK fl oz
+= 28.4131), with "Liter" in the free-form row being the one quantised exception at 34 oz.
+
+**Verification.** Engine written standalone, run in Node before embedding, and re-extracted from
+the shipped file afterwards: **42 held-out randomised reference cases** spanning both sexes, all
+three weight units, all four drink rows, all 28 sizes and all 9 volume units, comparing both the
+BAC string and the hours-to-zero figure — 0 mismatches. Then 36 Playwright assertions at
+1280/390/430px including three worked reference cases, the chart, the impairment-band
+highlighting, the width guard, cb_ux auto-calculate and Clear with 0px drift.
+
+### This one needed care beyond parity
+
+A BAC calculator can be used to decide whether to drive, and that decision can kill someone. The
+page is built so it cannot be read as permission:
+- A red banner sits **inside the result card, above the number, on every state**, saying the
+  figure is an estimate and must never be used to judge fitness to drive.
+- The article says plainly that the estimate can be out by 0.02% either way — the entire
+  distance between the legal limit and a charge — and that the page therefore cannot answer the
+  driving question and does not try.
+- A section on alcohol poisoning with the actual warning signs and instruction to call emergency
+  services, and a section for readers whose drinking has stopped being a choice, carrying
+  SAMHSA's free 24/7 National Helpline (1-800-662-4357).
+- The closing disclaimer repeats all of it.
+- The PDF export carries the never-drive line too, since the PDF outlives the page.
+
+**Content.** 1,988-word article, 9 H2s, 8 FAQs. Overlap with the reference **0.00%**; highest
+against our own pages 0.42%, all of it the shared byline and about/privacy boilerplate. OG image
+generated as part of the build.
