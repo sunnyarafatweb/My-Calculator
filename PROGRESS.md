@@ -8205,3 +8205,96 @@ the mono chips use real IBM Plex Mono). `calculators-index.json`, `sitemap.xml` 
 already carried the slug from the stub, so no entry was needed. Reciprocal sidebar links added
 from **tdee, bmr and calorie**; macro and fat-intake already linked here. That is four files,
 scoped to this build — **not** the site-wide inbound-link sweep, which stays deferred.
+
+## Conception Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the 40KB template stub at `/conception-calculator/` with a full 3-card build
+(88KB, `con-` prefix). Reference: calculator.net/conception-calculator.html, supplied by the
+owner with a full-page screenshot. Donor for the shared chrome was `due-date-calculator`,
+the current sibling for a date-driven health page; protected style block, header and footer
+confirmed byte-identical afterwards.
+
+**Keyword research.** The head term is contested by Flo, What to Expect, the American
+Pregnancy Association and calculator.net, all with deep pages. The variants with their own
+dedicated competitor pages — and therefore real query clusters rather than phrasings — are
+"fertile window calculator", "best days to get pregnant" and "when am I most fertile"; those
+drive the H1 subhead, the result-card label and two FAQs. Title *Conception Calculator —
+Your Fertile Window and Best Days* (57 chars), description 155.
+
+### The model, read off the page rather than out of it
+
+Their page explains none of its arithmetic. Probed live, every date follows from ovulation
+placed at **cycle length minus 14**, not at a fixed day 14 — i.e. counted backwards from the
+next period, not forwards from the last one:
+
+- ovulation window = O−2 … O+2
+- most probable conception days = O−2 … O+3
+- best intercourse days = O−5 … O+2
+- pregnancy test = O+9
+- next period = LMP + cycle
+- due date = LMP + 280 + (cycle − 28), which is the same thing as O + 266
+
+The six-cycle table repeats the whole calculation for period starts at LMP + k·cycle. The
+month calendar tracks the **probable-conception** window, not the LMP month — a 44-day cycle
+entered with an August LMP renders September only — and renders two grids when the window
+straddles a month boundary. Both behaviours were confirmed against the reference and are
+reproduced.
+
+### Verification
+
+Engine written standalone and swept against the live reference twice — **75 cases, 0
+mismatches** — comparing all six milestone dates, the calendar month list, the exact set of
+highlighted days, and all eighteen cells of the six-cycle table, over random LMPs across
+2025–2028 and every cycle length from 22 to 44. Then the shipped page was driven in Chromium
+over **50 fresh random cases** against the same engine: **0 mismatches, 0 console errors**.
+
+**50 browser assertions, all passing**, including the two failure modes specific to this page:
+
+- **Timezone off-by-one.** `new Date('2026-01-01')` parses as UTC midnight and lands on
+  Dec 31 west of Greenwich, shifting every date by a day. The page parses the box manually
+  into a local date; there is an explicit assertion on a Jan 1 input.
+- **Month-straddling calendars.** Asserted that an LMP of Feb 15 2027 renders February *and*
+  March grids, and that a within-month window renders exactly one.
+
+Also asserted: H1 weight 700, sitewide bar sentence, result head and Calculate both
+`#16A34A`, sidebar `#1E3A5F`, cycle select carrying exactly 22–44 with the reference's "N days"
+labels, six-cycle table headers, six highlighted days, Clear emptying the date box while
+leaving the select alone and moving the pressed button under 40px, `__cbAutoRuns` on change
+with no page movement, `.cb-flash` and `.cb-jump`, jsPDF fetching zero bytes before click, no
+horizontal overflow and a single grid track at 1280/430/390px, and card edge alignment.
+
+### Deliberate differences
+
+1. **A real date input instead of their three dropdowns.** They build the date from month,
+   day and year `<select>`s via `DateInput()`. Ours is `<input type="date">`, which is what
+   `due-date-calculator` and `pregnancy-calculator` already use, so this is the house
+   convention rather than a new decision. Side effect worth recording: their select trio
+   permits Feb 30, which their server silently rolls forward to Mar 2 (verified). A native
+   date picker cannot produce it, so that path does not exist here.
+2. **A Clear button, which the reference does not have.** Their form is Calculate only. The
+   site design system specifies a Calculate + Clear row, and with a real date box Clear has
+   something to do — it empties the box, leaves the cycle select untouched, and does not move
+   the page, per §"The buttons are part of parity too".
+3. **Default LMP is today minus 14 days**, where theirs is today. Defaults must differ per
+   §3a-PRIME, and this one also lands the visitor mid-cycle so the first thing on screen is a
+   window they can act on rather than one a fortnight away. Cycle length stays at 28 because
+   28 is the clinical standard, not the reference's invention.
+4. **An "Estimated ovulation day" row** the reference does not print as a line, though its
+   whole table is built around that date and the calendar marks it. It is the anchor every
+   other row is derived from, so stating it is disclosure rather than a new feature.
+
+**Content.** 2,062-word article, 9 H2s, 8 FAQs. Overlap with the reference **0.05%** — a
+single eight-word run of unavoidable phrasing. Against our own pages the raw figure is 1.81%
+versus carbohydrate-calculator, which is entirely the byline and the about/privacy disclaimer
+sentence; with those excluded the article body is at **0.10%**, and the remainder is two
+shared H2 headings. Against the two pages that genuinely overlap in subject —
+due-date-calculator 0.63% and pregnancy-calculator 0.59% — the near-duplicate trap was
+handled by giving this page a different angle entirely: it is about the window before
+conception, where those two are about dating a pregnancy after it.
+
+**Also shipped**: OG image at `/og/conception-calculator.png`. `calculators-index.json`,
+`sitemap.xml` and `llms.txt` already carried the slug from the stub. due-date-calculator and
+pregnancy-calculator already link here from their sidebars. **No new reciprocal links were
+added**: the four other natural linkers — ovulation, period, pregnancy-conception and
+pregnancy-weight-gain — are all still React/Tailwind stubs with no sidebar card to insert
+into. They should pick this page up when each is rebuilt; nothing was edited in them.

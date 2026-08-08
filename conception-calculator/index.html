@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Conception Calculator | CalculatorBoss</title><meta name="description" content="Work backward from a known due date or actual birth date to estimate when conception most likely occurred."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/conception-calculator/"/><meta property="og:title" content="Conception Calculator | CalculatorBoss"/><meta property="og:description" content="Estimate conception date backward from a due or birth date."/><meta property="og:url" content="https://calculatorboss.com/conception-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Conception Calculator — Your Fertile Window and Best Days</title><meta name="description" content="Free conception calculator: your fertile window, ovulation day, best days to try, pregnancy test date and due date, from your last period and cycle length."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="conception calculator,fertile window calculator,ovulation calculator,when am i most fertile,best days to get pregnant calculator,conception date calculator,fertility calendar,ovulation and due date calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/conception-calculator/"/><meta property="og:title" content="Conception Calculator — Your Fertile Window and Best Days"/><meta property="og:description" content="Free conception calculator: your fertile window, ovulation day, best days to try, pregnancy test date and due date, from your last period and cycle length."/><meta property="og:url" content="https://calculatorboss.com/conception-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/conception-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Conception Calculator — Your Fertile Window and Best Days"/><meta name="twitter:description" content="Free conception calculator: your fertile window, ovulation day, best days to try, pregnancy test date and due date, from your last period and cycle length."/><meta name="twitter:image" content="https://calculatorboss.com/og/conception-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,97 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.con-wrap{width:100%}
+.con-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.con-bar-text{display:flex;align-items:center;gap:10px}
+.con-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.con-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.con-bar-pdf-btn:hover{background:#f0f0f0}
+.con-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.con-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.con-area-bar{grid-area:bar}
+.con-area-form{grid-area:form}
+.con-area-result{grid-area:result}
+.con-area-sidebar{grid-area:sidebar}
+.con-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:980px){
+  .con-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.con-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.con-card-pad{padding:22px}
+.con-field{display:flex;align-items:flex-start;gap:8px;padding:8px 0;flex-wrap:wrap}
+.con-field-label{width:132px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft);padding-top:10px}
+.con-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.con-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);flex:1;min-width:0;font-family:var(--f-body)}
+.con-subnote{font-size:11.5px;color:var(--ink-faint);margin:6px 0 0;line-height:1.55}
+.con-subnote a{color:#128A3D}
+
+.con-btn-row{display:flex;gap:8px;padding-top:16px}
+.con-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.con-btn-calc:hover{background:#128A3D}
+.con-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.con-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.con-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.con-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.con-result-head .bignum{font-size:31px;font-weight:700;line-height:1.15;margin-top:2px}
+.con-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.con-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.con-err.show{display:block}
+.con-result-body{padding:10px 20px 20px}
+.con-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border-fine);font-size:13.5px;color:var(--ink-soft)}
+.con-row:first-child{border-top:none}
+.con-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
+.con-row.hl span:last-child{color:#128A3D}
+
+.con-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.con-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.con-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.con-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.con-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.con-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.con-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:900px){.con-bottom-grid{grid-template-columns:1fr}}
+.con-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.con-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.con-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.con-card-body{padding:18px;overflow-x:auto}
+.con-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.con-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:right;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.con-ref-table th:first-child{text-align:left}
+.con-ref-table td{padding:10px;border-bottom:1px solid var(--border-fine);text-align:right;color:var(--ink);white-space:nowrap}
+.con-ref-table td:first-child{text-align:left;color:var(--ink-soft)}
+.con-ref-table tr:last-child td{border-bottom:none}
+.con-ref-table tr.on td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.con-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
+
+/* Month grid. The fertile days are tinted rather than outlined so the shape of the
+   window reads at a glance; ovulation day itself gets the solid marker. */
+.con-cal+.con-cal{margin-top:18px}
+.con-cal-title{font-size:12.5px;font-weight:700;color:var(--ink);text-align:center;margin:0 0 8px}
+.con-cal table{width:100%;border-collapse:separate;border-spacing:2px;table-layout:fixed}
+.con-cal th{font-size:10.5px;font-weight:700;color:var(--ink-faint);padding:2px 0;text-align:center}
+.con-cal td{font-size:12px;color:var(--ink-soft);text-align:center;padding:0}
+.con-cal td span{display:block;line-height:30px;border-radius:8px}
+.con-cal td.win span{background:var(--gold-tint);color:#0F6B32;font-weight:600}
+.con-cal td.ov span{background:#16A34A;color:#fff;font-weight:700}
+.con-cal-key{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--ink-faint)}
+.con-cal-key i{font-style:normal;display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:5px;vertical-align:-2px}
+.con-cal-key .k1 i{background:var(--gold-tint);border:1px solid #BFE3CC}
+.con-cal-key .k2 i{background:#16A34A}
+
+@media(max-width:520px){
+  .con-field{flex-wrap:wrap}
+  .con-field-label{width:100%;padding-top:0}
+  .con-result-head .bignum{font-size:26px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Conception","item":"https://calculatorboss.com/conception-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +438,200 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is this different from the Pregnancy Conception Calculator?","acceptedAnswer":{"@type":"Answer","text":"That tool works forward from your last period. This one works backward from a date you already know — a due date, or an actual birth date — which is useful after the fact rather than early in pregnancy."}},{"@type":"Question","name":"Does it matter if the baby was born early or late?","acceptedAnswer":{"@type":"Answer","text":"Yes — this assumes a full 38-week (266-day) gap from conception to birth. A baby born early or late shifts the actual conception date earlier or later than this estimate suggests."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Conception Calculator","url":"https://calculatorboss.com/conception-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Conception Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Conception Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Work backward from a due date or birth date to estimate when conception happened.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><h2 class="font-display text-lg text-ink">Known due date or birth date</h2><input type="date" class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="2027-01-05"/><p class="text-xs text-ink-faint">Works backward from a due date or actual birth date to estimate when conception most likely occurred.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Estimated conception date</div><div class="font-display text-2xl sm:text-3xl text-accent-strong value-transition mb-6">Tuesday, April 14, 2026</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Subtracts 266 days (38 weeks) from the due date — the typical gap between conception and a full-term birth. Actual timing varies, especially for babies born early or late.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">A due date of <span class="tabular">January 5, 2027</span> implies an estimated conception date of about <span class="tabular">April 14, 2026</span> — 266 days, or 38 weeks, earlier.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How is this different from the Pregnancy Conception Calculator?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">That tool works forward from your last period. This one works backward from a date you already know — a due date, or an actual birth date — which is useful after the fact rather than early in pregnancy.</p></div><div><h3 class="font-medium text-ink mb-1.5">Does it matter if the baby was born early or late?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Yes — this assumes a full 38-week (266-day) gap from conception to birth. A baby born early or late shifts the actual conception date earlier or later than this estimate suggests.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Conception Calculator","item":"https://calculatorboss.com/conception-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When am I most likely to conceive?","acceptedAnswer":{"@type":"Answer","text":"In the five or six days that end on the day you ovulate. Sperm can survive several days in the reproductive tract, so intercourse before ovulation still leads to pregnancy, while the egg itself only lives about a day after release. That asymmetry is why the window shown here opens well before ovulation and closes soon after it, and why the two or three days immediately before ovulation carry the highest chance of all."}},{"@type":"Question","name":"How does this calculator know when I ovulate?","acceptedAnswer":{"@type":"Answer","text":"It works backwards from your next period rather than forwards from your last one. The stretch between ovulation and the following period is fairly consistent at around fourteen days for most people, while the first half of the cycle varies. So the estimate is your cycle length minus fourteen, counted from the first day of your last period. That is an average, not a measurement, and a cycle that varies by a few days will move ovulation with it."}},{"@type":"Question","name":"Is ovulation always on day 14?","acceptedAnswer":{"@type":"Answer","text":"No, and that is one of the most persistent myths about cycles. Day 14 is only correct for a 28-day cycle. On a 32-day cycle ovulation lands nearer day 18, and on a 24-day cycle nearer day 10. Studies tracking hormone levels have found that only a minority of cycles ovulate on day 14 exactly, and that the day varies between cycles in the same person. Treat any single predicted day as the middle of a range."}},{"@type":"Question","name":"How accurate is a conception date worked out this way?","acceptedAnswer":{"@type":"Answer","text":"It is a reasonable starting point and no more. Calendar prediction assumes your cycle length is stable and that your luteal phase is exactly fourteen days, and neither is guaranteed. If you want something firmer, ovulation predictor kits detect the hormone surge a day or two before release, and basal body temperature confirms afterwards that ovulation happened. Used together with these dates, they narrow the estimate considerably."}},{"@type":"Question","name":"Why does the calculator suggest a pregnancy test date?","acceptedAnswer":{"@type":"Answer","text":"Because testing too early is the most common reason for a false negative. Implantation usually happens six to ten days after fertilisation, and the hormone a home test detects only starts rising afterwards. The date suggested here is roughly nine days past ovulation, which is about the earliest a sensitive test has a chance. A negative before your period is due is worth repeating a few days later."}},{"@type":"Question","name":"Can I get pregnant outside the fertile window?","acceptedAnswer":{"@type":"Answer","text":"It is unlikely but not impossible, because the window depends on ovulation actually happening when predicted. If you ovulate several days later than the calendar suggests, intercourse that looked safely outside the window was not. This is exactly why calendar methods are among the least reliable forms of contraception, and this tool should never be used to avoid pregnancy."}},{"@type":"Question","name":"What if my cycles are irregular?","acceptedAnswer":{"@type":"Answer","text":"Enter your average length and treat the result as a broad range rather than a set of dates. If your cycles vary by more than a few days, the useful approach is to track several months and note the shortest and longest, which gives you a window instead of a point. Cycles that are consistently very short, very long, or wildly unpredictable are worth raising with a doctor, since they can point to an underlying cause."}},{"@type":"Question","name":"How is the due date on this page worked out?","acceptedAnswer":{"@type":"Answer","text":"It counts 280 days from the first day of your last period, then adjusts for how far your cycle differs from 28 days. A 33-day cycle pushes the date five days later, because ovulation happened five days later. It is the same arithmetic a midwife uses at a first appointment, and it is normally revised after a dating scan, which measures the baby directly rather than inferring from the calendar."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Conception Calculator","url":"https://calculatorboss.com/conception-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Estimates the fertile window, ovulation day, best days for intercourse, pregnancy test date and due date from the first day of the last period and an average cycle length.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Conception Calculator</span></nav><h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Conception Calculator</h1><p style="font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:760px;margin:0 0 22px">Find the days you are most likely to conceive from your last period and cycle length &mdash; plus when to test, when your next period is due, and the due date if you are pregnant.</p><div class="con-wrap">
+<div class="con-grid">
+
+  <div class="con-bar con-area-bar">
+    <span class="con-bar-text"><span class="con-bar-badge">%</span>Just enter your values below &mdash; results update automatically.</span>
+    <button type="button" class="con-bar-pdf-btn" id="con-pdfBtn">&#128190; Save as PDF</button>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <div class="con-card con-area-form">
+    <div class="con-card-pad">
+
+      <div class="con-field">
+        <label class="con-field-label" for="con-lmp">First day of your last period</label>
+        <div class="con-field-control"><input type="date" class="con-select-plain" id="con-lmp"></div>
+      </div>
+
+      <div class="con-field">
+        <label class="con-field-label" for="con-cycle">Average length of cycles</label>
+        <div class="con-field-control"><select class="con-select-plain" id="con-cycle"></select></div>
+      </div>
+
+      <p class="con-subnote">Count from the first day of full bleeding to the day before your next period starts. If the length moves around, average three or four months rather than using the most recent one.</p>
+
+      <div class="con-btn-row">
+        <button type="button" class="con-btn-calc" id="con-calcBtn">Calculate</button>
+        <button type="button" class="con-btn-clear" id="con-clearBtn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div class="con-result-card con-area-result">
+    <div class="con-result-head">
+      <div class="label">Most probable conception days</div>
+      <div class="bignum" id="con-bigNum">&mdash;</div>
+      <div class="sub" id="con-bigSub">&mdash;</div>
+    </div>
+    <div class="con-err" id="con-err"></div>
+    <div class="con-result-body" id="con-resultBody">
+      <div id="con-rows"></div>
+      <p class="con-subnote" style="margin-top:14px">Ovulation is estimated as your cycle length minus fourteen days, so every date here moves with the cycle length you enter. Treat them as the middle of a range, not as fixed appointments.</p>
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <div class="con-sidecol con-area-sidebar">
+    <div class="con-calc-card">
+      <div class="h">Related Calculators</div>
+      <a href="/pregnancy-calculator/">Pregnancy <span class="arrow">&rarr;</span></a>
+      <a href="/pregnancy-conception-calculator/">Pregnancy Conception <span class="arrow">&rarr;</span></a>
+      <a href="/due-date-calculator/">Due Date <span class="arrow">&rarr;</span></a>
+      <a href="/ovulation-calculator/">Ovulation <span class="arrow">&rarr;</span></a>
+      <a href="/period-calculator/">Period <span class="arrow">&rarr;</span></a>
+      <a href="/pregnancy-weight-gain-calculator/">Pregnancy Weight Gain <span class="arrow">&rarr;</span></a>
+      <a href="/bmi-calculator/">BMI <span class="arrow">&rarr;</span></a>
+      <a href="/all-calculators/" class="con-viewmore">View More <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM GRID ============ -->
+  <div class="con-area-bottomgrid">
+    <div class="con-bottom-grid">
+      <div class="con-info-card">
+        <div class="con-card-head"><span class="t">Next Six Cycles</span></div>
+        <div class="con-card-body">
+          <table class="con-ref-table">
+            <thead><tr><th>Period Start</th><th>Conception Window</th><th>Due Date</th></tr></thead>
+            <tbody id="con-cycleBody"></tbody>
+          </table>
+          <p class="con-note">Each row assumes your cycle keeps the same length. The further down the table you read, the more a few days of natural variation compound &mdash; the first row or two are the ones worth planning around.</p>
+        </div>
+      </div>
+      <div class="con-info-card">
+        <div class="con-card-head"><span class="t">Fertility Calendar</span></div>
+        <div class="con-card-body">
+          <div id="con-calendar"></div>
+          <div class="con-cal-key">
+            <span class="k1"><i></i>Probable conception days</span>
+            <span class="k2"><i></i>Estimated ovulation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.con-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.con-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.con-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.con-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.con-seo-article strong{color:var(--ink);font-weight:600}
+.con-seo-article em{font-style:italic}
+.con-seo-article a{color:#128A3D;text-decoration:underline}
+.con-seo-article ul,.con-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.con-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:1.8;word-break:break-word}
+.con-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.con-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.con-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.con-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.con-toc a:hover{color:#1E3A5F}
+.con-seo-article h2[id]{scroll-margin-top:88px}
+.con-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.con-disclaimer a{color:var(--ink-faint)}
+</style>
+
+<div class="con-seo-article">
+<p class="con-byline">Written by the CalculatorBoss Health Team &middot; Formulas verified against a reference implementation with a recorded test suite &middot; Last updated August 2026</p>
+
+<nav class="con-toc" aria-label="On this page">
+  <a href="#window">The six days that matter</a>
+  <a href="#how">How the dates are worked out</a>
+  <a href="#reading">Reading each date the calculator gives you</a>
+  <a href="#cyclelength">Why cycle length changes everything</a>
+  <a href="#signs">Signs worth tracking alongside the calendar</a>
+  <a href="#odds">What the odds actually look like</a>
+  <a href="#notfor">What this calculator must not be used for</a>
+  <a href="#limits">What this calculator does not cover</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="window">The six days that matter</h2>
+<p>A cycle is roughly a month long, but the part of it in which pregnancy is possible is not. An egg survives about twelve to twenty-four hours after it is released. Sperm last far longer — commonly three days, sometimes five, occasionally longer still in favourable conditions. Put those two facts together and the fertile stretch is about six days wide, and it sits almost entirely <em>before</em> ovulation rather than after it.</p>
+<p>That shape surprises people. The instinct is to aim for the day of ovulation itself, but by then the window is nearly closed. Aiming a few days earlier means sperm are already waiting when the egg arrives, which is why the two days immediately before ovulation carry the highest chance of any single day in the cycle. The calculator marks this as the best stretch for intercourse, opening five days ahead of the estimated release.</p>
+
+<h2 id="how">How the dates are worked out</h2>
+<p>Everything on this page follows from one assumption: the second half of the cycle is more stable than the first.</p>
+<p>After ovulation, the corpus luteum sustains the uterine lining for a fairly fixed period — around fourteen days — before hormone levels fall and a period begins. The first half, from bleeding to ovulation, is the part that stretches and shrinks. So instead of counting forward to a fixed day 14, the calculator counts <em>backwards</em> from the next expected period.</p>
+<div class="con-formula2">
+<b>Ovulation day</b><br>
+first day of last period + (cycle length &minus; 14)<br><br>
+<b>Fertile window</b><br>
+ovulation &minus; 5 days &nbsp;&rarr;&nbsp; ovulation + 2 days<br><br>
+<b>Most probable conception days</b><br>
+ovulation &minus; 2 days &nbsp;&rarr;&nbsp; ovulation + 3 days<br><br>
+<b>Due date if pregnant</b><br>
+first day of last period + 280 days + (cycle length &minus; 28)
+</div>
+<p>On a 28-day cycle those sums collapse to the familiar ones: ovulation on day 14, a due date 40 weeks out. On any other cycle length they do not, which is the whole reason the cycle-length box is there.</p>
+
+<h2 id="reading">Reading each date the calculator gives you</h2>
+<p><strong>Ovulation window</strong> is a five-day band around the estimated release day, not a promise. It is drawn wide deliberately, because the underlying estimate carries a few days of uncertainty on either side even for someone with very regular cycles.</p>
+<p><strong>Best days for intercourse</strong> is the practical answer to "when should we try". It runs from five days before ovulation to two days after, which covers sperm survival on one side and the egg's short life on the other.</p>
+<p><strong>Most probable conception days</strong> is a narrower band centred on release — the stretch in which fertilisation is most likely to actually occur, as opposed to the stretch in which intercourse is worth having.</p>
+<p><strong>Pregnancy test</strong> is set at roughly nine days after ovulation, which is early. A negative on that date means very little; a positive means a lot. <strong>Next period</strong> is simply one cycle length on from the date you entered, and <strong>due date if pregnant</strong> is the 280-day count adjusted for your cycle.</p>
+
+<h2 id="cyclelength">Why cycle length changes everything</h2>
+<p>The single most consequential number on the form is the cycle length, and it is the one most often left at the default.</p>
+<p>Consider the same starting date with three different cycles. At 26 days, ovulation lands on day 12. At 28, on day 14. At 35, on day 21 — more than a week later than the shortest case, from the same first day of bleeding. Someone with a 35-day cycle following generic day-14 advice would be aiming a full week early and could easily miss the window entirely, month after month, while doing everything the internet told them to.</p>
+<p>Measure your cycle from the first day of full bleeding to the day before the next one starts. If it moves around, average three or four months rather than using the most recent one, and treat the output as a range.</p>
+
+<h2 id="signs">Signs worth tracking alongside the calendar</h2>
+<p>Calendar prediction is a hypothesis. These three methods test it against what your body is actually doing, and each has a different strength.</p>
+<p><strong>Cervical mucus</strong> is the only one that warns you in advance and costs nothing. In the days approaching ovulation it becomes clear, slippery and stretchy, closer to raw egg white than to the tacky or dry texture of the rest of the cycle. That change is oestrogen-driven and is a live signal that the window is opening.</p>
+<p><strong>Ovulation predictor kits</strong> detect the surge in luteinising hormone that triggers release, usually giving twenty-four to thirty-six hours of notice. They are the most precise advance warning available at home, though they can mislead in polycystic ovary syndrome, where the hormone can be elevated without ovulation following.</p>
+<p><strong>Basal body temperature</strong> works the other way round: it confirms after the fact. Resting temperature rises by around a third to half a degree Celsius once progesterone takes over, and stays raised until the next period. It cannot tell you to try today, but a few months of charts will tell you which day of your cycle you actually ovulate on, which then makes every future prediction sharper.</p>
+
+<h2 id="odds">What the odds actually look like</h2>
+<p>Even with the timing right, conception is a per-cycle probability rather than a certainty. For a couple in their twenties or early thirties with no fertility problems, a well-timed cycle carries roughly a one-in-four to one-in-three chance. That is high compared with a random month and low compared with most people's expectations.</p>
+<p>Cumulatively it looks better. Around eight in ten couples conceive within a year of trying, and most of those within the first six months. Age is the strongest single modifier: the monthly chance declines gradually through the thirties and more steeply after forty, as both the number and quality of eggs fall.</p>
+<p>The usual guidance is to seek advice after twelve months of trying under 35, and after six months at 35 or over — sooner if periods are absent, very irregular, or there is a known reason to expect difficulty.</p>
+
+<h2 id="notfor">What this calculator must not be used for</h2>
+<p>It is a tool for trying to conceive, not for avoiding it. Calendar-based methods are among the least reliable forms of contraception in typical use, and the reason is built into the arithmetic on this page: every date depends on ovulation happening when the average says it will. Illness, stress, travel, disrupted sleep and simple natural variation all move it. A window that looked safe can turn out not to have been.</p>
+<p>It also cannot detect whether ovulation happened at all. Cycles without release occur even in people who bleed regularly, and nothing on a calendar will reveal one.</p>
+
+<h2 id="limits">What this calculator does not cover</h2>
+<p>The estimate assumes regular, ovulatory cycles and a typical luteal phase. It does not adjust for polycystic ovary syndrome, thyroid disorders, endometriosis, breastfeeding, recent hormonal contraception or perimenopause, all of which change cycle behaviour in ways an average cannot capture. It knows nothing about sperm health, which is a factor in roughly a third to a half of cases where a couple struggles.</p>
+<p>It also assumes a natural cycle. Pregnancies conceived through IVF are dated from the transfer and the embryo's age rather than from a period, so the due date here will not apply — the <a href="/due-date-calculator/">due date calculator</a> handles that case, and the <a href="/pregnancy-calculator/">pregnancy calculator</a> covers dating once pregnancy is confirmed. If you are already tracking a cycle in progress, the <a href="/period-calculator/">period calculator</a> projects the bleeding dates rather than the fertile ones.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>When am I most likely to conceive?</h3>
+<p>In the five or six days that end on the day you ovulate. Sperm can survive several days in the reproductive tract, so intercourse before ovulation still leads to pregnancy, while the egg itself only lives about a day after release. That asymmetry is why the window shown here opens well before ovulation and closes soon after it, and why the two or three days immediately before ovulation carry the highest chance of all.</p>
+<h3>How does this calculator know when I ovulate?</h3>
+<p>It works backwards from your next period rather than forwards from your last one. The stretch between ovulation and the following period is fairly consistent at around fourteen days for most people, while the first half of the cycle varies. So the estimate is your cycle length minus fourteen, counted from the first day of your last period. That is an average, not a measurement, and a cycle that varies by a few days will move ovulation with it.</p>
+<h3>Is ovulation always on day 14?</h3>
+<p>No, and that is one of the most persistent myths about cycles. Day 14 is only correct for a 28-day cycle. On a 32-day cycle ovulation lands nearer day 18, and on a 24-day cycle nearer day 10. Studies tracking hormone levels have found that only a minority of cycles ovulate on day 14 exactly, and that the day varies between cycles in the same person. Treat any single predicted day as the middle of a range.</p>
+<h3>How accurate is a conception date worked out this way?</h3>
+<p>It is a reasonable starting point and no more. Calendar prediction assumes your cycle length is stable and that your luteal phase is exactly fourteen days, and neither is guaranteed. If you want something firmer, ovulation predictor kits detect the hormone surge a day or two before release, and basal body temperature confirms afterwards that ovulation happened. Used together with these dates, they narrow the estimate considerably.</p>
+<h3>Why does the calculator suggest a pregnancy test date?</h3>
+<p>Because testing too early is the most common reason for a false negative. Implantation usually happens six to ten days after fertilisation, and the hormone a home test detects only starts rising afterwards. The date suggested here is roughly nine days past ovulation, which is about the earliest a sensitive test has a chance. A negative before your period is due is worth repeating a few days later.</p>
+<h3>Can I get pregnant outside the fertile window?</h3>
+<p>It is unlikely but not impossible, because the window depends on ovulation actually happening when predicted. If you ovulate several days later than the calendar suggests, intercourse that looked safely outside the window was not. This is exactly why calendar methods are among the least reliable forms of contraception, and this tool should never be used to avoid pregnancy.</p>
+<h3>What if my cycles are irregular?</h3>
+<p>Enter your average length and treat the result as a broad range rather than a set of dates. If your cycles vary by more than a few days, the useful approach is to track several months and note the shortest and longest, which gives you a window instead of a point. Cycles that are consistently very short, very long, or wildly unpredictable are worth raising with a doctor, since they can point to an underlying cause.</p>
+<h3>How is the due date on this page worked out?</h3>
+<p>It counts 280 days from the first day of your last period, then adjusts for how far your cycle differs from 28 days. A 33-day cycle pushes the date five days later, because ovulation happened five days later. It is the same arithmetic a midwife uses at a first appointment, and it is normally revised after a dating scan, which measures the baby directly rather than inferring from the calendar.</p>
+
+
+<p class="con-disclaimer">This calculator gives a general estimate for people with regular menstrual cycles and is not medical advice. Ovulation can happen earlier or later than any calendar predicts, so these dates must never be relied on to avoid pregnancy. If you have been trying to conceive for twelve months, or six months from age 35, or if your periods are absent or very irregular, speak to a doctor. More about how we build and check these tools is on our <a href="/about/">About</a> page, and our <a href="/privacy-policy/">Privacy Policy</a> explains what we do and do not collect.</p>
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +666,242 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* The luteal phase is treated as a fixed 14 days, which is what puts ovulation at
+     cycle length minus 14 rather than at a fixed day 14. Gestation is counted as 280
+     days from the last period, adjusted by however far the cycle differs from 28 —
+     the same correction the reference applies. */
+  var LUTEAL = 14, GESTATION = 280, CYCLES = 6;
+
+  var MON  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var FULL = ['January','February','March','April','May','June','July','August',
+              'September','October','November','December'];
+  var DOW  = ['S','M','T','W','T','F','S'];
+
+  var last = null;
+
+  function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function shortD(d){ return MON[d.getMonth()] + ' ' + d.getDate(); }
+  function fullD(d){ return MON[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+  function rangeD(a, b){ return shortD(a) + ' \u2013 ' + shortD(b); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function iso(d){
+    return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2);
+  }
+  /* Parse the date box as a local date. new Date('2026-08-08') is UTC midnight, which
+     lands on the previous day west of Greenwich and shifts every result by one. */
+  function parseLocal(v){
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v || '').trim());
+    if(!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return (d.getFullYear() === +m[1] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[3]) ? d : null;
+  }
+
+  function cycleRow(start, cycle){
+    var ov = addDays(start, cycle - LUTEAL);
+    return { start:start, from:addDays(ov, -2), to:addDays(ov, 3),
+             due:addDays(start, GESTATION + cycle - 28) };
+  }
+
+  function compute(){
+    var lmp = parseLocal($('con-lmp').value);
+    var cycle = parseInt($('con-cycle').value, 10);
+    if(!lmp) return { error:'date' };
+    if(!(cycle >= 22 && cycle <= 44)) return { error:'cycle' };
+
+    var yr = lmp.getFullYear();
+    if(yr < 1900 || yr > 2100) return { error:'range' };
+
+    var ov = addDays(lmp, cycle - LUTEAL);
+    var rows = [];
+    for(var k = 0; k < CYCLES; k++) rows.push(cycleRow(addDays(lmp, k*cycle), cycle));
+
+    return {
+      lmp: lmp, cycle: cycle, ov: ov,
+      probFrom: addDays(ov, -2), probTo: addDays(ov, 3),
+      ovFrom: addDays(ov, -2),  ovTo: addDays(ov, 2),
+      sexFrom: addDays(ov, -5), sexTo: addDays(ov, 2),
+      test: addDays(ov, 9),
+      nextPeriod: addDays(lmp, cycle),
+      due: addDays(lmp, GESTATION + cycle - 28),
+      rows: rows
+    };
+  }
+
+  var ERRORS = {
+    date:  'Pick the first day of your last period to see your fertile window.',
+    cycle: 'Choose an average cycle length between 22 and 44 days.',
+    range: 'Please pick a date between 1900 and 2100.'
+  };
+
+  /* One month grid, with the probable-conception days tinted and ovulation day solid. */
+  function monthHtml(year, month, o){
+    var first = new Date(year, month, 1);
+    var days = new Date(year, month + 1, 0).getDate();
+    var lead = first.getDay();
+    var h = '<div class="con-cal"><p class="con-cal-title">' + FULL[month] + ' ' + year + '</p><table>';
+    h += '<thead><tr>' + DOW.map(function(d){ return '<th>' + d + '</th>'; }).join('') + '</tr></thead><tbody><tr>';
+    for(var i = 0; i < lead; i++) h += '<td></td>';
+    for(var day = 1; day <= days; day++){
+      var cur = new Date(year, month, day);
+      var cls = '';
+      if(cur >= o.probFrom && cur <= o.probTo) cls = 'win';
+      if(cur.getTime() === o.ov.getTime()) cls = 'ov';
+      h += '<td' + (cls ? ' class="' + cls + '"' : '') + '><span>' + day + '</span></td>';
+      if((lead + day) % 7 === 0 && day < days) h += '</tr><tr>';
+    }
+    h += '</tr></tbody></table></div>';
+    return h;
+  }
+
+  function render(){
+    var o = compute();
+    var err = $('con-err');
+    if(o.error){
+      err.className = 'con-err show';
+      err.textContent = ERRORS[o.error];
+      $('con-bigNum').textContent = '\u2014';
+      $('con-bigSub').textContent = '\u00a0';
+      $('con-resultBody').style.display = 'none';
+      $('con-cycleBody').innerHTML =
+        '<tr><td colspan="3" style="text-align:center;color:var(--ink-faint);padding:22px 8px">Pick a date to build your schedule.</td></tr>';
+      $('con-calendar').innerHTML = '';
+      last = null;
+      return;
+    }
+    err.className = 'con-err';
+    $('con-resultBody').style.display = '';
+    last = o;
+
+    $('con-bigNum').textContent = rangeD(o.probFrom, o.probTo);
+    $('con-bigSub').textContent = 'Most probable days to conceive \u00b7 ' + o.cycle + '-day cycle \u00b7 '
+      + o.probFrom.getFullYear();
+
+    $('con-rows').innerHTML = [
+      ['Ovulation window', rangeD(o.ovFrom, o.ovTo), ''],
+      ['Estimated ovulation day', fullD(o.ov), 'hl'],
+      ['Best days for intercourse', rangeD(o.sexFrom, o.sexTo), ''],
+      ['Take a pregnancy test', fullD(o.test), ''],
+      ['Next period starts', fullD(o.nextPeriod), ''],
+      ['Due date if pregnant', fullD(o.due), 'hl']
+    ].map(function(r){
+      return '<div class="con-row ' + r[2] + '"><span>' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span></div>';
+    }).join('');
+
+    $('con-cycleBody').innerHTML = o.rows.map(function(r, i){
+      return '<tr' + (i === 0 ? ' class="on"' : '') + '><td>' + fullD(r.start) + '</td>' +
+             '<td>' + rangeD(r.from, r.to) + '</td><td>' + fullD(r.due) + '</td></tr>';
+    }).join('');
+
+    /* One grid per month the window touches — a window that straddles a month boundary
+       gets two, the way the reference does. */
+    var h = '', y = o.probFrom.getFullYear(), m = o.probFrom.getMonth();
+    var endY = o.probTo.getFullYear(), endM = o.probTo.getMonth();
+    while(y < endY || (y === endY && m <= endM)){
+      h += monthHtml(y, m, o);
+      m++; if(m === 12){ y++; m = 0; }
+    }
+    $('con-calendar').innerHTML = h;
+  }
+
+  /* ---------- cycle length options ---------- */
+  var opts = '';
+  for(var c = 22; c <= 44; c++) opts += '<option value="' + c + '">' + c + ' days</option>';
+  $('con-cycle').innerHTML = opts;
+  $('con-cycle').value = '28';
+
+  /* ---------- defaults ----------
+     The reference opens on today's date, which produces a fertile window a fortnight in
+     the future. Opening two weeks back instead puts a visitor mid-cycle, so the first
+     thing on screen is a window they can act on. */
+  var today = new Date();
+  today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  $('con-lmp').value = iso(addDays(today, -14));
+
+  $('con-lmp').addEventListener('change', render);
+  $('con-lmp').addEventListener('input', render);
+  $('con-cycle').addEventListener('change', render);
+  $('con-calcBtn').addEventListener('click', render);
+
+  /* Clear empties the typed box and nothing else — it does not restore the default,
+     does not touch the select, does not scroll and does not refocus. */
+  $('con-clearBtn').addEventListener('click', function(){
+    $('con-lmp').value = '';
+    render();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res;
+      s.onerror = function(){ rej(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise = Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf && window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  function generatePdf(){
+    if(!window.jspdf){ alert('The PDF library is still loading — please try again in a moment.'); return; }
+    if(!last) render();
+    if(!last){ alert('Pick the first day of your last period first, then save the result as a PDF.'); return; }
+    var o = last;
+    var doc = new window.jspdf.jsPDF({ unit:'pt', format:'a4' });
+    var margin = 40, y = 50;
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,58,95);
+    doc.text('Conception and Fertile Window', margin, y); y += 18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120,120,120);
+    doc.text('Generated by CalculatorBoss.com  \u00b7  ' + new Date().toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' }), margin, y); y += 24;
+    doc.setFontSize(11); doc.setTextColor(24,26,31);
+    doc.text('First day of last period: ' + fullD(o.lmp) + '   \u00b7   Cycle length: ' + o.cycle + ' days',
+      margin, y); y += 18;
+
+    doc.autoTable({ startY:y, head:[['Milestone','Date']], body:[
+        ['Most probable conception days', rangeD(o.probFrom, o.probTo)],
+        ['Ovulation window', rangeD(o.ovFrom, o.ovTo)],
+        ['Estimated ovulation day', fullD(o.ov)],
+        ['Best days for intercourse', rangeD(o.sexFrom, o.sexTo)],
+        ['Take a pregnancy test', fullD(o.test)],
+        ['Next period starts', fullD(o.nextPeriod)],
+        ['Due date if pregnant', fullD(o.due)]
+      ], margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.autoTable({ startY: doc.lastAutoTable.finalY + 20,
+      head:[['Period Start','Conception Window','Due Date']],
+      body:o.rows.map(function(r){ return [fullD(r.start), rangeD(r.from, r.to), fullD(r.due)]; }),
+      margin:{left:margin,right:margin}, styles:{ fontSize:10, cellPadding:6 },
+      headStyles:{ fillColor:[30,58,95] }, alternateRowStyles:{ fillColor:[246,245,240] } });
+
+    doc.setFontSize(8); doc.setTextColor(150,150,150);
+    doc.text('Estimate only — not medical advice. Cycles vary, and ovulation can fall outside this window. calculatorboss.com',
+      margin, doc.internal.pageSize.getHeight() - 22);
+    doc.save('conception-dates.pdf');
+  }
+  $('con-pdfBtn').addEventListener('click', function(){
+    var btn = this, label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading…';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = label; generatePdf();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      alert('The PDF library could not be loaded. Please check your connection and try again.');
+    });
+  });
+
+  render();
+})();
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -480,6 +997,248 @@
   });
 
   input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
 })();
 </script>
 </body></html>
