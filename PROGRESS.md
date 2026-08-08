@@ -8440,3 +8440,63 @@ that the closing note is mode-appropriate), plus **40 fresh browser cases agains
 0 mismatches**. One assertion failed on the first run because it expected the "60 to 89" band
 for the reference's own worked example, which actually lands in Normal/CKD1 — the test was
 wrong, not the page, and it was corrected rather than the page bent to fit it.
+
+### GFR Calculator — used it as a visitor, then added the equation their lab actually reports (Aug 8, 2026)
+
+Owner asked for a judgement call rather than a fix list: use the page as a human would, and
+change whatever a real visitor would trip over. Did that with a concrete scenario — a
+58-year-old woman holding a blood test that reads creatinine 1.4 mg/dL and **eGFR 44**.
+
+Three things broke, in descending order of seriousness.
+
+**1. None of our numbers matched her lab report.** The page showed 41.4 as the headline, with
+38.6 / 41.4 / 53.5 below. Her report says 44. Nothing on screen was that number, because US
+laboratories report the **2021 race-free CKD-EPI equation** and the reference tool implements
+only the three older ones. A visitor comparing the two concludes the calculator is broken.
+This was the whole point of the earlier "should we add the 2021 equation" question, and using
+the page for two minutes settled it.
+
+**2. The Race field was a dead end.** The box explained the history and then told her nothing
+about what to do. Ticking Black moved the headline from 41.4 to 47.8 — a six-unit jump with no
+guidance attached, on a YMYL page.
+
+**3. Analyst language in the result.** "Spread across equations 6.7" means nothing to someone
+holding a lab slip, and "Estimated GFR (CKD-EPI)" names a formula the reader has never heard
+of.
+
+**What changed.** The 2021 CKD-EPI creatinine equation was added and made the headline. It is
+listed first in the results, highlighted, and described as "Race-free — what a US lab report
+shows today". Constants taken from NKF, NIDDK and the Tufts implementation guide, all three of
+which also state the µmol/L divisor as 88.4, independently corroborating the value measured
+off the reference earlier. The same scenario now returns **43.6**, against her lab's 44.
+
+The Race field keeps full parity — it still drives MDRD and CKD-EPI 2009 exactly as before —
+but it no longer touches the headline, so the box could be rewritten as instruction rather
+than alarm: *"You can leave this alone. Race does not affect your estimated GFR…"* It was also
+restyled from the red caution palette to the neutral sunken surface, because it is now
+guidance rather than a warning. No new hex values.
+
+Headline label became "Your estimated GFR"; "Spread across equations 6.7" became "All four
+equations 38.6 – 53.5"; and a line under the results says plainly which row to match against a
+blood test.
+
+**This is an addition beyond the reference, made with owner authorisation.** It was raised as
+a proposal in the previous completion report per §"Standing rule on scope", and the owner's
+instruction to optimise for the visitor is the approval. Parity is untouched: all three
+reference equations remain, under their exact reference names, producing identical numbers —
+re-swept against the live site, **35 cases, 0 mismatches**.
+
+**Prose reconciliation was the bulk of the work**, exactly as §"if a page's prose describes a
+feature that is later removed, the prose has to be rewritten in the same commit" predicts.
+Eight places said or implied that the 2021 equation was *not* on the page: two FAQ answers, the
+race section's closing paragraph, the limits paragraph, the bottom-grid note, the closing note
+under the result, the H1 subhead, and the meta description. A grep for "three equations" after
+the edit caught two survivors. All eight fixed in the same commit; the FAQ question itself
+became "Why do the four equations give different answers?".
+
+Re-verified: **62 browser assertions, 0 failed** (new ones covering the headline value and
+plain-language label, the 2021 row being first and highlighted, and the race box opening with
+actionable wording), **45 browser cases against the engine, 0 mismatches**, **35 live-reference
+cases on the three original equations, 0 mismatches**, FAQ schema still exact at 8/8, article
+originality 0.00% against the reference. Description trimmed back to 153 characters after the
+first rewrite came in at 169.
