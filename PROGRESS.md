@@ -7915,3 +7915,50 @@ from abbreviating the thing the visitor reads.
 
 Re-verified: 49/49 browser assertions at three viewports, engine re-extracted from the shipped
 file and still 720/720 exact, protected style block byte-identical, FAQ schema still matching.
+
+## Body Type Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced the stub at `/body-type-calculator/` with a full 3-card build (87KB). Reference:
+calculator.net/body-type-calculator.html.
+
+**Parity (§3a-PRIME).** Four measurements (bust, waist, high hip, hip), each with its own
+inches/cm selector. Output is the body shape name plus the waist-hip ratio, and a WHO note when
+the ratio is high. No tabs, no unit converter — confirmed by grepping their markup.
+
+**The maths was the easy part for once.** The seven classification rules are printed on their
+page and reproduced exactly on the first attempt, including the evaluation order, which matters:
+several measurement sets satisfy more than one rule and the first match wins. Two details had to
+be measured rather than assumed:
+- **The waist-hip ratio strips trailing zeros** — "0.6", "1", "0.8", not "0.60".
+- **The WHO note threshold is on the *displayed* ratio, not the raw one.** Binary search put it
+  at exactly 0.855, which is the point where the 2-decimal display becomes 0.86. So the
+  condition is `round(whr, 2) > 0.85`, not `whr > 0.85`.
+- Some measurement combinations match none of the seven rules. The reference says so rather than
+  forcing a category, and so do we.
+
+**Verification.** Engine written standalone, Node-verified before embedding and again after
+extraction from the shipped file: 45 randomised reference cases comparing shape, ratio string
+and the presence of the WHO note — 0 mismatches. Then 45 Playwright assertions at 1280/430/390px
+covering all five worked reference cases, the no-match path, the cm conversion path, the shape
+highlighting, and both edge-alignment guards.
+
+### This page needed a different kind of care
+
+A body-shape calculator sits close to body image, and the reference's own framing calls the
+hourglass "typically presented as the ideal". The build deliberately does not:
+- The subhead says it is for finding clothes that fit, **not a verdict on your body**.
+- The article states in its first section that there is no ideal shape here and the categories
+  are descriptive, not ranked, and later notes that the shape marketed as the default is the
+  rarest one actually measured (about 8%).
+- A section on using the result to shop ends by saying the clothes are supposed to fit the
+  person, explicitly pushing back on styling advice built on dressing every body to look like an
+  hourglass.
+- No advice anywhere on changing your shape, no goal measurements, no weight targets.
+- The disclaimer carries the National Alliance for Eating Disorders helpline (1-866-662-1235),
+  per the standing note that NEDA's line is disconnected and this is the correct referral.
+- The WHO note is worded as a reason to raise it with a doctor rather than as a verdict.
+
+**Content.** 1,720-word article, 8 H2s, 8 FAQs. Overlap with the reference **3.11%** — the
+highest so far, and every one of the 53 matching runs is classification-rule text
+(`bust waist 9 or hips waist 10`) or a shape name adjacent to it. Checked explicitly: zero
+shared prose sentences. Against our own pages 0.59%, all boilerplate. OG image built in.
