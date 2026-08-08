@@ -369,6 +369,16 @@
   .bra-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "sidebar"}
 }
 
+.bra-cupguide{margin-top:16px;padding-top:14px;border-top:1px solid var(--border-fine)}
+.bra-cupguide .cg-t{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px}
+.bra-cupguide .cg-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 6px}
+@media(min-width:1100px){.bra-cupguide .cg-row{grid-template-columns:repeat(8,1fr)}}
+.bra-cup{text-align:center;min-width:0}
+.bra-cup .c{display:flex;align-items:center;justify-content:center;height:38px;border-radius:999px;border:1px solid var(--border-fine);background:var(--surface-sunken);color:var(--ink-soft);font-size:12.5px;font-weight:700}
+.bra-cup.on .c{background:#16A34A;border-color:#16A34A;color:#fff}
+.bra-cup .d{font-size:10.5px;color:var(--ink-faint);margin-top:5px;white-space:nowrap}
+.bra-cup.on .d{color:#128A3D;font-weight:700}
+.bra-cupguide .cg-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.55}
 .bra-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
 .bra-card-pad{padding:24px}
 .bra-section-label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:18px 0 10px}
@@ -528,6 +538,7 @@
   </div>
   <div class="bra-result-body">
     <div id="bra-resultRows"></div>
+<div class="bra-cupguide"><div class="cg-t">Cup size guide</div><div class="cg-row" id="bra-cupGuide"></div><div class="cg-note">Cup letter comes from the difference between your bust and underbust, not from bust size alone — which is why the same cup letter means a different volume on a different band.</div></div>
     <div class="bra-sister-box">
       <div class="t">Sister Sizes (Same Cup Volume)</div>
       <div class="bra-sister-row"><span>Looser Band, Smaller Cup</span><span id="bra-sisterUp">—</span></div>
@@ -685,14 +696,28 @@
     return {band:band, cup:cup, diff:diff, sisterUp:sisterUp, sisterDown:sisterDown, underbustIn:underbustIn, bustIn:bustIn};
   }
 
-  function render(){
+  function renderCupGuide(diff){
+  var el=$('bra-cupGuide'); if(!el) return;
+  var idx=Math.max(0,Math.min(LETTERS.length-1,diff));
+  var shown=LETTERS.slice(0,8), html='';
+  var start=0;
+  if(idx>7){ start=idx-7; shown=LETTERS.slice(start,idx+1); }
+  for(var i=0;i<shown.length;i++){
+    var d=start+i;
+    var lab = currentUnit==='cm' ? (Math.round(d*2.54)+' cm') : (d+'\u2033');
+    html+='<div class="bra-cup'+(d===idx?' on':'')+'"><div class="c">'+shown[i]+'</div><div class="d">'+lab+'</div></div>';
+  }
+  el.innerHTML=html;
+}
+function render(){
     var r=calcBra();
     $('bra-size').textContent=r.band+r.cup;
     $('bra-resultRows').innerHTML=
       '<div class="bra-result-row"><span>Band Size</span><span>'+r.band+'</span></div>'+
       '<div class="bra-result-row"><span>Cup Size</span><span>'+r.cup+'</span></div>'+
       '<div class="bra-result-row"><span>Bust − Underbust Difference</span><span>'+r.diff+'"</span></div>';
-    $('bra-sisterUp').textContent=r.sisterUp;
+    renderCupGuide(r.diff);
+  $('bra-sisterUp').textContent=r.sisterUp;
     $('bra-sisterDown').textContent=r.sisterDown;
 
     var styleText = (STYLE_MAP[currentShape] && STYLE_MAP[currentShape][currentIssue]) || STYLE_MAP['round']['none'];

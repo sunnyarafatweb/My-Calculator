@@ -8000,3 +8000,38 @@ That last one is the guard against the figures silently losing their highlight. 
 **Standing note for future pages:** when a reference page carries artwork, generate an
 equivalent rather than sourcing one. Parametric SVG has been cheaper than finding a licensed
 image would have been, and it carries no attribution or licensing obligation at all.
+
+### Bra Size Calculator — visual cup-size guide added (Aug 8, 2026)
+
+The owner sent a Pinterest infographic for a bra size calculator and asked for something like it,
+explicitly so that AdSense has no problem and visitors understand the page more easily.
+
+**Same answer as the body-type page on sourcing:** the sent image is itself a third-party
+copyrighted pin, so it was not copied, adapted or traced. Built the equivalent ourselves.
+
+**What the page already had:** it turns out this page was never a stub — it is a full 94KB build
+with its own inline SVG measurement diagram in the How to Measure section, SVG breast-shape
+buttons in the form, and reference tables for band and cup sizes. Checked before building
+anything, which saved duplicating work that already existed.
+
+**What was genuinely missing** was the single most useful element of the infographic: a *visual*
+cup-size guide. The page explained the bust-minus-underbust rule in prose and in a table, but
+nothing showed the visitor where their own result sat on the scale. Added a row of cup pills
+(AA through G) under the result rows, with the inch difference beneath each and the visitor's own
+cup filled in the site green, re-rendered on every calculation from the existing `calcBra` result
+so it can never drift from the number above it.
+
+Details worth keeping:
+- Labels follow the unit toggle — inches in inch mode, converted centimetres in cm mode.
+- Above G the window slides, showing the eight letters ending at the visitor's cup, so very large
+  differences still land on a visible highlighted pill rather than running off the end.
+- Laid out as a 4-column grid that becomes 8 columns above 1100px. The first attempt used flex
+  with `flex:1 1 52px`, which let the two pills on the wrapped second row stretch to double width
+  — uniform pill widths verified at all three viewports (39 / 85 / 75px, all equal within 1px).
+
+Cost: about 1.5KB. No image requests, nothing to license.
+
+Also re-asserted after the edit, because this was a surgical change to an already-shipped page
+rather than a rebuild: protected style block still byte-identical *both* to the reference page
+and to this page's own previous version, FAQ schema still matching visible text, title and H2
+count unchanged, zero console errors, zero overflow.
