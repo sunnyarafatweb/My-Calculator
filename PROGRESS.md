@@ -7404,3 +7404,89 @@ due-date row.
   (`<slug>/index.html`), its `og/<slug>.png`, and any shared files touched
   (`sitemap.xml`, `calculators-index.json`, `all-calculators/index.html`)
   get `git add`ed. Nothing accumulates in the repo between sessions.
+
+## Pace Calculator — rebuilt from stub (Aug 8, 2026)
+
+Replaced a 41KB template stub at `/pace-calculator/` with a full 3-card build (110KB).
+Reference: calculator.net/pace-calculator.html, supplied by the owner with six screenshots
+(essential here — their results are rendered server-side and appear nowhere in the fetched
+HTML, exactly the failure mode the Inflation Calculator hit).
+
+**Parity (§3a-PRIME).** The reference page is not one calculator but four, and all four are
+built: the three-tab main calculator (Pace / Time / Distance, 4 distance units, 10-event
+picker, 8 pace units), the 12-row Multipoint segment analyser with its pace-trend chart, the
+Pace Converter, and the Finish Time projector. No "Other Units" tab on this page — confirmed
+by grepping their markup for `converter.php` / `quick-conversion.js`; neither is loaded.
+
+**Their mile is 1609.35 m, not 1609.344.** This was the whole difficulty of the build. Their
+maths is server-side, so the engine was reconstructed by fitting a model to live responses.
+An exact-metre mile disagreed with the reference in three independent places: exactly ten
+miles renders as "16,093.5 Meters"; 17,600 yards produces 9 mile-split rows, not 10; and the
+7K split of the default run reads 43:51 where 1609.344 gives 43:52. A grid search over
+candidate constants put the true value in a narrow band, and 1609.35 is the only round number
+in it. Yard is 0.9144.
+
+Other behaviours that had to be measured rather than assumed:
+- **Splits appear only once distance exceeds 2 km** — at exactly 2.00 km they are absent, at
+  2.05 km present. Row counts themselves are plain floors, so this is a separate visibility
+  gate, not a rounding effect.
+- **Three different time formats on one page.** Race and split tables are zero-padded whole
+  seconds (`1:02:39`). The segment table is *unpadded* with 2 decimals and pads minutes only
+  when hours exist (`1:05:3`, `5:5`, `6:9.23`). Prose results are worded, with a comma before
+  "and" when hours are present and none when they are not.
+- **Rounding is half-up, not banker's.** One sweep case (an 11 km split landing on exactly
+  2812.5 s) was the only thing that exposed it.
+- The main calculator shows six pace units; the finish-time calculator shows eight, adding
+  yards per minute and per second. That asymmetry is theirs and is reproduced.
+
+**Verification.** The engine was written standalone and run in Node before being embedded, per
+the standing rule. **306 randomised reference cases across all three main tabs — every head
+value, all 12 race-table cells and every split row compared — plus 16 targeted assertions for
+the three secondary calculators: 322 comparisons, zero mismatches.** The randomised sweep
+(10 seeds x 34 cases, varying mode, distance unit, pace unit and magnitude) is what found both
+the rounding mode and the 2 km split gate; the four hand-picked cases run first had passed
+while both bugs were live — the same lesson as the Macro Calculator.
+
+Then 48 Playwright assertions at 1280/390/430px: default values matched against the reference
+for our own (deliberately different) defaults, tab switching and field hiding, the event
+picker, cb_ux auto-calculate firing, the 8-row finish-time card, chart bars rendering, Clear
+emptying typed boxes while leaving selects untouched with 0px drift, single-track mobile grid
+with every child at full width, zero console errors, zero horizontal overflow, and no jsPDF
+byte fetched before the button is clicked.
+
+**Content.** 2,373-word article, 8 H2s, 8 FAQs. Originality against the reference page:
+**0.00%**. Highest overlap against any of our own pages: **0.04%** (mutual-fund-calculator),
+and that match is the byline, which is boilerplate that should repeat. FAQ schema is
+*generated from the visible HTML at build time* rather than typed alongside it, which removes
+the em-dash/curly-quote drift that has broken this check on every previous build.
+
+**Keyword research.** Head term "pace calculator" is heavily contested (Strava, Active,
+Runna, McMillan, calculator.net). US sites overwhelmingly say "Running Pace Calculator", so
+per §8 that phrasing is blended into the title rather than replacing the H1. Distinct query
+clusters found with their own competitor pages: 5k / marathon / half-marathon pace, pace
+charts, pace conversion, finish-time projection. The best-value gap is **splits** — widely
+mentioned, rarely titled around, and this page genuinely outputs a full per-km and per-mile
+split table plus a segment analyser. Title: "Pace Calculator — Your Running Pace, Splits &
+Race Times" (55 chars).
+
+### Open item the owner needs to decide
+
+calculator.net carries a **"Typical Races and World Record Paces"** table and an **exercise
+heart-rate-zone image**. Neither shipped, and per the rule that an omission is only intentional
+once agreed, this is raised rather than recorded:
+- The world-record table is static third-party data. Reproducing their figures verbatim is the
+  kind of copying the originality standard exists to prevent, and the records move, so the
+  honest version needs current times sourced and the paces computed by us. That is a small
+  piece of work, not a decision I should make inside a build.
+- Their zone chart is an image asset. Rather than copy it, the article carries an equivalent
+  **HTML table of heart-rate zones as a share of max HR**, with the 220-minus-age estimate and
+  an explicit caveat about its spread. That substitution is a deliberate difference.
+
+### Edge case knowingly not matched
+
+At distances that are an exact whole number of miles expressed in another unit, their
+mile-split row count can differ from ours by one, because the answer turns on floating-point
+representation inside their code at a relative difference of ~6e-6. 3,218.69 m is the one
+probe found where they show 2 mile rows and we show 1; the 17,600-yard case goes the other way
+and we match it. Both are boundary values no visitor types, and no single constant reproduces
+both. Recorded rather than papered over.

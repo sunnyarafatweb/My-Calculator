@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Pace Calculator — Solve for Pace, Time | CalculatorBoss</title><meta name="description" content="Calculate running or walking pace, finish time, or distance covered — fill in any two and solve for the third."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/pace-calculator/"/><meta property="og:title" content="Pace Calculator | CalculatorBoss"/><meta property="og:description" content="Solve for pace, time, or distance — fill in any two."/><meta property="og:url" content="https://calculatorboss.com/pace-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Pace Calculator — Your Running Pace, Splits & Race Times</title><meta name="description" content="Free running pace calculator: get your pace, every kilometer and mile split, race times from 400 m to the marathon, and your projected finish time."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="pace calculator,running pace calculator,marathon pace calculator,5k pace calculator,pace converter min per mile to km,running splits calculator,race finish time calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/pace-calculator/"/><meta property="og:title" content="Pace Calculator — Your Running Pace, Splits & Race Times"/><meta property="og:description" content="Free running pace calculator: get your pace, every kilometer and mile split, race times from 400 m to the marathon, and your projected finish time."/><meta property="og:url" content="https://calculatorboss.com/pace-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/pace-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Pace Calculator — Your Running Pace, Splits & Race Times"/><meta name="twitter:description" content="Free running pace calculator: get your pace, every kilometer and mile split, race times from 400 m to the marathon, and your projected finish time."/><meta name="twitter:image" content="https://calculatorboss.com/og/pace-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,106 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><style>
+.pc-wrap{width:100%}
+.pc-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pc-bar-text{display:flex;align-items:center;gap:9px;min-width:0}
+.pc-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.16);font-size:12px;flex:0 0 auto}
+.pc-bar-pdf-btn{flex:0 0 auto;background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.pc-bar-pdf-btn:hover{background:#EAF0F7}
+.pc-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+.pc-tabs{grid-area:tabs;display:flex;gap:6px;flex-wrap:wrap}
+.pc-tab{background:var(--surface-sunken,#EFEDE6);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:8px 16px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.18s}
+.pc-tab:hover{color:var(--ink)}
+.pc-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.pc-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 268px;grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid";align-items:start;margin-top:6px}
+.pc-card{background:var(--surface,#fff);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--sh-sm)}
+.pc-calc-card{grid-area:form}
+.pc-result-card{grid-area:result}
+.pc-sidecol{grid-area:sidebar}
+.pc-area-bottomgrid{grid-area:bottomgrid}
+.pc-card-head{padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;background:var(--surface-sunken,#EFEDE6);border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.pc-result-head{padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.02em;background:#16A34A;color:#fff}
+.pc-card-pad{padding:16px}
+.pc-field{margin-bottom:12px}
+.pc-field-label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px}
+.pc-field-control{display:flex;gap:8px;align-items:center}
+.pc-field-control input[type=text],.pc-field-control input[type=number],.pc-field-control select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff}
+.pc-field-control input:focus,.pc-field-control select:focus{outline:2px solid #16A34A;outline-offset:-1px}
+.pc-field-control select{cursor:pointer}
+.pc-w-unit{flex:0 0 132px}
+.pc-hint{font-size:11.5px;color:var(--ink-faint);margin-top:4px}
+.pc-btn-row{display:flex;gap:10px;margin-top:14px}
+.pc-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.pc-btn-calc:hover{background:#128A3D}
+.pc-btn-clear{flex:1;background:var(--surface-sunken,#EFEDE6);color:var(--ink-soft);border:1px solid var(--border-fine);border-radius:10px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.pc-btn-clear:hover{color:var(--ink)}
+.pc-err{display:none;margin-top:10px;padding:9px 11px;border-radius:9px;background:#FCEDEF;border:1px solid #F3C9CF;color:#A32B3C;font-size:12.5px}
+.pc-err.show{display:block}
+.pc-big{font-size:25px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.25;margin:2px 0 3px}
+.pc-big-sub{font-size:12.5px;color:var(--ink-faint);margin-bottom:14px}
+.pc-rows{border-top:1px solid var(--border-fine)}
+.pc-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border-fine);font-size:13.5px}
+.pc-row span:first-child{color:var(--ink-soft)}
+.pc-row span:last-child{font-weight:600;color:var(--ink);text-align:right}
+.pc-row.pc-lead span:last-child{color:#128A3D}
+.pc-side-card{background:#1E3A5F;border-radius:16px;padding:18px;color:#fff}
+.pc-side-card h3{font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;margin:0 0 12px;color:rgba(255,255,255,.72)}
+.pc-side-card a{display:block;padding:8px 0;font-size:13.5px;color:#fff;border-bottom:1px solid rgba(255,255,255,.13);transition:.2s}
+.pc-side-card a:last-child{border-bottom:none}
+.pc-side-card a:hover{color:#22C55E}
+.pc-bottom-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+.pc-table{width:100%;border-collapse:collapse;font-size:13px}
+.pc-table th{text-align:left;font-weight:700;color:var(--ink-soft);padding:7px 8px;border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase}
+.pc-table td{padding:6px 8px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.pc-table td.pc-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.pc-table tr:last-child td{border-bottom:none}
+.pc-scroll{max-height:330px;overflow-y:auto}
+.pc-empty{padding:14px 16px;font-size:13px;color:var(--ink-faint)}
+.pc-sec{margin-top:34px}
+.pc-sec-h{font-size:20px;font-weight:700;color:var(--ink);margin:0 0 6px;letter-spacing:-.01em}
+.pc-sec-p{font-size:14px;color:var(--ink-soft);line-height:1.65;margin:0 0 14px;max-width:820px}
+.pc-sec-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.pc-mp-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.pc-mp-table th{padding:6px 5px;font-size:11px;font-weight:700;color:var(--ink-soft);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.02em}
+.pc-mp-table td{padding:5px;border-bottom:1px solid var(--border-fine)}
+.pc-mp-table input,.pc-mp-table select{width:100%;padding:6px 7px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;font-family:inherit;background:#fff;color:var(--ink)}
+.pc-mp-idx{width:22px;color:var(--ink-faint);font-size:11.5px;text-align:right}
+.pc-chart-wrap{padding:14px 10px 6px}
+.pc-chart{width:100%;height:auto;display:block}
+.pc-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.pc-hidden{display:none !important}
+.pc-conv-eq{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ink-faint);padding:4px 0}
+.pc-note{font-size:12px;color:var(--ink-faint);line-height:1.6;margin-top:10px}
+@media(max-width:980px){.pc-grid{grid-template-columns:minmax(0,1fr) 250px;grid-template-areas:"bar bar" "tabs tabs" "form sidebar" "result sidebar" "bottomgrid bottomgrid"}}
+@media(max-width:860px){
+  .pc-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+  .pc-bottom-grid,.pc-sec-grid{grid-template-columns:1fr}
+  .pc-w-unit{flex:0 0 118px}
+  .pc-big{font-size:22px}
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Pace","item":"https://calculatorboss.com/pace-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+<style>
+.pc-seo-article{margin-top:36px;max-width:900px;color:var(--ink)}
+.pc-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-.01em}
+.pc-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.pc-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin:0 0 14px}
+.pc-seo-article ul,.pc-seo-article ol{margin:0 0 16px 20px;padding:0}
+.pc-seo-article li{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-bottom:8px}
+.pc-seo-article a{color:#128A3D;text-decoration:underline;text-underline-offset:2px}
+.pc-byline{font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--border-fine);padding-bottom:14px;margin-bottom:6px}
+.pc-toc{background:var(--surface-sunken,#EFEDE6);border:1px solid var(--border-fine);border-radius:12px;padding:14px 18px;margin:18px 0 26px}
+.pc-toc p{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin:0 0 8px}
+.pc-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.pc-toc a:hover{color:#128A3D}
+.pc-formula{background:var(--surface-sunken,#EFEDE6);border:1px solid var(--border-fine);border-radius:10px;padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);margin:0 0 16px;line-height:1.8;overflow-x:auto}
+.pc-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.pc-disclaimer a{color:var(--ink-faint)}
+.pc-seo-article table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 18px}
+.pc-seo-article table th{text-align:left;padding:8px 9px;background:var(--surface-sunken,#EFEDE6);border-bottom:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft)}
+.pc-seo-article table td{padding:7px 9px;border-bottom:1px solid var(--border-fine);color:var(--ink-soft)}
+</style>
+</head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +447,350 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I use this to predict a race time?","acceptedAnswer":{"@type":"Answer","text":"Switch to 'Time' mode, enter the race distance, and enter the pace you've actually been training at — it projects a finish time at that pace, though fatigue over longer distances usually means actual pace slows somewhat versus shorter training runs."}},{"@type":"Question","name":"Why does pace matter more than speed for runners?","acceptedAnswer":{"@type":"Answer","text":"Pace (minutes per mile or km) maps directly onto how training plans and race splits are usually described, making it easier to plan and pace a run than working in speed (mph or km/h)."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pace Calculator","url":"https://calculatorboss.com/pace-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Pace Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pace Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Pick what you want to find — pace, time, or distance — and fill in the other two.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div class="flex items-center justify-between"><h2 class="font-display text-lg text-ink">Solve for</h2><div class="flex gap-1 bg-surface-sunken rounded-full p-1"><button class="text-xs px-3 py-1.5 rounded-full transition-colors bg-accent text-white">Pace</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">Time</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">Distance</button></div></div><div><label class="text-sm text-ink-soft mb-2 block">Units</label><div class="flex gap-1 bg-surface-sunken rounded-full p-1 w-fit"><button class="text-xs px-3 py-1.5 rounded-full transition-colors bg-accent text-white">mi</button><button class="text-xs px-3 py-1.5 rounded-full transition-colors text-ink-soft">km</button></div></div><div><label class="text-sm text-ink-soft mb-2 block">Distance (<!-- -->mi<!-- -->)</label><input type="number" class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="5"/></div><div><label class="text-sm text-ink-soft mb-2 block">Time (h / m / s)</label><div class="grid grid-cols-3 gap-2"><input type="number" class="text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="0"/><input type="number" class="text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="45"/><input type="number" class="text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="0"/></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Pace</div><div class="tabular text-4xl sm:text-5xl font-medium text-accent-strong value-transition mb-6">9:00<!-- --> /<!-- -->mi</div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Pick what you want to find — fill in the other two and it solves for the third.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-3">A worked example</h2><p class="text-ink-soft leading-relaxed">Running <span class="tabular">5 miles</span> in <span class="tabular">45 minutes</span> works out to a pace of exactly <span class="tabular">9:00</span> per mile.</p></section><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How do I use this to predict a race time?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Switch to &#x27;Time&#x27; mode, enter the race distance, and enter the pace you&#x27;ve actually been training at — it projects a finish time at that pace, though fatigue over longer distances usually means actual pace slows somewhat versus shorter training runs.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why does pace matter more than speed for runners?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Pace (minutes per mile or km) maps directly onto how training plans and race splits are usually described, making it easier to plan and pace a run than working in speed (mph or km/h).</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health & Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Pace Calculator","item":"https://calculatorboss.com/pace-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pace Calculator","url":"https://calculatorboss.com/pace-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","description":"Work out running pace, elapsed time or distance covered, with kilometer and mile splits, race-distance times, a segment analyzer, a pace unit converter and a finish-time projector.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style>
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/">All Calculators</a><span class="sep">/</span><span class="cur">Pace Calculator</span></nav>
+
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Pace Calculator</h1>
+<p class="text-ink-soft" style="font-size:15.5px;line-height:1.7;max-width:760px;margin-bottom:4px">Work out your pace for running, walking or cycling &mdash; then read your kilometer and mile splits, the times those paces produce from 400&nbsp;meters to the marathon, and what you are on track to finish in.</p>
+
+<div class="pc-grid">
+  <div class="pc-bar">
+    <span class="pc-bar-text"><span class="pc-bar-badge">&#9201;</span><span>Just enter your values below &mdash; results update automatically.</span></span>
+    <button type="button" class="pc-bar-pdf-btn" id="pc-pdfBtn">&#128190; Save as PDF</button>
+  </div>
+
+  <div class="pc-tabs" role="tablist" aria-label="What to solve for">
+    <button type="button" class="pc-tab active" id="pc-tabPace" role="tab" aria-selected="true">Pace</button>
+    <button type="button" class="pc-tab" id="pc-tabTime" role="tab" aria-selected="false">Time</button>
+    <button type="button" class="pc-tab" id="pc-tabDist" role="tab" aria-selected="false">Distance</button>
+  </div>
+
+  <div class="pc-card pc-calc-card">
+    <div class="pc-card-head" id="pc-formHead">Solving for pace</div>
+    <div class="pc-card-pad">
+      <div class="pc-field" id="pc-fTime">
+        <label class="pc-field-label" for="pc-time">Time</label>
+        <div class="pc-field-control"><input type="text" id="pc-time" value="00:47:30" inputmode="numeric" autocomplete="off"></div>
+        <div class="pc-hint">hh:mm:ss &mdash; leading zeros are optional, so 8:30 works.</div>
+      </div>
+      <div class="pc-field" id="pc-fDist">
+        <label class="pc-field-label" for="pc-dist">Distance</label>
+        <div class="pc-field-control">
+          <input type="text" id="pc-dist" value="6" inputmode="decimal" autocomplete="off">
+          <select id="pc-distUnit" class="pc-w-unit" aria-label="Distance unit">
+            <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
+            <option value="Meters">Meters</option><option value="Yards">Yards</option>
+          </select>
+        </div>
+        <div class="pc-field-control" style="margin-top:8px">
+          <select id="pc-event" aria-label="Pick a standard event">
+            <option value="">&mdash; Or pick an event &mdash;</option>
+            <option value="M">Marathon</option><option value="HM">Half-Marathon</option>
+            <option value="1K">1K</option><option value="5K">5K</option><option value="10K">10K</option>
+            <option value="1M">1 Mile</option><option value="5M">5 Miles</option><option value="10M">10 Miles</option>
+            <option value="800m">800 meters</option><option value="1500m">1500 meters</option>
+          </select>
+        </div>
+      </div>
+      <div class="pc-field pc-hidden" id="pc-fPace">
+        <label class="pc-field-label" for="pc-pace">Pace</label>
+        <div class="pc-field-control">
+          <input type="text" id="pc-pace" value="00:07:55" inputmode="numeric" autocomplete="off">
+          <select id="pc-paceUnit" class="pc-w-unit" aria-label="Pace unit">
+            <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
+            <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+            <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+            <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+          </select>
+        </div>
+        <div class="pc-hint" id="pc-paceHint">hh:mm:ss</div>
+      </div>
+      <div class="pc-btn-row">
+        <button type="button" class="pc-btn-calc" id="pc-calcBtn">Calculate</button>
+        <button type="button" class="pc-btn-clear" id="pc-clearBtn">Clear</button>
+      </div>
+      <div class="pc-err" id="pc-err"></div>
+    </div>
+  </div>
+
+  <div class="pc-card pc-result-card" id="pc-resultCard">
+    <div class="pc-result-head" id="pc-resultHead">Your pace</div>
+    <div class="pc-card-pad">
+      <div class="pc-big" id="pc-bigVal">&mdash;</div>
+      <div class="pc-big-sub" id="pc-bigSub"></div>
+      <div class="pc-rows" id="pc-resultRows"></div>
+    </div>
+  </div>
+
+  <div class="pc-sidecol">
+    <div class="pc-side-card">
+      <h3>Related Calculators</h3>
+      <a href="/calories-burned-calculator/">Calories Burned Calculator</a>
+      <a href="/bmi-calculator/">BMI Calculator</a>
+      <a href="/tdee-calculator/">TDEE Calculator</a>
+      <a href="/bmr-calculator/">BMR Calculator</a>
+      <a href="/macro-calculator/">Macro Calculator</a>
+      <a href="/body-fat-calculator/">Body Fat Calculator</a>
+      <a href="/all-calculators/">Browse all calculators</a>
+    </div>
+  </div>
+
+  <div class="pc-area-bottomgrid">
+    <div class="pc-bottom-grid">
+      <div class="pc-card" id="pc-raceCard">
+        <div class="pc-card-head">Times at this pace, by race distance</div>
+        <div class="pc-card-pad" style="padding:8px 16px 12px"><table class="pc-table"><tbody id="pc-raceBody"></tbody></table></div>
+      </div>
+      <div class="pc-card" id="pc-splitCard">
+        <div class="pc-card-head">Splits</div>
+        <div class="pc-scroll" id="pc-splitScroll"><div class="pc-card-pad" style="padding:8px 16px 12px"><table class="pc-table"><tbody id="pc-splitBody"></tbody></table></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="pc-sec" id="multipoint">
+  <h2 class="pc-sec-h">Multipoint Pace Calculator</h2>
+  <p class="pc-sec-p">If you recorded the clock at points along a route &mdash; lap markers, aid stations, the top of each climb &mdash; enter the running totals here. Each row is the cumulative distance and cumulative time at that point, and the calculator works out how fast you covered the leg between each pair of points. Run the same route repeatedly and the segment column shows which part of it is costing you.</p>
+  <div class="pc-sec-grid">
+    <div class="pc-card">
+      <div class="pc-card-head">Points along the route</div>
+      <div class="pc-card-pad" style="padding:10px 12px 14px">
+        <table class="pc-mp-table"><thead><tr><th></th><th>Distance</th><th>Unit</th><th>Time (hh:mm:ss)</th></tr></thead><tbody id="pc-mpBody"></tbody></table>
+        <div class="pc-field" style="margin-top:12px">
+          <label class="pc-field-label" for="pc-mpUnit">Your preferred pace unit</label>
+          <div class="pc-field-control"><select id="pc-mpUnit">
+            <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
+            <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+            <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+            <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+          </select></div>
+        </div>
+        <div class="pc-btn-row">
+          <button type="button" class="pc-btn-calc" id="pc-mpCalc">Calculate</button>
+          <button type="button" class="pc-btn-clear" id="pc-mpClear">Clear</button>
+        </div>
+        <div class="pc-err" id="pc-mpErr"></div>
+      </div>
+    </div>
+    <div>
+      <div class="pc-card" id="pc-mpResultCard">
+        <div class="pc-result-head">Segment breakdown</div>
+        <div class="pc-card-pad" style="padding:8px 12px 12px">
+          <div class="pc-scroll"><table class="pc-mp-table"><thead id="pc-mpHead"></thead><tbody id="pc-mpOut"></tbody></table></div>
+          <div class="pc-row pc-lead" style="border-bottom:none;padding-top:10px"><span>Average pace</span><span id="pc-mpAvg">&mdash;</span></div>
+        </div>
+      </div>
+      <div class="pc-card" style="margin-top:18px">
+        <div class="pc-card-head">Pace trend by segment</div>
+        <div class="pc-chart-wrap"><svg class="pc-chart" id="pc-mpChart" viewBox="0 0 460 230" role="img" aria-label="Bar chart of pace for each segment"></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pc-sec" id="converter">
+  <h2 class="pc-sec-h">Pace Converter</h2>
+  <p class="pc-sec-p">Move a single pace between any two units &mdash; minutes per mile to minutes per kilometer, a treadmill&rsquo;s miles per hour into the pace your watch shows, or either into meters per second.</p>
+  <div class="pc-sec-grid">
+    <div class="pc-card">
+      <div class="pc-card-head">Convert a pace</div>
+      <div class="pc-card-pad">
+        <div class="pc-field">
+          <label class="pc-field-label" for="pc-cvFrom">From</label>
+          <div class="pc-field-control">
+            <input type="text" id="pc-cvFrom" value="9:20" inputmode="numeric" autocomplete="off">
+            <select id="pc-cvFromUnit" class="pc-w-unit" aria-label="Convert from unit">
+              <option value="tpm" selected>Per Mile</option><option value="tpk">Per Kilometer</option>
+              <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+              <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+              <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+            </select>
+          </div>
+          <div class="pc-hint" id="pc-cvHint">hh:mm:ss</div>
+        </div>
+        <div class="pc-conv-eq">&#8595;</div>
+        <div class="pc-field">
+          <label class="pc-field-label" for="pc-cvToUnit">To</label>
+          <div class="pc-field-control"><select id="pc-cvToUnit" aria-label="Convert to unit">
+            <option value="tpm">Per Mile</option><option value="tpk" selected>Per Kilometer</option>
+            <option value="mph">Miles Per Hour</option><option value="kph">Kilometers Per Hour</option>
+            <option value="mpm">Meters Per Minute</option><option value="mps">Meters Per Second</option>
+            <option value="ypm">Yards Per Minute</option><option value="yps">Yards Per Second</option>
+          </select></div>
+        </div>
+        <div class="pc-btn-row">
+          <button type="button" class="pc-btn-calc" id="pc-cvCalc">Calculate</button>
+          <button type="button" class="pc-btn-clear" id="pc-cvClear">Clear</button>
+        </div>
+        <div class="pc-err" id="pc-cvErr"></div>
+      </div>
+    </div>
+    <div class="pc-card" id="pc-cvResultCard">
+      <div class="pc-result-head">Converted pace</div>
+      <div class="pc-card-pad">
+        <div class="pc-big" id="pc-cvBig">&mdash;</div>
+        <div class="pc-big-sub" id="pc-cvSub"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pc-sec" id="finish-time">
+  <h2 class="pc-sec-h">Finish Time Calculator</h2>
+  <p class="pc-sec-p">Part-way through a race and want to know where you are heading? Enter how far you have covered and how long it has taken, plus the full race distance, and this projects the finish time you are currently on for &mdash; assuming you hold the same pace to the line.</p>
+  <div class="pc-sec-grid">
+    <div class="pc-card">
+      <div class="pc-card-head">Where you are now</div>
+      <div class="pc-card-pad">
+        <div class="pc-field">
+          <label class="pc-field-label" for="pc-ftNow">Distance covered so far</label>
+          <div class="pc-field-control">
+            <input type="text" id="pc-ftNow" value="4" inputmode="decimal" autocomplete="off">
+            <select id="pc-ftNowUnit" class="pc-w-unit" aria-label="Unit of distance covered">
+              <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
+              <option value="Meters">Meters</option><option value="Yards">Yards</option>
+            </select>
+          </div>
+        </div>
+        <div class="pc-field">
+          <label class="pc-field-label" for="pc-ftTime">Elapsed time</label>
+          <div class="pc-field-control"><input type="text" id="pc-ftTime" value="33:40" inputmode="numeric" autocomplete="off"></div>
+          <div class="pc-hint">hh:mm:ss</div>
+        </div>
+        <div class="pc-field">
+          <label class="pc-field-label" for="pc-ftFull">Full race distance</label>
+          <div class="pc-field-control">
+            <input type="text" id="pc-ftFull" value="13.1" inputmode="decimal" autocomplete="off">
+            <select id="pc-ftFullUnit" class="pc-w-unit" aria-label="Unit of full distance">
+              <option value="Miles" selected>Miles</option><option value="Kilometers">Kilometers</option>
+              <option value="Meters">Meters</option><option value="Yards">Yards</option>
+            </select>
+          </div>
+        </div>
+        <div class="pc-btn-row">
+          <button type="button" class="pc-btn-calc" id="pc-ftCalc">Calculate</button>
+          <button type="button" class="pc-btn-clear" id="pc-ftClear">Clear</button>
+        </div>
+        <div class="pc-err" id="pc-ftErr"></div>
+      </div>
+    </div>
+    <div class="pc-card" id="pc-ftResultCard">
+      <div class="pc-result-head">Projected finish</div>
+      <div class="pc-card-pad">
+        <div class="pc-big" id="pc-ftBig">&mdash;</div>
+        <div class="pc-big-sub" id="pc-ftSub"></div>
+        <div class="pc-rows" id="pc-ftRows"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<article class="pc-seo-article">
+  <div class="pc-byline">Written by the CalculatorBoss Health &amp; Fitness Team &middot; Every result on this page is checked against a reference implementation &middot; Last updated Aug 2026</div>
+  <nav class="pc-toc" aria-label="On this page">
+    <p>On this page</p>
+    <a href="#what-pace-tells-you">What pace actually tells you</a>
+    <a href="#the-formula">The formula behind the calculator</a>
+    <a href="#three-modes">Pace, time, distance: which one to solve for</a>
+    <a href="#splits">Splits, and why they beat an average</a>
+    <a href="#units">Minutes per mile, minutes per kilometer, miles per hour</a>
+    <a href="#segments">Finding the leg where you slowed down</a>
+    <a href="#heart-rate">Pace, effort and heart rate</a>
+    <a href="#limits">What this calculator cannot see</a>
+    <a href="#faq">Frequently asked questions</a>
+  </nav>
+
+  <h2 id="what-pace-tells-you">What pace actually tells you</h2>
+  <p>Pace is speed turned upside down. Instead of asking how much ground you cover in an hour, it asks how long one unit of ground costs you &mdash; nine minutes for this mile, five and a half for that kilometer. That inversion is the whole reason runners use it. A race is a fixed distance, so a number expressed <em>per unit of distance</em> multiplies straight into a finish time in your head. At 8:00 per mile a half marathon takes a shade over 1:44, and you can work that out on the start line without a calculator.</p>
+  <p>Speed in miles per hour does not behave that way. It is the natural unit when the distance is open-ended and the clock is what is fixed &mdash; a treadmill session, a cycling commute, a lap swim. Both describe the same motion; they just answer different questions. This page carries both, and every calculator on it will hand you either.</p>
+  <p>The other thing pace gives you is a fair comparison across efforts of different length. Total time says nothing on its own: a 52-minute run tells you nothing until you know whether it covered four miles or seven. Pace normalises the two so a Tuesday recovery jog and a Sunday long run sit on the same scale.</p>
+
+  <h2 id="the-formula">The formula behind the calculator</h2>
+  <p>There is no hidden model here. Three quantities are locked together by one relationship, and giving the calculator any two of them pins down the third:</p>
+  <div class="pc-formula">pace = time &divide; distance<br>time = pace &times; distance<br>distance = time &divide; pace</div>
+  <p>The only real work is in the units. Everything is converted to seconds and meters first, the arithmetic happens there, and the answer is converted back out to whatever you asked for. The conversion constants used throughout are one mile as 1,609.35 meters, one yard as 0.9144 meters, and one kilometer as 1,000 meters.</p>
+  <p>Worked through with the values this page loads with: 6 miles in 47 minutes 30 seconds is 2,850 seconds over 9,656.1 meters, which is 0.29515 seconds for every meter. Multiply by 1,609.35 and you have 475 seconds per mile &mdash; 7 minutes 55 seconds. Multiply the same figure by 1,000 instead and you get 295.15 seconds per kilometer, or 4:55.15. Divide 3,600 by the seconds-per-mile figure and the speed falls out as 7.58 miles per hour.</p>
+  <p>The race-distance table applies that per-unit cost to each standard distance, and the splits table applies it to each whole kilometer and each whole mile you would pass. Both are the same multiplication repeated, which is why they agree with each other by construction.</p>
+
+  <h2 id="three-modes">Pace, time, distance: which one to solve for</h2>
+  <p>The three tabs at the top change which box the calculator fills in rather than changing the maths.</p>
+  <ul>
+    <li><strong>Pace</strong> is the one to use after a run. You know the distance and you know what the watch said, and you want to know how fast that actually was.</li>
+    <li><strong>Time</strong> is the planning mode. You have a distance in mind and a pace you believe you can hold, and you want the finish time that combination produces. This is how you check whether a goal is arithmetically possible before you build a training block around it.</li>
+    <li><strong>Distance</strong> is for a fixed window. You have forty minutes before you need to be somewhere and you know roughly how fast you run &mdash; how far does that get you?</li>
+  </ul>
+  <p>The event dropdown next to the distance box fills in the standard distances so you do not have to remember that a marathon is 42.195 kilometers or that a half is 21.0975. Choosing an event overwrites whatever is in the distance field, which is the intended behaviour, not a bug.</p>
+  <p>Times are forgiving to type. Placeholder zeros are optional, so a pace of five minutes three seconds can be entered as <code>5:3</code> rather than <code>00:05:03</code>, and the calculator reads the fields from the right: the last number is always seconds, the one before it minutes, the one before that hours.</p>
+
+  <h2 id="splits">Splits, and why they beat an average</h2>
+  <p>An average pace is a summary, and like all summaries it hides its own variance. Two runners can finish a 10K in exactly the same time, one having held a metronomic 5:00 per kilometer and the other having gone out at 4:30 and staggered home at 5:40. The average is identical. The races were not.</p>
+  <p>The splits panel lists the elapsed time you would show at each kilometer marker and each mile marker if you held the pace exactly. Read as a target it is a pacing plan; read against your actual watch data after the fact it is a diagnosis. The gap between the two is where the race was won or lost.</p>
+  <p>Two terms worth knowing. An <strong>even split</strong> means the second half of the race takes the same time as the first. A <strong>negative split</strong> means the second half is faster, which sounds harder than it is &mdash; starting a touch conservatively usually costs less than the blow-up that follows starting too fast. The splits table gives you the even-split reference; running the numbers a second time at a slightly slower opening pace shows you what the negative-split version would look like.</p>
+  <p>The table appears once the distance clears two kilometers, since below that there is not much of a sequence to lay out.</p>
+
+  <h2 id="units">Minutes per mile, minutes per kilometer, miles per hour</h2>
+  <p>Runners in the United States mostly think in minutes per mile; almost everywhere else, and in track and road racing internationally, minutes per kilometer is standard. Treadmills and bike computers add a third convention by showing speed instead. None of these is more correct than the others, and switching between them is a frequent source of confusion &mdash; a 5:00 kilometer and a 5:00 mile are wildly different efforts.</p>
+  <p>Because a mile is roughly 1.609 kilometers, a per-mile pace is always the larger number. The rough mental conversion is to add about 60 percent: a 5:00 kilometer is close to 8:03 per mile. Going the other way, take about five-eighths of the per-mile figure. The Pace Converter above does the exact version, including the speed units, so you never have to trust the shortcut when it matters.</p>
+  <p>One practical use for it: gym treadmills are almost always calibrated in miles per hour, so if your training plan is written in minutes per kilometer, the converter tells you which button to hold down.</p>
+
+  <h2 id="segments">Finding the leg where you slowed down</h2>
+  <p>The Multipoint calculator exists for the run where the average tells you nothing useful. You take the clock at intermittent points &mdash; each lap of a track, each aid station, the top and bottom of a hill &mdash; and enter the running totals. It reconstructs each leg by subtracting one row from the row above, then reports the pace for that leg alongside the pace for everything up to that point.</p>
+  <p>Two things fall out of that pair of columns. The segment column shows the shape of the effort: whether you faded, whether one climb cost far more than it looked like it did, whether your track intervals are drifting slower as the session goes on. The accumulated column shows how much any single bad leg is dragging on the whole, which is often less than it feels at the time.</p>
+  <p>Each row must be larger than the one above it in both distance and time, because the entries are cumulative rather than per-leg. Rows can each carry their own unit, so a route measured partly in miles and partly in kilometers still works.</p>
+
+  <h2 id="heart-rate">Pace, effort and heart rate</h2>
+  <p>Pace measures the output; heart rate measures what that output is costing you. They correlate, but not tightly enough to be interchangeable, and the gap between them is where most of the useful training information lives. The same pace on a cold flat morning and on a humid hilly evening will show up as two very different heart rates, and heart rate is the one telling the truth about the effort.</p>
+  <p>The most-quoted estimate of maximum heart rate is simply 220 minus your age. It is a population average with a wide spread around it &mdash; individuals of the same age routinely differ by twenty beats or more &mdash; so treat the zones below as a starting frame rather than a personal prescription. A graded exercise test is the accurate way to establish the real number.</p>
+  <table>
+    <thead><tr><th>Zone</th><th>Share of max heart rate</th><th>What it is for</th></tr></thead>
+    <tbody>
+      <tr><td>Very light</td><td>50&ndash;60%</td><td>Warm-up, cool-down, active recovery</td></tr>
+      <tr><td>Light</td><td>60&ndash;70%</td><td>Easy aerobic running, the bulk of most weekly mileage</td></tr>
+      <tr><td>Moderate</td><td>70&ndash;80%</td><td>Steady aerobic work, building endurance</td></tr>
+      <tr><td>Hard</td><td>80&ndash;90%</td><td>Threshold and tempo efforts</td></tr>
+      <tr><td>Maximum</td><td>90&ndash;100%</td><td>Short intervals, sustainable only in bursts</td></tr>
+    </tbody>
+  </table>
+  <p>The pace you can hold for about an hour of hard running sits near what coaches call threshold &mdash; the point above which lactate accumulates faster than the body clears it. Below it, effort is sustainable for hours. Above it, the clock starts running out. Knowing roughly where that line falls for you turns a pace number into a decision about how long you can hold it.</p>
+
+  <h2 id="limits">What this calculator cannot see</h2>
+  <p>Everything on this page assumes a constant pace over flat, uninterrupted ground. Real running rarely obliges. The projections do not account for:</p>
+  <ul>
+    <li><strong>Terrain and elevation.</strong> A climb costs far more than the equivalent descent gives back, so an out-and-back route is slower than its flat twin even though the net elevation change is zero.</li>
+    <li><strong>Fatigue.</strong> The finish-time projection multiplies your current pace across the remaining distance. Early in a long race that is optimistic, because holding 10K pace for a marathon is not something the projection knows you cannot do.</li>
+    <li><strong>Heat, humidity and wind.</strong> All three move achievable pace substantially, and heat in particular compounds over the length of a race rather than applying evenly.</li>
+    <li><strong>Course measurement.</strong> GPS watches and certified courses disagree, usually with the watch reading long, because a GPS trace cuts corners and adds noise.</li>
+    <li><strong>Surface.</strong> Track, road, treadmill and trail are not equivalent, and the differences are large enough to swamp the precision the numbers here are printed to.</li>
+  </ul>
+  <p>Use the output as a plan and a reference point rather than a promise. The arithmetic is exact; the assumption that you will hold one pace is the part that bends.</p>
+
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate my running pace?", "acceptedAnswer": {"@type": "Answer", "text": "Divide your total time by the distance you covered. Forty-seven minutes thirty seconds over six miles is 2,850 seconds divided by 6, which is 475 seconds — 7 minutes 55 seconds per mile. Converting the time to seconds first avoids the mistake of treating minutes as if they were decimal."}}, {"@type": "Question", "name": "What is a good running pace per mile?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single answer, because it depends on distance, age, terrain and how long you have been running. A useful personal benchmark is your easy pace: the speed at which you could still hold a conversation. Most recreational runners find that sits somewhere between 9 and 12 minutes per mile, and it is meant to feel comfortable rather than impressive."}}, {"@type": "Question", "name": "How do I convert minutes per mile to minutes per kilometer?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the per-mile figure by 1.60935. An 8:00 mile is 480 seconds, and 480 divided by 1.60935 is about 298 seconds, or 4:58 per kilometer. The Pace Converter on this page does it exactly, in both directions and across speed units too."}}, {"@type": "Question", "name": "What pace do I need for a sub-2:00 half marathon?", "acceptedAnswer": {"@type": "Answer", "text": "Just under 9:09 per mile, or about 5:41 per kilometer. Switch to the Time tab, enter that pace with a distance of 13.1 miles, and the calculator shows the finish time it produces — then read the splits panel for the checkpoints to hit along the way."}}, {"@type": "Question", "name": "Are splits the same thing as pace?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pace is a rate; a split is the elapsed time at a specific point. The splits table converts one into the other, showing what the clock should read at each kilometer and mile marker if you hold the pace you entered."}}, {"@type": "Question", "name": "Why does my GPS watch show a different pace?", "acceptedAnswer": {"@type": "Answer", "text": "Two reasons. Watches report instantaneous or recently-smoothed pace, which fluctuates constantly, while this page computes a single average across the whole distance. And GPS traces tend to measure long against a certified course, which makes the watch pace look slightly quicker than the official result."}}, {"@type": "Question", "name": "What is a negative split?", "acceptedAnswer": {"@type": "Answer", "text": "Running the second half of a race faster than the first. It is widely regarded as the more reliable way to race distances from 5K upwards, because the alternative — going out fast and slowing — usually loses more time at the end than it gained at the start."}}, {"@type": "Question", "name": "Can I use this for walking, cycling or swimming?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The relationship between pace, time and distance does not care what activity produced it. Cyclists usually prefer the speed units and swimmers typically think in time per 100 meters, which you can get by entering the distance in meters and reading the per-kilometer figure."}}]}</script>
+<h2 id="faq">Frequently asked questions</h2>
+  <h3>How do I calculate my running pace?</h3>
+  <p>Divide your total time by the distance you covered. Forty-seven minutes thirty seconds over six miles is 2,850 seconds divided by 6, which is 475 seconds &mdash; 7 minutes 55 seconds per mile. Converting the time to seconds first avoids the mistake of treating minutes as if they were decimal.</p>
+  <h3>What is a good running pace per mile?</h3>
+  <p>There is no single answer, because it depends on distance, age, terrain and how long you have been running. A useful personal benchmark is your easy pace: the speed at which you could still hold a conversation. Most recreational runners find that sits somewhere between 9 and 12 minutes per mile, and it is meant to feel comfortable rather than impressive.</p>
+  <h3>How do I convert minutes per mile to minutes per kilometer?</h3>
+  <p>Divide the per-mile figure by 1.60935. An 8:00 mile is 480 seconds, and 480 divided by 1.60935 is about 298 seconds, or 4:58 per kilometer. The Pace Converter on this page does it exactly, in both directions and across speed units too.</p>
+  <h3>What pace do I need for a sub-2:00 half marathon?</h3>
+  <p>Just under 9:09 per mile, or about 5:41 per kilometer. Switch to the Time tab, enter that pace with a distance of 13.1 miles, and the calculator shows the finish time it produces &mdash; then read the splits panel for the checkpoints to hit along the way.</p>
+  <h3>Are splits the same thing as pace?</h3>
+  <p>No. Pace is a rate; a split is the elapsed time at a specific point. The splits table converts one into the other, showing what the clock should read at each kilometer and mile marker if you hold the pace you entered.</p>
+  <h3>Why does my GPS watch show a different pace?</h3>
+  <p>Two reasons. Watches report instantaneous or recently-smoothed pace, which fluctuates constantly, while this page computes a single average across the whole distance. And GPS traces tend to measure long against a certified course, which makes the watch pace look slightly quicker than the official result.</p>
+  <h3>What is a negative split?</h3>
+  <p>Running the second half of a race faster than the first. It is widely regarded as the more reliable way to race distances from 5K upwards, because the alternative &mdash; going out fast and slowing &mdash; usually loses more time at the end than it gained at the start.</p>
+  <h3>Can I use this for walking, cycling or swimming?</h3>
+  <p>Yes. The relationship between pace, time and distance does not care what activity produced it. Cyclists usually prefer the speed units and swimmers typically think in time per 100 meters, which you can get by entering the distance in meters and reading the per-kilometer figure.</p>
+
+  <p class="pc-disclaimer">This calculator is provided for general fitness and planning purposes and is not medical advice. Estimates such as the 220-minus-age maximum heart rate are population averages with wide individual variation. If you are starting or significantly changing an exercise programme, or have a heart, respiratory or other health condition, speak to a qualified healthcare professional first. Learn more <a href="/about/">about how we build these tools</a> or read our <a href="/privacy-policy/">privacy policy</a>.</p>
+</article>
+</div></main>
+<footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +825,468 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+function $(id){ return document.getElementById(id); }
+var PMI = 1609.35, PYD = 0.9144;
+var PDU = { Miles: PMI, Kilometers: 1000, Meters: 1, Yards: PYD };
+
+function pHalfUp(x, dp) {
+  var f = Math.pow(10, dp);
+  return Math.floor(Math.abs(x) * f + 0.5) / f * (x < 0 ? -1 : 1);
+}
+/* number, dp decimals, trailing zeros dropped, comma thousands */
+function pNum(x, dp) {
+  if (!isFinite(x)) return '';
+  var r = pHalfUp(x + 1e-12, dp).toFixed(dp);
+  if (r.indexOf('.') > -1) r = r.replace(/0+$/, '').replace(/\.$/, '');
+  var p = r.split('.');
+  p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return p.join('.');
+}
+/* seconds -> "hh:mm:ss" / "mm:ss", zero padded, whole seconds (race + split tables) */
+function pHMS(t) {
+  t = Math.floor(t + 0.5 + 1e-9);
+  var h = Math.floor(t / 3600), m = Math.floor((t - h * 3600) / 60), s = t - h * 3600 - m * 60;
+  function z(n) { return n < 10 ? '0' + n : '' + n; }
+  return h > 0 ? h + ':' + z(m) + ':' + z(s) : m + ':' + z(s);
+}
+/* seconds -> "h:mm:s.dd" / "m:s.dd" — unpadded seconds, 2dp, used by the segment table */
+function pClock(t) {
+  var h = Math.floor(t / 3600), m = Math.floor((t - h * 3600) / 60), s = t - h * 3600 - m * 60;
+  s = pHalfUp(s + 1e-9, 2);
+  if (s >= 60) { s -= 60; m += 1; }
+  if (m >= 60) { m -= 60; h += 1; }
+  var ss = (Math.round(s * 100) / 100).toString();
+  function z(n) { return n < 10 ? '0' + n : '' + n; }
+  return h > 0 ? h + ':' + z(m) + ':' + ss : m + ':' + ss;
+}
+/* seconds -> "3 hours, 30 minutes, and 58.5 seconds" */
+function pWords(t) {
+  var h = Math.floor(t / 3600), m = Math.floor((t - h * 3600) / 60), s = t - h * 3600 - m * 60;
+  s = pHalfUp(s + 1e-9, 2);
+  if (s >= 60) { s -= 60; m += 1; }
+  if (m >= 60) { m -= 60; h += 1; }
+  var out = '';
+  if (h > 0) out += h + ' hour' + (h === 1 ? '' : 's') + ', ';
+  if (m > 0) {
+    out += m + ' minute' + (m === 1 ? '' : 's');
+    if (s > 0) out += (h > 0 ? ', and ' : ' and ');
+  }
+  if (s > 0) out += pNum(s, 2) + ' second' + (s === 1 ? '' : 's');
+  out = out.replace(/,\s*$/, '');
+  return out || '0 seconds';
+}
+/* "1:02:03" / "5:3" / "90" -> seconds. Placeholder zeros are optional. */
+function pParseTime(v) {
+  if (v === null || v === undefined) return NaN;
+  v = String(v).trim();
+  if (!v) return NaN;
+  if (!/^[0-9:.\s]+$/.test(v)) return NaN;
+  var parts = v.split(':'), mult = [1, 60, 3600], tot = 0;
+  if (parts.length > 3) return NaN;
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[parts.length - 1 - i].trim();
+    var n = p === '' ? 0 : parseFloat(p);
+    if (isNaN(n)) return NaN;
+    tot += n * mult[i];
+  }
+  return tot;
+}
+/* pace value + unit -> seconds per metre */
+function pPaceToSpm(val, unit) {
+  var v;
+  if (unit === 'tpm' || unit === 'tpk') {
+    v = pParseTime(val);
+    if (!(v > 0)) return NaN;
+    return v / (unit === 'tpm' ? PMI : 1000);
+  }
+  v = parseFloat(val);
+  if (!(v > 0)) return NaN;
+  if (unit === 'mph') return 3600 / (v * PMI);
+  if (unit === 'kph') return 3600 / (v * 1000);
+  if (unit === 'mpm') return 60 / v;
+  if (unit === 'mps') return 1 / v;
+  if (unit === 'ypm') return 60 / (v * PYD);
+  if (unit === 'yps') return 1 / (v * PYD);
+  return NaN;
+}
+/* seconds per metre -> a value in the given pace unit, as a display string */
+function pSpmToUnit(spm, unit) {
+  if (unit === 'tpm') return pWords(spm * PMI);
+  if (unit === 'tpk') return pWords(spm * 1000);
+  if (unit === 'mph') return pNum(3600 / (spm * PMI), 3);
+  if (unit === 'kph') return pNum(3600 / (spm * 1000), 3);
+  if (unit === 'mpm') return pNum(60 / spm, 3);
+  if (unit === 'mps') return pNum(1 / spm, 3);
+  if (unit === 'ypm') return pNum(60 / (spm * PYD), 3);
+  if (unit === 'yps') return pNum(1 / (spm * PYD), 3);
+  return '';
+}
+/* the six pace rows shown by the main calculator */
+function pPaceRows(spm) {
+  return [
+    [pWords(spm * PMI), 'per mile'],
+    [pWords(spm * 1000), 'per kilometer'],
+    [pNum(3600 / (spm * PMI), 2), 'miles/hour'],
+    [pNum(3600 / (spm * 1000), 2), 'kilometers/hour'],
+    [pNum(60 / spm, 2), 'meters/minute'],
+    [pNum(1 / spm, 2), 'meters/second']
+  ];
+}
+/* the eight pace rows shown by the finish-time calculator */
+function pPaceRows8(spm) {
+  var r = pPaceRows(spm);
+  r[0][1] = 'Per Mile'; r[1][1] = 'Per Kilometer'; r[2][1] = 'Miles Per Hour';
+  r[3][1] = 'Kilometers Per Hour'; r[4][1] = 'Meters Per Minute'; r[5][1] = 'Meters Per Second';
+  r.push([pNum(60 / (spm * PYD), 2), 'Yards Per Minute']);
+  r.push([pNum(1 / (spm * PYD), 2), 'Yards Per Second']);
+  return r;
+}
+function pDistRows(m) {
+  return [
+    [pNum(m / PMI, 3), 'Miles'], [pNum(m / 1000, 3), 'Kilometers'],
+    [pNum(m, 1), 'Meters'], [pNum(m / PYD, 1), 'Yards']
+  ];
+}
+/* popular race distances at this pace */
+function pRaceTable(spm) {
+  var k = spm * 1000, mi = spm * PMI;
+  return [
+    ['1K', pHMS(k), '1 mile', pHMS(mi)],
+    ['3K', pHMS(k * 3), '3 miles', pHMS(mi * 3)],
+    ['5K', pHMS(k * 5), '5 miles', pHMS(mi * 5)],
+    ['10K', pHMS(k * 10), '10 miles', pHMS(mi * 10)],
+    ['Marathon', pHMS(k * 42.195), 'Half Marathon', pHMS(k * 21.0975)],
+    ['400 meters', pHMS(k * 0.4), '800 meters', pHMS(k * 0.8)]
+  ];
+}
+/* km and mile splits — only shown once the distance passes 2 km, as the reference does */
+function pSplits(spm, distM) {
+  if (!(distM / 1000 > 2)) return null;
+  var k = spm * 1000, mi = spm * PMI, km = [], ml = [], i;
+  for (i = 1; i <= Math.floor(distM / 1000); i++) km.push([i + 'K', pHMS(k * i)]);
+  for (i = 1; i <= Math.floor(distM / PMI); i++) ml.push([i + ' mile', pHMS(mi * i)]);
+  return { km: km, mi: ml };
+}
+/* multipoint: cumulative distance/time pairs -> per-segment and accumulated pace */
+function pMultipoint(rows, paceUnit) {
+  var prevD = 0, prevT = 0, out = [];
+  for (var i = 0; i < rows.length; i++) {
+    var d = rows[i].dist, t = rows[i].time;
+    var segD = d - prevD, segT = t - prevT;
+    if (!(segD > 0) || !(segT > 0)) return { error: true, index: i };
+    out.push({
+      n: i + 1,
+      segDist: segD,
+      segDistUnit: rows[i].unitFactor,
+      segTime: segT,
+      segPace: pSpmToUnitClock(segT / segD, paceUnit),
+      accPace: pSpmToUnitClock(t / d, paceUnit),
+      segPaceSec: segT / segD * (paceUnit === 'tpk' || paceUnit === 'kph' || paceUnit === 'mpm' || paceUnit === 'mps' ? 1000 : PMI)
+    });
+    prevD = d; prevT = t;
+  }
+  return { rows: out, avg: pSpmToUnit(prevT / prevD, paceUnit) };
+}
+/* segment table renders paces as clock values, not words */
+function pSpmToUnitClock(spm, unit) {
+  if (unit === 'tpm') return pClock(spm * PMI);
+  if (unit === 'tpk') return pClock(spm * 1000);
+  return pSpmToUnit(spm, unit);
+}
+
+
+/* ---------------- shared UI helpers ---------------- */
+var TIME_UNITS = { tpm:1, tpk:1 };
+var UNIT_LABEL = { tpm:'Per Mile', tpk:'Per Kilometer', mph:'Miles Per Hour', kph:'Kilometers Per Hour',
+                   mpm:'Meters Per Minute', mps:'Meters Per Second', ypm:'Yards Per Minute', yps:'Yards Per Second' };
+function showErr(el, msg){ if(!el) return; if(msg){ el.textContent = msg; el.className = 'pc-err show'; } else { el.textContent=''; el.className='pc-err'; } }
+function rowsHTML(pairs, leadCount){
+  var h = '';
+  for (var i=0;i<pairs.length;i++){
+    h += '<div class="pc-row'+(i<(leadCount||0)?' pc-lead':'')+'"><span>'+pairs[i][1]+'</span><span>'+pairs[i][0]+'</span></div>';
+  }
+  return h;
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+/* ---------------- main calculator ---------------- */
+var mode = 'pace';
+var EVENTS = { M:['42.195','Kilometers'], HM:['21.0975','Kilometers'], '1K':['1','Kilometers'],
+  '5K':['5','Kilometers'], '10K':['10','Kilometers'], '1M':['1','Miles'], '5M':['5','Miles'],
+  '10M':['10','Miles'], '800m':['800','Meters'], '1500m':['1500','Meters'] };
+
+function setMode(m){
+  mode = m;
+  var tabs = { pace:$('pc-tabPace'), time:$('pc-tabTime'), distance:$('pc-tabDist') };
+  for (var k in tabs){
+    if (!tabs[k]) continue;
+    var on = (k===m);
+    tabs[k].className = on ? 'pc-tab active' : 'pc-tab';
+    tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
+  }
+  $('pc-fTime').className  = (m==='time')     ? 'pc-field pc-hidden' : 'pc-field';
+  $('pc-fDist').className  = (m==='distance') ? 'pc-field pc-hidden' : 'pc-field';
+  $('pc-fPace').className  = (m==='pace')     ? 'pc-field pc-hidden' : 'pc-field';
+  $('pc-formHead').textContent = m==='pace' ? 'Solving for pace' : (m==='time' ? 'Solving for time' : 'Solving for distance');
+  $('pc-resultHead').textContent = m==='pace' ? 'Your pace' : (m==='time' ? 'Time required' : 'Distance covered');
+  calcMain();
+}
+function paceHint(){
+  var u = $('pc-paceUnit').value;
+  $('pc-paceHint').textContent = TIME_UNITS[u] ? 'hh:mm:ss' : '';
+}
+function calcMain(){
+  var errEl = $('pc-err'), spm, distM, big='', sub='', rows=[];
+  showErr(errEl, '');
+  var dv = parseFloat($('pc-dist').value), du = PDU[$('pc-distUnit').value];
+  var tv = pParseTime($('pc-time').value);
+  if (mode === 'pace'){
+    if (!(tv > 0) || !(dv > 0)){ return blankMain(); }
+    distM = dv * du; spm = tv / distM;
+    var pr = pPaceRows(spm);
+    big = pr[0][0]; sub = 'per mile';
+    rows = pr.slice(1);
+  } else if (mode === 'time'){
+    spm = pPaceToSpm($('pc-pace').value, $('pc-paceUnit').value);
+    if (!(spm > 0) || !isFinite(spm) || !(dv > 0)){ return blankMain(); }
+    distM = dv * du;
+    big = pWords(distM * spm); sub = 'to cover ' + esc($('pc-dist').value) + ' ' + $('pc-distUnit').value.toLowerCase();
+    rows = pPaceRows(spm);
+  } else {
+    spm = pPaceToSpm($('pc-pace').value, $('pc-paceUnit').value);
+    if (!(spm > 0) || !isFinite(spm) || !(tv > 0)){ return blankMain(); }
+    distM = tv / spm;
+    var dr = pDistRows(distM);
+    big = dr[0][0] + ' Miles'; sub = 'in ' + pWords(tv);
+    rows = dr.slice(1);
+  }
+  $('pc-bigVal').textContent = big;
+  $('pc-bigSub').textContent = sub;
+  $('pc-resultRows').innerHTML = rowsHTML(rows, mode==='distance' ? 3 : 1);
+  /* race table */
+  var rt = pRaceTable(spm), h = '';
+  for (var i=0;i<rt.length;i++){
+    h += '<tr><td>'+rt[i][0]+'</td><td class="pc-num">'+rt[i][1]+'</td><td>'+rt[i][2]+'</td><td class="pc-num">'+rt[i][3]+'</td></tr>';
+  }
+  $('pc-raceBody').innerHTML = h;
+  /* splits */
+  var sp = pSplits(spm, distM), s = '';
+  if (!sp){
+    $('pc-splitBody').innerHTML = '<tr><td colspan="4" style="color:var(--ink-faint);padding:12px 0">Splits appear once the distance passes 2 kilometers.</td></tr>';
+  } else {
+    var n = Math.max(sp.km.length, sp.mi.length);
+    for (var j=0;j<n;j++){
+      var a = sp.km[j], b = sp.mi[j];
+      s += '<tr><td>'+(a?a[0]:'')+'</td><td class="pc-num">'+(a?a[1]:'')+'</td><td>'+(b?b[0]:'')+'</td><td class="pc-num">'+(b?b[1]:'')+'</td></tr>';
+    }
+    $('pc-splitBody').innerHTML = s;
+  }
+  window.__pcLast = { mode:mode, spm:spm, distM:distM, big:big, sub:sub, rows:rows, race:rt, splits:sp };
+}
+function blankMain(){
+  $('pc-bigVal').textContent = '\u2014'; $('pc-bigSub').textContent = '';
+  $('pc-resultRows').innerHTML = ''; $('pc-raceBody').innerHTML = '';
+  $('pc-splitBody').innerHTML = '';
+  window.__pcLast = null;
+}
+
+/* ---------------- multipoint ---------------- */
+var MP_ROWS = 12;
+function buildMpRows(){
+  var d = ['1','2','3','4','5','','','','','','',''];
+  var t = ['5:12','10:20','15:40','21:05','26:20','','','','','','',''];
+  var h = '';
+  for (var i=0;i<MP_ROWS;i++){
+    h += '<tr><td class="pc-mp-idx">'+(i+1)+'.</td>'+
+         '<td><input type="text" id="pc-mpD'+i+'" value="'+d[i]+'" inputmode="decimal" aria-label="Cumulative distance at point '+(i+1)+'"></td>'+
+         '<td><select id="pc-mpU'+i+'" aria-label="Unit at point '+(i+1)+'"><option value="Kilometers">Kilometers</option><option value="Miles">Miles</option><option value="Meters">Meters</option><option value="Yards">Yards</option></select></td>'+
+         '<td><input type="text" id="pc-mpT'+i+'" value="'+t[i]+'" inputmode="numeric" aria-label="Cumulative time at point '+(i+1)+'"></td></tr>';
+  }
+  $('pc-mpBody').innerHTML = h;
+}
+function calcMp(){
+  var unit = $('pc-mpUnit').value, rows = [], i;
+  showErr($('pc-mpErr'), '');
+  for (i=0;i<MP_ROWS;i++){
+    var dv = $('pc-mpD'+i).value.trim(), tv = $('pc-mpT'+i).value.trim();
+    if (!dv && !tv) continue;
+    var d = parseFloat(dv), t = pParseTime(tv);
+    if (!(d > 0) || !(t > 0)) { showErr($('pc-mpErr'), 'Row ' + (i+1) + ' needs both a distance and a time.'); return mpBlank(); }
+    rows.push({ d: d * PDU[$('pc-mpU'+i).value], t: t, unitName: $('pc-mpU'+i).value });
+  }
+  if (rows.length === 0) return mpBlank();
+  var hdrU = PDU[rows[0].unitName], hdrName = rows[0].unitName;
+  var isTime = !!TIME_UNITS[unit];
+  var pd = 0, pt = 0, out = [], secs = [];
+  for (i=0;i<rows.length;i++){
+    var sd = rows[i].d - pd, st = rows[i].t - pt;
+    if (!(sd > 0) || !(st > 0)){ showErr($('pc-mpErr'), 'Each row must be further and later than the row above it \u2014 the entries are running totals.'); return mpBlank(); }
+    var segSpm = st / sd, accSpm = rows[i].t / rows[i].d;
+    out.push([ i+1, pNum(sd / hdrU, 2), pHMS(st).replace(/^0:/, ''),
+               isTime ? pClock(segSpm * (unit==='tpm'?PMI:1000)) : pSpmToUnit(segSpm, unit),
+               isTime ? pClock(accSpm * (unit==='tpm'?PMI:1000)) : pSpmToUnit(accSpm, unit) ]);
+    secs.push(segSpm * (unit==='tpk'||unit==='kph'||unit==='mpm'||unit==='mps' ? 1000 : PMI));
+    pd = rows[i].d; pt = rows[i].t;
+  }
+  $('pc-mpHead').innerHTML = '<tr><th></th><th>Distance ('+hdrName+')</th><th>Segment time</th><th>Segment pace</th><th>Accumulated pace</th></tr>';
+  var h = '';
+  for (i=0;i<out.length;i++){
+    h += '<tr><td class="pc-mp-idx">'+out[i][0]+'.</td><td>'+out[i][1]+'</td><td>'+out[i][2]+'</td><td><strong>'+out[i][3]+'</strong></td><td>'+out[i][4]+'</td></tr>';
+  }
+  $('pc-mpOut').innerHTML = h;
+  $('pc-mpAvg').textContent = pSpmToUnit(pt / pd, unit) + ' ' + UNIT_LABEL[unit];
+  drawChart(secs, isTime, unit);
+}
+function mpBlank(){ $('pc-mpOut').innerHTML=''; $('pc-mpHead').innerHTML=''; $('pc-mpAvg').textContent='\u2014'; drawChart([], true, 'tpm'); }
+function drawChart(vals, isTime, unit){
+  var svg = $('pc-mpChart');
+  if (!vals.length){ svg.innerHTML = '<text x="230" y="115" text-anchor="middle" fill="#787D86" font-size="13" font-family="IBM Plex Sans,sans-serif">Enter at least one point</text>'; return; }
+  var W=460,H=230,L=52,R=12,T=26,B=34, pw=W-L-R, ph=H-T-B;
+  var max=Math.max.apply(null,vals), min=0, top=max*1.15 || 1;
+  var n=vals.length, gap=pw/n*0.28, bw=(pw/n)-gap, g='';
+  g += '<text x="'+(L+pw/2)+'" y="14" text-anchor="middle" fill="#181A1F" font-size="12.5" font-weight="600" font-family="IBM Plex Sans,sans-serif">Pace per segment ('+(isTime?'seconds':UNIT_LABEL[unit])+')</text>';
+  for (var t=0;t<=4;t++){
+    var y=T+ph-(ph*t/4), v=top*t/4;
+    g += '<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)+'" stroke="#E3E0D8" stroke-width="1"/>';
+    g += '<text x="'+(L-7)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" fill="#787D86" font-size="10" font-family="IBM Plex Sans,sans-serif">'+(isTime?Math.round(v):pNum(v,1))+'</text>';
+  }
+  for (var i=0;i<n;i++){
+    var hgt=ph*(vals[i]/top), x=L+i*(bw+gap)+gap/2, y=T+ph-hgt;
+    g += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(hgt,1).toFixed(1)+'" fill="#1E3A5F" rx="3"><title>Segment '+(i+1)+'</title></rect>';
+    g += '<text x="'+(x+bw/2).toFixed(1)+'" y="'+(T+ph+15)+'" text-anchor="middle" fill="#787D86" font-size="10.5" font-family="IBM Plex Sans,sans-serif">'+(i+1)+'</text>';
+  }
+  svg.innerHTML = g;
+}
+
+/* ---------------- converter ---------------- */
+function calcCv(){
+  showErr($('pc-cvErr'), '');
+  var from = $('pc-cvFromUnit').value, to = $('pc-cvToUnit').value;
+  $('pc-cvHint').textContent = TIME_UNITS[from] ? 'hh:mm:ss' : '';
+  var spm = pPaceToSpm($('pc-cvFrom').value, from);
+  if (!(spm > 0) || !isFinite(spm)){ $('pc-cvBig').textContent='\u2014'; $('pc-cvSub').textContent=''; return; }
+  $('pc-cvBig').textContent = pSpmToUnit(spm, to);
+  $('pc-cvSub').textContent = UNIT_LABEL[to] + '  \u00b7  from ' + pSpmToUnit(spm, from) + ' ' + UNIT_LABEL[from];
+}
+
+/* ---------------- finish time ---------------- */
+function calcFt(){
+  showErr($('pc-ftErr'), '');
+  var dn = parseFloat($('pc-ftNow').value), du = PDU[$('pc-ftNowUnit').value];
+  var t = pParseTime($('pc-ftTime').value);
+  var df = parseFloat($('pc-ftFull').value), fu = PDU[$('pc-ftFullUnit').value];
+  if (!(dn > 0) || !(t > 0) || !(df > 0)){ $('pc-ftBig').textContent='\u2014'; $('pc-ftSub').textContent=''; $('pc-ftRows').innerHTML=''; return; }
+  var spm = t / (dn * du), total = spm * df * fu;
+  $('pc-ftBig').textContent = pWords(total);
+  $('pc-ftSub').textContent = 'to finish ' + esc($('pc-ftFull').value) + ' ' + $('pc-ftFullUnit').value + ' at your current pace';
+  $('pc-ftRows').innerHTML = rowsHTML(pPaceRows8(spm), 2);
+  window.__pcFt = { total: pWords(total), rows: pPaceRows8(spm) };
+}
+
+/* ---------------- PDF (lazy) ---------------- */
+var pdfPromise = null;
+function loadScriptOnce(src){
+  return new Promise(function(res, rej){
+    var s = document.createElement('script');
+    s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s);
+  });
+}
+function ensurePdfLibs(){
+  if (pdfPromise) return pdfPromise;
+  pdfPromise = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+    .then(function(){ return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+  return pdfPromise;
+}
+function generatePdf(){
+  var jsPDF = window.jspdf.jsPDF, doc = new jsPDF({ unit:'pt', format:'letter' });
+  var L = window.__pcLast;
+  doc.setFontSize(17); doc.text('Pace Calculator', 40, 48);
+  doc.setFontSize(10); doc.setTextColor(120);
+  doc.text('calculatorboss.com/pace-calculator/', 40, 64);
+  doc.setTextColor(30); doc.setFontSize(13);
+  if (L){
+    doc.text((L.mode==='pace'?'Pace: ':(L.mode==='time'?'Time: ':'Distance: ')) + L.big + (L.sub? ' ' + L.sub : ''), 40, 94);
+    doc.autoTable({ startY: 110, head: [['Metric','Value']], body: L.rows.map(function(r){ return [r[1], r[0]]; }),
+                    theme:'grid', headStyles:{ fillColor:[30,58,95] }, styles:{ fontSize:9 } });
+    doc.autoTable({ startY: doc.lastAutoTable.finalY + 16, head: [['Distance','Time','Distance','Time']],
+                    body: L.race, theme:'grid', headStyles:{ fillColor:[22,163,74] }, styles:{ fontSize:9 } });
+    if (L.splits){
+      var n = Math.max(L.splits.km.length, L.splits.mi.length), body = [];
+      for (var i=0;i<n;i++){
+        var a=L.splits.km[i], b=L.splits.mi[i];
+        body.push([a?a[0]:'', a?a[1]:'', b?b[0]:'', b?b[1]:'']);
+      }
+      doc.autoTable({ startY: doc.lastAutoTable.finalY + 16, head: [['Split','Time','Split','Time']],
+                      body: body, theme:'grid', headStyles:{ fillColor:[30,58,95] }, styles:{ fontSize:8.5 } });
+    }
+  }
+  doc.save('pace-calculator.pdf');
+}
+
+/* ---------------- wiring ---------------- */
+function init(){
+  buildMpRows();
+  $('pc-tabPace').addEventListener('click', function(){ setMode('pace'); });
+  $('pc-tabTime').addEventListener('click', function(){ setMode('time'); });
+  $('pc-tabDist').addEventListener('click', function(){ setMode('distance'); });
+  $('pc-paceUnit').addEventListener('change', function(){ paceHint(); calcMain(); });
+  $('pc-event').addEventListener('change', function(){
+    var e = EVENTS[this.value];
+    if (e){ $('pc-dist').value = e[0]; $('pc-distUnit').value = e[1]; calcMain(); }
+  });
+  ['pc-time','pc-dist'].forEach(function(id){ $(id).addEventListener('input', calcMain); });
+  $('pc-pace').addEventListener('input', calcMain);
+  $('pc-distUnit').addEventListener('change', calcMain);
+  $('pc-calcBtn').addEventListener('click', calcMain);
+  $('pc-clearBtn').addEventListener('click', function(){
+    ['pc-time','pc-dist','pc-pace'].forEach(function(id){ $(id).value = ''; });
+    calcMain();
+  });
+
+  for (var i=0;i<MP_ROWS;i++){
+    $('pc-mpD'+i).addEventListener('input', calcMp);
+    $('pc-mpT'+i).addEventListener('input', calcMp);
+    $('pc-mpU'+i).addEventListener('change', calcMp);
+  }
+  $('pc-mpUnit').addEventListener('change', calcMp);
+  $('pc-mpCalc').addEventListener('click', calcMp);
+  $('pc-mpClear').addEventListener('click', function(){
+    for (var i=0;i<MP_ROWS;i++){ $('pc-mpD'+i).value=''; $('pc-mpT'+i).value=''; }
+    calcMp();
+  });
+
+  ['pc-cvFrom'].forEach(function(id){ $(id).addEventListener('input', calcCv); });
+  $('pc-cvFromUnit').addEventListener('change', calcCv);
+  $('pc-cvToUnit').addEventListener('change', calcCv);
+  $('pc-cvCalc').addEventListener('click', calcCv);
+  $('pc-cvClear').addEventListener('click', function(){ $('pc-cvFrom').value=''; calcCv(); });
+
+  ['pc-ftNow','pc-ftTime','pc-ftFull'].forEach(function(id){ $(id).addEventListener('input', calcFt); });
+  ['pc-ftNowUnit','pc-ftFullUnit'].forEach(function(id){ $(id).addEventListener('change', calcFt); });
+  $('pc-ftCalc').addEventListener('click', calcFt);
+  $('pc-ftClear').addEventListener('click', function(){
+    ['pc-ftNow','pc-ftTime','pc-ftFull'].forEach(function(id){ $(id).value=''; });
+    calcFt();
+  });
+
+  var btn = $('pc-pdfBtn');
+  btn.addEventListener('click', function(){
+    var old = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading\u2026';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = old; generatePdf();
+    }).catch(function(){ btn.disabled = false; btn.textContent = old; });
+  });
+
+  paceHint(); setMode('pace'); calcMp(); calcCv(); calcFt();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1408,246 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>
