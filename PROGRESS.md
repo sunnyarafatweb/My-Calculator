@@ -9611,3 +9611,92 @@ mismatches above arose in the first place.
 Re-ran the full audit across all 108 pages: **every check returns zero**. All JSON-LD blocks on
 all 108 pages parse as valid JSON. Eight affected pages were then rendered in Chromium to confirm
 titles, `og:image` and structured data land correctly and that no page throws a JS error.
+
+## Rebuild 1 of 8 — dividend-yield-calculator (Aug 9, 2026)
+
+First of the eight pages dropped when `061fb5f3` removed `/money-markets/`. The root URL was
+returning 404 while `_redirects` sent the old path to a category hub, which Google reads as a
+soft 404 — no ranking signal passes. Both rules now point at the real page.
+
+### The parity protocol had no referent, and that had to be settled first
+
+Section 3a-PRIME requires matching calculator.net field for field. **calculator.net does not have
+a dividend calculator** — verified against their full site sitemap, not just the finance index.
+Nor does it have CAGR, SIP, portfolio allocation, stock average price, break-even, P/E ratio or
+gold value. None of the eight has a calculator.net referent, which is presumably why they were
+originally built under a separate project.
+
+The check carried its own positive control: the same sitemap fetch *does* return
+`sample-size-calculator`, `z-score-calculator`, `probability-calculator`, `triangle-calculator`,
+`concrete-calculator`, `tile-calculator` and `random-number-generator`. The lookup finds what
+exists, so the absence is real rather than a parsing failure.
+
+**Substitute protocol used, with owner sign-off:** union field map across Forbes Advisor,
+MarketBeat and dividend.watch; formulas sourced rather than reverse-engineered; and the sweep run
+against an independently written Python implementation (`ref_dividend.py`) derived from the
+sourced definitions rather than from the page JS. This catches transcription, rounding and
+edge-case errors. It cannot catch a wrong choice of formula — that gap is covered by sourcing,
+and it is weaker than what calculator.net gave the Finance and Health pages. Recorded honestly.
+
+### A reference bug, matched-field-not-bug
+
+Forbes Advisor's own worked example calls a $3.50 **quarterly** dividend on a $100 share a "3.5%
+yield". Annualised, $3.50 four times a year is $14.00 — a 14% yield. They divided a single payment
+by the price. We annualise, per the standard definition, and `ref_dividend.py` carries an
+assertion pinning both figures so the distinction can't drift.
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Sweep cases (yield / YoC / DRIP) | 300 |
+| Individual assertions | 870 |
+| Mismatches vs Python reference | **0** |
+| JS page errors (over HTTP) | **0** |
+| Negative control fires | yes |
+| FAQ schema ↔ visible HTML | byte-identical, 6/6 |
+| JSON-LD blocks parsing | 3/3 (Breadcrumb, FAQPage, WebApplication) |
+
+The first sweep run reported 2 console errors under `file://`. Re-running over `http://localhost`
+returned zero — they were protocol artefacts from absolute asset paths, not page bugs. Checked
+rather than assumed.
+
+### Three things the screenshots caught that assertions did not
+
+1. **Class-vocabulary mismatch.** The first draft invented its own class names (`.dy-lab`,
+   `.dy-btn-go`) while the borrowed CSS defines `.tax-field-label`, `.tax-btn-calc`. Every
+   assertion passed — `.dy-grid` present, no stale `tax-` strings, head clean — and the page
+   would have shipped as an unstyled column of text. Markup was rewritten against the reference's
+   own vocabulary so it inherits CSS already tested at 860px and 430px.
+2. **Chart of four identical bars.** Quarterly payments are equal, so the yield chart drew four
+   identical rectangles. Correct, and useless. Now a cumulative staircase through the year.
+3. **Sensitivity table column of five identical values.** Income on a fixed share count doesn't
+   move with price. Replaced with income on a fixed $10,000 stake, which does, and teaches the
+   same lesson.
+
+### Registry note — a pre-existing off-by-one
+
+`all-calculators` labelled the Finance panel "Finance (77)" while the panel held **78** links. The
+label was already stale. Recounted from the markup rather than incrementing the old number, so it
+now reads 79 rather than the 78 an increment would have produced.
+
+### Scope, and what was deliberately left out
+
+Three modes: yield, yield on cost, reinvestment. Flagged omissions, stated on the page rather than
+dropped silently — no tax field (treatment varies by country, account type and income band, and a
+single field would be wrong for most readers) and no annual-contribution field. The recovered page
+also had a `localStorage` saved-presets feature; left out pending a single decision across all
+eight.
+
+Sidebar links out to 6 Finance calculators; inbound editorial links added from `investment`,
+`roi` and `average-return`. Each was inserted using **that page's own anchor shape** — roi uses
+`&rsaquo;` inside `<span aria-hidden>`, the other two use `.arrow` — then audited in Chromium by
+rendered text and by height against sibling links, not by count. This is the failure mode that
+produced `Target Heart Rate<span>Ideal Weight</span>` on the last bulk edit.
+
+### Remaining seven
+
+cagr, portfolio-allocation, sip, stock-average-price, break-even, pe-ratio, gold-value. All
+recovered intact from `061fb5f3^` (85–96 KB each, engine and article present). SIP and gold-value
+carry real convention questions — month-start vs month-end contributions, and troy ounce vs tola
+plus purity basis — that should be settled explicitly rather than picked silently.

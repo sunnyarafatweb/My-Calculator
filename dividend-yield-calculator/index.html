@@ -1,0 +1,1391 @@
+<!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6S04GMEMEJ');
+</script>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Dividend Yield Calculator — See What a Stock Really Pays You</title><meta name="description" content="Free dividend yield calculator: work out yield from any share price and payout, track yield on cost as dividends grow, and project DRIP compounding. No signup."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="dividend yield calculator,yield on cost calculator,drip calculator,dividend reinvestment calculator,annual dividend calculator,stock dividend yield,dividend income calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/dividend-yield-calculator/"/><meta property="og:title" content="Dividend Yield Calculator — See What a Stock Really Pays You"/><meta property="og:description" content="Free dividend yield calculator: work out yield from any share price and payout, track yield on cost as dividends grow, and project DRIP compounding. No signup."/><meta property="og:url" content="https://calculatorboss.com/dividend-yield-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/dividend-yield-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://calculatorboss.com/og/dividend-yield-calculator.png"/><meta name="twitter:title" content="Dividend Yield Calculator — See What a Stock Really Pays You"/><meta name="twitter:description" content="Free dividend yield calculator: work out yield from any share price and payout, track yield on cost as dividends grow, and project DRIP compounding. No signup."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PROTECTED SHARED STYLE BLOCK -- READ BEFORE EDITING
+     ============================================================
+     This block is duplicated across 200+ pages. Before changing
+     ANYTHING here site-wide:
+     1. NEVER add a universal *{...} reset rule here -- it breaks
+        Tailwind's .mx-auto centering on calculator pages (caused
+        a real left-alignment bug across the whole site).
+     2. NEVER remove --surface, --surface-sunken, --border,
+        --border-fine, --ink-faint, --shadow-sm from :root -- 185+
+        template pages use these via Tailwind classes (bg-surface,
+        border-border) for result-card styling. Removing them makes
+        cards invisible/unstyled with no error thrown.
+     3. After ANY edit to this block, propagate the SAME edit to
+        ALL pages (not just homepage), then spot-check a
+        non-custom-built page (e.g. body-fat-calculator) AND a
+        custom-built page (e.g. bmi-calculator, tip-calculator) for:
+        centered layout, visible card backgrounds, white header/
+        footer, nav-links display:flex, zero console errors.
+     4. Do a full 200-page automated check (not just a sample)
+        before pushing -- past incidents were missed by small
+        samples and only caught after the user reported them live.
+     ============================================================ */
+  :root{
+    --bg:#F3F1EA;
+    --surface:#FFFFFF;
+    --surface-sunken:#F3F1EA;
+    --border:rgba(22,27,38,.12);
+    --border-fine:rgba(22,27,38,.08);
+    --ink-faint:#A6AAB1;
+    --shadow-sm:0 1px 2px rgba(46,40,26,.05);
+
+    --bg-2:#ECEAE1;
+    --card:#FFFFFF;
+    --ink:#181A1F;
+    --ink-soft:#474C55;
+    --muted:#787D86;
+    --muted-2:#A6AAB1;
+    --line:#E4E2D8;
+    --line-soft:#EEEDE6;
+
+    --gold:#1BA94C;
+    --gold-deep:#128A3D;
+    --gold-hi:#33C266;
+    --gold-tint:#E4F5EA;
+
+    --fin:#22417A;   --fin-tint:#E8EDF6;
+    --hea:#0C9268;   --hea-tint:#DEF3EC;
+    --mat:#4B4ED8;   --mat-tint:#E7E7FB;
+    --oth:#CF3F53;   --oth-tint:#FBE4E7;
+
+    --r-sm:12px; --r:16px; --r-lg:24px; --r-xl:32px;
+    --maxw:1180px;
+
+    --sh-sm:0 1px 2px rgba(46,40,26,.05);
+    --sh:0 2px 5px rgba(46,40,26,.05),0 16px 34px -16px rgba(46,40,26,.18);
+    --sh-lg:0 4px 10px rgba(46,40,26,.06),0 36px 66px -26px rgba(46,40,26,.26);
+    --hi:inset 0 1px 0 rgba(255,255,255,.7);
+
+    --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  
+  html{scroll-behavior:smooth}
+  body{margin:0;padding:0;font-family:var(--f-body);background-color:var(--bg);background-image:linear-gradient(180deg,rgba(27,169,76,.05),transparent 620px);background-repeat:no-repeat;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.005em}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:#04240f}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono)}
+  .eyebrow{font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ===== BLOCK LAYOUT ===== */
+  .sec{padding:11px 0}
+  .sec-hero{padding:24px 0 11px}
+  .panel{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(253,252,248,.5));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.55);border-radius:30px;box-shadow:var(--sh)}
+  .sec-panel{padding:48px 50px}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:#FFFFFF;-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid rgba(22,27,38,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:19.5px;letter-spacing:-.03em;color:#181A1F}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#fff,#f1efe6);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--sh-sm),var(--hi)}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{position:relative;font-size:14.5px;font-weight:500;color:#474C55;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#181A1F;background:rgba(22,27,38,.05)}
+  .soon{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold-deep);background:var(--gold-tint);border:1px solid #ecd9a6;padding:1px 5px;border-radius:100px;margin-left:6px;vertical-align:middle}
+  .nav-spacer{flex:1;max-width:180px}
+  .nav-cta{display:flex;align-items:center;gap:11px;margin-left:auto}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#181A1F;background:rgba(22,27,38,.08);transform:translateY(-1px)}.icon-btn.cf-search-trigger{display:flex;align-items:stretch;justify-content:flex-start;width:296px;max-width:100%;padding:0;overflow:hidden}.icon-btn.cf-search-trigger:hover{background:rgba(22,27,38,.07)}.icon-btn.cf-search-trigger svg{flex-shrink:0;align-self:center;margin-left:14px;color:#787D86}.cf-search-trigger-text{flex:1;display:flex;align-items:center;text-align:left;padding:0 10px;font-size:13.5px;font-weight:500;color:#787D86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cf-search-trigger-go{flex-shrink:0;display:flex;align-items:center;padding:0 18px;background:#1F3A5D;color:#fff;font-size:12px;font-weight:700;letter-spacing:.03em}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));color:#04240f;box-shadow:0 10px 22px -10px rgba(18,138,61,.7),var(--hi)}
+  .btn-gold:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(18,138,61,.8),var(--hi)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+  .menu-btn{display:none}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;padding:44px 0 40px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .glow-a{position:absolute;top:-200px;right:-140px;width:620px;height:620px;background:radial-gradient(circle,rgba(27,169,76,.10),transparent 62%)}
+  .glow-b{display:none}
+  .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:56px;align-items:center}
+  .h-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold-deep);background:linear-gradient(180deg,#fff,#fbf4e2);border:1px solid #eeddb0;padding:7px 14px;border-radius:100px;box-shadow:var(--sh-sm)}
+  .h-eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--hea);box-shadow:0 0 0 3px rgba(12,146,104,.16)}
+  h1.hero-title{font-weight:700;font-size:clamp(42px,5.8vw,68px);line-height:1.0;letter-spacing:-.045em;margin:0}
+  .hero-sub{font-size:18px;color:var(--ink-soft);max-width:466px;margin:22px 0 0;line-height:1.6}
+  .searchbar{margin-top:30px;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 18px;max-width:520px;box-shadow:var(--sh-lg);transition:.22s}
+  .searchbar:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(27,169,76,.15),var(--sh-lg)}
+  .searchbar svg{flex-shrink:0;color:var(--muted-2)}
+  .searchbar input{flex:1;background:none;border:none;color:var(--ink);font-family:var(--f-body);font-size:15.5px;outline:none;letter-spacing:-.01em}
+  .searchbar input::placeholder{color:var(--muted-2)}
+  .search-go{background:#1E3A63;color:#fff;border:none;border-radius:11px;padding:12px 20px;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--f-body);transition:.2s}
+  .search-go:hover{background:#16294A}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
+  .chips .cl{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2);margin-right:4px}
+  .chip{font-size:13px;font-weight:500;color:var(--ink-soft);background:linear-gradient(180deg,#fff,#fbfaf6);border:1px solid var(--line);border-radius:100px;padding:7px 14px;transition:.2s;cursor:pointer;box-shadow:var(--sh-sm)}
+  .chip:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-1px);box-shadow:var(--sh)}
+
+  /* hero preview */
+  .preview-wrap{position:relative}
+  .preview-wrap::before{content:"";position:absolute;inset:18px -14px -20px 22px;background:linear-gradient(150deg,rgba(27,169,76,.14),rgba(30,58,99,.07));border-radius:var(--r-xl);filter:blur(6px);z-index:0}
+  .preview{position:relative;z-index:1;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-lg);overflow:hidden}
+  .pv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 8px}
+  .pv-kicker{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .pv-open{font-size:12.5px;font-weight:600;color:var(--hea);display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:.2s}
+  .pv-open:hover{gap:8px}
+  .pv-chart{padding:2px 14px 2px}
+  .pv-legend{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;padding:8px 16px 22px}
+  .pv-legend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
+  .pv-legend .lg i{width:11px;height:11px;border-radius:3px;display:block}
+  .pv-legend .lg .dt{width:9px;height:9px;border-radius:50%;display:block}
+  .mbar{transform:scaleY(0);transform-box:fill-box;transform-origin:center bottom;transition:transform .7s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--i)*16ms)}
+  .mbar.in{transform:scaleY(1)}
+  .mline{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.5s ease .35s}
+  .mline.in{stroke-dashoffset:0}
+  .mdot{opacity:0;transition:opacity .3s}
+  .mdot.in{opacity:1}
+
+  /* ===== SECTION HEAD ===== */
+  section.block{padding:82px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px}
+  .sec-head .eyebrow{color:var(--gold-deep);display:inline-flex;align-items:center;gap:9px}
+  .sec-head .eyebrow::before{content:"";width:22px;height:1.5px;background:var(--gold-deep)}
+  .sec-title{font-weight:700;font-size:clamp(28px,3.5vw,40px);letter-spacing:-.035em;margin-top:12px;line-height:1.05}
+  .sec-desc{font-size:15.5px;color:var(--muted);margin-top:8px;max-width:480px;line-height:1.6}
+  .sec-link{font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.2s;padding:11px 17px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#fff,#fbfaf6);box-shadow:var(--sh-sm)}
+  .sec-link:hover{transform:translateY(-1px);box-shadow:var(--sh);gap:10px}
+
+  /* ===== MOST USED ===== */
+  .mu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .mu-card{position:relative;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;transition:.28s cubic-bezier(.2,.7,.3,1);cursor:pointer;overflow:hidden;box-shadow:var(--sh-sm),var(--hi)}
+  .mu-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:color-mix(in srgb,var(--ac) 40%,var(--line))}
+  .mu-card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 80% at 50% -20%,var(--tint),transparent 60%);opacity:0;transition:.28s}
+  .mu-card:hover::after{opacity:.7}
+  .mu-ic{position:relative;z-index:1;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--tint,var(--gold-tint));color:var(--ac,var(--gold-deep));margin-bottom:15px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
+  .mu-ic svg{width:23px;height:23px}
+  .mu-cat{position:relative;z-index:1;font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,var(--gold-deep))}
+  .mu-name{position:relative;z-index:1;font-weight:600;font-size:16px;letter-spacing:-.025em;margin-top:6px;line-height:1.2}
+  .mu-go{position:relative;z-index:1;margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:.22s}
+  .mu-card:hover .mu-go{color:var(--ac,var(--gold-deep));gap:9px}
+
+  /* ===== CATEGORIES ===== */
+  .cats{padding-top:0}
+  .cats-head{padding-top:11px}
+  .cat-list{display:flex;flex-direction:column;gap:20px;margin-top:8px}
+  .cat{padding:42px 46px}
+  .cat-top{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+  .cat-ic{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(155deg,color-mix(in srgb,var(--tint) 88%,#fff),var(--tint));color:var(--ac);flex-shrink:0;box-shadow:var(--sh-sm),inset 0 0 0 1px rgba(0,0,0,.03)}
+  .cat-ic svg{width:29px;height:29px}
+  .cat-meta{flex:1;min-width:0}
+  .cat-name{font-weight:700;font-size:25px;letter-spacing:-.035em;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .cat-count{font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--ac);background:var(--tint);padding:4px 11px;border-radius:100px}
+  .cat-desc{font-size:14.5px;color:var(--muted);margin-top:4px}
+  .cat-view{font-size:13.5px;font-weight:600;color:var(--ac);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:11px 18px;border-radius:12px;border:1px solid color-mix(in srgb,var(--ac) 24%,transparent);background:var(--tint);transition:.22s}
+  .cat-view:hover{gap:11px;transform:translateY(-1px);box-shadow:0 12px 24px -12px color-mix(in srgb,var(--ac) 55%,transparent)}
+  .cat-more{display:flex;justify-content:center;margin-top:26px}
+  .cat-more .cat-view{padding:12px 24px}
+  .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .ci{position:relative;display:block;padding:15px 16px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fdfcf8);transition:.24s cubic-bezier(.2,.7,.3,1);box-shadow:var(--sh-sm)}
+  .ci:hover{border-color:color-mix(in srgb,var(--ac) 45%,var(--line));transform:translateY(-3px);box-shadow:var(--sh)}
+  .ci .n{font-weight:600;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .ci-ic{flex-shrink:0;color:var(--ac);display:inline-grid;place-items:center}
+  .ci-ic svg{width:16px;height:16px}
+  .ci .n .arw{color:var(--ac);opacity:0;transform:translateX(-5px);transition:.22s;margin-left:auto}
+  .ci:hover .n .arw{opacity:1;transform:none}
+  .ci .s{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* ===== CTA ===== */
+  .cta-band{padding:11px 0 44px;background:var(--bg)}
+  .cta{position:relative;overflow:hidden;border-radius:var(--r-xl);background:radial-gradient(130% 150% at 86% 12%,#1C1F27,#0D0F14);color:#fff;padding:48px 50px;display:flex;flex-direction:column;box-shadow:var(--sh-lg);border:1px solid rgba(240,185,11,.14)}
+  .cta::before{content:"";position:absolute;right:-90px;bottom:-130px;width:400px;height:400px;background:radial-gradient(circle,rgba(240,185,11,.24),transparent 62%)}
+  .cta-main{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .cta-txt{position:relative;z-index:1}
+  .cta .eyebrow{color:#F3BA2F;display:inline-flex;align-items:center;gap:8px}
+  .cta .eyebrow .ld{width:7px;height:7px;border-radius:50%;background:#F3BA2F;box-shadow:0 0 0 0 rgba(243,186,47,.6);animation:ldp 2s infinite}
+  @keyframes ldp{0%{box-shadow:0 0 0 0 rgba(243,186,47,.5)}70%{box-shadow:0 0 0 7px rgba(243,186,47,0)}100%{box-shadow:0 0 0 0 rgba(243,186,47,0)}}
+  .cta h3{font-weight:700;font-size:clamp(26px,3.2vw,36px);letter-spacing:-.035em;line-height:1.1;margin-top:12px}
+  .cta p{font-size:15.5px;margin-top:12px;max-width:480px;color:#c3c6cd;line-height:1.6}
+  .cta-actions{position:relative;z-index:1;display:flex;gap:12px}
+  .btn-crypto{background:#1E3A5F;color:#fff;box-shadow:0 10px 22px -10px rgba(30,58,95,.5)}
+  .btn-crypto:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(30,58,95,.6)}
+  .mkt-hints{position:relative;z-index:1;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.09);display:flex;flex-wrap:wrap;gap:9px}
+  .mh{font-family:var(--f-mono);font-size:12.5px;color:#C7CAD1;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+  .mh b{color:#F3BA2F;font-weight:700}
+  .mh .up{color:#2EBD85;font-weight:600}
+  .mh .down{color:#F6465D;font-weight:600}
+  .btn-outline{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.22);color:#fff}
+  .btn-outline:hover{background:rgba(255,255,255,.12)}
+
+  /* ===== FOOTER ===== */
+  footer{background:#FFFFFF;border-top:1px solid rgba(22,27,38,.08);padding:62px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand .brand{margin-bottom:16px}
+  .foot-brand p{font-size:14px;color:#686D76;max-width:290px;line-height:1.65}
+  .foot-social{display:flex;gap:9px;margin-top:18px}
+  .foot-social a{width:38px;height:38px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#787D86;transition:.2s}
+  .foot-social a:hover{color:var(--gold-hi);border-color:var(--gold);transform:translateY(-2px)}
+  .foot-col h4{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#686D76;margin-bottom:16px;font-weight:600}
+  .foot-col a{display:block;font-size:14px;color:#474C55;padding:6px 0;transition:.2s}
+  .foot-col a:hover{color:#181A1F;transform:translateX(2px)}
+  .foot-bottom{margin-top:46px;padding-top:24px;border-top:1px solid rgba(22,27,38,.08);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12.5px;color:#686D76}
+  .foot-bottom .fb-links{display:flex;gap:18px}
+  .foot-bottom a{font-size:12.5px;color:#686D76;transition:.2s}
+  .foot-bottom a:hover{color:#181A1F}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:.75s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1080px){.mu-grid{grid-template-columns:repeat(3,1fr)}.cat-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:46px}
+    .preview-wrap{max-width:520px}
+    .nav-links{display:none}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .sec-panel{padding:30px 20px}
+    .cat{padding:28px 22px}
+    .panel{border-radius:24px}
+    .menu-btn{display:grid}.icon-btn.cf-search-trigger{width:44px}.cf-search-trigger-text,.cf-search-trigger-go{display:none}
+    .nav-cta .btn-ghost{display:none}
+    .rc-full{display:none}
+    .btn-crypto{font-size:11.5px!important;padding:8px 10px!important}
+    .nav-spacer{display:none}
+    .nav{gap:10px}
+    .mu-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-top{flex-wrap:wrap}
+    .cat-view{width:100%;justify-content:center}
+    .sec-head{flex-direction:column;align-items:flex-start}
+    .cta{padding:40px 26px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .cat-grid{grid-template-columns:1fr}
+    .ci{min-width:0}
+    .mu-name{font-size:14px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Finance","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Dividend Yield Calculator","item":"https://calculatorboss.com/dividend-yield-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+        </svg>
+      </span>
+      CalculatorBoss
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/all-calculators/">Calculators</a>
+      <a href="/all-calculators/">Categories</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
+</header><main class="flex-1" role="main"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a good dividend yield?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single figure, but most established dividend payers in developed markets land somewhere between 2% and 5%. Below roughly 2% usually signals a company reinvesting in growth rather than paying shareholders. Above about 7% deserves scrutiny rather than enthusiasm, since it often reflects a share price the market has marked down. Compare against the company's own sector, because utilities and REITs structurally yield more than technology firms."}}, {"@type": "Question", "name": "How do I calculate dividend yield from a quarterly dividend?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply the quarterly payment by four to get the annual dividend, then divide by the current share price and multiply by 100. A $0.58 quarterly dividend is $2.32 a year; against a $62.40 share price that is a yield of about 3.72%. Using the single quarterly payment instead of the annual total is the most common mistake, and it understates the yield fourfold."}}, {"@type": "Question", "name": "What is the difference between dividend yield and yield on cost?", "acceptedAnswer": {"@type": "Answer", "text": "Dividend yield measures the annual dividend against today's share price, so it reflects what a new buyer would receive. Yield on cost measures the same dividend against the price you originally paid, so it reflects what your own past purchase now returns. For a stock whose dividend has grown since you bought it, yield on cost will be higher, but only the current yield is relevant when deciding whether to buy more."}}, {"@type": "Question", "name": "Does a higher dividend yield always mean a better investment?", "acceptedAnswer": {"@type": "Answer", "text": "No. Because the share price is the denominator, a yield rises whenever the price falls, so the highest yields frequently belong to companies in trouble. This is known as a yield trap. Check the payout ratio, the dividend history and the debt position before treating a high yield as attractive, and remember that a dividend cut usually arrives alongside a further fall in the share price."}}, {"@type": "Question", "name": "How does dividend reinvestment change my returns?", "acceptedAnswer": {"@type": "Answer", "text": "Reinvesting uses each payout to buy additional shares, which then pay dividends of their own. Your share count and the dividend per share both grow, and the two compound together. Over long holding periods this typically contributes more to total return than price appreciation alone, which is why total-return figures for dividend payers substantially exceed their price charts."}}, {"@type": "Question", "name": "Is dividend yield calculated before or after tax?", "acceptedAnswer": {"@type": "Answer", "text": "Quoted dividend yields, including the ones on this page, are gross figures calculated before any tax. What you actually keep depends on your country, your account type and your income band — a dividend inside a tax-advantaged retirement account may be untaxed, while the same dividend in a taxable account is not. Treat the yield here as the starting figure and apply your own situation to it."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Dividend Yield Calculator", "url": "https://calculatorboss.com/dividend-yield-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free dividend yield calculator covering yield, yield on cost and dividend reinvestment."}</script><style>
+.dy-wrap{width:100%}
+.dy-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:var(--fin);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.dy-bar-text{display:flex;align-items:center;gap:10px}
+.dy-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--fin);font-size:11px;flex-shrink:0}
+.dy-bar-pdf-btn{background:#fff;color:var(--fin);border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.dy-bar-pdf-btn:hover{background:#f2f2f2}
+
+.dy-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.dy-area-bar{grid-area:bar}
+.dy-area-form{grid-area:form}
+.dy-area-result{grid-area:result}
+.dy-area-sidebar{grid-area:sidebar}
+.dy-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:860px){
+  .dy-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.dy-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.dy-card-pad{padding:24px}
+
+.dy-field{display:flex;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap}
+.dy-field-label{width:140px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.dy-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.dy-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.dy-input-group span{padding:0 8px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.dy-input-group input,.dy-input-group select{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.dy-input-group.is-target{background:#E4F5EA;border-color:#B9E2C4}
+.dy-input-group.is-target input{background:#E4F5EA;color:#128A3D;font-weight:700;cursor:default}
+.dy-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.dy-divider{border-top:1px solid var(--border-fine);margin:14px 0}
+.dy-subnote{font-size:11.5px;color:var(--ink-faint);margin-top:-2px;line-height:1.5}
+
+.dy-chips{display:flex;flex-wrap:wrap;gap:6px;padding:6px 0 2px}
+.dy-chip{font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:100px;padding:5px 12px;cursor:pointer;transition:.15s}
+.dy-chip:hover{border-color:var(--fin);color:var(--fin)}
+
+.dy-btn-row{display:flex;gap:8px;padding-top:12px;flex-wrap:wrap}
+.dy-btn-calc{background:var(--fin);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.dy-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
+
+.dy-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.dy-result-head{padding:18px 20px;background:var(--fin);color:#fff}
+.dy-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.dy-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.dy-result-body{padding:16px 20px}
+.dy-result-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
+.dy-result-row:first-child{border-top:none}
+.dy-result-row span:last-child{font-weight:600;color:var(--ink)}
+.dy-chart-box{padding:0 20px 20px}
+
+.dy-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.dy-calc-card{background:var(--fin);border-radius:16px;overflow:hidden}
+.dy-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.dy-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.dy-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.dy-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:860px){.dy-bottom-grid{grid-template-columns:1fr}}
+.dy-bd-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.dy-bd-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.dy-composebar{display:flex;height:34px;border-radius:8px;overflow:hidden;width:100%;background:var(--surface-sunken)}
+.dy-composebar span{height:100%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#fff}
+.dy-composelegend{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
+.dy-composelegend .lg{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft)}
+.dy-composelegend .lg i{width:11px;height:11px;border-radius:3px;display:block}
+.dy-composelegend .lg b{color:var(--ink)}
+
+.dy-notax-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
+.dy-notax-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:10px;display:block}
+.dy-notax-list{display:flex;flex-direction:column;gap:8px}
+.dy-notax-item{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);background:var(--surface-sunken);border-radius:8px;padding:8px 12px}
+.dy-notax-item i{width:7px;height:7px;border-radius:50%;background:var(--fin);flex-shrink:0}
+.dy-notax-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+
+@media(max-width:520px){
+  .dy-field{flex-wrap:wrap}
+  .dy-field-label{width:100%}
+}
+</style><style>
+.dy-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.dy-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.dy-seo-article h2:first-child{margin-top:0}
+.dy-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.dy-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.dy-seo-article strong{color:var(--ink);font-weight:600}
+.dy-seo-article ul,.dy-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.dy-seo-article ul li strong,.dy-seo-article ol li strong{color:var(--ink)}
+.dy-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.dy-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.dy-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.dy-toc a:hover{color:#1E3A5F}
+.dy-seo-article .dy-byline,.dy-seo-article .dy-disclaimer{font-size:12.5px;line-height:1.7;color:var(--muted)}.dy-seo-article .dy-byline{margin:0 0 18px}.dy-seo-article .dy-disclaimer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border-fine)}.dy-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:var(--r-sm);padding:14px 18px;margin:0 0 24px}.dy-toc p{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--muted);margin:0 0 8px}.dy-toc ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}.dy-toc a{color:var(--fin);text-decoration:none}.dy-toc a:hover{text-decoration:underline}</style><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px">
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}
+.dy-chip.is-on{background:var(--fin);border-color:var(--fin);color:#fff}
+.dy-chip.is-on:hover{color:#fff;border-color:var(--fin)}
+.dy-pane{display:none}.dy-pane.is-on{display:block}
+.dy-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.dy-tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;padding:0 0 8px}
+.dy-tbl td{padding:7px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft)}
+.dy-tbl td:first-child{color:var(--ink);font-weight:600}
+.dy-tbl tr.is-now td{font-weight:700;color:var(--ink)}
+.dy-fine{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+.dy-gloss{margin:0}.dy-gloss dt{font-size:13.5px;font-weight:700;color:var(--ink);margin-top:12px}
+.dy-gloss dt:first-child{margin-top:0}
+.dy-gloss dd{margin:3px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.6}
+.dy-flag{font-size:12.5px;line-height:1.6;margin:14px 20px 0;padding:10px 12px;border-radius:10px;background:var(--surface-sunken);color:var(--ink-soft)}
+.dy-flag.is-warn{background:#FDF3E3;color:#7A4B12}
+</style>
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Dividend Yield Calculator</span></nav>
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Dividend Yield Calculator</h1>
+<p class="text-ink-soft text-lg max-w-2xl mb-6">Work out what a stock actually pays you — the headline yield, the yield on what you originally paid, and what reinvesting those dividends compounds into.</p>
+
+<div class="dy-grid">
+
+<div class="dy-bar dy-area-bar">
+  <span class="dy-bar-text"><span class="dy-bar-badge">▾</span><span id="dy-status">Enter a share price and a dividend to see the yield.</span></span>
+  <button type="button" class="dy-bar-pdf-btn" id="dy-pdfBtn">💾 Save as PDF</button>
+</div>
+
+<div class="dy-card dy-area-form">
+  <div class="dy-card-pad">
+    <div class="dy-field">
+      <span class="dy-field-label">Currency</span>
+      <div class="dy-field-control">
+        <select id="dy-currency" class="dy-select-plain">
+          <option value="USD" selected>USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="CAD">CAD ($)</option>
+          <option value="AUD">AUD ($)</option>
+          <option value="EUR">EUR (€)</option>
+        </select>
+      </div>
+    </div>
+    <div class="dy-field">
+      <span class="dy-field-label">What do you want to work out?</span>
+      <div class="dy-chips" id="dy-modeChips" role="tablist">
+        <span class="dy-chip is-on" data-mode="yield" role="tab" tabindex="0">Dividend yield</span>
+        <span class="dy-chip" data-mode="cost" role="tab" tabindex="0">Yield on cost</span>
+        <span class="dy-chip" data-mode="drip" role="tab" tabindex="0">Reinvestment</span>
+      </div>
+    </div>
+
+    <div class="dy-divider"></div>
+
+    <div class="dy-pane is-on" data-pane="yield">
+      <div class="dy-field">
+        <span class="dy-field-label">Share price</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-yPrice" type="number" min="0" step="0.01" value="62.40"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Dividend per payment</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-yDiv" type="number" min="0" step="0.0001" value="0.58"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Payment frequency</span>
+        <div class="dy-field-control">
+          <select id="dy-yFreq" class="dy-select-plain">
+            <option value="4" selected>Quarterly (4 a year)</option>
+            <option value="12">Monthly (12 a year)</option>
+            <option value="2">Semi-annual (2 a year)</option>
+            <option value="1">Annual (1 a year)</option>
+          </select>
+        </div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Shares owned (optional)</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-yShares" type="number" min="0" step="1" value="150"></div></div>
+      </div>
+    </div>
+
+    <div class="dy-pane" data-pane="cost">
+      <div class="dy-field">
+        <span class="dy-field-label">Price you paid per share</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-cPaid" type="number" min="0" step="0.01" value="28.75"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Current annual dividend per share</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-cDiv" type="number" min="0" step="0.01" value="2.32"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Current share price</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-cPrice" type="number" min="0" step="0.01" value="62.40"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Annual dividend growth</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-cGrowth" type="number" step="0.1" value="6.5"><span>%</span></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Project forward</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-cYears" type="number" min="0" max="60" step="1" value="10"><span>yrs</span></div></div>
+      </div>
+    </div>
+
+    <div class="dy-pane" data-pane="drip">
+      <div class="dy-field">
+        <span class="dy-field-label">Shares owned now</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-dShares" type="number" min="0" step="1" value="150"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Share price</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-dPrice" type="number" min="0" step="0.01" value="62.40"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Annual dividend per share</span>
+        <div class="dy-field-control"><div class="dy-input-group"><span class="dy-sym">$</span><input id="dy-dDiv" type="number" min="0" step="0.01" value="2.32"></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Annual dividend growth</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-dDivG" type="number" step="0.1" value="6.5"><span>%</span></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Annual price appreciation</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-dPriceG" type="number" step="0.1" value="4.0"><span>%</span></div></div>
+      </div>
+      <div class="dy-field">
+        <span class="dy-field-label">Years</span>
+        <div class="dy-field-control"><div class="dy-input-group"><input id="dy-dYears" type="number" min="0" max="60" step="1" value="20"><span>yrs</span></div></div>
+      </div>
+    </div>
+
+    <p class="dy-subnote">Results update as you type. Dividends are not guaranteed — treat every projection as an illustration, not a forecast.</p>
+
+    <div class="dy-btn-row">
+      <button type="button" class="dy-btn-calc" id="dy-calcBtn">Calculate</button>
+      <button type="button" class="dy-btn-clear" id="dy-clearBtn">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="dy-result-card dy-area-result">
+  <div class="dy-result-head">
+    <div class="label" id="dy-resultLabel">Dividend Yield</div>
+    <div class="bignum" id="dy-bignum">—</div>
+  </div>
+  <div class="dy-result-body" id="dy-resultRows"></div>
+  <p class="dy-flag" id="dy-flag" hidden></p>
+  <div class="dy-chart-box">
+    <svg viewBox="0 0 300 144" id="dy-chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dividend chart"></svg>
+  </div>
+</div>
+
+<div class="dy-sidecol dy-area-sidebar">
+  <div class="dy-calc-card">
+    <div class="h">Investing Calculators</div>
+    <a href="/investment-calculator/">Investment <span class="arrow">→</span></a>
+    <a href="/compound-interest-calculator/">Compound Interest <span class="arrow">→</span></a>
+    <a href="/roi-calculator/">ROI <span class="arrow">→</span></a>
+    <a href="/average-return-calculator/">Average Return <span class="arrow">→</span></a>
+    <a href="/bond-calculator/">Bond <span class="arrow">→</span></a>
+    <a href="/mutual-fund-calculator/">Mutual Fund <span class="arrow">→</span></a>
+    <a href="/all-calculators/#fin" class="dy-viewmore">View More <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<div class="dy-bottom-grid dy-area-bottomgrid">
+  <div class="dy-bd-card">
+    <span class="t">Yield At Different Share Prices</span>
+    <table class="dy-tbl"><thead><tr><th>Share price</th><th>Yield</th><th>Income on $10,000</th></tr></thead><tbody id="dy-sensBody"></tbody></table>
+    <p class="dy-fine">The dividend per share is held constant here — only the price moves. A lower price buys more shares for the same $10,000, which is why both the quoted yield and the income on a fixed stake rise even though the company pays no more per share.</p>
+  </div>
+  <div class="dy-notax-card">
+    <span class="t">What The Numbers Mean</span>
+    <dl class="dy-gloss">
+      <dt>Dividend yield</dt><dd>Annual dividend per share divided by the current share price, shown as a percentage.</dd>
+      <dt>Annual dividend</dt><dd>One payment multiplied by how many times a year it is paid.</dd>
+      <dt>Yield on cost</dt><dd>Today's annual dividend measured against the price <em>you</em> paid, not today's price.</dd>
+      <dt>DRIP</dt><dd>A dividend reinvestment plan — payouts buy more shares instead of arriving as cash.</dd>
+    </dl>
+  </div>
+</div>
+
+</div>
+
+<article class="dy-seo-article">
+  <p class="dy-byline">Written by the CalculatorBoss Finance Team · Reviewed for accuracy · Last updated August 2026</p>
+
+  <nav class="dy-toc" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#what-yield-tells-you">What dividend yield actually tells you</a></li>
+      <li><a href="#the-formula">The formula, and the annualising step people skip</a></li>
+      <li><a href="#each-field">What to put in each field</a></li>
+      <li><a href="#yield-trap">High yield or yield trap — telling them apart</a></li>
+      <li><a href="#yield-on-cost">Yield on cost, and its one real limitation</a></li>
+      <li><a href="#reinvestment">What reinvesting actually compounds</a></li>
+      <li><a href="#not-covered">What this calculator does not cover</a></li>
+      <li><a href="#faq">Frequently asked questions</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="what-yield-tells-you">What dividend yield actually tells you</h2>
+  <p>Dividend yield answers one narrow question: for every dollar you put into this stock <strong>today</strong>, how many cents does the company hand back to you over a year? A stock at $62.40 paying $2.32 a year yields about 3.72%. That is the whole idea.</p>
+  <p>What makes yield slippery is that it has two moving parts, and only one of them is under the company's control. The numerator is the dividend, set by the board. The denominator is the share price, set by the market minute to minute. A yield can rise because the company raised its payout — or because the shares fell 30%. The number looks identical either way, which is why yield should never be read on its own.</p>
+  <p>It is also a <em>rate</em>, not an amount. Two stocks can both yield 4% while one pays you $80 a year and the other $8,000, depending on how much you own. That is what the shares-owned field is for: the yield tells you the efficiency of the income, the income tells you whether it pays a bill.</p>
+
+  <h2 id="the-formula">The formula, and the annualising step people skip</h2>
+  <p>The calculation is deliberately simple:</p>
+  <p><strong>Dividend yield = (annual dividend per share ÷ current share price) × 100</strong></p>
+  <p>The word doing the work is <strong>annual</strong>. Most US and Canadian companies pay quarterly, most UK companies semi-annually, and a minority of funds pay monthly. The figure shown on a brokerage screen is often the <em>per-payment</em> amount, so it has to be multiplied up before it goes anywhere near the formula:</p>
+  <ul>
+    <li>Quarterly payer: one payment × 4</li>
+    <li>Monthly payer: one payment × 12</li>
+    <li>Semi-annual payer: one payment × 2</li>
+  </ul>
+  <p>Skipping this is the most common dividend-yield error, and it is not confined to beginners — a major financial publisher's own worked example describes a $3.50 quarterly dividend on a $100 share as a "3.5% yield". Annualised, $3.50 four times a year is $14.00, which is a 14% yield. The slip understated the figure fourfold. This calculator takes the per-payment amount and the frequency as separate fields so the annualising happens for you.</p>
+
+  <h2 id="each-field">What to put in each field</h2>
+  <p><strong>Share price.</strong> The current market price of one share. For a yield you can act on, use the live price rather than the price printed on an old statement.</p>
+  <p><strong>Dividend per payment.</strong> The cash amount of a <em>single</em> payment, not the yearly total. If your source quotes an annual figure, set the frequency to annual and enter it whole.</p>
+  <p><strong>Payment frequency.</strong> How many times a year the dividend arrives. Check it against the company's own dividend history rather than assuming quarterly.</p>
+  <p><strong>Shares owned.</strong> Optional, and it changes no percentage on the page — it converts the yield into the actual cash you would receive, per year and per payment.</p>
+  <p>One caution on special dividends: a one-off payout inflates the trailing figure and will not repeat. If a company made an unusual extra distribution last year, excluding it gives a far more honest picture of the ongoing yield.</p>
+
+  <h2 id="yield-trap">High yield or yield trap — telling them apart</h2>
+  <p>Because price sits in the denominator, the highest yields on any screen tend to belong to the companies the market trusts least. A stock that has halved while maintaining its dividend now shows double the yield it did last year — and that yield is only real if the payout survives.</p>
+  <p>The most useful cross-check is the <strong>payout ratio</strong>: the share of earnings, or better still free cash flow, being paid out. A ratio comfortably under about 60% leaves room for a bad year. A ratio above 100% means the company is funding your dividend from borrowings or its own cash reserves, which is arithmetic that ends on its own schedule.</p>
+  <p>Worth checking alongside it: whether the dividend has been growing, held flat, or cut before; whether debt has been climbing to fund it; and whether the yield sits far above the sector norm. Utilities and REITs genuinely yield more than software companies, so "high" only means something relative to peers.</p>
+  <p>None of this makes a high yield disqualifying. It makes it a question rather than an answer.</p>
+
+  <h2 id="yield-on-cost">Yield on cost, and its one real limitation</h2>
+  <p>Yield on cost measures today's dividend against the price you originally paid. Buy at $28.75, hold while the dividend climbs to $2.32, and your yield on cost is about 8.07% — even though anyone buying today receives 3.72%. For a long-term holder of a dividend grower, this is the number that shows what patience actually bought.</p>
+  <p>The limitation is that it is a historical measure, not a decision tool. Your original purchase price is a sunk cost; it says nothing about whether the shares are worth holding now. If you are deciding whether to keep, add to, or sell a position, the current yield and the payout ratio are the relevant figures — an 8% yield on cost feels excellent right up until the company cuts.</p>
+  <p>Used properly it is a scorecard on a past decision, and a fair argument for leaving compounders alone. Used as a reason to hold something deteriorating, it is an anchor.</p>
+
+  <h2 id="reinvestment">What reinvesting actually compounds</h2>
+  <p>Under a dividend reinvestment plan, each payout buys more shares instead of arriving as cash. Those shares then pay dividends themselves. The reinvestment mode models this year by year: dividends are paid on the shares held, used to buy more at that year's price, and both the price and the dividend per share then grow by the rates you set.</p>
+  <p>Two effects stack. Your share count rises, and the dividend on each share rises. Over twenty years that combination is usually a far larger contributor to total return than the price appreciation people tend to focus on — which is why long-run total-return charts diverge so sharply from price-only charts of the same stock.</p>
+  <p>One genuine subtlety the model cannot show: reinvesting during a slump buys more shares per dollar, so a flat or falling market early in a long holding period can end up helping a reinvestor. This page uses smooth annual growth rates, and real markets do not deliver 4% a year on schedule.</p>
+
+  <h2 id="not-covered">What this calculator does not cover</h2>
+  <p>The projections assume constant growth rates and an uninterrupted dividend. Both are modelling conveniences, not forecasts. Specifically, this page does not model:</p>
+  <ul>
+    <li><strong>Tax.</strong> Dividend treatment varies by country, account type and income band — qualified versus ordinary rates in the US, dividend allowances in the UK, withholding on foreign holdings. A single tax field would be wrong for most readers, so there isn't one.</li>
+    <li><strong>Dividend cuts or suspensions.</strong> The model grows the payout every year. Real companies freeze and cut them.</li>
+    <li><strong>Brokerage fees, fractional-share rules and DRIP discounts.</strong> Some plans buy fractions, some round down, and some issue shares at a discount to the market price.</li>
+    <li><strong>Currency movement</strong> on foreign holdings, which can swamp the dividend entirely.</li>
+    <li><strong>Ex-dividend timing.</strong> You must own the shares before the ex-dividend date to receive a payment; buying the day after means waiting for the next cycle.</li>
+  </ul>
+
+  <h2 id="faq">Frequently asked questions</h2>
+
+  <h3>What is a good dividend yield?</h3>
+  <p>There is no single figure, but most established dividend payers in developed markets land somewhere between 2% and 5%. Below roughly 2% usually signals a company reinvesting in growth rather than paying shareholders. Above about 7% deserves scrutiny rather than enthusiasm, since it often reflects a share price the market has marked down. Compare against the company's own sector, because utilities and REITs structurally yield more than technology firms.</p>
+
+  <h3>How do I calculate dividend yield from a quarterly dividend?</h3>
+  <p>Multiply the quarterly payment by four to get the annual dividend, then divide by the current share price and multiply by 100. A $0.58 quarterly dividend is $2.32 a year; against a $62.40 share price that is a yield of about 3.72%. Using the single quarterly payment instead of the annual total is the most common mistake, and it understates the yield fourfold.</p>
+
+  <h3>What is the difference between dividend yield and yield on cost?</h3>
+  <p>Dividend yield measures the annual dividend against today's share price, so it reflects what a new buyer would receive. Yield on cost measures the same dividend against the price you originally paid, so it reflects what your own past purchase now returns. For a stock whose dividend has grown since you bought it, yield on cost will be higher, but only the current yield is relevant when deciding whether to buy more.</p>
+
+  <h3>Does a higher dividend yield always mean a better investment?</h3>
+  <p>No. Because the share price is the denominator, a yield rises whenever the price falls, so the highest yields frequently belong to companies in trouble. This is known as a yield trap. Check the payout ratio, the dividend history and the debt position before treating a high yield as attractive, and remember that a dividend cut usually arrives alongside a further fall in the share price.</p>
+
+  <h3>How does dividend reinvestment change my returns?</h3>
+  <p>Reinvesting uses each payout to buy additional shares, which then pay dividends of their own. Your share count and the dividend per share both grow, and the two compound together. Over long holding periods this typically contributes more to total return than price appreciation alone, which is why total-return figures for dividend payers substantially exceed their price charts.</p>
+
+  <h3>Is dividend yield calculated before or after tax?</h3>
+  <p>Quoted dividend yields, including the ones on this page, are gross figures calculated before any tax. What you actually keep depends on your country, your account type and your income band — a dividend inside a tax-advantaged retirement account may be untaxed, while the same dividend in a taxable account is not. Treat the yield here as the starting figure and apply your own situation to it.</p>
+
+  <p class="dy-disclaimer">These results are estimates for general information only and are not investment advice. Dividend payments are not guaranteed and can be reduced or stopped at any time. Figures assume constant growth rates and exclude tax, fees and currency effects. Confirm any figure against the company's own investor-relations disclosures, and speak to a qualified financial adviser before making investment decisions.</p>
+</article>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var CURR={USD:'$',GBP:'\u00A3',CAD:'$',AUD:'$',EUR:'\u20AC'};
+  var cur='USD';
+  function sym(){return CURR[cur]||'$';}
+  function fmt(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function money(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return (n<0?'-':'')+sym()+fmt(Math.abs(n),d); }
+  /* precise(): show cents normally, but keep sub-cent detail when it exists */
+  function precise(n){
+    if(!isFinite(n)) n=0;
+    var r2=Math.round(n*100)/100;
+    return Math.abs(n-r2)<1e-9 ? money(n,2) : money(n,4);
+  }
+  function num(id){ var el=$(id); if(!el) return NaN; var v=el.value.trim(); if(v==='') return NaN; return parseFloat(v); }
+
+  /* ---------- math (mirrors ref_dividend.py) ---------- */
+  function annualDividend(perPayment,freq){ return perPayment*freq; }
+  function dividendYield(annualDiv,price){ return price>0 ? annualDiv/price*100 : 0; }
+  function yieldOnCost(annualDiv,paid){ return paid>0 ? annualDiv/paid*100 : 0; }
+  function projectedYoc(annualDiv,paid,growthPct,years){
+    return yieldOnCost(annualDiv*Math.pow(1+growthPct/100,years),paid); }
+  function simulateDrip(shares,price,divPerShare,divGrowthPct,priceGrowthPct,years,reinvest){
+    var totalDiv=0,cash=0;
+    for(var y=0;y<years;y++){
+      var income=shares*divPerShare;
+      totalDiv+=income;
+      if(reinvest){ shares += (price>0? income/price : 0); } else { cash+=income; }
+      price=price*(1+priceGrowthPct/100);
+      divPerShare=divPerShare*(1+divGrowthPct/100);
+    }
+    return {shares:shares,price:price,value:shares*price,totalDividends:totalDiv,
+            cashReceived:cash,finalDivPerShare:divPerShare,finalAnnualIncome:shares*divPerShare};
+  }
+  window.__dyMath={annualDividend:annualDividend,dividendYield:dividendYield,
+    yieldOnCost:yieldOnCost,projectedYoc:projectedYoc,simulateDrip:simulateDrip};
+
+  /* ---------- rendering ---------- */
+  var mode='yield', last=null;
+  function rows(list){
+    $('dy-resultRows').innerHTML=list.map(function(r){
+      return '<div class="dy-result-row"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';
+    }).join('');
+  }
+  function setFlag(text,warn){
+    var el=$('dy-flag');
+    if(!text){ el.hidden=true; el.textContent=''; el.className='dy-flag'; return; }
+    el.hidden=false; el.textContent=text; el.className='dy-flag'+(warn?' is-warn':'');
+  }
+  function setHead(label,big){ $('dy-resultLabel').textContent=label; $('dy-bignum').textContent=big; }
+  function status(t){ var s=$('dy-status'); if(s) s.textContent=t; }
+
+  function empty(label,msg){
+    setHead(label,'\u2014'); rows([]); setFlag('',false);
+    $('dy-sensBody').innerHTML=''; $('dy-chart').innerHTML=''; status(msg); last=null;
+  }
+
+  function sensTable(annualDiv,price,shares){
+    if(!(price>0&&annualDiv>0)){ $('dy-sensBody').innerHTML=''; return; }
+    var steps=[-30,-15,0,15,30], html='';
+    steps.forEach(function(pct){
+      var p=price*(1+pct/100);
+      var y=dividendYield(annualDiv,p);
+      /* income on a fixed 10k stake: this DOES move with price, unlike a fixed
+         share count, so the column teaches the same lesson without five
+         identical rows */
+      var inc=(p>0? (10000/p)*annualDiv : 0);
+      html+='<tr'+(pct===0?' class="is-now"':'')+'><td>'+money(p)+(pct===0?' (now)':'')+
+            '</td><td>'+fmt(y,2)+'%</td><td>'+money(inc)+'</td></tr>';
+    });
+    $('dy-sensBody').innerHTML=html;
+  }
+
+  function chartBars(series,labels,colour){
+    var svg=$('dy-chart'); if(!svg) return;
+    var max=Math.max.apply(null,series.concat([0.0001]));
+    var n=series.length, W=300,H=144, pad=18, bw=(W-pad*2)/n*0.62, gap=(W-pad*2)/n;
+    var out='';
+    for(var i=0;i<n;i++){
+      var h=(series[i]/max)*(H-46);
+      var x=pad+gap*i+(gap-bw)/2, y=H-26-h;
+      out+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+
+           '" height="'+Math.max(h,1).toFixed(1)+'" rx="3" fill="'+colour+'"></rect>';
+      out+='<text x="'+(x+bw/2).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle" font-size="9" fill="#787D86">'+labels[i]+'</text>';
+    }
+    svg.innerHTML=out;
+  }
+
+  /* ---------- modes ---------- */
+  function calcYield(){
+    var price=num('dy-yPrice'), per=num('dy-yDiv'), freq=parseFloat($('dy-yFreq').value)||4, sh=num('dy-yShares');
+    if(isNaN(price)||isNaN(per)){ empty('Dividend Yield','Enter a share price and a dividend to see the yield.'); return; }
+    if(price<=0){ setHead('Dividend Yield','\u2014'); rows([]); setFlag('Share price must be greater than zero.',true);
+      status('Share price must be greater than zero.'); last=null; return; }
+    var ad=annualDividend(per,freq), y=dividendYield(ad,price);
+    setHead('Dividend Yield',fmt(y,2)+'%');
+    var r=[['Annual dividend per share',precise(ad)],
+           ['Dividend per payment',precise(per)],
+           ['Payments per year',String(freq)]];
+    if(!isNaN(sh)&&sh>0){
+      r.push(['Shares owned',fmt(sh,0)]);
+      r.push(['Income per year',money(sh*ad)]);
+      r.push(['Income per payment',money(sh*per)]);
+      r.push(['Position value',money(sh*price)]);
+    }
+    rows(r);
+    setFlag(y>=8?'A yield this high is often a sign the share price has fallen sharply. Check the payout ratio and dividend history before treating it as attractive.':'',y>=8);
+    sensTable(ad,price,sh);
+    var unit=(!isNaN(sh)&&sh>0)?sh*per:per, cum=[], lbl=[], acc=0;
+    for(var i=0;i<Math.min(freq,12);i++){ acc+=unit; cum.push(acc); lbl.push('P'+(i+1)); }
+    chartBars(cum,lbl,'#22417A');
+    status('At '+money(price)+' a share, '+precise(ad)+' a year is a '+fmt(y,2)+'% yield.');
+    last={mode:'yield',yield:y,annualDiv:ad,price:price,shares:sh};
+  }
+
+  function calcCost(){
+    var paid=num('dy-cPaid'), div=num('dy-cDiv'), price=num('dy-cPrice'),
+        g=num('dy-cGrowth'), yrs=num('dy-cYears');
+    if(isNaN(paid)||isNaN(div)){ empty('Yield On Cost','Enter what you paid and the current annual dividend.'); return; }
+    if(paid<=0){ setHead('Yield On Cost','\u2014'); rows([]); setFlag('Purchase price must be greater than zero.',true);
+      status('Purchase price must be greater than zero.'); last=null; return; }
+    if(isNaN(g)) g=0; if(isNaN(yrs)||yrs<0) yrs=0;
+    var yoc=yieldOnCost(div,paid);
+    var curY=(!isNaN(price)&&price>0)?dividendYield(div,price):null;
+    var fut=projectedYoc(div,paid,g,yrs);
+    setHead('Yield On Cost',fmt(yoc,2)+'%');
+    var r=[['Price you paid',money(paid)],['Current annual dividend',precise(div)]];
+    if(curY!==null){ r.push(['Current share price',money(price)]); r.push(['Yield for a new buyer today',fmt(curY,2)+'%']); }
+    r.push(['Dividend growth assumed',fmt(g,2)+'%']);
+    r.push(['Yield on cost in '+fmt(yrs,0)+' yrs',fmt(fut,2)+'%']);
+    r.push(['Dividend per share then',precise(div*Math.pow(1+g/100,yrs))]);
+    rows(r);
+    setFlag(curY!==null&&yoc>curY*1.5?'Your yield on cost is well above the current yield, which reflects dividend growth since you bought. It is a scorecard on a past decision — use the current yield when deciding whether to add.':'',false);
+    sensTable(div,(!isNaN(price)&&price>0)?price:paid,NaN);
+    var series=[],labels=[];
+    for(var i=0;i<=yrs;i+=Math.max(1,Math.ceil(yrs/5))){
+      series.push(yieldOnCost(div*Math.pow(1+g/100,i),paid)); labels.push('Y'+i);
+    }
+    chartBars(series,labels,'#22417A');
+    status('Paid '+money(paid)+', now receiving '+precise(div)+' a year \u2014 a yield on cost of '+fmt(yoc,2)+'%.');
+    last={mode:'cost',yoc:yoc,future:fut,paid:paid,div:div};
+  }
+
+  function calcDrip(){
+    var sh=num('dy-dShares'), price=num('dy-dPrice'), div=num('dy-dDiv'),
+        dg=num('dy-dDivG'), pg=num('dy-dPriceG'), yrs=num('dy-dYears');
+    if(isNaN(sh)||isNaN(price)||isNaN(div)){ empty('Portfolio Value','Enter shares, price and the annual dividend to model reinvestment.'); return; }
+    if(price<=0){ setHead('Portfolio Value','\u2014'); rows([]); setFlag('Share price must be greater than zero.',true);
+      status('Share price must be greater than zero.'); last=null; return; }
+    if(isNaN(dg)) dg=0; if(isNaN(pg)) pg=0; if(isNaN(yrs)||yrs<0) yrs=0;
+    var re=simulateDrip(sh,price,div,dg,pg,yrs,true);
+    var no=simulateDrip(sh,price,div,dg,pg,yrs,false);
+    setHead('Portfolio Value',money(re.value,0));
+    rows([['Starting value',money(sh*price)],
+          ['Shares after '+fmt(yrs,0)+' yrs',fmt(re.shares,2)],
+          ['Shares added by reinvesting',fmt(re.shares-sh,2)],
+          ['Share price then',money(re.price)],
+          ['Dividends reinvested',money(re.totalDividends,0)],
+          ['Annual income then',money(re.finalAnnualIncome,0)],
+          ['Yield on original cost',fmt(yieldOnCost(re.finalDivPerShare,price),2)+'%'],
+          ['Value without reinvesting',money(no.shares*no.price+no.cashReceived,0)]]);
+    var gain=re.value-(no.shares*no.price+no.cashReceived);
+    setFlag(yrs>0?'Reinvesting adds '+money(gain,0)+' over '+fmt(yrs,0)+' years in this model, versus taking the dividends as cash.':'',false);
+    sensTable(div,price,sh);
+    var series=[],labels=[],step=Math.max(1,Math.ceil(yrs/5));
+    for(var i=0;i<=yrs;i+=step){
+      var s=simulateDrip(sh,price,div,dg,pg,i,true); series.push(s.value); labels.push('Y'+i);
+    }
+    chartBars(series,labels,'#22417A');
+    status(fmt(sh,0)+' shares reinvested for '+fmt(yrs,0)+' years grows to '+fmt(re.shares,2)+' shares.');
+    last={mode:'drip',value:re.value,shares:re.shares,income:re.finalAnnualIncome};
+  }
+
+  function run(){
+    if(mode==='yield') calcYield(); else if(mode==='cost') calcCost(); else calcDrip();
+  }
+  window.__dyRun=run;
+
+  /* ---------- wiring ---------- */
+  function setMode(m){
+    mode=m;
+    Array.prototype.forEach.call(document.querySelectorAll('.dy-chip'),function(c){
+      var on=c.getAttribute('data-mode')===m;
+      c.classList.toggle('is-on',on); c.setAttribute('aria-selected',on?'true':'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.dy-pane'),function(p){
+      p.classList.toggle('is-on',p.getAttribute('data-pane')===m);
+    });
+    run();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.dy-chip'),function(c){
+    c.addEventListener('click',function(){ setMode(c.getAttribute('data-mode')); });
+    c.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setMode(c.getAttribute('data-mode')); }
+    });
+  });
+  $('dy-currency').addEventListener('change',function(){
+    cur=this.value;
+    Array.prototype.forEach.call(document.querySelectorAll('.dy-sym'),function(s){ s.textContent=sym(); });
+    run();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.dy-card-pad input, .dy-card-pad select'),function(el){
+    el.addEventListener('input',run); el.addEventListener('change',run);
+  });
+  $('dy-calcBtn').addEventListener('click',run);
+  $('dy-clearBtn').addEventListener('click',function(){
+    Array.prototype.forEach.call(document.querySelectorAll('.dy-pane.is-on input'),function(i){ i.value=''; });
+    run();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise=null;
+  function loadScriptOnce(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script');
+      s.src=src; s.onload=resolve; s.onerror=function(){ reject(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise=Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf&&window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  $('dy-pdfBtn').addEventListener('click',function(){
+    if(!last){ alert('Nothing to export yet \u2014 enter some values first.'); return; }
+    ensurePdfLibs().then(function(){
+      var doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
+      doc.setFontSize(16); doc.text('Dividend Yield Calculator',40,50);
+      doc.setFontSize(10); doc.setTextColor(120);
+      doc.text($('dy-status').textContent,40,68);
+      doc.setTextColor(20); doc.setFontSize(13);
+      doc.text($('dy-resultLabel').textContent+': '+$('dy-bignum').textContent,40,96);
+      var body=Array.prototype.map.call(document.querySelectorAll('#dy-resultRows .dy-result-row'),function(r){
+        var s=r.querySelectorAll('span'); return [s[0].textContent,s[1].textContent];
+      });
+      doc.autoTable({startY:112,head:[['Detail','Value']],body:body,styles:{fontSize:9},headStyles:{fillColor:[34,65,122]}});
+      doc.setFontSize(8); doc.setTextColor(140);
+      doc.text('Estimates only, not investment advice. calculatorboss.com',40,doc.internal.pageSize.getHeight()-30);
+      doc.save('dividend-yield-calculator.pdf');
+    }).catch(function(){ alert('Could not load the PDF library. Please check your connection and try again.'); });
+  });
+
+  run();
+})();
+</script>
+</main><footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/">
+          <span class="logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+              <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+              <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+            </svg>
+          </span>
+          CalculatorBoss
+        </a>
+        <p>A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p>
+        
+      </div>
+      <div class="foot-col">
+        <h4>Popular</h4>
+        <a href="/all-calculators/#cry">Crypto &amp; Trading 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
+      </div>
+      <div class="foot-col">
+        <h4>Categories</h4>
+        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/all-calculators/#cry">Crypto &amp; Trading</a><a href="/all-calculators/">Stocks &amp; Investing</a><a href="/all-calculators/">Forex &amp; Metals</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="/about/">About</a><a href="/sitemap/">Sitemap</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 CalculatorBoss. All calculations are estimates — not financial, legal, or medical advice.</p>
+      <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
+    </div>
+  </div>
+</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+.cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
+.cf-search-overlay.open{display:flex}
+.cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.cf-search-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #eee}
+.cf-search-box svg{color:#9a9a9a;flex-shrink:0}
+.cf-search-box input{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#181A1F}
+.cf-search-esc{font-size:11px;color:#686D76;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
+.cf-search-results{max-height:56vh;overflow-y:auto;padding:8px}
+.cf-search-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;text-decoration:none;color:#181A1F;font-size:14.5px;font-weight:500}
+.cf-search-item:hover,.cf-search-item.active{background:#F3F1EA}
+.cf-search-item span.arrow{color:#9a9a9a;font-size:13px}
+.cf-search-empty{padding:30px 14px;text-align:center;color:#686D76;font-size:14px}
+</style>
+<div class="cf-search-overlay" id="cfSearchOverlay">
+  <div class="cf-search-modal">
+    <div class="cf-search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="cfSearchInput" placeholder="Search 194 calculators…" autocomplete="off" aria-label="Search calculators">
+      <span class="cf-search-esc">ESC</span>
+    </div>
+    <div class="cf-search-results" id="cfSearchResults"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('cfSearchOverlay');
+  var input = document.getElementById('cfSearchInput');
+  var results = document.getElementById('cfSearchResults');
+  var data = null;
+  var activeIndex = -1;
+
+  function openModal(){
+    overlay.classList.add('open');
+    input.value='';
+    input.focus();
+    renderResults('');
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+  }
+
+  function loadData(cb){
+    if(data){ cb(); return; }
+    fetch('/calculators-index.json').then(function(r){return r.json();}).then(function(j){
+      data = j; cb();
+    }).catch(function(){ data = []; cb(); });
+  }
+
+  function renderResults(q){
+    q = q.trim().toLowerCase();
+    if(!data){ results.innerHTML = ''; return; }
+    var matches = !q ? data.slice(0,8) : data.filter(function(d){return d.n.toLowerCase().indexOf(q)!==-1;}).slice(0,8);
+    activeIndex = matches.length ? 0 : -1;
+    if(!matches.length){
+      results.innerHTML = '<div class="cf-search-empty">No calculators match "'+q+'"</div>';
+      return;
+    }
+    results.innerHTML = matches.map(function(m,i){
+      return '<a class="cf-search-item'+(i===0?' active':'')+'" href="'+m.h+'" data-i="'+i+'">'+m.n+'<span class="arrow">→</span></a>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.icon-btn[aria-label="Search"]');
+    if(btn){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(e.target === overlay){ closeModal(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ closeModal(); }
+    if((e.key === '/' || (e.metaKey && e.key.toLowerCase()==='k') || (e.ctrlKey && e.key.toLowerCase()==='k')) && !overlay.classList.contains('open') && document.activeElement.tagName!=='INPUT'){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(overlay.classList.contains('open')){
+      var items = results.querySelectorAll('.cf-search-item');
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        activeIndex = Math.min(items.length-1, activeIndex+1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        activeIndex = Math.max(0, activeIndex-1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'Enter'){
+        var active = results.querySelector('.cf-search-item.active');
+        if(active){ window.location.href = active.getAttribute('href'); }
+      }
+    }
+  });
+
+  input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<script>
+/* cb-reveal-result — tapping Calculate on a phone should show the answer.
+   The result card sits below the form there, so the update happens off screen
+   and it looks as though nothing happened. Whether to scroll is decided from
+   live geometry, not a breakpoint: if the result is level with the form it is
+   already visible and nothing moves, which leaves desktop untouched. */
+(function(){
+  var BTNS = ["tax-calcBtn"], FORM = ".tax-area-form", RESULT = ".tax-area-result";
+  function reveal(){
+    var f = document.querySelector(FORM), r = document.querySelector(RESULT);
+    if(!f || !r) return;
+    var fr = f.getBoundingClientRect(), rr = r.getBoundingClientRect();
+    if(rr.top <= fr.top + 20) return;           /* side by side, already in view */
+    var hd = document.querySelector('header');
+    var off = (hd ? hd.getBoundingClientRect().height : 0) + 12;
+    var top = Math.max(0, rr.top + window.pageYOffset - off);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    catch(e){ window.scrollTo(0, top); }        /* older browsers ignore the options object */
+  }
+  function onClick(){ if(window.requestAnimationFrame) requestAnimationFrame(reveal); else reveal(); }
+  for(var i = 0; i < BTNS.length; i++){
+    var b = document.getElementById(BTNS[i]);
+    if(b) b.addEventListener('click', onClick);
+  }
+})();
+</script>
+<script>
+/* Calculator boxes ship with worked example values already in them. Without this, tapping
+   a field on a phone puts the caret beside the existing digits, so a visitor aiming for
+   250000 ends up with 420000250000. Selecting on focus makes the first keystroke replace
+   the example. Delegated from the document so it needs no per-page knowledge. */
+(function(){
+  if(window.__cbSelectOnFocus) return;
+  window.__cbSelectOnFocus = 1;
+  function armed(el){
+    return el && el.tagName === 'INPUT' && el.type === 'number' && !el.readOnly && !el.disabled;
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target;
+    if(!armed(el)) return;
+    try { el.select(); } catch(err) { return; }
+    /* A mouse click focuses first, then places the caret on mouseup, which would throw
+       the selection away. Swallow that one mouseup only. */
+    var once = function(ev){ ev.preventDefault(); el.removeEventListener('mouseup', once); };
+    el.addEventListener('mouseup', once);
+    setTimeout(function(){ el.removeEventListener('mouseup', once); }, 400);
+  });
+})();
+</script>
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
+</body></html>
