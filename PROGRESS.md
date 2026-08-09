@@ -9423,3 +9423,49 @@ boilerplate. Its territory is the one thing none of the neighbours cover: that t
 anchored to pre-pregnancy BMI and never moves, why the curve is flat then steep, where the weight
 actually goes (the baby is a minority of it), that under-gaining carries real risk and pregnancy
 is not a time to diet, and twins. OG image added; slug already in all three registry files.
+
+## Sleep Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/sleep-calculator/` with a full 3-card build (85KB, `slp-` prefix).
+Reference: calculator.net/sleep-calculator.html. **Inputs 20/20, results 11/11.**
+
+**Two calculators on one page**, which the reference runs as two separate forms with their own
+Calculate and Clear buttons. Ours keeps that separation: each has its own Clear, and clearing one
+leaves the other untouched — asserted, along with the settings surviving both.
+
+    Sleep cycle, from a wake time : bed  = wake - (cycles x length) - time to fall asleep
+    Sleep cycle, from a bedtime   : wake = bed  + time to fall asleep + (cycles x length)
+    Sleep length (no allowance)   : the other end, plus or minus the length given
+
+    Cycles are listed 5, 6 first as the two recommendations, then 7, 4, 3, 2, 1.
+    Defaults: 90-minute cycle, 15 minutes to fall asleep, both adjustable.
+
+**A formatting quirk worth matching:** the reference prints the midnight hour as `0`, so one
+cycle after an 11:00 PM bedtime reads **"0:45 AM"** rather than "12:45 AM". Noon still prints as
+12 PM. Reproduced, since it is a display convention rather than an arithmetic error — nothing
+downstream depends on it and it is what the reference shows.
+
+**Verification.** Engine against the live reference: **20 + 110 cases** across both calculators,
+both directions, non-default cycle lengths and fall-asleep times, and times either side of
+midnight and noon — **0 mismatched**. Then the shipped page in Chromium over **40 fresh cases**
+against the Python engine: **0 mismatches, 68 assertions, 0 failed**. All four reference examples
+reproduce exactly — waking at 6:00 AM gives 10:15 PM and 8:45 PM with the full alternatives list;
+a 11:00 PM bedtime gives 6:45 AM and 8:15 AM; 100-minute cycles with 20 minutes to fall asleep
+give 9:20 PM and 7:40 PM; and the length calculator returns 10:30 PM and 7:00 AM.
+
+**One measurement that looked like a bug and was not.** The minutes label on the "sleep for" row
+appeared clipped at the card edge in the screenshot. Measured: 24px of clearance, row scrollWidth
+equal to clientWidth, no overflow at any width. Rendering artifact of the screenshot scale, not a
+layout fault — left alone rather than "fixed".
+
+**Content.** 1,702-word article, 8 H2s, 7 FAQs. Overlap with the reference **0.00%**, and against
+our own pages **zero real shingles**. The reference's own prose is a long tour of REM and non-REM
+physiology; ours deliberately goes elsewhere — why waking mid-cycle produces sleep inertia, that
+ninety minutes is a population average and errors compound across cycles, the fall-asleep time
+everyone forgets to count, thinking in cycles when the night is short, and that schedule
+regularity beats any single night's arithmetic. OG image added; slug already in all three
+registry files.
+
+**This clears the health and fitness stub batch.** All six from the original queue —
+period, pregnancy-conception, pregnancy-weight-gain, protein, target-heart-rate, sleep — plus
+shoe-size-conversion are now built, verified and live.

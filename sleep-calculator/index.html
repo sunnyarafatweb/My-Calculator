@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
+<!DOCTYPE html><html lang="en" class="h-full"><head><!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Sleep Calculator — Bed | CalculatorBoss</title><meta name="description" content="Find the best bedtime or wake-up time based on 90-minute sleep cycles, so you wake up between cycles rather than in the middle of one."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/sleep-calculator/"/><meta property="og:title" content="Sleep Calculator | CalculatorBoss"/><meta property="og:description" content="Bed and wake times aligned to 90-minute sleep cycles."/><meta property="og:url" content="https://calculatorboss.com/sleep-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Sleep Calculator — Bedtimes That Fit Your Cycles</title><meta name="description" content="Free sleep calculator. Find bedtimes and wake times that land between 90-minute sleep cycles, plus a plain sleep-length calculator."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="sleep calculator,sleep cycle calculator,what time should i go to bed,bedtime calculator,sleep cycle length,90 minute sleep cycle,wake up time calculator,how much sleep do i need"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/sleep-calculator/"/><meta property="og:title" content="Sleep Calculator — Bedtimes That Fit Your Cycles"/><meta property="og:description" content="Free sleep calculator. Find bedtimes and wake times that land between 90-minute sleep cycles, plus a plain sleep-length calculator."/><meta property="og:url" content="https://calculatorboss.com/sleep-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/sleep-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Sleep Calculator — Bedtimes That Fit Your Cycles"/><meta name="twitter:description" content="Free sleep calculator. Find bedtimes and wake times that land between 90-minute sleep cycles, plus a plain sleep-length calculator."/><meta name="twitter:image" content="https://calculatorboss.com/og/sleep-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,201 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Other","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Sleep","item":"https://calculatorboss.com/sleep-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</style><style>
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
+
+.slp-wrap{width:100%}
+.slp-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.slp-bar-text{display:flex;align-items:center;gap:10px}
+.slp-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.slp-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.slp-bar-pdf-btn:hover{background:#f0f0f0}
+.slp-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.slp-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.slp-area-bottomgrid{grid-area:bottomgrid}
+/* Grid items default to min-width:auto, i.e. min-content. The activity select's
+   longest option is ~395px wide, which without this held the whole card open
+   past a 390px viewport. */
+.slp-area-form,.slp-area-result,.slp-area-sidebar,.slp-area-bottomgrid{min-width:0}
+.slp-field{min-width:0}
+.slp-field-control{min-width:0}
+.slp-area-form{grid-area:form}
+.slp-area-result{grid-area:result}
+.slp-area-sidebar{grid-area:sidebar}
+
+.slp-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.slp-card-pad{padding:22px}
+.slp-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.slp-field-label{width:78px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.slp-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px;flex-wrap:wrap}
+.slp-select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);font-family:var(--f-body);min-width:0}
+.slp-select.mon{flex:1.5;min-width:96px}
+.slp-select.wide{flex:1;min-width:0}
+.slp-select.day{flex:.9}
+.slp-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.slp-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.slp-btn-row{display:flex;gap:8px;padding-top:16px}
+.slp-btn-calc{flex:1;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.slp-btn-calc:hover{background:#128A3D}
+
+.slp-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.slp-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.slp-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.slp-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.slp-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.slp-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.slp-err.show{display:block}
+.slp-result-body{padding:16px 20px 20px;overflow-x:auto}
+.slp-note{font-size:11.5px;color:var(--ink-faint);margin-top:12px;line-height:1.55}
+
+.slp-dates{width:100%;border-collapse:collapse;font-size:12.5px}
+.slp-dates td{padding:9px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink);text-align:right;white-space:nowrap}
+.slp-dates td:first-child{white-space:normal}
+.slp-dates td:first-child{text-align:left;color:var(--ink-soft)}
+.slp-dates tr:last-child td{border-bottom:none}
+.slp-dates tr.key td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+
+.slp-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.slp-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.slp-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.slp-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.slp-calc-card a:last-child{border-bottom:none}
+
+.slp-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+.slp-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.slp-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.slp-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.slp-card-body{padding:18px;overflow-x:auto}
+.slp-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.slp-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:left;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.slp-ref-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.slp-ref-table tr:last-child td{border-bottom:none}
+
+@media(max-width:980px){
+  .slp-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+}
+@media(max-width:760px){.slp-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:520px){
+  .slp-field{flex-wrap:wrap}
+  .slp-field-label{width:100%}
+}
+
+.slp-mode{margin-bottom:4px}
+.slp-out{display:flex;flex-direction:column;gap:14px}
+.slp-out .grp{border:1px solid var(--border-fine);border-radius:12px;overflow:hidden}
+.slp-out .grp .hd{background:var(--surface-sunken);padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.slp-out .grp .bd{padding:12px}
+.slp-out .lbl{font-size:12.5px;color:var(--ink-soft);margin:0 0 2px}
+.slp-out .val{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 12px}
+.slp-out .val:last-child{margin-bottom:0}
+.slp-hidden{display:none !important}
+
+.slp-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px;font-family:var(--f-body)}
+.slp-hidden{display:none !important}
+.slp-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+.slp-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--ink-soft)}
+.slp-radio input{width:15px;height:15px;accent-color:#16A34A;cursor:pointer}
+.slp-radio-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.slp-radio-col{display:flex;flex-direction:column;gap:7px}
+.slp-optional{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.slp-btn-row{display:flex;gap:8px;padding-top:16px}
+.slp-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--f-body)}
+.slp-btn-calc{flex:1.3}
+
+.slp-work{font-size:13px;color:var(--ink-soft);line-height:1.8;word-break:break-word}
+.slp-work .nm{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-top:14px;letter-spacing:.01em}
+.slp-work .nm:first-child{margin-top:0}
+.slp-work b{color:var(--ink)}
+
+.slp-hint{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+
+.slp-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%;margin-bottom:14px}
+.slp-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:9px 18px;font-size:13px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.slp-tab:hover{border-color:var(--border)}
+.slp-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.slp-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);font-family:var(--f-body);flex:1;min-width:0}
+.slp-ref-table td:last-child{text-align:right;white-space:nowrap}
+
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
+
+
+.slp-wk th:first-child{text-align:left}
+
+.slp-sub{margin:26px 0 12px;padding-top:22px;border-top:1px solid var(--border-fine)}
+.slp-sub:first-child{margin-top:0;padding-top:0;border-top:none}
+.slp-sub h2{font-size:16px;font-weight:700;color:var(--ink);margin:0 0 4px}
+.slp-sub p{font-size:12.5px;color:var(--ink-faint);margin:0 0 12px;line-height:1.55}
+.slp-time-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.slp-time-row .colon{font-weight:700;color:var(--ink-soft)}
+.slp-time-row .box{width:66px;flex:0 0 auto}
+.slp-time-row .box input{text-align:center}
+.slp-quick{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.slp-quick button{background:none;border:none;padding:0;color:#1E3A5F;font-size:12px;font-weight:600;cursor:pointer;text-decoration:underline;font-family:var(--f-body)}
+.slp-picks{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.slp-pick{flex:1;min-width:130px;border:1px solid #BFE0CB;background:#EAF6EE;border-radius:12px;padding:12px 14px;text-align:center}
+.slp-pick .t{font-size:24px;font-weight:700;color:#166534;line-height:1.15}
+.slp-pick .c{font-size:11.5px;color:var(--ink-faint);margin-top:2px}
+.slp-alt{width:100%;border-collapse:collapse;font-size:13px}
+.slp-alt td{padding:8px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.slp-alt td:last-child{text-align:right;color:var(--ink-faint);font-size:12px}
+.slp-alt tr:last-child td{border-bottom:none}
+.slp-age{width:100%;border-collapse:collapse;font-size:12.5px}
+.slp-age th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:left}
+.slp-age td{padding:7px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.slp-age td:first-child{color:var(--ink-soft);white-space:nowrap}
+.slp-age tr:last-child td{border-bottom:none}
+
+</style><style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +542,290 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why do sleep cycles matter for when I wake up?","acceptedAnswer":{"@type":"Answer","text":"Sleep moves through repeating stages roughly every 90 minutes, including lighter and deeper phases. Waking up during a deep stage tends to feel groggy and disorienting, while waking near the end of a cycle (in a lighter stage) generally feels easier."}},{"@type":"Question","name":"Why does the calculator add 15 minutes before the first cycle?","acceptedAnswer":{"@type":"Answer","text":"It accounts for the typical time it takes to actually fall asleep after getting into bed — without that buffer, the cycle timing would assume you fall asleep instantly, which isn't realistic for most people."}},{"@type":"Question","name":"Is 90 minutes exact for everyone?","acceptedAnswer":{"@type":"Answer","text":"No — it's a commonly cited average, but individual cycle length varies somewhat from person to person and night to night. Treat the suggested times as a useful starting point rather than an exact science."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sleep Calculator","url":"https://calculatorboss.com/sleep-calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#oth">Other</a><span class="sep">/</span><span class="cur">Sleep Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Sleep Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">A bedtime or wake-up time — aligned to full 90-minute sleep cycles.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div class="flex gap-2"><button class="text-xs px-3 py-1.5 rounded-full border transition-colors bg-accent text-white border-accent">I&#x27;m going to bed now</button><button class="text-xs px-3 py-1.5 rounded-full border transition-colors border-border text-ink-soft hover:border-accent">I need to wake up at...</button></div><div><label class="text-sm text-ink-soft mb-2 block">Bedtime</label><input type="time" class="w-full text-lg bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="23:00"/></div><p class="text-xs text-ink-faint">Based on 90-minute sleep cycles plus about 15 minutes to fall asleep — waking up at the end of a cycle (rather than mid-cycle) tends to feel less groggy.</p></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-3">Try waking up at</div><div class="grid grid-cols-2 gap-2"><div class="rounded-lg bg-surface border border-border px-3 py-2.5"><div class="tabular text-lg font-medium text-accent-strong">3:45 AM</div><div class="text-xs text-ink-faint">3<!-- --> cycles (~<!-- -->4.5<!-- -->h)</div></div><div class="rounded-lg bg-surface border border-border px-3 py-2.5"><div class="tabular text-lg font-medium text-accent-strong">5:15 AM</div><div class="text-xs text-ink-faint">4<!-- --> cycles (~<!-- -->6.0<!-- -->h)</div></div><div class="rounded-lg bg-surface border border-border px-3 py-2.5"><div class="tabular text-lg font-medium text-accent-strong">6:45 AM</div><div class="text-xs text-ink-faint">5<!-- --> cycles (~<!-- -->7.5<!-- -->h)</div></div><div class="rounded-lg bg-surface border border-border px-3 py-2.5"><div class="tabular text-lg font-medium text-accent-strong">8:15 AM</div><div class="text-xs text-ink-faint">6<!-- --> cycles (~<!-- -->9.0<!-- -->h)</div></div></div><p class="text-xs text-ink-faint mt-6 pt-6 border-t border-border">5-6 cycles (7.5-9 hours) covers the commonly recommended range for adults — individual sleep needs do vary, though.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">Why do sleep cycles matter for when I wake up?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Sleep moves through repeating stages roughly every 90 minutes, including lighter and deeper phases. Waking up during a deep stage tends to feel groggy and disorienting, while waking near the end of a cycle (in a lighter stage) generally feels easier.</p></div><div><h3 class="font-medium text-ink mb-1.5">Why does the calculator add 15 minutes before the first cycle?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">It accounts for the typical time it takes to actually fall asleep after getting into bed — without that buffer, the cycle timing would assume you fall asleep instantly, which isn&#x27;t realistic for most people.</p></div><div><h3 class="font-medium text-ink mb-1.5">Is 90 minutes exact for everyone?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">No — it&#x27;s a commonly cited average, but individual cycle length varies somewhat from person to person and night to night. Treat the suggested times as a useful starting point rather than an exact science.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This is a general wellness tool, not medical advice — if you&#x27;re experiencing ongoing sleep difficulties, consider speaking with a healthcare provider.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calculatorboss.com/"}, {"@type": "ListItem", "position": 2, "name": "Other", "item": "https://calculatorboss.com/all-calculators/"}, {"@type": "ListItem", "position": 3, "name": "Sleep Calculator", "item": "https://calculatorboss.com/sleep-calculator/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What time should I go to bed to wake up at 7 AM?", "acceptedAnswer": {"@type": "Answer", "text": "Working back from 7:00 AM with ninety-minute cycles and fifteen minutes to fall asleep, five cycles puts bedtime at 11:15 PM and six cycles at 9:45 PM. Those are the two most people aim for; the calculator also lists the shorter and longer options if the night is not going to be a full one."}}, {"@type": "Question", "name": "How long is a sleep cycle?", "acceptedAnswer": {"@type": "Answer", "text": "About ninety minutes on average, but genuinely variable — roughly 70 to 120 minutes between people, and not constant within one night for the same person. Earlier cycles tend to be shorter with more deep sleep, later ones longer with more REM. If ninety minutes does not seem to fit you, change it in the settings."}}, {"@type": "Question", "name": "Is it better to sleep 6 hours or 7.5 hours?", "acceptedAnswer": {"@type": "Answer", "text": "Seven and a half, in almost every case. Six hours is four cycles and lands on a boundary, which is why it can feel better than six and a half, but it is still below what most adults need. Cycle timing smooths the edges of enough sleep; it does not turn too little into enough."}}, {"@type": "Question", "name": "Why do I feel worse after a long sleep?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because the alarm caught you in deep sleep rather than at the end of a cycle. That produces sleep inertia, which can last from a few minutes to half an hour and is unrelated to how much sleep you actually got. It is why eight hours can leave you groggier than seven and a half."}}, {"@type": "Question", "name": "Should I count the time it takes to fall asleep?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, and the first calculator does it for you — fifteen minutes by default, adjustable in the settings. The second calculator does not, deliberately: it adds or subtracts exactly the length you give it, so you need to allow for dropping off yourself."}}, {"@type": "Question", "name": "How many sleep cycles do I need?", "acceptedAnswer": {"@type": "Answer", "text": "Five or six for most adults, which at ninety minutes each is seven and a half to nine hours. Four is six hours and workable occasionally but short as a habit. What matters more than hitting a particular count is doing it at consistent times."}}, {"@type": "Question", "name": "Does this work for naps?", "acceptedAnswer": {"@type": "Answer", "text": "The same principle applies but the numbers do not. A nap of about twenty minutes keeps you in light sleep and is easy to wake from; forty-five minutes to an hour drops you into deep sleep and tends to leave you groggier than before. If you want a full cycle, ninety minutes is the next sensible stop."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Sleep Calculator", "url": "https://calculatorboss.com/sleep-calculator/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"}, "description": "Work out bedtimes or wake times that fall between sleep cycles, with adjustable cycle length and time to fall asleep, plus a straight sleep-length calculator."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/all-calculators/">Other</a><span>/</span><span class="cur">Sleep Calculator</span></nav>
+
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Sleep Calculator</h1>
+<p class="text-ink-soft mb-6" style="max-width:760px;font-size:15px;line-height:1.6">Two calculators on one page. The first finds bedtimes that land your alarm between sleep cycles rather than in the middle of one. The second is plain arithmetic: pick a time and a length, and it tells you the other end.</p>
+
+<div class="slp-wrap">
+<div class="slp-grid">
+
+  <div class="slp-bar">
+    <span class="slp-bar-text"><span class="slp-bar-badge">%</span><span>Just enter your values below &mdash; results update automatically.</span></span>
+    <button type="button" class="slp-bar-pdf-btn" id="slp-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="slp-area-form">
+    <div class="slp-card slp-card-pad">
+
+      <div class="slp-sub">
+        <h2>Sleep cycle calculator</h2>
+        <p>Work out when to go to bed, or when to get up, so that you wake between cycles.</p>
+
+        <div class="slp-field">
+          <span class="slp-field-label">I want to</span>
+          <div class="slp-field-control">
+            <div class="slp-radio-col">
+              <label class="slp-radio"><input type="radio" name="slp-mode" value="u" checked> wake up at</label>
+              <label class="slp-radio"><input type="radio" name="slp-mode" value="d"> go to bed at</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="slp-field">
+          <span class="slp-field-label">Time</span>
+          <div class="slp-field-control slp-time-row">
+            <div class="slp-input-group box"><input type="text" inputmode="numeric" id="slp-h" value="7"></div>
+            <span class="colon">:</span>
+            <div class="slp-input-group box"><input type="text" inputmode="numeric" id="slp-m" value="00"></div>
+            <select class="slp-select" id="slp-ap"><option value="am" selected>AM</option><option value="pm">PM</option></select>
+          </div>
+        </div>
+        <div class="slp-quick">
+          <button type="button" data-q="0">Now</button>
+          <button type="button" data-q="30">30 minutes later</button>
+          <button type="button" data-q="60">1 hour later</button>
+        </div>
+
+        <button type="button" class="slp-more-btn" id="slp-moreBtn" aria-expanded="false" aria-controls="slp-morePanel">+ More Options</button>
+
+        <div class="slp-hidden" id="slp-morePanel">
+          <div class="slp-field">
+            <span class="slp-field-label">Cycle length</span>
+            <div class="slp-field-control">
+              <div class="slp-input-group"><input type="text" inputmode="numeric" id="slp-clength" value="90"><span>minutes</span></div>
+            </div>
+          </div>
+          <div class="slp-field">
+            <span class="slp-field-label">Time to fall asleep</span>
+            <div class="slp-field-control">
+              <div class="slp-input-group"><input type="text" inputmode="numeric" id="slp-ttsleep" value="15"><span>minutes</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slp-btn-row">
+          <button type="button" class="slp-btn-calc" id="slp-calcBtn">Calculate</button>
+          <button type="button" class="slp-btn-clear" id="slp-clearBtn">Clear</button>
+        </div>
+      </div>
+
+      <div class="slp-sub">
+        <h2>Sleep length calculator</h2>
+        <p>Straight arithmetic, with no allowance for how long you take to drop off &mdash; deduct that yourself.</p>
+
+        <div class="slp-field">
+          <span class="slp-field-label">I want to</span>
+          <div class="slp-field-control">
+            <div class="slp-radio-col">
+              <label class="slp-radio"><input type="radio" name="slp-mode2" value="u" checked> wake up at</label>
+              <label class="slp-radio"><input type="radio" name="slp-mode2" value="d"> go to bed at</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="slp-field">
+          <span class="slp-field-label">Time</span>
+          <div class="slp-field-control slp-time-row">
+            <div class="slp-input-group box"><input type="text" inputmode="numeric" id="slp-h2" value="7"></div>
+            <span class="colon">:</span>
+            <div class="slp-input-group box"><input type="text" inputmode="numeric" id="slp-m2" value="00"></div>
+            <select class="slp-select" id="slp-ap2"><option value="am" selected>AM</option><option value="pm">PM</option></select>
+          </div>
+        </div>
+
+        <div class="slp-field">
+          <span class="slp-field-label">Sleep for</span>
+          <div class="slp-field-control slp-time-row">
+            <div class="slp-input-group"><input type="text" inputmode="numeric" id="slp-sh" value="8"><span>hours</span></div>
+            <div class="slp-input-group"><input type="text" inputmode="numeric" id="slp-sm" value="00"><span>min</span></div>
+          </div>
+        </div>
+
+        <div class="slp-btn-row">
+          <button type="button" class="slp-btn-calc" id="slp-calcBtn2">Calculate</button>
+          <button type="button" class="slp-btn-clear" id="slp-clearBtn2">Clear</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slp-area-result">
+    <div class="slp-result-card">
+      <div class="slp-result-head">
+        <div class="label" id="slp-headLabel">Recommended bedtimes</div>
+        <div class="bignum" id="slp-headNum">&mdash;</div>
+        <div class="sub" id="slp-headSub">&nbsp;</div>
+      </div>
+      <div class="slp-err" id="slp-err"></div>
+      <div class="slp-result-body">
+        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55" id="slp-intro"></p>
+        <div class="slp-picks" id="slp-picks"></div>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 8px" id="slp-altIntro"></p>
+        <table class="slp-alt"><tbody id="slp-altBody"></tbody></table>
+        <p class="slp-note" id="slp-note"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slp-area-sidebar">
+    <div class="slp-calc-card">
+      <div class="h">Related calculators</div>
+      <a href="/time-calculator/">Time Calculator<span>&rarr;</span></a>
+      <a href="/hours-calculator/">Hours Calculator<span>&rarr;</span></a>
+      <a href="/age-calculator/">Age Calculator<span>&rarr;</span></a>
+      <a href="/bmr-calculator/">BMR Calculator<span>&rarr;</span></a>
+      <a href="/tdee-calculator/">TDEE Calculator<span>&rarr;</span></a>
+      <a href="/target-heart-rate-calculator/">Target Heart Rate Calculator<span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="slp-area-bottomgrid">
+    <div class="slp-bottom-grid">
+
+      <div class="slp-info-card">
+        <div class="slp-card-head"><span class="t">Sleep length calculator result</span></div>
+        <div class="slp-card-body">
+          <div class="slp-err" id="slp-err2" style="margin:0 0 12px"></div>
+          <p style="font-size:13px;color:var(--ink-soft);margin:0 0 6px" id="slp-lenLabel">You should go to bed at</p>
+          <p style="font-size:30px;font-weight:700;color:var(--ink);margin:0" id="slp-lenVal">&mdash;</p>
+          <p class="slp-note" id="slp-lenNote"></p>
+        </div>
+      </div>
+
+      <div class="slp-info-card">
+        <div class="slp-card-head"><span class="t">How much sleep by age</span></div>
+        <div class="slp-card-body">
+          <table class="slp-age">
+            <thead><tr><th>Age group</th><th>Recommended per day</th></tr></thead>
+            <tbody>
+              <tr><td>0&ndash;3 months</td><td>14&ndash;17 hours</td></tr>
+              <tr><td>4&ndash;12 months</td><td>12&ndash;16 hours, naps included</td></tr>
+              <tr><td>1&ndash;2 years</td><td>11&ndash;14 hours, naps included</td></tr>
+              <tr><td>3&ndash;5 years</td><td>10&ndash;13 hours, naps included</td></tr>
+              <tr><td>6&ndash;12 years</td><td>9&ndash;12 hours</td></tr>
+              <tr><td>13&ndash;18 years</td><td>8&ndash;10 hours</td></tr>
+              <tr><td>18&ndash;60 years</td><td>7 hours or more</td></tr>
+              <tr><td>61&ndash;64 years</td><td>7&ndash;9 hours</td></tr>
+              <tr><td>65 and older</td><td>7&ndash;8 hours</td></tr>
+            </tbody>
+          </table>
+          <p class="slp-note">CDC guidance. These are ranges for a population, not a target to hit exactly.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.slp-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.slp-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.slp-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.slp-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.slp-seo-article strong{color:var(--ink);font-weight:600}
+.slp-seo-article em{font-style:italic}
+.slp-seo-article a{color:#128A3D;text-decoration:underline}
+.slp-seo-article ul,.slp-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.slp-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:2;word-break:break-word}
+.slp-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.slp-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.slp-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.slp-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.slp-toc a:hover{color:#1E3A5F}
+.slp-seo-article h2[id]{scroll-margin-top:88px}
+.slp-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.slp-disclaimer a{color:var(--ink-faint)}
+</style><div class="slp-seo-article">
+
+<p class="slp-byline">Written by the CalculatorBoss Team &middot; Checked against a reference implementation &middot; Last updated Aug 2026</p>
+
+<nav class="slp-toc" aria-label="On this page">
+  <a href="#why">Why waking mid-cycle feels worse</a>
+  <a href="#math">The arithmetic behind the times</a>
+  <a href="#ninety">Ninety minutes is an average, not your number</a>
+  <a href="#fifteen">The fifteen minutes people forget</a>
+  <a href="#count">Counting cycles, not hours</a>
+  <a href="#regular">Timing beats maths</a>
+  <a href="#limits">What this cannot fix</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="why">Why waking mid-cycle feels worse</h2>
+<p>Sleep is not one uniform state. Across a night you move repeatedly through light sleep, deep slow-wave sleep, and REM, and the depth you happen to be in when the alarm goes off makes a real difference to how the next twenty minutes feel.</p>
+<p>Being pulled out of deep slow-wave sleep produces sleep inertia &mdash; the heavy, disoriented, slightly resentful state that a shower does not immediately fix. It can linger for anything from a few minutes to half an hour. Waking from light sleep, at the end of a cycle, is a much gentler transition, which is why eight hours can sometimes leave you worse off than seven and a half.</p>
+<p>That is the whole idea behind this page. It does not change how much sleep you get; it tries to place the alarm at a boundary rather than in the middle of the deepest part.</p>
+
+<h2 id="math">The arithmetic behind the times</h2>
+<p>There is no biology inside the calculator. It is subtraction, and knowing exactly what it subtracts makes the output easier to judge.</p>
+
+<div class="slp-formula2">
+<b>Working back from a wake-up time</b><br>
+bedtime = wake time &minus; (cycles &times; cycle length) &minus; time to fall asleep<br><br>
+<b>Working forward from a bedtime</b><br>
+wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br>
+<b>Worked through &mdash; waking at 7:00 AM, 5 cycles</b><br>
+5 &times; 90 = 450 minutes, plus 15 to fall asleep = 465<br>
+7:00 AM &minus; 7h 45m = <b>11:15 PM</b>
+</div>
+
+<p>The second calculator on this page does something plainer still: it adds or subtracts a length you choose, with no allowance for dropping off. If you ask it for eight hours from a 7:00 AM alarm it says 11:00 PM, and you are on your own for the time spent lying there.</p>
+<p>Both work in clock time, so a bedtime can land on the previous day and a wake time on the next. That is why the list of alternatives runs across midnight without comment.</p>
+
+<h2 id="ninety">Ninety minutes is an average, not your number</h2>
+<p>The ninety-minute figure is the single biggest assumption on the page, and it is a population average rather than a personal constant.</p>
+<p>Real cycles run roughly 70 to 120 minutes depending on the person, and they are not even consistent within one night for the same person. Early cycles carry more deep sleep and tend to be shorter; later ones carry more REM and stretch out. So a calculation that treats all five as identical ninety-minute blocks is already approximating by the third one.</p>
+<p>The practical consequence is that the later suggestions are shakier than the earlier ones. An error of ten minutes per cycle is ten minutes out at one cycle and fifty at five. If you consistently wake groggy at the suggested times, the setting to change is the cycle length &mdash; try 80 or 100 minutes and see whether it fits you better. That box exists precisely because ninety will not be right for everyone.</p>
+
+<h2 id="fifteen">The fifteen minutes people forget</h2>
+<p>The other adjustment is how long you take to fall asleep, which the calculator defaults to fifteen minutes. Getting into bed is not the same as being asleep, and the gap is the most commonly ignored part of any sleep sum.</p>
+<p>Fifteen minutes is about typical for a healthy adult. Falling asleep in under five consistently is often a sign of not getting enough sleep rather than of being a good sleeper. Regularly taking more than half an hour is worth paying attention to, and if it happens most nights it is one of the markers of insomnia rather than a quirk to design around.</p>
+<p>If you know your own figure, change it. Someone who lies awake for forty minutes and enters fifteen will be handed a bedtime that is twenty-five minutes too late every single night, which quietly defeats the point of the exercise.</p>
+
+<h2 id="count">Counting cycles, not hours</h2>
+<p>The page suggests five or six cycles as the target because that is where most adults land: five ninety-minute cycles is seven and a half hours, six is nine.</p>
+<p>Thinking in cycles rather than hours is useful when you cannot get a full night. Given the choice between six hours and six and a half, the shorter one ends on a cycle boundary and often feels better, even though it is less sleep. The same logic makes a twenty-minute nap kinder than a fifty-minute one &mdash; twenty keeps you in light sleep, while fifty drops you into deep sleep and wakes you out of it.</p>
+<p>What it does not do is make short sleep sufficient. Four well-placed cycles is six hours, which is below what almost every adult needs, and arriving at it neatly does not repay the deficit. Cycle timing is about smoothing the edges of a good night's sleep, not about needing less of it.</p>
+
+<h2 id="regular">Timing beats maths</h2>
+<p>If the calculator only prompts one change, make it this one: go to bed and get up at roughly the same times every day, weekends included.</p>
+<p>Your circadian clock runs on regularity, and a consistent schedule does more for how you feel than optimising any single night's boundary. Shifting your wake time by two or three hours at the weekend produces something close to the effect of flying across time zones and back &mdash; the body clock is still on the old schedule when Monday arrives.</p>
+<p>The other levers are unglamorous and better established than cycle arithmetic: bright light in the morning and dim light in the evening, no caffeine within about eight hours of bed, a cool and dark room, and enough of a wind-down that you are not going from a screen to a pillow in thirty seconds. A perfectly timed bedtime does nothing if you spend the first hour of it awake.</p>
+
+<h2 id="limits">What this cannot fix</h2>
+<p>The calculator assumes you fall asleep at roughly the time you plan to, stay asleep, and move through cycles normally. Where any of that is untrue, the arithmetic stops describing your night.</p>
+<p>Insomnia, sleep apnoea, restless legs and shift work all break the assumption in different ways, and none is helped by moving a bedtime by fifteen minutes. Persistent trouble falling asleep or staying asleep, loud snoring with pauses in breathing, or daytime sleepiness heavy enough to affect driving or work are all reasons to see a doctor rather than to adjust a setting.</p>
+<p>It also cannot tell you anything about the quality of what you got. Waking at a boundary after a night of fragmented sleep still leaves you tired, because the problem was never the timing of the alarm.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+
+<h3>What time should I go to bed to wake up at 7 AM?</h3>
+<p>Working back from 7:00 AM with ninety-minute cycles and fifteen minutes to fall asleep, five cycles puts bedtime at 11:15 PM and six cycles at 9:45 PM. Those are the two most people aim for; the calculator also lists the shorter and longer options if the night is not going to be a full one.</p>
+
+<h3>How long is a sleep cycle?</h3>
+<p>About ninety minutes on average, but genuinely variable &mdash; roughly 70 to 120 minutes between people, and not constant within one night for the same person. Earlier cycles tend to be shorter with more deep sleep, later ones longer with more REM. If ninety minutes does not seem to fit you, change it in the settings.</p>
+
+<h3>Is it better to sleep 6 hours or 7.5 hours?</h3>
+<p>Seven and a half, in almost every case. Six hours is four cycles and lands on a boundary, which is why it can feel better than six and a half, but it is still below what most adults need. Cycle timing smooths the edges of enough sleep; it does not turn too little into enough.</p>
+
+<h3>Why do I feel worse after a long sleep?</h3>
+<p>Usually because the alarm caught you in deep sleep rather than at the end of a cycle. That produces sleep inertia, which can last from a few minutes to half an hour and is unrelated to how much sleep you actually got. It is why eight hours can leave you groggier than seven and a half.</p>
+
+<h3>Should I count the time it takes to fall asleep?</h3>
+<p>Yes, and the first calculator does it for you &mdash; fifteen minutes by default, adjustable in the settings. The second calculator does not, deliberately: it adds or subtracts exactly the length you give it, so you need to allow for dropping off yourself.</p>
+
+<h3>How many sleep cycles do I need?</h3>
+<p>Five or six for most adults, which at ninety minutes each is seven and a half to nine hours. Four is six hours and workable occasionally but short as a habit. What matters more than hitting a particular count is doing it at consistent times.</p>
+
+<h3>Does this work for naps?</h3>
+<p>The same principle applies but the numbers do not. A nap of about twenty minutes keeps you in light sleep and is easy to wake from; forty-five minutes to an hour drops you into deep sleep and tends to leave you groggier than before. If you want a full cycle, ninety minutes is the next sensible stop.</p>
+
+<p class="slp-disclaimer">This calculator is arithmetic based on an average sleep cycle length, not a measurement of your sleep, and it is not medical advice. Real cycle lengths vary between people and across a single night, so treat the times as a starting point to adjust rather than a schedule to follow exactly. If you regularly struggle to fall asleep or stay asleep, snore loudly or stop breathing during sleep, or feel sleepy enough during the day that it affects driving, work or study, please speak to a doctor &mdash; those are matters for assessment rather than for a better-timed alarm. Learn more <a href="/about/">about how we build our calculators</a> and read our <a href="/privacy-policy/">privacy policy</a>.</p>
+
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +860,218 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* The reference lists two recommended picks first, then the rest in this order. */
+  var ORDER = [5,6,7,4,3,2,1];
+  var last = null;
+
+  function to24(h, m, ap){
+    h = h % 12;
+    if(ap === 'pm') h += 12;
+    return h*60 + m;
+  }
+  /* Midday is 12 PM, midnight prints as 0 AM — matching the reference, which shows
+     "0:45 AM" rather than "12:45 AM". */
+  function fmt(mins){
+    mins = ((mins % 1440) + 1440) % 1440;
+    var h = Math.floor(mins/60), m = mins % 60;
+    var ap = h < 12 ? 'AM' : 'PM';
+    var hh = h < 12 ? h : h - 12;
+    if(hh === 0 && ap === 'PM') hh = 12;
+    return hh + ':' + (m < 10 ? '0' : '') + m + ' ' + ap;
+  }
+  function num(el){
+    var s = String(el.value).trim();
+    if(s === '') return null;
+    var n = parseInt(s, 10);
+    return isNaN(n) ? NaN : n;
+  }
+  function pick(name){
+    var el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? el.value : 'u';
+  }
+
+  /* ---- sleep cycle calculator ---- */
+  function fail(msg){
+    var e = $('slp-err');
+    e.textContent = msg; e.classList.add('show');
+    $('slp-headNum').textContent = '\u2014'; $('slp-headSub').innerHTML = '&nbsp;';
+    $('slp-picks').innerHTML = ''; $('slp-altBody').innerHTML = '';
+    $('slp-intro').textContent = ''; $('slp-altIntro').textContent = ''; $('slp-note').textContent = '';
+    last = null;
+  }
+
+  function calcCycle(){
+    var h = num($('slp-h')), m = num($('slp-m'));
+    var cl = num($('slp-clength')), tt = num($('slp-ttsleep'));
+    var ap = $('slp-ap').value, mode = pick('slp-mode');
+
+    if(h === null || m === null || isNaN(h) || isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59){
+      fail('Enter a time as an hour from 1 to 12 and minutes from 0 to 59.'); return;
+    }
+    if(cl === null || isNaN(cl) || cl < 1){ fail('Enter a sleep cycle length of at least one minute.'); return; }
+    if(tt === null || isNaN(tt) || tt < 0){ fail('Enter how long you take to fall asleep, in minutes.'); return; }
+    $('slp-err').classList.remove('show');
+
+    var t = to24(h, m, ap);
+    var rows = ORDER.map(function(n){
+      var v = (mode === 'u') ? (t - n*cl - tt) : (t + tt + n*cl);
+      return [n, fmt(v)];
+    });
+
+    var given = fmt(t);
+    $('slp-headLabel').textContent = (mode === 'u') ? 'Go to bed at' : 'Get up at';
+    $('slp-headNum').textContent = rows[0][1] + '  \u00b7  ' + rows[1][1];
+    $('slp-headSub').textContent = (mode === 'u')
+      ? 'to wake refreshed at ' + given + ', after 5 or 6 cycles'
+      : 'if you go to bed at ' + given + ', after 5 or 6 cycles';
+
+    $('slp-intro').textContent = (mode === 'u')
+      ? 'To wake up refreshed at ' + given + ', it is recommended to go to bed at one of these times:'
+      : 'If you go to bed at ' + given + ', it is recommended to get up at one of these times:';
+
+    $('slp-picks').innerHTML = rows.slice(0,2).map(function(r){
+      return '<div class="slp-pick"><div class="t">' + r[1] + '</div><div class="c">' + r[0] + ' sleep cycles</div></div>';
+    }).join('');
+
+    $('slp-altIntro').textContent = 'If that does not suit, these also land between cycles:';
+    $('slp-altBody').innerHTML = rows.slice(2).map(function(r){
+      return '<tr><td>' + r[1] + '</td><td>' + r[0] + (r[0] === 1 ? ' sleep cycle' : ' sleep cycles') + '</td></tr>';
+    }).join('');
+
+    $('slp-note').textContent = 'Each of these lands your alarm between ' + cl +
+      '-minute cycles, assuming ' + tt + ' minutes to fall asleep. Five or six complete cycles is the usual aim.';
+
+    last = { mode:mode, given:given, rows:rows, cl:cl, tt:tt };
+    calcLength();
+  }
+
+  /* ---- sleep length calculator: plain arithmetic, no allowance for dropping off ---- */
+  function calcLength(){
+    var h = num($('slp-h2')), m = num($('slp-m2'));
+    var sh = num($('slp-sh')), sm = num($('slp-sm'));
+    var ap = $('slp-ap2').value, mode = pick('slp-mode2');
+    var e = $('slp-err2');
+
+    if(h === null || m === null || isNaN(h) || isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59){
+      e.textContent = 'Enter a time as an hour from 1 to 12 and minutes from 0 to 59.';
+      e.classList.add('show'); $('slp-lenVal').textContent = '\u2014'; $('slp-lenNote').textContent = '';
+      return;
+    }
+    if(sh === null) sh = 0;
+    if(sm === null) sm = 0;
+    if(isNaN(sh) || isNaN(sm) || sh < 0 || sm < 0){
+      e.textContent = 'Enter how long you want to sleep as whole hours and minutes.';
+      e.classList.add('show'); $('slp-lenVal').textContent = '\u2014'; $('slp-lenNote').textContent = '';
+      return;
+    }
+    e.classList.remove('show');
+
+    var t = to24(h, m, ap), d = sh*60 + sm;
+    var v = (mode === 'u') ? (t - d) : (t + d);
+    $('slp-lenLabel').textContent = (mode === 'u') ? 'You should go to bed at' : 'You should wake up at';
+    $('slp-lenVal').textContent = fmt(v);
+    $('slp-lenNote').textContent = 'That is ' + sh + 'h ' + (sm < 10 ? '0' : '') + sm +
+      'm from ' + fmt(t) + ', counted straight. It makes no allowance for the time you take to fall asleep, so add that on top.';
+  }
+
+  /* ---- PDF, loaded only when the button is pressed ---- */
+  var pdfPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var el = document.createElement('script');
+      el.src = src; el.onload = res; el.onerror = rej;
+      document.head.appendChild(el);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfPromise) return pdfPromise;
+    pdfPromise = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+      .then(function(){ return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfPromise;
+  }
+  function generatePdf(){
+    if(!last) return;
+    var doc = new window.jspdf.jsPDF();
+    doc.setFontSize(17); doc.text('Sleep Times', 14, 20);
+    doc.setFontSize(10); doc.setTextColor(120);
+    doc.text('calculatorboss.com/sleep-calculator/', 14, 27);
+    doc.setTextColor(40); doc.setFontSize(11);
+    doc.text((last.mode === 'u' ? 'To wake at ' : 'Going to bed at ') + last.given +
+             '   Cycle ' + last.cl + ' min   Falling asleep ' + last.tt + ' min', 14, 37);
+    doc.autoTable({ startY: 45,
+      head: [[last.mode === 'u' ? 'Go to bed at' : 'Get up at', 'Cycles']],
+      body: last.rows.map(function(r){ return [r[1], r[0] + (r[0] === 1 ? ' cycle' : ' cycles')]; }),
+      theme:'grid', headStyles:{fillColor:[30,58,95]}, styles:{fontSize:10} });
+    var y = doc.lastAutoTable.finalY + 10;
+    doc.setFontSize(9); doc.setTextColor(120);
+    doc.text('Cycle length varies between people and between nights, so treat these as a', 14, y);
+    doc.text('starting point. Persistent sleep problems are worth raising with a doctor.', 14, y + 5);
+    doc.save('sleep-times.pdf');
+  }
+
+  /* ---- wiring ---- */
+  $('slp-calcBtn').addEventListener('click', calcCycle);
+  $('slp-calcBtn2').addEventListener('click', calcLength);
+  ['slp-h','slp-m','slp-clength','slp-ttsleep'].forEach(function(id){
+    $(id).addEventListener('input', calcCycle);
+  });
+  $('slp-ap').addEventListener('change', calcCycle);
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="slp-mode"]'), function(el){
+    el.addEventListener('change', calcCycle);
+  });
+  ['slp-h2','slp-m2','slp-sh','slp-sm'].forEach(function(id){
+    $(id).addEventListener('input', calcLength);
+  });
+  $('slp-ap2').addEventListener('change', calcLength);
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="slp-mode2"]'), function(el){
+    el.addEventListener('change', calcLength);
+  });
+
+  $('slp-moreBtn').addEventListener('click', function(){
+    var nowHidden = $('slp-morePanel').classList.toggle('slp-hidden');
+    this.textContent = nowHidden ? '+ More Options' : '- Fewer Options';
+    this.setAttribute('aria-expanded', nowHidden ? 'false' : 'true');
+  });
+
+  /* The quick links fill the time boxes from the clock, rounded to the minute. */
+  Array.prototype.forEach.call(document.querySelectorAll('.slp-quick button'), function(b){
+    b.addEventListener('click', function(){
+      var d = new Date(Date.now() + parseInt(this.getAttribute('data-q'), 10)*60000);
+      var h = d.getHours(), m = d.getMinutes();
+      $('slp-ap').value = h < 12 ? 'am' : 'pm';
+      var hh = h % 12; if(hh === 0) hh = 12;
+      $('slp-h').value = hh;
+      $('slp-m').value = (m < 10 ? '0' : '') + m;
+      calcCycle();
+    });
+  });
+
+  /* Clear empties the typed boxes of its own calculator only. The mode, the AM/PM
+     choice and the settings panel stay as they were, and the page does not move. */
+  $('slp-clearBtn').addEventListener('click', function(){
+    ['slp-h','slp-m'].forEach(function(id){ $(id).value = ''; });
+  });
+  $('slp-clearBtn2').addEventListener('click', function(){
+    ['slp-h2','slp-m2','slp-sh','slp-sm'].forEach(function(id){ $(id).value = ''; });
+  });
+
+  $('slp-pdfBtn').addEventListener('click', function(){
+    var btn = this, old = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading\u2026';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = old; generatePdf();
+    }).catch(function(){ btn.disabled = false; btn.textContent = old; });
+  });
+
+  calcCycle();
+})();
+
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -480,6 +1167,274 @@
   });
 
   input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<script>
+/* Calculator boxes ship with worked example values already in them. Without this, tapping
+   a field on a phone puts the caret beside the existing digits, so a visitor aiming for
+   250000 ends up with 420000250000. Selecting on focus makes the first keystroke replace
+   the example. Delegated from the document so it needs no per-page knowledge. */
+(function(){
+  if(window.__cbSelectOnFocus) return;
+  window.__cbSelectOnFocus = 1;
+  function armed(el){
+    return el && el.tagName === 'INPUT' && el.type === 'number' && !el.readOnly && !el.disabled;
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target;
+    if(!armed(el)) return;
+    try { el.select(); } catch(err) { return; }
+    /* A mouse click focuses first, then places the caret on mouseup, which would throw
+       the selection away. Swallow that one mouseup only. */
+    var once = function(ev){ ev.preventDefault(); el.removeEventListener('mouseup', once); };
+    el.addEventListener('mouseup', once);
+    setTimeout(function(){ el.removeEventListener('mouseup', once); }, 400);
+  });
+})();
+</script>
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
 })();
 </script>
 </body></html>
