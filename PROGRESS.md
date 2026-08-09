@@ -8751,3 +8751,72 @@ Two follow-ons caught by looking at the render rather than the DOM:
 whether the page looks like the rest of the site. Worth adding a cheap guard to future builds:
 a computed-style comparison of `.X-byline`, `.X-seo-article p`, `.X-toc a` and any mono usage
 against a named reference page, which would have caught both of these before shipping.
+
+## One Rep Max Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/one-rep-max-calculator/` with a full 3-card build (86KB, `orm-` prefix).
+Reference: calculator.net/one-rep-max-calculator.html. Donor `body-fat-calculator` for shell;
+article stylesheet lifted from `healthy-weight-calculator` per the lesson logged above and
+verified string-identical after prefix normalisation.
+
+**No tabs on this page.** The reference has a unit dropdown and a "+ Settings" disclosure, not
+unit tabs, so none were added — parity is a ceiling. Grid areas are `bar / form result sidebar /
+bottomgrid`, no tabs row.
+
+**Keyword research.** "one rep max calculator" and "1RM calculator" are crowded (Omni, arvo,
+hypro, hubfit, coachway, ajdesigner). Nearly every competitor shows two to four formulas *side
+by side* and offers an average; the reference does not, and per the scope rule neither do we.
+The gap worth taking is the pair of tables the competitors mostly skip — weight for each rep
+count, and the inverse percentage table — plus explaining the ten-rep cap, which competitors who
+allow 1-12 never justify. Title 50 chars, description 152.
+
+### Four separate arithmetic traps, none of them guessable
+
+A 40-case sweep opened at **51 mismatched blocks**. Each cause was distinct:
+
+1. **Rep 1 is special-cased.** Epley at r=1 would give w x (1 + 1/30) = 1.033w. The reference
+   returns w. Sensible — if you lifted it once, that is the max — but it is a branch, not a formula.
+2. **Algebraically identical, not identical in floating point.** Epley's row share written as
+   `1/(1 + n/30)` lands a hair under 0.625 at n=18 and rounds to 62%; written as `30/(30 + n)`
+   it is exactly 0.625 and rounds to 63%, which is what the reference shows. Same for the reverse
+   table: `30*(1/p - 1)` gives 9.999999 at 75% and floors to 9, while `3000/p - 30` gives exactly
+   10. **Integer-first arithmetic, every time.**
+3. **Lombardi's reverse column uses `exp(log(100/p)/0.10)`, not `pow(p, -10)`.** Both are the same
+   mathematically. The reference prints **1023** at 50% where the clean form gives exactly 1024 —
+   dividing by 0.10 leaves the error that flooring then exposes. That single displayed digit is
+   the only evidence of which form the reference uses.
+4. **PHP's `round()` pre-corrects to 15 significant digits before rounding half away from zero.**
+   138.55 is stored as 138.5499..., so a naive implementation rounds it down and drifts. The
+   correction has to be applied **after** scaling by the decimal factor, not before.
+
+### The conversion constant is per-page, again
+
+The lean-body-mass page uses **2.2046**. This page does not, and it is not the true kg/lb factor
+(2.20462262) either. Interval analysis over every cross-unit row gave a feasible band of
+**[2.2046243, 2.2046245]**, and a grid scan confirmed zero mismatches only inside it:
+**2.2046244**. Two pages, two different hard-coded constants, neither of them correct physics.
+
+Repeat of the LBM lesson, and it bit again here: an initial 31-case fit reported **0/496 for
+three different constants**, because none of the 31 cases discriminated. The failures only
+appeared once known-failing cases were added to the fit set. **A fit that reports zero on a set
+that does not discriminate is not evidence.**
+
+### Verification
+
+Engine against the live reference: **150 normal + 120 extreme-range cases, 0 mismatched**, each
+case comparing four blocks — the 1RM headline, the 15-row rep table, the 11-row percentage table
+and all 20 chart bars. Then the shipped page driven in Chromium over **40 fresh cases** comparing
+every rendered cell: **0 mismatches, 64 assertions, 0 failed**, including the six validation
+paths (zero/blank weight, zero reps, reps above ten, fractional reps, non-numeric reps), Clear
+emptying only the two typed boxes while leaving unit, formula and the open Settings panel alone
+at 0.0px drift, jsPDF unloaded until clicked, and 20 chart bars with per-bar tooltips.
+
+Chart is hand-drawn SVG rather than a library — no dependency, and it inherits the site palette.
+
+### Content
+
+2,145-word article, 8 H2s, 7 FAQs, FAQ schema generated from the rendered article at build time.
+Overlap **0.00%** with the reference and worst **0.76%** against our own pages — that 0.76% is
+almost entirely the shared byline template line, with the next-highest real overlap at 0.10%.
+Article carries the house `.orm-formula2` box with all three equations and a worked example.
+OG image added; slug was already in `sitemap.xml`, `calculators-index.json` and `llms.txt`.
