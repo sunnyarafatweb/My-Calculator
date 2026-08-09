@@ -9069,3 +9069,83 @@ for legal, immigration or paternity purposes. Given who searches this term, that
 part worth getting right.
 
 OG image added; slug already in all three registry files.
+
+## Target Heart Rate Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/target-heart-rate-calculator/` with a full 3-card build (82KB, `thr-`
+prefix). Reference: calculator.net/target-heart-rate-calculator.html. **Inputs 14/14, results
+12/12.** The most branching page built so far: two max-heart-rate modes, three estimation
+formulas, three intensity scales, and an optional resting rate — which together produce **four
+different result tables**, not one.
+
+### The four output shapes
+
+    resting rate given + Karvonen  -> 5 zones, % of heart rate reserve
+    resting rate given + Borg      -> 10 rows, RPE 6-20  -> bpm
+    resting rate given + CR10      -> 10 rows, CR10 0-10 -> bpm
+    resting rate blank             -> 5 zones, plain % of maximum
+
+The last one is the catch: **a blank resting rate overrides the intensity scale entirely.** Pick
+Borg, leave resting blank, and the reference silently returns the percentage-of-maximum table,
+because every perceived-exertion scale needs a reserve to work from. Easy to miss, and it would
+have shipped as a broken-looking scale selector.
+
+    MHR: Haskell & Fox 220 - age | Tanaka 208 - 0.7*age | Nes 211 - 0.64*age
+    reserve   = MHR - RHR
+    Karvonen  = RHR + reserve * pct
+    Borg      = RHR + reserve * (B - 6) / 14      (B = 0 returns RHR)
+    Borg CR10 = RHR + reserve * B / 10
+
+### The maximum is rounded before anything else uses it
+
+First sweep opened at 9 mismatches, all a single beat low, all on Tanaka or Nes. Haskell never
+failed because 220 minus an integer age is already whole. The cause: **the reference rounds the
+estimated maximum to a whole beat before deriving anything from it.** Tanaka at 36 is 182.8; keep
+it and every zone lands a beat low, round it to 183 first and all five rows plus the summary line
+snap into place. A tenth of a beat, propagated through five zones.
+
+### Validation bounds were measured, not guessed
+
+Binary-searched against the reference rather than assumed: **age 1-119, resting 11-399, tested
+maximum 31-499**, with three distinct error messages. Anything outside returns no result at all.
+The extreme sweep found these by failing on absurd inputs, which is exactly what it is for.
+
+### Verification
+
+Engine against the live reference: **30 + 120 + 40 + 110 cases** spanning both modes, all three
+formulas, all three scales, blank and populated resting rates, and out-of-range inputs —
+**0 mismatched**, covering all four table shapes and all three error paths. Then in Chromium over
+**45 fresh cases**: **0 mismatches, 74 assertions, 0 failed**. The reference's own default
+(age 30, resting 70, Haskell, Karvonen) reproduces exactly: 130-172 bpm and all five rows.
+
+### Two of my own bugs, and which one the suite could see
+
+**A real layout bug the suite caught:** 44px of horizontal overflow at 390px. The zone table's
+`th` cells carried `white-space:nowrap`, giving the table a 376px minimum, and `.thr-result-body`
+had no `overflow-x`, so the whole grid was pushed to 418px inside a 390px viewport. Headers now
+wrap, the result body scrolls if it must, and overflow is 0 at 1280, 430, 390 and 360.
+
+**A real styling bug the suite could not:** the step-by-step card rendered as one unbroken run of
+text — "Maximum heart rate220 - 34 = 186 bpmHeart rate reserve186 -". The `.thr-work` rules had
+been dropped somewhere in the CSS chain from build to build, so the `.nm` labels were inline
+instead of block. Every assertion passed; the screenshot showed it immediately. **Fifth build
+running where a screenshot caught what 74 assertions did not.**
+
+Also fixed a **stale check in build.py**: the self-link test had been comparing against a
+hard-coded slug carried over through three page builds, so it was checking the wrong page and
+reported a false positive here. It now derives the slug from the output path.
+
+### Content
+
+1,953-word article, 8 H2s, 7 FAQs. Overlap with the reference **0.00%** and, against our own
+pages, **zero real shingles** — the only matches sitewide are the byline and disclaimer
+boilerplate. Best originality result to date. Its territory is the reserve-versus-maximum gap
+(19 beats at 70% for the worked example), choosing between the three formulas and what their
+spread means, what each zone is for, when perceived exertion beats the monitor, and the reasons
+a heart rate reads high on a given day.
+
+**YMYL treatment:** a dedicated section on when to stop and ask a doctor, naming the symptoms
+that override any target, plus the beta-blocker case where these numbers do not apply at all —
+that one gets its own FAQ as well as a line in the disclaimer.
+
+OG image added; slug already in all three registry files.
