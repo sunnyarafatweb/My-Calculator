@@ -9389,3 +9389,37 @@ Page build, browser verification, article, OG image. The article needs care: `pr
 `pregnancy-conception`, `ovulation`, `period` and `due-date` are all close neighbours, so scope it
 before drafting as with the conception page — the territory left is IOM categories and why they
 differ, the shape of the gain curve, twins, and what under- and over-gaining actually risk.
+
+### Pregnancy Weight Gain Calculator — page built and shipped (Aug 9, 2026)
+
+The engine recorded in the previous entry is now a live page (85KB, `pwg-` prefix).
+**Inputs 14/14, results 15/15**: the week range, the delivery range, BMI and category, the
+status line against the band, a shaded 40-week chart, and the full week-by-week table.
+
+**Verification.** The shipped JS is a direct port of the swept engine, driven in Chromium over
+**40 fresh cases**, comparing the headline, the BMI figure and category, and **all forty table
+rows in every case** against the Python engine: **0 mismatches, 65 assertions, 0 failed**. The
+reference example from the owner's screenshot (5'6", 120 lb before, 130 now, week 20) reproduces
+exactly — 127.3 to 132.3 lbs, gain 7.3 to 12.3, BMI 19.4 Normal Weight. Overflow 0 at 1280, 430,
+390 and 360.
+
+Behaviours from the research all held on the built page: week 40 shows the delivery range and
+drops the per-week line, underweight twins falls back to the normal-weight 37-54 range, and the
+formatting prints a bare `0` at week 1, `0.09` at week 2 and one decimal elsewhere.
+
+**The reference bug was not copied.** Where the reference prints `0.099999999999994 lbs higher
+than the upper bound`, ours rounds: `0.1 lbs above the top of that range`. Everything else about
+the status line matches, including which of the three variants fires.
+
+**One test artifact, not a page bug.** The validation assertion for height set feet to 0 and left
+inches at 6, so the total was still positive and no error fired — correctly. Confirmed by zeroing
+both boxes, which does produce the error. The assertion was relabelled rather than "fixed", since
+the page was behaving properly.
+
+**Content.** 1,873-word article, 8 H2s, 7 FAQs. Scope was planned against the five neighbouring
+pregnancy pages before drafting, as with the conception build. Overlap with the reference
+**0.00%**, and against our own pages **zero real shingles** — only byline and disclaimer
+boilerplate. Its territory is the one thing none of the neighbours cover: that the range is
+anchored to pre-pregnancy BMI and never moves, why the curve is flat then steep, where the weight
+actually goes (the baby is a minority of it), that under-gaining carries real risk and pregnancy
+is not a time to diet, and twins. OG image added; slug already in all three registry files.
