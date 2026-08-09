@@ -9270,3 +9270,65 @@ country's number physically counts (the barleycorn behind the three-per-inch US 
 measuring a foot properly, why round-tripping a conversion does not return you, the children's
 restart at 13, and why length alone cannot decide fit. OG image added; slug already in all three
 registry files.
+
+## Protein Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/protein-calculator/` with a full 3-card build (88KB, `pro-` prefix).
+Reference: calculator.net/protein-calculator.html. **Inputs 18/18, results 12/12** — three unit
+tabs including the shared Other Units converter, six activity levels, and a Settings disclosure
+carrying the BMR formula choice and a body-fat field for Katch-McArdle.
+
+### The one digit the whole CDC band hangs on
+
+Hand-fitting got ADA and WHO immediately (1.0-1.8 and 0.83 g/kg) but the CDC figures came out
+about 2% high every time, and no plausible BMR or activity change closed the gap. Rather than
+keep guessing, I probed eighteen points varying weight, age, height, sex and activity and solved
+for the implied constant. It came back at **4.09 to 4.11 across every single point**: protein is
+being counted at **4.1 kcal per gram, not 4**. With 4.0 the default reads 59-207 instead of
+58-202. One digit, every figure in the band.
+
+    BMR (Mifflin-St Jeor or Katch-McArdle) x activity = daily calories
+    ADA : sedentary 0.8-1.0 g/kg  |  any other activity 1.0-1.8 g/kg
+    CDC : daily calories x 10% and 35%, divided by 4.1
+    WHO : 0.83 g/kg
+
+**The ADA band is a step, not a slope.** It sits at 0.8-1.0 for the sedentary setting and jumps
+to 1.0-1.8 for light activity, then stays there through extra-active. Only the CDC figures keep
+climbing, because only they are tied to calories. Easy to model as a smooth function of activity
+and be wrong at exactly one setting.
+
+Ranges binary-searched rather than assumed: **age 18-80** (the form's own label is accurate here,
+unusually), weight accepted from 1 to 1224 lb, and body fat rejected at both 0 and 100.
+
+### Verification
+
+Engine against the live reference: **35 + 110 cases** across both unit systems, both BMR
+formulas, all six activity levels and both sexes — **0 mismatched**. Then the shipped page driven
+in Chromium over **45 fresh cases** compared against the Python engine: **0 mismatches, 73
+assertions, 0 failed**. The reference's own default (25, male, 5'10", 160 lb, light, Mifflin)
+reproduces exactly: 73-131 / 58-202 / 60.
+
+### Two real bugs the suite caught
+
+**The converter was dead.** I lifted the Other Units converter functions from the lean-body-mass
+build but not their event listeners, which live in that file's wiring section. Every category
+reported 11 units because it was stuck on Length and the category buttons did nothing. Now
+Length 11, Temperature 3, Area 11, Volume 23, Weight 10. **Lifting a component means lifting its
+wiring too** — the functions alone look complete and are not.
+
+**Overflow of 27 to 97px below 430px.** The activity select's longest option ("Extra active: very
+intense exercise daily, or a physical job") has an intrinsic width of ~395px, and a grid item
+defaults to `min-width:auto`, i.e. min-content — so that one string held the whole form card open
+at 441px inside a 390px viewport. Fixed with `min-width:0` on the grid areas and fields. Worth
+remembering as a general trap: **a single long `<option>` can set the minimum width of an entire
+grid column**, and nothing about the select looks wrong until you measure.
+
+### Content
+
+1,865-word article, 8 H2s, 7 FAQs. Overlap with the reference **0.00%**; against our own pages
+the only matches are the shared disclaimer phrasing about speaking to a doctor or dietitian.
+Its territory is why three institutions disagree and how to place yourself between them, that
+0.8 g/kg is a floor rather than a target, per-meal distribution and the ~25-40 g synthesis
+ceiling, whether more is better, and the situations — kidney disease, pregnancy, children,
+recovery — where the page's numbers do not apply. OG image added; slug already in all three
+registry files.
