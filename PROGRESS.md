@@ -8845,3 +8845,79 @@ re-reading assertions whenever the mechanism under them changes.
 
 Full suite re-run afterwards: 64 assertions, 40 engine cases, 0 mismatches, overflow 0 at 1280,
 430 and 390px. No calculation changed.
+
+## Ovulation Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/ovulation-calculator/` with a full 3-card build (73KB, `ovu-` prefix).
+Reference: calculator.net/ovulation-calculator.html. Article stylesheet lifted from
+`healthy-weight-calculator` and verified string-identical after prefix normalisation.
+
+**No Clear button.** The reference form carries only Calculate. Buttons are parity, so none was
+added. No tabs either.
+
+### Finding the input names cost the first three probes
+
+The date field is rendered by `DateInput('today', true)` from `calendardateinput.js`, and the
+first probes with `cmonth/cday/cyear` came back looking plausible — because those params were
+silently ignored and the page fell back to today's date, which happened to be the date I was
+testing. The cycle param worked, so results changed and nothing looked broken. Reading the
+script showed it writes **one hidden field named after its first argument**, so the real
+parameter is `today=MM/DD/YYYY`. **A probe that "works" because the default matches your test
+input is a false positive** — vary the input you are trying to confirm, not just the other one.
+
+### The rules
+
+    ovulation = LMP + (cycle - 14)          i.e. fourteen days before the next period
+    next period = LMP + cycle
+    ovulation window = ovulation +/- 2 days
+    intercourse window = ovulation - 5 to ovulation + 2
+    pregnancy test = ovulation + 9
+    due date = ovulation + 266
+    next six cycles = the same, from LMP + cycle*k for k = 0..5
+
+The luteal phase is the fixed part, so cycle length is added *before* ovulation, not after.
+
+### Two things I nearly got wrong in opposite directions
+
+**A reference "bug" that was my parser.** When the fertile window straddles a month, the
+reference renders **two calendars** (e.g. February 2027 and March 2027). My regex read both
+grids as one, so it looked like the reference was highlighting day 1 of February when the
+window was Feb 25 to Mar 1. I was one step from "fixing" a bug that did not exist. Checking the
+raw markup first is what caught it.
+
+**A real reference bug that looked like noise.** At LMP 30 Jan 2100 with a 44-day cycle the
+reference's February grid renders a **29th**. 2100 is not a leap year — divisible by 100, not by
+400 — so the calendar is using a naive `year % 4` rule. The text dates are correct (Feb 27 to
+Mar 3); only the grid invents the day. Per the standing rule the field is matched and the error
+is not: our calendar comes from `new Date(y, m+1, 0)`, which applies the full century rule, and
+there is a regression assertion pinning February 2100 to 28 days. Practically irrelevant, but
+correctness here was free.
+
+### Verification
+
+Engine against the live reference: **30 + 120 normal + 100 edge cases** biased toward month
+ends, Februaries and leap years, each comparing three blocks (the six this-cycle dates, all six
+projection rows, and every calendar with its highlighted days) — **0 mismatched**, the sole
+known divergence being the 2100 leap bug above. Then the shipped page driven in Chromium over
+**35 fresh cases** comparing every rendered cell: **0 mismatches, 51 assertions, 0 failed**,
+including the day list rebuilding for short months (Feb 2027 = 28, Feb 2028 = 29, Jan = 31),
+the 22-44 cycle range, the absent Clear button, year validation, and 0 overflow at three widths.
+
+### Content, and a sibling-originality catch
+
+1,901-word article, 8 H2s, 7 FAQs, FAQ schema generated from the rendered article. Overlap with
+the reference **0.00%**.
+
+The first draft scored **0.67% against our own `conception-calculator`** — and unlike the
+byline-only overlaps against other pages, that one was **real prose**: cervical mucus, the LH
+surge, false negatives. Both pages cover the same fertile-window territory, so re-wording would
+only have hidden the duplication. Instead the whole "signs to track" section was **cut and
+replaced** with material the sibling does not cover — how confidence decays across the six
+projected cycles and how to plan around a range rather than a printed date — with a link handing
+body-signs readers to the conception calculator. Real overlap is now **3 shingles**, all of them
+the formula itself and the standard definition of cycle length, which should not be reworded.
+
+**YMYL treatment.** The reference's own warning is that it must not be used as birth control.
+That is the first H2 on our page rather than a footnote, the result card carries a short line
+saying the same, and the disclaimer names the situations where the arithmetic does not apply.
+OG image added; slug already present in `sitemap.xml`, `calculators-index.json` and `llms.txt`.
