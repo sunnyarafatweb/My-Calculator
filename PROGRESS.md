@@ -9233,3 +9233,40 @@ the engine is the part that has to be right, and the session ran out of room to 
 write the article, run the browser suite and check originality against 200+ existing pages. A
 page shipped without those is exactly the failure mode the one-at-a-time approach exists to
 avoid. Resume by finishing the source-minimum map, then building normally.
+
+### Shoe Size Conversion — page built and shipped (Aug 9, 2026)
+
+The engine research recorded in the previous entry is now a live page (79KB, `ssc-` prefix).
+**Inputs 13/13, results 14/14.** First page in the Other category rather than Health, so the
+breadcrumb, schema `applicationCategory` and related-calculator list all differ from the recent
+run of health builds.
+
+**Reused rather than rewritten.** Starting this build I began writing a fresh sweep and hit
+"file already exists" — a `shoe_sweep.py` from the earlier session was still on disk, out of my
+context. I read it before touching it, and it was **better than what I was writing**: it handles
+negative zero (the reference prints "-0" for absurd inputs) and computes metric entries natively
+instead of round-tripping through inches, where 10.75 cm comes back as 10.749999 and shifts a
+half size. Kept it, and it passed 25 fresh cases immediately. Overwriting unread would have cost
+both fixes.
+
+**Verification.** The shipped JS is a direct port of that engine, driven in Chromium over
+**45 fresh cases** across all three age groups and all seven entry points, compared against the
+Python engine: **0 mismatches, 71 assertions, 0 failed**. The reference's own default (10 inches,
+adults) reproduces exactly — 9 / 8 / 7 / 40 / 25.5 / 41. Overflow 0 at 1280, 430, 390 and 360.
+
+**A false alarm worth recording.** The Clear assertion reported 18px of page drift. Chasing it:
+no element's height changed across the click, and the h1 moved by the same 18px as the button —
+a layout change inside the form cannot move the h1. The 18px was exactly how far the button sat
+below the 900px viewport, so it was the browser's native focus-scroll on a clipped button. Also
+learned in the process that **`body` on this site carries `overflow: hidden auto`, so `body` is
+the scroll container, not `window`** — which is why `window.scrollY` and `window.scrollTo` read
+and moved nothing in my probes. The assertion now measures against the document via `offsetTop`,
+which is immune to scrolling, and reports 0.0px. Worth reusing on other pages, where the same
+measurement has been quietly viewport-relative all along.
+
+**Content.** 1,801-word article, 8 H2s, 7 FAQs. Overlap with the reference **0.00%**; against our
+own pages, two shingles of a common phrase. Its territory is why no standard exists, what each
+country's number physically counts (the barleycorn behind the three-per-inch US and UK steps),
+measuring a foot properly, why round-tripping a conversion does not return you, the children's
+restart at 13, and why length alone cannot decide fit. OG image added; slug already in all three
+registry files.
