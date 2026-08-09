@@ -965,7 +965,8 @@
       var doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
       doc.setFontSize(16); doc.text('Dividend Yield Calculator',40,50);
       doc.setFontSize(10); doc.setTextColor(120);
-      doc.text($('dy-status').textContent,40,68);
+      var barEl=document.querySelector('.dy-bar-text');
+      doc.text(barEl?barEl.textContent.trim():'Dividend yield, yield on cost and reinvestment',40,68);
       doc.setTextColor(20); doc.setFontSize(13);
       doc.text($('dy-resultLabel').textContent+': '+$('dy-bignum').textContent,40,96);
       var body=Array.prototype.map.call(document.querySelectorAll('#dy-resultRows .dy-result-row'),function(r){
