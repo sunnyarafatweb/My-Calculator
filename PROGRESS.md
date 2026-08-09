@@ -9466,6 +9466,34 @@ everyone forgets to count, thinking in cycles when the night is short, and that 
 regularity beats any single night's arithmetic. OG image added; slug already in all three
 registry files.
 
+### Follow-up: the two calculators moved onto tabs (owner request)
+
+Shipped first as two calculators stacked inside one card. The owner asked for the loan
+calculator's pattern instead — a tab bar above, each tab swapping the input fields — so I read
+`/loan-calculator/` before changing anything rather than approximating it.
+
+Two things the house pattern does that my first version did not:
+
+- **The tabs live outside the card**, as their own grid area. `.ln-tabs` carries
+  `grid-area:tabs` and the grid template has a dedicated `"tabs tabs ."` row. Mine had the tabs
+  inside the card and no tabs row at all, so they would never have lined up with the other pages.
+- **Tab styling differs from the sub-tabs** used elsewhere: `--border` rather than
+  `--border-fine`, 11px/18px padding, 13.5px text. Copied exactly, hover rule included.
+
+The result card now swaps with the tab too, so each calculator owns the headline while it is
+active, and the second bottomgrid card became a shared "how the time was worked out" panel that
+follows whichever tab is open.
+
+**Caught in review:** the length tab printed its answer twice — once in the green headline and
+again immediately below it. Replaced the duplicate with a three-row breakdown (result, length,
+counted-from), which is what the space is for.
+
+Re-verified after the restructure rather than trusting that only layout had changed: the suite
+was updated to drive each calculator through its own tab, and the whole thing re-run —
+**70 assertions, 0 mismatches**, all four reference examples still exact, overflow 0 at four
+widths. The tab assertions also pin the grid area and that the tabs sit outside the card, so a
+future edit that moves them back inside will fail rather than drift.
+
 **This clears the health and fitness stub batch.** All six from the original queue —
 period, pregnancy-conception, pregnancy-weight-gain, protein, target-heart-rate, sleep — plus
 shoe-size-conversion are now built, verified and live.

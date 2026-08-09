@@ -306,7 +306,7 @@
 .slp-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
 
 .slp-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .slp-area-bottomgrid{grid-area:bottomgrid}
 /* Grid items default to min-width:auto, i.e. min-content. The activity select's
    longest option is ~395px wide, which without this held the whole card open
@@ -367,7 +367,7 @@
 .slp-ref-table tr:last-child td{border-bottom:none}
 
 @media(max-width:980px){
-  .slp-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .slp-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 @media(max-width:760px){.slp-bottom-grid{grid-template-columns:1fr}}
 @media(max-width:520px){
@@ -404,8 +404,9 @@
 
 .slp-hint{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
 
-.slp-tabs{display:flex;gap:8px;flex-wrap:wrap;width:100%;margin-bottom:14px}
-.slp-tab{background:var(--surface);border:1px solid var(--border-fine);color:var(--ink-soft);padding:9px 18px;font-size:13px;font-weight:600;border-radius:10px;cursor:pointer;font-family:var(--f-body)}
+.slp-tabs{display:flex;gap:8px;flex-wrap:wrap;grid-area:tabs}
+.slp-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.slp-tab:hover{border-color:var(--ink-faint)}
 .slp-tab:hover{border-color:var(--border)}
 .slp-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .slp-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);font-family:var(--f-body);flex:1;min-width:0}
@@ -436,8 +437,7 @@
 
 .slp-wk th:first-child{text-align:left}
 
-.slp-sub{margin:26px 0 12px;padding-top:22px;border-top:1px solid var(--border-fine)}
-.slp-sub:first-child{margin-top:0;padding-top:0;border-top:none}
+.slp-sub{margin:0 0 12px}
 .slp-sub h2{font-size:16px;font-weight:700;color:var(--ink);margin:0 0 4px}
 .slp-sub p{font-size:12.5px;color:var(--ink-faint);margin:0 0 12px;line-height:1.55}
 .slp-time-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -453,6 +453,7 @@
 .slp-alt{width:100%;border-collapse:collapse;font-size:13px}
 .slp-alt td{padding:8px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
 .slp-alt td:last-child{text-align:right;color:var(--ink-faint);font-size:12px}
+#slp-outLength .slp-alt td:last-child{color:var(--ink);font-weight:700;font-size:13px}
 .slp-alt tr:last-child td{border-bottom:none}
 .slp-age{width:100%;border-collapse:collapse;font-size:12.5px}
 .slp-age th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--border-fine);text-align:left}
@@ -555,10 +556,15 @@
     <button type="button" class="slp-bar-pdf-btn" id="slp-pdfBtn">💾 Save as PDF</button>
   </div>
 
+  <div class="slp-tabs" role="tablist">
+    <button type="button" class="slp-tab active" id="slp-tabCycle" role="tab" aria-selected="true" aria-controls="slp-paneCycle">Sleep Cycle</button>
+    <button type="button" class="slp-tab" id="slp-tabLength" role="tab" aria-selected="false" aria-controls="slp-paneLength">Sleep Length</button>
+  </div>
+
   <div class="slp-area-form">
     <div class="slp-card slp-card-pad">
 
-      <div class="slp-sub">
+      <div class="slp-sub" id="slp-paneCycle" role="tabpanel" aria-labelledby="slp-tabCycle">
         <h2>Sleep cycle calculator</h2>
         <p>Work out when to go to bed, or when to get up, so that you wake between cycles.</p>
 
@@ -610,7 +616,7 @@
         </div>
       </div>
 
-      <div class="slp-sub">
+      <div class="slp-sub slp-hidden" id="slp-paneLength" role="tabpanel" aria-labelledby="slp-tabLength">
         <h2>Sleep length calculator</h2>
         <p>Straight arithmetic, with no allowance for how long you take to drop off &mdash; deduct that yourself.</p>
 
@@ -659,12 +665,23 @@
         <div class="sub" id="slp-headSub">&nbsp;</div>
       </div>
       <div class="slp-err" id="slp-err"></div>
+      <div class="slp-err" id="slp-err2"></div>
       <div class="slp-result-body">
-        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55" id="slp-intro"></p>
-        <div class="slp-picks" id="slp-picks"></div>
-        <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 8px" id="slp-altIntro"></p>
-        <table class="slp-alt"><tbody id="slp-altBody"></tbody></table>
-        <p class="slp-note" id="slp-note"></p>
+        <div id="slp-outCycle">
+          <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55" id="slp-intro"></p>
+          <div class="slp-picks" id="slp-picks"></div>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 8px" id="slp-altIntro"></p>
+          <table class="slp-alt"><tbody id="slp-altBody"></tbody></table>
+          <p class="slp-note" id="slp-note"></p>
+        </div>
+        <div id="slp-outLength" class="slp-hidden">
+          <table class="slp-alt"><tbody>
+            <tr><td id="slp-lenLabel">You should go to bed at</td><td id="slp-lenVal">&mdash;</td></tr>
+            <tr><td>Sleep length</td><td id="slp-lenDur">&mdash;</td></tr>
+            <tr><td>Counted from</td><td id="slp-lenFrom">&mdash;</td></tr>
+          </tbody></table>
+          <p class="slp-note" id="slp-lenNote"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -685,12 +702,10 @@
     <div class="slp-bottom-grid">
 
       <div class="slp-info-card">
-        <div class="slp-card-head"><span class="t">Sleep length calculator result</span></div>
+        <div class="slp-card-head"><span class="t">How the time was worked out</span></div>
         <div class="slp-card-body">
-          <div class="slp-err" id="slp-err2" style="margin:0 0 12px"></div>
-          <p style="font-size:13px;color:var(--ink-soft);margin:0 0 6px" id="slp-lenLabel">You should go to bed at</p>
-          <p style="font-size:30px;font-weight:700;color:var(--ink);margin:0" id="slp-lenVal">&mdash;</p>
-          <p class="slp-note" id="slp-lenNote"></p>
+          <div class="slp-work" id="slp-work"></div>
+          <p class="slp-note" id="slp-workNote"></p>
         </div>
       </div>
 
@@ -894,6 +909,12 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
     return el ? el.value : 'u';
   }
 
+  function clearHead(){
+    $('slp-headNum').textContent = '\u2014';
+    $('slp-headSub').innerHTML = '&nbsp;';
+    $('slp-work').innerHTML = ''; $('slp-workNote').textContent = '';
+  }
+
   /* ---- sleep cycle calculator ---- */
   function fail(msg){
     var e = $('slp-err');
@@ -945,8 +966,16 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
     $('slp-note').textContent = 'Each of these lands your alarm between ' + cl +
       '-minute cycles, assuming ' + tt + ' minutes to fall asleep. Five or six complete cycles is the usual aim.';
 
+    if(tab === 'cycle'){
+      $('slp-work').innerHTML =
+        '<span class="nm">Starting from</span>' + (mode === 'u' ? 'Waking at ' : 'Going to bed at ') + given +
+        '<span class="nm">Five cycles</span>5 &times; ' + cl + ' = ' + (5*cl) + ' min' +
+        (mode === 'u' ? ', plus ' + tt + ' to fall asleep' : ', after ' + tt + ' to fall asleep') +
+        '<br>\u2192 <b>' + rows[0][1] + '</b>' +
+        '<span class="nm">Six cycles</span>6 &times; ' + cl + ' = ' + (6*cl) + ' min \u2192 <b>' + rows[1][1] + '</b>';
+      $('slp-workNote').textContent = 'Each listed time is a whole number of cycles away, so the alarm lands at a boundary rather than inside one.';
+    }
     last = { mode:mode, given:given, rows:rows, cl:cl, tt:tt };
-    calcLength();
   }
 
   /* ---- sleep length calculator: plain arithmetic, no allowance for dropping off ---- */
@@ -958,14 +987,20 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
 
     if(h === null || m === null || isNaN(h) || isNaN(m) || h < 1 || h > 12 || m < 0 || m > 59){
       e.textContent = 'Enter a time as an hour from 1 to 12 and minutes from 0 to 59.';
-      e.classList.add('show'); $('slp-lenVal').textContent = '\u2014'; $('slp-lenNote').textContent = '';
+      e.classList.add('show');
+      ['slp-lenVal','slp-lenDur','slp-lenFrom'].forEach(function(id){ $(id).textContent = '\u2014'; });
+      $('slp-lenNote').textContent = '';
+      if(tab === 'length') clearHead();
       return;
     }
     if(sh === null) sh = 0;
     if(sm === null) sm = 0;
     if(isNaN(sh) || isNaN(sm) || sh < 0 || sm < 0){
       e.textContent = 'Enter how long you want to sleep as whole hours and minutes.';
-      e.classList.add('show'); $('slp-lenVal').textContent = '\u2014'; $('slp-lenNote').textContent = '';
+      e.classList.add('show');
+      ['slp-lenVal','slp-lenDur','slp-lenFrom'].forEach(function(id){ $(id).textContent = '\u2014'; });
+      $('slp-lenNote').textContent = '';
+      if(tab === 'length') clearHead();
       return;
     }
     e.classList.remove('show');
@@ -974,8 +1009,42 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
     var v = (mode === 'u') ? (t - d) : (t + d);
     $('slp-lenLabel').textContent = (mode === 'u') ? 'You should go to bed at' : 'You should wake up at';
     $('slp-lenVal').textContent = fmt(v);
+    $('slp-lenDur').textContent = sh + 'h ' + (sm < 10 ? '0' : '') + sm + 'm';
+    $('slp-lenFrom').textContent = fmt(t);
     $('slp-lenNote').textContent = 'That is ' + sh + 'h ' + (sm < 10 ? '0' : '') + sm +
       'm from ' + fmt(t) + ', counted straight. It makes no allowance for the time you take to fall asleep, so add that on top.';
+
+    if(tab === 'length'){
+      $('slp-headLabel').textContent = (mode === 'u') ? 'Go to bed at' : 'Wake up at';
+      $('slp-headNum').textContent = fmt(v);
+      $('slp-headSub').textContent = sh + 'h ' + (sm < 10 ? '0' : '') + sm + 'm ' +
+        (mode === 'u' ? 'before ' : 'after ') + fmt(t);
+      $('slp-work').innerHTML =
+        '<span class="nm">Starting from</span>' + fmt(t) +
+        '<span class="nm">Sleep length</span>' + sh + ' h ' + sm + ' min = ' + d + ' minutes' +
+        '<span class="nm">Then</span>' + fmt(t) + (mode === 'u' ? ' &minus; ' : ' + ') + d +
+        ' min = <b>' + fmt(v) + '</b>';
+      $('slp-workNote').textContent = 'Straight clock arithmetic. Nothing is deducted for the time you spend falling asleep.';
+    }
+  }
+
+  /* ---- tabs: one calculator visible at a time, like the loan page ---- */
+  var tab = 'cycle';
+  function setTab(which){
+    tab = which;
+    var onCycle = (which === 'cycle');
+    $('slp-tabCycle').classList.toggle('active', onCycle);
+    $('slp-tabLength').classList.toggle('active', !onCycle);
+    $('slp-tabCycle').setAttribute('aria-selected', onCycle ? 'true' : 'false');
+    $('slp-tabLength').setAttribute('aria-selected', onCycle ? 'false' : 'true');
+    $('slp-paneCycle').classList.toggle('slp-hidden', !onCycle);
+    $('slp-paneLength').classList.toggle('slp-hidden', onCycle);
+    $('slp-outCycle').classList.toggle('slp-hidden', !onCycle);
+    $('slp-outLength').classList.toggle('slp-hidden', onCycle);
+    /* only the active calculator's error belongs on screen */
+    $('slp-err').classList.toggle('slp-hidden', !onCycle);
+    $('slp-err2').classList.toggle('slp-hidden', onCycle);
+    if(onCycle) calcCycle(); else calcLength();
   }
 
   /* ---- PDF, loaded only when the button is pressed ---- */
@@ -1059,6 +1128,9 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
     ['slp-h2','slp-m2','slp-sh','slp-sm'].forEach(function(id){ $(id).value = ''; });
   });
 
+  $('slp-tabCycle').addEventListener('click', function(){ setTab('cycle'); });
+  $('slp-tabLength').addEventListener('click', function(){ setTab('length'); });
+
   $('slp-pdfBtn').addEventListener('click', function(){
     var btn = this, old = btn.textContent;
     btn.disabled = true; btn.textContent = 'Loading\u2026';
@@ -1067,6 +1139,7 @@ wake time = bedtime + time to fall asleep + (cycles &times; cycle length)<br><br
     }).catch(function(){ btn.disabled = false; btn.textContent = old; });
   });
 
+  calcLength();
   calcCycle();
 })();
 
