@@ -368,15 +368,16 @@
 .lbm-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
 .lbm-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
 .lbm-card-body{padding:18px}
-.lbm-work{font-family:var(--f-mono);font-size:12px;color:var(--ink-soft);line-height:1.9;word-break:break-word}
+.lbm-work{font-size:13px;color:var(--ink-soft);line-height:1.8;word-break:break-word}
 .lbm-work b{color:var(--ink)}
-.lbm-work .nm{display:block;font-family:var(--f-body);font-size:12.5px;font-weight:700;color:var(--ink);margin-top:12px}
+.lbm-work .nm{display:block;font-size:12.5px;font-weight:700;color:var(--ink);margin-top:14px;letter-spacing:.01em}
 .lbm-work .nm:first-child{margin-top:0}
 .lbm-fdef{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
 .lbm-fdef dt{font-weight:700;color:var(--ink);margin-top:12px;font-size:13px}
 .lbm-fdef dt:first-child{margin-top:0}
 .lbm-fdef dd{margin:3px 0 0}
-.lbm-fdef code{font-family:var(--f-mono);font-size:11.5px;background:var(--surface-sunken);padding:1px 5px;border-radius:4px;color:var(--ink)}
+.lbm-fdef code{font-family:inherit;font-size:12.5px;background:var(--surface-sunken);padding:3px 6px;border-radius:4px;color:var(--ink);white-space:nowrap;display:inline-block;line-height:1.35}
+.lbm-fdef code sup{font-size:9.5px;line-height:0;vertical-align:baseline;position:relative;top:-.42em}
 
 @media(max-width:980px){
   .lbm-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
@@ -623,7 +624,7 @@
             <dt>Hume (1966)</dt>
             <dd>Men <code>0.3281W + 0.33929H &minus; 29.5336</code>, women <code>0.29569W + 0.41813H &minus; 43.2933</code>. The oldest of the set and generally the most conservative reading.</dd>
             <dt>Peters (2011)</dt>
-            <dd><code>eECV = 0.0215 &times; W^0.6469 &times; H^0.7236</code>, then <code>LBM = 3.8 &times; eECV</code>. Built for children around 13&ndash;14 and under, and it does not split by sex. It appears in the table only when you answer yes to the age question.</dd>
+            <dd><code>eECV = 0.0215 &times; W<sup>0.6469</sup> &times; H<sup>0.7236</sup></code>, then <code>LBM = 3.8 &times; eECV</code>. Built for children around 13&ndash;14 and under, and it does not split by sex. It appears in the table only when you answer yes to the age question.</dd>
           </dl>
           <p class="lbm-note">W is weight in kilograms, H is height in centimeters.</p>
         </div>

@@ -8720,3 +8720,34 @@ Worth raising with the owner as its own task rather than folding into a calculat
 Lesson for the next build: **lift the article stylesheet from a recent page rather than
 authoring one.** The 3-card grid CSS was correctly copied from the donor; the article CSS was
 written fresh and drifted, and a screenshot caught what no assertion was checking.
+
+### Monospace removed from the bottomgrid cards (Aug 9, 2026, second styling correction)
+
+The owner flagged the two bottomgrid cards as reading oddly. They were right, and it was the
+same class of mistake as the article stylesheet: **mono used somewhere the site does not use
+it.** Audited five built pages — healthy-weight, body-fat, tdee, gfr, carbohydrate — and
+`var(--f-mono)` appears in exactly **one** place on each: the article's `.X-formula2` equation
+panel. Nothing in a bottomgrid card uses it; those follow `.X-ref-table` at 12.5px and
+`.X-note` at 11.5px, both body font.
+
+`.lbm-work` (the step-by-step card) and `.lbm-fdef code` (the formula glossary chips) were both
+mono and are now IBM Plex Sans at 13px and 12.5px. The article formula box keeps mono, which is
+correct. Verified with a **computed-style sweep over every leaf element in `<main>`**: the only
+nodes still resolving to a mono family are the `<br>` and `<sup>` children inside
+`.lbm-formula2`, which is the one place it belongs.
+
+Two follow-ons caught by looking at the render rather than the DOM:
+- Peters was written `W^0.6469` in caret notation while the article box used real superscripts.
+  Converted to `<sup>` for consistency — which then **broke out of the chip's tinted
+  background**, because `vertical-align:super` on a tight inline box paints the raised text
+  outside it. Fixed by making the chip `inline-block` with `line-height:1.35` and offsetting the
+  sup with `position:relative;top:-.42em;line-height:0` so the line box does not grow. Asserted
+  geometrically afterwards (`sup.top >= chip.top && sup.bottom <= chip.bottom`) rather than by eye.
+- Chip padding trimmed to `3px 6px`; at `1px 6px` the right padding read as a stray space before
+  the following comma.
+
+**Running note across both corrections:** every styling defect on this page was invisible to the
+64-assertion suite and visible in a screenshot. The suite checks behaviour and geometry, not
+whether the page looks like the rest of the site. Worth adding a cheap guard to future builds:
+a computed-style comparison of `.X-byline`, `.X-seo-article p`, `.X-toc a` and any mono usage
+against a named reference page, which would have caught both of these before shipping.
