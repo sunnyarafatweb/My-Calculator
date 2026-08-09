@@ -9567,3 +9567,47 @@ just counted. The counts were right — 15 links added — while two of them wer
   still remembers — they will age out, and `_redirects` already handles the money-markets moves.
 - **`crypto-profit-calculator`** is noindex, canonicalises to `crypto-profit-loss-calculator`, and
   is absent from the sitemap. That reads as a deliberate consolidation, so it was left alone.
+
+## On-page SEO audit — Finance and Health sections (Aug 9, 2026)
+
+Audited all **108 built pages** (78 Finance, 30 Health) against title length, meta description
+length, canonical correctness, Open Graph and Twitter cards, H1 count, structured data, duplicate
+metadata, and leftover no-slash links.
+
+**Clean from the start:** canonicals (108/108 correct), H1 counts, duplicate titles, duplicate
+descriptions, and no-slash internal links — the last of which the previous pass had already
+cleared.
+
+### What was actually wrong
+
+| Issue | Count | Fix |
+|---|---|---|
+| Missing `og:image` | 19 | Generated the images and added the tags |
+| `twitter:title` / `twitter:description` showing the *site* boilerplate rather than the page | 4 | Pointed at the page's own title and description |
+| `<title>` over 62 characters (truncates in results) | 9 | Rewritten shorter, keyword kept at the front |
+| Meta description over 165 characters | 3 | Rewritten to fit |
+| `og:title` disagreeing with `<title>` | 2 | Aligned to the `<title>` |
+| Missing `WebApplication` schema | 1 | Added, copied from the site's own shape |
+
+The 19 OG images were built from each page's real H1 and meta description rather than a generic
+template, so the card shows what the page is about. Every title change was applied to `<title>`,
+`og:title` and `twitter:title` together — changing one and leaving the others is how the two
+mismatches above arose in the first place.
+
+### Two judgement calls, recorded rather than silently made
+
+- **`retirement-calculator` had a shorter `<title>` than its `og:title`.** Before "fixing" it I
+  checked git: the mismatch predates this session, so it was not something this pass broke. The
+  `<title>` was the length-correct one, so the social tags were brought to it rather than the
+  reverse.
+- **`crypto-profit-loss-calculator` has no FAQ schema and it stays that way.** Its three H3s are
+  topic headings, not questions — "Long vs. short positions" is not a question with an answer.
+  Adding `FAQPage` markup there would mean inventing Q&A that isn't on the page, which is exactly
+  the sort of thing Google issues manual actions for. The missing `WebApplication` block was a
+  genuine gap and was added; the FAQ gap is correct.
+
+### Verified after, not assumed
+
+Re-ran the full audit across all 108 pages: **every check returns zero**. All JSON-LD blocks on
+all 108 pages parse as valid JSON. Eight affected pages were then rendered in Chromium to confirm
+titles, `og:image` and structured data land correctly and that no page throws a JS error.
