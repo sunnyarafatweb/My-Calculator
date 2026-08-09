@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
+<!DOCTYPE html><html lang="en" class="h-full"><head><!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -7,7 +7,7 @@
 
   gtag('config', 'G-6S04GMEMEJ');
 </script>
-<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Period Calculator — Predict Your Next Cycles | CalculatorBoss</title><meta name="description" content="Predict your next several period start dates based on your last period and average cycle length."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="free calculator,online calculator,mortgage calculator,BMI calculator,loan calculator,percentage calculator,compound interest calculator,income tax calculator,age calculator"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/period-calculator/"/><meta property="og:title" content="Period Calculator | CalculatorBoss"/><meta property="og:description" content="Predict upcoming period dates from your cycle length."/><meta property="og:url" content="https://calculatorboss.com/period-calculator/"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="CalculatorBoss — Free Online Calculators"/><meta name="twitter:description" content="A free, fast, no-clutter library of calculators — finance, health, and more. No signup, no spam, just the number you came for."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/36m08sdd6fi_4.js"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Period Calculator — Predict Your Next Periods</title><meta name="description" content="Free period calculator. See when your next six periods are due on a scrollable calendar, from your last period, period length and cycle length."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="period calculator,menstrual cycle calculator,when is my next period,period tracker,period calendar,cycle length calculator,period predictor,menstrual calendar"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/period-calculator/"/><meta property="og:title" content="Period Calculator — Predict Your Next Periods"/><meta property="og:description" content="Free period calculator. See when your next six periods are due on a scrollable calendar, from your last period, period length and cycle length."/><meta property="og:url" content="https://calculatorboss.com/period-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/period-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Period Calculator — Predict Your Next Periods"/><meta name="twitter:description" content="Free period calculator. See when your next six periods are due on a scrollable calendar, from your last period, period length and cycle length."/><meta name="twitter:image" content="https://calculatorboss.com/og/period-calculator.png"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
@@ -274,8 +274,125 @@
     .mu-name{font-size:14px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Health &amp; Fitness","item":"https://calculatorboss.com/all-calculators/"},{"@type":"ListItem","position":3,"name":"Period","item":"https://calculatorboss.com/period-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+</style><style>
+/* Other Units converter — shared markup between calculators.
+   From sits on its own line above To, rather than side by side: the vertical order
+   reads as "this becomes that", which a side-by-side pair does not. */
+.cv-panel{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px;margin-bottom:16px}
+.cv-lead{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
+.cv-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cv-cat{background:#fff;border:1px solid var(--border-fine);color:var(--ink-soft);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.cv-cat:hover{border-color:var(--border)}
+.cv-cat.on{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.cv-line{display:flex;flex-direction:column;gap:5px}
+.cv-line+.cv-line{margin-top:10px}
+.cv-line label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint)}
+.cv-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px}
+.cv-pair input,.cv-pair select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:13.5px;background:#fff;color:var(--ink);font-family:var(--f-body);width:100%;min-width:0}
+.cv-pair input[readonly]{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+.cv-arrow{font-size:14px;color:var(--ink-faint);line-height:1;margin:8px 0 2px;text-align:center}
+.cv-out{font-size:13px;color:var(--ink-soft);margin:12px 0 0;line-height:1.55;min-height:19px}
+.cv-out b{color:var(--ink)}
+.cv-block+.cv-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-fine)}
+.cv-title{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+
+
+.per-wrap{width:100%}
+.per-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.per-bar-text{display:flex;align-items:center;gap:10px}
+.per-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.per-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.per-bar-pdf-btn:hover{background:#f0f0f0}
+.per-bar-pdf-btn[disabled]{opacity:.6;cursor:default}
+
+.per-grid{display:grid;grid-template-columns:380px minmax(340px,1fr) 288px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.per-area-bottomgrid{grid-area:bottomgrid}
+.per-area-form{grid-area:form}
+.per-area-result{grid-area:result}
+.per-area-sidebar{grid-area:sidebar}
+
+.per-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.per-card-pad{padding:22px}
+.per-field{display:flex;align-items:center;gap:8px;padding:7px 0;flex-wrap:wrap}
+.per-field-label{width:104px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.per-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:150px}
+.per-select{border:1px solid var(--border-fine);border-radius:8px;padding:9px 8px;font-size:12.5px;background:#fff;color:var(--ink);font-family:var(--f-body);min-width:0}
+.per-select.mon{flex:1.5;min-width:96px}
+.per-select.day{flex:.9}
+.per-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.per-input-group input{border:none;outline:none;background:#fff;padding:9px 8px;font-size:14px;width:100%;min-width:0;color:var(--ink);font-family:var(--f-body)}
+.per-btn-row{display:flex;gap:8px;padding-top:16px}
+.per-btn-calc{flex:1;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--f-body)}
+.per-btn-calc:hover{background:#128A3D}
+
+.per-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.per-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.per-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.per-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.per-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.per-err{margin:16px 20px 0;background:#FCEDEF;border:1px solid #F0C6CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8E2233;line-height:1.5;display:none}
+.per-err.show{display:block}
+.per-result-body{padding:16px 20px 20px}
+.per-note{font-size:11.5px;color:var(--ink-faint);margin-top:12px;line-height:1.55}
+
+.per-dates{width:100%;border-collapse:collapse;font-size:12.5px}
+.per-dates td{padding:9px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink);text-align:right;white-space:nowrap}
+.per-dates td:first-child{white-space:normal}
+.per-dates td:first-child{text-align:left;color:var(--ink-soft)}
+.per-dates tr:last-child td{border-bottom:none}
+.per-dates tr.key td{background:var(--gold-tint);font-weight:700;color:var(--ink)}
+
+.per-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.per-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.per-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.per-calc-card a:hover{background:rgba(255,255,255,0.07)}
+.per-calc-card a:last-child{border-bottom:none}
+
+.per-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;align-items:stretch}
+.per-info-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;width:100%;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.per-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-fine)}
+.per-card-head .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase}
+.per-card-body{padding:18px;overflow-x:auto}
+.per-ref-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.per-ref-table th{background:var(--surface-sunken);color:var(--ink-soft);font-weight:700;padding:9px 10px;text-align:left;border-bottom:1px solid var(--border-fine);white-space:nowrap}
+.per-ref-table td{padding:9px 10px;border-bottom:1px solid var(--border-fine);color:var(--ink)}
+.per-ref-table tr:last-child td{border-bottom:none}
+
+.per-cals{display:flex;flex-wrap:wrap;gap:18px}
+.per-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.per-nav button{background:var(--surface-sunken);border:1px solid var(--border-fine);color:#1E3A5F;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:8px;cursor:pointer;font-family:var(--f-body)}
+.per-nav button:hover{border-color:var(--border)}
+.per-nav .rng{font-size:12.5px;font-weight:700;color:var(--ink)}
+.per-cal{flex:1;min-width:190px}
+.per-cal .m{font-size:12.5px;font-weight:700;color:var(--ink);text-align:center;margin:0 0 8px}
+.per-cal table{width:100%;border-collapse:collapse;font-size:12px}
+.per-cal th{color:var(--ink-faint);font-weight:600;padding:4px 0;text-align:center;font-size:11px}
+.per-cal td{text-align:center;padding:5px 0;color:var(--ink-soft);border-radius:5px}
+.per-cal td.period{background:#FAD3E5;color:#7A2247;font-weight:700}
+.per-cal td.ovul{background:#C9E8B8;color:#2F5B23;font-weight:700}
+.per-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--ink-faint)}
+.per-legend span{display:flex;align-items:center;gap:6px}
+.per-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+@media(max-width:980px){
+  .per-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+}
+@media(max-width:760px){.per-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:520px){
+  .per-field{flex-wrap:wrap}
+  .per-field-label{width:100%}
+}
+
+</style><style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><header>
   <div class="wrap nav">
     <a class="brand" href="/">
       <span class="logo">
@@ -349,7 +466,213 @@
     window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
   })();
   </script>
-</header><main class="flex-1" role="main"><div class="mx-auto max-w-5xl px-5 py-7 sm:py-9"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate are predictions further into the future?","acceptedAnswer":{"@type":"Answer","text":"Less accurate the further out they go — small natural variations in cycle length compound over several cycles, so the first 1-2 predicted dates tend to be more reliable than the 5th or 6th."}},{"@type":"Question","name":"What if my actual cycle length varies a lot?","acceptedAnswer":{"@type":"Answer","text":"Track your last several cycles and use the average — or check back regularly and re-enter your most recent period start date for a refreshed prediction."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Period Calculator","url":"https://calculatorboss.com/period-calculator","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#hea">Health &amp; Fitness</a><span class="sep">/</span><span class="cur">Period Calculator</span></nav><h1 class="font-display text-3xl sm:text-4xl tracking-tight text-ink mb-3">Period Calculator</h1><p class="text-ink-soft text-lg max-w-2xl mb-6">Your last period and cycle length — see your next several predicted dates.</p><div class="grid lg:grid-cols-[1fr_1fr] gap-0 rounded-2xl border border-border bg-surface overflow-hidden shadow-[0_1px_2px_rgba(22,27,38,0.04)]"><div class="p-7 sm:p-8 space-y-6"><div><label class="text-sm text-ink-soft mb-2 block">First day of last period</label><input type="date" class="w-full text-sm bg-surface-sunken rounded-lg px-3 py-2 text-ink outline-none border border-border tabular" value="2026-06-01"/></div><div><div class="flex items-baseline justify-between mb-2.5"><label class="text-sm" style="color:var(--ink-soft)">Average cycle length</label><div class="flex items-center gap-1 tabular font-medium text-sm" style="color:var(--ink)"><input type="number" class="w-24 text-right bg-transparent outline-none border-b transition-colors" style="border-color:transparent;font-family:var(--font-data)" value="28"/><span style="color:var(--ink-faint)">days</span></div></div><div class="relative h-5 flex items-center"><div class="absolute inset-x-0 h-[5px] rounded-full" style="background:var(--surface-sunken)"></div><div class="absolute left-0 h-[5px] rounded-full" style="width:50%;background:var(--accent)"></div><input type="range" min="21" max="35" step="1" class="absolute inset-0 w-full opacity-0 cursor-pointer h-5" style="z-index:2" aria-label="Average cycle length" value="28"/><div class="absolute w-4 h-4 rounded-full border-2 transition-transform" style="left:calc(50% - 8px);background:var(--surface);border-color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div></div></div></div><div class="p-7 sm:p-8 bg-surface-sunken flex flex-col"><div class="text-sm text-ink-soft mb-1">Next expected period</div><div class="font-display text-2xl sm:text-3xl text-accent-strong value-transition mb-6">Mon, Jun 29</div><div class="text-xs text-ink-faint mb-2">Following 5 cycles</div><div class="flex flex-wrap gap-2"><div class="text-xs px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink tabular">Mon, Jul 27</div><div class="text-xs px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink tabular">Mon, Aug 24</div><div class="text-xs px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink tabular">Mon, Sep 21</div><div class="text-xs px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink tabular">Mon, Oct 19</div><div class="text-xs px-2.5 py-1.5 rounded-lg bg-surface border border-border text-ink tabular">Mon, Nov 16</div></div><p class="text-xs text-ink-faint mt-auto pt-6 border-t border-border">Predictions assume your cycle length stays consistent — actual cycles commonly vary by a few days from one to the next.</p></div></div><article class="prose-content mt-16 max-w-2xl space-y-12"><section><h2 class="font-display text-xl text-ink mb-5">Frequently asked questions</h2><div class="space-y-6"><div><h3 class="font-medium text-ink mb-1.5">How accurate are predictions further into the future?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Less accurate the further out they go — small natural variations in cycle length compound over several cycles, so the first 1-2 predicted dates tend to be more reliable than the 5th or 6th.</p></div><div><h3 class="font-medium text-ink mb-1.5">What if my actual cycle length varies a lot?</h3><p class="text-ink-soft leading-relaxed text-[0.95rem]">Track your last several cycles and use the average — or check back regularly and re-enter your most recent period start date for a refreshed prediction.</p></div></div></section><p class="text-xs text-ink-faint border-t border-border pt-6">This calculator provides estimates for general informational purposes only and is not medical advice.</p></article></div><!--$--><!--/$--></main><footer>
+</header><main class="flex-1" role="main"><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calculatorboss.com/"}, {"@type": "ListItem", "position": 2, "name": "Health & Fitness", "item": "https://calculatorboss.com/all-calculators/"}, {"@type": "ListItem", "position": 3, "name": "Period Calculator", "item": "https://calculatorboss.com/period-calculator/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate when my next period is due?", "acceptedAnswer": {"@type": "Answer", "text": "Add your average cycle length to the first day of your last period. If your last period started on 9 August and your cycles run 28 days, the next one is due around 6 September. The calendar on this page repeats that interval forward six cycles and shades the days you would expect to bleed."}}, {"@type": "Question", "name": "What is the difference between cycle length and period length?", "acceptedAnswer": {"@type": "Answer", "text": "Period length is how many days you bleed, commonly two to seven. Cycle length is the gap from the first day of one period to the day before the next begins, commonly 21 to 35 days. The calculator needs both: period length sets how wide the shaded bands are, cycle length sets how far apart they sit."}}, {"@type": "Question", "name": "Is it normal for my period to be a few days late?", "acceptedAnswer": {"@type": "Answer", "text": "Variation of a few days between cycles is very common and is not usually a sign that anything is wrong. Illness, disrupted sleep, travel, stress and changes in weight or exercise can all shift the timing. A cycle is generally still considered regular if your shortest and longest across several months differ by less than about eight days."}}, {"@type": "Question", "name": "How many months should I track before trusting the average?", "acceptedAnswer": {"@type": "Answer", "text": "Three to six gives you something worth using. One cycle tells you almost nothing, since any single cycle can be an outlier. Once you have a few, use the calendar's backward navigation to check your entered cycle length against the months that have already happened and adjust it if the shading has drifted."}}, {"@type": "Question", "name": "Can I use this to avoid getting pregnant?", "acceptedAnswer": {"@type": "Answer", "text": "No, and the shading on this page is not built for that job. It marks where ovulation tends to fall in an average cycle, while the actual release date shifts from month to month for reasons the calendar cannot see. Methods that depend on predicting it have a much higher failure rate than other options, so if pregnancy would be unwelcome, that is a conversation to have with a doctor or clinic rather than a calculator."}}, {"@type": "Question", "name": "Why are the last rows of the table less reliable?", "acceptedAnswer": {"@type": "Answer", "text": "Because each row assumes every cycle before it ran to exactly the length you entered. The first row rests on a date you observed; the sixth rests on five projections stacked on top of each other, so small variations compound. Recalculate each time a period actually starts and the chain resets."}}, {"@type": "Question", "name": "What if my cycles are irregular?", "acceptedAnswer": {"@type": "Answer", "text": "No single average will describe them well. Work out the gap between your shortest and longest recent cycle and carry that number with you: a printed date is only meaningful give or take roughly half that spread. If your cycles are very erratic, have stopped, or have shifted noticeably from what is normal for you, that is worth raising with a doctor rather than modelling around."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Period Calculator", "url": "https://calculatorboss.com/period-calculator/", "applicationCategory": "HealthApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD"}, "description": "Predict the next six periods and the most probable ovulation days from the first day of the last period, period length and average cycle length, on a scrollable three-month calendar."}</script><style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 14px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}</style><nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/all-calculators/">Health &amp; Fitness</a><span>/</span><span class="cur">Period Calculator</span></nav>
+
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Period Calculator</h1>
+<p class="text-ink-soft mb-6" style="max-width:760px;font-size:15px;line-height:1.6">Map out when your next periods are due, and the days in between when ovulation is most likely, from the start of your last period and how long your cycles usually run. The calendar scrolls forwards and backwards three months at a time, so you can look ahead or check a month that has already passed.</p>
+
+<div class="per-wrap">
+<div class="per-grid">
+
+  <div class="per-bar">
+    <span class="per-bar-text"><span class="per-bar-badge">%</span><span>Just enter your values below &mdash; results update automatically.</span></span>
+    <button type="button" class="per-bar-pdf-btn" id="per-pdfBtn">💾 Save as PDF</button>
+  </div>
+
+  <div class="per-area-form">
+    <div class="per-card per-card-pad">
+
+      <div class="per-field">
+        <span class="per-field-label">First day of your last period</span>
+        <div class="per-field-control">
+          <select class="per-select mon" id="per-month"></select>
+          <select class="per-select day" id="per-day"></select>
+          <div class="per-input-group"><input type="text" inputmode="numeric" id="per-year"></div>
+        </div>
+      </div>
+
+      <div class="per-field">
+        <span class="per-field-label">How long did it last</span>
+        <div class="per-field-control">
+          <select class="per-select" id="per-length" style="flex:1"></select>
+        </div>
+      </div>
+
+      <div class="per-field">
+        <span class="per-field-label">Average cycle length</span>
+        <div class="per-field-control">
+          <select class="per-select" id="per-cycle" style="flex:1"></select>
+        </div>
+      </div>
+
+      <div class="per-btn-row">
+        <button type="button" class="per-btn-calc" id="per-calcBtn">Calculate</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="per-area-result">
+    <div class="per-result-card">
+      <div class="per-result-head">
+        <div class="label">Next period expected</div>
+        <div class="bignum" id="per-headNum">&mdash;</div>
+        <div class="sub" id="per-headSub">&nbsp;</div>
+      </div>
+      <div class="per-err" id="per-err"></div>
+      <div class="per-result-body">
+        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55">Important dates for the next 6 cycles:</p>
+        <table class="per-ref-table">
+          <thead><tr><th>Period</th><th>Most Probable Ovulation Days</th></tr></thead>
+          <tbody id="per-tbody"></tbody>
+        </table>
+        <p class="per-note">Estimates built from an average cycle. Real cycles vary, and this is not a reliable way to avoid pregnancy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="per-area-sidebar">
+    <div class="per-calc-card">
+      <div class="h">Related calculators</div>
+      <a href="/ovulation-calculator/">Ovulation Calculator<span>&rarr;</span></a>
+      <a href="/conception-calculator/">Conception Calculator<span>&rarr;</span></a>
+      <a href="/pregnancy-calculator/">Pregnancy Calculator<span>&rarr;</span></a>
+      <a href="/due-date-calculator/">Due Date Calculator<span>&rarr;</span></a>
+      <a href="/bmi-calculator/">BMI Calculator<span>&rarr;</span></a>
+      <a href="/bmr-calculator/">BMR Calculator<span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="per-area-bottomgrid">
+    <div class="per-bottom-grid">
+
+      <div class="per-info-card" style="grid-column:1 / -1">
+        <div class="per-card-head"><span class="t">Your cycle on a calendar</span></div>
+        <div class="per-card-body">
+          <div class="per-nav">
+            <button type="button" id="per-prev">&larr; Previous 3 months</button>
+            <span class="rng" id="per-range"></span>
+            <button type="button" id="per-next">Next 3 months &rarr;</button>
+          </div>
+          <div class="per-cals" id="per-cals"></div>
+          <div class="per-legend">
+            <span><i style="background:#FAD3E5"></i> Period days</span>
+            <span><i style="background:#C9E8B8"></i> Most probable ovulation days</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<style>
+.per-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.per-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.per-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.per-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.per-seo-article strong{color:var(--ink);font-weight:600}
+.per-seo-article em{font-style:italic}
+.per-seo-article a{color:#128A3D;text-decoration:underline}
+.per-seo-article ul,.per-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.per-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:2;word-break:break-word}
+.per-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.per-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.per-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.per-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.per-toc a:hover{color:#1E3A5F}
+.per-seo-article h2[id]{scroll-margin-top:88px}
+.per-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.per-disclaimer a{color:var(--ink-faint)}
+</style><div class="per-seo-article">
+
+<p class="per-byline">Written by the CalculatorBoss Health Team &middot; Checked against a reference implementation &middot; Last updated Aug 2026</p>
+
+<nav class="per-toc" aria-label="On this page">
+  <a href="#predicting">What this is actually predicting</a>
+  <a href="#two-numbers">Two numbers people mix up</a>
+  <a href="#regular">What counts as regular</a>
+  <a href="#drift">Why the later months drift</a>
+  <a href="#backwards">Scroll back to test the prediction</a>
+  <a href="#doctor">Changes worth a doctor's attention</a>
+  <a href="#limits">What it cannot do</a>
+  <a href="#faq">Frequently asked questions</a>
+</nav>
+
+<h2 id="predicting">What this is actually predicting</h2>
+<p>This calculator does one thing: it repeats your cycle forward. Give it the day your last period started and how long your cycles usually run, and it stamps that same interval out across the calendar, six cycles ahead and as far back as you care to scroll.</p>
+<p>That is a model, not a forecast in the weather sense. It has no information about you beyond two numbers, so it cannot know that you are about to start a new job, cross five time zones, or come off the back of a virus &mdash; all of which can move a period by days. What it gives you is where your period <em>would</em> fall if your body repeated itself exactly, which is a useful default and a bad certainty.</p>
+<p>Most people come to a page like this for something practical: booking a holiday, picking a date for an event, planning around an exam, or just wanting to know whether being four days late is unusual. For all of those, an interval model is genuinely enough. It is when the answer needs to be exact that you should stop trusting it.</p>
+
+<h2 id="two-numbers">Two numbers people mix up</h2>
+<p>The form asks for two lengths and they measure different things. Getting them the wrong way round is the single most common reason a prediction comes out badly wrong.</p>
+
+<div class="per-formula2">
+<b>Period length</b><br>
+how many days you actually bleed &mdash; usually somewhere between 2 and 7<br><br>
+<b>Cycle length</b><br>
+first day of one period &rarr; the day before the next one starts &mdash; usually 21 to 35<br><br>
+<b>How the calendar is built</b><br>
+period days &nbsp;&nbsp;= first day + 0 &hellip; + (period length &minus; 1)<br>
+ovulation days = first day + (cycle &minus; 16) &hellip; + (cycle &minus; 12)<br>
+and the whole pattern repeats every cycle length, forwards and backwards
+</div>
+
+<p>Count the cycle from the first day of proper bleeding, not from spotting, and count up to the day <em>before</em> the next period rather than the day it arrives &mdash; otherwise you count one day twice. A cycle running the 9th to the 8th of the next month is a 28-day cycle when February is not involved.</p>
+<p>Period length is the easier of the two but is worth being honest about. Count days with real bleeding. A day of light spotting at the end is not usually counted, and including it will paint a wider pink band on the calendar than your body will produce.</p>
+
+<h2 id="regular">What counts as regular</h2>
+<p>Regular does not mean identical. Almost nobody runs the same number of days every single cycle, and a difference of a few days between one and the next is entirely ordinary. The usual working definition is that a cycle is regular when the gap between your shortest and longest cycle across several months stays under about eight days.</p>
+<p>That threshold is more useful than it looks, because it tells you what to enter here. If your cycles run 27, 29, 28 and 30 days, your spread is three days and an average of 28 will serve you well. If they run 24, 31, 27 and 35, the spread is eleven and no single average describes them &mdash; the calendar will look precise and be wrong.</p>
+<p>When the spread is that wide, the spread itself is the answer. Enter your average and then read the printed date as the middle of a band as wide as your spread &mdash; eleven days of variation means a date give or take five, and no amount of arithmetic narrows that. Writing the band on the calendar is more honest than believing the day.</p>
+
+<h2 id="drift">Why the later months drift</h2>
+<p>The six rows in the table are not equally trustworthy, and the reason is worth understanding rather than just accepting.</p>
+<p>Only the first row is anchored to something that actually happened &mdash; the date you typed in. Row two assumes row one landed exactly. Row three assumes rows one and two both did, and so on. Errors do not cancel out as they compound; they accumulate. If your cycles wobble by two days in either direction, the sixth row is carrying something like a fortnight of slack even though it prints a single date.</p>
+<p>The practical rule that follows is simple: recalculate whenever a period actually arrives. One observed date resets the whole chain and is worth more than any number of projections stacked on each other. Treat the near rows as dates and the far ones as rough positions in a month.</p>
+
+<h2 id="backwards">Scroll back to test the prediction</h2>
+<p>The calendar moves backwards as well as forwards, and that is more useful than it first appears. Most people only look ahead, but the months behind are the only way to find out whether the model fits you at all.</p>
+<p>Try this. Enter the start date of your <em>most recent</em> period, then page back through the previous three or six months and compare the shaded bands against what actually happened. If your remembered dates sit inside the pink, your cycle length is about right. If the prediction runs steadily earlier or later the further back you go, your true average is a day or two off what you entered, and nudging the cycle length by a day will usually snap it into place.</p>
+<p>This is the cheapest accuracy improvement available on this page, and it costs nothing but a few clicks. A cycle length that fits the last six months will predict the next six far better than the number you assume is yours.</p>
+
+<h2 id="doctor">Changes worth a doctor's attention</h2>
+<p>A calculator can tell you that a period is late. It cannot tell you why, and there are patterns where the right response is a medical appointment rather than a recalculation.</p>
+<p>Worth raising with a doctor: periods that stop for three months or more when you are not pregnant; bleeding that is heavy enough to soak through a pad or tampon every hour or two, or that passes clots larger than about a coin; bleeding between periods or after sex; periods lasting longer than seven days; cycles that suddenly become much shorter, much longer or much more erratic than your own normal; pain severe enough to stop you doing ordinary things; and any bleeding at all after menopause.</p>
+<p>None of that list is a diagnosis and none of it means something is seriously wrong &mdash; several have ordinary explanations. But they are the changes that are worth a professional look rather than another month of watching, and a calendar is not equipped to reassure you about any of them.</p>
+
+<h2 id="limits">What it cannot do</h2>
+<p>Repeating an interval only works while there is an interval to repeat, and plenty of ordinary circumstances remove one. On hormonal contraception the bleeding you get is scheduled by the method rather than by a cycle, so these dates describe a pattern you are not currently running. Postpartum, during breastfeeding, and across the years leading into menopause the spacing shifts month to month by design. Polycystic ovary syndrome, thyroid disorders and significant weight or training changes can stretch cycles out or remove them entirely. In all of those the calendar will still draw neat bands, and the neatness is the misleading part.</p>
+<p>The green days deserve a specific warning: they mark where ovulation is statistically likely in an average cycle, not where it happened in yours, and they are far too loose to plan around if pregnancy would be unwelcome. For how the fertile window works and what your body signals about it, see the <a href="/ovulation-calculator/">ovulation calculator</a>; if you are actively trying to conceive, start with the <a href="/conception-calculator/">conception calculator</a>.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+
+<h3>How do I calculate when my next period is due?</h3>
+<p>Add your average cycle length to the first day of your last period. If your last period started on 9 August and your cycles run 28 days, the next one is due around 6 September. The calendar on this page repeats that interval forward six cycles and shades the days you would expect to bleed.</p>
+
+<h3>What is the difference between cycle length and period length?</h3>
+<p>Period length is how many days you bleed, commonly two to seven. Cycle length is the gap from the first day of one period to the day before the next begins, commonly 21 to 35 days. The calculator needs both: period length sets how wide the shaded bands are, cycle length sets how far apart they sit.</p>
+
+<h3>Is it normal for my period to be a few days late?</h3>
+<p>Variation of a few days between cycles is very common and is not usually a sign that anything is wrong. Illness, disrupted sleep, travel, stress and changes in weight or exercise can all shift the timing. A cycle is generally still considered regular if your shortest and longest across several months differ by less than about eight days.</p>
+
+<h3>How many months should I track before trusting the average?</h3>
+<p>Three to six gives you something worth using. One cycle tells you almost nothing, since any single cycle can be an outlier. Once you have a few, use the calendar's backward navigation to check your entered cycle length against the months that have already happened and adjust it if the shading has drifted.</p>
+
+<h3>Can I use this to avoid getting pregnant?</h3>
+<p>No, and the shading on this page is not built for that job. It marks where ovulation tends to fall in an average cycle, while the actual release date shifts from month to month for reasons the calendar cannot see. Methods that depend on predicting it have a much higher failure rate than other options, so if pregnancy would be unwelcome, that is a conversation to have with a doctor or clinic rather than a calculator.</p>
+
+<h3>Why are the last rows of the table less reliable?</h3>
+<p>Because each row assumes every cycle before it ran to exactly the length you entered. The first row rests on a date you observed; the sixth rests on five projections stacked on top of each other, so small variations compound. Recalculate each time a period actually starts and the chain resets.</p>
+
+<h3>What if my cycles are irregular?</h3>
+<p>No single average will describe them well. Work out the gap between your shortest and longest recent cycle and carry that number with you: a printed date is only meaningful give or take roughly half that spread. If your cycles are very erratic, have stopped, or have shifted noticeably from what is normal for you, that is worth raising with a doctor rather than modelling around.</p>
+
+<p class="per-disclaimer">Everything here is produced by repeating one interval across a calendar. It records nothing about your body, diagnoses nothing, is not medical advice, and is not adequate as contraception. Timing shifts with illness, sleep, travel, medication, training load, weight and a number of treatable conditions, none of which the arithmetic can detect. Bleeding that stops for months, soaks through protection hourly, runs past a week, arrives between periods or after sex, hurts enough to interrupt your day, or occurs at all after menopause should be looked at by a doctor, midwife or nurse rather than tracked for another month. Learn more <a href="/about/">about how we build our calculators</a> and read our <a href="/privacy-policy/">privacy policy</a>.</p>
+
+</div>
+</div></main><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -384,7 +707,202 @@
       <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
     </div>
   </div>
-</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+</footer><script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  var AB   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONL = ['January','February','March','April','May','June','July','August',
+              'September','October','November','December'];
+  var DOW = ['S','M','T','W','T','F','S'];
+  var view = null, last = null;
+
+  function daysIn(y, m){ return new Date(y, m+1, 0).getDate(); }
+  function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+  function full(d){ return AB[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+  function shortD(d){ return AB[d.getMonth()] + '. ' + d.getDate(); }
+  function range(a, b){ return shortD(a) + ' \u2013 ' + shortD(b); }
+
+  (function init(){
+    $('per-month').innerHTML = MONL.map(function(n,i){ return '<option value="'+i+'">'+n+'</option>'; }).join('');
+    var ls = '';
+    for(var p = 1; p <= 10; p++) ls += '<option value="'+p+'"'+(p===5?' selected':'')+'>'+p+(p===1?' day':' days')+'</option>';
+    $('per-length').innerHTML = ls;
+    var cs = '';
+    for(var c = 22; c <= 44; c++) cs += '<option value="'+c+'"'+(c===28?' selected':'')+'>'+c+' days</option>';
+    $('per-cycle').innerHTML = cs;
+    var t = new Date();
+    $('per-month').value = t.getMonth();
+    $('per-year').value = t.getFullYear();
+    fillDays(t.getDate());
+  })();
+
+  function fillDays(keep){
+    var ds = $('per-day');
+    var y = parseInt($('per-year').value, 10), m = parseInt($('per-month').value, 10);
+    if(isNaN(y) || y < 1) y = new Date().getFullYear();
+    var n = daysIn(y, m);
+    var want = keep !== undefined ? keep : (parseInt(ds.value, 10) || 1);
+    var html = '';
+    for(var d = 1; d <= n; d++) html += '<option value="'+d+'">'+d+'</option>';
+    ds.innerHTML = html;
+    ds.value = Math.min(want, n);
+  }
+
+  /* Both classifiers work on the day's offset from the first period day, reduced
+     modulo the cycle, so months before the entered date are shaded correctly too.
+     Midday is used rather than midnight: a date-only value can land on the wrong
+     side of a daylight-saving shift and drag a whole month's shading with it. */
+  function offset(day, start, cycle){
+    var t = Math.round((day - start)/86400000) % cycle;
+    return t < 0 ? t + cycle : t;
+  }
+  function dayClass(day, start, plen, cycle){
+    if(offset(day, start, cycle) < plen) return 'period';
+    var t = Math.round((day - start)/86400000) - (cycle - 16);
+    t = t % cycle; if(t < 0) t += cycle;
+    return t < 5 ? 'ovul' : '';
+  }
+
+  function calculate(){
+    var y = parseInt($('per-year').value, 10);
+    var m = parseInt($('per-month').value, 10);
+    var d = parseInt($('per-day').value, 10);
+    var plen  = parseInt($('per-length').value, 10);
+    var cycle = parseInt($('per-cycle').value, 10);
+    var err = $('per-err');
+
+    if(isNaN(y) || y < 1900 || y > 2200){
+      err.textContent = 'Enter a four-digit year between 1900 and 2200.';
+      err.classList.add('show');
+      $('per-headNum').textContent = '\u2014'; $('per-headSub').innerHTML = '&nbsp;';
+      $('per-tbody').innerHTML = ''; $('per-cals').innerHTML = ''; $('per-range').textContent = '';
+      last = null; return;
+    }
+    err.classList.remove('show');
+
+    var lmp = new Date(y, m, Math.min(d, daysIn(y, m)), 11, 0, 0, 0);
+    var rows = [];
+    for(var k = 0; k < 6; k++){
+      var ps = addDays(lmp, cycle*k);
+      rows.push([ range(ps, addDays(ps, plen-1)),
+                  range(addDays(ps, cycle-16), addDays(ps, cycle-12)) ]);
+    }
+    $('per-tbody').innerHTML = rows.map(function(r){
+      return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>';
+    }).join('');
+
+    var nextStart = addDays(lmp, cycle);
+    $('per-headNum').textContent = full(nextStart);
+    $('per-headSub').textContent = 'Through ' + full(addDays(nextStart, plen-1)) +
+      ' \u00b7 ' + cycle + '-day cycle, ' + plen + (plen === 1 ? '-day period' : '-day period');
+
+    last = { lmp:lmp, plen:plen, cycle:cycle, rows:rows, nextStart:nextStart };
+    /* Only jump the calendar back to the entered month when that month actually
+       changed. A recalculation triggered by anything else — including the shared
+       auto-run that fires shortly after typing — must not yank the view out from
+       under someone who has just paged to another quarter. */
+    var anchor = lmp.getFullYear() + '-' + lmp.getMonth();
+    if(!view || view.anchor !== anchor){
+      view = { y:lmp.getFullYear(), m:lmp.getMonth(), anchor:anchor };
+    }
+    drawCalendars();
+  }
+
+  function drawCalendars(){
+    if(!last) return;
+    var out = '', first = null, lastMo = null;
+    for(var i = 0; i < 3; i++){
+      var yy = view.y, mm = view.m + i;
+      yy += Math.floor(mm/12); mm = ((mm % 12) + 12) % 12;
+      if(i === 0) first = MONL[mm] + ' ' + yy;
+      lastMo = MONL[mm] + ' ' + yy;
+      out += monthHtml(yy, mm);
+    }
+    $('per-cals').innerHTML = out;
+    $('per-range').textContent = first + ' \u2013 ' + lastMo;
+  }
+
+  function monthHtml(y, m){
+    var n = daysIn(y, m), lead = new Date(y, m, 1).getDay();
+    var s = '<div class="per-cal"><p class="m">'+MONL[m]+' '+y+'</p><table><thead><tr>';
+    s += DOW.map(function(x){ return '<th>'+x+'</th>'; }).join('') + '</tr></thead><tbody><tr>';
+    for(var b = 0; b < lead; b++) s += '<td></td>';
+    for(var day = 1; day <= n; day++){
+      var cur = new Date(y, m, day, 11, 0, 0, 0);
+      var cls = dayClass(cur, last.lmp, last.plen, last.cycle);
+      s += '<td'+(cls ? ' class="'+cls+'"' : '')+'>'+day+'</td>';
+      if((lead + day) % 7 === 0 && day < n) s += '</tr><tr>';
+    }
+    return s + '</tr></tbody></table></div>';
+  }
+
+  function shift(n){
+    if(!view) return;
+    var mm = view.m + n;
+    view.y += Math.floor(mm/12);
+    view.m = ((mm % 12) + 12) % 12;
+    drawCalendars();
+  }
+
+  /* ---- PDF, loaded only when the button is pressed ---- */
+  var pdfPromise = null;
+  function loadScriptOnce(src){
+    return new Promise(function(res, rej){
+      var el = document.createElement('script');
+      el.src = src; el.onload = res; el.onerror = rej;
+      document.head.appendChild(el);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfPromise) return pdfPromise;
+    pdfPromise = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+      .then(function(){ return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfPromise;
+  }
+  function generatePdf(){
+    if(!last) return;
+    var doc = new window.jspdf.jsPDF();
+    doc.setFontSize(17); doc.text('Period & Ovulation Dates', 14, 20);
+    doc.setFontSize(10); doc.setTextColor(120);
+    doc.text('calculatorboss.com/period-calculator/', 14, 27);
+    doc.setTextColor(40); doc.setFontSize(11);
+    doc.text('Last period began ' + full(last.lmp) + '   Period ' + last.plen +
+             ' days   Cycle ' + last.cycle + ' days', 14, 37);
+    doc.setFontSize(13);
+    doc.text('Next period expected: ' + full(last.nextStart), 14, 46);
+    doc.autoTable({ startY: 53, head: [['Period','Most Probable Ovulation Days']],
+      body: last.rows, theme:'grid', headStyles:{fillColor:[30,58,95]}, styles:{fontSize:10} });
+    var yy = doc.lastAutoTable.finalY + 10;
+    doc.setFontSize(9); doc.setTextColor(120);
+    doc.text('Estimates from an average cycle, not a record of what your body did. Not a', 14, yy);
+    doc.text('reliable way to avoid pregnancy, and not medical advice.', 14, yy + 5);
+    doc.save('period-dates.pdf');
+  }
+
+  /* ---- wiring ---- */
+  $('per-calcBtn').addEventListener('click', calculate);
+  $('per-month').addEventListener('change', function(){ fillDays(); calculate(); });
+  $('per-year').addEventListener('input', function(){ fillDays(); calculate(); });
+  $('per-day').addEventListener('change', calculate);
+  $('per-length').addEventListener('change', calculate);
+  $('per-cycle').addEventListener('change', calculate);
+  $('per-prev').addEventListener('click', function(){ shift(-3); });
+  $('per-next').addEventListener('click', function(){ shift(3); });
+
+  $('per-pdfBtn').addEventListener('click', function(){
+    var btn = this, old = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Loading\u2026';
+    ensurePdfLibs().then(function(){
+      btn.disabled = false; btn.textContent = old; generatePdf();
+    }).catch(function(){ btn.disabled = false; btn.textContent = old; });
+  });
+
+  calculate();
+})();
+
+</script>
+<script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
 .cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
 .cf-search-overlay.open{display:flex}
 .cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -506,4 +1024,248 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body></html>

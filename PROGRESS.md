@@ -8921,3 +8921,79 @@ the formula itself and the standard definition of cycle length, which should not
 That is the first H2 on our page rather than a footnote, the result card carries a short line
 saying the same, and the disclaimer names the situations where the arithmetic does not apply.
 OG image added; slug already present in `sitemap.xml`, `calculators-index.json` and `llms.txt`.
+
+## Period Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/period-calculator/` with a full 3-card build (74KB, `per-` prefix).
+Reference: calculator.net/period-calculator.html. Closest sibling yet to a page we had just
+shipped, and that turned out to be the main risk on this build — see the originality note below.
+
+**Inputs 6/6, results 11/11.** Same date widget and `ccycle` as the ovulation page plus
+`clength` (1-10 days, default 5). No Clear button and no tabs, matching the reference.
+
+### The calendar logic came from their own client-side JS
+
+Unlike the tables, the reference's calendar is rendered in the browser, so the page ships the
+rules in plain sight:
+
+    isPeriod(d):    ((d - LMP) mod cycle) < periodLength
+    isOvulation(d): ((d - LMP - (cycle - 16)) mod cycle) < 5
+
+with negatives folded back into range, which is why months *before* the entered date shade
+correctly too. Period wins over ovulation when a day satisfies both. The five ovulation days are
+the same window the ovulation calculator draws: `cycle-16` to `cycle-12` is ovulation +/- 2.
+They build dates at **11:00 rather than midnight** — a daylight-saving guard, since a date-only
+value can cross a DST boundary and drag a whole month's shading with it. Worth copying, and
+copied.
+
+`showMonth` also carries **the same naive `smYear % 4` leap rule as the ovulation page**, so
+February 2100 renders a 29th there too. Field matched, error not: ours uses `new Date(y, m+1, 0)`
+and there is an assertion pinning February 2100 to 28 days.
+
+### A real bug the suite caught, that manual clicking did not
+
+The suite reported "Previous 3 months" doing nothing while "Next" worked, which made no sense
+from the code. Clicking it by hand worked fine. The difference was timing: the shared auto-run
+fires a few hundred milliseconds after an input changes, `calculate()` reset the calendar view
+to the entered month, and in the suite the click landed inside that window. **Anyone who changed
+a cycle length and then paged the calendar would have been yanked back.**
+
+Fixed by anchoring the view: `calculate()` now only resets the visible quarter when the entered
+month itself changes, and leaves it alone otherwise. Verified all three ways &mdash; navigation
+survives a pending auto-run, survives a cycle-length change, and still jumps when the LMP month
+changes. Note the sequence here: the suite looked wrong, hand-testing looked right, and the suite
+was correct. Checking which one is lying beats trusting either.
+
+### Verification
+
+Engine against the live reference: **35 + 120 + 90 edge-heavy cases** (month ends, Februaries,
+year rollovers, period length 1 and 10, cycle 22 and 44) comparing the six-row table and the JS
+constants the calendar is driven by &mdash; **0 mismatched**. Then in Chromium over **35 fresh
+cases**, comparing the table *and the shading of every visible day across all three calendars*
+against an independent port of the classifier: **0 mismatches, 91 assertions, 0 failed**,
+including backward shading, three-month paging in both directions, the leap guard, the day list
+rebuilding for short months, and 0 overflow at three widths.
+
+### Originality: the closest call so far
+
+First draft scored **2.86% against our own ovulation calculator, 39 real shingles** &mdash; by far
+the highest yet, and all of it my own safety and irregularity framing repeated from a page I had
+written hours earlier. Five passages were rewritten rather than reworded: the irregular-cycle
+advice now hangs on the shortest-to-longest *spread* rather than "run it twice", the limits
+section leads on why an interval stops existing, and the disclaimer was recentred on menstrual
+health (heavy bleeding, bleeding between periods, post-menopausal bleeding) instead of mirroring
+the contraception-first framing of the ovulation page.
+
+Now **1.43%, 13 real shingles**, and those are the domain's fixed vocabulary — the definition of
+cycle length and "count from the first day of proper bleeding, not from spotting". Any correct
+explanation converges on those; rewording them would make the page worse.
+
+**Lesson worth keeping:** the sibling-originality check needs to run against *recently built*
+pages specifically, not just the corpus. The risk is not copying calculator.net, which scored
+0.11% here — it is repeating yourself across two adjacent topics in the same week.
+
+The article deliberately avoids the fertile-window mechanics, cervical mucus, LH and BBT that
+the ovulation and conception pages already cover, and links out for them instead. Its own
+territory is period-specific: the two lengths people confuse, what "regular" means numerically,
+why later rows drift, using backward navigation to fit your own cycle length, and the bleeding
+changes that warrant a doctor. OG image added; slug already in all three registry files.
