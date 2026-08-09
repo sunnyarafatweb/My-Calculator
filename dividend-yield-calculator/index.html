@@ -350,21 +350,21 @@
   </script>
 </header><main class="flex-1" role="main"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a good dividend yield?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single figure, but most established dividend payers in developed markets land somewhere between 2% and 5%. Below roughly 2% usually signals a company reinvesting in growth rather than paying shareholders. Above about 7% deserves scrutiny rather than enthusiasm, since it often reflects a share price the market has marked down. Compare against the company's own sector, because utilities and REITs structurally yield more than technology firms."}}, {"@type": "Question", "name": "How do I calculate dividend yield from a quarterly dividend?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply the quarterly payment by four to get the annual dividend, then divide by the current share price and multiply by 100. A $0.58 quarterly dividend is $2.32 a year; against a $62.40 share price that is a yield of about 3.72%. Using the single quarterly payment instead of the annual total is the most common mistake, and it understates the yield fourfold."}}, {"@type": "Question", "name": "What is the difference between dividend yield and yield on cost?", "acceptedAnswer": {"@type": "Answer", "text": "Dividend yield measures the annual dividend against today's share price, so it reflects what a new buyer would receive. Yield on cost measures the same dividend against the price you originally paid, so it reflects what your own past purchase now returns. For a stock whose dividend has grown since you bought it, yield on cost will be higher, but only the current yield is relevant when deciding whether to buy more."}}, {"@type": "Question", "name": "Does a higher dividend yield always mean a better investment?", "acceptedAnswer": {"@type": "Answer", "text": "No. Because the share price is the denominator, a yield rises whenever the price falls, so the highest yields frequently belong to companies in trouble. This is known as a yield trap. Check the payout ratio, the dividend history and the debt position before treating a high yield as attractive, and remember that a dividend cut usually arrives alongside a further fall in the share price."}}, {"@type": "Question", "name": "How does dividend reinvestment change my returns?", "acceptedAnswer": {"@type": "Answer", "text": "Reinvesting uses each payout to buy additional shares, which then pay dividends of their own. Your share count and the dividend per share both grow, and the two compound together. Over long holding periods this typically contributes more to total return than price appreciation alone, which is why total-return figures for dividend payers substantially exceed their price charts."}}, {"@type": "Question", "name": "Is dividend yield calculated before or after tax?", "acceptedAnswer": {"@type": "Answer", "text": "Quoted dividend yields, including the ones on this page, are gross figures calculated before any tax. What you actually keep depends on your country, your account type and your income band — a dividend inside a tax-advantaged retirement account may be untaxed, while the same dividend in a taxable account is not. Treat the yield here as the starting figure and apply your own situation to it."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Dividend Yield Calculator", "url": "https://calculatorboss.com/dividend-yield-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free dividend yield calculator covering yield, yield on cost and dividend reinvestment."}</script><style>
 .dy-wrap{width:100%}
-.dy-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:var(--fin);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.dy-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .dy-bar-text{display:flex;align-items:center;gap:10px}
-.dy-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--fin);font-size:11px;flex-shrink:0}
-.dy-bar-pdf-btn{background:#fff;color:var(--fin);border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.dy-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.dy-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .dy-bar-pdf-btn:hover{background:#f2f2f2}
 
 .dy-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
-  grid-template-areas:"bar bar ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
 .dy-area-bar{grid-area:bar}
 .dy-area-form{grid-area:form}
 .dy-area-result{grid-area:result}
 .dy-area-sidebar{grid-area:sidebar}
 .dy-area-bottomgrid{grid-area:bottomgrid}
 @media(max-width:860px){
-  .dy-grid{grid-template-columns:1fr;grid-template-areas:"bar" "form" "result" "bottomgrid" "sidebar"}
+  .dy-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
 }
 
 .dy-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
@@ -384,14 +384,14 @@
 
 .dy-chips{display:flex;flex-wrap:wrap;gap:6px;padding:6px 0 2px}
 .dy-chip{font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:100px;padding:5px 12px;cursor:pointer;transition:.15s}
-.dy-chip:hover{border-color:var(--fin);color:var(--fin)}
+.dy-chip:hover{border-color:#1E3A5F;color:#1E3A5F}
 
 .dy-btn-row{display:flex;gap:8px;padding-top:12px;flex-wrap:wrap}
-.dy-btn-calc{background:var(--fin);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
+.dy-btn-calc{background:#16A34A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer}
 .dy-btn-clear{background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer}
 
 .dy-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
-.dy-result-head{padding:18px 20px;background:var(--fin);color:#fff}
+.dy-result-head{padding:18px 20px;background:#16A34A;color:#fff}
 .dy-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
 .dy-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
 .dy-result-body{padding:16px 20px}
@@ -401,7 +401,7 @@
 .dy-chart-box{padding:0 20px 20px}
 
 .dy-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
-.dy-calc-card{background:var(--fin);border-radius:16px;overflow:hidden}
+.dy-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
 .dy-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
 .dy-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
 .dy-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
@@ -421,7 +421,7 @@
 .dy-notax-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:10px;display:block}
 .dy-notax-list{display:flex;flex-direction:column;gap:8px}
 .dy-notax-item{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);background:var(--surface-sunken);border-radius:8px;padding:8px 12px}
-.dy-notax-item i{width:7px;height:7px;border-radius:50%;background:var(--fin);flex-shrink:0}
+.dy-notax-item i{width:7px;height:7px;border-radius:50%;background:#16A34A;flex-shrink:0}
 .dy-notax-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
 
 @media(max-width:520px){
@@ -443,8 +443,10 @@
 .dy-toc a:hover{color:#1E3A5F}
 .dy-seo-article .dy-byline,.dy-seo-article .dy-disclaimer{font-size:12.5px;line-height:1.7;color:var(--muted)}.dy-seo-article .dy-byline{margin:0 0 18px}.dy-seo-article .dy-disclaimer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border-fine)}.dy-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:var(--r-sm);padding:14px 18px;margin:0 0 24px}.dy-toc p{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--muted);margin:0 0 8px}.dy-toc ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}.dy-toc a{color:var(--fin);text-decoration:none}.dy-toc a:hover{text-decoration:underline}</style><div class="px-4 sm:px-6 py-8 sm:py-10 mx-auto" style="max-width:1160px">
 <style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}
-.dy-chip.is-on{background:var(--fin);border-color:var(--fin);color:#fff}
-.dy-chip.is-on:hover{color:#fff;border-color:var(--fin)}
+.dy-tabs{display:flex;gap:8px;flex-wrap:wrap;grid-area:tabs}
+.dy-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s}
+.dy-tab:hover{border-color:#1E3A5F;color:#1E3A5F}
+.dy-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .dy-pane{display:none}.dy-pane.is-on{display:block}
 .dy-tbl{width:100%;border-collapse:collapse;font-size:13px}
 .dy-tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;padding:0 0 8px}
@@ -469,6 +471,12 @@
   <button type="button" class="dy-bar-pdf-btn" id="dy-pdfBtn">💾 Save as PDF</button>
 </div>
 
+<div class="dy-tabs" role="tablist">
+  <button type="button" class="dy-tab active" data-mode="yield">Dividend Yield</button>
+  <button type="button" class="dy-tab" data-mode="cost">Yield on Cost</button>
+  <button type="button" class="dy-tab" data-mode="drip">Reinvestment</button>
+</div>
+
 <div class="dy-card dy-area-form">
   <div class="dy-card-pad">
     <div class="dy-field">
@@ -483,17 +491,6 @@
         </select>
       </div>
     </div>
-    <div class="dy-field">
-      <span class="dy-field-label">What do you want to work out?</span>
-      <div class="dy-chips" id="dy-modeChips" role="tablist">
-        <span class="dy-chip is-on" data-mode="yield" role="tab" tabindex="0">Dividend yield</span>
-        <span class="dy-chip" data-mode="cost" role="tab" tabindex="0">Yield on cost</span>
-        <span class="dy-chip" data-mode="drip" role="tab" tabindex="0">Reinvestment</span>
-      </div>
-    </div>
-
-    <div class="dy-divider"></div>
-
     <div class="dy-pane is-on" data-pane="yield">
       <div class="dy-field">
         <span class="dy-field-label">Share price</span>
@@ -895,16 +892,16 @@
   /* ---------- wiring ---------- */
   function setMode(m){
     mode=m;
-    Array.prototype.forEach.call(document.querySelectorAll('.dy-chip'),function(c){
+    Array.prototype.forEach.call(document.querySelectorAll('.dy-tab'),function(c){
       var on=c.getAttribute('data-mode')===m;
-      c.classList.toggle('is-on',on); c.setAttribute('aria-selected',on?'true':'false');
+      c.classList.toggle('active',on); c.setAttribute('aria-selected',on?'true':'false');
     });
     Array.prototype.forEach.call(document.querySelectorAll('.dy-pane'),function(p){
       p.classList.toggle('is-on',p.getAttribute('data-pane')===m);
     });
     run();
   }
-  Array.prototype.forEach.call(document.querySelectorAll('.dy-chip'),function(c){
+  Array.prototype.forEach.call(document.querySelectorAll('.dy-tab'),function(c){
     c.addEventListener('click',function(){ setMode(c.getAttribute('data-mode')); });
     c.addEventListener('keydown',function(e){
       if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setMode(c.getAttribute('data-mode')); }
