@@ -9332,3 +9332,60 @@ Its territory is why three institutions disagree and how to place yourself betwe
 ceiling, whether more is better, and the situations — kidney disease, pregnancy, children,
 recovery — where the page's numbers do not apply. OG image added; slug already in all three
 registry files.
+
+## Pregnancy Weight Gain Calculator — engine verified, page not built yet (Aug 9, 2026)
+
+Audit and maths complete and swept clean against the reference; the page itself is still the
+stub. Recording the model here so the build can start from it rather than repeating the probing.
+
+### The model
+
+    BMI (pre-pregnancy) -> IOM category -> total gain in pounds
+      Underweight  <18.5   singleton 28-40   twins 37-54*
+      Normal   18.5-24.9   singleton 25-35   twins 37-54
+      Overweight 25-29.9   singleton 15-25   twins 31-50
+      Obese        >=30    singleton 11-20   twins 25-42
+
+    * The IOM publishes no underweight twin range. The reference reuses the
+      normal-weight one, verified by probe rather than assumed.
+
+    Gain curve, two straight segments meeting at week 13:
+      weeks 1-13   0  ->  (1.1, 4.4) lbs        [fixed, whatever the BMI category]
+      weeks 13-40  (1.1, 4.4)  ->  (total_low, total_high)
+
+The 1.1 and 4.4 are in **pounds in both unit systems** and must be converted for metric — the
+first sweep failed on every metric row because I scaled the totals and left those two alone.
+
+### Reference behaviours worth knowing before building
+
+- **At week 40 the "for week #N" line disappears entirely**, leaving only the delivery line,
+  since the two would be identical. My fetch guard keyed off the missing string and reported no
+  result at all for every week-40 case until I noticed.
+- **A status line uses "weight now"**, which nothing else on the page touches: "in this range",
+  or "X lbs lower than the lower bound", or "higher than the upper bound". My first sweep set
+  now = before and never exercised it — a whole result field almost went unmodelled.
+- **Formatting:** exact zero prints as `0`, values under a tenth print two decimals (`0.09` at
+  week 2), everything else one decimal. Rounding is half away from zero — Python's round() turns
+  97.55 into 97.5 where the reference prints 97.6.
+- **The BMI category is wrapped in `<font color="green">` only for Normal Weight**, which broke
+  my parser on every overweight and obese case.
+
+### A reference bug, to match the field and not the error
+
+Entering a current weight just past the upper bound prints the raw float: at 132.4 lbs against a
+bound of 132.3 it says **"0.099999999999994 lbs higher than the upper bound"**. Larger gaps print
+cleanly (7.7), so the rounding is applied inconsistently. Our page should show a properly rounded
+difference and not reproduce this.
+
+### Verification so far
+
+**120 cases, 0 mismatched** across both unit systems, all four BMI categories, singleton and
+twins, weeks 1 to 40 — comparing the headline range, the delivery range, the BMI figure and
+category, and all forty table rows in every case.
+
+### Still to do
+
+Page build, browser verification, article, OG image. The article needs care: `pregnancy`,
+`pregnancy-conception`, `ovulation`, `period` and `due-date` are all close neighbours, so scope it
+before drafting as with the conception page — the territory left is IOM categories and why they
+differ, the shape of the gain curve, twins, and what under- and over-gaining actually risk.
