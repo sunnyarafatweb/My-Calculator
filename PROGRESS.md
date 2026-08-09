@@ -9497,3 +9497,73 @@ future edit that moves them back inside will fail rather than drift.
 **This clears the health and fitness stub batch.** All six from the original queue —
 period, pregnancy-conception, pregnancy-weight-gain, protein, target-heart-rate, sleep — plus
 shoe-size-conversion are now built, verified and live.
+
+## Technical SEO pass — internal linking and crawl waste (Aug 9, 2026)
+
+Triggered by Search Console showing **222 indexed against 247 not indexed**, and — far worse —
+the sitemap view reporting **only 10 of 210 submitted URLs indexed**, with **119 filed as "Page
+with redirect"** and site-wide validation on that reason showing **Failed**.
+
+### The sitemap was not the problem
+
+First instinct was a malformed sitemap. Checked it instead of assuming: fetched the live file and
+requested **all 212 URLs without following redirects — every one returned 200**, all https, all
+trailing-slash, no www, no duplicates. The sitemap was clean.
+
+### The problem was our own internal links
+
+**280 internal links across 32 pages were written without a trailing slash** — `/loan-calculator`
+rather than `/loan-calculator/`. The server 308-redirects those to the slash form, so every one
+sent Googlebot through a hop before reaching the page. That is what produced the 141 "Page with
+redirect" and the 119 inside the sitemap view: Google was following our links to the redirecting
+form rather than crawling the sitemap URL directly.
+
+Worst offenders were the sidebar related-calculator cards on older pages — retirement (20),
+credit-card-payoff (19), 401k (18).
+
+**On trailing slash generally:** neither form ranks better, and the sources agree the only thing
+that matters is consistency. The decision was already made for this site in four places — the
+server's 308, 214 canonicals, all 212 sitemap URLs, and our own `_redirects` rules all point at
+the slash form. So the links were brought to the site's existing standard rather than the other
+way round, which would have meant re-pointing every one of those and re-establishing the index
+for no gain.
+
+### What was fixed
+
+| | before | after |
+|---|---|---|
+| No-slash internal links to real pages | 280 | **0** |
+| Internal links to pages that don't exist | 1 | **0** |
+| Self-links inside related-calculator cards | 25 | **0** |
+| Canonical mismatches on indexable pages | 0 | 0 |
+| Reciprocal links to the seven new pages | — | **+15** |
+
+- The one broken link (`bra-size-calculator` → `/waist-to-hip-ratio-calculator/`, a page that has
+  never existed) now points at `healthy-weight-calculator`, which is relevant and was not yet
+  linked from there.
+- 25 self-links removed: sidebar cards were listing the page they were already on.
+- `sitemap.xml` lastmod refreshed from **real git commit dates** rather than a blanket stamp —
+  21 entries were stale, including sleep-calculator still claiming 21 July after being rebuilt
+  today.
+
+### Two bugs my own script introduced, caught before pushing
+
+The reciprocal-link inserter copies the shape of an existing anchor on each page so the markup
+matches locally. On two pages the sample anchor wrapped its label in a `<span>`, and the label
+substitution only replaced up to the first one — producing
+`Target Heart Rate<span>Ideal Weight</span>` on calories-burned and pace. Caught by auditing every
+inserted anchor's rendered text against its intended label, then verified in Chromium that all
+four repaired links render at the same height as their neighbours.
+
+**Worth keeping:** a bulk edit across 32 files needs its output audited element by element, not
+just counted. The counts were right — 15 links added — while two of them were visibly broken.
+
+### Still open, deliberately
+
+- **"Discovered – currently not indexed": 79.** 68 pages still carry two or fewer inbound
+  editorial links, mostly Math and Other. The reciprocal pass covered the seven new health pages;
+  the long tail needs a wider internal-linking plan rather than a script.
+- **404s: 17.** Only one came from an internal link, now fixed. The rest are old slugs Google
+  still remembers — they will age out, and `_redirects` already handles the money-markets moves.
+- **`crypto-profit-calculator`** is noindex, canonicalises to `crypto-profit-loss-calculator`, and
+  is absent from the sitemap. That reads as a deliberate consolidation, so it was left alone.
