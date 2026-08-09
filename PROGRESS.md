@@ -8820,3 +8820,28 @@ Overlap **0.00%** with the reference and worst **0.76%** against our own pages �
 almost entirely the shared byline template line, with the next-highest real overlap at 0.10%.
 Article carries the house `.orm-formula2` box with all three equations and a worked example.
 OG image added; slug was already in `sitemap.xml`, `calculators-index.json` and `llms.txt`.
+
+### Settings disclosure switched to the house More Options pattern (Aug 9, 2026)
+
+Shipped with a bespoke "+ Settings" toggle — transparent background, navy text, inline
+`style.display`. The owner asked for the mortgage calculator's treatment instead. Checked before
+changing anything: **six pages already share one pattern** — bmr, carbohydrate, due-date,
+ideal-weight, macro and mortgage all carry the identical black `#131313` full-width button. This
+page was the only one doing something else.
+
+Now matched exactly, verified by extracting each rule and comparing against `macro-calculator`:
+`.orm-more-btn`, `.orm-hidden` and `.orm-section-title` are all rule-identical after prefix
+normalisation. Markup switched from an inline-styled div to `class="orm-hidden"`, section labels
+from a bespoke `.lbl` to `.orm-section-title`, and the toggle from a `style.display` flip to
+`classList.toggle`, with the house labels **"+ More Options" / "- Fewer Options"**.
+
+One thing worth recording: the regression suite reported `[settings] collapses=False` after the
+change and **that was the assertion being wrong, not the page** — it still probed
+`style.display === "none"`, which no longer applies once the panel is class-driven. Manually
+driving the toggle in the browser showed it working correctly. The assertion was rewritten to
+test `classList.contains('orm-hidden')`, i.e. the mechanism actually in use. A test that checks
+the old implementation rather than the behaviour will pass or fail for the wrong reasons; worth
+re-reading assertions whenever the mechanism under them changes.
+
+Full suite re-run afterwards: 64 assertions, 40 engine cases, 0 mismatches, overflow 0 at 1280,
+430 and 390px. No calculation changed.
