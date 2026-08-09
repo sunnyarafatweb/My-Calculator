@@ -9700,3 +9700,47 @@ cagr, portfolio-allocation, sip, stock-average-price, break-even, pe-ratio, gold
 recovered intact from `061fb5f3^` (85–96 KB each, engine and article present). SIP and gold-value
 carry real convention questions — month-start vs month-end contributions, and troy ounce vs tola
 plus purity basis — that should be settled explicitly rather than picked silently.
+
+### Correction — DRIP reinvested annually, not at the payment frequency (Aug 9, 2026)
+
+Found by asking whether the page would actually survive a user cross-checking it, rather than by
+any test. **All 870 assertions passed straight through this**, because the Python reference and
+the page JS shared the same wrong convention — I wrote both. This is exactly the class of bug
+flagged when calculator.net turned out to have no referent: the sweep catches transcription and
+rounding, not a wrong choice of convention.
+
+The model reinvested once a year. Real DRIPs buy each time a dividend lands, quarterly for most
+US and Canadian payers, and so do the competitor calculators a user would check against.
+
+| | annual (was) | quarterly (now) | gap |
+|---|---|---|---|
+| Default inputs, 20 yrs | $51,400 | $51,540 | +0.27% |
+| 8% yield, 30 yrs | $1,282,804 | $1,399,364 | **+9.09%** |
+
+Negligible at the defaults, 9% low on a high-yield holding over a long horizon — enough that
+someone modelling a REIT and then checking MarketBeat would conclude the page was broken. Made
+worse by the Yield tab already having a payment-frequency selector while the DRIP tab did not:
+the page told the user frequency mattered, then ignored it where it compounds.
+
+**Fixed:** reinvestment frequency is now a field (quarterly default, also monthly / semi-annual /
+annual). Within a year the annual dividend is split into equal payments and each is reinvested at
+that moment's price; the price steps by the freq-th root of the annual rate so annual compounding
+is unchanged, and the dividend per share steps once a year, as companies actually raise payouts.
+`ref_dividend.py` now asserts the ~9% uplift and that frequency does not distort the price path.
+The sweep varies frequency across 1, 2, 4 and 12 — still 300 cases, 870 assertions, 0 mismatches.
+Browser-checked that value increases monotonically with frequency.
+
+Also fixed in the same pass:
+- **Negative dividends were accepted silently**, printing a -6.41% yield. Now flagged on all three
+  modes, matching the existing zero-price guard.
+- **Dead `status()` plumbing removed.** It wrote to a `#dy-status` span that cb-ux overwrites on
+  load, so it silently no-opped. It surfaced when an edge-case test timed out waiting for the
+  selector. cb-ux owns the bar text; the page should not pretend otherwise.
+- **Article corrected.** It described the old annual behaviour. Claiming a behaviour the page
+  doesn't have is an AdSense content problem as much as an accuracy one, so the reinvestment
+  section, the FAQ answer and the "doesn't cover" list were rewritten, and the FAQ schema
+  regenerated from the visible HTML and re-diffed.
+
+**Carry into the remaining seven:** `sip-calculator` has the identical exposure — SIP contributions
+are monthly and the same annual-loop shortcut would understate every projection. Settle the
+contribution timing convention explicitly there rather than inheriting this one.
