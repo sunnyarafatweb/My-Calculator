@@ -8997,3 +8997,75 @@ the ovulation and conception pages already cover, and links out for them instead
 territory is period-specific: the two lengths people confuse, what "regular" means numerically,
 why later rows drift, using backward navigation to fit your own cycle length, and the bleeding
 changes that warrant a doctor. OG image added; slug already in all three registry files.
+
+## Pregnancy Conception Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the stub at `/pregnancy-conception-calculator/` with a full 3-card build (78KB,
+`pcc-` prefix). Reference: calculator.net/pregnancy-conception-calculator.html.
+**Inputs 8/8, results 12/12.** Three input modes behind one "Calculate based on" select, no
+Clear button and no tabs, matching the reference.
+
+### All three modes collapse to one date
+
+Due date, last period and ultrasound are three doors into the same arithmetic. Each produces a
+notional last menstrual period, and everything after that is identical:
+
+    due date   -> LMP = due - 280            (cycle fixed at 28)
+    last period-> LMP as entered             (cycle 22-44, default 28)
+    ultrasound -> LMP = scan - (weeks*7+days) (cycle fixed at 28)
+
+    base = LMP + (cycle - 14)
+    most probable conception  = base-2 .. base+2      possible = base-3 .. base+7
+    most probable intercourse = base-5 .. base+2      possible = base-8 .. base+7
+
+The intercourse ranges are the conception ranges opened 3 and 5 days earlier for sperm survival,
+which is exactly the 3-5 days the reference's own intro paragraph cites. The possible range is
+deliberately asymmetric — seven days forward against three back — because late ovulation is more
+common than early.
+
+### I was stricter than the reference, which is also a parity break
+
+The first build validated the ultrasound inputs sensibly: reject a day count above six, reject a
+gestational age of zero. Probing the reference showed it does neither. `12 weeks 9 days` is
+accepted and simply added as 93 days; `0 weeks 0 days` computes; a blank box counts as zero.
+Only a negative or non-numeric entry stops it.
+
+So six inputs the reference happily answers were returning an error on our page. **Being stricter
+than the reference is still a parity break** — the rule is not "don't be looser", it is "match
+the fields". Validation now matches exactly, verified against the reference's own output on all
+six cases plus the two it does reject. Worth remembering: the instinct to tidy up sloppy input
+handling is the same instinct that quietly changes behaviour.
+
+### Verification
+
+Engine against the live reference: **40 + 120 + 90 edge-heavy cases** across all three modes
+(month ends, Februaries, leap years, gestational ages from 1 to 42 weeks, cycles 22 and 44) —
+**0 mismatched**. Then in Chromium over **36 fresh cases** spanning the three modes, comparing
+all four rendered ranges: **0 mismatches, 59 assertions, 0 failed**, including mode switching
+showing exactly one pane, the six ultrasound edge cases above, per-picker day lists rebuilding
+for short months, and 0 overflow at three widths. The reference's own default (due date
+7 Dec 2026) reproduces exactly: 14-18 Mar, 11-18 Mar, 13-23 Mar, 8-23 Mar.
+
+### Originality: best sibling result so far, because it was planned first
+
+Five close neighbours already exist — conception, ovulation, period, due-date and pregnancy.
+Rather than write and then measure, this time I **read the sibling H2 lists before drafting** and
+deliberately took the ground none of them held: that this is a backwards calculation and
+reversing a calculation widens uncertainty rather than narrowing it; which of the three routes to
+trust when you have more than one; the two-week offset that makes an eight-week pregnancy a
+six-week embryo; and the paternity question, which is a large share of the search intent for this
+exact page and which the neighbours never touch.
+
+Result: **0.00% against the reference** and, against our own pages, a single real shingle
+("pregnancy is counted from the first day of") with the pregnancy calculator. Everything else was
+byline boilerplate. Compare the period calculator two builds ago, which needed five passages
+rewritten after the fact — planning the scope beforehand was much cheaper than repairing it.
+
+**On paternity specifically:** the page says plainly that it cannot settle it, that a sixteen-day
+possible window cannot separate two dates inside it, that a date outside the narrow range is less
+likely rather than excluded, and that DNA testing — prenatal from around week eight or nine, or
+after birth — is the route to an actual answer. The disclaimer states it cannot establish a date
+for legal, immigration or paternity purposes. Given who searches this term, that felt like the
+part worth getting right.
+
+OG image added; slug already in all three registry files.
