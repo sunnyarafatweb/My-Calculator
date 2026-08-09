@@ -9149,3 +9149,87 @@ that override any target, plus the beta-blocker case where these numbers do not 
 that one gets its own FAQ as well as a line in the disclaimer.
 
 OG image added; slug already in all three registry files.
+
+## Shoe Size Conversion — IN PROGRESS, NOT SHIPPED (Aug 9, 2026)
+
+`/shoe-size-conversion/` is **still the 44KB stub**. Nothing was pushed to the page. This entry
+exists so the next session does not have to re-derive several hours of probing. The verified
+engine is saved at `notes/shoe-size-sweep.py` and currently runs **320+ cases against the live
+reference with 0 mismatches**, with the open items listed at the end.
+
+Category note: this one is **Other**, not Health & Fitness, and the slug has **no `-calculator`
+suffix**. It is already present in `calculators-index.json`, `sitemap.xml` and `llms.txt`.
+
+### Inputs
+
+`ac` (a / k / i), then seven fields any one of which can be the source: `usw`, `usm`, `uk`,
+`eu`, `jp`, `cn`, `fl` + `flu` (cm/mm/in). Convert and Clear both present.
+
+**Precedence is form order** — usw > usm > uk > eu > jp > cn > fl. Fill several, the first wins.
+
+Labels and ranges are rewritten per age group by `sscac()`: kids hide the women's row entirely
+and relabel to "US/Canada kids" / "UK/India kids"; infants relabel to
+"US/Canada babies" / "UK/India babies" in the form, but the **results** table says
+"US/Canada infants/toddlers".
+
+### The formulas are not the ones the page prints
+
+The article text states big kid = 3L - 22½, little kid = 3L - 9½, UK 23½ and 10½.
+**The calculator uses quarters, not halves.** Inverting size to foot length across the whole
+scale gives:
+
+    adults   US women 3L - 21 | US men 3L - 22 | UK 3L - 23
+    kids     US big 3L - 22.75 | US little 3L - 9.75
+             UK big 3L - 23.75 | UK little 3L - 10.75
+    infants  US 3L - 9.75 | UK 3L - 10.75      (little-kid constants)
+    all      EU = 1.5*Lcm + 2 | JP = Lcm | CN = 2*Lcm - 10
+
+L is inches for US/UK, centimetres for EU/JP/CN. US/UK/JP round to the nearest half, EU/CN to
+the nearest whole. Verified by checking size -> foot length against the reference: US kids 3
+gives 21.8 cm, which is 3L - 22.75, not 3L - 22.5 (that would be 21.6).
+
+**The kid scale wraps**, and which branch applies differs by direction:
+- computing a size *from* a length: use big-kid if it comes out >= 1, otherwise little-kid
+- reading a size *as input*: use big-kid only while it is inside that scale's range
+  (US <= 7, UK <= 6), otherwise little-kid
+
+That second rule cost a while. `uk = 6.5` is not a big-kid 6.5; the reference reads it as
+little-kid, giving a 5.75 inch foot rather than a 10.08 inch one.
+
+### "out of scope" is per field, and asymmetric
+
+    adults  US women / US men / UK   out of scope below 1; no ceiling (17.5 and 51 both print)
+    kids    US  ceiling 7 on the big branch, 13.5 on the little branch
+            UK  ceiling 6 on the big branch, 13.5 on the little branch
+            no floor at all - it will happily print "-0"
+    infants US / UK  floor 0, ceiling 13.5
+    China   out of scope below 5
+    EU, JP  never out of scope
+
+Negative zero is real: the reference prints **"-0"**, so the rounding helper has to preserve the
+sign through `copysign`.
+
+### Other reference behaviour already pinned
+
+- **The source row is dropped from the results table — except UK in adult mode**, where it is
+  kept. That exception does *not* apply to kids or infants. Inconsistent; reproduced for parity.
+- **No round-tripping.** Foot length must be carried in both units natively. Computing cm as
+  inches x 2.54 turns a China size 11.5 (10.75 cm exactly) into 10.749999, which drops
+  Japan/Mexico by a half size.
+- Decimal display rounds **half up**, not banker's: 13.25 cm prints as 13.3.
+- Foot length always prints all three units: `X.X inches  X.X cm  XXX mm`.
+
+### Open items before this can be built
+
+Source values are rejected outright (no result at all) below per-field minimums that are still
+being mapped. Confirmed so far: `jp` accepts 6 and rejects 5.5; `cn` accepts 4 and rejects 2;
+`fl` accepts 2 inches and rejects 1.5; `eu` accepts 10 and rejects 0; `usw` accepts 0. Kids and
+infants also reject any `usm`/`uk` above 13.5. These are per-field constants rather than one
+length threshold — `cn = 2` and `jp = 6` both imply a 6 cm foot, and one is rejected while the
+other is not, so it is not a foot-length rule.
+
+**Why this stopped here rather than shipping:** the remaining gaps only affect absurd inputs, but
+the engine is the part that has to be right, and the session ran out of room to build the page,
+write the article, run the browser suite and check originality against 200+ existing pages. A
+page shipped without those is exactly the failure mode the one-at-a-time approach exists to
+avoid. Resume by finishing the source-minimum map, then building normally.
