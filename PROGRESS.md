@@ -8585,3 +8585,102 @@ category band with the healthy segment marked rather than the ring the last few 
 `calculators-index.json`, `sitemap.xml` and `llms.txt` already carried the slug. calorie,
 height and ideal-weight already linked here; reciprocal links added from **body-fat, bmr and
 gfr**. bmi-calculator has no standard sidebar anchor and was left alone.
+
+## Lean Body Mass Calculator — rebuilt from stub (Aug 9, 2026)
+
+Replaced the 44KB template stub at `/lean-body-mass-calculator/` with a full 3-card build
+(97KB, `lbm-` prefix). Reference: calculator.net/lean-body-mass-calculator.html, supplied by
+the owner with US, metric and Other-Units screenshots. Donor `body-fat-calculator`, which
+carries the same five-category converter; protected style block, header and footer
+byte-identical afterwards.
+
+**Keyword research.** Head term "lean body mass calculator" is held by calculator.net, Omni,
+Bodybuilding.com, BodySpec and a long tail of body-composition tools. The variants with their
+own competitor pages are "how to calculate lean body mass", "lean body mass formula",
+"lean body mass vs fat free mass" and "which formula is most accurate" — the last of these is
+the gap worth taking, since competitors mention the disagreement between formulas but almost
+none build a title or a section around it. That drives the H1 subhead, the spread line under
+the result table and two FAQs. Title 54 chars, description 151.
+
+Note for future pages: most competitors take the *body-fat-percentage* route
+(LBM = weight x (1 - BF%/100)). The reference does not, and per the scope rule that route was
+not added. It is covered in an FAQ instead, which says plainly that a measured body-fat
+percentage beats any formula here.
+
+### The constant took four wrong answers to pin down
+
+Their US-mode figures depend on how pounds convert to kilograms and back, and this page does
+**not** use the factor recorded in the guide for BMR/body-fat (`0.453592`). Four hypotheses
+each passed a sweep and then failed on fresh cases: `0.453592`, then `0.45359237`, then
+`0.45359` paired with `2.20462`, then `1/2.20462`. Every failure was the same shape — our
+value 0.1 higher than theirs, at a rounding boundary — which is easy to dismiss as float noise
+and is not.
+
+Guessing was the wrong method. What settled it was **measuring**: hold height fixed and binary-
+search the weight at which the printed answer steps by 0.1 lb. The steps land **0.2457002 lb**
+apart, and that spacing plus the absolute position of one step gives the constant directly.
+The answer is a **single hard-coded 2.2046**, divided going into kilograms and multiplied
+coming back — not two independent constants, which is what every failed hypothesis assumed.
+An LP over 344 bounded observations had said "feasible" for several pairs, because a bounding
+box on the marginals is a superset of the actual polytope; that check was misleading and the
+flip-point measurement is the one to reach for next time.
+
+Also read off the reference rather than assumed: inch-to-cm is 2.54; the percentage is
+`round(LBM/weight x 100)` with body fat as `100 - that`; figures at or past 1,000 carry a
+comma separator; empty or zero inputs render no result block at all; and there is no clamping,
+so implausible inputs produce negative lean mass and body fat over 100%.
+
+### The row the screenshots do not show
+
+Answering **yes** to "Age 14 or younger" adds a **Peters (for Children)** row at the *top* of
+the table, followed by a blank spacer row, then Boer/James/Hume. All three supplied screenshots
+have "no" selected, so a screenshot-led build would have shipped without it. Caught by probing
+the live page across the age radio — the same failure mode as the Inflation Calculator's
+missing table, in the opposite direction.
+
+One judgement call on top of parity: the result card's headline features **Peters** when the
+age answer is yes, and Boer otherwise. The reference has no headline at all — it is a bare
+table — so this is our design system choosing which existing row to feature, not a new figure.
+Showing Boer for a child while the article says Peters is the applicable formula would have
+been actively misleading. Caught from the screenshot, not the assertions.
+
+### Verification
+
+Engine swept against the live reference: **1,060 cached-case field comparisons + 250 fresh
+random cases + 150 extreme-range cases, 0 mismatches**, covering both unit systems, both sexes,
+the child formula, negative results and comma-formatted thousands. Then the shipped page driven
+in Chromium over **45 fresh cases**, comparing every emitted figure — LBM value, percentage of
+body weight and body fat percentage, for every row: **0 mismatches, 0 console errors**.
+**64 browser assertions, 0 failed**, including regression guards on the constant, on Clear
+emptying boxes without moving the page (0.0px drift), on jsPDF staying unloaded until clicked,
+and on the converter's unit counts (Length 11, Temperature 3, Area 11, Volume 23, Weight 10,
+Acre and all six Imperial volume units present).
+
+A 32px horizontal overflow at 390px and 430px turned out to be a `file://` artifact — the
+Tailwind chunk 404s off a filesystem path. Over `python3 -m http.server` it is 0. **Test over
+HTTP, not `file://`**; the two remaining console errors are the sandbox having no CA for
+Google Fonts and gtag.
+
+### Content
+
+2,051-word article, 8 H2s, 7 FAQs. FAQ schema is **generated from the rendered article at
+build time** rather than typed alongside it, which removes the em-dash/quote drift failure the
+guide records against four earlier pages — the equality check passes by construction.
+Overlap with the reference **0.05%** (one unavoidable phrase, the topic name itself) and worst
+against our own pages **0.05%** (ideal-weight and gfr). The disclaimer and limitations sections
+were written from scratch per the sibling-originality rule, and the article's angle — why four
+formulas exist, how to read a spread rather than a number, who actually uses LBM (drug dosing,
+CT contrast) — deliberately avoids the reference's own structure.
+
+**Also shipped**: OG image at `/og/lean-body-mass-calculator.png`. `calculators-index.json`,
+`sitemap.xml` and `llms.txt` already carried the slug. Nine pages already linked here; a
+reciprocal link was added from **army-body-fat**. `bmi-calculator`'s sidebar uses a different
+anchor convention and was left alone, consistent with the healthy-weight session's decision.
+
+### Open question for the owner
+
+The reference does not clamp, so extreme inputs print things like "-292.0 kg lean body mass,
+246% body fat". The numbers are matched exactly for parity. Whether the result card should
+carry a short caution line when body fat falls outside 0-100% was **put to the owner before
+building and not answered**, so per the scope rule nothing was added; the limitation is covered
+in the article's "What this calculator cannot see" section instead. Easy to add later if wanted.
