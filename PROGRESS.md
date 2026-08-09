@@ -8684,3 +8684,39 @@ The reference does not clamp, so extreme inputs print things like "-292.0 kg lea
 carry a short caution line when body fat falls outside 0-100% was **put to the owner before
 building and not answered**, so per the scope rule nothing was added; the limitation is covered
 in the article's "What this calculator cannot see" section instead. Easy to add later if wanted.
+
+### Article styling corrected after owner review (Aug 9, 2026)
+
+Shipped first with a hand-written article stylesheet instead of the site's. The owner sent a
+screenshot: the byline was rendering in **IBM Plex Mono at body size, with no rule under it**,
+which no other page does. Three things were wrong and all three are now taken verbatim from
+`healthy-weight-calculator`, prefix-renamed:
+
+- **Byline** was mono with no bottom border. House style is 12.5px body font, `--ink-faint`,
+  `padding-bottom:16px`, and a `--border-fine` rule beneath.
+- **Body copy** was 14.5px/1.72 with a 12px gap. House is **15px/1.75, margin-bottom 14px**.
+- **Table of contents** was a horizontal row of green chips on `--surface-sunken` with a
+  "On this page" span heading. House is a **white card with block-level 13.5px `--ink-soft`
+  links**, no heading span, and the label lives in `aria-label` only.
+
+Also added the missing **`.lbm-formula2` box**: the site has a standard mono equation panel
+(surface-sunken, 1px border, 10px radius, `<b>` as an uppercase body-font label) and the article
+had no formula display at all, which section 2 of the guide asks for. All four equations plus
+the two unit conversions now sit in one, inside "Why four formulas, not one".
+
+Verified the fix by **diffing the article stylesheet against healthy-weight's with the prefix
+normalised — string-identical** — and by comparing computed styles across four pages in
+Chromium, which now agree on every property checked.
+
+**Pre-existing site-wide quirk found while doing this, not introduced here and not fixed here:**
+`.X-byline` and `.X-disclaimer` both ask for `font-size:12.5px`, but `.X-seo-article p` is
+`(0,1,1)` specificity against the class's `(0,1,0)`, so **both render at 15px on every page on
+the site** — healthy-weight, body-fat and tdee all measure 15px too. Our page now matches that
+behaviour exactly, which is the right call for consistency. Fixing it properly means either
+scoping the rule (`.X-seo-article p.X-byline`) or reordering with equal specificity, applied
+**site-wide in one pass** — doing it on one page would make that page the odd one out again.
+Worth raising with the owner as its own task rather than folding into a calculator build.
+
+Lesson for the next build: **lift the article stylesheet from a recent page rather than
+authoring one.** The 3-card grid CSS was correctly copied from the donor; the article CSS was
+written fresh and drifted, and a screenshot caught what no assertion was checking.

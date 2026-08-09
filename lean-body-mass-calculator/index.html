@@ -636,22 +636,27 @@
 </div>
 <style>
 .lbm-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
-.lbm-seo-article h2{font-size:22px;font-weight:700;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink);scroll-margin-top:88px}
-.lbm-seo-article h3{font-size:16px;font-weight:700;margin:20px 0 6px;color:var(--ink)}
-.lbm-seo-article p{font-size:14.5px;line-height:1.72;color:var(--ink-soft);margin:0 0 12px}
+.lbm-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.lbm-seo-article h3{font-size:16.5px;font-weight:600;margin:22px 0 8px;color:var(--ink)}
+.lbm-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.lbm-seo-article strong{color:var(--ink);font-weight:600}
+.lbm-seo-article em{font-style:italic}
 .lbm-seo-article a{color:#128A3D;text-decoration:underline}
-.lbm-byline{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-faint);letter-spacing:.02em;margin:0 0 18px}
-.lbm-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:12px;padding:16px 18px;margin:0 0 26px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
-.lbm-toc span{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);width:100%}
-.lbm-toc a{font-size:13px;color:#128A3D;text-decoration:none}
-.lbm-toc a:hover{text-decoration:underline}
-.lbm-disclaimer{font-size:12.5px!important;color:var(--ink-faint)!important;line-height:1.65!important;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:26px!important}
+.lbm-seo-article ul,.lbm-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.85}
+.lbm-formula2{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:var(--f-mono);font-size:13px;color:var(--ink);line-height:2;word-break:break-word}
+.lbm-formula2 b{font-family:var(--f-body);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint)}
+.lbm-byline{font-size:12.5px;color:var(--ink-faint);padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-fine)}
+.lbm-toc{background:var(--surface);border:1px solid var(--border-fine);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+.lbm-toc a{display:block;font-size:13.5px;color:var(--ink-soft);padding:3px 0;text-decoration:none}
+.lbm-toc a:hover{color:#1E3A5F}
+.lbm-seo-article h2[id]{scroll-margin-top:88px}
+.lbm-disclaimer{font-size:12.5px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--border-fine);padding-top:16px;margin-top:28px}
+.lbm-disclaimer a{color:var(--ink-faint)}
 </style><div class="lbm-seo-article">
 
 <p class="lbm-byline">Written by the CalculatorBoss Health Team &middot; Checked against a reference implementation &middot; Last updated Aug 2026</p>
 
 <nav class="lbm-toc" aria-label="On this page">
-  <span>On this page</span>
   <a href="#what">What lean body mass counts</a>
   <a href="#why-four">Why four formulas, not one</a>
   <a href="#reading">Reading a spread instead of a number</a>
@@ -670,6 +675,24 @@
 <h2 id="why-four">Why four formulas, not one</h2>
 <p>A calculator showing one answer implies a settled question. Lean body mass is not settled. Nobody can weigh your muscle and bone separately without equipment, so every estimate here is a statistical shortcut: researchers measured body composition directly in a group of volunteers, then fitted an equation that predicts the result from height, weight and sex alone.</p>
 <p>Change the volunteers and you change the equation. Hume published in 1966 working from cadaver analysis. James followed in 1976 out of a large British obesity study. Boer arrived in 1984 from work on normalizing body-fluid volumes. Each fitted its own population using the measurement technology of its own decade, and none was trying to produce a universal constant.</p>
+<div class="lbm-formula2">
+<b>Boer, 1984</b><br>
+men &nbsp; eLBM = 0.407W + 0.267H &minus; 19.2<br>
+women eLBM = 0.252W + 0.473H &minus; 48.3<br><br>
+<b>James, 1976</b><br>
+men &nbsp; eLBM = 1.1W &minus; 128 &times; (W / H)<sup>2</sup><br>
+women eLBM = 1.07W &minus; 148 &times; (W / H)<sup>2</sup><br><br>
+<b>Hume, 1966</b><br>
+men &nbsp; eLBM = 0.32810W + 0.33929H &minus; 29.5336<br>
+women eLBM = 0.29569W + 0.41813H &minus; 43.2933<br><br>
+<b>Peters, 2011 &mdash; children, no sex split</b><br>
+eECV = 0.0215 &times; W<sup>0.6469</sup> &times; H<sup>0.7236</sup><br>
+eLBM = 3.8 &times; eECV<br><br>
+<b>Where W and H come from</b><br>
+W is weight in kilograms, H is height in centimetres.<br>
+pounds &divide; 2.2046 = kilograms &nbsp;&middot;&nbsp; inches &times; 2.54 = centimetres
+</div>
+
 <p>So this page shows all of them rather than picking a winner and hiding the rest. Boer heads the result card because it is the most widely cited of the three and the one clinical guidance most often points to, but it is a default, not a verdict. James carries a squared weight-to-height term, which makes it behave differently from the other two: it tracks them closely through ordinary body sizes and then drops away sharply once weight climbs relative to height. Hume, the oldest, tends to read lowest.</p>
 
 <h2 id="reading">Reading a spread instead of a number</h2>
