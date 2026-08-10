@@ -931,9 +931,20 @@
     if(!(bv>0)) return empty('Time Needed','The starting value must be above zero.');
     var eff=effectiveRate(r,a.fee), out=yearsNeeded(bv,ev,eff);
     if(out.already){
+      /* The target is at or below the starting value, so nothing has to grow.
+         commonRows() would compute "total growth" between the start and a
+         LOWER target and print it as a loss the visitor never had -- correct
+         arithmetic, meaningless here. Show the rows that answer the question
+         actually asked instead. */
       setHead('Time Needed','0 years',false);
-      rows(commonRows(bv,ev,eff,a));
-      setFlag('The starting value already meets this target.',false);
+      var surplus=bv-ev;
+      rows([
+        ['Starting value',money(bv)],
+        ['Target value',money(ev)],
+        surplus>0?['Already ahead of target by',money(surplus)]:null,
+        ['Assumed growth rate',fmt(eff,2)+'%']
+      ]);
+      setFlag('The starting value already meets this target, so no growth is needed.',false);
       yearTable(bv,eff,1); chart(bv,eff,1);
       last={label:'Time Needed',big:'0 years'}; return;
     }
@@ -944,7 +955,10 @@
     setHead('Time Needed',fmt(out.years,1)+' years',false);
     var rs=commonRows(bv,ev,eff,a);
     rs.splice(2,0,['Assumed growth rate',fmt(eff,2)+'%']);
-    rs.push(['In other units',friendlyYears(out.years)]);
+    /* friendlyYears() only adds information under ~3 years, where it converts
+       to months or days. Above that it repeats the headline ("20.5 years" then
+       "20.49 years"), so the row is suppressed. */
+    if(out.years<3) rs.push(['In other units',friendlyYears(out.years)]);
     rows(rs);
     setFlag(a.fee>0?'After the '+fmt(a.fee,2)+'% annual fee, the rate applied is '+fmt(eff,2)+'%.':'',false);
     yearTable(bv,eff,out.years); chart(bv,eff,out.years);
