@@ -10057,3 +10057,61 @@ metric would have flagged as suspicious.
 break-even, pe-ratio, gold-value. **gold-value still needs an owner decision before building**:
 tola is a South Asian unit, so it defaults to troy ounces and grams in USD with tola as an
 option. Raise it first — do not decide it inside the build.
+
+## Rebuild 6 of 8 — break-even-calculator (Aug 10, 2026)
+
+Three modes: break-even units and revenue with margin of safety, volume for a target profit, and
+multi-product break-even on a weighted contribution margin.
+
+### Verification
+
+calculator.net has no break-even calculator — probed live (404) with `margin-calculator` and
+`business-loan-calculator` returning 200 as positive controls. Formulas are standard CVP,
+cross-checked against **ACCA's F5 technical article**, and pinned to worked examples from
+wearecalculator, supercalc, calculatorslabs, FasterCapital and cisuitepro.
+
+Sweep: **1,012 cases, 5,201 assertions, 0 mismatches**, control passing. Browser: **62/62**.
+FAQ 6/6 exact with three working controls. Every numeric claim in the FAQ was run through the
+reference before it was written.
+
+### Conventions
+
+- **Units are rounded UP, and the exact figure is shown alongside.** supercalc publishes 2,769
+  meals for an $18,000 base at a $6.50 margin; the exact answer is 2,769.23, and 2,769 units
+  covers only $17,998.50 — still $1.50 short of break-even. We print 2,770 and pin the shortfall
+  so the choice cannot drift. Matched the field, fixed the error.
+- **Break-even revenue uses the EXACT units, not the rounded ones**, which would overstate it.
+  Asserted.
+- **A contribution margin of zero or less is a named state**, never a huge number. The page
+  explains the per-unit loss and what to change.
+- **Multi-product mix is normalised**, so 60/40, 6/4 and 0.6/0.4 all give the same answer, and
+  the page says when the entered mix does not total 100%.
+
+### A bug the sweep structurally could not catch
+
+Zero fixed costs rendered the headline as **"-0"**. `Math.ceil(0 - 1e-9)` is negative zero in
+JavaScript; Python's `math.ceil` returns a plain `0`. The sweep compared them and saw no
+difference, **because -0 == 0 is true**. No amount of numeric assertion would ever have found it
+— only rendering the page did. Normalised at both the source (`Math.max(0, ...)` at all five
+ceiling sites) and in the formatter, with a regression covering zero and one-cent fixed costs.
+
+Also fixed by reading rather than asserting: with price exactly equal to variable cost the page
+said "every sale loses $0.00", which is nonsense — nothing is lost and nothing is contributed.
+The zero-margin and negative-margin cases now read differently.
+
+### Caught before shipping
+
+Two sidebar links pointed at `/profit-margin-calculator/` and `/markup-calculator/`, **neither of
+which exists on this site**. Checked every target against the filesystem before building rather
+than after; swapped to `margin-calculator` and `discount-calculator`. Worth adding to the routine
+for the remaining pages: verify sidebar slugs exist, do not assume from the name.
+
+### Registry
+
+Finance 83 to 84. Inbound links from `margin`, `business-loan` and `sales-tax`, each audited
+individually with `getClientRects()` and computed display.
+
+### Remaining two
+
+pe-ratio, gold-value. **gold-value still needs an owner decision before building** — tola is a
+South Asian unit, so troy ounces and grams in USD with tola as an option. Raise it first.

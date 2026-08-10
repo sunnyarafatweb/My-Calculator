@@ -1,0 +1,1432 @@
+<!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6S04GMEMEJ');
+</script>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Break-Even Calculator — How Many Units You Must Sell</title><meta name="description" content="Free break-even calculator: find the units and revenue needed to cover your costs, the volume for a target profit, and the blended figure across multiple products. No signup."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="break even calculator,break even point calculator,break even analysis,contribution margin calculator,margin of safety calculator,break even formula,how many units to break even"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/break-even-calculator/"/><meta property="og:title" content="Break-Even Calculator — How Many Units You Must Sell"/><meta property="og:description" content="Free break-even calculator: find the units and revenue needed to cover your costs, the volume for a target profit, and the blended figure across multiple products. No signup."/><meta property="og:url" content="https://calculatorboss.com/break-even-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/break-even-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://calculatorboss.com/og/break-even-calculator.png"/><meta name="twitter:title" content="Break-Even Calculator — How Many Units You Must Sell"/><meta name="twitter:description" content="Free break-even calculator: find the units and revenue needed to cover your costs, the volume for a target profit, and the blended figure across multiple products. No signup."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PROTECTED SHARED STYLE BLOCK -- READ BEFORE EDITING
+     ============================================================
+     This block is duplicated across 200+ pages. Before changing
+     ANYTHING here site-wide:
+     1. NEVER add a universal *{...} reset rule here -- it breaks
+        Tailwind's .mx-auto centering on calculator pages (caused
+        a real left-alignment bug across the whole site).
+     2. NEVER remove --surface, --surface-sunken, --border,
+        --border-fine, --ink-faint, --shadow-sm from :root -- 185+
+        template pages use these via Tailwind classes (bg-surface,
+        border-border) for result-card styling. Removing them makes
+        cards invisible/unstyled with no error thrown.
+     3. After ANY edit to this block, propagate the SAME edit to
+        ALL pages (not just homepage), then spot-check a
+        non-custom-built page (e.g. body-fat-calculator) AND a
+        custom-built page (e.g. bmi-calculator, tip-calculator) for:
+        centered layout, visible card backgrounds, white header/
+        footer, nav-links display:flex, zero console errors.
+     4. Do a full 200-page automated check (not just a sample)
+        before pushing -- past incidents were missed by small
+        samples and only caught after the user reported them live.
+     ============================================================ */
+  :root{
+    --bg:#F3F1EA;
+    --surface:#FFFFFF;
+    --surface-sunken:#F3F1EA;
+    --border:rgba(22,27,38,.12);
+    --border-fine:rgba(22,27,38,.08);
+    --ink-faint:#A6AAB1;
+    --shadow-sm:0 1px 2px rgba(46,40,26,.05);
+
+    --bg-2:#ECEAE1;
+    --card:#FFFFFF;
+    --ink:#181A1F;
+    --ink-soft:#474C55;
+    --muted:#787D86;
+    --muted-2:#A6AAB1;
+    --line:#E4E2D8;
+    --line-soft:#EEEDE6;
+
+    --gold:#1BA94C;
+    --gold-deep:#128A3D;
+    --gold-hi:#33C266;
+    --gold-tint:#E4F5EA;
+
+    --fin:#22417A;   --fin-tint:#E8EDF6;
+    --hea:#0C9268;   --hea-tint:#DEF3EC;
+    --mat:#4B4ED8;   --mat-tint:#E7E7FB;
+    --oth:#CF3F53;   --oth-tint:#FBE4E7;
+
+    --r-sm:12px; --r:16px; --r-lg:24px; --r-xl:32px;
+    --maxw:1180px;
+
+    --sh-sm:0 1px 2px rgba(46,40,26,.05);
+    --sh:0 2px 5px rgba(46,40,26,.05),0 16px 34px -16px rgba(46,40,26,.18);
+    --sh-lg:0 4px 10px rgba(46,40,26,.06),0 36px 66px -26px rgba(46,40,26,.26);
+    --hi:inset 0 1px 0 rgba(255,255,255,.7);
+
+    --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  
+  html{scroll-behavior:smooth}
+  body{margin:0;padding:0;font-family:var(--f-body);background-color:var(--bg);background-image:linear-gradient(180deg,rgba(27,169,76,.05),transparent 620px);background-repeat:no-repeat;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.005em}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:#04240f}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono)}
+  .eyebrow{font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ===== BLOCK LAYOUT ===== */
+  .sec{padding:11px 0}
+  .sec-hero{padding:24px 0 11px}
+  .panel{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(253,252,248,.5));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.55);border-radius:30px;box-shadow:var(--sh)}
+  .sec-panel{padding:48px 50px}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:#FFFFFF;-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid rgba(22,27,38,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:19.5px;letter-spacing:-.03em;color:#181A1F}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#fff,#f1efe6);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--sh-sm),var(--hi)}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{position:relative;font-size:14.5px;font-weight:500;color:#474C55;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#181A1F;background:rgba(22,27,38,.05)}
+  .soon{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold-deep);background:var(--gold-tint);border:1px solid #ecd9a6;padding:1px 5px;border-radius:100px;margin-left:6px;vertical-align:middle}
+  .nav-spacer{flex:1;max-width:180px}
+  .nav-cta{display:flex;align-items:center;gap:11px;margin-left:auto}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#181A1F;background:rgba(22,27,38,.08);transform:translateY(-1px)}.icon-btn.cf-search-trigger{display:flex;align-items:stretch;justify-content:flex-start;width:296px;max-width:100%;padding:0;overflow:hidden}.icon-btn.cf-search-trigger:hover{background:rgba(22,27,38,.07)}.icon-btn.cf-search-trigger svg{flex-shrink:0;align-self:center;margin-left:14px;color:#787D86}.cf-search-trigger-text{flex:1;display:flex;align-items:center;text-align:left;padding:0 10px;font-size:13.5px;font-weight:500;color:#787D86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cf-search-trigger-go{flex-shrink:0;display:flex;align-items:center;padding:0 18px;background:#1F3A5D;color:#fff;font-size:12px;font-weight:700;letter-spacing:.03em}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));color:#04240f;box-shadow:0 10px 22px -10px rgba(18,138,61,.7),var(--hi)}
+  .btn-gold:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(18,138,61,.8),var(--hi)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+  .menu-btn{display:none}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;padding:44px 0 40px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .glow-a{position:absolute;top:-200px;right:-140px;width:620px;height:620px;background:radial-gradient(circle,rgba(27,169,76,.10),transparent 62%)}
+  .glow-b{display:none}
+  .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:56px;align-items:center}
+  .h-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold-deep);background:linear-gradient(180deg,#fff,#fbf4e2);border:1px solid #eeddb0;padding:7px 14px;border-radius:100px;box-shadow:var(--sh-sm)}
+  .h-eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--hea);box-shadow:0 0 0 3px rgba(12,146,104,.16)}
+  h1.hero-title{font-weight:700;font-size:clamp(42px,5.8vw,68px);line-height:1.0;letter-spacing:-.045em;margin:0}
+  .hero-sub{font-size:18px;color:var(--ink-soft);max-width:466px;margin:22px 0 0;line-height:1.6}
+  .searchbar{margin-top:30px;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 18px;max-width:520px;box-shadow:var(--sh-lg);transition:.22s}
+  .searchbar:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(27,169,76,.15),var(--sh-lg)}
+  .searchbar svg{flex-shrink:0;color:var(--muted-2)}
+  .searchbar input{flex:1;background:none;border:none;color:var(--ink);font-family:var(--f-body);font-size:15.5px;outline:none;letter-spacing:-.01em}
+  .searchbar input::placeholder{color:var(--muted-2)}
+  .search-go{background:#1E3A63;color:#fff;border:none;border-radius:11px;padding:12px 20px;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--f-body);transition:.2s}
+  .search-go:hover{background:#16294A}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
+  .chips .cl{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2);margin-right:4px}
+  .chip{font-size:13px;font-weight:500;color:var(--ink-soft);background:linear-gradient(180deg,#fff,#fbfaf6);border:1px solid var(--line);border-radius:100px;padding:7px 14px;transition:.2s;cursor:pointer;box-shadow:var(--sh-sm)}
+  .chip:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-1px);box-shadow:var(--sh)}
+
+  /* hero preview */
+  .preview-wrap{position:relative}
+  .preview-wrap::before{content:"";position:absolute;inset:18px -14px -20px 22px;background:linear-gradient(150deg,rgba(27,169,76,.14),rgba(30,58,99,.07));border-radius:var(--r-xl);filter:blur(6px);z-index:0}
+  .preview{position:relative;z-index:1;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-lg);overflow:hidden}
+  .pv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 8px}
+  .pv-kicker{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .pv-open{font-size:12.5px;font-weight:600;color:var(--hea);display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:.2s}
+  .pv-open:hover{gap:8px}
+  .pv-chart{padding:2px 14px 2px}
+  .pv-legend{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;padding:8px 16px 22px}
+  .pv-legend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
+  .pv-legend .lg i{width:11px;height:11px;border-radius:3px;display:block}
+  .pv-legend .lg .dt{width:9px;height:9px;border-radius:50%;display:block}
+  .mbar{transform:scaleY(0);transform-box:fill-box;transform-origin:center bottom;transition:transform .7s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--i)*16ms)}
+  .mbar.in{transform:scaleY(1)}
+  .mline{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.5s ease .35s}
+  .mline.in{stroke-dashoffset:0}
+  .mdot{opacity:0;transition:opacity .3s}
+  .mdot.in{opacity:1}
+
+  /* ===== SECTION HEAD ===== */
+  section.block{padding:82px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px}
+  .sec-head .eyebrow{color:var(--gold-deep);display:inline-flex;align-items:center;gap:9px}
+  .sec-head .eyebrow::before{content:"";width:22px;height:1.5px;background:var(--gold-deep)}
+  .sec-title{font-weight:700;font-size:clamp(28px,3.5vw,40px);letter-spacing:-.035em;margin-top:12px;line-height:1.05}
+  .sec-desc{font-size:15.5px;color:var(--muted);margin-top:8px;max-width:480px;line-height:1.6}
+  .sec-link{font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.2s;padding:11px 17px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#fff,#fbfaf6);box-shadow:var(--sh-sm)}
+  .sec-link:hover{transform:translateY(-1px);box-shadow:var(--sh);gap:10px}
+
+  /* ===== MOST USED ===== */
+  .mu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .mu-card{position:relative;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;transition:.28s cubic-bezier(.2,.7,.3,1);cursor:pointer;overflow:hidden;box-shadow:var(--sh-sm),var(--hi)}
+  .mu-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:color-mix(in srgb,var(--ac) 40%,var(--line))}
+  .mu-card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 80% at 50% -20%,var(--tint),transparent 60%);opacity:0;transition:.28s}
+  .mu-card:hover::after{opacity:.7}
+  .mu-ic{position:relative;z-index:1;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--tint,var(--gold-tint));color:var(--ac,var(--gold-deep));margin-bottom:15px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
+  .mu-ic svg{width:23px;height:23px}
+  .mu-cat{position:relative;z-index:1;font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,var(--gold-deep))}
+  .mu-name{position:relative;z-index:1;font-weight:600;font-size:16px;letter-spacing:-.025em;margin-top:6px;line-height:1.2}
+  .mu-go{position:relative;z-index:1;margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:.22s}
+  .mu-card:hover .mu-go{color:var(--ac,var(--gold-deep));gap:9px}
+
+  /* ===== CATEGORIES ===== */
+  .cats{padding-top:0}
+  .cats-head{padding-top:11px}
+  .cat-list{display:flex;flex-direction:column;gap:20px;margin-top:8px}
+  .cat{padding:42px 46px}
+  .cat-top{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+  .cat-ic{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(155deg,color-mix(in srgb,var(--tint) 88%,#fff),var(--tint));color:var(--ac);flex-shrink:0;box-shadow:var(--sh-sm),inset 0 0 0 1px rgba(0,0,0,.03)}
+  .cat-ic svg{width:29px;height:29px}
+  .cat-meta{flex:1;min-width:0}
+  .cat-name{font-weight:700;font-size:25px;letter-spacing:-.035em;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .cat-count{font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--ac);background:var(--tint);padding:4px 11px;border-radius:100px}
+  .cat-desc{font-size:14.5px;color:var(--muted);margin-top:4px}
+  .cat-view{font-size:13.5px;font-weight:600;color:var(--ac);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:11px 18px;border-radius:12px;border:1px solid color-mix(in srgb,var(--ac) 24%,transparent);background:var(--tint);transition:.22s}
+  .cat-view:hover{gap:11px;transform:translateY(-1px);box-shadow:0 12px 24px -12px color-mix(in srgb,var(--ac) 55%,transparent)}
+  .cat-more{display:flex;justify-content:center;margin-top:26px}
+  .cat-more .cat-view{padding:12px 24px}
+  .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .ci{position:relative;display:block;padding:15px 16px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fdfcf8);transition:.24s cubic-bezier(.2,.7,.3,1);box-shadow:var(--sh-sm)}
+  .ci:hover{border-color:color-mix(in srgb,var(--ac) 45%,var(--line));transform:translateY(-3px);box-shadow:var(--sh)}
+  .ci .n{font-weight:600;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .ci-ic{flex-shrink:0;color:var(--ac);display:inline-grid;place-items:center}
+  .ci-ic svg{width:16px;height:16px}
+  .ci .n .arw{color:var(--ac);opacity:0;transform:translateX(-5px);transition:.22s;margin-left:auto}
+  .ci:hover .n .arw{opacity:1;transform:none}
+  .ci .s{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* ===== CTA ===== */
+  .cta-band{padding:11px 0 44px;background:var(--bg)}
+  .cta{position:relative;overflow:hidden;border-radius:var(--r-xl);background:radial-gradient(130% 150% at 86% 12%,#1C1F27,#0D0F14);color:#fff;padding:48px 50px;display:flex;flex-direction:column;box-shadow:var(--sh-lg);border:1px solid rgba(240,185,11,.14)}
+  .cta::before{content:"";position:absolute;right:-90px;bottom:-130px;width:400px;height:400px;background:radial-gradient(circle,rgba(240,185,11,.24),transparent 62%)}
+  .cta-main{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .cta-txt{position:relative;z-index:1}
+  .cta .eyebrow{color:#F3BA2F;display:inline-flex;align-items:center;gap:8px}
+  .cta .eyebrow .ld{width:7px;height:7px;border-radius:50%;background:#F3BA2F;box-shadow:0 0 0 0 rgba(243,186,47,.6);animation:ldp 2s infinite}
+  @keyframes ldp{0%{box-shadow:0 0 0 0 rgba(243,186,47,.5)}70%{box-shadow:0 0 0 7px rgba(243,186,47,0)}100%{box-shadow:0 0 0 0 rgba(243,186,47,0)}}
+  .cta h3{font-weight:700;font-size:clamp(26px,3.2vw,36px);letter-spacing:-.035em;line-height:1.1;margin-top:12px}
+  .cta p{font-size:15.5px;margin-top:12px;max-width:480px;color:#c3c6cd;line-height:1.6}
+  .cta-actions{position:relative;z-index:1;display:flex;gap:12px}
+  .btn-crypto{background:#1E3A5F;color:#fff;box-shadow:0 10px 22px -10px rgba(30,58,95,.5)}
+  .btn-crypto:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(30,58,95,.6)}
+  .mkt-hints{position:relative;z-index:1;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.09);display:flex;flex-wrap:wrap;gap:9px}
+  .mh{font-family:var(--f-mono);font-size:12.5px;color:#C7CAD1;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+  .mh b{color:#F3BA2F;font-weight:700}
+  .mh .up{color:#2EBD85;font-weight:600}
+  .mh .down{color:#F6465D;font-weight:600}
+  .btn-outline{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.22);color:#fff}
+  .btn-outline:hover{background:rgba(255,255,255,.12)}
+
+  /* ===== FOOTER ===== */
+  footer{background:#FFFFFF;border-top:1px solid rgba(22,27,38,.08);padding:62px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand .brand{margin-bottom:16px}
+  .foot-brand p{font-size:14px;color:#686D76;max-width:290px;line-height:1.65}
+  .foot-social{display:flex;gap:9px;margin-top:18px}
+  .foot-social a{width:38px;height:38px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#787D86;transition:.2s}
+  .foot-social a:hover{color:var(--gold-hi);border-color:var(--gold);transform:translateY(-2px)}
+  .foot-col h4{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#686D76;margin-bottom:16px;font-weight:600}
+  .foot-col a{display:block;font-size:14px;color:#474C55;padding:6px 0;transition:.2s}
+  .foot-col a:hover{color:#181A1F;transform:translateX(2px)}
+  .foot-bottom{margin-top:46px;padding-top:24px;border-top:1px solid rgba(22,27,38,.08);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12.5px;color:#686D76}
+  .foot-bottom .fb-links{display:flex;gap:18px}
+  .foot-bottom a{font-size:12.5px;color:#686D76;transition:.2s}
+  .foot-bottom a:hover{color:#181A1F}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:.75s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1080px){.mu-grid{grid-template-columns:repeat(3,1fr)}.cat-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:46px}
+    .preview-wrap{max-width:520px}
+    .nav-links{display:none}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .sec-panel{padding:30px 20px}
+    .cat{padding:28px 22px}
+    .panel{border-radius:24px}
+    .menu-btn{display:grid}.icon-btn.cf-search-trigger{width:44px}.cf-search-trigger-text,.cf-search-trigger-go{display:none}
+    .nav-cta .btn-ghost{display:none}
+    .rc-full{display:none}
+    .btn-crypto{font-size:11.5px!important;padding:8px 10px!important}
+    .nav-spacer{display:none}
+    .nav{gap:10px}
+    .mu-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-top{flex-wrap:wrap}
+    .cat-view{width:100%;justify-content:center}
+    .sec-head{flex-direction:column;align-items:flex-start}
+    .cta{padding:40px 26px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .cat-grid{grid-template-columns:1fr}
+    .ci{min-width:0}
+    .mu-name{font-size:14px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calculatorboss.com/"}, {"@type": "ListItem", "position": 2, "name": "Finance", "item": "https://calculatorboss.com/all-calculators/"}, {"@type": "ListItem", "position": 3, "name": "Break-Even Calculator", "item": "https://calculatorboss.com/break-even-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+        </svg>
+      </span>
+      CalculatorBoss
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/all-calculators/">Calculators</a>
+      <a href="/all-calculators/">Categories</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
+</header><main class="flex-1" role="main"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate my break-even point?", "acceptedAnswer": {"@type": "Answer", "text": "Divide your fixed costs by the contribution margin, which is your selling price minus the variable cost of making one unit. With $15,000 of monthly fixed costs, a $75 price and $30 of variable cost, each sale contributes $45, so you need $15,000 divided by $45, or 334 units a month. In revenue terms that is $25,000, which you can also get by dividing fixed costs by the contribution margin ratio of 60%."}}, {"@type": "Question", "name": "What counts as a fixed cost and what counts as variable?", "acceptedAnswer": {"@type": "Answer", "text": "Fixed costs stay the same whether you sell one unit or a thousand: rent, salaried staff, insurance, software subscriptions. Variable costs move with each sale: materials, packaging, payment processing fees, shipping, hourly labour tied to production. The tricky ones sit in between. A salesperson on commission is variable, on salary is fixed. Utilities are usually mostly fixed with a small variable element. When genuinely unsure, treat it as fixed, since that gives you the more cautious break-even."}}, {"@type": "Question", "name": "Why does the calculator round up?", "acceptedAnswer": {"@type": "Answer", "text": "Because a partial unit does not pay any bills. If the arithmetic says 2,769.23 units, then selling 2,769 leaves you $1.50 short of covering your fixed costs, so you have not actually broken even. The exact figure is shown alongside because it is what feeds the revenue and margin-of-safety numbers correctly, but the whole units are the answer to what you have to sell."}}, {"@type": "Question", "name": "What is a good margin of safety?", "acceptedAnswer": {"@type": "Answer", "text": "It measures how far your expected sales sit above break-even before you start losing money, and more is better. A common rule of thumb treats above 20% as comfortable and below 10% as uncomfortably tight, though the right level depends on how predictable your sales are. A business with contracted recurring revenue can live with a thin margin; one dependent on seasonal footfall cannot. If your margin of safety is negative, the plan loses money at the volume you are forecasting."}}, {"@type": "Question", "name": "How does break-even work with more than one product?", "acceptedAnswer": {"@type": "Answer", "text": "You use a weighted average contribution margin based on your sales mix. If 60% of units sold are a product contributing $30 and 40% contribute $10, the blended figure is $22, and fixed costs divided by $22 gives total units. Splitting that back out by the same mix tells you how many of each. The catch is that the answer only holds while the mix holds: shifting toward lower-margin items raises your break-even without anything else changing."}}, {"@type": "Question", "name": "What does break-even analysis not tell me?", "acceptedAnswer": {"@type": "Answer", "text": "It assumes your price and your per-unit costs stay constant at every volume, which is rarely true — suppliers give discounts at scale, and fixed costs jump in steps when you need another oven or another warehouse. It also says nothing about cash timing. A business can be above break-even on paper and still run out of money if customers pay in ninety days while suppliers want thirty. Treat it as a floor test for a price and cost structure, not as a forecast."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Break-Even Calculator", "url": "https://calculatorboss.com/break-even-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free break-even calculator covering break-even units and revenue, target profit volume and multi-product sales mix."}</script><style>
+.be-wrap{width:100%}
+.be-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.be-bar-text{display:flex;align-items:center;gap:10px}
+.be-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.be-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.be-bar-pdf-btn:hover{background:#f2f2f2}
+
+.be-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.be-area-bar{grid-area:bar}
+.be-area-form{grid-area:form}
+.be-area-result{grid-area:result}
+.be-area-sidebar{grid-area:sidebar}
+.be-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:860px){
+  .be-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.be-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.be-card-pad{padding:24px}
+
+.be-field{display:flex;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap}
+.be-field-label{width:160px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.be-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.be-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.be-input-group span{padding:0 7px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.be-input-group input,.be-input-group select{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.be-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.be-subnote{font-size:11.5px;color:var(--ink-faint);margin-top:-2px;line-height:1.5}
+
+.be-prod-head{display:flex;gap:8px;padding:10px 0 2px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:700}
+.be-prod-head .a{width:44px;flex-shrink:0}
+.be-prod-head .b,.be-prod-head .c,.be-prod-head .d{flex:1;min-width:0}
+.be-prod-row{display:flex;align-items:center;gap:8px;padding:5px 0}
+.be-prod-row .a{width:44px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.be-prod-row .b,.be-prod-row .c,.be-prod-row .d{flex:1;min-width:0}
+.be-tot-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0 2px;margin-top:6px;border-top:1px solid var(--border-fine);font-size:12.5px;color:var(--ink-soft)}
+.be-tot-row b{color:var(--ink)}
+
+.be-btn-row{display:flex;gap:10px;padding-top:10px;flex-wrap:wrap}
+.be-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 26px;font-size:14px;font-weight:600;cursor:pointer;text-align:center}
+.be-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer;text-align:center}
+
+.be-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.be-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.be-result-head.is-warn{background:#1E3A5F}
+.be-result-head.is-loss{background:#B03A48}
+.be-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.be-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.be-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.be-result-body{padding:16px 20px}
+.be-result-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
+.be-result-row:first-child{border-top:none}
+.be-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
+.be-chart-box{padding:0 20px 20px}
+
+.be-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.be-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.be-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.be-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.be-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.be-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:860px){.be-bottom-grid{grid-template-columns:1fr}}
+.be-bd-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.be-bd-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.be-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.be-notax-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
+.be-notax-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:10px;display:block}
+
+@media(max-width:520px){
+  .be-field-label{width:100%}
+  .be-prod-head .a,.be-prod-row .a{width:32px}
+}
+</style><style>
+.be-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.be-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.be-seo-article h2:first-child{margin-top:0}
+.be-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.be-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.be-seo-article strong{color:var(--ink);font-weight:600}
+.be-seo-article ul,.be-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.be-seo-article ul li strong,.be-seo-article ol li strong{color:var(--ink)}
+.be-seo-article .be-byline,.be-seo-article .be-disclaimer{font-size:12.5px;line-height:1.7;color:var(--muted)}.be-seo-article .be-byline{margin:0 0 18px}.be-seo-article .be-disclaimer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border-fine)}.be-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:var(--r-sm);padding:14px 18px;margin:0 0 24px}.be-toc p{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--muted);margin:0 0 8px}.be-toc ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}.be-toc a{color:var(--fin);text-decoration:none}.be-toc a:hover{text-decoration:underline}</style><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}
+.be-tabs{display:flex;gap:8px;flex-wrap:wrap;grid-area:tabs}
+.be-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s}
+.be-tab:hover{border-color:#1E3A5F;color:#1E3A5F}
+.be-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.be-pane{display:none}.be-pane.is-on{display:block}
+.be-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.be-tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;padding:0 0 8px;white-space:nowrap}
+.be-tbl td{padding:7px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft);white-space:nowrap}
+.be-tbl td:first-child{color:var(--ink);font-weight:600}
+.be-tbl tr.is-now td{font-weight:700;color:var(--ink)}
+.be-fine{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+.be-gloss{margin:0}.be-gloss dt{font-size:13.5px;font-weight:700;color:var(--ink);margin-top:12px}
+.be-gloss dt:first-child{margin-top:0}
+.be-gloss dd{margin:3px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.6}
+.be-flag{font-size:12.5px;line-height:1.6;margin:14px 20px 0;padding:10px 12px;border-radius:10px;background:var(--surface-sunken);color:var(--ink-soft)}
+.be-flag.is-warn{background:#FDF3E3;color:#7A4B12}
+</style>
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Break-Even Calculator</span></nav>
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Break-Even Calculator</h1>
+<p class="text-ink-soft text-lg max-w-2xl mb-6">Find how many units you have to sell before you stop losing money — the volume for a target profit, and the blended figure when you sell more than one thing.</p>
+
+<div class="be-grid">
+
+<div class="be-bar be-area-bar">
+  <span class="be-bar-text"><span class="be-bar-badge">$</span>Enter your fixed costs, price and cost per unit.</span>
+  <button type="button" class="be-bar-pdf-btn" id="be-pdfBtn">💾 Save as PDF</button>
+</div>
+
+<div class="be-tabs" role="tablist">
+  <button type="button" class="be-tab active" data-mode="be">Break-Even</button>
+  <button type="button" class="be-tab" data-mode="target">Target Profit</button>
+  <button type="button" class="be-tab" data-mode="mix">Multiple Products</button>
+</div>
+
+<div class="be-card be-area-form">
+  <div class="be-card-pad">
+    <div class="be-field">
+      <span class="be-field-label">Currency</span>
+      <div class="be-field-control">
+        <select id="be-currency" class="be-select-plain">
+          <option value="USD" selected>USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="CAD">CAD ($)</option>
+          <option value="AUD">AUD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="INR">INR (₹)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="be-pane is-on" data-pane="be">
+      <div class="be-field">
+        <span class="be-field-label">Fixed costs per month</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-bFixed" type="number" min="0" step="100" value="15000"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Price per unit</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-bPrice" type="number" min="0" step="0.01" value="75"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Variable cost per unit</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-bVar" type="number" min="0" step="0.01" value="30"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Units you expect to sell</span>
+        <div class="be-field-control"><div class="be-input-group"><input id="be-bExpected" type="number" min="0" step="10" value="450"></div></div>
+      </div>
+      <p class="be-subnote">Expected sales are optional — they add your margin of safety and the profit at that volume.</p>
+    </div>
+
+    <div class="be-pane" data-pane="target">
+      <div class="be-field">
+        <span class="be-field-label">Fixed costs per month</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-tFixed" type="number" min="0" step="100" value="15000"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Price per unit</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-tPrice" type="number" min="0" step="0.01" value="75"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Variable cost per unit</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-tVar" type="number" min="0" step="0.01" value="30"></div></div>
+      </div>
+      <div class="be-field">
+        <span class="be-field-label">Profit you want</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-tProfit" type="number" min="0" step="500" value="9000"></div></div>
+      </div>
+      <p class="be-subnote">Same arithmetic as break-even, with the profit added to the fixed costs you have to cover.</p>
+    </div>
+
+    <div class="be-pane" data-pane="mix">
+      <div class="be-field">
+        <span class="be-field-label">Fixed costs per month</span>
+        <div class="be-field-control"><div class="be-input-group"><span class="be-sym">$</span><input id="be-mFixed" type="number" min="0" step="100" value="11000"></div></div>
+      </div>
+      <div class="be-prod-head"><span class="a">Item</span><span class="b">Price</span><span class="c">Var. cost</span><span class="d">Mix %</span></div>
+      <div class="be-prod-row"><span class="a">A</span>
+        <span class="b"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m1p" type="number" min="0" step="0.01" value="100"></div></span>
+        <span class="c"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m1v" type="number" min="0" step="0.01" value="70"></div></span>
+        <span class="d"><div class="be-input-group"><input id="be-m1m" type="number" min="0" step="1" value="60"><span>%</span></div></span></div>
+      <div class="be-prod-row"><span class="a">B</span>
+        <span class="b"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m2p" type="number" min="0" step="0.01" value="50"></div></span>
+        <span class="c"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m2v" type="number" min="0" step="0.01" value="40"></div></span>
+        <span class="d"><div class="be-input-group"><input id="be-m2m" type="number" min="0" step="1" value="40"><span>%</span></div></span></div>
+      <div class="be-prod-row"><span class="a">C</span>
+        <span class="b"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m3p" type="number" min="0" step="0.01" value=""></div></span>
+        <span class="c"><div class="be-input-group"><span class="be-sym">$</span><input id="be-m3v" type="number" min="0" step="0.01" value=""></div></span>
+        <span class="d"><div class="be-input-group"><input id="be-m3m" type="number" min="0" step="1" value=""><span>%</span></div></span></div>
+      <div class="be-tot-row"><span>Mix totals</span><b id="be-mixTot">100%</b></div>
+      <p class="be-subnote">The mix is the share of <em>units</em> sold, not revenue. It is normalised, so 60/40 and 6/4 give the same answer.</p>
+    </div>
+
+    <div class="be-btn-row">
+      <button type="button" class="be-btn-calc" id="be-calcBtn">Calculate</button>
+      <button type="button" class="be-btn-clear" id="be-clearBtn">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="be-result-card be-area-result">
+  <div class="be-result-head" id="be-resultHead">
+    <div class="label" id="be-resultLabel">Units To Break Even</div>
+    <div class="bignum" id="be-bignum">—</div>
+    <div class="sub" id="be-resultSub"></div>
+  </div>
+  <div class="be-result-body" id="be-resultRows"></div>
+  <p class="be-flag" id="be-flag" hidden></p>
+  <div class="be-chart-box">
+    <svg viewBox="0 0 300 150" id="be-chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Revenue against total cost by volume"></svg>
+  </div>
+</div>
+
+<div class="be-sidecol be-area-sidebar">
+  <div class="be-calc-card">
+    <div class="h">Business Calculators</div>
+    <a href="/margin-calculator/">Margin <span class="arrow">→</span></a>
+    <a href="/discount-calculator/">Discount <span class="arrow">→</span></a>
+    <a href="/roi-calculator/">ROI <span class="arrow">→</span></a>
+    <a href="/business-loan-calculator/">Business Loan <span class="arrow">→</span></a>
+    <a href="/sales-tax-calculator/">Sales Tax <span class="arrow">→</span></a>
+    <a href="/profit-loss-calculator/">Profit &amp; Loss <span class="arrow">→</span></a>
+    <a href="/all-calculators/#fin" class="be-viewmore">View More <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<div class="be-bottom-grid be-area-bottomgrid">
+  <div class="be-bd-card">
+    <span class="t" id="be-tblTitle">Which Lever Moves It Most</span>
+    <div class="be-scroll">
+      <table class="be-tbl"><thead><tr id="be-tblHead"><th>Change</th><th>New break-even</th><th>Difference</th></tr></thead><tbody id="be-tblBody"></tbody></table>
+    </div>
+    <p class="be-fine" id="be-tblNote">Each row changes one thing by 10% and holds the rest. Price is usually the strongest lever, because it lifts the contribution margin without touching your cost base — but it is also the one with a customer attached, and a 10% price rise that loses you 15% of volume is a step backwards.</p>
+  </div>
+  <div class="be-notax-card">
+    <span class="t">What The Numbers Mean</span>
+    <dl class="be-gloss">
+      <dt>Fixed costs</dt><dd>Costs that do not change with volume — rent, salaries, insurance, software.</dd>
+      <dt>Variable cost</dt><dd>What one more unit costs you to make and deliver.</dd>
+      <dt>Contribution margin</dt><dd>Price minus variable cost. What each sale puts toward fixed costs, then profit.</dd>
+      <dt>Contribution margin ratio</dt><dd>The same figure as a share of price, useful for working in revenue rather than units.</dd>
+      <dt>Margin of safety</dt><dd>How far expected sales sit above break-even before you make a loss.</dd>
+    </dl>
+  </div>
+</div>
+
+</div>
+
+<article class="be-seo-article">
+  <p class="be-byline">Written by the CalculatorBoss Finance Team · Reviewed for accuracy · Last updated August 2026</p>
+
+  <nav class="be-toc" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#what-it-answers">What break-even actually answers</a></li>
+      <li><a href="#the-formula">The formula, and the one number it all hangs on</a></li>
+      <li><a href="#fixed-variable">Sorting fixed from variable — where most errors start</a></li>
+      <li><a href="#each-field">What to put in each field</a></li>
+      <li><a href="#levers">Three levers, and which one actually moves the number</a></li>
+      <li><a href="#multi">Break-even when you sell more than one thing</a></li>
+      <li><a href="#not-covered">What break-even analysis does not tell you</a></li>
+      <li><a href="#faq">Frequently asked questions</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="what-it-answers">What break-even actually answers</h2>
+  <p>Break-even is the volume at which you stop losing money and have not yet started making any. Below it every month costs you; above it every additional sale is profit. It is the single most useful number to know before committing to a price, a lease or a product line, because it converts a vague question — <em>can this work?</em> — into a specific one: <strong>can we sell this many?</strong></p>
+  <p>The reframing is the whole value. "Is $75 a good price for this?" has no answer without context. "At $75 we need 334 units a month" is something you can test against your market, your capacity and your pipeline.</p>
+
+  <h2 id="the-formula">The formula, and the one number it all hangs on</h2>
+  <p>Two steps. First, work out what one sale contributes:</p>
+  <p><strong>Contribution margin = price − variable cost per unit</strong></p>
+  <p>Then divide your fixed costs by it:</p>
+  <p><strong>Break-even units = fixed costs ÷ contribution margin</strong></p>
+  <p>At $15,000 of monthly fixed costs, a $75 price and $30 of variable cost, each sale contributes $45 and you need <strong>334 units</strong>. In revenue that is $25,000, which you can reach the same way by dividing fixed costs by the contribution margin ratio of 60%.</p>
+  <p>Everything depends on the contribution margin, and it has one hard boundary: <strong>if it is zero or negative, there is no break-even at any volume.</strong> Selling below variable cost means every additional sale deepens the loss, and no amount of scale fixes it. The calculator says so plainly rather than printing an enormous number.</p>
+  <p>One detail on rounding. The arithmetic often gives a fraction — 2,769.23 units, say — and a partial unit pays no bills. Selling 2,769 leaves you $1.50 short of covering an $18,000 fixed base, so you have not broken even. This page rounds the answer <strong>up</strong> and shows the exact figure alongside, because the exact one is what the revenue and margin-of-safety numbers are built from.</p>
+
+  <h2 id="fixed-variable">Sorting fixed from variable — where most errors start</h2>
+  <p>The formula is trivial. Deciding which bucket each cost belongs in is not, and it is where break-even calculations usually go wrong.</p>
+  <p><strong>Fixed</strong> means unchanged by volume: rent, salaried staff, insurance, software subscriptions, accountancy fees. You pay them whether you sell one unit or a thousand.</p>
+  <p><strong>Variable</strong> means it moves with each sale: materials, packaging, payment processing, shipping, per-unit labour, sales commission.</p>
+  <p>The awkward ones sit between. A salesperson on commission is variable; the same person on salary is fixed. Utilities are usually mostly fixed with a small volume-linked element. Delivery is variable per order but the van lease is fixed. <strong>When you genuinely cannot decide, put it in fixed.</strong> That raises your break-even and gives you the more cautious answer, which is the right direction to be wrong in.</p>
+  <p>Watch for <strong>step-fixed costs</strong> too. Rent is fixed until you outgrow the unit; one oven covers a certain volume and then you need a second. Break-even assumes a flat fixed base, so if your plan crosses one of those steps, run the numbers on both sides of it.</p>
+
+  <h2 id="each-field">What to put in each field</h2>
+  <p><strong>Fixed costs.</strong> Total for whatever period you are working in — monthly is most common. Be complete: the costs people forget are their own salary, accounting, insurance and software, and leaving them out produces a break-even that looks achievable and is not.</p>
+  <p><strong>Price per unit.</strong> What the customer actually pays after standard discounts, not the list price. If a third of your sales go out at 20% off, your effective price is lower than the sticker.</p>
+  <p><strong>Variable cost per unit.</strong> Everything that only exists because you made that sale. Payment processing at around 3% is the one most often missed, along with returns and shipping.</p>
+  <p><strong>Units you expect to sell.</strong> Optional. Add it and you get your margin of safety — how far your forecast sits above break-even — plus the profit at that volume. Above 20% is generally comfortable; below 10% means small misses turn into losses.</p>
+  <p><strong>Profit you want.</strong> On the target tab. It is added to fixed costs, since you now need to cover both before you are done.</p>
+
+  <h2 id="levers">Three levers, and which one actually moves the number</h2>
+  <p>You have exactly three ways to lower a break-even point, and they are not equally powerful.</p>
+  <ul>
+    <li><strong>Raise the price.</strong> Usually the strongest, because the whole increase lands in the contribution margin — a $75 price rising to $82.50 adds $7.50 to a $45 margin, a 17% improvement, from a 10% price move.</li>
+    <li><strong>Cut the variable cost.</strong> Same mechanism, and often more achievable, but the numbers are smaller: shaving 10% off a $30 variable cost adds $3 to the margin.</li>
+    <li><strong>Cut fixed costs.</strong> Moves the break-even proportionally — 10% off fixed costs lowers it by exactly 10%, no more.</li>
+  </ul>
+  <p>The comparison table above the article runs each of these on your own numbers. The pattern usually holds: <strong>price beats cost cuts, and cost cuts beat overhead cuts.</strong></p>
+  <p>The caveat is that price is the only lever with a customer attached. The arithmetic assumes volume holds when the price moves, and it often does not. A 10% price rise that costs you 15% of your units leaves you worse off, so treat the price row as the ceiling of what is available rather than a plan.</p>
+
+  <h2 id="multi">Break-even when you sell more than one thing</h2>
+  <p>Almost nobody sells a single product, and the fix is to blend. Weight each item's contribution margin by its share of the units you sell, and use that average.</p>
+  <p>If 60% of your units contribute $30 and 40% contribute $10, the weighted margin is <strong>$22</strong>, and $11,000 of fixed costs needs 500 total units — 300 of the first and 200 of the second. The calculator does this and splits the answer back out by line.</p>
+  <p>Two things to hold onto. First, <strong>the answer only holds while the mix holds.</strong> Sell the same total units but shift toward the cheaper item and your break-even rises with nothing else having changed, which is why a business can miss its numbers in a month where sales looked fine.</p>
+  <p>Second, a blended figure can hide a line that is barely pulling its weight. If one product contributes $30 and another $10, the average flatters the second. It is worth running each line on its own — using its share of fixed costs — to see which ones are genuinely carrying the business and which are being subsidised.</p>
+
+  <h2 id="not-covered">What break-even analysis does not tell you</h2>
+  <ul>
+    <li><strong>Cash timing.</strong> The most important omission. You can be comfortably above break-even and still run out of money if customers pay in ninety days and suppliers want thirty.</li>
+    <li><strong>Volume-dependent costs.</strong> It assumes price and unit cost are flat at every level. Real suppliers discount at scale and real customers demand discounts at scale.</li>
+    <li><strong>Step changes.</strong> Fixed costs jump when you need another member of staff or another site. The model draws a straight line through what is actually a staircase.</li>
+    <li><strong>Whether the volume is achievable.</strong> It tells you the number you need. It has no opinion on whether your market will supply it.</li>
+    <li><strong>Tax.</strong> The target-profit tab works in pre-tax profit. If you want a figure after tax, gross it up before entering it.</li>
+  </ul>
+
+  <h2 id="faq">Frequently asked questions</h2>
+  <h3>How do I calculate my break-even point?</h3>
+  <p>Divide your fixed costs by the contribution margin, which is your selling price minus the variable cost of making one unit. With $15,000 of monthly fixed costs, a $75 price and $30 of variable cost, each sale contributes $45, so you need $15,000 divided by $45, or 334 units a month. In revenue terms that is $25,000, which you can also get by dividing fixed costs by the contribution margin ratio of 60%.</p>
+  <h3>What counts as a fixed cost and what counts as variable?</h3>
+  <p>Fixed costs stay the same whether you sell one unit or a thousand: rent, salaried staff, insurance, software subscriptions. Variable costs move with each sale: materials, packaging, payment processing fees, shipping, hourly labour tied to production. The tricky ones sit in between. A salesperson on commission is variable, on salary is fixed. Utilities are usually mostly fixed with a small variable element. When genuinely unsure, treat it as fixed, since that gives you the more cautious break-even.</p>
+  <h3>Why does the calculator round up?</h3>
+  <p>Because a partial unit does not pay any bills. If the arithmetic says 2,769.23 units, then selling 2,769 leaves you $1.50 short of covering your fixed costs, so you have not actually broken even. The exact figure is shown alongside because it is what feeds the revenue and margin-of-safety numbers correctly, but the whole units are the answer to what you have to sell.</p>
+  <h3>What is a good margin of safety?</h3>
+  <p>It measures how far your expected sales sit above break-even before you start losing money, and more is better. A common rule of thumb treats above 20% as comfortable and below 10% as uncomfortably tight, though the right level depends on how predictable your sales are. A business with contracted recurring revenue can live with a thin margin; one dependent on seasonal footfall cannot. If your margin of safety is negative, the plan loses money at the volume you are forecasting.</p>
+  <h3>How does break-even work with more than one product?</h3>
+  <p>You use a weighted average contribution margin based on your sales mix. If 60% of units sold are a product contributing $30 and 40% contribute $10, the blended figure is $22, and fixed costs divided by $22 gives total units. Splitting that back out by the same mix tells you how many of each. The catch is that the answer only holds while the mix holds: shifting toward lower-margin items raises your break-even without anything else changing.</p>
+  <h3>What does break-even analysis not tell me?</h3>
+  <p>It assumes your price and your per-unit costs stay constant at every volume, which is rarely true — suppliers give discounts at scale, and fixed costs jump in steps when you need another oven or another warehouse. It also says nothing about cash timing. A business can be above break-even on paper and still run out of money if customers pay in ninety days while suppliers want thirty. Treat it as a floor test for a price and cost structure, not as a forecast.</p>
+
+  <p class="be-disclaimer">These results are estimates for general information only and are not financial, accounting or business advice. Break-even analysis assumes constant selling prices, constant per-unit variable costs and a fixed cost base that does not change with volume, none of which holds precisely in practice. It also ignores cash-flow timing, which can make a profitable business insolvent. Confirm any figure against your own management accounts, and speak to a qualified accountant before making commercial decisions.</p>
+</article>
+
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var CURR={USD:'$',GBP:'\u00A3',CAD:'$',AUD:'$',EUR:'\u20AC',INR:'\u20B9'};
+  var cur='USD';
+  function sym(){return CURR[cur]||'$';}
+  function fmt(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function money(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return (n<0?'-':'')+sym()+fmt(Math.abs(n),d); }
+  function num(id){ var el=$(id); if(!el) return NaN; var v=el.value.trim(); if(v==='') return NaN; return parseFloat(v); }
+
+  /* ---------- math (mirrors ref_breakeven.py) ----------
+     Standard CVP, confirmed against ACCA's F5 material. Units are reported
+     exactly AND rounded up: a partial unit pays no bills, so 2769.23 means
+     2,770 are needed (2,769 leaves an $18,000 fixed base $1.50 short). Revenue
+     uses the EXACT figure -- using the rounded one would overstate it. A
+     contribution margin of zero or less means no break-even exists at any
+     volume, returned as a named state rather than a huge number. */
+  function contributionMargin(price,variable){ return price-variable; }
+  function cmRatio(price,variable){ return price>0 ? (price-variable)/price : NaN; }
+  function breakEven(fixed,price,variable,expected){
+    if(!(price>0)) return {ok:false,why:'bad_price'};
+    if(fixed<0) return {ok:false,why:'bad_fixed'};
+    var cm=contributionMargin(price,variable);
+    if(cm<=0) return {ok:false,why:'no_contribution',cm:cm};
+    var exact=fixed/cm;
+    var out={ok:true,cm:cm,cmRatio:cm/price,unitsExact:exact,
+             unitsNeeded:Math.max(0,Math.ceil(exact-1e-9)),revenue:fixed/(cm/price)};
+    if(expected!=null&&expected>0){
+      out.expectedUnits=expected;
+      out.mosUnits=expected-exact;
+      out.mosPct=(expected-exact)/expected*100;
+      out.profitAtExpected=expected*cm-fixed;
+    }
+    return out;
+  }
+  function unitsForTarget(fixed,price,variable,target){
+    if(!(price>0)) return {ok:false,why:'bad_price'};
+    var cm=contributionMargin(price,variable);
+    if(cm<=0) return {ok:false,why:'no_contribution',cm:cm};
+    var exact=(fixed+target)/cm;
+    return {ok:true,cm:cm,unitsExact:exact,unitsNeeded:Math.max(0,Math.ceil(exact-1e-9)),revenue:exact*price};
+  }
+  function multiProduct(fixed,products){
+    var totalMix=0,i;
+    for(i=0;i<products.length;i++) totalMix+=products[i][2];
+    if(!(totalMix>0)) return {ok:false,why:'no_mix'};
+    var norm=products.map(function(p){ return [p[0],p[1],p[2]/totalMix]; });
+    var wcm=0,wPrice=0;
+    for(i=0;i<norm.length;i++){
+      wcm+=contributionMargin(norm[i][0],norm[i][1])*norm[i][2];
+      wPrice+=norm[i][0]*norm[i][2];
+    }
+    if(wcm<=0) return {ok:false,why:'no_contribution',wcm:wcm};
+    var totalUnits=fixed/wcm;
+    var lines=norm.map(function(p){
+      return {units:totalUnits*p[2],revenue:totalUnits*p[2]*p[0],
+              cm:contributionMargin(p[0],p[1]),mix:p[2]};
+    });
+    var rev=0;
+    for(i=0;i<lines.length;i++) rev+=lines[i].revenue;
+    return {ok:true,wcm:wcm,weightedPrice:wPrice,totalUnits:totalUnits,
+            totalUnitsNeeded:Math.max(0,Math.ceil(totalUnits-1e-9)),revenue:rev,lines:lines,mixSum:totalMix};
+  }
+  window.__beMath={contributionMargin:contributionMargin,cmRatio:cmRatio,
+    breakEven:breakEven,unitsForTarget:unitsForTarget,multiProduct:multiProduct};
+
+  /* ---------- rendering ---------- */
+  var mode='be', last=null;
+  function rows(list){
+    $('be-resultRows').innerHTML=list.filter(Boolean).map(function(r){
+      return '<div class="be-result-row"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';
+    }).join('');
+  }
+  function setFlag(t,warn){
+    var el=$('be-flag');
+    if(!t){ el.hidden=true; el.textContent=''; el.className='be-flag'; return; }
+    el.hidden=false; el.textContent=t; el.className='be-flag'+(warn?' is-warn':'');
+  }
+  function setHead(label,big,sub,cls){
+    $('be-resultLabel').textContent=label;
+    $('be-bignum').textContent=big;
+    $('be-resultSub').textContent=sub||'';
+    $('be-resultHead').className='be-result-head'+(cls?' '+cls:'');
+  }
+  function empty(label,msg,warn){
+    setHead(label,'\u2014','',warn||'is-warn'); rows([]); setFlag(msg||'',true);
+    $('be-tblBody').innerHTML=''; $('be-chart').innerHTML=''; last=null;
+  }
+  /* Math.ceil(0 - 1e-9) is -0 in JS and renders as "-0". A numeric sweep
+     cannot see it, because -0 == 0. Normalised at both the source and here. */
+  function units(n){ if(n===0) n=0; return fmt(n,n%1===0?0:2); }
+  function noContribNote(price,variable){
+    /* At price == variable cost nothing is LOST, nothing is CONTRIBUTED --
+       "every sale loses $0.00" reads as nonsense. Separate the two cases. */
+    var gap=variable-price;
+    var lead = gap>0
+      ? 'every sale loses '+money(gap)
+      : 'every sale contributes nothing toward your fixed costs';
+    return 'At '+money(price)+' a unit against '+money(variable)+' of variable cost, '+lead+
+           '. There is no break-even at any volume'+(gap>0?' \u2014 selling more makes it worse':'')+
+           '. Raise the price above '+money(variable)+' or cut the unit cost.';
+  }
+  function chart(fixed,price,variable,beUnits){
+    var el=$('be-chart');
+    if(!(beUnits>0)||!(price>0)){ el.innerHTML=''; return; }
+    var W=300,H=150,P=10, maxU=beUnits*2;
+    var maxY=Math.max(price*maxU, fixed+variable*maxU)||1;
+    function pt(u,y){ return [P+(W-2*P)*(u/maxU), H-P-(H-2*P)*(y/maxY)]; }
+    var r0=pt(0,0), r1=pt(maxU,price*maxU);
+    var c0=pt(0,fixed), c1=pt(maxU,fixed+variable*maxU);
+    var b=pt(beUnits,price*beUnits);
+    el.innerHTML=
+      '<path d="M'+r0[0].toFixed(1)+' '+r0[1].toFixed(1)+'L'+r1[0].toFixed(1)+' '+r1[1].toFixed(1)+
+      'L'+c1[0].toFixed(1)+' '+c1[1].toFixed(1)+'L'+c0[0].toFixed(1)+' '+c0[1].toFixed(1)+'Z" fill="#16A34A" opacity="0.10"></path>'+
+      '<line x1="'+c0[0].toFixed(1)+'" y1="'+c0[1].toFixed(1)+'" x2="'+c1[0].toFixed(1)+'" y2="'+c1[1].toFixed(1)+'" stroke="#B03A48" stroke-width="2"></line>'+
+      '<line x1="'+r0[0].toFixed(1)+'" y1="'+r0[1].toFixed(1)+'" x2="'+r1[0].toFixed(1)+'" y2="'+r1[1].toFixed(1)+'" stroke="#16A34A" stroke-width="2"></line>'+
+      '<circle cx="'+b[0].toFixed(1)+'" cy="'+b[1].toFixed(1)+'" r="4" fill="#1E3A5F"></circle>'+
+      '<text x="'+Math.min(W-96,b[0]+8).toFixed(1)+'" y="'+Math.max(12,b[1]-8).toFixed(1)+'" font-size="10" font-family="sans-serif" fill="#1E3A5F">break-even</text>';
+  }
+  function leverTable(fixed,price,variable){
+    $('be-tblHead').innerHTML='<th>Change</th><th>New break-even</th><th>Difference</th>';
+    var base=breakEven(fixed,price,variable);
+    if(!base.ok){ $('be-tblBody').innerHTML=''; return; }
+    var scenarios=[
+      ['Nothing changes',fixed,price,variable],
+      ['Price up 10%',fixed,price*1.1,variable],
+      ['Variable cost down 10%',fixed,price,variable*0.9],
+      ['Fixed costs down 10%',fixed*0.9,price,variable],
+      ['Price down 10%',fixed,price*0.9,variable]
+    ];
+    $('be-tblBody').innerHTML=scenarios.map(function(s,i){
+      var r=breakEven(s[1],s[2],s[3]);
+      var cell=r.ok?units(r.unitsNeeded)+' units':'never';
+      var diff=r.ok?(r.unitsNeeded-base.unitsNeeded):null;
+      var diffCell=diff===null?'\u2014':(diff===0?'\u2014':(diff>0?'+':'\u2212')+units(Math.abs(diff))+' units');
+      return '<tr'+(i===0?' class="is-now"':'')+'><td>'+s[0]+'</td><td>'+cell+'</td><td>'+diffCell+'</td></tr>';
+    }).join('');
+    $('be-tblTitle').textContent='Which Lever Moves It Most';
+  }
+
+  /* ---------- the three modes ---------- */
+  function runBe(){
+    var f=num('be-bFixed'), p=num('be-bPrice'), v=num('be-bVar'), e=num('be-bExpected');
+    if(!isFinite(f)||!isFinite(p)||!isFinite(v)) return empty('Units To Break Even','Enter fixed costs, a price and a variable cost.');
+    var r=breakEven(f,p,v,isFinite(e)?e:null);
+    if(!r.ok){
+      if(r.why==='no_contribution'){ empty('Units To Break Even',noContribNote(p,v),'is-loss'); return; }
+      return empty('Units To Break Even','The price must be above zero.');
+    }
+    setHead('Units To Break Even',units(r.unitsNeeded),
+      money(r.revenue)+' of revenue \u00b7 '+money(r.cm)+' contribution a unit',
+      r.mosPct!=null&&r.mosPct<0?'is-loss':'');
+    rows([
+      ['Contribution margin',money(r.cm)+' ('+fmt(r.cmRatio*100,1)+'% of price)'],
+      ['Break-even revenue',money(r.revenue)],
+      ['Exact figure',units(r.unitsExact)+' units'],
+      r.mosUnits!=null?['Margin of safety',units(r.mosUnits)+' units ('+fmt(r.mosPct,1)+'%)']:null,
+      r.profitAtExpected!=null?[(r.profitAtExpected>=0?'Profit':'Loss')+' at '+units(r.expectedUnits)+' units',
+        (r.profitAtExpected>=0?'':'\u2212')+money(Math.abs(r.profitAtExpected))]:null
+    ]);
+    if(r.mosPct!=null&&r.mosPct<0){
+      setFlag('Your expected sales are below break-even, so this plan loses '+money(Math.abs(r.profitAtExpected))+' at that volume. You need '+units(r.unitsNeeded-r.expectedUnits)+' more units.',true);
+    } else if(r.mosPct!=null&&r.mosPct<10){
+      setFlag('A margin of safety under 10% is tight \u2014 a small miss on volume turns into a loss.',true);
+    } else {
+      setFlag(Math.abs(r.unitsNeeded-r.unitsExact)>1e-9
+        ? 'Rounded up from '+units(r.unitsExact)+': a partial unit does not cover any fixed costs.' : '',false);
+    }
+    leverTable(f,p,v);
+    chart(f,p,v,r.unitsExact);
+    last={label:'Units To Break Even',big:units(r.unitsNeeded)};
+  }
+  function runTarget(){
+    var f=num('be-tFixed'), p=num('be-tPrice'), v=num('be-tVar'), t=num('be-tProfit');
+    if(!isFinite(f)||!isFinite(p)||!isFinite(v)||!isFinite(t)) return empty('Units For That Profit','Enter fixed costs, a price, a variable cost and the profit you want.');
+    var r=unitsForTarget(f,p,v,t);
+    if(!r.ok){
+      if(r.why==='no_contribution'){ empty('Units For That Profit',noContribNote(p,v),'is-loss'); return; }
+      return empty('Units For That Profit','The price must be above zero.');
+    }
+    var be=breakEven(f,p,v);
+    setHead('Units For That Profit',units(r.unitsNeeded),
+      money(r.revenue)+' of revenue to make '+money(t),'');
+    rows([
+      ['Contribution margin',money(r.cm)],
+      ['Break-even alone',units(be.unitsNeeded)+' units'],
+      ['Extra units for the profit',units(r.unitsNeeded-be.unitsNeeded)],
+      ['Revenue needed',money(r.revenue)],
+      ['Exact figure',units(r.unitsExact)+' units']
+    ]);
+    setFlag('The profit is added to fixed costs, so you are covering '+money(f+t)+' in total. This is pre-tax.',false);
+    leverTable(f,p,v);
+    chart(f,p,v,r.unitsExact);
+    last={label:'Units For That Profit',big:units(r.unitsNeeded)};
+  }
+  function runMix(){
+    var f=num('be-mFixed'), prods=[], i;
+    for(i=1;i<=3;i++){
+      var p=num('be-m'+i+'p'), v=num('be-m'+i+'v'), m=num('be-m'+i+'m');
+      if(isFinite(p)&&isFinite(v)&&isFinite(m)&&p>0&&m>0) prods.push([p,v,m]);
+    }
+    var mixSum=0;
+    for(i=1;i<=3;i++){ var mm=num('be-m'+i+'m'); if(isFinite(mm)) mixSum+=mm; }
+    $('be-mixTot').textContent=fmt(mixSum,mixSum%1===0?0:1)+'%';
+    if(!isFinite(f)||!prods.length) return empty('Total Units To Break Even','Enter fixed costs and at least one product with a price, a cost and a mix share.');
+    var r=multiProduct(f,prods);
+    if(!r.ok){
+      if(r.why==='no_contribution')
+        return empty('Total Units To Break Even','Across this mix every sale loses money on average, so there is no break-even at any volume. Raise a price or shift the mix toward the better margins.','is-loss');
+      return empty('Total Units To Break Even','Give at least one product a mix share above zero.');
+    }
+    var names=['A','B','C'];
+    setHead('Total Units To Break Even',units(r.totalUnitsNeeded),
+      money(r.revenue)+' of revenue \u00b7 '+money(r.wcm)+' weighted contribution','');
+    rows([['Weighted contribution margin',money(r.wcm)]].concat(
+      r.lines.map(function(l,i){
+        return ['Item '+names[i]+' ('+fmt(l.mix*100,0)+'% of units)',units(Math.max(0,Math.ceil(l.units-1e-9)))+' units'];
+      })
+    ).concat([['Break-even revenue',money(r.revenue)],['Exact total',units(r.totalUnits)+' units']]));
+    setFlag(Math.abs(mixSum-100)>0.05
+      ? 'Your mix adds to '+fmt(mixSum,1)+'%, not 100%. It has been normalised, so the proportions are used as entered \u2014 the answer is still correct.'
+      : 'This holds only while the mix holds. Selling the same units with more of the lower-margin item raises the break-even.',
+      Math.abs(mixSum-100)>0.05);
+    mixTable(r,names);
+    chart(f,r.weightedPrice,r.weightedPrice-r.wcm,r.totalUnits);
+    last={label:'Total Units To Break Even',big:units(r.totalUnitsNeeded)};
+  }
+  function mixTable(r,names){
+    $('be-tblHead').innerHTML='<th>Item</th><th>Contribution</th><th>Share of units</th><th>Units needed</th><th>Revenue</th>';
+    $('be-tblBody').innerHTML=r.lines.map(function(l,i){
+      return '<tr><td>'+names[i]+'</td><td>'+money(l.cm)+'</td><td>'+fmt(l.mix*100,1)+'%</td><td>'+
+             units(Math.max(0,Math.ceil(l.units-1e-9)))+'</td><td>'+money(l.revenue)+'</td></tr>';
+    }).join('');
+    $('be-tblTitle').textContent='Break-Even Split By Line';
+    $('be-tblNote').textContent='A blended figure can hide a line that is barely pulling its weight. Compare the contribution column \u2014 if one item contributes a fraction of another, the average is flattering it, and it is worth testing that line on its own share of fixed costs.';
+  }
+  var RUN={be:runBe,target:runTarget,mix:runMix};
+  function run(){ (RUN[mode]||runBe)(); }
+
+  /* ---------- wiring ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.be-tab'),function(btn){
+    btn.addEventListener('click',function(){
+      mode=this.getAttribute('data-mode');
+      Array.prototype.forEach.call(document.querySelectorAll('.be-tab'),function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      Array.prototype.forEach.call(document.querySelectorAll('.be-pane'),function(p){
+        p.classList.toggle('is-on',p.getAttribute('data-pane')===mode);
+      });
+      run();
+    });
+  });
+  $('be-currency').addEventListener('change',function(){
+    cur=this.value;
+    Array.prototype.forEach.call(document.querySelectorAll('.be-sym'),function(s){ s.textContent=sym(); });
+    var badge=document.querySelector('.be-bar-badge');
+    if(badge) badge.textContent=sym();
+    run();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.be-card-pad input, .be-card-pad select'),function(el){
+    el.addEventListener('input',run); el.addEventListener('change',run);
+  });
+  $('be-calcBtn').addEventListener('click',run);
+  $('be-clearBtn').addEventListener('click',function(){
+    Array.prototype.forEach.call(document.querySelectorAll('.be-pane.is-on input'),function(i){ i.value=''; });
+    run();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise=null;
+  function loadScriptOnce(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script');
+      s.src=src; s.onload=resolve; s.onerror=function(){ reject(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise=Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf&&window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  $('be-pdfBtn').addEventListener('click',function(){
+    if(!last){ alert('Nothing to export yet \u2014 enter some values first.'); return; }
+    var btn=this, old=btn.textContent;
+    btn.disabled=true; btn.textContent='Loading\u2026';
+    ensurePdfLibs().then(function(){
+      btn.disabled=false; btn.textContent=old;
+      var doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
+      doc.setFontSize(16); doc.text('Break-Even Calculator',40,50);
+      doc.setFontSize(10); doc.setTextColor(120);
+      var barEl=document.querySelector('.be-bar-text');
+      doc.text(barEl?barEl.textContent.trim():'Break-even analysis',40,68);
+      doc.setTextColor(20); doc.setFontSize(13);
+      doc.text($('be-resultLabel').textContent+': '+$('be-bignum').textContent,40,96);
+      var body=Array.prototype.map.call(document.querySelectorAll('#be-resultRows .be-result-row'),function(r){
+        var s=r.querySelectorAll('span'); return [s[0].textContent,s[1].textContent];
+      });
+      doc.autoTable({startY:112,head:[['Detail','Value']],body:body,styles:{fontSize:9},headStyles:{fillColor:[34,65,122]}});
+      doc.setFontSize(8); doc.setTextColor(140);
+      doc.text('Estimates only, not financial advice. calculatorboss.com',40,doc.internal.pageSize.getHeight()-30);
+      doc.save('break-even-calculator.pdf');
+    }).catch(function(){
+      btn.disabled=false; btn.textContent=old;
+      alert('Could not load the PDF library. Please check your connection and try again.');
+    });
+  });
+
+  run();
+})();
+</script>
+</main><footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/">
+          <span class="logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+              <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+              <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+            </svg>
+          </span>
+          CalculatorBoss
+        </a>
+        <p>A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p>
+        
+      </div>
+      <div class="foot-col">
+        <h4>Popular</h4>
+        <a href="/all-calculators/#cry">Crypto &amp; Trading 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
+      </div>
+      <div class="foot-col">
+        <h4>Categories</h4>
+        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/all-calculators/#cry">Crypto &amp; Trading</a><a href="/all-calculators/">Stocks &amp; Investing</a><a href="/all-calculators/">Forex &amp; Metals</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="/about/">About</a><a href="/sitemap/">Sitemap</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 CalculatorBoss. All calculations are estimates — not financial, legal, or medical advice.</p>
+      <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
+    </div>
+  </div>
+</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+.cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
+.cf-search-overlay.open{display:flex}
+.cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.cf-search-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #eee}
+.cf-search-box svg{color:#9a9a9a;flex-shrink:0}
+.cf-search-box input{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#181A1F}
+.cf-search-esc{font-size:11px;color:#686D76;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
+.cf-search-results{max-height:56vh;overflow-y:auto;padding:8px}
+.cf-search-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;text-decoration:none;color:#181A1F;font-size:14.5px;font-weight:500}
+.cf-search-item:hover,.cf-search-item.active{background:#F3F1EA}
+.cf-search-item span.arrow{color:#9a9a9a;font-size:13px}
+.cf-search-empty{padding:30px 14px;text-align:center;color:#686D76;font-size:14px}
+</style>
+<div class="cf-search-overlay" id="cfSearchOverlay">
+  <div class="cf-search-modal">
+    <div class="cf-search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="cfSearchInput" placeholder="Search 194 calculators…" autocomplete="off" aria-label="Search calculators">
+      <span class="cf-search-esc">ESC</span>
+    </div>
+    <div class="cf-search-results" id="cfSearchResults"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('cfSearchOverlay');
+  var input = document.getElementById('cfSearchInput');
+  var results = document.getElementById('cfSearchResults');
+  var data = null;
+  var activeIndex = -1;
+
+  function openModal(){
+    overlay.classList.add('open');
+    input.value='';
+    input.focus();
+    renderResults('');
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+  }
+
+  function loadData(cb){
+    if(data){ cb(); return; }
+    fetch('/calculators-index.json').then(function(r){return r.json();}).then(function(j){
+      data = j; cb();
+    }).catch(function(){ data = []; cb(); });
+  }
+
+  function renderResults(q){
+    q = q.trim().toLowerCase();
+    if(!data){ results.innerHTML = ''; return; }
+    var matches = !q ? data.slice(0,8) : data.filter(function(d){return d.n.toLowerCase().indexOf(q)!==-1;}).slice(0,8);
+    activeIndex = matches.length ? 0 : -1;
+    if(!matches.length){
+      results.innerHTML = '<div class="cf-search-empty">No calculators match "'+q+'"</div>';
+      return;
+    }
+    results.innerHTML = matches.map(function(m,i){
+      return '<a class="cf-search-item'+(i===0?' active':'')+'" href="'+m.h+'" data-i="'+i+'">'+m.n+'<span class="arrow">→</span></a>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.icon-btn[aria-label="Search"]');
+    if(btn){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(e.target === overlay){ closeModal(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ closeModal(); }
+    if((e.key === '/' || (e.metaKey && e.key.toLowerCase()==='k') || (e.ctrlKey && e.key.toLowerCase()==='k')) && !overlay.classList.contains('open') && document.activeElement.tagName!=='INPUT'){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(overlay.classList.contains('open')){
+      var items = results.querySelectorAll('.cf-search-item');
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        activeIndex = Math.min(items.length-1, activeIndex+1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        activeIndex = Math.max(0, activeIndex-1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'Enter'){
+        var active = results.querySelector('.cf-search-item.active');
+        if(active){ window.location.href = active.getAttribute('href'); }
+      }
+    }
+  });
+
+  input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<script>
+/* cb-reveal-result — tapping Calculate on a phone should show the answer.
+   The result card sits below the form there, so the update happens off screen
+   and it looks as though nothing happened. Whether to scroll is decided from
+   live geometry, not a breakpoint: if the result is level with the form it is
+   already visible and nothing moves, which leaves desktop untouched. */
+(function(){
+  var BTNS = ["tax-calcBtn"], FORM = ".tax-area-form", RESULT = ".tax-area-result";
+  function reveal(){
+    var f = document.querySelector(FORM), r = document.querySelector(RESULT);
+    if(!f || !r) return;
+    var fr = f.getBoundingClientRect(), rr = r.getBoundingClientRect();
+    if(rr.top <= fr.top + 20) return;           /* side by side, already in view */
+    var hd = document.querySelector('header');
+    var off = (hd ? hd.getBoundingClientRect().height : 0) + 12;
+    var top = Math.max(0, rr.top + window.pageYOffset - off);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    catch(e){ window.scrollTo(0, top); }        /* older browsers ignore the options object */
+  }
+  function onClick(){ if(window.requestAnimationFrame) requestAnimationFrame(reveal); else reveal(); }
+  for(var i = 0; i < BTNS.length; i++){
+    var b = document.getElementById(BTNS[i]);
+    if(b) b.addEventListener('click', onClick);
+  }
+})();
+</script>
+<script>
+/* Calculator boxes ship with worked example values already in them. Without this, tapping
+   a field on a phone puts the caret beside the existing digits, so a visitor aiming for
+   250000 ends up with 420000250000. Selecting on focus makes the first keystroke replace
+   the example. Delegated from the document so it needs no per-page knowledge. */
+(function(){
+  if(window.__cbSelectOnFocus) return;
+  window.__cbSelectOnFocus = 1;
+  function armed(el){
+    return el && el.tagName === 'INPUT' && el.type === 'number' && !el.readOnly && !el.disabled;
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target;
+    if(!armed(el)) return;
+    try { el.select(); } catch(err) { return; }
+    /* A mouse click focuses first, then places the caret on mouseup, which would throw
+       the selection away. Swallow that one mouseup only. */
+    var once = function(ev){ ev.preventDefault(); el.removeEventListener('mouseup', once); };
+    el.addEventListener('mouseup', once);
+    setTimeout(function(){ el.removeEventListener('mouseup', once); }, 400);
+  });
+})();
+</script>
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
+</body></html>
