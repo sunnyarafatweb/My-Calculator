@@ -10115,3 +10115,59 @@ individually with `getClientRects()` and computed display.
 
 pe-ratio, gold-value. **gold-value still needs an owner decision before building** — tola is a
 South Asian unit, so troy ounces and grams in USD with tola as an option. Raise it first.
+
+## Rebuild 7 of 8 — pe-ratio-calculator (Aug 10, 2026)
+
+Three modes: trailing and forward P/E with earnings yield and an industry comparison, PEG (plus
+PEGY behind More Options), and a target multiple turned into an implied share price.
+
+### Verification
+
+calculator.net has no P/E or PEG calculator — probed live (404 for pe-ratio, price-earnings and
+peg-ratio) with `interest-calculator` returning 200 as a positive control. `ref_pe.py` pinned to
+**eight published worked examples from six sources** (Schwab, Wall Street Prep, TradingView,
+therichguymath, heygotrade, fairpriceindex) plus six invariants across 500 random inputs.
+
+Sweep: **1,215 cases, 3,715 assertions, 0 mismatches**, control passing. Browser: **64/64**.
+FAQ 6/6 exact with three working controls.
+
+### Conventions
+
+- **PEG divides by growth as a WHOLE NUMBER percent.** P/E 20 with 25% growth is 0.8, not 80.
+  Pinned with an assertion that the decimal form differs by ~79, because this is the single most
+  common way the calculation is implemented wrong.
+- **A loss-making company has NO P/E**, reported as a named state with an explanation, never as a
+  negative number that reads like a valuation. Earnings yield is shown instead, since it stays
+  defined and negative — it degrades gracefully exactly where P/E breaks.
+- **PEG is undefined at zero growth and meaningless at negative growth**, both named separately.
+  Sub-1% growth is arithmetically valid and practically absurd, so it is flagged rather than
+  quietly printed.
+- **PEGY** (P/E ÷ [growth + dividend yield]) added behind More Options, pinned to fairpriceindex's
+  utility example: PEG 4.00 against PEGY 1.88. Almost no competitor offers it.
+
+### Two presentation bugs found by looking, not asserting
+
+1. **"$0.42 ÷ $0.00 of earnings"** on a penny stock. EPS of $0.003 rendered at two decimals as
+   $0.00, so the subtitle claimed the price had been divided by zero while the headline showed
+   140.0x. Same class as the stock-average precision bug; EPS display now scales with magnitude
+   and trims to a 2dp floor.
+2. **"Gap between them = -5.6 points"** used a bare hyphen where the whole page uses U+2212, and
+   the sign alone did not say which direction the forward multiple moved. Now reads
+   "−3.5 points lower forward" or "+5.6 points higher forward".
+
+Both have regressions. Neither was reachable by numeric assertion — the underlying figures were
+correct in every case.
+
+### Registry
+
+Finance 84 to 85. Sidebar slugs checked against the filesystem before building (the routine added
+after the last page caught two dead links); `eps-calculator` does not exist and was dropped from
+the plan. Redirects verified by **parsing columns**, not substring matching — the check that
+lied on the previous page. Inbound links from `dividend-yield`, `stock-average-price` and `cagr`,
+each audited individually.
+
+### Remaining one
+
+gold-value. **Needs an owner decision before building** — tola is a South Asian unit, so the plan
+is troy ounces and grams in USD with tola as an option, but section 8 requires raising a non-US
+default with the owner rather than deciding it inside a build.
