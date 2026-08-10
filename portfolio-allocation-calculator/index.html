@@ -1,0 +1,1496 @@
+<!DOCTYPE html><html lang="en" class="h-full"><head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6S04GMEMEJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6S04GMEMEJ');
+</script>
+<meta charSet="utf-8"/><link rel="preconnect" href="/" crossorigin=""/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Portfolio Allocation Calculator — See Your Drift and What to Trade</title><meta name="description" content="Free portfolio allocation calculator: see how far each holding has drifted from target, get the exact buy and sell amounts, or rebalance with new contributions instead of selling. No signup."/><meta name="author" content="CalculatorBoss"/><meta name="keywords" content="portfolio allocation calculator,portfolio rebalancing calculator,asset allocation calculator,rebalance my portfolio,portfolio drift calculator,60/40 portfolio calculator,stock bond allocation by age"/><meta name="creator" content="CalculatorBoss"/><meta name="publisher" content="CalculatorBoss"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"/><link rel="canonical" href="https://calculatorboss.com/portfolio-allocation-calculator/"/><meta property="og:title" content="Portfolio Allocation Calculator — See Your Drift and What to Trade"/><meta property="og:description" content="Free portfolio allocation calculator: see how far each holding has drifted from target, get the exact buy and sell amounts, or rebalance with new contributions instead of selling. No signup."/><meta property="og:url" content="https://calculatorboss.com/portfolio-allocation-calculator/"/><meta property="og:type" content="website"/><meta property="og:image" content="https://calculatorboss.com/og/portfolio-allocation-calculator.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://calculatorboss.com/og/portfolio-allocation-calculator.png"/><meta name="twitter:title" content="Portfolio Allocation Calculator — See Your Drift and What to Trade"/><meta name="twitter:description" content="Free portfolio allocation calculator: see how far each holding has drifted from target, get the exact buy and sell amounts, or rebalance with new contributions instead of selling. No signup."/><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"><link rel="stylesheet" href="/_next/static/chunks/27gnqssi3_kmiv2.css" data-precedence="next"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PROTECTED SHARED STYLE BLOCK -- READ BEFORE EDITING
+     ============================================================
+     This block is duplicated across 200+ pages. Before changing
+     ANYTHING here site-wide:
+     1. NEVER add a universal *{...} reset rule here -- it breaks
+        Tailwind's .mx-auto centering on calculator pages (caused
+        a real left-alignment bug across the whole site).
+     2. NEVER remove --surface, --surface-sunken, --border,
+        --border-fine, --ink-faint, --shadow-sm from :root -- 185+
+        template pages use these via Tailwind classes (bg-surface,
+        border-border) for result-card styling. Removing them makes
+        cards invisible/unstyled with no error thrown.
+     3. After ANY edit to this block, propagate the SAME edit to
+        ALL pages (not just homepage), then spot-check a
+        non-custom-built page (e.g. body-fat-calculator) AND a
+        custom-built page (e.g. bmi-calculator, tip-calculator) for:
+        centered layout, visible card backgrounds, white header/
+        footer, nav-links display:flex, zero console errors.
+     4. Do a full 200-page automated check (not just a sample)
+        before pushing -- past incidents were missed by small
+        samples and only caught after the user reported them live.
+     ============================================================ */
+  :root{
+    --bg:#F3F1EA;
+    --surface:#FFFFFF;
+    --surface-sunken:#F3F1EA;
+    --border:rgba(22,27,38,.12);
+    --border-fine:rgba(22,27,38,.08);
+    --ink-faint:#A6AAB1;
+    --shadow-sm:0 1px 2px rgba(46,40,26,.05);
+
+    --bg-2:#ECEAE1;
+    --card:#FFFFFF;
+    --ink:#181A1F;
+    --ink-soft:#474C55;
+    --muted:#787D86;
+    --muted-2:#A6AAB1;
+    --line:#E4E2D8;
+    --line-soft:#EEEDE6;
+
+    --gold:#1BA94C;
+    --gold-deep:#128A3D;
+    --gold-hi:#33C266;
+    --gold-tint:#E4F5EA;
+
+    --fin:#22417A;   --fin-tint:#E8EDF6;
+    --hea:#0C9268;   --hea-tint:#DEF3EC;
+    --mat:#4B4ED8;   --mat-tint:#E7E7FB;
+    --oth:#CF3F53;   --oth-tint:#FBE4E7;
+
+    --r-sm:12px; --r:16px; --r-lg:24px; --r-xl:32px;
+    --maxw:1180px;
+
+    --sh-sm:0 1px 2px rgba(46,40,26,.05);
+    --sh:0 2px 5px rgba(46,40,26,.05),0 16px 34px -16px rgba(46,40,26,.18);
+    --sh-lg:0 4px 10px rgba(46,40,26,.06),0 36px 66px -26px rgba(46,40,26,.26);
+    --hi:inset 0 1px 0 rgba(255,255,255,.7);
+
+    --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  
+  html{scroll-behavior:smooth}
+  body{margin:0;padding:0;font-family:var(--f-body);background-color:var(--bg);background-image:linear-gradient(180deg,rgba(27,169,76,.05),transparent 620px);background-repeat:no-repeat;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.005em}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:#04240f}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--f-mono)}
+  .eyebrow{font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ===== BLOCK LAYOUT ===== */
+  .sec{padding:11px 0}
+  .sec-hero{padding:24px 0 11px}
+  .panel{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(253,252,248,.5));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.55);border-radius:30px;box-shadow:var(--sh)}
+  .sec-panel{padding:48px 50px}
+
+  /* ===== HEADER ===== */
+  header{position:sticky;top:0;z-index:60;background:#FFFFFF;-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid rgba(22,27,38,.08)}
+  .nav{display:flex;align-items:center;gap:34px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:19.5px;letter-spacing:-.03em;color:#181A1F}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(155deg,#fff,#f1efe6);border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--sh-sm),var(--hi)}
+  .nav-links{display:flex;gap:2px;margin-left:4px}
+  .nav-links a{position:relative;font-size:14.5px;font-weight:500;color:#474C55;padding:8px 15px;border-radius:10px;transition:.2s}
+  .nav-links a:hover{color:#181A1F;background:rgba(22,27,38,.05)}
+  .soon{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold-deep);background:var(--gold-tint);border:1px solid #ecd9a6;padding:1px 5px;border-radius:100px;margin-left:6px;vertical-align:middle}
+  .nav-spacer{flex:1;max-width:180px}
+  .nav-cta{display:flex;align-items:center;gap:11px;margin-left:auto}
+  .icon-btn{width:41px;height:41px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#474C55;cursor:pointer;transition:.2s}
+  .icon-btn:hover{color:#181A1F;background:rgba(22,27,38,.08);transform:translateY(-1px)}.icon-btn.cf-search-trigger{display:flex;align-items:stretch;justify-content:flex-start;width:296px;max-width:100%;padding:0;overflow:hidden}.icon-btn.cf-search-trigger:hover{background:rgba(22,27,38,.07)}.icon-btn.cf-search-trigger svg{flex-shrink:0;align-self:center;margin-left:14px;color:#787D86}.cf-search-trigger-text{flex:1;display:flex;align-items:center;text-align:left;padding:0 10px;font-size:13.5px;font-weight:500;color:#787D86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cf-search-trigger-go{flex-shrink:0;display:flex;align-items:center;padding:0 18px;background:#1F3A5D;color:#fff;font-size:12px;font-weight:700;letter-spacing:.03em}
+  .btn{font-family:var(--f-body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:11px;padding:11px 19px;transition:.22s;display:inline-flex;align-items:center;gap:8px;letter-spacing:-.01em}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));color:#04240f;box-shadow:0 10px 22px -10px rgba(18,138,61,.7),var(--hi)}
+  .btn-gold:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(18,138,61,.8),var(--hi)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
+  .menu-btn{display:none}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;padding:44px 0 40px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .glow-a{position:absolute;top:-200px;right:-140px;width:620px;height:620px;background:radial-gradient(circle,rgba(27,169,76,.10),transparent 62%)}
+  .glow-b{display:none}
+  .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:56px;align-items:center}
+  .h-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold-deep);background:linear-gradient(180deg,#fff,#fbf4e2);border:1px solid #eeddb0;padding:7px 14px;border-radius:100px;box-shadow:var(--sh-sm)}
+  .h-eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--hea);box-shadow:0 0 0 3px rgba(12,146,104,.16)}
+  h1.hero-title{font-weight:700;font-size:clamp(42px,5.8vw,68px);line-height:1.0;letter-spacing:-.045em;margin:0}
+  .hero-sub{font-size:18px;color:var(--ink-soft);max-width:466px;margin:22px 0 0;line-height:1.6}
+  .searchbar{margin-top:30px;display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 18px;max-width:520px;box-shadow:var(--sh-lg);transition:.22s}
+  .searchbar:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(27,169,76,.15),var(--sh-lg)}
+  .searchbar svg{flex-shrink:0;color:var(--muted-2)}
+  .searchbar input{flex:1;background:none;border:none;color:var(--ink);font-family:var(--f-body);font-size:15.5px;outline:none;letter-spacing:-.01em}
+  .searchbar input::placeholder{color:var(--muted-2)}
+  .search-go{background:#1E3A63;color:#fff;border:none;border-radius:11px;padding:12px 20px;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--f-body);transition:.2s}
+  .search-go:hover{background:#16294A}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
+  .chips .cl{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2);margin-right:4px}
+  .chip{font-size:13px;font-weight:500;color:var(--ink-soft);background:linear-gradient(180deg,#fff,#fbfaf6);border:1px solid var(--line);border-radius:100px;padding:7px 14px;transition:.2s;cursor:pointer;box-shadow:var(--sh-sm)}
+  .chip:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-1px);box-shadow:var(--sh)}
+
+  /* hero preview */
+  .preview-wrap{position:relative}
+  .preview-wrap::before{content:"";position:absolute;inset:18px -14px -20px 22px;background:linear-gradient(150deg,rgba(27,169,76,.14),rgba(30,58,99,.07));border-radius:var(--r-xl);filter:blur(6px);z-index:0}
+  .preview{position:relative;z-index:1;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-lg);overflow:hidden}
+  .pv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px 8px}
+  .pv-kicker{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .pv-open{font-size:12.5px;font-weight:600;color:var(--hea);display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:.2s}
+  .pv-open:hover{gap:8px}
+  .pv-chart{padding:2px 14px 2px}
+  .pv-legend{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;padding:8px 16px 22px}
+  .pv-legend .lg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft)}
+  .pv-legend .lg i{width:11px;height:11px;border-radius:3px;display:block}
+  .pv-legend .lg .dt{width:9px;height:9px;border-radius:50%;display:block}
+  .mbar{transform:scaleY(0);transform-box:fill-box;transform-origin:center bottom;transition:transform .7s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--i)*16ms)}
+  .mbar.in{transform:scaleY(1)}
+  .mline{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.5s ease .35s}
+  .mline.in{stroke-dashoffset:0}
+  .mdot{opacity:0;transition:opacity .3s}
+  .mdot.in{opacity:1}
+
+  /* ===== SECTION HEAD ===== */
+  section.block{padding:82px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px}
+  .sec-head .eyebrow{color:var(--gold-deep);display:inline-flex;align-items:center;gap:9px}
+  .sec-head .eyebrow::before{content:"";width:22px;height:1.5px;background:var(--gold-deep)}
+  .sec-title{font-weight:700;font-size:clamp(28px,3.5vw,40px);letter-spacing:-.035em;margin-top:12px;line-height:1.05}
+  .sec-desc{font-size:15.5px;color:var(--muted);margin-top:8px;max-width:480px;line-height:1.6}
+  .sec-link{font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:.2s;padding:11px 17px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#fff,#fbfaf6);box-shadow:var(--sh-sm)}
+  .sec-link:hover{transform:translateY(-1px);box-shadow:var(--sh);gap:10px}
+
+  /* ===== MOST USED ===== */
+  .mu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .mu-card{position:relative;background:linear-gradient(180deg,#fff,#fdfcf8);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;transition:.28s cubic-bezier(.2,.7,.3,1);cursor:pointer;overflow:hidden;box-shadow:var(--sh-sm),var(--hi)}
+  .mu-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:color-mix(in srgb,var(--ac) 40%,var(--line))}
+  .mu-card::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 80% at 50% -20%,var(--tint),transparent 60%);opacity:0;transition:.28s}
+  .mu-card:hover::after{opacity:.7}
+  .mu-ic{position:relative;z-index:1;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--tint,var(--gold-tint));color:var(--ac,var(--gold-deep));margin-bottom:15px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
+  .mu-ic svg{width:23px;height:23px}
+  .mu-cat{position:relative;z-index:1;font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ac,var(--gold-deep))}
+  .mu-name{position:relative;z-index:1;font-weight:600;font-size:16px;letter-spacing:-.025em;margin-top:6px;line-height:1.2}
+  .mu-go{position:relative;z-index:1;margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:.22s}
+  .mu-card:hover .mu-go{color:var(--ac,var(--gold-deep));gap:9px}
+
+  /* ===== CATEGORIES ===== */
+  .cats{padding-top:0}
+  .cats-head{padding-top:11px}
+  .cat-list{display:flex;flex-direction:column;gap:20px;margin-top:8px}
+  .cat{padding:42px 46px}
+  .cat-top{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+  .cat-ic{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(155deg,color-mix(in srgb,var(--tint) 88%,#fff),var(--tint));color:var(--ac);flex-shrink:0;box-shadow:var(--sh-sm),inset 0 0 0 1px rgba(0,0,0,.03)}
+  .cat-ic svg{width:29px;height:29px}
+  .cat-meta{flex:1;min-width:0}
+  .cat-name{font-weight:700;font-size:25px;letter-spacing:-.035em;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .cat-count{font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--ac);background:var(--tint);padding:4px 11px;border-radius:100px}
+  .cat-desc{font-size:14.5px;color:var(--muted);margin-top:4px}
+  .cat-view{font-size:13.5px;font-weight:600;color:var(--ac);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:11px 18px;border-radius:12px;border:1px solid color-mix(in srgb,var(--ac) 24%,transparent);background:var(--tint);transition:.22s}
+  .cat-view:hover{gap:11px;transform:translateY(-1px);box-shadow:0 12px 24px -12px color-mix(in srgb,var(--ac) 55%,transparent)}
+  .cat-more{display:flex;justify-content:center;margin-top:26px}
+  .cat-more .cat-view{padding:12px 24px}
+  .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .ci{position:relative;display:block;padding:15px 16px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fdfcf8);transition:.24s cubic-bezier(.2,.7,.3,1);box-shadow:var(--sh-sm)}
+  .ci:hover{border-color:color-mix(in srgb,var(--ac) 45%,var(--line));transform:translateY(-3px);box-shadow:var(--sh)}
+  .ci .n{font-weight:600;font-size:14px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .ci-ic{flex-shrink:0;color:var(--ac);display:inline-grid;place-items:center}
+  .ci-ic svg{width:16px;height:16px}
+  .ci .n .arw{color:var(--ac);opacity:0;transform:translateX(-5px);transition:.22s;margin-left:auto}
+  .ci:hover .n .arw{opacity:1;transform:none}
+  .ci .s{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  /* ===== CTA ===== */
+  .cta-band{padding:11px 0 44px;background:var(--bg)}
+  .cta{position:relative;overflow:hidden;border-radius:var(--r-xl);background:radial-gradient(130% 150% at 86% 12%,#1C1F27,#0D0F14);color:#fff;padding:48px 50px;display:flex;flex-direction:column;box-shadow:var(--sh-lg);border:1px solid rgba(240,185,11,.14)}
+  .cta::before{content:"";position:absolute;right:-90px;bottom:-130px;width:400px;height:400px;background:radial-gradient(circle,rgba(240,185,11,.24),transparent 62%)}
+  .cta-main{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .cta-txt{position:relative;z-index:1}
+  .cta .eyebrow{color:#F3BA2F;display:inline-flex;align-items:center;gap:8px}
+  .cta .eyebrow .ld{width:7px;height:7px;border-radius:50%;background:#F3BA2F;box-shadow:0 0 0 0 rgba(243,186,47,.6);animation:ldp 2s infinite}
+  @keyframes ldp{0%{box-shadow:0 0 0 0 rgba(243,186,47,.5)}70%{box-shadow:0 0 0 7px rgba(243,186,47,0)}100%{box-shadow:0 0 0 0 rgba(243,186,47,0)}}
+  .cta h3{font-weight:700;font-size:clamp(26px,3.2vw,36px);letter-spacing:-.035em;line-height:1.1;margin-top:12px}
+  .cta p{font-size:15.5px;margin-top:12px;max-width:480px;color:#c3c6cd;line-height:1.6}
+  .cta-actions{position:relative;z-index:1;display:flex;gap:12px}
+  .btn-crypto{background:#1E3A5F;color:#fff;box-shadow:0 10px 22px -10px rgba(30,58,95,.5)}
+  .btn-crypto:hover{transform:translateY(-1.5px);box-shadow:0 16px 30px -10px rgba(30,58,95,.6)}
+  .mkt-hints{position:relative;z-index:1;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.09);display:flex;flex-wrap:wrap;gap:9px}
+  .mh{font-family:var(--f-mono);font-size:12.5px;color:#C7CAD1;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+  .mh b{color:#F3BA2F;font-weight:700}
+  .mh .up{color:#2EBD85;font-weight:600}
+  .mh .down{color:#F6465D;font-weight:600}
+  .btn-outline{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.22);color:#fff}
+  .btn-outline:hover{background:rgba(255,255,255,.12)}
+
+  /* ===== FOOTER ===== */
+  footer{background:#FFFFFF;border-top:1px solid rgba(22,27,38,.08);padding:62px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px}
+  .foot-brand .brand{margin-bottom:16px}
+  .foot-brand p{font-size:14px;color:#686D76;max-width:290px;line-height:1.65}
+  .foot-social{display:flex;gap:9px;margin-top:18px}
+  .foot-social a{width:38px;height:38px;border-radius:11px;border:1px solid rgba(22,27,38,.12);background:rgba(22,27,38,.04);display:grid;place-items:center;color:#787D86;transition:.2s}
+  .foot-social a:hover{color:var(--gold-hi);border-color:var(--gold);transform:translateY(-2px)}
+  .foot-col h4{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#686D76;margin-bottom:16px;font-weight:600}
+  .foot-col a{display:block;font-size:14px;color:#474C55;padding:6px 0;transition:.2s}
+  .foot-col a:hover{color:#181A1F;transform:translateX(2px)}
+  .foot-bottom{margin-top:46px;padding-top:24px;border-top:1px solid rgba(22,27,38,.08);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .foot-bottom p{font-size:12.5px;color:#686D76}
+  .foot-bottom .fb-links{display:flex;gap:18px}
+  .foot-bottom a{font-size:12.5px;color:#686D76;transition:.2s}
+  .foot-bottom a:hover{color:#181A1F}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:.75s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1080px){.mu-grid{grid-template-columns:repeat(3,1fr)}.cat-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:46px}
+    .preview-wrap{max-width:520px}
+    .nav-links{display:none}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 18px}
+    .sec-panel{padding:30px 20px}
+    .cat{padding:28px 22px}
+    .panel{border-radius:24px}
+    .menu-btn{display:grid}.icon-btn.cf-search-trigger{width:44px}.cf-search-trigger-text,.cf-search-trigger-go{display:none}
+    .nav-cta .btn-ghost{display:none}
+    .rc-full{display:none}
+    .btn-crypto{font-size:11.5px!important;padding:8px 10px!important}
+    .nav-spacer{display:none}
+    .nav{gap:10px}
+    .mu-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-top{flex-wrap:wrap}
+    .cat-view{width:100%;justify-content:center}
+    .sec-head{flex-direction:column;align-items:flex-start}
+    .cta{padding:40px 26px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .cat-grid{grid-template-columns:1fr}
+    .ci{min-width:0}
+    .mu-name{font-size:14px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://calculatorboss.com/"}, {"@type": "ListItem", "position": 2, "name": "Finance", "item": "https://calculatorboss.com/all-calculators/"}, {"@type": "ListItem", "position": 3, "name": "Portfolio Allocation Calculator", "item": "https://calculatorboss.com/portfolio-allocation-calculator/"}]}</script></head><body class="min-h-full flex flex-col antialiased" style="background:var(--bg)"><div hidden=""><!--$--><!--/$--></div><header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+          <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+          <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+        </svg>
+      </span>
+      CalculatorBoss
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/all-calculators/">Calculators</a>
+      <a href="/all-calculators/">Categories</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-spacer"></div>
+    <div class="nav-cta">
+      <button class="icon-btn cf-search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="cf-search-trigger-text">Search calculators…</span><span class="cf-search-trigger-go">GO</span></button>
+      <button class="menu-btn icon-btn" id="cfMobileMenuBtn" aria-label="Menu" aria-expanded="false" aria-controls="cfMobileMenuPanel"><svg id="cfMobileMenuIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="cf-mnav-overlay" id="cfMobileMenuOverlay"></div>
+  <nav class="cf-mnav-panel" id="cfMobileMenuPanel" aria-label="Mobile menu">
+    <a href="/">Home</a>
+    <a href="/all-calculators/">Calculators</a>
+    <a href="/all-calculators/">Categories</a>
+    <a href="/about/">About</a>
+  </nav>
+  <style>
+  .cf-mnav-overlay{position:fixed;top:70px;left:0;right:0;height:calc(100vh - 70px);height:calc(100dvh - 70px);background:rgba(15,14,12,.4);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);z-index:150;opacity:0;visibility:hidden;transition:opacity .18s ease}
+  .cf-mnav-overlay.open{opacity:1;visibility:visible}
+  .cf-mnav-panel{position:fixed;top:82px;right:18px;max-width:240px;width:calc(100% - 36px);background:var(--card,#fff);border-radius:var(--r-lg,24px);box-shadow:var(--sh-lg,0 30px 60px -20px rgba(0,0,0,.3));border:1px solid var(--line,rgba(0,0,0,.1));padding:8px;display:flex;flex-direction:column;gap:2px;z-index:151;opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  .cf-mnav-panel.open{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  .cf-mnav-panel a{display:block;padding:12px 14px;border-radius:var(--r-sm,12px);color:var(--ink,#181A1F);font-family:var(--f-body,inherit);font-weight:600;font-size:15px;text-decoration:none}
+  .cf-mnav-panel a:hover,.cf-mnav-panel a:active{background:var(--gold-tint,#E4F5EA);color:var(--gold-deep,#128A3D)}
+  @media(min-width:901px){.cf-mnav-overlay,.cf-mnav-panel{display:none!important}}
+  </style>
+  <script>
+  (function(){
+    var btn = document.getElementById('cfMobileMenuBtn');
+    var icon = document.getElementById('cfMobileMenuIcon');
+    var panel = document.getElementById('cfMobileMenuPanel');
+    var overlay = document.getElementById('cfMobileMenuOverlay');
+    if(!btn || !panel || !overlay || !icon) return;
+    var BARS = 'M4 7h16M4 12h16M4 17h16';
+    var CROSS = 'M6 6l12 12M18 6L6 18';
+    var iconPath = icon.querySelector('path');
+    function isOpen(){ return panel.classList.contains('open'); }
+    function openMenu(){
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      if(iconPath) iconPath.setAttribute('d', CROSS);
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      if(iconPath) iconPath.setAttribute('d', BARS);
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen() ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    Array.prototype.forEach.call(panel.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen()) closeMenu(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900 && isOpen()) closeMenu(); });
+  })();
+  </script>
+</header><main class="flex-1" role="main"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How often should I rebalance my portfolio?", "acceptedAnswer": {"@type": "Answer", "text": "Most guidance lands on checking once or twice a year and only trading when something has actually drifted meaningfully. Checking more often rarely helps, because the point of rebalancing is to control risk rather than to time anything, and every extra trade costs spread, commission or tax. The two workable approaches are a fixed schedule, such as every January, or a drift band that you act on whenever it is breached. Picking one and sticking to it matters more than which one you pick."}}, {"@type": "Question", "name": "What is the 5% rule for rebalancing?", "acceptedAnswer": {"@type": "Answer", "text": "It means acting when an asset class sits more than five percentage points away from its target: a 60% stock target would be left alone at 63% and rebalanced at 66%. The band exists so that small, self-correcting moves do not generate trades while genuine changes in risk still get caught. Note that some firms apply a relative band instead, such as plus or minus 25% of the target weight, which for a 10% holding means acting outside 7.5% to 12.5%. The two rules give very different answers on small holdings, so it is worth knowing which one you are using."}}, {"@type": "Question", "name": "Should I rebalance by selling or by adding new money?", "acceptedAnswer": {"@type": "Answer", "text": "Directing new contributions to whatever is underweight is usually the cheaper route, because it corrects the drift without realising any gains. In a taxable account that difference can be substantial. The limitation is size: once a position has drifted a long way, a single contribution will not close the gap, and you either accept partial correction over several months or sell. Inside a tax-advantaged account like a 401(k) or an IRA, selling costs nothing in tax, so the distinction matters much less."}}, {"@type": "Question", "name": "Does my target allocation have to add up to 100%?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, and the calculator warns you when it does not. Target percentages are shares of one portfolio, so anything other than 100% means the target dollar figures do not describe a portfolio you could actually hold. Totals slightly under 100% are usually a rounding artefact from splitting an odd number of holdings; totals well over it usually mean an asset was entered twice or a percentage was typed as a dollar figure."}}, {"@type": "Question", "name": "What allocation should someone my age have?", "acceptedAnswer": {"@type": "Answer", "text": "Age-based rules of thumb subtract your age from a fixed number to get a stock percentage, with 100, 110 and 120 all in common use. At 40 those give 60%, 70% and 80% stocks respectively, which is a wide spread from the same input and shows how rough the rule is. Age is a proxy for time horizon, and it is only one of the things that should drive the decision. Job security, whether you have other income, how much you already hold and how you actually behaved the last time markets fell all matter, and none of them is in the formula."}}, {"@type": "Question", "name": "Does rebalancing improve returns?", "acceptedAnswer": {"@type": "Answer", "text": "Not reliably, and that is not really its purpose. Because it trims whatever has risen most, rebalancing tends to reduce returns slightly in a long one-directional bull run and help in choppy or mean-reverting markets. What it does dependably is hold your risk near the level you chose, which is the argument for it. A portfolio that drifts from 60% to 80% stocks over a decade has quietly become a different portfolio, and usually discovers this at the worst possible moment."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Portfolio Allocation Calculator", "url": "https://calculatorboss.com/portfolio-allocation-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free portfolio allocation and rebalancing calculator covering drift, trades, contribution rebalancing and model allocations."}</script><style>
+.pa-wrap{width:100%}
+.pa-bar{grid-area:bar;width:100%;padding:14px 16px;text-align:left;color:#fff;font-weight:700;font-size:15px;background:#1E3A5F;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pa-bar-text{display:flex;align-items:center;gap:10px}
+.pa-bar-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff;color:#1E3A5F;font-size:11px;flex-shrink:0}
+.pa-bar-pdf-btn{background:#fff;color:#1E3A5F;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pa-bar-pdf-btn:hover{background:#f2f2f2}
+
+.pa-grid{display:grid;grid-template-columns:380px minmax(370px,1fr) 300px;gap:20px;align-items:start;
+  grid-template-areas:"bar bar ." "tabs tabs ." "form result sidebar" "bottomgrid bottomgrid bottomgrid"}
+.pa-area-bar{grid-area:bar}
+.pa-area-form{grid-area:form}
+.pa-area-result{grid-area:result}
+.pa-area-sidebar{grid-area:sidebar}
+.pa-area-bottomgrid{grid-area:bottomgrid}
+@media(max-width:860px){
+  .pa-grid{grid-template-columns:1fr;grid-template-areas:"bar" "tabs" "form" "result" "bottomgrid" "sidebar"}
+}
+
+.pa-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(22,27,38,0.04)}
+.pa-card-pad{padding:24px}
+
+.pa-field{display:flex;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap}
+.pa-field-label{width:140px;flex-shrink:0;font-size:12.5px;color:var(--ink-soft)}
+.pa-field-control{flex:1;display:flex;align-items:center;gap:6px;min-width:120px}
+.pa-input-group{display:flex;align-items:center;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;overflow:hidden;flex:1;min-width:0}
+.pa-input-group span{padding:0 6px;color:var(--ink-faint);font-size:12px;flex-shrink:0}
+.pa-input-group input,.pa-input-group select{border:none;outline:none;background:#fff;padding:8px;font-size:13px;width:100%;min-width:0;color:var(--ink);font-family:var(--font-body)}
+.pa-select-plain{border:1px solid var(--border-fine);border-radius:8px;padding:8px;font-size:12.5px;background:#fff;color:var(--ink);flex:1;min-width:0}
+.pa-subnote{font-size:11.5px;color:var(--ink-faint);margin-top:-2px;line-height:1.5}
+
+.pa-assets-head{display:flex;gap:8px;padding:10px 0 2px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:700}
+.pa-assets-head .a{flex:1;min-width:0}
+.pa-assets-head .b{width:112px;flex-shrink:0}
+.pa-assets-head .c{width:92px;flex-shrink:0}
+.pa-asset-row{display:flex;align-items:center;gap:8px;padding:5px 0}
+.pa-asset-row .a{flex:1;min-width:0;font-size:12.5px;color:var(--ink-soft)}
+.pa-asset-row .b{width:112px;flex-shrink:0}
+.pa-asset-row .c{width:92px;flex-shrink:0}
+.pa-tot-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0 2px;margin-top:6px;border-top:1px solid var(--border-fine);font-size:12.5px;color:var(--ink-soft)}
+.pa-tot-row b{color:var(--ink)}
+.pa-tot-row.is-bad b{color:#B03A48}
+
+.pa-more-btn{display:block;width:100%;text-align:center;background:#131313;color:#fff;font-size:12px;font-weight:600;padding:7px;border-radius:8px;border:none;cursor:pointer;margin-top:8px}
+.pa-hidden{display:none !important}
+.pa-section-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+
+.pa-btn-row{display:flex;gap:10px;padding-top:10px;flex-wrap:wrap}
+.pa-btn-calc{flex:1.3;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:11px 26px;font-size:14px;font-weight:600;cursor:pointer;text-align:center}
+.pa-btn-clear{flex:1;background:#fff;color:var(--ink-soft);border:1px solid var(--border);border-radius:8px;padding:11px 20px;font-size:14px;font-weight:500;cursor:pointer;text-align:center}
+
+.pa-result-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;overflow:hidden}
+.pa-result-head{padding:18px 20px;background:#16A34A;color:#fff}
+.pa-result-head.is-warn{background:#1E3A5F}
+.pa-result-head .label{font-size:13.5px;font-weight:600;opacity:.95}
+.pa-result-head .bignum{font-size:30px;font-weight:700;line-height:1.2;margin-top:2px}
+.pa-result-head .sub{font-size:12.5px;opacity:.92;margin-top:4px}
+.pa-result-body{padding:16px 20px}
+.pa-result-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--border-fine);font-size:13.5px}
+.pa-result-row:first-child{border-top:none}
+.pa-result-row span:last-child{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
+.pa-chart-box{padding:0 20px 20px}
+
+.pa-sidecol{display:flex;flex-direction:column;gap:16px;width:100%}
+.pa-calc-card{background:#1E3A5F;border-radius:16px;overflow:hidden}
+.pa-calc-card .h{padding:14px 16px;font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.pa-calc-card a{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;font-size:12.5px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.pa-viewmore{display:block;text-align:center;padding:12px;font-size:12.5px;font-weight:700;color:#fff;background:#22C55E;text-decoration:none;border-bottom:none !important}
+
+.pa-bottom-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;width:100%;align-items:stretch}
+@media(max-width:860px){.pa-bottom-grid{grid-template-columns:1fr}}
+.pa-bd-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:20px;width:100%;overflow:hidden;display:flex;flex-direction:column}
+.pa-bd-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:14px;display:block}
+.pa-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.pa-notax-card{background:var(--surface);border:1px solid var(--border-fine);border-radius:16px;padding:18px;width:100%;overflow:hidden}
+.pa-notax-card .t{font-size:13px;font-weight:700;letter-spacing:.03em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:10px;display:block}
+
+@media(max-width:520px){
+  .pa-field-label{width:100%}
+  .pa-assets-head .b,.pa-asset-row .b{width:96px}
+  .pa-assets-head .c,.pa-asset-row .c{width:82px}
+}
+</style><style>
+.pa-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.pa-seo-article h2{font-size:22px;font-weight:700;margin:32px 0 14px;color:var(--ink);letter-spacing:-0.01em}
+.pa-seo-article h2:first-child{margin-top:0}
+.pa-seo-article h3{font-size:17px;font-weight:600;margin:20px 0 8px;color:var(--ink)}
+.pa-seo-article p{font-size:15px;line-height:1.75;color:var(--ink-soft);margin-bottom:14px}
+.pa-seo-article strong{color:var(--ink);font-weight:600}
+.pa-seo-article ul,.pa-seo-article ol{color:var(--ink-soft);font-size:15px;margin:10px 0;padding-left:22px;line-height:1.9}
+.pa-seo-article ul li strong,.pa-seo-article ol li strong{color:var(--ink)}
+.pa-seo-article .pa-byline,.pa-seo-article .pa-disclaimer{font-size:12.5px;line-height:1.7;color:var(--muted)}.pa-seo-article .pa-byline{margin:0 0 18px}.pa-seo-article .pa-disclaimer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border-fine)}.pa-toc{background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:var(--r-sm);padding:14px 18px;margin:0 0 24px}.pa-toc p{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--muted);margin:0 0 8px}.pa-toc ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}.pa-toc a{color:var(--fin);text-decoration:none}.pa-toc a:hover{text-decoration:underline}</style><div class="px-4 sm:px-6 py-5 sm:py-6 mx-auto" style="max-width:1160px">
+<style>.crumb{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb a{color:var(--muted);transition:.2s}.crumb a:hover{color:var(--ink)}.crumb .sep{color:var(--ink-faint)}.crumb .cur{color:var(--ink-soft);font-weight:500}
+.pa-tabs{display:flex;gap:8px;flex-wrap:wrap;grid-area:tabs}
+.pa-tab{background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s}
+.pa-tab:hover{border-color:#1E3A5F;color:#1E3A5F}
+.pa-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.pa-pane{display:none}.pa-pane.is-on{display:block}
+.pa-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.pa-tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;padding:0 0 8px;white-space:nowrap}
+.pa-tbl td{padding:7px 0;border-top:1px solid var(--border-fine);color:var(--ink-soft);white-space:nowrap}
+.pa-tbl td:first-child{color:var(--ink);font-weight:600}
+.pa-tbl td.pa-sell{color:#B03A48;font-weight:600}
+.pa-tbl td.pa-buy{color:#0F7A37;font-weight:600}
+.pa-tbl tr.is-flag td{background:#FDF3E3}
+.pa-fine{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+.pa-gloss{margin:0}.pa-gloss dt{font-size:13.5px;font-weight:700;color:var(--ink);margin-top:12px}
+.pa-gloss dt:first-child{margin-top:0}
+.pa-gloss dd{margin:3px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.6}
+.pa-flag{font-size:12.5px;line-height:1.6;margin:14px 20px 0;padding:10px 12px;border-radius:10px;background:var(--surface-sunken);color:var(--ink-soft)}
+.pa-flag.is-warn{background:#FDF3E3;color:#7A4B12}
+</style>
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#fin">Finance</a><span class="sep">/</span><span class="cur">Portfolio Allocation Calculator</span></nav>
+<h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-ink mb-3">Portfolio Allocation Calculator</h1>
+<p class="text-ink-soft text-lg max-w-2xl mb-6">See how far your portfolio has drifted from its target mix, and exactly what to buy or sell to bring it back — or let a new contribution do the work instead of selling.</p>
+
+<div class="pa-grid">
+
+<div class="pa-bar pa-area-bar">
+  <span class="pa-bar-text"><span class="pa-bar-badge">%</span>Enter what you hold and what you want to hold.</span>
+  <button type="button" class="pa-bar-pdf-btn" id="pa-pdfBtn">💾 Save as PDF</button>
+</div>
+
+<div class="pa-tabs" role="tablist">
+  <button type="button" class="pa-tab active" data-mode="rebalance">Rebalance</button>
+  <button type="button" class="pa-tab" data-mode="contrib">Use New Money</button>
+  <button type="button" class="pa-tab" data-mode="model">Model Allocation</button>
+</div>
+
+<div class="pa-card pa-area-form">
+  <div class="pa-card-pad">
+    <div class="pa-field">
+      <span class="pa-field-label">Currency</span>
+      <div class="pa-field-control">
+        <select id="pa-currency" class="pa-select-plain">
+          <option value="USD" selected>USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="CAD">CAD ($)</option>
+          <option value="AUD">AUD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="INR">INR (₹)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="pa-pane is-on" data-pane="rebalance">
+      <div class="pa-assets-head"><span class="a">Asset</span><span class="b">Value now</span><span class="c">Target</span></div>
+      <div class="pa-asset-row"><span class="a">US stocks</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-rUsStocks" type="number" min="0" step="1" value="52000"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-rUsStocksPct" type="number" min="0" max="100" step="0.5" value="45"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">International stocks</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-rIntlStocks" type="number" min="0" step="1" value="18500"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-rIntlStocksPct" type="number" min="0" max="100" step="0.5" value="20"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Bonds</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-rBonds" type="number" min="0" step="1" value="19000"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-rBondsPct" type="number" min="0" max="100" step="0.5" value="25"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Real estate</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-rRealEstate" type="number" min="0" step="1" value="6200"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-rRealEstatePct" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Cash</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-rCash" type="number" min="0" step="1" value="4300"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-rCashPct" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></span></div>
+      <div class="pa-tot-row" id="pa-rTotRow"><span>Targets total</span><b id="pa-rTotPct">100.0%</b></div>
+      <div class="pa-field" style="margin-top:6px">
+        <span class="pa-field-label">Drift band</span>
+        <div class="pa-field-control"><div class="pa-input-group"><input id="pa-rThreshold" type="number" min="0" max="50" step="0.5" value="5"><span>pp</span></div></div>
+      </div>
+      <p class="pa-subnote">Percentage points, not percent. A 5pp band on a 45% target means acting outside 40%–50%.</p>
+    </div>
+
+    <div class="pa-pane" data-pane="contrib">
+      <div class="pa-assets-head"><span class="a">Asset</span><span class="b">Value now</span><span class="c">Target</span></div>
+      <div class="pa-asset-row"><span class="a">US stocks</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cUsStocks" type="number" min="0" step="1" value="52000"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-cUsStocksPct" type="number" min="0" max="100" step="0.5" value="45"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">International stocks</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cIntlStocks" type="number" min="0" step="1" value="18500"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-cIntlStocksPct" type="number" min="0" max="100" step="0.5" value="20"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Bonds</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cBonds" type="number" min="0" step="1" value="19000"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-cBondsPct" type="number" min="0" max="100" step="0.5" value="25"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Real estate</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cRealEstate" type="number" min="0" step="1" value="6200"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-cRealEstatePct" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></span></div>
+      <div class="pa-asset-row"><span class="a">Cash</span>
+        <span class="b"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cCash" type="number" min="0" step="1" value="4300"></div></span>
+        <span class="c"><div class="pa-input-group"><input id="pa-cCashPct" type="number" min="0" max="100" step="0.5" value="5"><span>%</span></div></span></div>
+      <div class="pa-tot-row" id="pa-cTotRow"><span>Targets total</span><b id="pa-cTotPct">100.0%</b></div>
+      <div class="pa-field" style="margin-top:6px">
+        <span class="pa-field-label">New money to add</span>
+        <div class="pa-field-control"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-cContribution" type="number" min="0" step="100" value="6000"></div></div>
+      </div>
+      <p class="pa-subnote">Targets are worked out on the total <em>after</em> your contribution, so the plan lands you on target rather than near it.</p>
+    </div>
+
+    <div class="pa-pane" data-pane="model">
+      <div class="pa-field">
+        <span class="pa-field-label">Portfolio total</span>
+        <div class="pa-field-control"><div class="pa-input-group"><span class="pa-sym">$</span><input id="pa-mTotal" type="number" min="0" step="1000" value="100000"></div></div>
+      </div>
+      <div class="pa-field">
+        <span class="pa-field-label">Base it on</span>
+        <div class="pa-field-control">
+          <select id="pa-mMethod" class="pa-select-plain">
+            <option value="profile" selected>A risk profile</option>
+            <option value="age">My age</option>
+          </select>
+        </div>
+      </div>
+      <div class="pa-field" id="pa-mProfileFld">
+        <span class="pa-field-label">Risk profile</span>
+        <div class="pa-field-control">
+          <select id="pa-mProfile" class="pa-select-plain">
+            <option value="conservative">Conservative — 40% stocks</option>
+            <option value="mod_conservative">Moderately conservative — 50%</option>
+            <option value="moderate" selected>Moderate — 60% stocks</option>
+            <option value="mod_aggressive">Moderately aggressive — 70%</option>
+            <option value="aggressive">Aggressive — 80% stocks</option>
+          </select>
+        </div>
+      </div>
+      <div class="pa-field pa-hidden" id="pa-mAgeFld">
+        <span class="pa-field-label">Your age</span>
+        <div class="pa-field-control"><div class="pa-input-group"><input id="pa-mAge" type="number" min="0" max="120" step="1" value="40"></div></div>
+      </div>
+      <div class="pa-field pa-hidden" id="pa-mRuleFld">
+        <span class="pa-field-label">Rule</span>
+        <div class="pa-field-control">
+          <select id="pa-mRule" class="pa-select-plain">
+            <option value="100">100 minus age (cautious)</option>
+            <option value="110" selected>110 minus age (common)</option>
+            <option value="120">120 minus age (growth-tilted)</option>
+          </select>
+        </div>
+      </div>
+      <p class="pa-subnote">A starting point to react to, not a recommendation. The risk profiles follow the stock/bond split Vanguard publishes as commonly used.</p>
+    </div>
+
+    <div class="pa-btn-row">
+      <button type="button" class="pa-btn-calc" id="pa-calcBtn">Calculate</button>
+      <button type="button" class="pa-btn-clear" id="pa-clearBtn">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="pa-result-card pa-area-result">
+  <div class="pa-result-head" id="pa-resultHead">
+    <div class="label" id="pa-resultLabel">Total to Rebalance</div>
+    <div class="bignum" id="pa-bignum">—</div>
+    <div class="sub" id="pa-resultSub"></div>
+  </div>
+  <div class="pa-result-body" id="pa-resultRows"></div>
+  <p class="pa-flag" id="pa-flag" hidden></p>
+  <div class="pa-chart-box">
+    <svg viewBox="0 0 300 54" id="pa-chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Allocation bar"></svg>
+  </div>
+</div>
+
+<div class="pa-sidecol pa-area-sidebar">
+  <div class="pa-calc-card">
+    <div class="h">Investing Calculators</div>
+    <a href="/investment-calculator/">Investment <span class="arrow">→</span></a>
+    <a href="/cagr-calculator/">CAGR <span class="arrow">→</span></a>
+    <a href="/average-return-calculator/">Average Return <span class="arrow">→</span></a>
+    <a href="/retirement-calculator/">Retirement <span class="arrow">→</span></a>
+    <a href="/401k-calculator/">401(k) <span class="arrow">→</span></a>
+    <a href="/net-worth-calculator/">Net Worth <span class="arrow">→</span></a>
+    <a href="/all-calculators/#fin" class="pa-viewmore">View More <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<div class="pa-bottom-grid pa-area-bottomgrid">
+  <div class="pa-bd-card">
+    <span class="t" id="pa-tblTitle">Current Mix Against Target</span>
+    <div class="pa-scroll">
+      <table class="pa-tbl"><thead><tr><th>Asset</th><th>Value now</th><th>Now %</th><th>Target %</th><th>Drift</th><th>Action</th></tr></thead><tbody id="pa-tblBody"></tbody></table>
+    </div>
+    <p class="pa-fine" id="pa-tblNote">Rows shaded amber have drifted past your band. Drift is in percentage points — the gap between the share you hold and the share you wanted — so a target of 45% sitting at 51% is 6pp adrift, not 13%.</p>
+  </div>
+  <div class="pa-notax-card">
+    <span class="t">What The Numbers Mean</span>
+    <dl class="pa-gloss">
+      <dt>Drift</dt><dd>How far an asset's share of the portfolio sits from its target, measured in percentage points.</dd>
+      <dt>Drift band</dt><dd>How much drift you will tolerate before trading. Five percentage points is the common default.</dd>
+      <dt>Target value</dt><dd>What an asset would be worth if the portfolio matched your target mix exactly.</dd>
+      <dt>Rebalancing</dt><dd>Selling what has grown past its target to buy what has fallen below it, restoring the mix you chose.</dd>
+      <dt>Contribution rebalancing</dt><dd>Steering new money into underweight assets so the mix corrects without any selling.</dd>
+    </dl>
+  </div>
+</div>
+
+</div>
+
+<article class="pa-seo-article">
+  <p class="pa-byline">Written by the CalculatorBoss Finance Team · Reviewed for accuracy · Last updated August 2026</p>
+
+  <nav class="pa-toc" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#what-allocation-decides">What your asset allocation actually decides</a></li>
+      <li><a href="#the-arithmetic">How rebalancing works, and the arithmetic behind the trades</a></li>
+      <li><a href="#points-not-percent">Percentage points, not percent — the measure that trips people up</a></li>
+      <li><a href="#each-field">What to put in each field</a></li>
+      <li><a href="#bands-vs-calendar">Drift bands versus rebalancing on a schedule</a></li>
+      <li><a href="#new-money">Rebalancing with new money instead of selling</a></li>
+      <li><a href="#where-models-come-from">Where the model allocations come from, and what they cannot know</a></li>
+      <li><a href="#not-covered">What this calculator does not cover</a></li>
+      <li><a href="#faq">Frequently asked questions</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="what-allocation-decides">What your asset allocation actually decides</h2>
+  <p>Asset allocation is the split of your portfolio across broad categories — stocks, bonds, property, cash. It gets more attention than fund selection for a simple reason: <strong>the split does most of the work.</strong> Which specific index fund you hold matters far less to your outcome than whether you are 40% or 80% in equities.</p>
+  <p>The uncomfortable part is that the split will not stay where you put it. Nobody has to do anything wrong for a portfolio to drift. Whichever asset grows fastest becomes a larger share of the total simply by growing, and after a strong run in one category a portfolio built as 60% stocks can be sitting at 72% without a single trade having been made.</p>
+  <p>That drift is not a rounding problem. It means the risk you are carrying is no longer the risk you chose, and you usually find out during the next fall rather than before it.</p>
+
+  <h2 id="the-arithmetic">How rebalancing works, and the arithmetic behind the trades</h2>
+  <p>The mechanics are less complicated than the language around them suggests. Four steps:</p>
+  <ol>
+    <li><strong>Add up everything</strong> to get the portfolio total.</li>
+    <li><strong>Work out each asset's target value</strong>: target percentage × total.</li>
+    <li><strong>Compare</strong>: target value − current value. Positive means buy that much, negative means sell it.</li>
+    <li><strong>Check the drift against your band</strong> and decide whether it is worth acting at all.</li>
+  </ol>
+  <p>Take $8,000 in stocks and $3,600 in bonds against a 60/40 target. The total is $11,600, so stocks should be $6,960 and bonds $4,640. Stocks are $1,040 over, bonds are $1,040 under: sell $1,040 of stocks, buy $1,040 of bonds. The two figures match because rebalancing moves money around inside the portfolio without changing its size.</p>
+  <p>That equality is worth remembering as a sanity check. <strong>If your buys and sells do not cancel out, your target percentages do not add to 100%</strong>, and the calculator will tell you so.</p>
+
+  <h2 id="points-not-percent">Percentage points, not percent — the measure that trips people up</h2>
+  <p>Almost every rebalancing guide says something like "act at 5%". That sentence has two readings, and they give different answers.</p>
+  <p>An <strong>absolute band</strong> measured in percentage points is the common retail rule: a 45% target is left alone between 40% and 50%. A <strong>relative band</strong> is a percentage of the target weight, and several institutional managers use plus or minus 25% at the sub-asset level: a 10% target is then left alone between 7.5% and 12.5%.</p>
+  <p>On a large holding the two are similar. On a small one they diverge sharply. A 5% cash target under an absolute 5-point band would tolerate anything from 0% to 10% — meaning cash could vanish entirely without triggering anything. Under a relative 25% band the same holding is policed between 3.75% and 6.25%.</p>
+  <p><strong>This calculator uses percentage points</strong>, the absolute reading, because it is the one retail guidance overwhelmingly means. If your holdings are lopsided in size, be aware that a single absolute band is generous to your small positions and strict on your large ones.</p>
+
+  <h2 id="each-field">What to put in each field</h2>
+  <p><strong>Value now.</strong> What each category is worth today, across every account. Rebalancing works on the whole portfolio, so a 401(k), an IRA and a taxable brokerage account should be added together rather than balanced separately — otherwise you will trade in a taxable account to fix something you could have fixed for free elsewhere.</p>
+  <p><strong>Target.</strong> The share you want each category to be. These must add to 100%; the running total under the rows tells you where you stand, and turns red if it does not add up.</p>
+  <p><strong>Drift band.</strong> How far you will let something wander before acting. Five percentage points is the usual default. A tighter band means more trades and more cost; a wider one means more drift. Setting it to 0 shows every trade needed for an exact rebalance, which is useful for seeing the full picture even if you would not act on all of it.</p>
+  <p><strong>New money to add.</strong> On the contribution tab, whatever you are about to invest. The targets are calculated on the total <em>after</em> that money lands, which is what makes the resulting plan actually correct rather than approximately right.</p>
+
+  <h2 id="bands-vs-calendar">Drift bands versus rebalancing on a schedule</h2>
+  <p>Two approaches, both defensible.</p>
+  <p><strong>Calendar rebalancing</strong> means checking on a fixed date — every January, or each birthday — and correcting whatever has moved. Its strength is that it is a habit rather than a judgement, and habits survive market panics better than judgements do. Its weakness is that it can miss a large move that happens and partly reverses between checks.</p>
+  <p><strong>Band rebalancing</strong> means acting whenever drift exceeds your threshold, whenever that happens. It responds faster to genuine dislocations, at the cost of requiring you to actually look, and of clustering trades into exactly the volatile periods when acting feels hardest.</p>
+  <p>Most people end up somewhere between: check on a schedule, act only if a band has been breached. That gives you a fixed habit and a filter against pointless small trades, which is the useful half of each approach.</p>
+
+  <h2 id="new-money">Rebalancing with new money instead of selling</h2>
+  <p>If you are still contributing, the cheapest correction is usually to buy rather than to sell. Selling an appreciated holding in a taxable account realises a gain and a tax bill; directing your next contribution to whatever is underweight achieves part of the same correction at no tax cost at all.</p>
+  <p>The contribution tab works out how far that gets you. It calculates each target against the post-contribution total, finds which assets are underweight, and splits your contribution across them in proportion to how far short each one is. If the contribution covers every shortfall you land exactly on target with no selling. If it does not, you get the partial plan and a plain statement of how much overweight position is still left over.</p>
+  <p>The honest limitation: once drift is large, contributions cannot fix it alone. A portfolio 12 points overweight in equities is not coming back with one month's savings, and at some point the choice is between selling and accepting the drift for a while. Inside a tax-sheltered account this whole dilemma disappears, since selling there costs nothing but the spread.</p>
+
+  <h2 id="where-models-come-from">Where the model allocations come from, and what they cannot know</h2>
+  <p>The risk profiles on the model tab use the stock and bond split Vanguard publishes as commonly used: <strong>aggressive 80/20, moderate 60/40, conservative 40/60</strong>, with two intermediate steps and a small cash sleeve carved out of the fixed-income side. They are a widely recognised reference point, not a recommendation for you.</p>
+  <p>The age-based rules subtract your age from 100, 110 or 120 to get a stock percentage. It is worth seeing all three side by side, because at 40 they produce 60%, 70% and 80% stocks — a twenty-point spread from one input, which tells you how much precision to read into any of them.</p>
+  <p>What none of these can see: whether your income is stable, whether you have a cash buffer elsewhere, how many years until you need the money, whether you have debt costing more than any portfolio will return, and how you actually behaved the last time your holdings fell by a third. That last one is the most predictive and the least quantifiable. A model portfolio you abandon in a crash is worse than a cautious one you keep.</p>
+
+  <h2 id="not-covered">What this calculator does not cover</h2>
+  <ul>
+    <li><strong>Tax.</strong> No capital gains calculation, no distinction between accounts. A sell instruction here may be free in a 401(k) and expensive in a taxable account, and this page cannot tell which.</li>
+    <li><strong>Trading costs.</strong> Spreads, commissions and minimum investment sizes are ignored, so very small suggested trades may not be worth executing.</li>
+    <li><strong>What is inside each category.</strong> Two portfolios can both read 60% stocks while holding completely different risk. Category-level allocation is the first cut, not the whole picture.</li>
+    <li><strong>Wash sale and settlement rules.</strong> Selling and rebuying similar holdings carries rules this page knows nothing about.</li>
+    <li><strong>Whether your target is right.</strong> It calculates the trades that reach your target. Whether that target suits you is the part no calculator can answer.</li>
+  </ul>
+
+  <h2 id="faq">Frequently asked questions</h2>
+  <h3>How often should I rebalance my portfolio?</h3>
+  <p>Most guidance lands on checking once or twice a year and only trading when something has actually drifted meaningfully. Checking more often rarely helps, because the point of rebalancing is to control risk rather than to time anything, and every extra trade costs spread, commission or tax. The two workable approaches are a fixed schedule, such as every January, or a drift band that you act on whenever it is breached. Picking one and sticking to it matters more than which one you pick.</p>
+  <h3>What is the 5% rule for rebalancing?</h3>
+  <p>It means acting when an asset class sits more than five percentage points away from its target: a 60% stock target would be left alone at 63% and rebalanced at 66%. The band exists so that small, self-correcting moves do not generate trades while genuine changes in risk still get caught. Note that some firms apply a relative band instead, such as plus or minus 25% of the target weight, which for a 10% holding means acting outside 7.5% to 12.5%. The two rules give very different answers on small holdings, so it is worth knowing which one you are using.</p>
+  <h3>Should I rebalance by selling or by adding new money?</h3>
+  <p>Directing new contributions to whatever is underweight is usually the cheaper route, because it corrects the drift without realising any gains. In a taxable account that difference can be substantial. The limitation is size: once a position has drifted a long way, a single contribution will not close the gap, and you either accept partial correction over several months or sell. Inside a tax-advantaged account like a 401(k) or an IRA, selling costs nothing in tax, so the distinction matters much less.</p>
+  <h3>Does my target allocation have to add up to 100%?</h3>
+  <p>Yes, and the calculator warns you when it does not. Target percentages are shares of one portfolio, so anything other than 100% means the target dollar figures do not describe a portfolio you could actually hold. Totals slightly under 100% are usually a rounding artefact from splitting an odd number of holdings; totals well over it usually mean an asset was entered twice or a percentage was typed as a dollar figure.</p>
+  <h3>What allocation should someone my age have?</h3>
+  <p>Age-based rules of thumb subtract your age from a fixed number to get a stock percentage, with 100, 110 and 120 all in common use. At 40 those give 60%, 70% and 80% stocks respectively, which is a wide spread from the same input and shows how rough the rule is. Age is a proxy for time horizon, and it is only one of the things that should drive the decision. Job security, whether you have other income, how much you already hold and how you actually behaved the last time markets fell all matter, and none of them is in the formula.</p>
+  <h3>Does rebalancing improve returns?</h3>
+  <p>Not reliably, and that is not really its purpose. Because it trims whatever has risen most, rebalancing tends to reduce returns slightly in a long one-directional bull run and help in choppy or mean-reverting markets. What it does dependably is hold your risk near the level you chose, which is the argument for it. A portfolio that drifts from 60% to 80% stocks over a decade has quietly become a different portfolio, and usually discovers this at the worst possible moment.</p>
+
+  <p class="pa-disclaimer">These results are estimates for general information only and are not investment advice. Model allocations and age-based rules are widely cited starting points, not recommendations for any individual. Figures exclude tax, trading costs and account-type differences, and selling assets may create a tax liability depending on where they are held. Confirm any figure against your own account statements, and speak to a qualified financial adviser before making investment decisions.</p>
+</article>
+
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var CURR={USD:'$',GBP:'\u00A3',CAD:'$',AUD:'$',EUR:'\u20AC',INR:'\u20B9'};
+  var cur='USD';
+  function sym(){return CURR[cur]||'$';}
+  function fmt(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function money(n,d){ if(d===undefined)d=2; if(!isFinite(n))n=0;
+    return (n<0?'-':'')+sym()+fmt(Math.abs(n),d); }
+  function num(id){ var el=$(id); if(!el) return NaN; var v=el.value.trim(); if(v==='') return NaN; return parseFloat(v); }
+
+  var ASSETS=[
+    {key:'UsStocks',   label:'US stocks',            col:'#22417A'},
+    {key:'IntlStocks', label:'International stocks', col:'#3C6DB0'},
+    {key:'Bonds',      label:'Bonds',                col:'#0C9268'},
+    {key:'RealEstate', label:'Real estate',          col:'#C08A2E'},
+    {key:'Cash',       label:'Cash',                 col:'#8A9099'}
+  ];
+
+  /* ---------- math (mirrors ref_portfolio.py) ----------
+     Drift is in PERCENTAGE POINTS (absolute band), the measure retail
+     guidance uses. Contribution targets are computed on the total AFTER the
+     contribution, pinned against a published worked example. */
+  function rebalance(currents,targets,threshold){
+    var total=currents.reduce(function(s,v){return s+v;},0);
+    if(!(total>0)) return null;
+    var out=currents.map(function(curv,i){
+      var targetAmt=total*targets[i]/100;
+      var curPct=curv/total*100;
+      return {current:curv,targetPct:targets[i],currentPct:curPct,
+              targetAmt:targetAmt,drift:curPct-targets[i],trade:targetAmt-curv};
+    });
+    return {total:total,assets:out,
+      totalBuy:out.reduce(function(s,a){return s+Math.max(0,a.trade);},0),
+      totalSell:out.reduce(function(s,a){return s+Math.max(0,-a.trade);},0),
+      flagged:out.filter(function(a){return Math.abs(a.drift)>threshold;}).length,
+      maxDrift:Math.max.apply(null,out.map(function(a){return Math.abs(a.drift);})),
+      targetSum:targets.reduce(function(s,v){return s+v;},0)};
+  }
+  function contribute(currents,targets,contribution){
+    var total=currents.reduce(function(s,v){return s+v;},0);
+    if(!(total>0)||contribution<0) return null;
+    var newTotal=total+contribution;
+    var out=currents.map(function(curv,i){
+      var targetAmt=newTotal*targets[i]/100;
+      return {current:curv,targetPct:targets[i],targetAmt:targetAmt,
+              gap:targetAmt-curv,currentPct:curv/total*100};
+    });
+    var gapSum=out.reduce(function(s,a){return s+Math.max(0,a.gap);},0);
+    var scale=gapSum>0?Math.min(1,contribution/gapSum):0;
+    out.forEach(function(a){
+      a.buy=a.gap>0?a.gap*scale:0;
+      a.stillOverweight=a.gap<0?-a.gap:0;
+      a.drift=a.currentPct-a.targetPct;
+    });
+    return {total:total,newTotal:newTotal,assets:out,scale:scale,
+      applied:out.reduce(function(s,a){return s+a.buy;},0),
+      underweightGap:gapSum,
+      stillOverweight:out.reduce(function(s,a){return s+a.stillOverweight;},0),
+      leftover:scale>=1?Math.max(0,contribution-gapSum):0};
+  }
+  var RISK_PROFILES={
+    conservative:{stocks:40,bonds:50,cash:10},
+    mod_conservative:{stocks:50,bonds:42,cash:8},
+    moderate:{stocks:60,bonds:35,cash:5},
+    mod_aggressive:{stocks:70,bonds:27,cash:3},
+    aggressive:{stocks:80,bonds:18,cash:2}
+  };
+  function modelByAge(age,ruleBase){
+    var stocks=Math.max(0,Math.min(100,ruleBase-age));
+    return {stocks:stocks,bonds:100-stocks,cash:0};
+  }
+  window.__paMath={rebalance:rebalance,contribute:contribute,
+    modelByAge:modelByAge,RISK_PROFILES:RISK_PROFILES};
+
+  /* ---------- rendering ---------- */
+  var mode='rebalance', last=null;
+  function rows(list){
+    $('pa-resultRows').innerHTML=list.filter(Boolean).map(function(r){
+      return '<div class="pa-result-row"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';
+    }).join('');
+  }
+  function setFlag(text,warn){
+    var el=$('pa-flag');
+    if(!text){ el.hidden=true; el.textContent=''; el.className='pa-flag'; return; }
+    el.hidden=false; el.textContent=text; el.className='pa-flag'+(warn?' is-warn':'');
+  }
+  function setHead(label,big,sub,warn){
+    $('pa-resultLabel').textContent=label;
+    $('pa-bignum').textContent=big;
+    $('pa-resultSub').textContent=sub||'';
+    $('pa-resultHead').className='pa-result-head'+(warn?' is-warn':'');
+  }
+  function empty(label,msg){
+    setHead(label,'\u2014','',true); rows([]); setFlag(msg||'',true);
+    $('pa-tblBody').innerHTML=''; $('pa-chart').innerHTML=''; last=null;
+  }
+  function readSet(prefix){
+    var vals=[],pcts=[],blank=false;
+    ASSETS.forEach(function(a){
+      var v=num('pa-'+prefix+a.key), p=num('pa-'+prefix+a.key+'Pct');
+      if(!isFinite(v)||!isFinite(p)) blank=true;
+      vals.push(isFinite(v)?v:0); pcts.push(isFinite(p)?p:0);
+    });
+    return {vals:vals,pcts:pcts,blank:blank};
+  }
+  function updateTotPct(prefix,rowId,valId){
+    var s=ASSETS.reduce(function(t,a){var p=num('pa-'+prefix+a.key+'Pct');return t+(isFinite(p)?p:0);},0);
+    $(valId).textContent=fmt(s,1)+'%';
+    $(rowId).className='pa-tot-row'+(Math.abs(s-100)>0.05?' is-bad':'');
+    return s;
+  }
+  function stackBar(parts){
+    var el=$('pa-chart'), tot=parts.reduce(function(s,p){return s+p.v;},0);
+    if(!(tot>0)){ el.innerHTML=''; return; }
+    var x=0,html='';
+    parts.forEach(function(p){
+      var w=p.v/tot*300;
+      if(w>0) html+='<rect x="'+x.toFixed(2)+'" y="8" width="'+w.toFixed(2)+'" height="22" fill="'+p.c+'"></rect>';
+      x+=w;
+    });
+    el.innerHTML=html;
+  }
+  function drawTable(list,threshold,kind){
+    var body=$('pa-tblBody');
+    if(!list||!list.length){ body.innerHTML=''; return; }
+    body.innerHTML=list.map(function(a,i){
+      if(a.current===0&&a.targetPct===0) return '';     /* unused asset class */
+      var flag=threshold!=null&&Math.abs(a.drift)>threshold;
+      var act,cls='';
+      if(kind==='contrib'){
+        if(a.buy>0.005){ act='Buy '+money(a.buy); cls='pa-buy'; }
+        else if(a.stillOverweight>0.005){ act='Still over by '+money(a.stillOverweight); cls='pa-sell'; }
+        else act='On target';
+      } else {
+        if(a.trade>0.005){ act='Buy '+money(a.trade); cls='pa-buy'; }
+        else if(a.trade<-0.005){ act='Sell '+money(-a.trade); cls='pa-sell'; }
+        else act='On target';
+      }
+      return '<tr'+(flag?' class="is-flag"':'')+'><td>'+ASSETS[i].label+'</td><td>'+money(a.current,0)+
+             '</td><td>'+fmt(a.currentPct,1)+'%</td><td>'+fmt(a.targetPct,1)+'%</td><td>'+
+             (a.drift>=0?'+':'\u2212')+fmt(Math.abs(a.drift),1)+'pp</td><td class="'+cls+'">'+act+'</td></tr>';
+    }).join('');
+  }
+
+  /* ---------- the three modes ---------- */
+  function runRebalance(){
+    var s=readSet('r');
+    var sum=updateTotPct('r','pa-rTotRow','pa-rTotPct');
+    var th=num('pa-rThreshold'); if(!isFinite(th)) th=0;
+    if(s.blank) return empty('Total to Rebalance','Fill in a value and a target for each asset.');
+    var r=rebalance(s.vals,s.pcts,th);
+    if(!r) return empty('Total to Rebalance','The portfolio total must be above zero.');
+    /* The headline must agree with the band verdict. Showing a trade total
+       while the flag says "no trade needed" is arithmetically fine and
+       contradictory to read, so when nothing breaches the band the answer is
+       "none" and the full-rebalance figure moves to a supporting row. */
+    var used=r.assets.filter(function(a,i){return !(a.current===0&&a.targetPct===0);});
+    if(r.flagged===0){
+      setHead('Rebalancing Needed','None',
+        'Nothing is past your '+fmt(th,1)+'pp band',true);
+    } else {
+      setHead('Total to Rebalance',money(r.totalBuy),
+        r.flagged+' of '+used.length+' assets past the '+fmt(th,1)+'pp band',false);
+    }
+    rows(r.assets.map(function(a,i){
+      if(a.current===0&&a.targetPct===0) return null;   /* unused asset class */
+      var act;
+      if(r.flagged===0){
+        /* Nothing breached the band, so no row may read as an instruction to
+           trade. Report the position instead; the full-rebalance total is
+           carried by its own row below and the detail table still shows it. */
+        act=Math.abs(a.drift)<0.05 ? 'On target'
+          : fmt(Math.abs(a.drift),1)+'pp adrift \u2014 within band';
+      } else {
+        act=a.trade>0.005?'Buy '+money(a.trade):(a.trade<-0.005?'Sell '+money(-a.trade):'On target');
+      }
+      return [ASSETS[i].label+' ('+fmt(a.currentPct,1)+'% \u2192 '+fmt(a.targetPct,1)+'%)',act];
+    }).concat([
+      r.flagged===0&&r.totalBuy>0.005?['A full rebalance would move',money(r.totalBuy)]:null,
+      ['Portfolio total',money(r.total)]
+    ]));
+    setFlag(Math.abs(r.targetSum-100)>0.05
+      ? 'Your targets add up to '+fmt(r.targetSum,1)+'%, not 100%. The trades below will not balance until that is fixed.'
+      : (r.flagged===0?'Nothing is past your band — no trade is needed today.':''),
+      Math.abs(r.targetSum-100)>0.05);
+    drawTable(r.assets,th,'rebalance');
+    stackBar(r.assets.map(function(a,i){return {v:a.current,c:ASSETS[i].col};}));
+    $('pa-tblTitle').textContent='Current Mix Against Target';
+    $('pa-tblNote').textContent = r.flagged===0
+      ? 'Nothing is past your band, so the Action column shows what a full rebalance would look like if you chose to do one anyway \u2014 not something you need to act on. Drift is in percentage points, so a 60% target sitting at 64.5% is 4.5pp adrift, not 7.5%.'
+      : 'Rows shaded amber have drifted past your band. Drift is in percentage points \u2014 the gap between the share you hold and the share you wanted \u2014 so a target of 45% sitting at 51% is 6pp adrift, not 13%.';
+    last={label:$('pa-resultLabel').textContent,big:$('pa-bignum').textContent};
+  }
+  function runContrib(){
+    var s=readSet('c');
+    updateTotPct('c','pa-cTotRow','pa-cTotPct');
+    var contrib=num('pa-cContribution');
+    if(s.blank||!isFinite(contrib)) return empty('New Money Allocated','Fill in each asset and the amount you are adding.');
+    if(contrib<0) return empty('New Money Allocated','A contribution cannot be negative.');
+    var c=contribute(s.vals,s.pcts,contrib);
+    if(!c) return empty('New Money Allocated','The portfolio total must be above zero.');
+    setHead('New Money Allocated',money(c.applied),
+      c.scale>=1?'Covers every underweight asset'+(c.leftover>0?' \u2014 '+money(c.leftover)+' left over':'')
+                :fmt(c.scale*100,0)+'% of a full rebalance covered', c.scale<1);
+    rows(c.assets.map(function(a,i){
+      if(a.current===0&&a.targetPct===0) return null;   /* unused asset class */
+      if(a.buy>0.005) return [ASSETS[i].label+' (buy)',money(a.buy)];
+      if(a.stillOverweight>0.005) return [ASSETS[i].label+' (still overweight)',money(a.stillOverweight)];
+      return [ASSETS[i].label,'On target'];
+    }).concat([['New portfolio total',money(c.newTotal)]]));
+    setFlag(c.stillOverweight>0.005
+      ? 'Even after this contribution, '+money(c.stillOverweight)+' of overweight positions remain. Sell that much to finish the job, or keep contributing and let it close over time.'
+      : '', false);
+    drawTable(c.assets,null,'contrib');
+    stackBar(c.assets.map(function(a,i){return {v:a.current+a.buy,c:ASSETS[i].col};}));
+    $('pa-tblTitle').textContent='Where The New Money Goes';
+    last={label:'New Money Allocated',big:money(c.applied)};
+  }
+  function runModel(){
+    var total=num('pa-mTotal'), method=$('pa-mMethod').value;
+    if(!isFinite(total)) return empty('Suggested Allocation','Enter your portfolio total.');
+    if(!(total>0)) return empty('Suggested Allocation','The portfolio total must be above zero.');
+    var m,sub;
+    if(method==='age'){
+      var age=num('pa-mAge'), base=parseFloat($('pa-mRule').value)||110;
+      if(!isFinite(age)) return empty('Suggested Allocation','Enter your age.');
+      m=modelByAge(age,base); sub=base+' minus age '+fmt(age,0);
+    } else {
+      var key=$('pa-mProfile').value;
+      m=RISK_PROFILES[key]||RISK_PROFILES.moderate;
+      sub=$('pa-mProfile').selectedOptions[0].textContent.split('\u2014')[0].trim()+' profile';
+    }
+    setHead('Suggested Allocation',
+      fmt(m.stocks,0)+'% stocks / '+fmt(m.bonds,0)+'% bonds'+(m.cash>0?' / '+fmt(m.cash,0)+'% cash':''),
+      sub,false);
+    rows([
+      ['Stocks',fmt(m.stocks,0)+'% \u2014 '+money(total*m.stocks/100)],
+      ['Bonds',fmt(m.bonds,0)+'% \u2014 '+money(total*m.bonds/100)],
+      m.cash>0?['Cash',fmt(m.cash,0)+'% \u2014 '+money(total*m.cash/100)]:null,
+      ['Portfolio total',money(total)]
+    ]);
+    setFlag('A widely cited starting point, not advice. Adjust it for your own horizon, income stability and how you behaved the last time markets fell.',false);
+    $('pa-tblBody').innerHTML=
+      [['Stocks',m.stocks],['Bonds',m.bonds],['Cash',m.cash]].filter(function(p){return p[1]>0;})
+      .map(function(p){
+        return '<tr><td>'+p[0]+'</td><td>'+money(total*p[1]/100,0)+'</td><td>'+fmt(p[1],0)+
+               '%</td><td>'+fmt(p[1],0)+'%</td><td>+0.0pp</td><td>Target mix</td></tr>';
+      }).join('');
+    $('pa-tblTitle').textContent='The Suggested Mix';
+    stackBar([{v:m.stocks,c:'#22417A'},{v:m.bonds,c:'#0C9268'},{v:m.cash,c:'#8A9099'}]);
+    last={label:'Suggested Allocation',big:fmt(m.stocks,0)+'/'+fmt(m.bonds,0)};
+  }
+  var RUN={rebalance:runRebalance,contrib:runContrib,model:runModel};
+  function run(){ (RUN[mode]||runRebalance)(); }
+
+  /* ---------- wiring ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.pa-tab'),function(btn){
+    btn.addEventListener('click',function(){
+      mode=this.getAttribute('data-mode');
+      Array.prototype.forEach.call(document.querySelectorAll('.pa-tab'),function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      Array.prototype.forEach.call(document.querySelectorAll('.pa-pane'),function(p){
+        p.classList.toggle('is-on',p.getAttribute('data-pane')===mode);
+      });
+      run();
+    });
+  });
+  function syncMethod(){
+    var age=$('pa-mMethod').value==='age';
+    $('pa-mAgeFld').classList.toggle('pa-hidden',!age);
+    $('pa-mRuleFld').classList.toggle('pa-hidden',!age);
+    $('pa-mProfileFld').classList.toggle('pa-hidden',age);
+  }
+  $('pa-mMethod').addEventListener('change',function(){ syncMethod(); run(); });
+  $('pa-currency').addEventListener('change',function(){
+    cur=this.value;
+    Array.prototype.forEach.call(document.querySelectorAll('.pa-sym'),function(s){ s.textContent=sym(); });
+    run();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pa-card-pad input, .pa-card-pad select'),function(el){
+    el.addEventListener('input',run); el.addEventListener('change',run);
+  });
+  $('pa-calcBtn').addEventListener('click',run);
+  $('pa-clearBtn').addEventListener('click',function(){
+    Array.prototype.forEach.call(document.querySelectorAll('.pa-pane.is-on input'),function(i){ i.value=''; });
+    run();
+  });
+
+  /* ---------- lazy PDF ---------- */
+  var pdfLibsPromise=null;
+  function loadScriptOnce(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script');
+      s.src=src; s.onload=resolve; s.onerror=function(){ reject(new Error('Failed to load '+src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function ensurePdfLibs(){
+    if(pdfLibsPromise) return pdfLibsPromise;
+    pdfLibsPromise=Promise.resolve()
+      .then(function(){ if(!window.jspdf) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); })
+      .then(function(){ if(!(window.jspdf&&window.jspdf.jsPDF.API.autoTable)) return loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); });
+    return pdfLibsPromise;
+  }
+  $('pa-pdfBtn').addEventListener('click',function(){
+    if(!last){ alert('Nothing to export yet \u2014 enter some values first.'); return; }
+    var btn=this, old=btn.textContent;
+    btn.disabled=true; btn.textContent='Loading\u2026';
+    ensurePdfLibs().then(function(){
+      btn.disabled=false; btn.textContent=old;
+      var doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
+      doc.setFontSize(16); doc.text('Portfolio Allocation Calculator',40,50);
+      doc.setFontSize(10); doc.setTextColor(120);
+      var barEl=document.querySelector('.pa-bar-text');
+      doc.text(barEl?barEl.textContent.trim():'Allocation and rebalancing',40,68);
+      doc.setTextColor(20); doc.setFontSize(13);
+      doc.text($('pa-resultLabel').textContent+': '+$('pa-bignum').textContent,40,96);
+      var body=Array.prototype.map.call(document.querySelectorAll('#pa-resultRows .pa-result-row'),function(r){
+        var s=r.querySelectorAll('span'); return [s[0].textContent,s[1].textContent];
+      });
+      doc.autoTable({startY:112,head:[['Detail','Value']],body:body,styles:{fontSize:9},headStyles:{fillColor:[34,65,122]}});
+      doc.setFontSize(8); doc.setTextColor(140);
+      doc.text('Estimates only, not investment advice. calculatorboss.com',40,doc.internal.pageSize.getHeight()-30);
+      doc.save('portfolio-allocation-calculator.pdf');
+    }).catch(function(){
+      btn.disabled=false; btn.textContent=old;
+      alert('Could not load the PDF library. Please check your connection and try again.');
+    });
+  });
+
+  syncMethod();
+  run();
+})();
+</script>
+</main><footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="/">
+          <span class="logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="14" width="3.2" height="6" rx="1.1" fill="#22417A"/>
+              <rect x="10.4" y="9" width="3.2" height="11" rx="1.1" fill="#1BA94C"/>
+              <rect x="16.8" y="4" width="3.2" height="16" rx="1.1" fill="#4FC77E"/>
+            </svg>
+          </span>
+          CalculatorBoss
+        </a>
+        <p>A quieter workspace for the small arithmetic of daily life — money, health, time, and the occasional algebra problem.</p>
+        
+      </div>
+      <div class="foot-col">
+        <h4>Popular</h4>
+        <a href="/all-calculators/#cry">Crypto &amp; Trading 💹</a><a href="/mortgage-calculator/">Mortgage</a><a href="/loan-calculator/">Loan</a><a href="/income-tax-calculator/">Income Tax</a><a href="/bmi-calculator/">BMI</a><a href="/percentage-calculator/">Percentage</a><a href="/compound-interest-calculator/">Compound Interest</a>
+      </div>
+      <div class="foot-col">
+        <h4>Categories</h4>
+        <a href="/all-calculators/#fin">Finance</a><a href="/all-calculators/#hea">Health &amp; Fitness</a><a href="/all-calculators/#mat">Math</a><a href="/all-calculators/#oth">Date &amp; Time</a><a href="/all-calculators/#oth">Conversions</a><a href="/all-calculators/#cry">Crypto &amp; Trading</a><a href="/all-calculators/">Stocks &amp; Investing</a><a href="/all-calculators/">Forex &amp; Metals</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="/about/">About</a><a href="/sitemap/">Sitemap</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 CalculatorBoss. All calculations are estimates — not financial, legal, or medical advice.</p>
+      <div class="fb-links"><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a></div>
+    </div>
+  </div>
+</footer><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="/"]');if(a){e.stopPropagation();e.preventDefault();window.location.href='/';}},true);</script><style id="cf-search-style">
+.cf-search-overlay{position:fixed;inset:0;background:rgba(15,14,12,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:12vh 20px 20px}
+.cf-search-overlay.open{display:flex}
+.cf-search-modal{background:#fff;border-radius:18px;width:100%;max-width:560px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.cf-search-box{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #eee}
+.cf-search-box svg{color:#9a9a9a;flex-shrink:0}
+.cf-search-box input{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#181A1F}
+.cf-search-esc{font-size:11px;color:#686D76;border:1px solid #e2e2e2;border-radius:6px;padding:2px 7px;flex-shrink:0}
+.cf-search-results{max-height:56vh;overflow-y:auto;padding:8px}
+.cf-search-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;text-decoration:none;color:#181A1F;font-size:14.5px;font-weight:500}
+.cf-search-item:hover,.cf-search-item.active{background:#F3F1EA}
+.cf-search-item span.arrow{color:#9a9a9a;font-size:13px}
+.cf-search-empty{padding:30px 14px;text-align:center;color:#686D76;font-size:14px}
+</style>
+<div class="cf-search-overlay" id="cfSearchOverlay">
+  <div class="cf-search-modal">
+    <div class="cf-search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="cfSearchInput" placeholder="Search 194 calculators…" autocomplete="off" aria-label="Search calculators">
+      <span class="cf-search-esc">ESC</span>
+    </div>
+    <div class="cf-search-results" id="cfSearchResults"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('cfSearchOverlay');
+  var input = document.getElementById('cfSearchInput');
+  var results = document.getElementById('cfSearchResults');
+  var data = null;
+  var activeIndex = -1;
+
+  function openModal(){
+    overlay.classList.add('open');
+    input.value='';
+    input.focus();
+    renderResults('');
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+  }
+
+  function loadData(cb){
+    if(data){ cb(); return; }
+    fetch('/calculators-index.json').then(function(r){return r.json();}).then(function(j){
+      data = j; cb();
+    }).catch(function(){ data = []; cb(); });
+  }
+
+  function renderResults(q){
+    q = q.trim().toLowerCase();
+    if(!data){ results.innerHTML = ''; return; }
+    var matches = !q ? data.slice(0,8) : data.filter(function(d){return d.n.toLowerCase().indexOf(q)!==-1;}).slice(0,8);
+    activeIndex = matches.length ? 0 : -1;
+    if(!matches.length){
+      results.innerHTML = '<div class="cf-search-empty">No calculators match "'+q+'"</div>';
+      return;
+    }
+    results.innerHTML = matches.map(function(m,i){
+      return '<a class="cf-search-item'+(i===0?' active':'')+'" href="'+m.h+'" data-i="'+i+'">'+m.n+'<span class="arrow">→</span></a>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.icon-btn[aria-label="Search"]');
+    if(btn){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(e.target === overlay){ closeModal(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ closeModal(); }
+    if((e.key === '/' || (e.metaKey && e.key.toLowerCase()==='k') || (e.ctrlKey && e.key.toLowerCase()==='k')) && !overlay.classList.contains('open') && document.activeElement.tagName!=='INPUT'){
+      e.preventDefault();
+      loadData(openModal);
+    }
+    if(overlay.classList.contains('open')){
+      var items = results.querySelectorAll('.cf-search-item');
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        activeIndex = Math.min(items.length-1, activeIndex+1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        activeIndex = Math.max(0, activeIndex-1);
+        items.forEach(function(it,i){it.classList.toggle('active', i===activeIndex);});
+      } else if(e.key === 'Enter'){
+        var active = results.querySelector('.cf-search-item.active');
+        if(active){ window.location.href = active.getAttribute('href'); }
+      }
+    }
+  });
+
+  input.addEventListener('input', function(){ renderResults(input.value); });
+})();
+</script>
+<script>
+/* cb-reveal-result — tapping Calculate on a phone should show the answer.
+   The result card sits below the form there, so the update happens off screen
+   and it looks as though nothing happened. Whether to scroll is decided from
+   live geometry, not a breakpoint: if the result is level with the form it is
+   already visible and nothing moves, which leaves desktop untouched. */
+(function(){
+  var BTNS = ["tax-calcBtn"], FORM = ".tax-area-form", RESULT = ".tax-area-result";
+  function reveal(){
+    var f = document.querySelector(FORM), r = document.querySelector(RESULT);
+    if(!f || !r) return;
+    var fr = f.getBoundingClientRect(), rr = r.getBoundingClientRect();
+    if(rr.top <= fr.top + 20) return;           /* side by side, already in view */
+    var hd = document.querySelector('header');
+    var off = (hd ? hd.getBoundingClientRect().height : 0) + 12;
+    var top = Math.max(0, rr.top + window.pageYOffset - off);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' }); }
+    catch(e){ window.scrollTo(0, top); }        /* older browsers ignore the options object */
+  }
+  function onClick(){ if(window.requestAnimationFrame) requestAnimationFrame(reveal); else reveal(); }
+  for(var i = 0; i < BTNS.length; i++){
+    var b = document.getElementById(BTNS[i]);
+    if(b) b.addEventListener('click', onClick);
+  }
+})();
+</script>
+<script>
+/* Calculator boxes ship with worked example values already in them. Without this, tapping
+   a field on a phone puts the caret beside the existing digits, so a visitor aiming for
+   250000 ends up with 420000250000. Selecting on focus makes the first keystroke replace
+   the example. Delegated from the document so it needs no per-page knowledge. */
+(function(){
+  if(window.__cbSelectOnFocus) return;
+  window.__cbSelectOnFocus = 1;
+  function armed(el){
+    return el && el.tagName === 'INPUT' && el.type === 'number' && !el.readOnly && !el.disabled;
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target;
+    if(!armed(el)) return;
+    try { el.select(); } catch(err) { return; }
+    /* A mouse click focuses first, then places the caret on mouseup, which would throw
+       the selection away. Swallow that one mouseup only. */
+    var once = function(ev){ ev.preventDefault(); el.removeEventListener('mouseup', once); };
+    el.addEventListener('mouseup', once);
+    setTimeout(function(){ el.removeEventListener('mouseup', once); }, 400);
+  });
+})();
+</script>
+
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
+</body></html>

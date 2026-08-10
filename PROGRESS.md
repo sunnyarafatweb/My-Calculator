@@ -9818,3 +9818,96 @@ rendered text, visibility and box height against a sibling link — not by count
 portfolio-allocation, sip, stock-average-price, break-even, pe-ratio, gold-value. SIP and
 gold-value still carry the open convention questions noted last time (month-start vs month-end
 contributions; troy ounce vs tola and purity basis) and should be settled explicitly.
+
+## Rebuild 3 of 8 — portfolio-allocation-calculator (Aug 10, 2026)
+
+Three modes on one grid: rebalance (drift and trades against a band), use new money
+(contribution rebalancing without selling), and model allocation (risk profile or age rule).
+Five asset classes: US stocks, international stocks, bonds, real estate, cash.
+
+### The recovered page asserted risk profiles that were not sourced
+
+The old file carried `conservative 30/60/10, moderate 60/35/5, aggressive 85/10/5`. Vanguard's
+published, commonly cited ladder is **aggressive 80/20, moderate 60/40, conservative 40/60**. The
+old conservative sleeve sat 10 percentage points off the standard reference with nothing behind
+it — an invented number presented as guidance on a YMYL page.
+
+Rebuilt against Vanguard's spine, with a small cash sleeve carved out of the fixed-income side so
+the stock weight matches exactly, and two intermediate steps: 40 / 50 / 60 / 70 / 80. The page
+now says on its face where the numbers come from. `test_vanguard_ladder` pins the three anchor
+points and asserts monotonicity.
+
+### Verification
+
+calculator.net has no allocation or rebalancing calculator — re-verified live rather than
+inherited (`portfolio-allocation`, `asset-allocation`, `rebalancing`, `portfolio` all 404;
+`investment-calculator` and `finance-calculator` both 200 as positive controls).
+
+`ref_portfolio.py` written from sourced definitions and pinned to **five worked examples from
+four outside sources**: stockalpha.ai (8,000/3,600 at 60/40 → sell 1,040), ryanoconnellfinance
+(75,000/41,200 → sell 5,280, and 4.5pp must NOT trip a 5pp band), Bogleheads (drift to 57.45%,
+and contribution-only rebalancing to 64/36), and investment-calculator.net (contribution targets
+computed on the post-contribution total: 6,600 / 3,300 / 1,100).
+
+Because rebalancing has no single reference calculator, the sweep leans on **ten invariants**
+across 400 random portfolios rather than only on pinned numbers: trades net to zero when targets
+sum to 100, buys equal sells, drifts sum to zero, applying the trades lands exactly on target,
+the total is unchanged, the contribution never spends more than the smaller of itself and the
+underweight gap, no asset is ever told to both buy and sell, and a covering contribution lands
+every underweight asset exactly on its new target.
+
+Sweep against the page JS: **977 cases, 16,403 assertions, 0 mismatches**, negative control
+passing. Browser: **55/55**, including all three tabs, 860/430/390px, and lazy jsPDF.
+FAQ schema vs visible: 6/6 exact.
+
+### Conventions settled explicitly
+
+- **Drift is in percentage points, not percent.** Retail guidance means an absolute band;
+  several institutions use a relative +/-25% band at sub-asset level, which gives very different
+  answers on small holdings. Stated on the page and given its own H2, because "act at 5%" is
+  genuinely ambiguous and nobody says which they mean.
+- **Contribution targets are computed on the post-contribution total**, pinned against a
+  published example. Computing them on the old total lands you near target, not on it.
+- The contribution is **prorated across underweight assets in proportion to the gap**, so the
+  output is what to buy today rather than a wish list.
+
+### A contradiction assertions could not see
+
+The user-session step — added to the checklist after the CAGR build — caught it again. With
+drift under the band the headline read **"$5,280.00"** while the flag underneath read **"no trade
+is needed today"**, and the per-asset rows said "Sell $5,280.00". Every figure correct, the card
+as a whole incoherent: it handed the visitor a number to trade and then told them not to.
+
+Now the headline reads "None" when nothing breaches the band, the rows report position
+("4.5pp adrift — within band") instead of instructions, the full-rebalance figure moves to its
+own supporting row so nothing is lost, and the table note explains that its Action column is
+hypothetical in that state. Regression checks cover both band states.
+
+Also found by looking rather than asserting: asset classes left at 0 value and 0 target produced
+three useless "On target" rows, now suppressed; and the target-% inputs were **clipping** ("60"
+rendering as "6C") because the % suffix ate 27px of a 74px column. Measured rather than eyeballed
+— `scrollWidth > clientWidth` at every breakpoint — widened, and re-measured to zero clipping at
+1280/860/430/390.
+
+### Two build-system faults caught before they shipped
+
+1. `assemble.py` had the output path **hardcoded to cagr-calculator**, so the first portfolio
+   build silently overwrote the CAGR page. Restored from git and the path is now derived from
+   `SLUG`. The head-integrity assertions added last round did not catch this because the file it
+   wrote was internally consistent — just written over the wrong page.
+2. The FAQ negative control reported "not caught" and was itself broken: it mutated a hyphen in
+   an answer that contains no hyphen, so the mutation was a no-op. Replaced with three controls
+   that cannot be no-ops (curly quote, appended space, swapped first character), all caught.
+
+### Registry
+
+Finance 80 to 81, recounted from markup across all five panels. Inbound editorial links from
+`retirement`, `investment` and `net-worth`, each inserted after that page's real first block —
+the retirement anchor is followed by a `<ul>`, not a `<p>`, which broke the first attempt — then
+audited individually in Chromium by rendered text, visibility and box height.
+
+### Remaining five
+
+sip, stock-average-price, break-even, pe-ratio, gold-value. SIP and gold-value still carry the
+open convention questions (month-start vs month-end contributions; troy ounce vs tola and purity
+basis) and should be settled explicitly rather than picked silently.
