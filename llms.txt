@@ -31,6 +31,7 @@
 - [Depreciation Calculator — Straight-Line](https://calculatorboss.com/depreciation-calculator/)
 - [Discount Calculator](https://calculatorboss.com/discount-calculator/)
 - [Portfolio Allocation Calculator](https://calculatorboss.com/portfolio-allocation-calculator/)
+- [SIP Calculator](https://calculatorboss.com/sip-calculator/)
 - [CAGR Calculator](https://calculatorboss.com/cagr-calculator/)
 - [Dividend Yield Calculator](https://calculatorboss.com/dividend-yield-calculator/)
 - [Down Payment Calculator](https://calculatorboss.com/down-payment-calculator/)

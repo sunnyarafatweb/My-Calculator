@@ -9911,3 +9911,83 @@ audited individually in Chromium by rendered text, visibility and box height.
 sip, stock-average-price, break-even, pe-ratio, gold-value. SIP and gold-value still carry the
 open convention questions (month-start vs month-end contributions; troy ounce vs tola and purity
 basis) and should be settled explicitly rather than picked silently.
+
+## Rebuild 4 of 8 — sip-calculator (Aug 10, 2026)
+
+Three modes: monthly investing (with compound annual step-up), reach a target, and monthly
+versus lump sum. Plus a user-facing rate-basis switch, explained below.
+
+### Owner caught a US-first violation before it shipped
+
+The first draft defaulted to INR, because SIP is an Indian term and every reference source is
+Indian. Section 8 documents this exact failure already — the VAT calculator was built UK-first
+in GBP and rejected on Aug 7 — and carries the standing rule that a US-first default is never
+deviated from without asking first. I was deciding it inside the build. The owner spotted the
+rupee sign and stopped it.
+
+Rebuilt USD-first on the VAT pattern: dollar defaults, dollar worked examples, US framing
+(monthly investing / dollar-cost averaging) leading, INR one click away in the dropdown, and an
+H2 explaining what SIP means and how it maps to a 401(k) or an automatic transfer. Slug kept —
+recovering that URL's signal is the whole point. The page now carries an assertion that no rupee
+renders in the result card, inputs, bar, table or article, only inside the currency `<option>`.
+
+### Three conventions, all settled against published figures
+
+1. **Annuity due.** Deposits at the start of each month, the `x (1+i)` tail. Universal.
+
+2. **Monthly rate basis — genuinely contested, so exposed as a control.** Divide-by-12 is used
+   by Mirae Asset, Motilal Oswal and Bajaj Finserv; the twelfth root by Groww, INDmoney, 5paisa
+   and YES Securities. Groww calls divide-by-12 "a common mistake"; three large AMCs publish
+   figures computed with it. Both camps are pinned in `ref_sip.py` and both reproduce exactly:
+   Motilal's Rs 11,61,695 to the rupee, Groww's Rs 12,766 to the rupee. Default is divide-by-12,
+   the majority convention and what US monthly-investment tools use. The gap is 1.7% at 5 years
+   and **14.6% at 30**, so it is a visible switch under More Options with an H2 explaining why
+   another site gives a different number — not a buried assumption. No competitor does this.
+
+3. **Step-up compounds, and the obvious reference is wrong.** Mirae's calculator page describes a
+   LINEAR top-up (5,000 -> 5,500 -> 6,000 -> 6,500, total 23.40 lakh) but publishes a corpus that
+   matches neither convention: linear gives 0.79 Cr, compound 0.99 Cr, they print 1.16 Cr. Their
+   plain-SIP figure (49.96 lakh) reconciles perfectly, so only the step-up number is broken.
+   Settled against a separate source — Mirae's own head of products in Business Standard:
+   20,000/mo, 20y, 11%, 10% step-up -> **3.58 Cr on 1.37 Cr invested**, which compound matches to
+   3.578 / 1.375 while linear would invest only 0.94 Cr. CalcCorp's published progression
+   (5,500 / 7,321) matches compound to the rupee. Matched the field, not the bug.
+
+### Verification
+
+Sweep: **1,504 cases, 2,616 assertions, 0 mismatches**, both rate bases, step-ups of 0/5/10/15,
+returns from -6% to 25%, horizons 1-30 years.
+
+**A negative control failed, correctly, and exposed a real weakness.** The control perturbed a
+result by +0.01 and reported "not caught". It was right: the comparison tolerance is *relative*
+(1e-7), which on a $296,474 result permits 0.03 of drift, so the perturbation sat inside it. The
+earlier CAGR and portfolio sweeps used the same +constant pattern but on values in the hundreds
+or thousands, where it stayed outside tolerance — only six-figure outputs exposed it. Controls
+now perturb by a *ratio* (x1.000001) and are applied to two different functions.
+
+Browser: **51/51**, including all three tabs, the USD-default assertions, the rate-basis switch
+producing both reference figures ($9,991,479 and $9,198,574), compound step-up landing the final
+year at $3,058, and lump-sum beating monthly at a positive return while losing at a negative one.
+FAQ schema vs visible 6/6 exact with three working controls. Every numeric claim in the FAQ and
+article was run through the reference before writing (296,474 -> "roughly $296,000").
+
+### One anomaly chased down, not waved through
+
+The inbound link on `retirement-calculator` measured 841x45 where the other two measured 95x19 —
+same 14-character text. Not a bug: `getClientRects()` returns 2, so the inline anchor wraps
+across a line break and the bounding box is the union of both lines. Worth recording as a method
+note: **bounding-box height is a misleading audit metric for inline links that wrap**; use
+`getClientRects().length` plus computed `display` instead.
+
+### Scope
+
+`investment-calculator` has zero coverage of monthly contributions (checked before drafting), so
+there is no cannibalisation — this page owns monthly investing, step-up and DCA. Finance 81 to
+82. Inbound links from `investment`, `retirement` and `compound-interest`, each inserted after
+that page's real first block and audited individually.
+
+### Remaining four
+
+stock-average-price, break-even, pe-ratio, gold-value. **gold-value carries the same class of
+problem the owner just caught**: tola is a South Asian unit, so it defaults to troy ounces and
+grams with USD, tola offered as an option — raise it before building, do not decide it inside.
