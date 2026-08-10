@@ -9991,3 +9991,69 @@ that page's real first block and audited individually.
 stock-average-price, break-even, pe-ratio, gold-value. **gold-value carries the same class of
 problem the owner just caught**: tola is a South Asian unit, so it defaults to troy ounces and
 grams with USD, tola offered as an option — raise it before building, do not decide it inside.
+
+## Rebuild 5 of 8 — stock-average-price-calculator (Aug 10, 2026)
+
+Three modes: weighted average across up to five buys, averaging down from a position, and the
+shares needed to reach a target average. Optional buy fees and a market price.
+
+### Verification
+
+calculator.net has no stock-average calculator — probed live (404) with `average-calculator`
+returning 200 as a positive control. `ref_stockavg.py` written from sourced definitions and
+pinned to **eight worked examples from six outside sites** (sharepredictions, basisreport,
+caesarcipher, miniwebtool, thecalcs, stockaverager, journalplus), plus six invariants across 500
+random positions: the fee-free average always lies inside the price range, fees can only raise
+it, buying below the average always lowers it and never below the price paid, buying above always
+raises it.
+
+Sweep: **1,101 cases, 3,551 assertions, 0 mismatches**, control passing (ratio perturbation on
+two functions, per the lesson from the SIP build). Browser: **56/56**. FAQ 6/6 exact with three
+working controls.
+
+### Conventions
+
+- **Weighted, never a mean of prices.** The page actively warns when the two differ: 100 at $50
+  plus 150 at $40 is $44.00, not the $45 midpoint.
+- **Fees increase cost basis** ($10 on 100 shares at $50 gives $50.10), matching US treatment of
+  purchase commissions. Sell fees deliberately excluded — the exit has not happened.
+- **Recovery % is measured against the CURRENT price, not the average.** A $40 average with the
+  stock at $32 needs +25%, not the 20% that (40−32)/40 gives. Given its own H2 because it is the
+  single most misunderstood number here, and pinned with an assertion that the two differ.
+- **Impossible targets are named, not printed.** A target above the current average or at/below
+  the buy price returns a reason string, so the page explains instead of showing a negative or
+  runaway figure.
+
+### The target-average explosion, measured rather than asserted
+
+An early assertion claimed the shares needed for a near-price target exceed 20x the comfortable
+case. It failed: the real ratio is exactly 19.0. Replaced the invented threshold with the
+measured sequence (100 shares averaging $50, buying at $30): target $45 needs 33 shares, $40
+needs 100, $35 needs 300, $32 needs 900, $30.50 needs 3,900 — $117,000 against $3,000. That
+sequence is now pinned and reproduced in the article, and the page warns when a target needs more
+than twice the existing position in new money.
+
+### Precision, caught by looking rather than asserting
+
+The user session showed the headline rendering **$57,333.3333** for a crypto-style position —
+four decimals of noise on a $57k number — while a $0.0031 penny stock genuinely needs them. A
+single decimal width cannot serve both. Precision now scales with magnitude (2 dp above $100,
+4 above $1, 6 above $0.01, 8 below) and then trims trailing zeros to a two-decimal floor, so
+$44.0000 prints as $44.00 and $0.00310000 as $0.0031. Verified across five magnitudes and added
+as a regression.
+
+Three harness expectations then failed — they still expected `$44` and `$50`. Those were stale
+assertions, not page faults; updated the expectations, not the page.
+
+### Registry
+
+Finance 82 to 83, recounted across all five panels. Inbound links from `roi`, `profit-loss` and
+`dividend-yield`, audited with `getClientRects().length` and computed `display` rather than
+bounding-box height — the dividend-yield anchor spans 2 rects because it wraps, which the old
+metric would have flagged as suspicious.
+
+### Remaining three
+
+break-even, pe-ratio, gold-value. **gold-value still needs an owner decision before building**:
+tola is a South Asian unit, so it defaults to troy ounces and grams in USD with tola as an
+option. Raise it first — do not decide it inside the build.
