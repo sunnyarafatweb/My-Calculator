@@ -35,6 +35,7 @@
 - [P/E Ratio Calculator](https://calculatorboss.com/pe-ratio-calculator/)
 - [SIP Calculator](https://calculatorboss.com/sip-calculator/)
 - [Break-Even Calculator](https://calculatorboss.com/break-even-calculator/)
+- [Gold Value Calculator](https://calculatorboss.com/gold-value-calculator/)
 - [CAGR Calculator](https://calculatorboss.com/cagr-calculator/)
 - [Dividend Yield Calculator](https://calculatorboss.com/dividend-yield-calculator/)
 - [Down Payment Calculator](https://calculatorboss.com/down-payment-calculator/)

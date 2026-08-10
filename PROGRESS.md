@@ -10171,3 +10171,71 @@ each audited individually.
 gold-value. **Needs an owner decision before building** — tola is a South Asian unit, so the plan
 is troy ounces and grams in USD with tola as an option, but section 8 requires raising a non-US
 default with the owner rather than deciding it inside a build.
+
+## Rebuild 8 of 8 — gold-value-calculator (Aug 10, 2026) — SERIES COMPLETE
+
+Three modes: melt value at live spot, full jewellery counter price with making charges and VAT,
+and a scrap-offer comparison. Live gold and silver prices, 14 currencies, five weight units.
+
+### Owner directive: USA primary, Gulf/Arab markets a first-class second
+
+Raised before building, per section 8 and the SIP precedent, and the owner extended the target to
+the Arab countries with their own currencies. US conventions stay as defaults — USD, troy ounce
+on the bullion tab — while Gulf conventions are first-class rather than afterthoughts: 21K (the
+Saudi/UAE everyday standard) and 22K/916 alongside 14K, gram as the default unit on the jewellery
+tab, tola at 11.6638 g, and AED/SAR/QAR/KWD/BHD/OMR/JOD/EGP in the currency list.
+
+### The FX source could not serve the audience
+
+The recovered page used **frankfurter.dev**, which the design guide records as the working
+currency source. It carries **30 ECB currencies and not one Gulf currency** — AED, SAR, QAR, KWD,
+BHD, OMR, EGP and JOD all return 404. Verified live, not assumed. Replaced with
+**open.er-api.com** (166 currencies, free, no key), and its pegged rates were cross-checked
+against the official pegs before being trusted: AED 3.6725, SAR 3.75, QAR 3.64, BHD 0.376,
+JOD 0.709 all matched exactly, OMR to within 0.001%. KWD (basket) and EGP (floating) come from
+the feed because they have no peg to check against.
+
+Both APIs were tested **from a real browser origin with CORS enforced**, not curl — the exact
+failure section 6 documents for the currency calculator.
+
+### The contested VAT base, surfaced rather than assumed
+
+Published Gulf sources genuinely disagree on whether UAE's 5% applies to the whole invoice or
+only to the making charge. On the standard 25 g example that is AED 381.71 against AED 28.27 — a
+difference of over AED 350 on one purchase. Made a user choice under More Options, defaulting to
+the full amount (the more cautious reading for a standard-rated supply), with the alternative
+total quoted in the flag either way. Same pattern the owner accepted for the SIP rate basis.
+
+### Verification
+
+Sweep: **1,014 cases, 4,414 assertions, 0 mismatches**, control passing. Browser: **67/67**,
+including the published Dubai invoice reproduced to the fils (25 g of 22K, 8% making, 5% VAT →
+AED 8,015.96) and the unit relationships pinned live (20 pennyweight = 1 troy ounce; 1 tola =
+11.6638 g). FAQ 6/6 exact with three working controls.
+
+### Offline behaviour tested, because a live-data page demands it
+
+A suite that passes against a working feed proves nothing about a dead one. Both APIs were
+blocked at the network layer and the page re-tested: **no uncaught exception**, the spot box
+enters an amber stale state, the result is blanked rather than showing a wrong number, the
+visitor is told what to do, and a manual spot override restores full function. Six checks.
+
+That block initially did not run at all — it was appended after the harness's `raise SystemExit`
+and was silently unreachable. A test that never executes reports the same "pass" as one that
+does; caught by noticing the total count had not changed.
+
+### Series summary — all eight rebuilt
+
+dividend-yield, cagr, portfolio-allocation, sip, stock-average-price, break-even, pe-ratio,
+gold-value. Finance 78 to 86. All sixteen `_redirects` rules repointed off the hub and verified
+by column parsing. Registry files in sync, zero no-slash internal links, every page carrying
+2-3 inbound editorial links audited individually in Chromium.
+
+### Open item for the owner
+
+**Arabic-language SEO is a separate decision and was not taken here.** This page is written in
+English, which serves the large English-searching expatriate and professional audience in the
+Gulf, and it covers the Gulf-specific terms those searches use (21K, 916, tola, making charges,
+per-gram rates, AED). Genuine Arabic-language targeting needs `hreflang`, an `ar` URL structure
+and translated content — infrastructure this site does not have. Raise it as its own project
+rather than bolting a second language onto one page.
