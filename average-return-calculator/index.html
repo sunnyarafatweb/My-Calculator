@@ -945,6 +945,7 @@
 
 <h2 id="arc-geo">Arithmetic vs. Geometric Average</h2>
 <p>When you already have a series of period returns rather than raw cash flows, averaging them correctly still isn't as simple as adding and dividing. The <strong>arithmetic mean</strong> does exactly that — sum the percentages, divide by the count — but it silently assumes each period's return applies to the same starting amount, which isn't how compounding actually works. The <strong>geometric mean</strong> instead multiplies each period's growth factor (1 + return) together and takes the appropriate root over the total time elapsed, which is the rate that, applied consistently, would have produced the exact same ending balance from the same starting balance. The geometric mean is also known as the Compound Annual Growth Rate (CAGR) when applied this way, and it's very nearly always the more meaningful number for judging an actual investment's performance.</p>
+<p>The geometric mean of a return series is the same number a <a href="/cagr-calculator/">CAGR calculator</a> returns from just the opening and closing values — useful when you have the two endpoints but not the year-by-year figures.</p>
 
 <h2 id="arc-drag">Volatility Drag: A Worked Example</h2>
 <div class="arc-example-box">

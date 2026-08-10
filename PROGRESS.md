@@ -9744,3 +9744,77 @@ Also fixed in the same pass:
 **Carry into the remaining seven:** `sip-calculator` has the identical exposure — SIP contributions
 are monthly and the same annual-loop shortcut would understate every projection. Settle the
 contribution timing convention explicitly there rather than inheriting this one.
+
+## Rebuild 2 of 8 — cagr-calculator (Aug 10, 2026)
+
+Four solve-for modes on one grid: growth rate, final value, starting value, time needed.
+Period accepts years / quarters / months / weeks / days and converts to fractional years
+before the (unchanged, always annualised) formula. Optional fee, tax and inflation behind
+the house More Options disclosure.
+
+### Parity had no referent again, as predicted
+
+Re-verified rather than inherited: `calculator.net/cagr-calculator.html` returns 404 and
+`growth-rate-calculator.html` returns 404, while `investment-calculator.html` returns 200 as
+a positive control. The substitute protocol signed off for dividend-yield applies unchanged.
+
+Union field map across **CalculatorSoup** (four solve-for modes, days/weeks/months/quarters/years
+unit selector, and the three reverse formulas stated explicitly), **Omni Calculator** (three modes,
+four worked examples) and **MarketBeat RCAGR** (confirms EV = BV(1+r)^N). Every field either of
+theirs maps to one of ours; nothing dropped. Ours adds currency, fee, tax, inflation and the
+year-by-year table on top — richer than the references, never stricter.
+
+### Verification
+
+`ref_cagr.py` written from the sourced definitions, not from the recovered page JS. Pinned to
+**seven independently published worked examples** before any sweep ran — this is the layer that
+catches a wrong *choice* of formula, which a self-consistent sweep provably cannot (that gap is
+what let the DRIP bug through 870 assertions last time).
+
+Sweep drove `window.__cagrMath` in Chromium against the Python reference:
+**2,799 cases, 4,911 assertions, 0 mismatches, 0 console errors**, negative control confirmed
+(a deliberate +0.0001 was caught). Browser checks: **45/45** — h1 at 700, byline/disclaimer at
+12.5px, single grid track with every child at 100% width at 860/430/390px, jsPDF 0 bytes on load
+and 2 requests on first click with no refetch on the second, and CB-UX auto-calculate plus flash
+asserted on **all four tabs**, not just the first.
+
+### Conventions settled explicitly rather than picked silently
+
+- **Periods are intervals, not data points.** Engine takes t directly, as both references do.
+  Pinned by `test_periods_not_datapoints`: 100 to 200 reads 25.99% over 3 and 18.92% over 4.
+  Given its own H2 because it is the differentiator and the mistake is invisible once made.
+- **Real CAGR divides, not subtracts** — Fisher, (1+nom)/(1+infl)−1. Asserted to differ from
+  naive subtraction by more than 0.15pp so the two can never quietly converge.
+- **Fee drag is arithmetic**, matching how expense ratios are quoted, and asserted to differ
+  from the multiplicative form. Not applied in rate-solve mode: a measured rate is already net.
+
+### Two checks that were wrong while the page was right
+
+1. The sweep crashed on `32.3 ** 730` — CPython raises OverflowError where JS returns Infinity.
+   The reference now models IEEE-754 doubles, since that is what the page runs on.
+2. The jsPDF check failed at 0 requests. Cause was the harness: `click()` + `type()` on a number
+   input replaced the value with `0`, so the result read "—" and the PDF button **correctly**
+   refused to export an empty state. Harness fixed, and that guard is now its own passing check.
+
+A third near-miss during registry work: recounting `all-calculators` category labels with
+sloppy section bounds swallowed the Crypto panel into Math and would have pushed "Math (49)".
+Re-scoped across all five panels — Math 39 was right all along. Only Finance moves, 79 to 80.
+
+### Article scope
+
+H2 lists of `average-return-calculator`, `roi-calculator` and `investment-calculator` read
+*before* drafting. Arithmetic-vs-geometric belongs to average-return and IRR framing to roi, so
+this page links out to both rather than restating them. Nine H2s plus a six-question FAQ. The FAQ
+is generated from a single `faq.json` into both the JSON-LD and the visible markup, so the
+schema-drift bug cannot occur structurally; the exact-match diff still runs, with a negative
+control, and reports 6/6.
+
+Sidebar links to 6 Finance calculators. Inbound editorial links from `roi`, `average-return` and
+`investment`, each written in that page's own voice and audited individually in Chromium by
+rendered text, visibility and box height against a sibling link — not by count.
+
+### Remaining six
+
+portfolio-allocation, sip, stock-average-price, break-even, pe-ratio, gold-value. SIP and
+gold-value still carry the open convention questions noted last time (month-start vs month-end
+contributions; troy ounce vs tola and purity basis) and should be settled explicitly.

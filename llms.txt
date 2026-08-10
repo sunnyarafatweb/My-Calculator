@@ -30,6 +30,7 @@
 - [Debt-to-Income Ratio Calculator](https://calculatorboss.com/debt-to-income-calculator/)
 - [Depreciation Calculator — Straight-Line](https://calculatorboss.com/depreciation-calculator/)
 - [Discount Calculator](https://calculatorboss.com/discount-calculator/)
+- [CAGR Calculator](https://calculatorboss.com/cagr-calculator/)
 - [Dividend Yield Calculator](https://calculatorboss.com/dividend-yield-calculator/)
 - [Down Payment Calculator](https://calculatorboss.com/down-payment-calculator/)
 - [Estate Tax Calculator](https://calculatorboss.com/estate-tax-calculator/)
