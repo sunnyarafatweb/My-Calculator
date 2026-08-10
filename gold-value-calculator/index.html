@@ -844,7 +844,7 @@
     GRAMS_PER_TROY_OZ:GRAMS_PER_TROY_OZ,UNITS:UNITS};
 
   /* ---------- live data, with graceful failure ---------- */
-  var spot={xau:null,xag:null,at:null,ok:false};
+  var spot={xau:null,xag:null,at:null,ok:false,source:'primary'};
   var fxRates={USD:1};
   function fetchJSON(url){
     return fetch(url).then(function(r){
@@ -856,8 +856,13 @@
     $('gv-spotText').textContent=text;
     $('gv-spotBox').className='gv-spot'+(stale?' is-stale':'');
   }
+  /* Primary feed, plus a clearly-labelled backup so one provider going down
+     does not leave the page useless. PAX Gold is tokenised gold redeemable
+     for LBMA bullion and tracks spot within a fraction of a percent; it is
+     never used silently -- the spot line says when it is in play. */
   function loadLive(){
     setSpotBox('Loading the live gold price\u2026',false);
+    spot.source='primary';
     return Promise.all([
       fetchJSON('https://api.gold-api.com/price/XAU').catch(function(){return null;}),
       fetchJSON('https://api.gold-api.com/price/XAG').catch(function(){return null;}),
@@ -866,11 +871,29 @@
       if(res[0]&&res[0].price>0){ spot.xau=res[0].price; spot.at=res[0].updatedAt||null; spot.ok=true; }
       if(res[1]&&res[1].price>0){ spot.xag=res[1].price; }
       if(res[2]&&res[2].rates){ fxRates=res[2].rates; fxRates.USD=1; }
+      if(spot.ok) return null;
+      return fetchJSON('https://api.coingecko.com/api/v3/simple/price?ids=pax-gold&vs_currencies=usd')
+        .then(function(d){
+          var v=d&&d['pax-gold']&&d['pax-gold'].usd;
+          if(v>0){ spot.xau=v; spot.at=null; spot.ok=true; spot.source='backup'; }
+        }).catch(function(){});
+    }).then(function(){
       if(!spot.ok){
         setSpotBox('Live price unavailable \u2014 enter a spot price under More Options to continue.',true);
       }
       run();
     });
+  }
+  /* "Updated N ago" makes freshness visible rather than something to trust. */
+  function freshness(){
+    if(!spot.at) return '';
+    var t=Date.parse(spot.at);
+    if(!isFinite(t)) return '';
+    var s=Math.max(0,Math.round((Date.now()-t)/1000));
+    if(s<90) return ' \u00b7 updated '+s+'s ago';
+    var m=Math.round(s/60);
+    if(m<90) return ' \u00b7 updated '+m+' min ago';
+    return ' \u00b7 updated '+Math.round(m/60)+' h ago';
   }
   function fx(){ var r=fxRates[cur]; return (isFinite(r)&&r>0)?r:1; }
   function effectiveSpot(){
@@ -906,8 +929,10 @@
     if(e.manual){ setSpotBox('Using your spot price of $'+fmt(e.v,2)+' per troy ounce.',true); return; }
     if(!spot.ok){ setSpotBox('Live price unavailable \u2014 enter a spot price under More Options to continue.',true); return; }
     var perGram=pricePerGramPure(spot.xau,fx());
+    var backup=(spot.source==='backup');
     setSpotBox('Gold '+money(spot.xau*fx(),ccyDp())+'/oz \u00b7 '+money(perGram,ccyDp())+'/g pure'+
-      (cur!=='USD'?' \u00b7 $'+fmt(spot.xau,2)+' spot':''),false);
+      (cur!=='USD'?' \u00b7 $'+fmt(spot.xau,2)+' spot':'')+
+      (backup?' \u00b7 backup source, may differ slightly from spot':freshness()),backup);
   }
   function stack(parts){
     var el=$('gv-chart'), tot=0,i;

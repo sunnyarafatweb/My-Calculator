@@ -10231,6 +10231,31 @@ gold-value. Finance 78 to 86. All sixteen `_redirects` rules repointed off the h
 by column parsing. Registry files in sync, zero no-slash internal links, every page carrying
 2-3 inbound editorial links audited individually in Chromium.
 
+### Follow-up (same day): resilience of the live feed
+
+Owner asked whether the price stays current without manual updating. Verified rather than
+asserted: nothing is hardcoded, `loadLive()` runs on every page load, and three consecutive loads
+of the production page 40 seconds apart returned $4,354.90 / $4,353.90 / $4,354.30 — tracking the
+feed minute by minute. Gold updates roughly every 30 seconds (`cache-control: max-age=18`).
+
+FX refreshes daily, which is the correct cadence here rather than a limitation: the Gulf pegs
+showed 0.0000% drift against their official values (OMR 0.0008%), so a daily refresh is
+immaterial for AED/SAR/QAR/BHD/JOD/OMR. Only KWD (basket) and EGP (floating) actually move, and
+daily suits both.
+
+Two improvements made off the back of it:
+
+1. **A labelled backup price source.** The page previously had a single point of failure. Added
+   CoinGecko's PAX Gold — tokenised gold redeemable for LBMA bullion, tracking spot within about
+   0.24% — used only when the primary feed fails, and never silently: the spot line says
+   "backup source, may differ slightly from spot" and the box turns amber. Three failure levels
+   now tested: primary alive, primary dead (backup takes over), both dead (honest failure plus
+   manual override).
+2. **A visible freshness stamp** — "updated 17s ago" — so staleness is something the visitor can
+   see rather than something they have to trust.
+
+Browser suite now 73/73, including 11 offline/degradation checks.
+
 ### Open item for the owner
 
 **Arabic-language SEO is a separate decision and was not taken here.** This page is written in
