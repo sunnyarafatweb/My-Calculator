@@ -364,15 +364,22 @@
 
 /* ---- the calculator body ---- */
 .sci-body{background:#14181d;border-radius:20px;padding:14px;box-shadow:0 10px 30px rgba(15,20,28,.22),0 2px 6px rgba(15,20,28,.14)}
-.sci-lcd{background:#E7EDD6;border-radius:10px;padding:12px 13px;min-height:132px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
-.sci-lcdtop{font:400 15px/1.55 var(--font-mono,ui-monospace,monospace);color:#1B2015;word-break:break-all;overflow-y:auto;max-height:78px}
+.sci-lcd{background:#E7EDD6;border-radius:10px;padding:0;height:236px;display:flex;flex-direction:column;overflow:hidden}
+.sci-tape{flex:1;overflow-y:auto;padding:4px 0 0}
+.sci-tent{border-bottom:1px solid #CFD8BC;padding:8px 13px}
+.sci-tex{font:400 13.5px/1.5 var(--font-mono,ui-monospace,monospace);color:#3A4530;word-break:break-all}
+.sci-tre{font:600 17px/1.35 var(--font-mono,ui-monospace,monospace);color:#141A0F;text-align:right;word-break:break-all;margin-top:2px}
+.sci-tex sup,.sci-tre sup{font-size:.68em;vertical-align:super}
+.sci-live{border-top:2px solid #C6D0B0;background:#EDF2DE;padding:9px 13px 11px;flex-shrink:0}
+.sci-lcdtop{font:400 15px/1.5 var(--font-mono,ui-monospace,monospace);color:#1B2015;word-break:break-all;max-height:52px;overflow-y:auto}
 .sci-lcdtop sup{font-size:.7em;vertical-align:super}
 .sci-caret{display:inline-block;width:2px;height:15px;background:#1B2015;vertical-align:-2px;animation:sci-blink 1.05s step-end infinite}
 @keyframes sci-blink{50%{opacity:0}}
-.sci-lcdbot{font:600 27px/1.2 var(--font-mono,ui-monospace,monospace);color:#141A0F;text-align:right;margin-top:8px;word-break:break-all}
+.sci-lcdbot{font:600 25px/1.2 var(--font-mono,ui-monospace,monospace);color:#141A0F;text-align:right;margin-top:5px;word-break:break-all}
 .sci-lcdbot sup{font-size:.62em;vertical-align:super}
-.sci-lcdbot.err{color:#9B2C2C;font-size:19px}
-.sci-status{display:flex;align-items:center;gap:7px;padding:9px 3px 10px;flex-wrap:wrap}
+.sci-lcdbot.err{color:#9B2C2C;font-size:18px}
+.sci-status{display:flex;align-items:center;gap:5px;padding:9px 3px 10px;flex-wrap:wrap}
+.sci-stgap{flex:1}
 .sci-ind{font:700 10.5px/1 var(--font-mono,ui-monospace,monospace);letter-spacing:.06em;padding:5px 8px;border-radius:5px;background:#232A33;color:#5C6B7C;border:none;cursor:default}
 .sci-ind.act{background:#2E3742;color:#E7EDD6}
 .sci-ind.tog{cursor:pointer}
@@ -382,29 +389,39 @@
 .sci-ind.mem.act{background:#16A34A;color:#fff}
 
 /* ---- keypad ---- */
-.sci-pad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.sci-padtop{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-bottom:5px}
+.sci-padbot{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
 .sci-kw{display:flex;flex-direction:column;min-width:0}
-.sci-lbl{display:flex;justify-content:space-between;gap:3px;height:12px;padding:0 2px 1px;font:600 8.5px/1 var(--font-mono,ui-monospace,monospace);white-space:nowrap;overflow:hidden}
+.sci-lbl{display:flex;justify-content:space-between;align-items:flex-end;gap:2px;height:12px;padding:0 2px 1px;font:600 8px/1 var(--font-mono,ui-monospace,monospace);white-space:nowrap;overflow:hidden}
 .sci-lbl .s{color:#F0B429}.sci-lbl .a{color:#22C55E}
 .sci-lbl sup{font-size:.8em;vertical-align:super}
-.sci-k{width:100%;border:1px solid #333C47;background:#252D37;color:#E8EEF5;border-radius:7px;min-height:40px;font:600 14px/1 inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:3px 2px;transition:background .13s,transform .05s;-webkit-tap-highlight-color:transparent}
+.sci-k{width:100%;border:1px solid #333C47;background:#252D37;color:#E8EEF5;border-radius:7px;min-height:38px;font:600 13px/1.15 inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:3px 2px;transition:background .13s,transform .05s;-webkit-tap-highlight-color:transparent;overflow:hidden}
 .sci-k:hover{background:#313B47}
 .sci-k:active{transform:translateY(1px);background:#3A4653}
-.sci-k sup{font-size:.68em;vertical-align:super;line-height:0}
-.sci-k-num{background:#2F3945;font-size:16px;font-weight:700}
-.sci-k-num:hover{background:#3A4653}
-.sci-k-mod{background:#1E252D;font-size:11px;letter-spacing:.05em}
+.sci-k sup{font-size:.66em;vertical-align:super;line-height:0}
+.sci-num{background:#2F3945;font-size:16px;font-weight:700}
+.sci-num:hover{background:#3A4653}
+.sci-mod{background:#1E252D;font-size:10.5px;letter-spacing:.03em}
 .sci-k-sh{color:#F0B429;border-color:#5A4A1E}
 .sci-k-sh.on{background:#F0B429;color:#1B2015;border-color:#F0B429}
 .sci-k-al{color:#22C55E;border-color:#1F5136}
 .sci-k-al.on{background:#22C55E;color:#0C2415;border-color:#22C55E}
-.sci-k-del{background:#B3453F;border-color:#C25A54;color:#fff;font-size:12px}
-.sci-k-del:hover{background:#C25A54}
-.sci-k-ac{background:#8E332E;border-color:#A3413B;color:#fff;font-size:12px}
-.sci-k-ac:hover{background:#A3413B}
-.sci-k-eq{background:#16A34A;border-color:#16A34A;color:#fff;font-size:18px}
-.sci-k-eq:hover{background:#128A3D;border-color:#128A3D}
-.sci-k-nav{background:#1E252D;font-size:13px}
+.sci-del{background:#B3453F;border-color:#C25A54;color:#fff;font-size:12px}
+.sci-del:hover{background:#C25A54}
+.sci-ac{background:#8E332E;border-color:#A3413B;color:#fff;font-size:12px}
+.sci-ac:hover{background:#A3413B}
+.sci-eq{background:#16A34A;border-color:#16A34A;color:#fff;font-size:18px}
+.sci-eq:hover{background:#128A3D;border-color:#128A3D}
+.sci-k-soon{opacity:.42}
+.sci-k-soon:hover{background:#252D37}
+/* D-pad */
+.sci-dpadwrap{display:flex;align-items:center;justify-content:center}
+.sci-dpad{position:relative;width:100%;max-width:96px;aspect-ratio:1;border-radius:50%;background:#1E252D;border:1px solid #333C47}
+.sci-dk{position:absolute;border:none;background:transparent;color:#C3D0DE;font-size:11px;cursor:pointer;width:34%;height:34%;display:flex;align-items:center;justify-content:center;border-radius:6px;padding:0}
+.sci-dk:hover{background:#2E3742;color:#fff}
+.sci-dk.up{top:2%;left:33%}.sci-dk.down{bottom:2%;left:33%}
+.sci-dk.left{left:2%;top:33%}.sci-dk.right{right:2%;top:33%}
+.sci-dhub{position:absolute;left:29%;top:29%;width:42%;height:42%;border-radius:50%;background:#2A333E;border:1px solid #3A4653;pointer-events:none}
 
 /* ---- side panels ---- */
 .sci-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
@@ -467,7 +484,7 @@
 .sci-disc{font-size:12.5px;line-height:1.7;color:var(--muted);border-top:1px solid var(--border-fine);margin-top:34px;padding-top:16px}
 
 @media(max-width:1040px){.sci-grid{grid-template-columns:minmax(0,1fr) 380px;grid-template-areas:"panel calc" "side side" "bottomgrid bottomgrid"}}
-@media(max-width:800px){.sci-grid{grid-template-columns:1fr;grid-template-areas:"calc" "panel" "side" "bottomgrid"}.sci-bottom{grid-template-columns:1fr}.sci-body{padding:11px}.sci-pad{gap:5px}.sci-k{min-height:42px;font-size:13.5px}.sci-k-num{font-size:15.5px}.sci-lbl{height:11px;font-size:8px}}
+@media(max-width:800px){.sci-grid{grid-template-columns:1fr;grid-template-areas:"calc" "panel" "side" "bottomgrid"}.sci-bottom{grid-template-columns:1fr}.sci-body{padding:11px}.sci-padtop,.sci-padbot{gap:4px}.sci-k{min-height:40px;font-size:12px}.sci-num{font-size:15px}.sci-lcd{height:210px}.sci-lbl{height:11px;font-size:8px}}
 </style>
 
 <nav class="sci-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#mat">Math</a><span class="sep">/</span><span class="cur">Scientific Calculator</span></nav>
@@ -490,6 +507,7 @@
       <div class="sci-vrow"><span class="sci-vn">Ans</span><span class="sci-vv empty" id="sci-vAns">not set</span></div>
       <div class="sci-vrow"><span class="sci-vn">PreAns</span><span class="sci-vv empty" id="sci-vPre">not set</span></div>
       <div class="sci-vrow"><span class="sci-vn">M</span><span class="sci-vv empty" id="sci-vM">0</span></div>
+      <div id="sci-varbox"></div>
     </div>
     <div class="sci-pfoot">
       <button type="button" class="sci-pbtn" id="sci-clearh" disabled>Clear history</button>
@@ -500,72 +518,77 @@
   <!-- ============ centre: the calculator ============ -->
   <div class="sci-unit">
     <div class="sci-body">
-      <div class="sci-lcd">
-        <div class="sci-lcdtop" id="sci-expr"></div>
-        <div class="sci-lcdbot" id="sci-out">0</div>
+      <div class="sci-lcd" id="sci-lcd">
+        <div class="sci-tape" id="sci-tape"></div>
+        <div class="sci-live">
+          <div class="sci-lcdtop" id="sci-expr"></div>
+          <div class="sci-lcdbot" id="sci-out">0</div>
+        </div>
       </div>
       <div class="sci-status">
         <button type="button" class="sci-ind sh" id="sci-iSh">SHIFT</button>
         <button type="button" class="sci-ind al" id="sci-iAl">ALPHA</button>
-        <button type="button" class="sci-ind tog act" id="sci-iMode" title="Switch between degrees and radians">DEG</button>
+        <button type="button" class="sci-ind tog act" id="sci-iMode" title="Degrees or radians">DEG</button>
+        <span class="sci-ind" id="sci-iFrac" title="Fraction display arrives in a later phase">FRAC</span>
+        <span class="sci-ind act" id="sci-iNorm" title="Standard number display">NORM</span>
         <span class="sci-ind mem" id="sci-iMem">M</span>
+        <span class="sci-stgap"></span>
+        <button type="button" class="sci-ind tog" id="sci-undo" title="Undo" aria-label="Undo">&#8630;</button>
+        <button type="button" class="sci-ind tog" id="sci-redo" title="Redo" aria-label="Redo">&#8631;</button>
       </div>
 
-      <div class="sci-pad" id="sci-pad">
-        <!-- row 1 : modifiers and cursor -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-mod sci-k-sh" id="sci-bSh" data-k="SHIFT">SHIFT</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-mod sci-k-al" id="sci-bAl" data-k="ALPHA">ALPHA</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-nav" data-k="LEFT" aria-label="Move cursor left">&#9664;</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-nav" data-k="RIGHT" aria-label="Move cursor right">&#9654;</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-mod" data-k="MODE">MODE</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">MC</span></span><button type="button" class="sci-k" data-k="MR" data-s="MC">MR</button></div>
-
-        <!-- row 2 : powers, roots, logs -->
-        <div class="sci-kw"><span class="sci-lbl"><span class="s"><sup>3</sup>&#8730;</span></span><button type="button" class="sci-k" data-k="sqrt" data-s="cbrt">&#8730;<span style="opacity:.5">&#9633;</span></button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">x<sup>3</sup></span></span><button type="button" class="sci-k" data-k="sq" data-s="cu">x<sup>2</sup></button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s"><sup>y</sup>&#8730;</span></span><button type="button" class="sci-k" data-k="pow" data-s="root">x<sup>&#9633;</sup></button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">10<sup>x</sup></span></span><button type="button" class="sci-k" data-k="log" data-s="exp10">log</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">e<sup>x</sup></span></span><button type="button" class="sci-k" data-k="ln" data-s="expe">ln</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">n!</span></span><button type="button" class="sci-k" data-k="recip" data-s="fact">x<sup>-1</sup></button></div>
-
-        <!-- row 3 : sign, trig, brackets -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="NEG">(&minus;)</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">sin<sup>-1</sup></span></span><button type="button" class="sci-k" data-k="sin" data-s="asin">sin</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">cos<sup>-1</sup></span></span><button type="button" class="sci-k" data-k="cos" data-s="acos">cos</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">tan<sup>-1</sup></span></span><button type="button" class="sci-k" data-k="tan" data-s="atan">tan</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">%</span></span><button type="button" class="sci-k" data-k="(" data-s="pct">(</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k=")">)</button></div>
-
-        <!-- row 4 -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="7">7</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="8">8</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="9">9</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-del" data-k="DEL">DEL</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-ac" data-k="AC">AC</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">M&minus;</span></span><button type="button" class="sci-k" data-k="M+" data-s="M-">M+</button></div>
-
-        <!-- row 5 -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="4">4</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="5">5</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="6">6</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="*">&times;</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="/">&divide;</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="RND">Ran#</button></div>
-
-        <!-- row 6 -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="1">1</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="2">2</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="3">3</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="+">+</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k" data-k="-">&minus;</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">PreAns</span></span><button type="button" class="sci-k" data-k="ANS" data-s="PREANS">Ans</button></div>
-
-        <!-- row 7 -->
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k="0">0</button></div>
-        <div class="sci-kw"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-num" data-k=".">.</button></div>
-        <div class="sci-kw"><span class="sci-lbl"><span class="s">&pi;</span><span class="a">e</span></span><button type="button" class="sci-k" data-k="EXP" data-s="PI" data-a="EU">&times;10<sup>x</sup></button></div>
-        <div class="sci-kw" style="grid-column:span 3"><span class="sci-lbl"></span><button type="button" class="sci-k sci-k-eq" data-k="=">=</button></div>
+      <div class="sci-padtop" id="sci-padtop">
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-k-sh sci-mod" data-k="SHIFT">SHIFT</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-k-al sci-mod" data-k="ALPHA">ALPHA</button></div>
+      <div class="sci-dpadwrap" style="grid-row:span 2;grid-column:span 2"><div class="sci-dpad"><button type="button" class="sci-dk up" data-k="UP" aria-label="Previous entry">&#9650;</button><button type="button" class="sci-dk left" data-k="LEFT" aria-label="Cursor left">&#9664;</button><button type="button" class="sci-dk right" data-k="RIGHT" aria-label="Cursor right">&#9654;</button><button type="button" class="sci-dk down" data-k="DOWN" aria-label="Next entry">&#9660;</button><span class="sci-dhub"></span></div></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-mod sci-k-soon" data-k="MENU" data-soon="4">MENU</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-mod sci-k-soon" data-k="SETUP" data-soon="3">SETUP</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-mod sci-k-soon" data-k="OPTN" data-soon="5">OPTN</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">SOLVE</span><span class="a"></span></span><button type="button" class="sci-k sci-mod sci-k-soon" data-k="CALC" data-soon="5">CALC</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">d/dx</span><span class="a"></span></span><button type="button" class="sci-k sci-k-soon" data-k="INTG" data-soon="5">∫dx</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">Σ</span><span class="a"></span></span><button type="button" class="sci-k sci-k-soon" data-k="VARX" data-soon="5">x</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">a b/c</span><span class="a">÷R</span></span><button type="button" class="sci-k sci-k-soon" data-k="FRAC" data-soon="3">a/b</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"><sup>3</sup>√</span><span class="a"></span></span><button type="button" class="sci-k" data-k="sqrt" data-s="cbrt">√▪</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">x<sup>3</sup></span><span class="a"></span></span><button type="button" class="sci-k" data-k="sq" data-s="cu">x<sup>2</sup></button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"><sup>y</sup>√</span><span class="a"></span></span><button type="button" class="sci-k" data-k="pow" data-s="root">x<sup>▪</sup></button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">10<sup>x</sup></span><span class="a"></span></span><button type="button" class="sci-k" data-k="log" data-s="exp10">log▪</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">e<sup>x</sup></span><span class="a"></span></span><button type="button" class="sci-k" data-k="ln" data-s="expe">ln</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k" data-k="NEG">(−)</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">←°′″</span><span class="a"></span></span><button type="button" class="sci-k" data-k="DMS" data-s="dms">°′″</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">n!</span><span class="a"></span></span><button type="button" class="sci-k" data-k="recip" data-s="fact">x<sup>-1</sup></button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">sin<sup>-1</sup></span><span class="a">A</span></span><button type="button" class="sci-k" data-k="sin" data-s="asin" data-a="VA">sin</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">cos<sup>-1</sup></span><span class="a">B</span></span><button type="button" class="sci-k" data-k="cos" data-s="acos" data-a="VB">cos</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">tan<sup>-1</sup></span><span class="a">C</span></span><button type="button" class="sci-k" data-k="tan" data-s="atan" data-a="VC">tan</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">RECALL</span><span class="a"></span></span><button type="button" class="sci-k" data-k="STO" data-s="RCL">STO</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">←ENG</span><span class="a"></span></span><button type="button" class="sci-k" data-k="ENG" data-s="engl">ENG</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">Abs</span><span class="a">D</span></span><button type="button" class="sci-k" data-k="(" data-s="abs" data-a="VD">(</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a">x</span></span><button type="button" class="sci-k" data-k=")" data-a="Vx">)</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a">y</span></span><button type="button" class="sci-k sci-k-soon" data-k="SD" data-a="Vy" data-soon="3">S⇔D</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">M−</span><span class="a">M</span></span><button type="button" class="sci-k" data-k="M+" data-s="M-" data-a="VM">M+</button></div>
       </div>
+      <div class="sci-padbot" id="sci-padbot">
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">CONST</span><span class="a"></span></span><button type="button" class="sci-k sci-num sci-k-soon" data-k="7" data-soon="5">7</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">CONV</span><span class="a"></span></span><button type="button" class="sci-k sci-num sci-k-soon" data-k="8" data-soon="5">8</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="9">9</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-del" data-k="DEL">DEL</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-ac" data-k="AC">AC</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">MATRIX</span><span class="a"></span></span><button type="button" class="sci-k sci-num sci-k-soon" data-k="4" data-soon="4">4</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="5">5</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">nPr</span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="6" data-s="nPr">6</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">GCD</span><span class="a"></span></span><button type="button" class="sci-k" data-k="*" data-s="gcd">×</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">nCr</span><span class="a">LCM</span></span><button type="button" class="sci-k" data-k="/" data-s="nCr" data-a="lcm">÷</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">CMPLX</span><span class="a"></span></span><button type="button" class="sci-k sci-num sci-k-soon" data-k="1" data-soon="4">1</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="2">2</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">Pol</span><span class="a"></span></span><button type="button" class="sci-k sci-num sci-k-soon" data-k="3" data-soon="4">3</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">mod</span><span class="a"></span></span><button type="button" class="sci-k" data-k="+" data-s="mod">+</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">Rec</span><span class="a"></span></span><button type="button" class="sci-k sci-k-soon" data-k="-" data-soon="4">−</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">Ran#</span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="0" data-s="RND">0</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">RanInt</span><span class="a"></span></span><button type="button" class="sci-k sci-num" data-k="." data-s="RANINT">.</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">π</span><span class="a">e</span></span><button type="button" class="sci-k" data-k="EXP" data-s="PI" data-a="EU">×10<sup>x</sup></button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s">PreAns</span><span class="a"></span></span><button type="button" class="sci-k" data-k="ANS" data-s="PREANS">Ans</button></div>
+      <div class="sci-kw"><span class="sci-lbl"><span class="s"></span><span class="a"></span></span><button type="button" class="sci-k sci-eq" data-k="=">=</button></div>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -602,6 +625,14 @@
           <tr><th><span class="sci-yl">SHIFT</span> then Ans</th><td>PreAns, the answer before last</td></tr>
           <tr><th><span class="sci-yl">SHIFT</span> then &times;10<sup>x</sup></th><td>&pi;</td></tr>
           <tr><th><span class="sci-gl">ALPHA</span> then &times;10<sup>x</sup></th><td>e, Euler's number</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> then 6 &middot; &divide;</th><td>nPr &middot; nCr, permutations and combinations</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> then &times; &middot; +</th><td>GCD &middot; Mod</td></tr>
+          <tr><th><span class="sci-gl">ALPHA</span> then &divide;</th><td>LCM</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> then (</th><td>Abs, absolute value</td></tr>
+          <tr><th>STO then a letter</th><td>Store the current value in A, B, C, D, x or y</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> then STO</th><td>RECALL &mdash; paste a stored letter back</td></tr>
+          <tr><th><span class="sci-gl">ALPHA</span> then sin &middot; cos &middot; tan</th><td>The letters A &middot; B &middot; C</td></tr>
+          <tr><th>&#9650; &#9660; on the pad</th><td>Step back and forward through past entries</td></tr>
         </tbody>
       </table>
     </div>
@@ -693,6 +724,8 @@
   <p><strong>Ans</strong> drops your latest result into the line; <strong>PreAns</strong>, on its yellow layer, gives the one before that. Together they let you reach back two steps without writing anything down. Both are listed in the Variable panel so you can see what they currently hold.</p>
   <h3>Memory</h3>
   <p><strong>M+</strong> adds the current value to a running store and <strong>M&minus;</strong> subtracts from it; <strong>MR</strong> pastes the store back and <strong>SHIFT MR</strong> clears it. It is an accumulator rather than a clipboard, which makes it right for totalling a column of figures that each need working out first. The M indicator lights whenever the store holds anything.</p>
+  <h3>Letters</h3>
+  <p>Six registers &mdash; <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, <strong>D</strong>, <strong>x</strong> and <strong>y</strong> &mdash; hold a number under a name. Press <strong>STO</strong> then a letter to write the value on screen into it, and <strong>SHIFT STO</strong> then a letter to paste it back. Unlike memory, which is one running total, each letter is independent, so a physics problem can keep its mass in A and its velocity in x and use both in the same line. Current values are listed in the Variable panel.</p>
   <h3>History</h3>
   <p>Every completed calculation is listed on the left with its time, newest first. Tap a line and it goes back on the display so you can change one number and run it again. This is the one for checking homework, because it shows what you actually typed rather than only what it came to. The list lives in the page and clears when you leave.</p>
 
@@ -711,7 +744,7 @@
   <ul>
     <li>It works to roughly twelve significant digits, the practical limit of standard double-precision arithmetic. For very long integers use the <a href="/big-number-calculator/">big number calculator</a>.</li>
     <li>It evaluates; it does not solve. No algebra, no unknowns, no symbolic simplification &mdash; you get a decimal, not &pi;/6.</li>
-    <li>There is no fraction display, no matrix mode, no complex numbers, no calculus and no statistics yet. Those are being built and will arrive on this page in stages.</li>
+    <li>There is no fraction display, no matrix mode, no complex numbers and no calculus yet. Those keys are on the pad but dimmed, and pressing one tells you which stage it arrives in rather than doing nothing.</li>
     <li>It does not graph.</li>
     <li>Factorials are exact for whole numbers to 170 and use the gamma function for decimals. Beyond 170 the true value exceeds what the number format holds, so you get an error rather than a wrong figure.</li>
     <li>Nothing is saved between visits.</li>
@@ -740,8 +773,10 @@
 <script>
 (function(){
 "use strict";
-var PAD=document.getElementById('sci-pad');
-if(!PAD) return;
+var PADT=document.getElementById('sci-padtop'),PADB=document.getElementById('sci-padbot');
+if(!PADT) return;
+var TAPE=document.getElementById('sci-tape'),
+    UNDO=document.getElementById('sci-undo'),REDO=document.getElementById('sci-redo');
 var EXPR=document.getElementById('sci-expr'),OUT=document.getElementById('sci-out'),
     PANE_H=document.getElementById('sci-paneH'),PANE_V=document.getElementById('sci-paneV'),
     TAB_H=document.getElementById('sci-tabH'),TAB_V=document.getElementById('sci-tabV'),
@@ -753,13 +788,19 @@ var EXPR=document.getElementById('sci-expr'),OUT=document.getElementById('sci-ou
     CLR=document.getElementById('sci-clearh'),PDF=document.getElementById('sci-pdfbtn');
 
 var T=[],cur=0,mem=0,ans=null,pre=null,deg=true,shift=false,alpha=false,hist=[],fresh=true;
+var VARS={A:0,B:0,C:0,D:0,x:0,y:0};      /* STO/RECALL registers */
+var stoArm=false,rclArm=false;            /* waiting for a letter key */
+var tape=[],histPos=-1;                   /* on-screen entries, D-pad browsing */
+var undoStack=[],redoStack=[];
 
 /* ================= evaluation ================= */
 var FUNCS={sin:1,cos:1,tan:1,asin:1,acos:1,atan:1,ln:1,log:1,sqrt:1,cbrt:1};
 var PREFIX={expe:1,exp10:1};
 var POSTFIX={sq:1,cu:1,recip:1,fact:1,pct:1};
+var BINFN={nPr:1,nCr:1,gcd:1,lcm:1,mod:1};   /* infix, lowest-but-one precedence */
+var VARTOK={VA:'A',VB:'B',VC:'C',VD:'D',Vx:'x',Vy:'y',VM:'M'};
 function isNum(t){return typeof t==='string'&&/^-?(\d+\.?\d*|\.\d+)$/.test(t);}
-function isValueEnd(t){return isNum(t)||t==='PI'||t==='EU'||t===')'||POSTFIX[t];}
+function isValueEnd(t){return isNum(t)||t==='PI'||t==='EU'||t===')'||POSTFIX[t]||VARTOK[t]!==undefined;}
 
 function evaluate(src){
   var tk=src.slice(),open=0,i;
@@ -767,7 +808,7 @@ function evaluate(src){
   while(open-->0)tk.push(')');
   var p=0;
   function peek(){return tk[p];}
-  function starts(t){return t!==undefined&&(isNum(t)||t==='PI'||t==='EU'||t==='('||FUNCS[t]||PREFIX[t]);}
+  function starts(t){return t!==undefined&&(isNum(t)||t==='PI'||t==='EU'||t==='('||FUNCS[t]||PREFIX[t]||VARTOK[t]!==undefined||t==='abs');}
   function toRad(x){return deg?x*Math.PI/180:x;}
   function fromRad(x){return deg?x*180/Math.PI:x;}
   function gamma(z){
@@ -779,6 +820,24 @@ function evaluate(src){
     var t=z+7.5;
     return Math.sqrt(2*Math.PI)*Math.pow(t,z+0.5)*Math.exp(-t)*x;
   }
+  function gcdF(a,b){a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));
+    if(!isFinite(a)||!isFinite(b))return NaN;
+    while(b){var t=b;b=a%b;a=t;}return a;}
+  function lcmF(a,b){a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));
+    if(!isFinite(a)||!isFinite(b))return NaN;
+    if(a===0||b===0)return 0;return a/gcdF(a,b)*b;}
+  function modF(a,b){if(b===0)return NaN;
+    var x=Math.round(a),y=Math.round(b);
+    if(Math.abs(x-a)>1e-11||Math.abs(y-b)>1e-11)return NaN;
+    return x%y;}
+  function nPrF(n,r){n=Math.round(n);r=Math.round(r);
+    if(n<0||r<0||r>n||n>170)return NaN;
+    var v=1;for(var i=0;i<r;i++)v*=(n-i);return v;}
+  function nCrF(n,r){n=Math.round(n);r=Math.round(r);
+    if(n<0||r<0||r>n)return NaN;
+    if(r>n-r)r=n-r;
+    var v=1;for(var i=1;i<=r;i++)v=v*(n-r+i)/i;
+    return Math.abs(v-Math.round(v))<1e-6?Math.round(v):v;}
   function factorial(n){
     var r=Math.round(n);
     if(Math.abs(r-n)<1e-11){ if(r<0||r>170) return NaN;
@@ -795,6 +854,8 @@ function evaluate(src){
         var ex=0;if(isNum(peek())){ex=parseFloat(tk[p]);p++;}
         v=v*Math.pow(10,sgn*ex);}
       return v;}
+    if(VARTOK[t]!==undefined){p++;return (t==='VM')?mem:VARS[VARTOK[t]];}
+    if(t==='abs'){p++;if(peek()==='(')p++;v=expr();if(peek()===')')p++;return Math.abs(v);}
     if(t==='PI'){p++;return Math.PI;}
     if(t==='EU'){p++;return Math.E;}
     if(t==='('){p++;v=expr();if(peek()===')')p++;return v;}
@@ -847,11 +908,24 @@ function evaluate(src){
       else break; }
     return v;
   }
-  function expr(){
+  function binlevel(){
     var v=term();
     for(;;){ var t=peek();
-      if(t==='+'){p++;v+=term();}
-      else if(t==='-'){p++;v-=term();}
+      if(!BINFN[t])break;
+      p++;var b=term();
+      if(t==='nPr')v=nPrF(v,b);
+      else if(t==='nCr')v=nCrF(v,b);
+      else if(t==='gcd')v=gcdF(v,b);
+      else if(t==='lcm')v=lcmF(v,b);
+      else v=modF(v,b);
+    }
+    return v;
+  }
+  function expr(){
+    var v=binlevel();
+    for(;;){ var t=peek();
+      if(t==='+'){p++;v+=binlevel();}
+      else if(t==='-'){p++;v-=binlevel();}
       else break; }
     return v;
   }
@@ -892,7 +966,9 @@ var GLYPH={'PI':'&pi;','EU':'e','+':'+','-':'&minus;','*':'&times;','/':'&divide
   'acos':'cos<sup>-1</sup>(','atan':'tan<sup>-1</sup>(','ln':'ln(','log':'log(',
   'sqrt':'&#8730;(','cbrt':'<sup>3</sup>&#8730;(','sq':'<sup>2</sup>','cu':'<sup>3</sup>',
   'recip':'<sup>-1</sup>','fact':'!','pct':'%','pow':'^','root':'<sup>y</sup>&#8730;',
-  'expe':'e^','exp10':'10^','EXP':'&times;10^','neg':'&minus;'};
+  'expe':'e^','exp10':'10^','EXP':'&times;10^','neg':'&minus;',
+  'abs':'Abs(','nPr':'P','nCr':'C','gcd':'GCD','lcm':'LCM','mod':' mod ',
+  'VA':'A','VB':'B','VC':'C','VD':'D','Vx':'x','Vy':'y','VM':'M','dms':'&deg;'};
 function glyph(t){return GLYPH[t]!==undefined?GLYPH[t]:t;}
 function render(withCursor){
   var s='';
@@ -902,6 +978,15 @@ function render(withCursor){
   }
   if(withCursor&&cur>=T.length) s+='<span class="sci-caret"></span>';
   return s;
+}
+function drawTape(){
+  if(!tape.length){TAPE.innerHTML='';return;}
+  var s='';
+  for(var i=0;i<tape.length;i++)
+    s+='<div class="sci-tent"><div class="sci-tex">'+tape[i].e+
+       '</div><div class="sci-tre">'+tape[i].r+'</div></div>';
+  TAPE.innerHTML=s;
+  TAPE.scrollTop=TAPE.scrollHeight;
 }
 function refresh(){
   EXPR.innerHTML=render(true);
@@ -929,6 +1014,17 @@ function drawHist(){
   PANE_H.innerHTML=h;CLR.disabled=false;PDF.disabled=false;
 }
 function drawVars(){
+  var box=document.getElementById('sci-varbox');
+  if(box){
+    var s='';
+    var names=['A','B','C','D','x','y'];
+    for(var i=0;i<names.length;i++){
+      var v=VARS[names[i]],empty=(v===0);
+      s+='<div class="sci-vrow"><span class="sci-vn">'+names[i]+'</span>'+
+         '<span class="sci-vv'+(empty?' empty':'')+'">'+fmt(v)+'</span></div>';
+    }
+    box.innerHTML=s;
+  }
   V_ANS.innerHTML=ans===null?'not set':fmt(ans);
   V_ANS.className='sci-vv'+(ans===null?' empty':'');
   V_PRE.innerHTML=pre===null?'not set':fmt(pre);
@@ -953,6 +1049,28 @@ PANE_H.addEventListener('click',function(ev){
   T=it.t.slice();cur=T.length;fresh=false;refresh();
 });
 CLR.addEventListener('click',function(){hist=[];drawHist();});
+
+/* ================= undo / redo ================= */
+function snapshot(){
+  undoStack.push({t:T.slice(),c:cur});
+  if(undoStack.length>60)undoStack.shift();
+  redoStack.length=0;
+  syncUR();
+}
+function syncUR(){
+  UNDO.style.opacity=undoStack.length?'1':'.35';
+  REDO.style.opacity=redoStack.length?'1':'.35';
+}
+UNDO.addEventListener('click',function(){
+  if(!undoStack.length)return;
+  redoStack.push({t:T.slice(),c:cur});
+  var s=undoStack.pop();T=s.t;cur=s.c;fresh=false;syncUR();refresh();
+});
+REDO.addEventListener('click',function(){
+  if(!redoStack.length)return;
+  undoStack.push({t:T.slice(),c:cur});
+  var s=redoStack.pop();T=s.t;cur=s.c;fresh=false;syncUR();refresh();
+});
 
 /* ================= layers ================= */
 function setLayer(s,a){
@@ -984,8 +1102,54 @@ function press(k){
 
   if(k==='LEFT'){if(cur>0)cur--;fresh=false;refresh();return;}
   if(k==='RIGHT'){if(cur<T.length)cur++;fresh=false;refresh();return;}
-  if(k==='AC'){T=[];cur=0;fresh=true;refresh();return;}
+  if(k==='UP'||k==='DOWN'){
+    if(!hist.length)return;
+    if(k==='UP')histPos=Math.min(histPos+1,hist.length-1);
+    else histPos=Math.max(histPos-1,-1);
+    if(histPos<0){T=[];cur=0;}
+    else {T=hist[histPos].k.slice();cur=T.length;}
+    fresh=false;refresh();return;
+  }
+  /* STO waits for a letter, RECALL likewise -- exactly as the hardware does */
+  if(k==='STO'){stoArm=true;rclArm=false;flashHint('STO — now press A, B, C, D, x or y');return;}
+  if(k==='RCL'){rclArm=true;stoArm=false;flashHint('RECALL — now press A, B, C, D, x or y');return;}
+  if(VARTOK[k]!==undefined&&(stoArm||rclArm)){
+    var nm=VARTOK[k];
+    if(stoArm){
+      var cv=T.length?evaluate(T):(ans===null?0:ans);
+      if(typeof cv==='number'&&isFinite(cv)&&nm!=='M'){VARS[nm]=cv;drawVars();flashHint(nm+' = '+plain(cv));}
+      stoArm=false;refresh();return;
+    }
+    rclArm=false;
+    snapshot();
+    if(isValueEnd(tokenBefore()))insert('*');
+    insert(k);refresh();return;
+  }
+  if(k==='engl'){                       /* ENG: shift the result to a power of 3 */
+    var ev=T.length?evaluate(T):ans;
+    if(typeof ev!=='number'||!isFinite(ev)||ev===0)return;
+    var e=Math.floor(Math.log10(Math.abs(ev))),e3=Math.floor(e/3)*3;
+    OUT.innerHTML=String(parseFloat((ev/Math.pow(10,e3)).toPrecision(12)))+
+                  ' &times; 10<sup>'+e3+'</sup>';
+    OUT.className='sci-lcdbot';return;
+  }
+  if(k==='DMS'){                        /* show the current value as deg-min-sec */
+    var dv=T.length?evaluate(T):ans;
+    if(typeof dv!=='number'||!isFinite(dv))return;
+    var sg=dv<0?-1:1,av=Math.abs(dv),dd=Math.floor(av),mf=(av-dd)*60,mm=Math.floor(mf),ss=(mf-mm)*60;
+    if(Math.abs(ss-60)<1e-9){ss=0;mm+=1;} if(mm===60){mm=0;dd+=1;}
+    OUT.innerHTML=(sg<0?'&minus;':'')+dd+'&deg; '+mm+"' "+
+                  String(parseFloat(ss.toPrecision(8)))+'"';
+    OUT.className='sci-lcdbot';return;
+  }
+  if(k==='RANINT'){
+    snapshot();
+    if(isValueEnd(tokenBefore()))insert('*');
+    insert(String(Math.floor(Math.random()*10)));refresh();return;
+  }
+  if(k==='AC'){snapshot();T=[];cur=0;fresh=true;refresh();return;}
   if(k==='DEL'){
+    snapshot();
     if(cur>0){
       var b=T[cur-1];
       if(isNum(b)&&b.replace('-','').length>1){
@@ -1004,10 +1168,11 @@ function press(k){
 
   /* keys that begin a new value wipe the answer left on screen after "=" */
   var STARTS=(/^[0-9]$/.test(k)||k==='.'||k==='PI'||k==='EU'||FUNCS[k]||PREFIX[k]
-              ||k==='('||k==='RND'||k==='ANS'||k==='PREANS'||k==='MR');
+              ||k==='('||k==='RND'||k==='ANS'||k==='PREANS'||k==='MR'||k==='abs'||VARTOK[k]!==undefined);
   if(fresh&&STARTS){T=[];cur=0;}
   fresh=false;
 
+  snapshot();
   var last=tokenBefore();
 
   if(/^[0-9]$/.test(k)){
@@ -1038,6 +1203,8 @@ function press(k){
     if(html==='Error'){OUT.innerHTML='Error';OUT.className='sci-lcdbot err';fresh=true;return;}
     pre=ans;ans=v;
     hist.unshift({e:shown,r:html,t:stamp(new Date()),k:T.slice()});
+    tape.push({e:shown,r:html}); if(tape.length>25)tape.shift();
+    histPos=-1; drawTape();
     if(hist.length>40)hist.pop();
     drawHist();drawVars();
     OUT.innerHTML=html;OUT.className='sci-lcdbot';
@@ -1049,6 +1216,9 @@ function press(k){
     if(isValueEnd(last))insert('*');
     insert(k);
   }
+  else if(k==='abs'){ if(isValueEnd(last))insert('*'); insert('abs'); }
+  else if(VARTOK[k]!==undefined){ if(isValueEnd(last))insert('*'); insert(k); }
+  else if(BINFN[k]){ insert(k); }
   else if(POSTFIX[k]||k==='pow'||k==='root'||k==='+'||k==='-'||k==='*'||k==='/'||k===')'||k==='EXP'){
     insert(k);
   }
@@ -1056,16 +1226,33 @@ function press(k){
 }
 
 /* map a physical key press through the active layer */
+var hintTimer=null;
+function flashHint(msg){
+  var live=document.getElementById('sci-expr');
+  if(!live)return;
+  live.setAttribute('data-hint',msg);
+  EXPR.innerHTML='<span style="color:#5C6B4A">'+msg+'</span>';
+  if(hintTimer)clearTimeout(hintTimer);
+  hintTimer=setTimeout(function(){refresh();},1700);
+}
 function hit(btn){
+  var soon=btn.getAttribute('data-soon');
   var k=btn.getAttribute('data-k');
-  if(shift&&btn.getAttribute('data-s'))k=btn.getAttribute('data-s');
-  else if(alpha&&btn.getAttribute('data-a'))k=btn.getAttribute('data-a');
+  var usedLayer=false;
+  if(shift&&btn.getAttribute('data-s')){k=btn.getAttribute('data-s');usedLayer=true;}
+  else if(alpha&&btn.getAttribute('data-a')){k=btn.getAttribute('data-a');usedLayer=true;}
+  /* a key whose PRIMARY function is not built yet says so rather than doing nothing */
+  if(soon&&!usedLayer){setLayer(false,false);flashHint('This key arrives in phase '+soon);return;}
   press(k);
 }
-PAD.addEventListener('click',function(ev){
+function padClick(ev){
   var b=ev.target.closest?ev.target.closest('.sci-k'):null;
-  if(b)hit(b);
-});
+  if(b){hit(b);return;}
+  var d=ev.target.closest?ev.target.closest('.sci-dk'):null;
+  if(d)press(d.getAttribute('data-k'));
+}
+PADT.addEventListener('click',padClick);
+PADB.addEventListener('click',padClick);
 I_SH.addEventListener('click',function(){press('SHIFT');});
 I_AL.addEventListener('click',function(){press('ALPHA');});
 
@@ -1122,7 +1309,7 @@ PDF.addEventListener('click',function(){
   });
 });
 
-drawHist();drawVars();setLayer(false,false);refresh();
+drawHist();drawVars();drawTape();setLayer(false,false);syncUR();refresh();
 })();
 </script>
 </main><footer>

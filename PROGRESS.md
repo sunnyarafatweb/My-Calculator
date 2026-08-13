@@ -10615,3 +10615,87 @@ No browser render. The layered keypad, the blinking cursor, the panel tabs and t
 grid at 800px have never been seen on screen. **Owner to check before this is trusted**, and
 the browser install needs solving before Phase 3, where natural display makes static
 verification meaningless.
+
+## Scientific Calculator — Phase 2, the real ClassWiz layout (Aug 13, 2026)
+
+Owner's reply to Phase 1: *"same to same holona, ami to same to same chaisi."* Fair. Phase 1
+was a hardware-styled calculator, not the layout he sent.
+
+### What was said back, before building
+
+Copying **MathDA's website design** was declined and the reason given plainly: their panel
+arrangement, colours and Solver/Scanner panel are their own work, and matching a competitor's
+*function set* (which the parity protocol asks for) is a different thing from cloning their
+site. The AI Scanner is also a vision-API product, not a page feature.
+
+What *was* offered instead is the thing that actually produces the feel he is after: **the
+Casio fx-991EX ClassWiz key layout**, which MathDA is itself reproducing and which is the
+reason muscle memory transfers. The non-affiliation disclaimer added in Phase 1 covers it.
+
+### The honest gap list, measured against his screenshot
+
+| in the reference | Phase 1 had |
+|---|---|
+| 6 columns above, 5 below | 6 throughout |
+| circular D-pad | flat arrows |
+| MENU, OPTN, CALC, STO, ENG, S⇔D, fraction, °′″ | absent |
+| **past calculations stay on screen as stacked entries** | one line |
+| DEG / FRAC / NORM | DEG only |
+| undo / redo | absent |
+| SHIFT *and* ALPHA captions on nearly every key | 14 / 1 |
+
+The two that dominate visually are the split grid and the multi-entry display. Both are now in.
+
+### Built this pass
+
+**Keypad generated from a layout table, not hand-written.** 46 keys plus a 4-way D-pad emitted
+from a Python table of `(primary, shift, alpha, class, status)` rows, so the arrangement is data
+and cannot drift out of sync with itself. Split grid: `.sci-padtop` at 6 columns, `.sci-padbot`
+at 5, which is the real ClassWiz shape. 30 SHIFT captions, 10 ALPHA captions.
+
+**Multi-entry LCD.** Completed calculations stack in a scrolling tape above the live line, each
+showing expression and result, capped at 25. This is the single most recognisable thing about
+the reference and it was the biggest miss in Phase 1.
+
+**Dead keys were not acceptable, so they are not dead.** 14 keys belong to phases 3-5 (MATRIX,
+CMPLX, ∫dx, Σ, SOLVE, S⇔D, fraction, Pol/Rec, CONST, CONV, MENU, SETUP). They render dimmed,
+and pressing one **says which phase it arrives in** rather than doing nothing. Silently
+non-functional buttons are exactly what this page shipped with for months before today.
+
+**New functions, all working:** STO and RECALL over six registers (A, B, C, D, x, y) with the
+hardware's two-press flow and an on-screen prompt; nPr, nCr, GCD, LCM, Mod as infix operators
+sitting one precedence level below + and −; Abs; ENG notation; degrees-minutes-seconds display;
+RanInt; D-pad ▲▼ stepping back through past entries; undo/redo over a 60-step stack.
+
+### Verification
+
+- **New v3 suite: 35/35** — the binary operators, their precedence against `+` (`1 + 6 nPr 2`
+  must be 31, not 210), STO/RECALL round trips, the guard that a bare letter press does *not*
+  store without STO armed, D-pad history stepping and its clamps, tape growth, undo/redo.
+- **Phase-2 helpers: 1,724/1,724** against Python's own `math.gcd`, `math.lcm`, `math.perm`,
+  `math.comb` and `math.fmod`.
+- **DMS and ENG: 120,010 checks.** Round-tripped 20,000 random angles and asserted minutes and
+  seconds stay inside `[0,60)`, including the boundary values that break naive code — `0.9999999999`
+  must not render as `0° 59′ 60″`. ENG checked for an exponent always divisible by 3, a mantissa
+  in `[1,1000)`, and exact reconstruction.
+- **Regression:** the 77-case engine suite and the 2,818-case differential sweep both re-run
+  clean against the v3 file, so adding a precedence level did not disturb the existing parser.
+- **Control:** injecting a wrong log base still drops the engine suite to 74/77 and the sweep to
+  46 failures. The suites can still fail.
+- Page: JSON-LD 3 blocks valid, **FAQ schema 6/6 exact**, grid areas complete at all three
+  breakpoints, protected style block byte-identical to `HEAD`, everything after `</main>`
+  byte-identical, no broken links, article 2,130 words.
+
+Article and the layer reference card updated in the same commit, per the standing rule: a new
+"Letters" section for STO/RECALL, the new operators added to the reference table, and the limits
+list rewritten to say the unbuilt keys are dimmed and self-explaining rather than absent.
+
+### Still unverified, and now more so
+
+No browser render. This pass added a circular D-pad built from absolutely-positioned children,
+a scrolling tape inside a fixed-height LCD, and two grids of different column counts stacked
+together. **Every one of those is a layout construct that static analysis cannot judge.** The
+engine is proven; the appearance is not. Owner to check.
+
+Phase 3 (natural display, fractions, S⇔D) is *entirely* a rendering problem. It should not be
+started until a browser is available here.
