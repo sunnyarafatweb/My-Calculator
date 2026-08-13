@@ -10264,3 +10264,102 @@ Gulf, and it covers the Gulf-specific terms those searches use (21K, 916, tola, 
 per-gram rates, AED). Genuine Arabic-language targeting needs `hreflang`, an `ar` URL structure
 and translated content — infrastructure this site does not have. Raise it as its own project
 rather than bolting a second language onto one page.
+
+## Ten commits shipped Aug 10, 2026 that were never logged here
+
+Found at the start of the Aug 13 session. `PROGRESS.md` stopped at the gold-value follow-up
+(`593b0e3`) while ten further commits went to production the same day. Recording them now so the
+next session does not read a stale state:
+
+| commit | what it did |
+|---|---|
+| `96499b3` `71fb6a0` `58bbeef` `906c2ef` | mortgage-calculator retargeted at long-tail terms per a keyword report; title, description and keywords rewritten; description trimmed to show in full |
+| `d5c23a5` | em dashes in page titles replaced with pipes, 205 files |
+| `be3992e` | 85 truncating meta descriptions shortened |
+| `08313c6` `6261893` `1937b06` | editorial inbound links given to 142 orphan pages (37 Finance, 21 Health/Crypto, 84 Math/Other) |
+| `4a3dd69` | missing bitcoin-calculator OG image added |
+
+**The lesson is the one already in this file:** a session that ships without writing here costs the
+next session an audit to rediscover what happened. Log as you go.
+
+## Over-length page titles — five fixed (Aug 13, 2026)
+
+### Counting titles correctly
+
+A first pass reported seven offenders and that number was wrong. It measured the raw `<title>`
+string from the HTML source, where `&` is stored as `&amp;` — five characters that Google reads as
+one. Decoding entities before measuring drops two pages off the list. **Measure the decoded string,
+which is what the crawler sees**, or every title containing an ampersand reads four characters
+longer than it is. The real count was five.
+
+Worth noting the same trap sits one layer deeper: `d5c23a5` on Aug 10 replaced em dashes in titles
+"site-wide" and left **nine** behind, because it matched the literal `—` and not the `&#x2014;`
+entity form. Zero literal em dashes remain in titles; nine entity ones do. Not fixed here — it is
+its own commit, and it is the next thing in the queue.
+
+### What was actually wrong
+
+Four of the five were the crypto/trading batch, and all four carried the same shape: a colon
+instead of a pipe, plus a `| CalculatorBoss` suffix costing 17 characters. That suffix is the
+generic pattern section 3 of the guide tells us to drop on upgrade; the crypto batch was missed
+when the rest of the site was cleaned up.
+
+**Those four pages already held the correct short title in their own `og:title`** — 51 to 58
+characters, pipe-separated, no brand suffix. Only `<title>` and `twitter:title` carried the long
+variant. So the fix invented no wording: it brought two tags up to the third. This is the reverse
+of the Aug 9 audit's judgement call, where `og:title` was aligned *to* `<title>`; the rule is not
+"og follows title", it is **align all three to whichever one is correct**, and here that was og.
+
+| slug | before | after |
+|---|---|---|
+| crypto-tax-calculator | 74 | 58 |
+| risk-reward-calculator | 73 | 57 |
+| liquidation-price-calculator | 70 | 54 |
+| crypto-position-size-calculator | 67 | 51 |
+| portfolio-allocation-calculator | 66 | 55 |
+
+### The fifth needed a real decision, so research was done first
+
+`portfolio-allocation-calculator` had no correct variant to adopt — all three tags read
+*Portfolio Allocation Calculator | See Your Drift and What to Trade* at 66, so "What to Trade",
+the actionable half, was the part Google cut.
+
+Keyword research per section 4 before rewriting. Checked the ranking set for the head term:
+amsflow, stockcalculators.org, poptools, fintoolspro, WalletBurst, lumencalculator, fintoolsuite.
+**Every one of them titles this tool "Portfolio Rebalancing Calculator", not "Allocation".** The
+page's own `meta keywords` already listed *portfolio rebalancing calculator* second, so the term
+was known and simply never made it into the title.
+
+This is section 8's currency-converter case exactly — the site's own noun is not the one searchers
+type. Applied the same remedy the guide prescribes: **blend, do not rename.** The title now leads
+with *Portfolio Rebalancing Calculator*; the H1, the URL, the body copy, the meta description and
+the breadcrumb all keep "Allocation". Nothing was renamed for this.
+
+New title: *Portfolio Rebalancing Calculator | What to Buy and Sell* (55) — head term in front,
+and the benefit that used to be truncated now survives.
+
+### Verification
+
+- All three tags aligned on all five pages, all five decoded under 65. Re-swept the whole site:
+  **0 of 220 titles over 65**.
+- Word-level diff audited: **9 changed lines, every one a title tag**, nothing touching `<main>`,
+  `<body>` or any inline script.
+- JSON-LD re-parsed on all five pages, valid.
+- Protected style block compared against `HEAD` per page, byte-identical. The crypto batch's block
+  legitimately differs from `bmi-calculator`'s — that is the separate older crypto design system
+  the guide documents, pre-existing, confirmed unchanged by this commit rather than assumed.
+
+**Honest verification ceiling:** no browser render was done. Chromium could not be installed in this
+sandbox — `cdn.playwright.dev` returns 400 and no system browser package is available — so the
+guide's "render it, do not just check the DOM" step could not run. For a change confined to three
+head strings, with no CSS, JS or body markup touched, static verification is a reasonable ceiling
+and the rendering risk is close to nil. It would not be an acceptable ceiling for a layout or
+calculator change; if browser checks are needed in a future session, that install needs solving
+first.
+
+### Note on scope, deliberately observed
+
+Two things were found and **not** fixed here, because §3a-PRIME's scope rule says extras are a
+proposal, not a decision made inside a build: the four crypto pages carry only one JSON-LD block
+each (no `FAQPage`, no `WebApplication` on some), and 47 meta descriptions sit under 110
+characters. Both are logged for the owner, neither was bundled into a title commit.
