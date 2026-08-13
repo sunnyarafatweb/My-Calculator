@@ -11188,3 +11188,65 @@ article 1,831 words, 8 H2s.
 
 No browser render. The error-bar cells are absolutely positioned inside a table cell, which is
 the least certain part of the layout.
+
+## The shared 3-card behaviour was missing from 23 pages (Aug 13, 2026)
+
+Owner asked a diagnostic question rather than reporting a bug: do the new calculators jump to
+the result and flash it green when Calculate is pressed, the way mortgage, loan and bmi do?
+
+They did not. **Neither did fourteen older pages**, including bmi itself — the very page cited
+as the standard.
+
+### What was actually missing
+
+§5a of the guide requires every 3-card page to carry `scripts/cb_ux.html`, injected by
+`scripts/apply_cb_ux.py`. It provides the identical status-bar sentence, auto-calculate on
+input, scroll-to-result plus the green `.cb-flash` ring on a real Calculate press, and the
+"See the full breakdown ↓" jump link.
+
+Counted rather than assumed:
+
+| | before | after |
+|---|---|---|
+| 3-card pages carrying the snippet | 114 | **128** |
+| Missing it | 23 | 9 |
+
+The remaining nine are the crypto/trading batch, which §5a lists as a documented exception —
+they calculate live, have no Calculate button, and use a different two-button row. Left alone
+deliberately.
+
+**Fourteen of the twenty-three were not mine.** age, bmi, bra-size, calorie, engine-horsepower,
+fat-intake, gpa, height, horsepower, refinance, resistor, speed, time-zone and tip had all been
+built or rebuilt without it. The Aug 4 rollout covered 65 finance pages; these are what the
+site accumulated afterwards. So the honest reading is not "I forgot on two pages" — it is that
+**nothing was checking, so the standard drifted on every page built since.**
+
+`scientific-calculator` is correctly out of scope: it has no `form result sidebar` grid, no
+Calculate button and no form fields, so the injector skips it. Its own bar deviation is already
+recorded above.
+
+### Verification
+
+- All **16 changed pages**: the injected block is the only difference. Stripping the CB-UX block
+  from both the working copy and `HEAD` leaves byte-identical files, so nothing else moved.
+- Each has exactly one block, placed after `</main>` and before `</body>`, with the protected
+  style block byte-identical.
+- CB-UX JavaScript parses on every changed page; spot-checked bmi (custom-built) and tip
+  (template-tier) explicitly, per §9.
+- On the two new pages the snippet's hooks all resolve: `grid-area:form`, `result` and `bar`
+  exist, the Calculate button carries a matching id, and — the part worth checking — the element
+  holding `grid-area:result` **is** the whole result card, so `resolveCard()` returns the card
+  rather than the 95px coloured head. That is the failure §5a documents for auto-loan and apr,
+  where the ring appeared only under the green strip.
+- Both engines re-run clean afterwards: fraction 3,868/3,868, standard deviation 1,604/1,604
+  plus 10 parser cases.
+- The bar sentence already matched the sitewide standard on both new pages, so the injector had
+  nothing to rewrite there.
+
+### The gap this exposes
+
+Six of today's corrections were "a value was invented that the repo already answered". This is
+the same shape one level up: **a standing rule that nothing enforces will quietly stop being
+true.** `scripts/check_top_spacing.py` now guards one such rule. A companion that asserts every
+3-card page carries the snippet would have caught this on the day bmi shipped without it, rather
+than months later because someone asked a good question.
