@@ -10363,3 +10363,158 @@ Two things were found and **not** fixed here, because §3a-PRIME's scope rule sa
 proposal, not a decision made inside a build: the four crypto pages carry only one JSON-LD block
 each (no `FAQPage`, no `WebApplication` on some), and 47 meta descriptions sit under 110
 characters. Both are logged for the owner, neither was bundled into a title commit.
+
+## Scientific Calculator — rebuilt from a dead mockup (Aug 13, 2026)
+
+First Math-section build. `CALCULATOR_STATUS.md` had flagged this page as "very likely
+non-functional" on structural evidence and asked for a human look before any work. That
+suspicion was correct, and the page was worse than described.
+
+### The page was a photograph of a calculator
+
+36 buttons. **Zero `onclick` handlers, zero `id`s, zero `data-` attributes, no calculator
+JavaScript anywhere in the file, and a hardcoded `0` in the display.** Nothing on it could
+respond to a click. It has been live and indexed in that state.
+
+Confirmed by counting rather than by reading: `<button[^>]*onclick` returned 0 matches, as did
+the `id=` and `data-` variants, and the only `<script>` blocks in the file were analytics, the
+shared header/footer menu code, and JSON-LD.
+
+### Reading their JavaScript, not just their page
+
+Step 1 of §3a-PRIME says fetch the live page. Fetching the rendered markup gives the 48-key
+layout, and that is all it gives — their result area is built entirely in JS. Downloading
+`scientific3.js` surfaced four behaviours that are invisible in the HTML and that a
+screenshot-driven clone would miss every time:
+
+1. **`cnHistory=[]`, `cnHistoryShow=3`** — the tool keeps a history and shows the last three.
+   History is therefore *parity*, not an extra needing owner sign-off.
+2. **MR doubles as MC.** After a recall the button's label becomes `MC`; pressing it again
+   zeroes the store. Any other key press reverts it to `MR`.
+3. **`cnAccuracy=12`** — twelve significant digits, which is what their "double-digit
+   precision" meta description means.
+4. **Factorial is not integer-only.** Integers 0-200 run an exact loop; non-integers fall
+   through to `cnFactorialD`, a Lanczos gamma approximation. Most clones return an error for
+   `0.5!`; the correct answer is Γ(1.5) = 0.886226925453.
+
+Their `cnFmt` is also domain-locked — it returns undefined unless `document.domain` contains
+`calculator.net`. Irrelevant to us since copying their code was never on the table, but worth
+recording as a fact about the reference.
+
+### Parity report
+
+```
+Input fields:  48/48 matched   (their full keypad, plus the Deg/Rad control)
+Result fields: 5/5 matched     (expression line, result line, history, memory
+                                indicator, MR/MC toggle)
+Test cases:    sin 30 DEG        -> 0.5              -> 0.5
+               2 + 3 x 4         -> 14               -> 14
+               3 y-root 8        -> 2                -> 2
+               0.5!              -> 0.886226925453   -> 0.886226925453
+               171!              -> Error            -> Error
+Intentional differences:
+  - Postfix keys after "=" continue from the answer. calculator.net appears to
+    reset to 0 for n! and % while continuing for x2/x3/1/x, which is internally
+    inconsistent; ours treats all five the same way.
+  - Factorial cuts off at 170, not 200. 171! exceeds the double-precision range
+    and their own code would return Infinity there, so the honest ceiling is 170.
+```
+
+### Engine written from scratch, then attacked
+
+Recursive-descent parser over a token list: postfix binds tightest, then powers and roots
+(right-associative), then unary minus, then × ÷, then + −. Implicit multiplication is inserted
+where a value meets a function, a constant or an open bracket, matching the reference's
+`n.push("*")` rule. Unmatched brackets auto-close on `=`.
+
+Three suites, all run **against the JavaScript extracted from the shipped page**, not against
+the draft, per §3a-PRIME step 6:
+
+| suite | what it does | result |
+|---|---|---|
+| engine | 77 hand-built cases vs values computed in Python's `math` | 77/77 |
+| press-level | drives real button sequences through `press()` behind a DOM stub | 46/46 |
+| randomised sweep | generates expressions, evaluates each in Python and in JS, diffs | **8,477/8,477** across 4 seeds |
+
+**The press-level suite earned its keep immediately.** After `=`, the answer is left in the
+token list so an operator can continue from it. Pressing **Ans** at that moment did not clear
+it first, so `12+3=` then `Ans ×2` evaluated `15 × 15 × 2 = 450` instead of 30. No hand-picked
+engine test would have found this: the bug lives in the input layer, not the maths. Fixed by
+having every key that *starts a new value* — digits, constants, functions, brackets, RND, Ans
+and MR — wipe the leftover answer, while operators and postfix keys carry on from it.
+
+**The harness was proved to work rather than assumed to.** A wrong log base and a broken
+precedence rule were deliberately injected: the engine suite dropped to 74/77 and the sweep
+threw 46 failures. Restored, both returned to clean. A suite that has never failed has not
+been shown to be capable of failing.
+
+The sweep's first run reported 43 mismatches that were all **generator** faults — it bracketed
+the Python side without emitting matching bracket tokens, so the two sides were simply
+different expressions. `45.97 - 10 + 15` was scored against `45.97 - (10 + 15)`. The JS was
+right each time. Worth remembering: when a differential test fails, suspect the harness before
+the subject.
+
+### Originality
+
+0 shared eight-word runs with calculator.net — **0.00%**. Worst overlap against any of our own
+221 pages is **0.15%** (three runs, all in the shared About/Privacy closing sentence). Site
+ceiling per the guide is 0.99%.
+
+### Two deviations, flagged rather than made quietly
+
+1. **The shared `cb_ux` status-bar sentence is not used here.** "Just enter your values below —
+   results update automatically" describes a form, and this page has no input fields at all —
+   it is a keypad. Printing it would be a false statement to the visitor. The bar instead holds
+   the DEG/RAD toggle, the memory indicator and a keyboard hint. This is the same class of
+   exception the guide already grants the crypto batch. **Owner should confirm.**
+2. **The calculator screen introduces navy shades not in the palette** (`#0F2136` ground,
+   `#8FA8C2`/`#6C86A3` for the expression and preview label). No other page has a dark display
+   component, so there was nothing to inherit; all are shades of the sitewide `#1E3A5F`. The
+   three *primary* accents are untouched: `#16A34A` result head and `=` key, `#1E3A5F` bar and
+   sidebar, `#128A3D` hover and in-article links.
+
+An earlier draft styled the AC key red (`#B4293A` on `#FBEAEC`). Checked what
+payment-, pension-, mortgage- and apr-calculator actually do and they all use a plain white
+Clear with `--ink-soft` text, so the invented red was removed.
+
+### Two of my own mistakes, caught before pushing
+
+- **A duplicate `BreadcrumbList`.** The page already carried one in its head; the new `<main>`
+  added a second. Removed. Three JSON-LD blocks now, all parsing.
+- **FAQ schema drifted from the visible text on 2 of 6 answers.** The schema used Unicode
+  superscripts (`xʸ`, `10²³`) while the article used `<sup>` tags, so stripping markup gave
+  `xy` and `1023` — never equal. This is the exact recurring failure mode §3 warns about, and
+  it happened again despite knowing about it. Fixed by using the same Unicode characters in
+  both. **6/6 exact** after.
+
+### AdSense and SEO
+
+23/23 on the criteria in the guide's `check_adsense.py` list: 2,044-word article, 8 H2s,
+6 FAQs, byline, visible last-updated date, a "what this does not do" section, closing
+disclaimer, canonical, breadcrumb, 14 valid internal links, no broken links, no self-link, no
+ad code in the tool, jsPDF lazy.
+
+Keyword research before any copy was written. Head term checked against SciCalc, TrueTools,
+CalcMate, NexTool, Classeva, Productive Toolbox and Desmos. Every one of them leads on the
+function list, so the title does too rather than forcing an abstract benefit:
+*Scientific Calculator | Trig, Log, Powers and Roots* (51). Description 154. The
+differentiator found in research and built the article around: competitors describe *what* the
+keys do, almost none explain **why `2 + 3 × 4` is 14 and not 20** — the actual dividing line
+between a scientific and a four-function calculator, and the thing students get wrong.
+`<title>`, `og:title` and `twitter:title` written together; `og:image` generated (the page was
+one of the 87 missing it) from the page's own H1 and description.
+
+### Verification ceiling — no browser render
+
+Chromium still cannot be installed in this sandbox (`cdn.playwright.dev` returns 400, no system
+browser package), so the guide's "render it, don't just check the DOM" step did not run.
+Substituted what static analysis can prove: JS syntax check, the grid-area sweep that catches
+the retirement-calculator implicit-track bug (all three breakpoints name all five areas), a
+duplicate-base-rule check, HTML parse, protected style block byte-identical to `HEAD` and to
+bmi-calculator, and everything after `</main>` byte-identical to `HEAD`.
+
+**That is not equivalent to a browser test for an interactive rebuild.** It was an acceptable
+ceiling for the title-tag commit earlier today; it is not one here. The 5-column keypad at
+390px and the click handlers have not been seen rendering. **Owner should open the page once
+before trusting it**, and solving the browser install should come before the next interactive
+build rather than after it.
