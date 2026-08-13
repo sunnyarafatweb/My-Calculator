@@ -10518,3 +10518,100 @@ ceiling for the title-tag commit earlier today; it is not one here. The 5-column
 390px and the click handlers have not been seen rendering. **Owner should open the page once
 before trusting it**, and solving the browser install should come before the next interactive
 build rather than after it.
+
+## Scientific Calculator — Phase 1 of a hardware-style rebuild (Aug 13, 2026)
+
+Owner directive, same day, after the build above shipped. He sent screenshots of
+**mathda.com/calculator** and asked for that feel. Two decisions were put to him before any
+code was written, and he chose the far end of both: **full hardware look**, accepting that this
+page will not match the rest of the site, and **a full Casio-style emulator**, treated as its
+own project.
+
+### What MathDA actually is, established before agreeing to anything
+
+Not a styled scientific calculator. Their own copy calls it **CalcES, a free alternative to the
+Casio fx-991EX ClassWiz and TI-36X Pro**: SHIFT/ALPHA layers, natural textbook display,
+variables, S⇔D exact-versus-decimal, matrices with LU/SVD/RREF/eigenvalues, complex numbers,
+calculus, 40 constants, 40 unit conversions, and an **AI OCR scanner**. That is a product, not
+a page. Establishing the real scope first is what made a phased plan the only honest answer.
+
+**AI OCR is explicitly out.** It needs a third-party vision API and is a separate product
+decision; raised with the owner rather than quietly dropped.
+
+### Three things raised before writing code
+
+1. **Browser testing is now a blocker, not a caveat.** Chromium still will not install here.
+   That was survivable for a title edit and uncomfortable for the first rebuild. For layered
+   keys, a blinking cursor and eventually matrix grids it is not survivable: the engine can be
+   proved headlessly, the interaction cannot. Agreed working definition for this project —
+   **"done" means engine proved, UI awaiting the owner's eyes.**
+2. **Trademark.** MathDA carries an explicit Casio/TI non-affiliation disclaimer. Ours now
+   carries one too, in the closing disclaimer. The layered-key convention is generic; Casio's
+   naming and artwork are not, and none is used.
+3. **The article had to be rewritten in the same commit.** The version shipped hours earlier
+   was built around "every function is visible at once", which layers make false. Rewritten,
+   not patched — new sections on the layers and on cursor editing, and the limits section now
+   says fractions, matrices, complex numbers and calculus are coming in stages rather than
+   claiming they are absent by design.
+
+### Agreed phases
+
+| phase | scope |
+|---|---|
+| **1 (this commit)** | Hardware shell, SHIFT/ALPHA layers, cursor editing, History/Variable panels, the existing 48 functions |
+| 2 | Variables A–F/x/y/M with STO and RECALL, nPr, nCr, GCD, LCM, mod, Abs, RanInt |
+| 3 | Exact maths — fractions, surds, π multiples — and the S⇔D toggle with natural display |
+| 4 | Matrix mode: RREF, determinant, inverse, eigenvalues; complex numbers |
+| 5 | Calculus (∫, d/dx, Σ, Π) plus the constants and conversions libraries |
+
+Each phase ships something that works end to end. Nothing half-wired goes live.
+
+### What Phase 1 changed
+
+40 physical keys on a 6-column dark pad with a pale-green LCD, secondary captions printed above
+each key — yellow for the SHIFT layer, green for ALPHA. Both layers arm for exactly one key
+press and cancel themselves, and pressing the same layer key twice turns it off, which is the
+behaviour the hardware has. Indicators for SHIFT, ALPHA, angle mode and memory sit in a status
+strip that doubles as controls.
+
+**Cursor editing is the substantive new capability.** The token list now carries an insertion
+index; ◀ and ▶ walk it, input inserts at that point, and DEL removes the entry to its left
+rather than truncating the line. One wrong digit forty characters in used to mean retyping the
+line.
+
+Left panel carries History (newest first, with a wall-clock timestamp, tap to reload the
+expression) and Variable (Ans, PreAns, M with live values). **PreAns** is new — the answer
+before last, on the yellow layer of Ans.
+
+The `=` key keeps `#16A34A` and the ALPHA layer keeps `#22C55E`, so the two brand greens still
+appear on the page. Everything else is a dark shell that deliberately breaks the sitewide look,
+per the owner's decision.
+
+### Verification
+
+New suite of **42 Phase-1 cases** covering layer arming and cancellation, layered key
+resolution (SHIFT+sin → asin, SHIFT+x² → cube, ALPHA+×10ˣ → e, and each unshifted key still
+doing its own job), cursor movement and clamping at both ends, mid-expression insertion,
+DEL-at-cursor versus DEL-peels-a-digit, Ans/PreAns, memory including MC, and history
+timestamps. 42/42.
+
+Regression: the prior **77-case engine suite** and the **2,818-case differential sweep** both
+re-run clean against the rewritten file, so the parser survived the input-layer rewrite intact.
+Control re-run as well — a deliberately wrong log base still drops the engine suite to 74/77
+and throws 46 sweep failures, so the suites remain capable of failing.
+
+Page checks: JSON-LD 3 blocks valid, **FAQ schema 6/6 exact** against the visible text, 16/16
+on the AdSense and quality criteria, grid areas complete at all three breakpoints, protected
+style block byte-identical to `HEAD`, everything after `</main>` byte-identical.
+
+A duplicate-base-rule check flagged `.act` and `.on` as collisions. Printed the actual
+selectors rather than trusting the count: they are `.sci-ind.sh.act`, `.sci-k-al.on` and
+friends — compound selectors the regex truncated. **The checker was wrong, not the CSS.** Same
+lesson as the sweep generator earlier today: suspect the harness first.
+
+### Still unverified
+
+No browser render. The layered keypad, the blinking cursor, the panel tabs and the 6-column
+grid at 800px have never been seen on screen. **Owner to check before this is trusted**, and
+the browser install needs solving before Phase 3, where natural display makes static
+verification meaningless.
