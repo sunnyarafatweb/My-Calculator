@@ -11014,3 +11014,79 @@ commit per the DEFERRED list, not folded into this one. **Raised rather than ass
 Only one line changed on each of refinance-calculator and sitemap, confirmed by diff. All three
 pages parse, protected style block byte-identical, everything after `</main>` byte-identical.
 scientific-calculator: structure 29/29, human-use 47/47, V3 35/35.
+
+## Fraction Calculator — rebuilt from a stub, six tabs (Aug 13, 2026)
+
+Owner sent the reference page and the auto-loan tab row, and asked for the six separate
+calculators to become tabs in our own 3-card layout, styled like auto-loan-calculator.
+
+**The page was another stub**: 4 inputs, **0 buttons**, no calculator JavaScript, 210 words. The
+second dead page found today, after the scientific calculator.
+
+### Live audit — six calculators, not one
+
+Fetched the reference and read its six forms out of the markup rather than the screenshot:
+
+| their form | fields | our tab |
+|---|---|---|
+| `calform` | t1, b1, op, t2, b2 | Fractions |
+| `calform5` | c5num1, c5op, c5num2 (free text, "-2 3/4") | Mixed Numbers |
+| `calform4` | c4l1 (whole), c4t1, c4b1 | Simplify |
+| `calform2` | c2d1 | Decimal to Fraction |
+| `calform3` | c3t1, c3b1 | Fraction to Decimal |
+| `calform6` | c6t1, c6b1, c6op, c6t2, c6b2 | Big Numbers |
+
+```
+Input fields:  17/17 matched   (all six forms, every field)
+Result fields: 5/5 matched     (result fraction, decimal, mixed form,
+                                calculation steps, simplified-from line)
+Test cases — their own shipped defaults, reproduced exactly:
+   2/7 + 3/8        -> 37/56    -> 37/56    MATCH
+   -2 3/4 + 3 5/7   -> 27/28    -> 27/28    MATCH
+   2 21/98          -> 31/14    -> 31/14    MATCH
+   1.375            -> 11/8     -> 11/8     MATCH
+Intentional differences:
+  - Their pie-chart illustration is not reproduced; the worked steps are.
+  - Fraction-to-decimal shows the exact repeating block, 2/7 as 0.(285714),
+    where they print a rounded 14-digit decimal. Ours is strictly more exact.
+  - Decimal-to-fraction additionally accepts repeating input, 0.(3) -> 1/3,
+    which they do not offer. Flagged as an addition, not a silent extra.
+  - Default values differ from theirs, per the protocol.
+```
+
+### Exact arithmetic everywhere, so Big Numbers is not a special case
+
+The whole engine is BigInt. That makes their sixth calculator the same code path as the first
+rather than a separate implementation, and it means nothing is rounded mid-calculation:
+`1/3 + 1/6` returns exactly `1/2`.
+
+The decimal expansion is done by long division with cycle detection, so a repeating block is
+**marked rather than truncated**. `2/7` is `0.(285714)`, not `0.2857142857`. The reverse
+direction uses the standard nines identity, so `0.(3)` comes back as exactly `1/3`.
+
+### Verification
+
+- **3,868 assertions against Python's own `fractions.Fraction` and `decimal`** — 600 random
+  four-operator cases, 240 big-integer cases at 200 bits, 250 mixed numbers, 258
+  decimal-to-fraction, 200 simplify, plus 512 exact decimal expansions checked against a Python
+  long-division reference. All run against the JavaScript **extracted from the shipped page**,
+  not the draft.
+- **Control**: perturbing the addition rule by `+1n` drops it to 812 failures, so the suite can
+  fail.
+- Structure and SEO audit **29/29** after one fix: the sidebar linked
+  `/long-division-calculator/`, which **does not exist** — invented from memory rather than
+  checked. Caught by the broken-link check and replaced with `percent-off-calculator`. That is
+  the fourth time today a value was invented that the repo could have answered.
+- Article 1,772 words, 9 H2s, FAQ schema 6/6 exact, top spacing on the site standard, protected
+  style block byte-identical, everything after `</main>` byte-identical.
+
+Keyword research before the copy: head term *fraction calculator*, long-tails *add/subtract/
+multiply/divide fractions*, *mixed number calculator*, *simplify fractions*, *decimal to
+fraction*, *fraction to decimal*, *improper fraction*, *lowest terms*, *repeating decimal to
+fraction*. Title 57, description 155.
+
+### Still unverified
+
+No browser render. The tab switching, the stacked numerator-over-denominator inputs and the
+three-column grid have not been seen. Given the tab row was copied from auto-loan-calculator's
+working pattern the risk is lower than usual, but it is not zero.
