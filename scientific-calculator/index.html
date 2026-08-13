@@ -428,7 +428,7 @@
 .sci-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface-sunken)}
 .sci-tab{flex:1;border:none;background:transparent;padding:11px 8px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.16s}
 .sci-tab[aria-selected="true"]{color:var(--ink);border-bottom-color:#16A34A;background:var(--surface)}
-.sci-pbody{max-height:430px;overflow-y:auto;padding:4px 8px}
+.sci-pbody{max-height:452px;overflow-y:auto;padding:4px 8px}
 .sci-hrow{width:100%;text-align:left;border:none;background:transparent;border-bottom:1px solid var(--border-fine);padding:10px 8px;cursor:pointer;border-radius:8px;transition:background .16s;display:block}
 .sci-hrow:last-child{border-bottom:none}.sci-hrow:hover{background:var(--surface-sunken)}
 .sci-hx{display:block;font:400 12.5px/1.45 var(--font-mono,ui-monospace,monospace);color:var(--ink-soft);word-break:break-all}
@@ -447,14 +447,20 @@
 .sci-pbtn:hover:not(:disabled){background:var(--surface-sunken);color:var(--ink-soft)}
 .sci-pbtn:disabled{opacity:.45;cursor:not-allowed}
 
-.sci-sidecard{background:#1E3A5F;border-radius:16px;padding:16px 16px 8px}
-.sci-sidecard h2{color:#fff;font-size:14px;font-weight:700;margin:0 0 4px}
-.sci-sidecard p{color:#A9C0D8;font-size:12px;line-height:1.55;margin:0 0 10px}
-.sci-sidelist{list-style:none;margin:0;padding:0}
-.sci-sidelist li{border-top:1px solid rgba(255,255,255,.11)}
-.sci-sidelist a{display:block;padding:9px 2px;color:#E2ECF6;font-size:13px;text-decoration:none;transition:.16s}
-.sci-sidelist a:hover{color:#fff;padding-left:5px}
-
+.sci-ptitle{font-size:12px;line-height:1.6;color:var(--muted);margin:10px 8px 12px;padding-bottom:10px;border-bottom:1px solid var(--border-fine)}
+.sci-pnote{font-size:11.5px;line-height:1.55;color:var(--muted-2);margin:12px 8px 6px;padding-top:10px;border-top:1px solid var(--border-fine)}
+.sci-yl{color:#9A7414;font-weight:700}.sci-gl{color:#128A3D;font-weight:700}
+.sci-ktable{width:100%;border-collapse:collapse;font-size:12.5px}
+.sci-ktable th,.sci-ktable td{padding:7px 8px;text-align:left;border-bottom:1px solid var(--border-fine);vertical-align:top}
+.sci-ktable tr:last-child td,.sci-ktable tr:last-child th{border-bottom:none}
+.sci-ktable th{font-weight:600;color:var(--ink-soft);white-space:nowrap;width:52%}
+.sci-ktable td{color:var(--muted)}
+.sci-ktable sup{font-size:.7em;vertical-align:super}
+.sci-rlist{list-style:none;margin:0;padding:0}
+.sci-rlist li{border-bottom:1px solid var(--border-fine)}
+.sci-rlist li:last-child{border-bottom:none}
+.sci-rlist a{display:block;padding:10px 8px;color:var(--ink-soft);font-size:13px;text-decoration:none;transition:.16s;border-radius:8px}
+.sci-rlist a:hover{background:var(--surface-sunken);color:#128A3D}
 .sci-bcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .sci-bhead{background:var(--surface-sunken);border-bottom:1px solid var(--border);padding:11px 16px;font-size:13px;font-weight:700;color:var(--ink)}
 .sci-btable{width:100%;border-collapse:collapse;font-size:13px}
@@ -463,10 +469,9 @@
 .sci-btable th{font-weight:600;color:var(--ink-soft);width:40%}
 .sci-btable td{color:var(--muted)}
 .sci-kbd{display:inline-block;background:var(--surface-sunken);border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font:600 11.5px/1.6 var(--font-mono,ui-monospace,monospace);color:var(--ink-soft)}
-.sci-yl{color:#9A7414;font-weight:700}.sci-gl{color:#128A3D;font-weight:700}
 
 /* ---- article ---- */
-.sci-article{max-width:760px;margin:40px auto 0}
+.sci-article{margin-top:34px;max-width:900px;color:var(--ink)}
 .sci-byline{font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--border-fine);padding-bottom:14px;margin-bottom:22px}
 .sci-toc{background:var(--surface-sunken);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:28px}
 .sci-toc p{font-size:12px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:.03em;text-transform:uppercase}
@@ -593,54 +598,64 @@
   </div>
 
   <!-- ============ right: related ============ -->
-  <div class="sci-side">
-    <div class="sci-sidecard">
-      <h2>Related calculators</h2>
-      <p>Tools that show their working for one operation at a time.</p>
-      <ul class="sci-sidelist">
+  <div class="sci-side sci-card">
+    <div class="sci-tabs" role="tablist">
+      <button type="button" class="sci-tab" id="sci-tabK" role="tab" aria-selected="true" aria-controls="sci-paneK">Keys</button>
+      <button type="button" class="sci-tab" id="sci-tabR" role="tab" aria-selected="false" aria-controls="sci-paneR">Related</button>
+    </div>
+
+    <div class="sci-pbody" id="sci-paneK" role="tabpanel" aria-labelledby="sci-tabK">
+      <p class="sci-ptitle">Yellow captions are the <span class="sci-yl">SHIFT</span> layer, green are <span class="sci-gl">ALPHA</span>. Press the layer key, then the key you want.</p>
+      <table class="sci-ktable">
+        <tbody>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; &#8730;&#9633;</th><td>Cube root</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; x<sup>2</sup></th><td>x<sup>3</sup></td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; x<sup>&#9633;</sup></th><td><sup>y</sup>&#8730;x</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; log &middot; ln</th><td>10<sup>x</sup> &middot; e<sup>x</sup></td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; x<sup>-1</sup></th><td>n! factorial</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; sin &middot; cos &middot; tan</th><td>The inverse of each</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; (</th><td>Abs</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; 6 &middot; &divide;</th><td>nPr &middot; nCr</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; &times; &middot; +</th><td>GCD &middot; Mod</td></tr>
+          <tr><th><span class="sci-gl">ALPHA</span> &#8594; &divide;</th><td>LCM</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; &times;10<sup>x</sup></th><td>&pi;</td></tr>
+          <tr><th><span class="sci-gl">ALPHA</span> &#8594; &times;10<sup>x</sup></th><td>e</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; Ans</th><td>PreAns</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; M+ &middot; MR</th><td>M&minus; &middot; clear memory</td></tr>
+          <tr><th>STO &#8594; a letter</th><td>Store into A, B, C, D, x, y</td></tr>
+          <tr><th><span class="sci-yl">SHIFT</span> &#8594; STO</th><td>RECALL a letter back</td></tr>
+          <tr><th><span class="sci-gl">ALPHA</span> &#8594; sin &middot; cos &middot; tan</th><td>The letters A &middot; B &middot; C</td></tr>
+          <tr><th>&#9650; &#9660;</th><td>Step through past entries</td></tr>
+          <tr><th>&#9664; &#9654;</th><td>Move the cursor in the line</td></tr>
+        </tbody>
+      </table>
+      <p class="sci-pnote">Dimmed keys belong to features still being built. Pressing one tells you which stage it arrives in.</p>
+    </div>
+
+    <div class="sci-pbody" id="sci-paneR" role="tabpanel" aria-labelledby="sci-tabR" hidden>
+      <p class="sci-ptitle">Tools that show their working for one operation at a time.</p>
+      <ul class="sci-rlist">
         <li><a href="/exponent-calculator/">Exponent Calculator</a></li>
         <li><a href="/root-calculator/">Root Calculator</a></li>
         <li><a href="/log-calculator/">Log Calculator</a></li>
         <li><a href="/scientific-notation-calculator/">Scientific Notation Calculator</a></li>
         <li><a href="/fraction-calculator/">Fraction Calculator</a></li>
         <li><a href="/percentage-calculator/">Percentage Calculator</a></li>
+        <li><a href="/quadratic-formula-calculator/">Quadratic Formula Calculator</a></li>
+        <li><a href="/standard-deviation-calculator/">Standard Deviation Calculator</a></li>
         <li><a href="/binary-calculator/">Binary Calculator</a></li>
+        <li><a href="/hex-calculator/">Hex Calculator</a></li>
+        <li><a href="/big-number-calculator/">Big Number Calculator</a></li>
       </ul>
     </div>
   </div>
 
   <div class="sci-bottom" id="sci-bottom">
     <div class="sci-bcard">
-      <div class="sci-bhead">The layer keys</div>
-      <table class="sci-btable">
-        <tbody>
-          <tr><th><span class="sci-yl">SHIFT</span> then &#8730;&#9633;</th><td>Cube root</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then x<sup>2</sup></th><td>Cube, x<sup>3</sup></td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then x<sup>&#9633;</sup></th><td>Any root, <sup>y</sup>&#8730;x</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then log · ln</th><td>10<sup>x</sup> · e<sup>x</sup></td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then x<sup>-1</sup></th><td>Factorial, n!</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then sin · cos · tan</th><td>The inverse of each</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then (</th><td>Percent</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then M+ · MR</th><td>Subtract from memory · clear memory</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then Ans</th><td>PreAns, the answer before last</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then &times;10<sup>x</sup></th><td>&pi;</td></tr>
-          <tr><th><span class="sci-gl">ALPHA</span> then &times;10<sup>x</sup></th><td>e, Euler's number</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then 6 &middot; &divide;</th><td>nPr &middot; nCr, permutations and combinations</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then &times; &middot; +</th><td>GCD &middot; Mod</td></tr>
-          <tr><th><span class="sci-gl">ALPHA</span> then &divide;</th><td>LCM</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then (</th><td>Abs, absolute value</td></tr>
-          <tr><th>STO then a letter</th><td>Store the current value in A, B, C, D, x or y</td></tr>
-          <tr><th><span class="sci-yl">SHIFT</span> then STO</th><td>RECALL &mdash; paste a stored letter back</td></tr>
-          <tr><th><span class="sci-gl">ALPHA</span> then sin &middot; cos &middot; tan</th><td>The letters A &middot; B &middot; C</td></tr>
-          <tr><th>&#9650; &#9660; on the pad</th><td>Step back and forward through past entries</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sci-bcard">
       <div class="sci-bhead">Keyboard shortcuts</div>
       <table class="sci-btable">
         <tbody>
-          <tr><th><span class="sci-kbd">0</span>–<span class="sci-kbd">9</span> <span class="sci-kbd">.</span></th><td>Digits and decimal point</td></tr>
+          <tr><th><span class="sci-kbd">0</span>&ndash;<span class="sci-kbd">9</span> <span class="sci-kbd">.</span></th><td>Digits and decimal point</td></tr>
           <tr><th><span class="sci-kbd">+</span> <span class="sci-kbd">-</span> <span class="sci-kbd">*</span> <span class="sci-kbd">/</span></th><td>The four operations</td></tr>
           <tr><th><span class="sci-kbd">^</span></th><td>Raise to a power</td></tr>
           <tr><th><span class="sci-kbd">(</span> <span class="sci-kbd">)</span></th><td>Brackets</td></tr>
@@ -649,14 +664,32 @@
           <tr><th><span class="sci-kbd">Backspace</span></th><td>Delete at the cursor</td></tr>
           <tr><th><span class="sci-kbd">Esc</span></th><td>Clear the line</td></tr>
           <tr><th><span class="sci-kbd">Shift</span></th><td>Toggle the yellow layer</td></tr>
-          <tr><th><span class="sci-kbd">s</span> <span class="sci-kbd">c</span> <span class="sci-kbd">n</span></th><td>sin · cos · tan</td></tr>
-          <tr><th><span class="sci-kbd">p</span> <span class="sci-kbd">t</span> <span class="sci-kbd">!</span></th><td>&pi; · e · factorial</td></tr>
+          <tr><th><span class="sci-kbd">s</span> <span class="sci-kbd">c</span> <span class="sci-kbd">n</span></th><td>sin &middot; cos &middot; tan</td></tr>
+          <tr><th><span class="sci-kbd">p</span> <span class="sci-kbd">t</span> <span class="sci-kbd">!</span></th><td>&pi; &middot; e &middot; factorial</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sci-bcard">
+      <div class="sci-bhead">What each function key does</div>
+      <table class="sci-btable">
+        <tbody>
+          <tr><th>sin &middot; cos &middot; tan</th><td>Angle in, ratio out, read in whichever unit the DEG/RAD indicator shows.</td></tr>
+          <tr><th>sin<sup>-1</sup> &middot; cos<sup>-1</sup> &middot; tan<sup>-1</sup></th><td>The reverse: ratio in, angle out, in the current unit.</td></tr>
+          <tr><th>x<sup>&#9633;</sup> &middot; x<sup>2</sup> &middot; x<sup>3</sup></th><td>Any power, then shortcuts for squaring and cubing.</td></tr>
+          <tr><th>&#8730;&#9633; &middot; <sup>3</sup>&#8730; &middot; <sup>y</sup>&#8730;</th><td>Square root, cube root, and any root you name first.</td></tr>
+          <tr><th>ln &middot; log</th><td>Logarithm base e, and base 10.</td></tr>
+          <tr><th>e<sup>x</sup> &middot; 10<sup>x</sup></th><td>The two undo keys for ln and log.</td></tr>
+          <tr><th>n!</th><td>Factorial. Whole numbers to 170 exactly, decimals through the gamma function.</td></tr>
+          <tr><th>nPr &middot; nCr</th><td>Permutations and combinations of n things taken r at a time.</td></tr>
+          <tr><th>GCD &middot; LCM &middot; Mod</th><td>Greatest common divisor, lowest common multiple, remainder.</td></tr>
+          <tr><th>&times;10<sup>x</sup></th><td>The &times;10<sup>n</sup> part of scientific notation.</td></tr>
+          <tr><th>ENG &middot; &deg;&prime;&Prime;</th><td>Show the answer with an exponent that is a multiple of three, or as degrees, minutes and seconds.</td></tr>
+          <tr><th>x<sup>-1</sup> &middot; %</th><td>Reciprocal, and divide the number in front by 100.</td></tr>
+          <tr><th>Ran# &middot; RanInt</th><td>A random decimal below 1, and a random whole digit.</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-</div>
 
 <article class="sci-article">
   <p class="sci-byline">Written by the CalculatorBoss Math Team · Every function checked against a reference implementation · Last updated August 2026</p>
@@ -1041,6 +1074,19 @@ function selTab(which){
 }
 TAB_H.addEventListener('click',function(){selTab('H');});
 TAB_V.addEventListener('click',function(){selTab('V');});
+/* right-hand panel: Keys / Related */
+var TAB_K=document.getElementById('sci-tabK'),TAB_R=document.getElementById('sci-tabR'),
+    PANE_K=document.getElementById('sci-paneK'),PANE_R=document.getElementById('sci-paneR');
+function selRight(which){
+  var isK=(which==='K');
+  TAB_K.setAttribute('aria-selected',isK?'true':'false');
+  TAB_R.setAttribute('aria-selected',isK?'false':'true');
+  PANE_K.hidden=!isK;PANE_R.hidden=isK;
+}
+if(TAB_K&&TAB_R){
+  TAB_K.addEventListener('click',function(){selRight('K');});
+  TAB_R.addEventListener('click',function(){selRight('R');});
+}
 PANE_H.addEventListener('click',function(ev){
   var b=ev.target.closest?ev.target.closest('.sci-hrow'):null;
   if(!b)return;

@@ -10699,3 +10699,59 @@ engine is proven; the appearance is not. Owner to check.
 
 Phase 3 (natural display, fractions, S⇔D) is *entirely* a rendering problem. It should not be
 started until a browser is available here.
+
+## Scientific Calculator — matched side panels, and an article alignment bug (Aug 13, 2026)
+
+Two owner corrections after Phase 2.
+
+### The article was centred, and every other page on this site is not
+
+Owner: *"amader onno pages golo te ektu gele dekhba left align hoy."* Checked rather than
+assumed — pulled the article rule off eight built pages:
+
+```
+.pay-seo-article{margin-top:34px;max-width:900px;color:var(--ink)}
+.apr-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}
+.sip-seo-article{margin-top:32px;max-width:900px;color:var(--ink)}   ... and five more
+```
+
+**All eight cap the width and none centres it.** This page had `margin:40px auto 0`, and that
+`auto` is what pushed it to the middle. Brought to the site convention: `margin-top:34px;
+max-width:900px`. Also widened from 760px to the site's 900px, which was a second silent
+deviation nobody had asked for.
+
+Worth recording as a pattern: **the site's conventions are readable off the existing pages and
+should be read, not recalled.** Two of today's corrections — the AC key colour and now this —
+were both cases of inventing a value when eight pages already answered the question.
+
+### The two flanking panels are now one component
+
+Owner accepted the calculator will not match the reference exactly, but asked for the two side
+cards to share a style. They did not: the left was a white tabbed card, the right was the navy
+`#1E3A5F` sidebar from the site design system.
+
+The right panel is now the same tabbed white card, with two tabs:
+
+- **Keys** — the full SHIFT/ALPHA reference, 19 rows, previously buried in a card below the
+  fold. It belongs beside the keypad, which is where you need it while learning the layers.
+- **Related** — the internal links, expanded from 7 to 11 now that there is room.
+
+The navy `.sci-sidecard` is gone from this page. That is a further departure from the site
+design system, on top of the dark keypad the owner already signed off, and it is recorded here
+rather than left to be discovered. The internal-linking module still exists and is still
+visible, which is what the SEO checklist actually requires.
+
+The lower two cards keep the keyboard reference and gain a fuller function table covering the
+Phase-2 additions (nPr, nCr, GCD, LCM, Mod, ENG, °′″, Ran#, RanInt).
+
+### Verification
+
+No engine change, but re-ran everything against the edited file rather than assuming a CSS and
+markup edit was safe: **V3 suite 35/35, engine 77/77, differential sweep 2,818/2,818, Phase-2
+helpers 1,724/1,724.** Page: FAQ schema 6/6 exact, grid areas complete at all three
+breakpoints, **zero duplicate base rules** (the earlier `.sci-yl`/`.sci-gl` pair was genuinely
+declared twice once the key table moved, and one copy was removed), protected style block
+byte-identical, no broken links, no self-link.
+
+Still no browser render. The two-panel symmetry and the article's left edge are both purely
+visual claims that have not been seen.
