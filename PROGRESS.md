@@ -10755,3 +10755,50 @@ byte-identical, no broken links, no self-link.
 
 Still no browser render. The two-panel symmetry and the article's left edge are both purely
 visual claims that have not been seen.
+
+## Scientific Calculator — three cards, not two (Aug 13, 2026)
+
+Owner: *"ami j 3 cart style korte bollam seta holo na ekhono sei 2 cart e ache."*
+
+He was right and I had misread the earlier instruction. When he said "the two cards on the two
+sides", I made only those two share a style and left the calculator itself as a bare dark slab
+floating between them. What he wanted is **three matching cards across the row** — panel,
+calculator, panel — which is what the reference actually shows.
+
+### The fix
+
+- The middle column now carries `.sci-card` like its neighbours. The dark keypad body sits
+  *inside* that card with `border-radius:0`, so the white card supplies the outer corner and
+  the calculator no longer has a competing radius and drop shadow of its own.
+- Grid moved from `align-items:start` to `stretch`, and all three cards became flex columns, so
+  the row shares one height instead of three ragged ones.
+- Height distribution inside each card: the tabs, panel footer, LCD and status strip are
+  `flex-shrink:0`; the scrolling panel bodies and the lower keypad take `flex:1`. The panel
+  bodies lost their fixed `max-height:452px`, which was the thing that would have left a gap
+  under a short panel.
+- At the 800px stacked breakpoint, equal height is released again (`align-items:start`,
+  `.sci-padbot{flex:none}`) — stretching one-per-row columns to a shared height would stretch
+  the keypad to whatever the article-side column happened to be.
+
+### Two process notes worth keeping
+
+**The edit script asserted on markup that did not match and refused to write anything.** The
+middle column was indented four spaces, not six. Nothing was silently half-applied; the assert
+failed, the file was untouched, and finding the real markup took one command. Ten separate
+`sub()` calls each with their own assertion and label is the right shape for a multi-part CSS
+edit — the alternative is a partial write you discover later.
+
+**The duplicate-rule checker was right this time.** It flagged `.sci-card` declared twice.
+Earlier today the same checker produced a false positive on compound selectors, so the
+declarations were printed rather than trusted — and these two were genuinely separate base
+rules. Folded into one. The lesson holds in both directions: print the evidence, then decide.
+
+### Verification
+
+Layout and CSS only, but everything re-run against the edited file: **V3 35/35, engine 77/77,
+sweep 1,889/1,889, Phase-2 helpers 1,724/1,724.** Page: FAQ schema 6/6 exact, grid areas
+complete at all three breakpoints, **zero duplicate base rules**, protected style block
+byte-identical, everything after `</main>` byte-identical, no broken links.
+
+Still not rendered. Equal-height flex columns are exactly the kind of thing that looks right in
+the CSS and wrong on screen.

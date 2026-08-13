@@ -358,12 +358,12 @@
 .sci-crumb .sep{color:var(--ink-faint)}.sci-crumb .cur{color:var(--ink-soft);font-weight:500}
 
 /* ---- layout ---- */
-.sci-grid{display:grid;gap:16px;grid-template-columns:minmax(0,1fr) 392px 290px;grid-template-areas:"panel calc side" "bottomgrid bottomgrid bottomgrid";align-items:start;margin-top:6px}
+.sci-grid{display:grid;gap:16px;grid-template-columns:minmax(0,1fr) 392px 290px;grid-template-areas:"panel calc side" "bottomgrid bottomgrid bottomgrid";align-items:stretch;margin-top:6px}
 .sci-panel{grid-area:panel}.sci-unit{grid-area:calc}.sci-side{grid-area:side}
 .sci-bottom{grid-area:bottomgrid;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;scroll-margin-top:88px}
 
 /* ---- the calculator body ---- */
-.sci-body{background:#14181d;border-radius:20px;padding:14px;box-shadow:0 10px 30px rgba(15,20,28,.22),0 2px 6px rgba(15,20,28,.14)}
+.sci-body{background:#14181d;border-radius:0;padding:13px;flex:1;display:flex;flex-direction:column}
 .sci-lcd{background:#E7EDD6;border-radius:10px;padding:0;height:236px;display:flex;flex-direction:column;overflow:hidden}
 .sci-tape{flex:1;overflow-y:auto;padding:4px 0 0}
 .sci-tent{border-bottom:1px solid #CFD8BC;padding:8px 13px}
@@ -378,7 +378,7 @@
 .sci-lcdbot{font:600 25px/1.2 var(--font-mono,ui-monospace,monospace);color:#141A0F;text-align:right;margin-top:5px;word-break:break-all}
 .sci-lcdbot sup{font-size:.62em;vertical-align:super}
 .sci-lcdbot.err{color:#9B2C2C;font-size:18px}
-.sci-status{display:flex;align-items:center;gap:5px;padding:9px 3px 10px;flex-wrap:wrap}
+.sci-status{display:flex;align-items:center;gap:5px;padding:9px 3px 10px;flex-wrap:wrap;flex-shrink:0}
 .sci-stgap{flex:1}
 .sci-ind{font:700 10.5px/1 var(--font-mono,ui-monospace,monospace);letter-spacing:.06em;padding:5px 8px;border-radius:5px;background:#232A33;color:#5C6B7C;border:none;cursor:default}
 .sci-ind.act{background:#2E3742;color:#E7EDD6}
@@ -390,7 +390,8 @@
 
 /* ---- keypad ---- */
 .sci-padtop{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-bottom:5px}
-.sci-padbot{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.sci-padbot{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;flex:1}
+.sci-padbot .sci-k{height:100%}
 .sci-kw{display:flex;flex-direction:column;min-width:0}
 .sci-lbl{display:flex;justify-content:space-between;align-items:flex-end;gap:2px;height:12px;padding:0 2px 1px;font:600 8px/1 var(--font-mono,ui-monospace,monospace);white-space:nowrap;overflow:hidden}
 .sci-lbl .s{color:#F0B429}.sci-lbl .a{color:#22C55E}
@@ -424,11 +425,11 @@
 .sci-dhub{position:absolute;left:29%;top:29%;width:42%;height:42%;border-radius:50%;background:#2A333E;border:1px solid #3A4653;pointer-events:none}
 
 /* ---- side panels ---- */
-.sci-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.sci-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface-sunken)}
+.sci-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.sci-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface-sunken);flex-shrink:0}
 .sci-tab{flex:1;border:none;background:transparent;padding:11px 8px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.16s}
 .sci-tab[aria-selected="true"]{color:var(--ink);border-bottom-color:#16A34A;background:var(--surface)}
-.sci-pbody{max-height:452px;overflow-y:auto;padding:4px 8px}
+.sci-pbody{flex:1;min-height:0;overflow-y:auto;padding:4px 8px}
 .sci-hrow{width:100%;text-align:left;border:none;background:transparent;border-bottom:1px solid var(--border-fine);padding:10px 8px;cursor:pointer;border-radius:8px;transition:background .16s;display:block}
 .sci-hrow:last-child{border-bottom:none}.sci-hrow:hover{background:var(--surface-sunken)}
 .sci-hx{display:block;font:400 12.5px/1.45 var(--font-mono,ui-monospace,monospace);color:var(--ink-soft);word-break:break-all}
@@ -442,7 +443,7 @@
 .sci-vv.empty{color:var(--muted-2)}
 .sci-vv sup{font-size:.68em;vertical-align:super}
 .sci-pempty{padding:30px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:1.65}
-.sci-pfoot{border-top:1px solid var(--border-fine);padding:8px;display:flex;gap:8px}
+.sci-pfoot{border-top:1px solid var(--border-fine);padding:8px;display:flex;gap:8px;flex-shrink:0}
 .sci-pbtn{flex:1;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:12px;font-weight:600;padding:7px;cursor:pointer;transition:.16s}
 .sci-pbtn:hover:not(:disabled){background:var(--surface-sunken);color:var(--ink-soft)}
 .sci-pbtn:disabled{opacity:.45;cursor:not-allowed}
@@ -489,7 +490,7 @@
 .sci-disc{font-size:12.5px;line-height:1.7;color:var(--muted);border-top:1px solid var(--border-fine);margin-top:34px;padding-top:16px}
 
 @media(max-width:1040px){.sci-grid{grid-template-columns:minmax(0,1fr) 380px;grid-template-areas:"panel calc" "side side" "bottomgrid bottomgrid"}}
-@media(max-width:800px){.sci-grid{grid-template-columns:1fr;grid-template-areas:"calc" "panel" "side" "bottomgrid"}.sci-bottom{grid-template-columns:1fr}.sci-body{padding:11px}.sci-padtop,.sci-padbot{gap:4px}.sci-k{min-height:40px;font-size:12px}.sci-num{font-size:15px}.sci-lcd{height:210px}.sci-lbl{height:11px;font-size:8px}}
+@media(max-width:800px){.sci-grid{grid-template-columns:1fr;grid-template-areas:"calc" "panel" "side" "bottomgrid";align-items:start}.sci-pbody{max-height:420px}.sci-padbot{flex:none}.sci-padbot .sci-k{height:auto}.sci-bottom{grid-template-columns:1fr}.sci-body{padding:11px}.sci-padtop,.sci-padbot{gap:4px}.sci-k{min-height:40px;font-size:12px}.sci-num{font-size:15px}.sci-lcd{height:210px}.sci-lbl{height:11px;font-size:8px}}
 </style>
 
 <nav class="sci-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/all-calculators/#mat">Math</a><span class="sep">/</span><span class="cur">Scientific Calculator</span></nav>
@@ -521,7 +522,7 @@
   </div>
 
   <!-- ============ centre: the calculator ============ -->
-  <div class="sci-unit">
+  <div class="sci-unit sci-card">
     <div class="sci-body">
       <div class="sci-lcd" id="sci-lcd">
         <div class="sci-tape" id="sci-tape"></div>
