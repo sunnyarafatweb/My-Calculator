@@ -10966,3 +10966,51 @@ Run it before pushing this page, alongside the JS suites.
 Structure 29/29, human-use 47/47, V3 35/35, engine 77/77, sweep 1,889/1,889, Phase-2 1,724/1,724.
 FAQ schema 8/8 exact, protected style block byte-identical, everything after `</main>`
 byte-identical, no broken links.
+
+## Top spacing brought to the site standard (Aug 13, 2026)
+
+Owner compared the mortgage page against the scientific calculator and asked for the same gap
+between the header and the breadcrumb, on this page and on every calculator from now on.
+
+### Read the convention off the pages, do not invent it
+
+Surveyed the first wrapper `<div>` inside `<main>` on all 209 pages:
+
+| pages | wrapper | family |
+|---|---|---|
+| 120 | `px-4 sm:px-6 py-5 sm:py-6 mx-auto` | 3-card pages, incl. mortgage |
+| 76 | `mx-auto max-w-5xl px-5 py-7 sm:py-9` | older hero pages |
+| 6 | `wrap` | crypto/trading batch |
+| 4 | `mx-auto` + inline padding | policy pages |
+| **3** | **`px-4 sm:px-6 py-8 sm:py-10 mx-auto`** | **nobody — a one-off** |
+
+The three-page group was the defect: `py-8 sm:py-10` against the standard `py-5 sm:py-6`, about
+12px more on desktop. `scientific-calculator` was one; **`refinance-calculator` and `sitemap`
+had the same deviation** and nobody had noticed. All three brought to the 120-page value, which
+is now 123.
+
+**This is the third time today the same mistake produced a correction** — the AC key colour, the
+centred article, and now this. Each time a value was invented while a hundred pages already
+answered the question. The pattern is now explicit enough to state as a rule: *before choosing
+any spacing, colour or width on a page, grep the existing pages for what they already use.*
+
+### scripts/check_top_spacing.py
+
+Since the instruction was "and every calculator from now on", a note in this file is not enough —
+it has to be checkable. The script reads the wrapper off every page, works out the dominant one
+among calculator pages rather than hardcoding a preference, lists the families, and fails if any
+page uses a wrapper belonging to no family. `--fix` brings strays to the standard.
+
+Current state: **209 pages checked, no one-off wrappers, PASS.**
+
+### Open question for the owner, not decided here
+
+The 76 older hero pages still sit at `py-7 sm:py-9`, which is a different gap from the 123. If
+"every calculator the same" means those too, that is a 76-file change and belongs in its own
+commit per the DEFERRED list, not folded into this one. **Raised rather than assumed.**
+
+### Verification
+
+Only one line changed on each of refinance-calculator and sitemap, confirmed by diff. All three
+pages parse, protected style block byte-identical, everything after `</main>` byte-identical.
+scientific-calculator: structure 29/29, human-use 47/47, V3 35/35.
