@@ -10802,3 +10802,96 @@ byte-identical, everything after `</main>` byte-identical, no broken links.
 
 Still not rendered. Equal-height flex columns are exactly the kind of thing that looks right in
 the CSS and wrong on screen.
+
+## Scientific Calculator — a dead-key bug, the layout the owner wanted, and an SEO pass (Aug 13, 2026)
+
+### Five digit keys did not work, and the screenshot showed it
+
+Owner sent a screenshot and asked for a human-user check. Before running one, the picture itself
+gave it away: **7, 8, 4, 1 and 3 were rendered dim, and so was the minus key.**
+
+Cause: those keys carry an unbuilt *SHIFT* function — CONST, CONV, MATRIX, CMPLX, Pol, Rec — so
+the generator marked the whole key `data-soon`, and `hit()` refused the press outright:
+
+```js
+if(soon && !usedLayer){ flashHint('This key arrives in phase '+soon); return; }
+```
+
+**The printed function was collateral damage.** You could not type 7, 8, 4, 1, 3 or subtract.
+The calculator was, for the second time in its life, partly non-functional in production —
+and again the giveaway was visual, not something any assertion I had written was looking for.
+
+Fixed by splitting availability in two: `data-soon` means *the printed function* is unbuilt and
+still refuses; `data-soon-s` means *only the yellow layer function* is unbuilt and refuses only
+when SHIFT was actually used. Six keys moved to the second form and are no longer dimmed; only
+the yellow caption is greyed.
+
+**The lesson is uncomfortable and worth writing down.** Every suite passed while five digits
+were dead, because every suite calls `press()` directly and the bug lived in `hit()`, the layer
+that sits between the DOM and `press()`. A test that enters through a lower door than the user
+does cannot see a locked front door. The new human-use suite now walks in through `hit()`'s
+data attributes and asserts every digit types.
+
+### Layout, as asked: calculator | variables | history
+
+Owner's instruction was explicit, and it is better than what was there: the calculator moves to
+the **left**, variables sit in the **middle**, history on the **right**, three matching cards.
+Keys and Related moved down into the bottom row where reference material belongs.
+
+Two grid-area names (`panel`, `side`) survived in the media queries after the columns were
+renamed — exactly the failure the guide documents for retirement-calculator, where an area that
+is positioned but never named silently creates implicit tracks. Caught by the grid checker,
+which is the whole reason it exists. All three breakpoints now name all four areas.
+
+### Human-use pass, 47 whole tasks
+
+Not assertions against internal functions — whole jobs typed key by key with the answer worked
+out independently first: area of a circle, hypotenuse, a quadratic root, compound interest,
+an average of four marks, 10 choose 3, 48 GCD 18, Avogadro via ×10ˣ, the elementary charge with
+a negative exponent, radians mode, `-3²` versus `(-3)²`. Then the workflows: continuing with an
+operator after `=`, Ans plus PreAns, memory as a running total across three separate sums,
+storing 9.81 in A and reusing it, and **fixing a mistyped digit in the middle of a long line**
+rather than retyping. Plus six cases that must refuse rather than lie — and one, `tan 90`, that
+must *not* refuse, because a huge number is the honest answer there. 47/47.
+
+### SEO pass
+
+Keyword research first, per section 4. Ranking set checked: CalcSolver, online-calculator.com,
+scientificcalculatoronline.site, gulfcalculator, Desmos-clone pages, ti84calcul, plus Casio's
+own product pages for how the hardware terms are written.
+
+**Head terms:** scientific calculator, online scientific calculator, free scientific calculator.
+**Long-tail clusters found and targeted:** *no download / no signup* (nearly every competitor
+leads on it), *sin cos tan calculator*, *log and ln*, *nPr nCr*, *GCD LCM*, *factorial*,
+*DEG RAD*, *with history*, *with memory*, *for students / homework / exam practice*,
+*order of operations*, *Casio fx-991 style*.
+
+- Title: **Scientific Calculator Online | Free, No Download, Full Keypad** (61) — head term
+  first, the highest-frequency modifier second, friction removal third.
+- Description 150 chars, leading with the differentiator no competitor has: a real SHIFT/ALPHA
+  keypad.
+- Keywords tag now carries 14 researched terms rather than the site-wide boilerplate it had.
+- Subhead rewritten to carry the long-tail phrasing the H1 cannot, since the H1 stays the bare
+  calculator name per section 3.
+- New H2, **"Who this is for, and how it compares to a physical calculator"**, targeting the
+  student/exam-practice cluster, with an honest caveat box: **an online calculator is not
+  exam-legal anywhere**, and saying so is both true and the kind of thing that earns trust.
+- Two new FAQs on real queries — *"Is this the same as a Casio fx-991 or a TI-30X?"* and
+  *"Can I use this in an exam?"* — added to schema and visible text in the same edit. 8/8 exact.
+- Article 2,523 words, 10 H2s, 12 FAQ entries.
+- **Nothing claimed that is not built.** Fractions are the single biggest long-tail term in this
+  niche and we do not have them yet, so the limits section still says so plainly rather than
+  chasing the keyword.
+
+OG image regenerated to show the layered keypad with yellow SHIFT captions, with an assertion
+that the text block cannot overrun the artwork.
+
+### Verification
+
+**25/25** on the combined SEO and integrity audit. Suites: human-use 47/47, V3 35/35, engine
+77/77, differential sweep 2,355/2,355, Phase-2 helpers 1,724/1,724. Grid areas complete at all
+three breakpoints, zero duplicate base rules, protected style block byte-identical, everything
+after `</main>` byte-identical.
+
+Still no browser. The dead-digit bug is a standing argument that this matters: it was visible in
+a screenshot in about two seconds and invisible to five test suites.
