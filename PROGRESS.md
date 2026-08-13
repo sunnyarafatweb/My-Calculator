@@ -11090,3 +11090,31 @@ fraction*. Title 57, description 155.
 No browser render. The tab switching, the stacked numerator-over-denominator inputs and the
 three-column grid have not been seen. Given the tab row was copied from auto-loan-calculator's
 working pattern the risk is lower than usual, but it is not zero.
+
+## Fraction Calculator — form-card header to brand navy (Aug 13, 2026)
+
+Owner: the green bar on top of the input card should be the brand blue; the green on the result
+card is right.
+
+Checked the convention rather than just applying the instruction. Across seven built 3-card
+pages — auto-loan, payment, pension, apr, sip, mortgage-payoff, break-even — **every one has
+`#16A34A` on the result-card header and none has a coloured header on the form card at all.**
+So green on the form card was mine, not the site's, and the owner is restoring the convention
+rather than introducing a new preference.
+
+`.fr-head-form{background:#1E3A5F}` now overrides the shared header rule on the input card only;
+the result card keeps `#16A34A`. Written as a modifier class rather than a second base rule, so
+the duplicate-rule checker stays clean.
+
+Checked scientific-calculator for the same mistake: it does not have it. Green there appears
+only on the `=` key and the memory indicator, and its two panel headings are neutral. Left alone
+rather than changed for symmetry.
+
+**Fifth correction today of the same kind** — inventing a value the existing pages already
+answer. The running list is now: the AC key colour, the centred article, the top spacing, the
+non-existent sidebar link, and this. `scripts/check_top_spacing.py` handles one of those five
+automatically; the others still rely on remembering to grep first.
+
+Verified after: engine 3,868/3,868 against the shipped file, HTML parses, protected style block
+byte-identical, everything after `</main>` byte-identical, zero duplicate base rules, FAQ schema
+6/6, no broken links.
