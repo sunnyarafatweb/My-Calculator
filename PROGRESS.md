@@ -11118,3 +11118,73 @@ automatically; the others still rely on remembering to grep first.
 Verified after: engine 3,868/3,868 against the shipped file, HTML parses, protected style block
 byte-identical, everything after `</main>` byte-identical, zero duplicate base rules, FAQ schema
 6/6, no broken links.
+
+## Standard Deviation Calculator — built (Aug 13, 2026)
+
+Third build of the day, and the third page whose predecessor did not work.
+
+### The output set is only visible if you submit the form
+
+Fetching the reference page gives the input set and nothing else: one textarea, a
+population/sample radio pair, Calculate and Clear. Every result is rendered server-side on
+submit, so the fetched HTML contains no confidence table, no frequency table and no steps.
+
+This is the exact trap §3a-PRIME warns about after the Inflation Calculator shipped missing a
+113-row table. **Submitted the form instead** — a GET with `numberinputs`, `ctype=p` and
+`ctype=s` — and read the real output back:
+
+```
+Input fields:  3/3 matched    (data textarea, population/sample, and the pair
+                               of buttons)
+Result fields: 8/8 matched    standard deviation - count - sum - mean - variance
+                              - worked steps - margin-of-error table with error
+                              bars - frequency table
+Test cases (their data 10,12,23,23,16,23,21,16, reproduced exactly):
+  population  sd 4.8989794855664 -> 4.8989794855664   variance 24 -> 24
+  sample      s  5.2372293656638 -> 5.2372293656638   variance 27.428571428571 -> same
+  SEM         1.7320508075689   -> 1.7320508075689
+  all 8 confidence rows          -> identical to the last digit, incl. the
+                                    ±% column (9.62, 15.83, 18.86, 24.79,
+                                    31.67, 37.44, 42.50, 47.07)
+  frequency   10:1 12:1 16:2 21:1 23:3 with percentages -> identical
+Intentional differences:
+  - Their symbols switch with the mode (σ/μ for population, s/x̄ for sample).
+    Reproduced, because it is information, not decoration.
+  - Separators: they accept commas; ours also takes spaces, semicolons and line
+    breaks, so a spreadsheet column pastes in unchanged. An addition, flagged.
+  - Sample mode with one value is refused with a reason rather than returning
+    a division by zero.
+```
+
+Their display precision is **14 significant digits**, not 13 — established by diffing our output
+against theirs digit by digit rather than guessing, and the formatter was corrected.
+
+### Verification
+
+- **1,604 assertions against Python's `statistics`** across both modes: 600 random real-valued
+  sets, 400 integer sets with duplicates and negatives, and the degenerate all-identical case
+  where the standard deviation must be exactly zero. Plus 300 frequency-table checks (counts sum
+  to N, percentages sum to 100, values ascending) and 10 parser cases covering every separator
+  and three malformed inputs that must be rejected by name.
+- Run against the JavaScript **extracted from the shipped page**, not the draft.
+- **Control**: forcing `denom = N` in both modes drops it to 801 failures, so the suite is
+  capable of detecting the one distinction that matters most here.
+- Structure and SEO audit **27/27**, first pass.
+
+### The sidebar link was checked before shipping this time
+
+Yesterday's habit cost a broken link on the fraction page. Here every sidebar slug was tested
+against the filesystem *before* writing the file: `average-calculator` **does not exist** and was
+swapped for `sample-size-calculator`, which does and which the reference also links to. Six
+corrections of this class today, and this is the first one caught before it shipped rather than
+after.
+
+Keyword research: head term *standard deviation calculator*, long-tails *sample standard
+deviation*, *population standard deviation*, *variance calculator*, *standard error of the mean*,
+*how to calculate standard deviation*, *mean and standard deviation*. Title 53, description 147,
+article 1,831 words, 8 H2s.
+
+### Still unverified
+
+No browser render. The error-bar cells are absolutely positioned inside a table cell, which is
+the least certain part of the layout.
