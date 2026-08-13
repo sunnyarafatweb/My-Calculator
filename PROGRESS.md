@@ -11250,3 +11250,85 @@ the same shape one level up: **a standing rule that nothing enforces will quietl
 true.** `scripts/check_top_spacing.py` now guards one such rule. A companion that asserts every
 3-card page carries the snippet would have caught this on the day bmi shipped without it, rather
 than months later because someone asked a good question.
+
+## Triangle Calculator — built (Aug 13, 2026)
+
+Fourth build today, fourth dead predecessor: 6 inputs, no JavaScript, 301 words.
+
+### Reading the reference by driving it
+
+Like the standard deviation page, every result is rendered server-side, so the fetched HTML
+gives inputs only. Requested four different parameter sets and read the real output back, which
+also settled the input mapping — it is not obvious from the names:
+
+| their param | means |
+|---|---|
+| `vx` | side b |
+| `vy` | side a |
+| `vz` | side c |
+| `va` `vb` `vc` | angles A, B, C |
+| `angleunits` | `d` or `r` |
+
+Confirmed by sending `vx=3&vy=4&vc=90` and getting back a=4, b=3, c=5 — a 3-4-5 right triangle,
+where every derived figure is independently checkable by hand.
+
+```
+Input fields:  8/8 matched   (3 sides, 3 angles, angle unit, calculate/clear)
+Result fields: 17/17 matched
+   triangle name - a, b, c - A, B, C in degrees, DMS and radians with the
+   pi-fraction where one exists - area - perimeter - semiperimeter -
+   ha, hb, hc - ma, mb, mc - inradius - circumradius - vertex coordinates -
+   centroid - inscribed circle centre - circumscribed circle centre - diagram
+Test cases, all four reproduced to the last decimal:
+   a=1 b=1 C=60   -> Equilateral, area .43301, r .28868, R .57735,
+                     C[0.5, 0.86603], all three centres [0.5, 0.28868]
+   a=4 b=3 C=90   -> Right Scalene, c=5, A 53.13 B 36.87, ha 3 hb 4 hc 2.4,
+                     ma 3.60555 mb 4.272 mc 2.5, r=1 R=2.5,
+                     centroid [2.26667, 0.8], incentre [2,1], circumcentre [2.5,0]
+   a=9 b=7 C=30   -> Obtuse Scalene, c 4.56955, area 15.75
+   A=3 B=4 c=5    -> Obtuse Scalene, C=173, a 2.14722 b 2.86194
+Intentional differences:
+  - Their "Show Calculation Steps" expander is not reproduced; the formulas are
+    given in a reference card and the article instead.
+  - The diagram is our own SVG, drawn to scale from the solved vertices rather
+    than copied.
+  - In the ambiguous SSA case we report the acute solution and say so in the
+    disclaimer, rather than silently picking one.
+```
+
+Their angle format has three parts and the third is conditional: degrees always, **DMS only when
+the degree value is not a whole number**, radians always, and a **pi fraction only when one
+exists exactly**. Reproduced, including `pi/30` for 6 degrees, which is the kind of value a
+hand-written fraction table misses.
+
+### Verification
+
+- **3,500 solver assertions against Python**, 500 random triangles put through all seven input
+  combinations — SSS, three arrangements of SAS, ASA and two of AAS — comparing all seventeen
+  outputs each time. 500 pass in every combination, none failing.
+- **20 edge cases**: three angles with no side, two values, four values, sides that cannot close
+  (1-2-10), the degenerate 1-2-3, angles already summing past 180, zero and negative sides,
+  angles at 0 and 180, SSA with no solution, SSA with one, and a legal but very thin triangle.
+  All refused or accepted correctly, each with a specific message rather than a generic one.
+- **Classification** checked against six hand-worked cases including right isosceles and obtuse
+  scalene.
+- **Formatting** checked separately: seven pi fractions and four DMS conversions against the
+  reference's own printed values.
+- Run against the JavaScript **extracted from the shipped page**.
+- **Control**: flipping the sign in the law of cosines drops the sweep to 500 failures,
+  concentrated in exactly the SAS cases that use it — the suite localises as well as detects.
+- Structure and SEO audit **27/27**.
+
+### Two habits that held this time
+
+`area-calculator` and `distance-calculator` went into the sidebar from memory. **Both were
+checked against the filesystem before writing the file, and neither exists** — swapped for
+square-footage and root. Second build running where this was caught before shipping.
+
+`scripts/apply_cb_ux.py` was run **as part of the build** rather than being noticed missing
+later, so the page arrives with the standard scroll-and-flash behaviour already on it.
+
+### Still unverified
+
+No browser render. The SVG diagram is generated per solve and scales itself to the triangle, so
+its label placement is the least certain part.
