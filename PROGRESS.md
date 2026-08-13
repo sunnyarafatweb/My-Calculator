@@ -10895,3 +10895,74 @@ after `</main>` byte-identical.
 
 Still no browser. The dead-digit bug is a standing argument that this matters: it was visible in
 a screenshot in about two seconds and invisible to five test suites.
+
+## Scientific Calculator — the layout was broken in the markup, not the CSS (Aug 13, 2026)
+
+Owner's screenshot showed the calculator alone on the left, Variables dropped to a full-width
+row underneath, and the right-hand side empty. He drew two boxes where Variables and History
+were supposed to sit.
+
+### The CSS was correct, deployed, and irrelevant
+
+First instinct was a broken breakpoint. Checked instead of assuming: fetched the live page,
+confirmed it was byte-identical to the repo, and printed the grid rules. They were right:
+
+```
+.sci-grid{grid-template-columns:392px minmax(0,1fr) minmax(0,1.15fr);
+          grid-template-areas:"calc vars hist" "bottomgrid bottomgrid bottomgrid"}
+.sci-unit{grid-area:calc}.sci-vars{grid-area:vars}.sci-hist{grid-area:hist}
+```
+
+So the stylesheet was not the problem. Walked the **DOM tree** instead, and there it was:
+
+```
+sci-unit     inside .sci-grid: YES
+sci-vars     inside .sci-grid: *** NO ***
+sci-hist     inside .sci-grid: *** NO ***
+sci-bottom   inside .sci-grid: *** NO ***
+```
+
+**A stray `</div>` inside the calculator column was closing `.sci-grid` after the first child.**
+Everything else was a sibling of the grid, not a child of it, so `grid-area` had nothing to
+apply to and each card became its own block-level row. `grid-template-areas` was flawless and
+governing exactly one element.
+
+This came from the earlier column reorder, which was done by slicing the markup on string
+boundaries. Slicing HTML on text boundaries does not respect nesting, and this is the bill.
+
+Fixing it took three passes, each verified rather than assumed: removing the stray tag left the
+document one `</div>` short, then the grid was closing after `</article>` instead of before it.
+Only a depth walk printed as a tree made the real shape visible.
+
+### A structural checker now exists: scripts/check_sci_structure.py
+
+Two bugs have now shipped that every behavioural suite missed, for the same underlying reason —
+**they all enter below the level where the bug lives.**
+
+- The dead digit keys lived in `hit()`; the suites called `press()`.
+- This one lived in the DOM tree; the suites tested CSS values and arithmetic.
+
+Eight thousand numeric assertions cannot see a `</div>`. The new checker asserts the things
+those suites structurally cannot:
+
+1. Every grid child is genuinely a descendant of `.sci-grid`, and the article is genuinely not.
+2. `<div>` depth returns to zero and never goes negative.
+3. No unclosed tags anywhere in `<main>`.
+4. Every `grid-area` value is named in every `grid-template-areas`, at all breakpoints.
+5. **Every digit and operator key is free of `data-soon`**, which is what `hit()` uses to refuse
+   a press — the exact shape of the dead-key bug.
+6. Every `getElementById` target in the page script exists in the markup.
+
+**Check 6 failed on its first run and found a third live bug**: `sci-bSh` and `sci-bAl`, the ids
+on the SHIFT and ALPHA keys, were lost when the keypad was regenerated from the layout table.
+`setLayer()` was writing to elements that did not exist, so **the two layer keys never lit up**
+when armed. The status-strip indicators still worked, which is why it was not obvious. Ids
+restored.
+
+Run it before pushing this page, alongside the JS suites.
+
+### Verification
+
+Structure 29/29, human-use 47/47, V3 35/35, engine 77/77, sweep 1,889/1,889, Phase-2 1,724/1,724.
+FAQ schema 8/8 exact, protected style block byte-identical, everything after `</main>`
+byte-identical, no broken links.
