@@ -11420,3 +11420,111 @@ Same shape as the Aug 13 finding about the CB-UX snippet: **a rule nothing enfor
 true, quietly.** The table at the top of this file is the first thing a new session reads, which
 makes a stale row there more expensive than a stale row anywhere else — it does not just fail to
 inform, it actively misdirects.
+
+## Indexing report read, and 469 stale files deleted (Aug 18, 2026)
+
+Owner supplied the GSC Performance export and all six Page-indexing category screens. The
+headline is a correction, not a finding.
+
+### The indexation hypothesis was wrong, and the owner's own data killed it
+
+Earlier the same day this file's analysis said indexation was the site's bottleneck — 103 of 220
+sitemap URLs had drawn zero impressions in ten weeks, which lined up with the Aug 9 note
+recording "Discovered – currently not indexed: 79". Stated at confidence 4/5, with an explicit
+disconfirming signal: *if the indexing report shows most pages indexed, the problem is not
+indexation.*
+
+**It shows exactly that.** Discovered – currently not indexed is now **1** page
+(`/random-number-generator/`), down from ~75 on the Aug 5 chart. Crawled – currently not indexed
+is **6**. Nothing is queued.
+
+So the 103 silent pages are indexed and simply not ranking. That is a relevance and authority
+problem and it needs a different treatment from the one being lined up. Recorded here because
+the wrong version was nearly acted on.
+
+### The six categories, triaged
+
+| Category | Count | Verdict |
+|---|---|---|
+| Page with redirect | 146 | **Not an error.** Correct behaviour, no action |
+| Not found (404) | 12 | 2 real legacy slugs, 10 parser artefacts |
+| Alternate page with proper canonical | 3 | Correct behaviour, no action |
+| Redirect error | 1 | Resolved already — verified 308 live |
+| Crawled – not indexed | 6 | 3 correct, 3 are the domain's previous owner |
+| Discovered – not indexed | 1 | Ordinary queue, in sitemap with 5 inbound links |
+
+**"Page with redirect" is informational and its Validate Fix will always fail.** The screenshot
+shows validation started 8/9 and failed 8/11. It could not have succeeded: validation passes when
+the URLs stop behaving that way, and these are supposed to redirect. The 146 are the no-slash
+variant of every page (308 to the slash form), the old `/money-markets/*` paths (301), and the
+`http://` and `www.` variants (301). Every one is the redirect working. **Do not press Validate
+Fix on this category again** — nothing is broken and a failed validation reads like a defect for
+weeks afterwards.
+
+Checked rather than assumed that no live page is *creating* those no-slash URLs: an href sweep
+across all 222 pages returns **0** internal no-slash links, and the sitemap contains none. They
+are historical and external, and they will age out.
+
+`/sample-size-calculator` sat under Redirect error, crawled Aug 9. It now returns a clean 308 to
+the slash form and the target is 200. Transient, already fixed by whatever else moved that week.
+
+`calculators-index.json` under Crawled – not indexed is **correct and must stay crawlable** —
+`fetch('/calculators-index.json')` runs on **222 pages**. Blocking it in `robots.txt`, the obvious
+first instinct for a JSON file showing in an indexing report, would break Googlebot's render of
+the entire site. Google crawled it because it needed it and correctly declined to index a JSON
+file. Same for the `favicon.ico?...` variant.
+
+**The domain has a previous life.** Three of the six Crawled – not indexed URLs are
+`www.calculatorboss.com/2023/08/main-bazar-result.html`, `.../Main-Bazar-Tips.html` and
+`.../Pk-mumbai-result.html` — Blogger-era Satta Matka gambling pages, crawled as recently as
+Mar–Apr 2026. All three now 404 through the www 301, so there is nothing to clean up in this
+repo. Flagged for the owner as context, not as a task: it is relevant to AdSense review and to
+why a young domain might rank sluggishly, and it is not something a code change addresses.
+
+### What was actually fixed
+
+**469 stale Next.js RSC payload files deleted** (`index.txt` and `__next*.txt` across 67
+folders, 3.42 MB). This file has flagged them three times — L882 confirmed they are stale
+artifacts "evidently non-critical for the live site", and L6279 prescribed deleting each folder's
+set as its page is rebuilt. That never happened at scale, and every one was serving **HTTP 200**:
+verified live on `/electricity-calculator/index.txt`.
+
+Measured before deleting rather than trusting the old note: **66 of the 67 folders now carry a
+payload whose title contradicts the live page.** They are stale, public, and near-duplicate — 469
+crawlable junk URLs against 220 real ones, more than doubling the crawl surface with outdated
+copies of the site's own content.
+
+Safety before deletion: nothing in any `.html` or `.js` references them, they appear zero times
+in `sitemap.xml`, and root-level `llms.txt` and `robots.txt` are outside the glob. After: git
+reports **469 deletions and no modifications** — not one `index.html` touched, all 222 present.
+
+**Two legacy 404 slugs given 301s.** `/waist-to-hip-ratio-calculator` (crawled Jul 25) and
+`/forex-metals.html` (Jul 18) both returned 404 with **zero internal links pointing at them** —
+grepped, so this is inherited external linkage, not a broken link on our side. Pointed at
+`body-fat-calculator` and `gold-value-calculator`. `_redirects` re-validated afterwards: 50 rules,
+no duplicate sources, every target directory exists.
+
+### Deliberately not fixed: ten parser-artefact 404s
+
+The other ten 404s are `/mo</span></div>`, `/day</b></div>`, `/kWh</td>`, `/year</strong>.<br>`,
+`/market_chart?vs_currency=usd&days=` and similar. Traced to source: they are Google's URL
+extractor pulling apparent paths out of JavaScript string literals such as
+`'<span class="bud-cat-total" id="...">$0/mo</span>'` in budget-calculator, and out of the
+CoinGecko API path built by concatenation in the crypto pages. Present in budget,
+canadian-mortgage, pension, student-loan, debt-consolidation, down-payment, protein,
+carbohydrate, mining-profit, salary and electricity.
+
+**Left alone on purpose.** Removing them means entity-encoding or spacing the slash inside
+rendered output on eleven working, verified pages, to remove ten harmless 404s that Google
+documents as not affecting ranking. The risk of a visible or functional regression is larger than
+the benefit. Recorded here so the next session recognises them as known and cosmetic rather than
+rediscovering them as a defect.
+
+### What this leaves
+
+Nothing in the indexing report is now blocking anything. The real question the Performance data
+raises is untouched by all of the above: **1,370 impressions and 17 clicks in ten weeks, with
+weekly impressions down from 775 to ~30 since late July, on a site where every high-impression
+page is already fully built.** No thin-page-with-demand pairs remain, which is what the old
+priority queue was built to find. The next batch needs a different selection method than the one
+that produced queue #1–8.
