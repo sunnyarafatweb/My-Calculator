@@ -1,4 +1,7 @@
 User-Agent: *
 Allow: /
 
+# Internal working notes, not site content
+Disallow: /*.md$
+
 Sitemap: https://calculatorboss.com/sitemap.xml

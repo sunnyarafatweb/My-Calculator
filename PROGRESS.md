@@ -11766,3 +11766,47 @@ keyword research and should be made on its own merits once there is something wo
 
 **What is explicitly dead:** hunting for a low-competition calculator keyword. Five SERPs say
 that ground does not exist, and a paid tool would have said the same thing more expensively.
+
+## The working notes in this repo are publicly readable (Aug 18, 2026)
+
+Found while deciding where to put a submission asset pack: **the repo root is the deploy root,
+so every markdown file here is served.** Verified live, not assumed:
+
+```
+https://calculatorboss.com/PROGRESS.md              200   (764 KB)
+https://calculatorboss.com/DESIGN_AND_SEO_GUIDE.md  200   (60 KB)
+https://calculatorboss.com/CALCULATOR_STATUS.md     200
+https://calculatorboss.com/_redirects               404   (consumed as config, correctly)
+```
+
+**Scanned for credentials first, before deciding how serious this is: none found.** No tokens,
+API keys, passwords or bearer strings in any of the three. So this is an exposure of working
+notes, not a security incident, and it does not need an emergency response.
+
+What it does expose is 824 KB of strategy: Search Console performance figures, which pages are
+weak, known unfixed defects, and — added today — the exact reasoning behind the one competitive
+advantage this site has, naming calculator.net and Omnicalculator as currently wrong about the
+Army standard. That last one is the part worth caring about. **The Army page's whole edge is that
+two large competitors have not noticed a policy change; writing down that they haven't, on a URL
+they can fetch, is the one piece here that could actually cost something.**
+
+Nothing links to these files, so discovery is unlikely — the only mention anywhere is a code
+comment in `debt-consolidation-calculator` that names PROGRESS.md in prose, not as an href
+(checked). But "unlinked" is not "private": a URL is guessable, and `PROGRESS.md` is about as
+guessable as a filename gets.
+
+**Fixed, proportionately.** `robots.txt` now carries `Disallow: /*.md$` and `_headers` sends
+`X-Robots-Tag: noindex, nofollow` for `/*.md`. Both were checked against the sitemap first — it
+contains zero `.md` entries, so nothing that needs crawling is affected, and `llms.txt` is
+untouched because it is `.txt`.
+
+**Be clear about what this does and does not do.** It keeps the files out of search results. It
+does **not** make them private — anyone who types the URL still gets the file. Making them
+genuinely private means keeping them out of the deployed directory, which is a build-config
+change nobody should make blind while the site is live and the deploy setup is only partly
+understood from inside the repo. Flagged for the owner as a decision, not done unilaterally.
+
+**Consequence for this session's work:** the submission asset pack was deliberately **not**
+committed here. It contains competitive positioning written for the owner, and publishing it at
+`/ASSET-PACK.md` would hand a competitor both the messaging and the reasoning. It was delivered
+as a file instead.

@@ -16,3 +16,9 @@
 /*.png
   ! Cache-Control
   Cache-Control: public, max-age=86400
+
+# Internal working notes. Unlinked, but directly fetchable because the repo root
+# is the deploy root -- so they are told not to be indexed. This does not make
+# them private; it stops them appearing in search results.
+/*.md
+  X-Robots-Tag: noindex, nofollow
