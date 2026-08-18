@@ -47,6 +47,7 @@
 - [Home Equity Loan Calculator — Payment, Schedule & APR](https://calculatorboss.com/home-equity-loan-calculator/)
 - [House Affordability Calculator — 28/36 Rule & Budget](https://calculatorboss.com/house-affordability-calculator/)
 - [Income Tax Calculator](https://calculatorboss.com/income-tax-calculator/)
+- [No Tax on Tips Calculator](https://calculatorboss.com/no-tax-on-tips-calculator/)
 - [Inflation Calculator](https://calculatorboss.com/inflation-calculator/)
 - [Interest Calculator — Simple vs. Compound](https://calculatorboss.com/interest-calculator/)
 - [Interest Rate Calculator](https://calculatorboss.com/interest-rate-calculator/)

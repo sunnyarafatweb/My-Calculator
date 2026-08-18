@@ -12005,3 +12005,76 @@ or on Form 4137 are deductible, with a new tip occupation code on the forms.
   "Tip Income Deduction Calculator".
 - The SERP it is entering: fidelity.com plus six small sites. Nothing that outranks us on
   authority, so correctness and completeness are the whole game.
+
+## No Tax on Tips Calculator — built (Aug 18, 2026)
+
+Built to the spec recorded above. `/no-tax-on-tips-calculator/`, 1,324 lines, 1,709-word article.
+
+**Donor: `army-body-fat-calculator`**, split into head / shell / article / tail and reassembled
+rather than hand-copied, so the design system, header, footer and CB-UX block came across
+byte-identical. Grepped the result for `army`, `waist`, `body fat` and `0.55` afterwards —
+**zero hits**, so no donor content survived into the finished page.
+
+### The engine, and what it enforces
+
+Three ceilings stack, and the order matters because a different one binds for different people:
+
+1. the phase-out cap — $25,000 less $100 per full $1,000 of MAGI over the threshold
+2. tips actually received — you cannot deduct more than you earned
+3. for Schedule C filers, net income from the business the tips came from
+
+Plus a hard block: **married filing separately gets nothing**, which is a status check, not a
+calculation.
+
+**Eleven cases tested before the logic went near the page**, all passing: under threshold, tips
+above cap, exactly at threshold, $10k over, fully phased at $400k single, $100 of cap left at
+$399k, joint at $320k and $550k, MFS blocked, self-employed net cap binding at $15k against
+$24k of tips, and tips below cap. The two phase-out endpoints were derived rather than copied —
+$25,000 of cap at $100 per $1,000 needs $250,000 of income to erase — which is why $400k single
+and $550k joint are consistent with the caps rather than separately asserted.
+
+### Choices worth recording
+
+**The result card leads with federal tax saved, not with the deduction.** A $18,400 deduction
+means nothing to a server; $2,208 does. The deduction is the subtitle.
+
+**FICA is shown as a line item, not a footnote.** The single biggest misunderstanding of this
+provision is that tips become tax free. Putting "FICA still owed on tips" in the results, at
+7.65% of the full tip figure, answers that before the article has to.
+
+**State conformity is an input.** Choosing "decoupled" prints *state tax on tips: still fully
+taxable*. California alone is a large share of this audience, and a federal-only number
+overstates their benefit.
+
+**The self-employed net income field is hidden until it applies**, per the standing rule that
+optional inputs should not clutter the default view.
+
+### Checks run
+
+Three JSON-LD blocks parse; schema FAQs and visible `<h3>` both at 10 **and the text matches
+question for question** (compared after HTML-unescaping, not eyeballed); `node --check` clean;
+**all 21 element ids the script references exist in the markup**; title 52 chars, description
+135 with `og:` and `twitter:` synced; CB-UX block present.
+
+**Registered everywhere, not just written.** sitemap (221 entries), `llms.txt`,
+`calculators-index.json` — which matters more than it looks, since that file drives the search
+box on 222 pages — and **three inbound internal links** from take-home-paycheck, income-tax and
+tip. That last one is deliberate: `random-number-generator` sat in Discovered-not-indexed, and
+an orphan page is the reliable way to reproduce that.
+
+**Sidebar links were verified against the filesystem before shipping.** Three of the eight I
+first wrote — self-employment-tax, marginal-tax-rate, hourly-to-salary — **do not exist on this
+site** and would have shipped as 404s. Replaced with commission, budget and savings. Worth doing
+on every new page: plausible calculator names are not the same as pages that exist.
+
+### What this page has that the ranking competitors do not
+
+The SERP is fidelity.com plus six small sites, so correctness is the whole game. The five
+differentiators from the spec are all implemented and load-bearing, not decorative: the cap is
+**per return** and the calculator enforces it; the deduction cannot exceed tips received;
+self-employed are capped at net income; mandatory service charges are excluded and said so at
+the input; and state conformity changes the printed answer.
+
+**Not yet done:** OG image at `/og/no-tax-on-tips-calculator.png` is referenced but not created,
+and the page needs Request Indexing in Search Console — the same step the Army page was waiting
+on, and the same reason a correct page can sit at zero impressions.
