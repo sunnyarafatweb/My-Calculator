@@ -11528,3 +11528,120 @@ weekly impressions down from 775 to ~30 since late July, on a site where every h
 page is already fully built.** No thin-page-with-demand pairs remain, which is what the old
 priority queue was built to find. The next batch needs a different selection method than the one
 that produced queue #1–8.
+
+## Army Body Fat Calculator rebuilt on the WHtR standard (Aug 18, 2026)
+
+The page was teaching a standard the Army rescinded six weeks ago. Found while running free
+SERP reconnaissance, not while looking for it.
+
+### How it surfaced
+
+The plan for the session was: check a spread of SERPs by hand before paying for keyword data,
+on the theory that if every page-1 is calculator.net and Omnicalculator then volume data is
+not worth buying. Three checked:
+
+| Query | Page 1 | Read |
+|---|---|---|
+| leverage calculator | RoboForex, Myfxbook, Octa, fxverify, LDN | unwinnable |
+| voltage drop calculator | Southwire, Cerrowire, Lex, FX Luminaire, calculator.net | unwinnable |
+| army body fat calculator | aftcalculator.com, armyheightandweightcalculator.com, mopsnmoes.com | **weak** |
+
+The third SERP had small sites on page 1, which was the thing being looked for. It also had
+something better: **the snippets disagreed with each other about what the standard is.**
+calculator.net still describes its page as based on the assessment "published on June 12, 2023";
+Omnicalculator still lists allowable body fat of 24-30%. One small site had updated.
+
+### What actually changed, from primary sources
+
+Verified against the directive itself, not a summary. Fetched
+`ARMY_DIR_2026-13_ABCP.pdf` in full and the army.mil announcement; `armypubs.army.mil`
+refuses automated fetches, so a mirrored copy on `home.army.mil` was used and cross-checked
+against army.mil, Stars and Stripes and AUSA.
+
+- **Army Directive 2026-13**, signed 1 Jul 2026 by SecArmy Dan Driscoll, announced 7 Jul 2026.
+- WHtR is the **sole** authorized ABCP measurement. Height/weight screening tables discontinued.
+- Standard is **"less than and not equal to 0.55"** — the directive's own wording, which is why
+  exactly 0.550 must fail. This is the detail a careless build would get wrong.
+- No secondary or supplemental method (tape test, DXA, Bod Pod, InBody) may be used to
+  challenge a WHtR result. The appeal route that existed under the old system is closed.
+- **No AFT score exempts a Soldier** — AD 2025-17 rescinded by name.
+- Rescinds AD 2023-11, AD 2023-08, AD 2025-17; supersedes AD 2025-18 in part.
+- Measured at least twice per calendar year; ≥0.55 triggers a same-duty-day confirmation by a
+  **different team** before any commander action, then flag code K and ABCP enrollment.
+- Recorded on DA Form 5500 and in ATIS. **DA Form 5501 rescinded.**
+- Minimum 7 days between AFT/CFT and WHtR.
+- Separation actions may be initiated but **no Soldier separated until HQDA completes a 180-day
+  assessment**.
+- Not retroactive. Applies to RA, ARNG/ARNGUS, USAR, USMA and SROTC cadets, retention actions,
+  military schools.
+
+### The build
+
+Old page was built entirely around the rescinded method — every H2, every FAQ, the engine
+itself. This was a rebuild, not a patch: 231 insertions, 204 deletions.
+
+**Kept the URL.** `/army-body-fat-calculator/` had 0 impressions, so there was nothing to
+protect, and during a transition people search the old term for months. One page serves both
+the old query and the new one better than a split would.
+
+**Only one live calculator, and it computes the current standard.** The rescinded tape test is
+documented in a clearly-labelled reference section with both equations shown, because people
+still search for it and still meet it in old guidance — but it is *not* wired to a working
+calculator. A visitor cannot accidentally get a number the Army no longer recognises.
+**This is a deliberate departure from the parity protocol**, logged as §3a-PRIME requires: the
+reference page is currently wrong, and parity means matching functionality, not reproducing an
+error.
+
+**Unit toggle added.** WHtR is dimensionless, so inches and centimetres give identical answers
+as long as both come from the same tape. The page says so and proves it with a worked pair
+(69.5in/35in and 176.5cm/88.9cm both give 0.504), because mixing units is the obvious way to get
+a wrong answer here — a waist in cm over a height in inches is ~2.5x too large.
+
+### Verification
+
+- **Independent re-implementation** in a separate script, not by reading the page's own code
+  back. Five cases including the boundary:
+
+| Case | Ratio | Verdict | Max waist |
+|---|---|---|---|
+| 5'9.5" / 35in | 0.5036 | pass | 38.23in |
+| 6'0" / 39.6in | 0.5500 | **fail** | 39.60in |
+| 6'0" / 40in | 0.5556 | fail | 39.60in |
+| 176cm / 89cm | 0.5057 | pass | 96.80cm |
+| 5'4" / 30in | 0.4688 | pass | 35.20in |
+
+- Browser-tested at 1280/430/390px: all five cases match, zero page errors, swapped-value guard
+  fires correctly.
+- The exact-0.550 case first rendered as "0.0 in over", which is arithmetically right and
+  confusing to read. Reworded to name the boundary explicitly.
+- **FAQ schema generated from the visible FAQ by script, never hand-typed** — the design guide
+  records this as a recurring failure on every rebuild so far. Diff check: 8/8 pairs exact
+  string equality. All three JSON-LD blocks parse.
+- Stale-content sweep: `maximum allowable body fat`, `ACFT score of 540`, `af-sex`, `afBodyFat`
+  all return zero.
+- Title 60 chars, description 142 — both inside limits, so the Aug 13 truncation work stands.
+
+### One near-miss worth recording
+
+Mobile testing over `file://` reported 32px of horizontal overflow, and the same 32px on
+bmi-calculator, tip-calculator and body-fat-calculator — which looked like a site-wide template
+defect worth a finding. **Checked it against the live site before writing it down: 0px.** The
+overflow is a `file://` artifact, since the stylesheet does not resolve the same way locally.
+A finding that reproduces across four pages feels conclusive and was still wrong. Local render
+results need a live cross-check before they become findings.
+
+### What this generalises to
+
+The reusable part is not the page. It is the selection rule:
+
+> **Look for topics whose underlying standard changed recently.** Authority decides who wins a
+> settled query. On a six-week-old topic there is no settled answer, and a large site with two
+> hundred pages to revise moves slower than a small one with one. Being correct is the only
+> lever a young domain actually owns.
+
+Candidates already visible on this site, all pinned to a year or a standard in their own titles
+and all worth the same check: estate-tax (2026), fha-loan (2026 limits), income-tax (2026
+brackets), rmd (2026), take-home-paycheck (2026), inflation. And **`body-fat-calculator`, titled
+"U.S. Navy Method"** — the Navy adopted the same 0.55 WHtR ceiling ahead of the Army under the
+December 2025 Department of War guidance, so that page is likely stale for the same reason.
+Not verified yet; next check.
