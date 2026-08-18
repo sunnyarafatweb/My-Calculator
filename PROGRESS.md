@@ -11942,3 +11942,66 @@ That is the gap: the arithmetic largely exists, the pages do not.
 Ordered by audience against build cost: overtime, tips, auto loan interest, senior deduction,
 SALT. Overtime first — the largest audience, the widest-open SERP, and the premium-only
 distinction gives it something to be right about that others are not.
+
+## Build spec: No Tax on Tips Calculator — researched, not yet built (Aug 18, 2026)
+
+**Decision: build tips before overtime.** Keyword Planner (US, Aug 2025–Jul 2026) settles it:
+
+| Keyword | US monthly | YoY | Read |
+|---|---|---|---|
+| army body fat calculator | **10k–100k** | **0%** | already built; stable |
+| army waist to height ratio calculator | 1k–10k | **+9,900% 3-mo** | already built |
+| no tax on overtime calculator | 10k–100k | **−90%** | contaminated by the July 2025 hype spike |
+| **no tax on tips calculator** | **1k–10k** | **0%** | **stable — the honest number** |
+| car loan interest / salt deduction | 100–1k | −99% | marginal |
+| marine corps whtr / tip income deduction / senior deduction | no data or 10–100 | — | not standalone pages |
+
+Overtime's headline volume is larger but the −90% is measured against the spike that followed
+the 4 July 2025 signing. Tips at flat YoY is smaller and real. **Ignore the "Competition: Low"
+column throughout** — that is ad competition; `army body fat calculator` also reads Low while
+calculator.net and Omnicalculator hold page 1.
+
+Also note the biggest number on the board is a page **already built and correct** with zero
+impressions. Indexing it beats building anything new.
+
+### Verified from IRS.gov and the final regulations — do not re-research this
+
+- **IRC § 224**, created by OBBBA (P.L. 119-21, signed 4 Jul 2025). Tax years **2025–2028** only.
+- Cap **$25,000**, claimed on **Schedule 1-A, Part II**, above the line — works with the standard
+  deduction or itemising.
+- Phase-out: **$100 per $1,000** of MAGI above **$150,000** single / **$300,000** joint. Falls out
+  to zero at $400,000 single.
+- **Married taxpayers must file jointly.** Filing separately gets nothing.
+- Occupation must have **customarily and regularly received tips on or before 31 Dec 2024**.
+- SSTB workers are generally ineligible, but **Notice 2025-69 suspends enforcement** of that
+  disqualification pending SSTB-specific final regulations.
+- **FICA still applies in full.** This is an income tax deduction, not an exemption.
+
+### The five things competitors get wrong or omit — this is the page's reason to exist
+
+1. **The $25,000 cap is per return, not per person.** A married couple who both wait tables share
+   one $25,000 cap. Several ranking calculators apply it per person and overstate the result.
+2. **You cannot deduct more than you actually earned in tips.** The cap is a ceiling, not an
+   allowance.
+3. **Self-employed are further capped** at net income from the business the tips were earned in,
+   before this deduction.
+4. **Mandatory service charges are not qualified tips.** Auto-gratuity on a large party is
+   excluded even though it reaches the worker — a real and common misunderstanding.
+5. **State conformity varies sharply.** California, New York and New Jersey have decoupled, so a
+   federal-only figure overstates the saving for a large share of the audience. Michigan, South
+   Carolina, North Dakota, Montana and Idaho conform or have added their own break.
+
+Plus, for tax year 2026 onward, only tips **separately reported** on W-2/1099-NEC/1099-MISC/1099-K
+or on Form 4137 are deductible, with a new tip occupation code on the forms.
+
+### Build notes
+
+- **No calculator.net equivalent exists**, so the parity protocol has nothing to mirror. Pin to
+  published worked examples instead, exactly as `pe-ratio-calculator` was.
+- The arithmetic already exists in `take-home-paycheck-calculator` (`TIPS_CAP = 25000`) — reuse
+  the engine, but the article must be **written from scratch**, per the standing rule that
+  near-duplicate calculators need the article written apart rather than adapted.
+- Lead the title on the phrase people actually search — **"No Tax on Tips Calculator"** — not
+  "Tip Income Deduction Calculator".
+- The SERP it is entering: fidelity.com plus six small sites. Nothing that outranks us on
+  authority, so correctness and completeness are the whole game.
