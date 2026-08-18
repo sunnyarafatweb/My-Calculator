@@ -11710,3 +11710,59 @@ week they stay wrong — both are large sites that will update eventually. The p
 `lastmod` refresh but sat at **0 impressions** before the rebuild, so there is no crawl history
 to bring Google back quickly. It needs an explicit **URL Inspection → Request indexing** in
 Search Console. Nothing in this repository can substitute for that.
+
+## Free SERP recon: the keyword-difficulty strategy does not apply here (Aug 18, 2026)
+
+Before spending $50 on DataForSEO, five SERPs were read by hand to answer one question: **does
+this site have any winnable keyword ground?** The trial credit turned out to be unusable — the
+account panel states phone verification is unavailable and the only route to API access is the
+$50 minimum top-up — so the check was done free.
+
+| Query | Who holds page 1 | Winnable? |
+|---|---|---|
+| leverage calculator | RoboForex, Myfxbook, Octa, fxverify, LDN | No — broker-owned |
+| voltage drop calculator | Southwire, Cerrowire, Lex, FX Luminaire, calculator.net | No — manufacturer-owned |
+| staking reward calculator | StakingRewards, Figment, Helius, Guarda, EarnPark | No — funded crypto firms |
+| number sequence calculator | calculator.net, Omnicalculator, GigaCalculator, Vedantu | No — generalist giants |
+| **army body fat calculator** | aftcalculator, armyheightandweightcalculator, mopsnmoes | **Yes** |
+
+**Four categories, four different kinds of incumbent, same result.** Obscure did not mean weak:
+`number sequence calculator` is about as niche as this site's inventory gets and page 1 is still
+calculator.net, Omni and GigaCalculator. That is the structural fact — those sites built
+thousand-page inventories covering every term years ago, so there is no unclaimed corner of
+"calculator" keyword space to find.
+
+**So the one win did not come from a weak keyword. It came from a change in the world.** The
+Army SERP was open because the Army rescinded its body fat standard on 7 July 2026 and
+calculator.net and Omnicalculator are both still publishing the 2023 tape test. Small sites rank
+there because they updated and the giants have not yet.
+
+### What this means for tooling, and it is a saving
+
+The plan was: buy DataForSEO, pull volume and keyword difficulty, find low-KD targets. **That
+would not have worked.** A difficulty score would have flagged all four losses above — which
+were already visible for free — and would **not** have surfaced the Army opportunity, because on
+7 June that keyword's difficulty looked exactly the same as it does now. Nothing changed about
+the keyword. What changed was the incumbents' accuracy.
+
+**Do not buy the $50 to run keyword-difficulty research.** The variable that matters here is not
+how hard a keyword is; it is **whether the incumbents are currently wrong**. No keyword tool
+reports that. Reading the actual SERP does.
+
+DataForSEO may still earn its $50 later for a different job — its AI Optimization API tracks LLM
+mentions, which is the one measurement no free method covers. That is a separate decision from
+keyword research and should be made on its own merits once there is something worth measuring.
+
+### The strategy this leaves
+
+1. **Change-driven publishing.** Watch the calendar of rules this site already depends on — IRS
+   adjustments each autumn, FHA/FHFA limits each November, SSA wage base each October, DoD and
+   service fitness directives, and any statutory change like OBBBA. When one moves, be correct
+   before calculator.net is. That is a durable edge precisely because a thousand-page site cannot
+   update quickly.
+2. **AI citation.** Correctness beats authority in LLM answers far more than in Google's ranking.
+   The Army page is the live test: we are right, the two largest competitors are wrong.
+3. **Authority.** Unavoidable and slow, and nothing above substitutes for it.
+
+**What is explicitly dead:** hunting for a low-competition calculator keyword. Five SERPs say
+that ground does not exist, and a paid tool would have said the same thing more expensively.
