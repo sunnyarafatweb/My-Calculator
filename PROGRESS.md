@@ -14,13 +14,26 @@ re-explained.
 | 2 | Engine Horsepower Calculator | Upgrade | ✅ DONE — 4 tabs: Elapsed Time (ET), Trap Speed, Predict My Run (reverse), 1/8-Mile Converter |
 | 3 | Time Zone Calculator | Upgrade (thin, ~434 lines) | ✅ DONE — rebuilt to 3-card pattern: city-to-city converter (33 cities, DST-aware via Intl/browser tz database, verified independently in Node + Playwright before shipping), day-shift + hour-difference readout, dual 24h business-hours timeline, live auto-updating World Clock (9 cities), Time Zone Abbreviations reference table, PDF export, 6 H2 content sections + 6 FAQs, new OG image |
 | 4 | IRA Calculator | Upgrade (thin) | ✅ DONE — rebuilt to 3-card pattern: 2 tabs — Grow My IRA (age/balance/contribution/return growth projection with 2026 contribution-limit chips, plus an optional 2026 Traditional-deduction eligibility checker by filing status/workplace-plan coverage/MAGI) and Traditional vs. Roth (same-pretax-dollar comparison driven by tax-rate-now vs. tax-rate-in-retirement, verified to correctly flip winners in both directions and tie when rates are equal); year-by-year growth schedule + stacked contributions/growth chart + 2-segment donut; bottomgrid reference cards for 2026 contribution/deduction-limit ranges and a live RMD quick-reference tool (Uniform Lifetime Table lookup, age-73-vs-75 birth-year toggle); PDF export lazy-loaded from the start. 8 H2 sections + 6 FAQs, new OG image. See "Also completed" below for verification detail. |
-| 5 | Roth IRA Calculator | Upgrade (thin) | pending — sibling of #4, do next |
+| 5 | Roth IRA Calculator | Upgrade (thin) | ✅ DONE Aug 5, 2026 — see "Roth IRA Calculator — rebuilt Aug 5, 2026" below. Rebuilt from a 508-line stub to 7 inputs and a two-column Roth-vs-taxable comparison; three undocumented reference behaviours recovered by probing (grow-then-contribute ordering, taxable side compounding at `r x (1 - tax)`, and two different silent contribution-capping rules for typed vs. maximize); 5 scenarios exact, 35-row schedule matching row for row; an off-by-one bug in the reference's own "Total interest" found and deliberately not reproduced. **This row said "pending — do next" until Aug 18, 2026 — the row was stale, not the work.** |
 | 6 | Annuity Payout Calculator | Upgrade (thin) | ✅ DONE (done out of order, ad-hoc user request Jul 20, 2026) — rebuilt to 3-card pattern, reusing Annuity Calculator's visual/JS conventions (apo- prefix): two tabs — Fixed Length (solve for payout amount) and Fixed Payment (solve for how long a chosen payment lasts, with automatic perpetuity detection when payment ≤ periodic interest); Payout Frequency selector (Monthly/Quarterly/Semiannual/Annual); level-payment annuitization formula verified independently in Node before shipping; year-by-year schedule table + stacked interest-vs-principal chart + 2-segment donut; PDF export; competitor research (calculator.net, annuity.org, catalinastructuredfunding, CBS/SmartAsset $100k-annuity coverage) folded into a "what real lifetime annuities pay vs. this calculator's period-certain math" section; 7 H2 sections + 6 FAQs; new OG image.
-| 7 | P/E Ratio Calculator | **New page** (doesn't exist yet) | pending |
-| 8 | Gold Calculator | **New page** (doesn't exist yet) | pending |
+| 7 | P/E Ratio Calculator | New page | ✅ DONE Aug 10, 2026 — shipped at `/pe-ratio-calculator/` as "Rebuild 7 of 8" (see below). Three modes: trailing/forward P/E with earnings yield and industry comparison, PEG with PEGY behind More Options, and target multiple → implied share price. calculator.net has no equivalent page (404 confirmed live against a 200 control), so it was pinned to eight published worked examples from six sources instead. 1,215 cases / 3,715 assertions, browser 64/64. **Row was stale until Aug 18, 2026.** |
+| 8 | Gold Calculator | New page | ✅ DONE Aug 10, 2026 — shipped at **`/gold-value-calculator/`**, not `/gold-calculator/`; the queue name and the URL differ, which is why a filesystem check for `gold-calculator` comes back empty. "Rebuild 8 of 8 — SERIES COMPLETE" (see below): melt value at live spot, full jewellery counter price with making charges and VAT, scrap-offer comparison; live gold/silver, 14 currencies incl. the Gulf set, 5 weight units; FX source swapped to open.er-api.com after frankfurter.dev was found to carry no Gulf currency; 1,014 cases / 4,414 assertions, browser 73/73 including 11 offline-degradation checks. **Row was stale until Aug 18, 2026.** |
+
+**Queue #1–8 are all complete as of Aug 10, 2026.** Per the rule below, the next
+batch needs fresh GSC data before anything is re-ranked; nothing here should be
+treated as the current priority list.
 
 When #3–8 are all done, re-pull GSC data and re-rank the next batch — don't
 assume this exact order still holds after a few weeks of new data.
+
+**Why three of these rows sat stale for over a week** (corrected Aug 18, 2026):
+every one of the three was built and written up in its own section further down
+this file, but nobody came back to the table at the top. A session that reads
+only the queue — which is exactly what the header of this file tells it to do —
+would have rebuilt Roth IRA a second time. The Aug 10 note about ten unlogged
+commits is the same failure in the opposite direction: work done, file not
+updated. **Closing a queue item means editing this table in the same commit as
+the build, not just appending a section.**
 
 - **Rent vs. Buy Calculator — full rebuild from thin React/Tailwind-slider
   shell to 3-card pattern** (ad-hoc user request, Jul 21, 2026, prompted by a
@@ -11332,3 +11345,78 @@ later, so the page arrives with the standard scroll-and-flash behaviour already 
 
 No browser render. The SVG diagram is generated per solve and scales itself to the triangle, so
 its label placement is the least certain part.
+
+## Nine entity em dashes in titles, and three stale queue rows (Aug 18, 2026)
+
+Two small items, both of which the file itself had already identified and neither of which had
+been picked up.
+
+### The em dashes `d5c23a5` could not see
+
+The Aug 13 entry above records that `d5c23a5` replaced em dashes in titles "site-wide" and left
+nine behind, because it matched the literal `—` and not the entity form `&#x2014;`. That was
+still true: nine pages, verified before touching anything rather than taken from the note.
+
+canadian-mortgage, cash-back-or-low-interest, cd, college-cost, commission, credit-card,
+currency, debt-consolidation, refinance.
+
+**Scanned wider than the note did.** Rather than grep for the one entity that was already known
+about, all eight plausible dash entities (`&#x2014;`, `&#X2014;`, `&mdash;`, `&#8212;`,
+`&#x2013;`, `&ndash;`, `&#8211;`, `&#151;`) were checked across `<title>`, `og:title` and
+`twitter:title` on every page. Result: only `&#x2014;`, only those nine pages, and on all three
+tags in each — so the fix is 27 replacements, not 9. Had only `<title>` been fixed, the same
+split that section 3 keeps having to correct would have been reintroduced deliberately.
+
+Replacement follows `d5c23a5`'s own conventions rather than inventing one: pipe, not hyphen or
+colon; and the colon fallback it used for titles that already contained a pipe was not needed
+here, because none of the nine did — checked rather than assumed.
+
+**Length is unchanged, which is the point.** `&#x2014;` is eight characters in source and one to
+the crawler. Swapping it for `|` costs 21 bytes per file and zero decoded characters, so the
+Aug 13 title-length work is untouched. Longest of the nine is cd-calculator at 57.
+
+### Verification
+
+- Each of the nine files was reverse-transformed — pipes turned back into entities inside those
+  three tags only — and compared byte-for-byte with `HEAD`. **All nine identical.** Nothing else
+  in the file moved.
+- Byte delta is exactly −21 on all nine, which is 3 tags × 7 characters. A file with a
+  different delta would mean a fourth match somewhere unintended.
+- `refinance-calculator` contains a **second `<title>` inside its chart JavaScript**
+  (`'<title>Year '+...`). Restricting the edit to the `</head>` region kept it out of range;
+  a naive sitewide `sed` on `<title>` would have rewritten a tooltip template.
+- `llms.txt` and `calculators-index.json` were checked for copies of these strings. They carry
+  plain calculator names, not SERP titles, so no registry sync was needed — the em dashes
+  `llms.txt` does contain are in descriptions and out of scope.
+- Precedent checked before deciding scope: neither `d5c23a5` nor `be3992e` touched
+  `sitemap.xml` for a metadata-only change, so this one does not either.
+
+### Three queue rows that were lying
+
+Rows 5, 7 and 8 of the priority queue still read `pending`. All three had shipped:
+
+| row | table said | actually |
+|---|---|---|
+| 5 Roth IRA | pending — do next | rebuilt **Aug 5**, own section in this file |
+| 7 P/E Ratio | new page, doesn't exist | `/pe-ratio-calculator/` **Aug 10**, Rebuild 7 of 8 |
+| 8 Gold | new page, doesn't exist | `/gold-value-calculator/` **Aug 10**, Rebuild 8 of 8 |
+
+Each was confirmed against the working tree and git history, not against the section text alone —
+the pages are 1,429 / 1,422 / 1,563 lines and all three carry the CB-UX block.
+
+Row 8 is worth naming precisely: the queue calls it "Gold Calculator" and the page shipped as
+**gold-value-calculator**, so a session checking whether the work exists by looking for
+`gold-calculator/` finds nothing and concludes it is outstanding. The row now carries the real
+URL.
+
+**The queue is now empty and says so.** Any next batch needs fresh GSC data first, per the rule
+that was already sitting under the table.
+
+### The pattern behind both halves
+
+Neither of these was unknown. The em dash count was written down on Aug 13 and left; the queue
+rows went stale because closing an item meant appending a section and not editing the table.
+Same shape as the Aug 13 finding about the CB-UX snippet: **a rule nothing enforces stops being
+true, quietly.** The table at the top of this file is the first thing a new session reads, which
+makes a stale row there more expensive than a stale row anywhere else — it does not just fail to
+inform, it actively misdirects.
