@@ -11645,3 +11645,32 @@ brackets), rmd (2026), take-home-paycheck (2026), inflation. And **`body-fat-cal
 "U.S. Navy Method"** — the Navy adopted the same 0.55 WHtR ceiling ahead of the Army under the
 December 2025 Department of War guidance, so that page is likely stale for the same reason.
 Not verified yet; next check.
+
+### Navy page checked next — different problem, not the same one (Aug 18, 2026)
+
+The Army rebuild's note above predicted `body-fat-calculator` ("U.S. Navy Method") would be
+stale for the same reason. **It is not, and the difference matters.**
+
+Read the page before assuming: it frames the Navy circumference method as a general body
+composition estimator "developed at the Naval Health Research Center in the 1980s", pairs it
+with a BMI-derived figure, and never claims to be the Navy's compliance procedure. Nothing on
+it is false.
+
+And the Navy did not do what the Army did. Effective 1 Jan 2026 under OPNAVINST 6110.1L and
+PRP Guide-4, the Navy BCA became a **two-step** process: Step 1 is a sex-neutral WHtR screen
+(≤0.5499 passes and ends the assessment; ≥0.5500 goes to Step 2), and Step 2 is a body fat
+calculation from height, waist and weight against maximums that still exist — 26% male, 36%
+female. The Army, by contrast, made WHtR the sole standard with **no** Step 2 and no body fat
+figure at all. Anyone treating "the military moved to 0.55" as one uniform change will get the
+Army and the Navy backwards.
+
+So the gap on our page is narrower than the Army one: someone searching *navy body fat
+calculator* to check service compliance lands on the 1980s neck-and-hip formula rather than the
+current three-measurement Step-2 method. That is a gap by omission, not a false statement.
+
+**Deliberately not rebuilt in this session.** The Army rebuild was done off the directive PDF
+itself. For the Navy the equivalent primary sources — OPNAVINST 6110.1L and PRP Guide-4 — have
+not been read; everything above is from secondary reporting (military.com and fedweek are the
+strongest of them, the calculator sites the weakest). Rebuilding a compliance page from
+secondary sources is exactly the failure mode that put the Army page six weeks out of date.
+Get the instruction first, then build.
