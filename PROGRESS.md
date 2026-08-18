@@ -11810,3 +11810,71 @@ understood from inside the repo. Flagged for the owner as a decision, not done u
 committed here. It contains competitive positioning written for the owner, and publishing it at
 `/ASSET-PACK.md` would hand a competitor both the messaging and the reasoning. It was delivered
 as a file instead.
+
+## Army page: a false claim removed, and the branch selector that fixes it (Aug 18, 2026)
+
+Reading the SERP for `waist to height ratio calculator` to test whether that generic term was
+winnable produced a better finding than the answer to the question asked.
+
+**The generic term is not winnable** — page 1 is NHS, Bupa, Novo Nordisk, Omnicalculator, Rite
+Aid and Wikipedia, a YMYL health SERP. But **not one of those results mentions the military
+standard at all.** They are all general health at the 0.5 cardiovascular threshold. The 0.55 and
+0.52 service standards, six months old, are simply absent from that page of results.
+
+### The claim on our own page was wrong
+
+The `other` section read: *"the threshold itself is now the same, so a ratio calculated here
+answers the question for any of them."* That is true for the Navy, Air Force and Space Force and
+**false for the Marine Corps.**
+
+Verified against primary sources before touching anything — marines.mil press release,
+MARADMIN 066/26, and the Department's own procedural guidance PDF on media.defense.gov:
+
+| Service | Threshold | Behind the screen |
+|---|---|---|
+| Army | under 0.55 | **nothing** — the ratio is the determination |
+| **Marine Corps** | **0.52 or below** | body fat assessment by tape or BIA |
+| Navy | under 0.55 | step-two body fat calculation |
+| Air Force / Space Force | under 0.55 | secondary body fat assessment |
+
+Two details matter beyond the number. The Marine standard is written **"0.52 or below"**, so 0.52
+passes, while the Army's is **"less than 0.55"**, so 0.55 fails — a ratio exactly on the line is a
+pass in one service and a failure in the other. And the Army is the only service with nothing
+behind the screen.
+
+### The selector, because the FAQ would otherwise have lied
+
+Writing an FAQ answer that said *"set the threshold to 0.52 for the Marine Corps"* exposed that
+`AF_STD = 0.55` was hard-coded with no control to set. Rather than soften the sentence to match a
+missing feature, the feature was built: a **Service selector** driving `AF_BRANCHES`, with both
+the threshold **and the comparison operator** per service, since `<` versus `<=` is a real
+difference and not a rounding detail.
+
+**One accuracy catch worth recording.** With plain arithmetic the reference table shows a 72-inch
+Marine a maximum waist of 37.4", but MARADMIN 066/26 publishes **37.0"** — the Corps rounds height
+down to the half inch. Rounding is now applied for the Marine Corps in US units so the table
+matches what a Marine is actually measured against. Caught by cross-checking the output against
+published figures rather than trusting the formula.
+
+### Verification
+
+Seven cases run against published worked examples, all passing:
+
+- Army 35/69.5 → 0.504 meets; 38.5/70 → **0.550 fails** (boundary); 38.4/70 → 0.549 meets
+- USMC 37/72 → 0.514 meets and 36/70 → 0.514 meets, both matching military.com's worked examples
+- USMC 37.44/72 → **0.520 passes** (inclusive); 37.5/72 → 0.521 fails
+- Rounded maxima at 72/70/66 inches → 37.0 / 36.0 / 34.0, matching MARADMIN
+
+Also checked: all three JSON-LD blocks parse, schema questions and visible `<h3>` both at 10 so
+the FAQ stays in sync, `node --check` clean on the whole inline script, table markup switched to
+the site's `overflow-x:auto` + bare `<table>` convention (the page already styles
+`.af-seo-article table`, so the invented `tbl-wrap` class was removed), description trimmed to
+152 characters with `og:` and `twitter:` synced, and sitemap `lastmod` refreshed.
+
+### Why this is the strategy working, not a detour
+
+The site's one demonstrated edge is being correct where large competitors are stale. **That edge
+is worth nothing if our own page carries a false statement**, and this one did — on the single
+page the whole positioning rests on. Fixing it also opens the branch query space
+(`marine corps whtr`, `navy waist to height ratio`, `military body composition 2026`), which is
+new, specific, and absent from both the calculator giants and the health authorities.
