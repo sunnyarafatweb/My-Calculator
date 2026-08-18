@@ -11878,3 +11878,67 @@ is worth nothing if our own page carries a false statement**, and this one did �
 page the whole positioning rests on. Fixing it also opens the branch query space
 (`marine corps whtr`, `navy waist to height ratio`, `military body composition 2026`), which is
 new, specific, and absent from both the calculator giants and the health authorities.
+
+## The finance opening: OBBBA provision pages (Aug 18, 2026)
+
+Applied the change-driven method to the finance section. The first check was whether our own tax
+pages had gone stale — **they have not.** `income-tax-calculator` and `take-home-paycheck-calculator`
+both already carry the OBBBA provisions, and take-home actually computes them (`TIPS_CAP = 25000`).
+
+So the question flipped to the one that actually mattered for the Army page: **are the
+competitors stale here?** Two SERPs read by hand say yes, and more decisively than the Army case.
+
+### `no tax on tips calculator 2026`
+fidelity.com, then **eduyush.com, yourincomecalculator.com, nationaltaxtools.com, tiptaxcalc.com,
+alltoolscombined.com, countrytaxcalc.com** — six of seven are small sites.
+
+### `no tax on overtime calculator`
+H&R Block, then **truetools.org, notaxovertimecalculator.com, notaxonovertimecalculators.org,
+intelcalculator.com, gotaxcalculator.com, obbacalc.com, obbba.tax, nationaltaxtools.com** —
+almost the entire page is single-purpose microsites.
+
+**calculator.net, NerdWallet, SmartAsset and Bankrate are absent from both.** This is the Army
+pattern again — a rule changed and the incumbents have not built for it — except the audience is
+far larger and the SERP is even more open. One source puts it at roughly 4 million tipped workers
+and 18 million overtime-eligible employees.
+
+### Why the giants are absent, and how long that lasts
+
+These provisions came from OBBBA (P.L. 119-21, signed 4 July 2025) and run for tax years
+2025–2028 only. A thousand-page site covers *evergreen* calculators; a four-year deduction with
+its own eligibility rules needs a purpose-built page, and they have not made one. **That window
+closes when they do**, which is the same clock the Army page is on.
+
+### Verified parameters (cross-checked; the phase-out arithmetic is self-consistent)
+
+| Provision | Cap | Phase-out | Notes |
+|---|---|---|---|
+| Tips (IRC § 224) | $25,000 | from $150k single / $300k MFJ, $100 per $1,000 | gone at $400k single |
+| Overtime (IRC § 225) | $12,500 single / $25,000 MFJ | same thresholds and taper | gone at $275k single |
+| Auto loan interest | $10,000 | — | US-assembled vehicles only |
+| Senior deduction | $6,000 | — | 65+ |
+| SALT cap | $40,400 (2026) | — | raised by OBBBA |
+
+The two phase-out endpoints are not independent claims — they fall out of the caps at $100 per
+$1,000 ($25,000 → $250k of taper → $400k; $12,500 → $125k → $275k). Both match what the ranking
+pages state, which is a useful consistency check on all three figures at once.
+
+**The detail most competitors get wrong, and the one to lead on:** the overtime deduction covers
+only the **premium** — the extra 0.5× of time-and-a-half — not the whole overtime wage. At $20/hr
+with $30/hr overtime, the deductible part is $10/hr. Several ranking pages blur this, and it is
+the difference between a plausible number and a wrong one.
+
+Also worth carrying: FICA still applies to both tips and overtime; married-filing-separately is
+excluded from overtime; both are above-the-line on Schedule 1-A so they work with the standard
+deduction; and state conformity varies sharply — California, New York and New Jersey have
+decoupled, so a headline federal saving overstates the real one for a large share of the audience.
+
+### What is not built
+
+**No dedicated page exists for any provision.** The logic is inside two general calculators,
+which is not what ranks for `no tax on tips calculator` — the ranking pages are all single-purpose.
+That is the gap: the arithmetic largely exists, the pages do not.
+
+Ordered by audience against build cost: overtime, tips, auto loan interest, senior deduction,
+SALT. Overtime first — the largest audience, the widest-open SERP, and the premium-only
+distinction gives it something to be right about that others are not.
