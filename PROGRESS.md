@@ -11674,3 +11674,39 @@ not been read; everything above is from secondary reporting (military.com and fe
 strongest of them, the calculator sites the weakest). Rebuilding a compliance page from
 secondary sources is exactly the failure mode that put the Army page six weeks out of date.
 Get the instruction first, then build.
+
+### The staleness sweep run across the rest of the site — one hit, five clean (Aug 18, 2026)
+
+The Army rebuild's note proposed a method: **find topics whose underlying rule changed recently,
+because that is where authority stops mattering and freshness wins.** It listed six other
+year-pinned pages as candidates. All six have now been checked against primary sources rather
+than left as a to-do.
+
+| Page | Claims | Verified against | Verdict |
+|---|---|---|---|
+| income-tax | 2026 std deduction single $16,100 | IRS 2026 inflation adjustments | **current** |
+| take-home-paycheck | SS wage base $184,500, max $11,439 | ssa.gov FAQ, SSA 2026 fact sheet | **current** |
+| fha-loan | floor $541,287, ceiling $1,249,125 | **hud.gov**, Mortgagee Letter 2025-23 | **current** |
+| estate-tax | $15M exemption, portability | OBBBA 2026 figure | **current** |
+| rmd | Uniform Lifetime table, age 73 | SECURE 2.0 | **current** |
+| body-fat (Navy) | 1980s circumference method | see Navy note above | gap by omission, not false |
+
+The income-tax page is better than the check required: it carries **both** 2025 and 2026
+constants side by side (`2025:{single:15750...}`, `2026:{single:16100...}`) rather than
+overwriting, which is why it survived a year boundary that would have broken a single-year build.
+Worth copying as a pattern on any page pinned to an annual figure.
+
+**The negative result is the useful part.** The site is not broadly stale. The Army page was not
+a symptom of neglect — it was stale because the Army changed its policy on 7 July 2026, weeks
+after the page was built, and no amount of care at build time would have prevented that. So the
+staleness method yields roughly one page per external policy change, not a backlog to work
+through. **Do not re-run this sweep speculatively.** Re-run it when a rule actually changes:
+IRS inflation adjustments each autumn, FHA/FHFA limits each November, SSA wage base each
+October, and any DoD or service-level fitness directive.
+
+**What this leaves undone, and it is not a code task.** The Army page's whole advantage is that
+it is correct while calculator.net and Omnicalculator are not, and that advantage decays every
+week they stay wrong — both are large sites that will update eventually. The page carries a
+`lastmod` refresh but sat at **0 impressions** before the rebuild, so there is no crawl history
+to bring Google back quickly. It needs an explicit **URL Inspection → Request indexing** in
+Search Console. Nothing in this repository can substitute for that.
