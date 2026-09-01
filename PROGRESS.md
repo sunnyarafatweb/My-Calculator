@@ -12131,7 +12131,18 @@ Playwright then caught three more, all plan-vs-code drift that step 6 exists for
   **Inline styles beat media queries**, so tab 2 kept a three-column desktop template at 390px
   and squeezed the form card to 109px — the §5 implicit-track trap, with horizontal overflow
   still reading 0. Replaced with a `.rng-grid--nb` class that names every area at every
-  breakpoint. *auto-loan-calculator almost certainly still has this bug; worth checking.*
+  breakpoint.
+
+  **Correction, checked after the commit that first claimed otherwise:** that commit message and
+  an earlier draft of this entry both said auto-loan-calculator "likely still has this bug".
+  It does not. It was swept at 390px and 430px alongside retirement-calculator and
+  401k-calculator, and all three resolve to a single track with zero narrow children. The
+  difference is that their inline rule only sets `grid-template-areas` while the class rule
+  still supplies `grid-template-columns:1fr`, and their inline area lists name every area the
+  page actually uses. Ours combined an inline three-column area list with a two-breakpoint
+  column rule and produced implicit tracks. So the fault was mine, not inherited, and the
+  donor pages need no fix. Recorded because a wrong "this other page is broken" claim is worth
+  more to retract than to leave sitting in the log.
 
 ### Keyword research
 
