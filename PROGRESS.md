@@ -12078,3 +12078,103 @@ the input; and state conformity changes the printed answer.
 **Not yet done:** OG image at `/og/no-tax-on-tips-calculator.png` is referenced but not created,
 and the page needs Request Indexing in Search Console — the same step the Army page was waiting
 on, and the same reason a correct page can sit at zero impressions.
+
+---
+
+## Random Number Generator — rebuilt to 3-card custom tier (Sep 1, 2026)
+
+Reference diffed: `calculator.net/random-number-generator.html`, fetched live (source **and**
+submitted form results, per the §3a-PRIME note that their result markup is only visible in a
+response, not in the page source).
+
+### What was there before
+
+A 146-word template-tier page: min/max/count sliders, a no-repeats checkbox, five hardcoded
+result chips, two FAQs, one H2. It was missing **both** of calculator.net's generators' real
+option sets — no decimal mode, no precision, no sort, no integer/decimal switch, and the basic
+integer generator was absent entirely.
+
+### Parity: two generators, two tabs
+
+calculator.net stacks two independent forms on one page (the plain integer one, and what it
+calls the Comprehensive Version). Those became two tabs on our own 3-card shell, one grid per
+tab, following `auto-loan-calculator`. Every one of their 19 controls is present. Their
+`shDupSort` and `shPres` conditional-display rules were read off their inline script and
+reproduced exactly: the duplication/sort block appears only when the count is an integer above
+1, the precision field only when the result type is Decimal.
+
+### Maths, and what the sweep caught
+
+The engine is exact-integer throughout — the range is converted to a count of `10^-places`
+steps, one step is drawn, and the step is converted back. That is what lets a 200-digit range
+and 999 decimal places both come back inside their bounds. `R` is drawn by **rejection
+sampling on whole bytes**, not by a remainder, because folding 256 byte values into an
+arbitrary range with `%` over-weights the low end.
+
+24 assertions in Node before any of it was wired in (`rng_test.js`): bound inclusivity, exact
+decimal places with trailing zeros kept, unique-mode population limits, sort correctness,
+negative ranges, 120-digit integers, 999-place decimals, and a chi-square uniformity check over
+60,000 draws (χ²=4.05, df 9).
+
+**The 34-case randomised sweep against the live reference then found a real gap the targeted
+tests had missed** — exactly the failure mode recorded for the Macro Calculator. With the result
+type set to Integer, calculator.net rejects non-integer limits (*"Please provide an integer as
+lower limit value"*); our build was silently truncating `2.5` to `2`. Fixed, re-swept, 34/34.
+
+Playwright then caught three more, all plan-vs-code drift that step 6 exists for:
+- the sort codes. The radios emit `a`/`d`/`n`; the engine was still comparing against
+  `asc`/`desc` from the Node harness, so **sorting silently did nothing**.
+- the CB-UX hook. It finds the calculate button by `[id*="calcBtn"], [id*="-calc"]` or the exact
+  text "Calculate". Ours said "Generate" with id `rng-cCalc` — case-sensitive, so no match, and
+  auto-calculate was wired on neither tab. Ids are now `rng-s-calcBtn` / `rng-c-calcBtn`.
+- the second grid carried an inline `grid-template-areas`, copied from auto-loan-calculator.
+  **Inline styles beat media queries**, so tab 2 kept a three-column desktop template at 390px
+  and squeezed the form card to 109px — the §5 implicit-track trap, with horizontal overflow
+  still reading 0. Replaced with a `.rng-grid--nb` class that names every area at every
+  breakpoint. *auto-loan-calculator almost certainly still has this bug; worth checking.*
+
+### Keyword research
+
+Head term "random number generator" is not winnable — Google answers it with its own inline
+widget, and random.org holds the organic slot. The reachable volume is in the modifier
+clusters, where the incumbents are thin wheel-spinner sites (gospinwheel, namesonwheel,
+heyspinner, spinandwheel) with near-identical copy: **"random number generator 1-100"** and its
+range siblings, **"random number picker"** (competitor titles overwhelmingly favour *picker*
+over *generator* + *calculator*), and **"no repeats" / "no duplicates"**, which random.org
+splits across two separate pages (Integer Generator vs Sequence Generator) and calculator.net
+folds into one radio.
+
+Title took the head term plus the two highest-value modifiers: *Random Number Generator — Pick
+1 to 100 or Any Range* (52 chars). "Calculator" is deliberately absent from the title — nobody
+searches for a random number *calculator* — while the slug keeps it for consistency.
+
+### Checks run
+
+Three JSON-LD blocks parse. FAQ schema and the visible `<h3>`/`<p>` pairs are **generated from
+one Python list**, so the em-dash/quote mismatch that has recurred on every rebuild cannot
+happen here; asserted equal after HTML-unescaping anyway. `node --check` clean. All 26 element
+ids the script references exist. Title 52 chars, description 141, og/twitter synced.
+Protected shared style block byte-identical to bmi-calculator and body-fat-calculator, and a
+sweep of all 214 pages found only the six that already differed before this commit.
+
+Playwright at 1280, 390 and 430px: zero console errors, zero horizontal overflow, h1 computed
+weight 700, both grids resolve to a single track on mobile, Clear empties the boxes with 0px
+button drift, jsPDF fetches nothing until the button is clicked and then downloads correctly.
+
+Originality: **0.00%** 8-word overlap with calculator.net, and **0.00%** with any other page on
+this site — the article was written from the topic list, not adapted from the Percentage or
+Probability pages.
+
+### Deliberate additions, flagged rather than assumed
+
+The result card carries derived rows calculator.net does not print (values the range can hold,
+odds of any one number, and an echo of the settings). They are presentation of the same
+computation rather than new controls, and the card would otherwise be an empty box under the
+big number — but per the Aug 7 scope rule they are the owner's call, not mine.
+
+### Not yet done
+
+`/og/random-number-generator.png` was missing and has been generated to match the house style.
+The page still needs Request Indexing in Search Console. The search index still lists this page
+as "Random Number Generator Calculator", which reads awkwardly in the search box — left alone
+because `calculators-index.json` drives search on 222 pages and renaming it was not asked for.
