@@ -12189,3 +12189,105 @@ big number — but per the Aug 7 scope rule they are the owner's call, not mine.
 The page still needs Request Indexing in Search Console. The search index still lists this page
 as "Random Number Generator Calculator", which reads awkwardly in the search box — left alone
 because `calculators-index.json` drives search on 222 pages and renaming it was not asked for.
+
+## Greatest Common Factor Calculator — rebuilt to 3-card custom tier (Oct 24, 2026)
+
+`/gcf-calculator/` was a 484-line template-tier stub: generic title, a one-line meta
+description, no OG image, no visible breadcrumb, a thin article and none of the 3-card shell.
+Rebuilt against the live calculator.net reference at the owner's request, with a screenshot of
+their page supplied alongside the link.
+
+### Reading the reference, and the two things that only a live probe showed
+
+The page is deceptively simple — one textarea, Calculate, Clear — so the whole of the parity
+question lives in the result block, which is server-rendered and therefore invisible to a
+source fetch. calculator.net is not reachable from this sandbox's egress proxy at all; the
+audit was done by driving the owner's connected Chrome and reading the rendered result, then
+probing the form field directly (its name is read off the DOM, not guessed) for the edge cases:
+
+- **Minimum two numbers.** One number returns a prompt, not a result. Empty returns a different
+  prompt again.
+- **Positive integers only.** Zero, negatives, decimals and anything non-numeric are all refused
+  with one shared message.
+- **Separators are commas *or* whitespace**, and a trailing comma is tolerated.
+- **Their ceiling is a signed 64-bit integer.** 19 digits is accepted, 20 is refused.
+- The result is always the prime-factorization route: `GCF(list) = n`, each number's
+  factorization, then the shared factors multiplied back. They never show Euclidean steps even
+  though their article explains the method.
+
+### Field map
+
+| calculator.net | ours |
+|---|---|
+| textarea `numberinputs`, comma-separated, default `330, 75, 450, 225` | `#gcf-input`, default `144, 216, 540` (different numbers, per the standing rule) |
+| Calculate | `#gcf-calcBtn`, plus auto-calculate through the shared cb_ux snippet |
+| Clear | `#gcf-clearBtn` — empties the box, touches nothing else, 0px drift |
+| `GCF(list) = n` | result head |
+| per-number prime factorization | Step 1 card |
+| shared factors multiplied back | Step 1 card's highlighted GCF row |
+| three validation messages | three equivalents in our own wording |
+
+### Where we deliberately differ from the reference
+
+**Their factorization overflows at 2^63 and ours does not.** `9223372036854775808, 4` comes back
+from calculator.net as GCF 1, with the first number factored as
+`7 × 9 × 9 × 19 × 73 × 87211 × 134480384` — a product that is not prime, not equal to 2^63, and
+2^63 is plainly divisible by 4. Ours answers 4 and factors it correctly, because the whole engine
+runs in BigInt rather than a 64-bit long. Per the standing rule, the field is matched and the bug
+is not.
+
+Additions that are outputs rather than controls: every common factor (the divisors of the answer),
+each number divided by the GCF, a stacked bar per number showing the GCF against the remainder,
+and a second bottom card tracing the Euclidean division steps. No extra modes, tabs or selectors
+were added — the form is still one box and two buttons.
+
+### Maths, verified twice
+
+Engine written standalone first and run in Node: BigInt gcd, deterministic Miller-Rabin over the
+first twelve primes, Pollard's rho behind trial division to 50,000. Then checked against the live
+reference through the browser:
+
+- 20 randomised cases (2–5 numbers, magnitudes from 10^2 to 10^10): **20/20 GCF values matched.**
+- 14 prime factorizations compared string-for-string against their rendered output: **14/14 matched**,
+  including 9-digit semiprimes and `6189021882 = 2 × 3 × 3 × 107 × 1487 × 2161`.
+- Hand-picked cases all matched: 42/56/98 → 14, 36/60/84/120/180/210 → 6, 268442/178296 → 2,
+  123456789012345678/24 → 6, 12/12 → 12, 13/29 → 1, 1/5 → 1, 144/216/540 → 36.
+
+### Keyword research
+
+Head term is **gcf calculator** / **greatest common factor calculator** — high volume, and every
+ranking result (calculator.net, Omni, Mathsisfun, planetcalc, Vedantu) owns a dedicated page, so
+it is worth the H1 but not winnable on its own for a young domain. The long tails that have real
+dedicated competitor pages, and are therefore covered as named sections rather than passing
+mentions: *gcf with steps*, *gcf of three numbers*, *gcd calculator*, *hcf calculator*,
+*greatest common divisor*. The middle-ground phrase nobody in the top ten has optimised a title
+around is **"step by step"**, even though several of them show steps — so the title promises it
+outright: *GCF Calculator — Greatest Common Factor, Step by Step* (53 chars; description 140).
+The GCF↔LCM identity section exists because *gcf and lcm calculator* is a distinct cluster that
+would otherwise leak to the LCM page alone.
+
+### Checks run
+
+Playwright at 1280, 430 and 390px: zero page errors, zero horizontal overflow, h1 computed weight
+700, mobile grid resolves to a single track with every child at full width, auto-calculate fires
+without moving the page (0px drift on the control), Calculate flashes the result card, Clear
+empties the box with 0px drift, jsPDF fetches nothing before the button is clicked and loads on
+first click only. FAQ schema diffed string-for-string against the visible Q&A: 7/7 exact.
+Protected shared style block byte-identical to random-number-generator's. Article 2,077 words,
+10 H2s, 7 FAQs, 12 internal links, no self-link.
+
+Originality: **0.00%** 8-word overlap with calculator.net's article, 0.00% with the LCM and Factor
+pages, 0.82% with random-number-generator (the about/privacy boilerplate in the disclaimer).
+
+### Not yet done
+
+`/og/gcf-calculator.png` did not exist and has been generated to match the house style, but the
+sandbox has no IBM Plex Sans — the headline is set in Instrument Sans, which is close but not the
+site face. Worth regenerating whenever a session has the real font. `/lcm-calculator/` and
+`/factor-calculator/` are both still template-tier stubs (484 and 508 lines) and are now linked
+from a custom-tier page; they are the obvious next two.
+
+A header/footer sync run reported three unrelated pages drifting from the homepage
+(`debt-to-income-calculator`, `profit-loss-calculator`, `debt-payoff-calculator`). They were
+reverted rather than swept into this commit — flagging rather than silently fixing, per the
+scope rule.
