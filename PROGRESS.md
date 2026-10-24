@@ -12365,3 +12365,78 @@ the byline, the TOC labels and the shared H2 names, which are meant to repeat.
 
 `/og/lcm-calculator.png` generated, same Instrument Sans substitution as the GCF card.
 `/factor-calculator/` is now the last stub of the three linked from this page.
+
+## Ratio Calculator — rebuilt to 3-card custom tier, two tabs (Oct 24, 2026)
+
+`/ratio-calculator/` is the first page in this batch where the reference holds **two separate
+calculators on one URL**, so the parity work was mostly in noticing that at all.
+
+### What the live audit found
+
+calculator.net ships a proportion solver (`ctype=1`, fields `t1 b1 t2 b2`) and, below it, a *Ratio
+Scaling Calculator* (`ctype=2`, fields `c2t1 c2b1 c2type c2time`) with an Enlarge/Shrink select. Two
+forms, two result blocks, one page. The result block for the solver has more in it than the
+screenshot suggests:
+
+- `A : B = C : D` completed
+- an **If rounded** line, which appears *only* when the solved value is not a whole number
+  (7 : 13 = 1000 : 1857.1428571429 → 1857)
+- a normalization line `A : B = 1 : x = y : 1`, with `= p : q` appended when the pair reduces to
+  integers
+- `A / (A+B)` as a percentage, to 14 significant digits
+- a pie chart and a width×height rectangle
+
+Probed behaviours: three values required ("Please provide three numerical values."), zero refused
+("Please provide non-zero values."), **negatives accepted** (-3 : 4 = 600 : -800, -300%), decimals
+accepted, and when all four boxes are filled **D is recomputed and the typed D ignored**. The scaling
+form rejects a blank or zero with a different message again ("Please provide numbers as inputs.").
+
+### Field map
+
+| calculator.net | ours |
+|---|---|
+| `t1 b1 t2 b2` (any three) | four A:B = C:D boxes, Solve tab |
+| `c2t1 c2b1` | First : Second, Scale tab |
+| `c2type` select Enlarge/Shrink | radio pair (our design system uses tabs or radios, never a dropdown, for a mode switch) |
+| `c2time` | By a factor of |
+| Calculate / Clear × 2 | one pair per tab, Clear empties only |
+| completed proportion, If rounded, normalization, simplified, percentage | five result rows, same conditions |
+| scaled result line | result head |
+| pie chart | a split bar — our design system is bar-based, same two numbers |
+| width×height rectangle, before/after pixel comparison | shape box in the result card, before/after boxes drawn to one scale in the bottom grid |
+
+### Verified against the live tool
+
+Every case checked in a browser against the reference: 3:4=600:**800**, solving B (**4**), solving A
+(16:9 = **16**:1080... i.e. A recovered), solving C, 18:24=3:**4** with the simplified `3 : 4` line,
+7:13:1000 → **1857.1428571429** plus the rounded 1857, 2.5:4:10 → **16**, -3:4:600 → **-800**, all
+four filled → D recomputed to 800. Scaling: 250:280 enlarge 2.5 → **625:700**, shrink 2.5 →
+**100:112**, 12.5:7.5 shrink 1.25 → **10:6**, 16:9 enlarge 120 → **1920:1080**. Percentages match to
+all 14 digits (42.857142857143% / 57.142857142857%).
+
+### Keyword research
+
+Head term **ratio calculator**. The long tails with their own dedicated competitor pages, each given
+a section: *simplify ratio*, *proportion calculator*, *scale/aspect ratio*, *ratio to percentage*,
+*equivalent ratios*. The ratio-to-percentage confusion (calling 3:4 "75%") is the highest-intent
+query in the set and gets its own H2 with the arithmetic spelled out. Title 51 chars, description 147.
+
+### Checks run
+
+Tabbed page, so both grids were tested: 2 `[data-cb-calc]` nodes wired, auto-calculate and the flash
+verified **on the second tab**, which is the failure mode §5a warns about. Zero page errors, zero
+overflow at 1280/430/390, single-track mobile grid, 0px drift on Clear, jsPDF lazy (0 requests before
+the click). FAQ schema 7/7 exact against the visible text. Article 1,648 words, 10 H2s.
+Originality: 0.00% against calculator.net and 0.00% body overlap against both the GCF and LCM pages
+written earlier today.
+
+### Deliberate differences, flagged not assumed
+
+The pie chart is a split bar here, per the one-colour-scheme and bar-not-pie rules in the design
+guide; the information is identical. The Enlarge/Shrink dropdown is a radio pair for the same reason.
+Both are presentation, not fields — but they are the owner's call to reverse if he wants the
+reference's shapes exactly.
+
+### Not yet done
+
+`/og/ratio-calculator.png` generated with the same Instrument Sans substitution.
