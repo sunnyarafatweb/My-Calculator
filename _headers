@@ -1,5 +1,5 @@
 /*
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  Cache-Control: public, max-age=0, must-revalidate
 
 /_next/static/*
   ! Cache-Control
