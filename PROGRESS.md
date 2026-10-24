@@ -12291,3 +12291,77 @@ A header/footer sync run reported three unrelated pages drifting from the homepa
 (`debt-to-income-calculator`, `profit-loss-calculator`, `debt-payoff-calculator`). They were
 reverted rather than swept into this commit — flagging rather than silently fixing, per the
 scope rule.
+
+## Least Common Multiple Calculator — rebuilt to 3-card custom tier (Oct 24, 2026)
+
+`/lcm-calculator/` was the GCF page's twin stub, 484 lines, same generic title and missing OG image.
+Rebuilt the same day as GCF at the owner's request, reusing the shell and writing the article from
+scratch.
+
+### The reference shows two different result layouts, and only probing reveals it
+
+calculator.net's LCM page has the identical form to its GCF page, so the parity work is again all in
+the result block — and that block is **not the same for a pair as for a longer list**:
+
+- **Two numbers:** two labelled sections. *Greatest Common Divisor (GCD) Method Steps* with
+  `GCD(a, b) = g` and `LCM = a × b / g` rendered as a fraction, then *Prime Factorization Method
+  Steps*. When the GCD is 1 the first section collapses to a single `Since GCD = 1, LCM = a × b` line.
+- **Three or more:** one unlabelled *Steps* section with the prime factorizations and the product,
+  followed by a trailing `GCD(list) = g` line.
+
+Validation matches the GCF page exactly (at least two numbers, positive integers only, the empty
+case has its own message, 19-digit ceiling).
+
+### Field map
+
+| calculator.net | ours |
+|---|---|
+| textarea `numberinputs`, default `330, 75, 450, 225` | `#lcm-input`, default `12, 18, 30` |
+| Calculate / Clear | same two buttons, Clear empties only, 0px drift |
+| `LCM(list) = n` | result head |
+| prime factorization block + product line | Step 1 card, with the LCM row showing the highest power of each prime |
+| GCD method block (pairs) and trailing `GCD(list)` line (longer lists) | Step 2 card, folding the list a pair at a time, plus a GCD row in the result card |
+
+Both of their layouts are therefore present for every list length rather than only where they show
+them, which is a presentation difference, not an extra control.
+
+### Where we deliberately differ
+
+**They lose precision on large answers; we do not.** `1234567890123456789, 24` comes back from
+calculator.net as `9.8765431209877E+18` — a float, with the last three digits gone. The exact answer
+is 9,876,543,120,987,654,312 and that is what ours prints, since the engine is BigInt throughout.
+
+### Maths, verified against the live tool
+
+16 cases fetched from the reference and compared: **16/16 matched**, covering pairs, triples, a
+six-number list, coprime pairs (13, 29 → 377), repeats (12, 12 → 12), a 1 in the list, and
+2310/1001/221 → 510,510. Every worked figure quoted in the article was computed in Node first, which
+caught one error before publication (a packs-of-8-and-10 example with the two counts swapped).
+
+### Keyword research
+
+Head term **lcm calculator** / **least common multiple calculator**; the same five competitors rank
+as on GCF. Distinct long-tail clusters with their own dedicated competitor pages, each given a named
+section rather than a mention: *lcd calculator* and *least common denominator* (the fraction-addition
+section), *lcm of three numbers*, *lowest common multiple*, *lcm with steps*. The title again takes
+the under-used promise rather than the bare term: *LCM Calculator — Least Common Multiple, With
+Steps* (50 chars; description 142). The GCD-shortcut section is deliberate SEO as well as maths —
+*lcm and gcf calculator* is a real query and it is the natural bridge to the sibling page.
+
+### Checks run
+
+Playwright at 1280, 430 and 390px: zero page errors, zero overflow, h1 weight 700, single-track
+mobile grid with every child full width, 0px drift on auto-calculate and on Clear, flash on
+Calculate, jsPDF lazy. FAQ schema diffed against the visible Q&A: 7/7 exact. Protected style block
+byte-identical. Article 1,776 words, 10 H2s, 7 FAQs.
+
+Originality: 0.00% 8-word overlap with calculator.net. Against our own GCF page the first draft came
+in at **0.19% body overlap** — three runs, from two sentences that had drifted into the same shape
+("can only hold the answer steady or push it", and the closing privacy line). Both were rewritten,
+taking body overlap to **0.00%**; what remains at whole-article level is 1.77%, and it is entirely
+the byline, the TOC labels and the shared H2 names, which are meant to repeat.
+
+### Not yet done
+
+`/og/lcm-calculator.png` generated, same Instrument Sans substitution as the GCF card.
+`/factor-calculator/` is now the last stub of the three linked from this page.
