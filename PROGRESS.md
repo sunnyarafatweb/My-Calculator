@@ -12440,3 +12440,100 @@ reference's shapes exactly.
 ### Not yet done
 
 `/og/ratio-calculator.png` generated with the same Instrument Sans substitution.
+
+## Base64 Encode / Decode — rebuilt to 3-card custom tier, two tabs (Oct 25, 2026)
+
+`/base64-encode-decode/` was a 484-line stub. The reference page is the most involved of this batch:
+two calculators, forty character sets, and a real bug in the half that matters most.
+
+### Live audit
+
+The reference is **entirely client-side**, so the URL-probing used on the GCF, LCM and Ratio pages
+does not work here — its functions had to be called directly in a browser console. Reading the source
+was blocked by a guard on the page, so everything below came from behavioural probing.
+
+Two forms:
+
+- **Text** — `cinput` textarea, `cchar` charset select (40 options), Encode, Decode, Clear, `coutput`
+  textarea.
+- **File** — `coptype` (encode/decode a file), file input, and on the decode side `cfiletype`
+  (txt/img), a second `cchar`, `cFilename`, and the same output textarea. Copy and Download appear
+  after a result.
+
+Probed behaviours: empty input leaves the output box untouched with no message; invalid Base64 blanks
+the output silently; missing padding still decodes; no alert is ever raised.
+
+### The bug: their charset select does not apply to encoding
+
+Encoding `café` and switching the dropdown across UTF-8, Windows-1252 and UTF-16 gives
+`Y2Fmw6k=` every time — the UTF-8 answer. Their decoder honours the same select correctly
+(`Y2Fm6Q==` + Windows-1252 decodes to `café`), which proves the two sides disagree. The dropdown sits
+above both buttons and reads as applying to both.
+
+Per §3a-PRIME, the field is matched and the error is not: **our charset applies to encoding as well as
+decoding.** `café` in Windows-1252 encodes to `Y2Fm6Q==` here, which is what their own decoder
+confirms is correct.
+
+`TextEncoder` is UTF-8-only, so the other 39 sets needed an encoder. Rather than ship lookup tables,
+the page derives one lazily from `TextDecoder` itself: decode every single byte and every two-byte
+pair for the chosen label, invert the result, cache it. Measured 5–26 ms per charset, built once on
+first use. UTF-16LE/BE are handled directly. **ISO-2022-JP is stateful** (escape sequences, not a byte
+map), so it decodes but cannot encode; the page says so in plain language and suggests Shift JIS or
+EUC-JP instead, rather than silently producing wrong bytes. A character outside the chosen set is
+named in the error instead of being dropped.
+
+### Cross-implementation verification
+
+The strongest check available here: encode with our engine, then decode the result **on
+calculator.net's own page** and confirm the original text comes back.
+
+| Text | Charset | Our Base64 | Their decoder returns |
+|---|---|---|---|
+| привет | KOI8-R | `0NLJ18XU` | привет |
+| 日本語 | Shift JIS | `k/qWe4zq` | 日本語 |
+| 한국어 | EUC-KR | `x9Gxub7u` | 한국어 |
+| καλημέρα | ISO-8859-7 | `6uHr5+zd8eE=` | καλημέρα |
+| สวัสดี | Windows-874 | `ysfRyrTV` | สวัสดี |
+| 中文字 | Big5 | `pKSk5aZy` | 中文字 |
+| café | Windows-1252 | `Y2Fm6Q==` | café |
+
+All 7 round-tripped. Plus the fixed cases: `Hello, World!` → `SGVsbG8sIFdvcmxkIQ==`, and the padding
+ladder `Sun` → `U3Vu`, `Su` → `U3U=`, `S` → `Uw==`. Every worked example in the article was computed
+in Node before being written down.
+
+### Beyond the reference, as outputs not controls
+
+Size-growth row and before/after bars; a padding-count row; a live step table breaking the visitor's
+own first three bytes down through bits, 6-bit groups, values and characters; a data-URI image
+preview on the file tab; and a "send result back as input" button for round-tripping. No extra modes
+or selectors were added — the control set is the reference's.
+
+Leniency we allow and they do not need to: URL-safe `-` and `_` are accepted on decode, a
+`data:…;base64,` prefix is stripped automatically, and missing padding is restored.
+
+### Keyword research
+
+Head term **base64 decode** / **base64 encode**, a developer-intent query where the ranking set is
+base64decode.org, base64encode.org, Base64 Guru and the Cyberchef family. The long tails with their
+own dedicated competitor pages, each given a section: *base64 to image* / *image to base64*, *base64
+to text*, *data URI*, *is base64 encryption* (a real and frequently asked question, answered
+bluntly). Title 49 chars, description 138. `applicationCategory` set to **DeveloperApplication**
+rather than UtilitiesApplication, which fits this page better than the maths tools.
+
+### Checks run
+
+Tabbed page, so both grids were checked: 2 `[data-cb-calc]` nodes, auto-calculate and flash verified
+on the **file** tab. Zero page errors, zero overflow at 1280/430/390, single-track mobile grid, 0px
+drift on Clear, jsPDF lazy. 40 charset options rendered in each of the two selects, matching the
+reference's count exactly (Windows-1252 appears twice in their list, as "ASCII" and as "Western
+European"; kept, to keep the count and the ordering honest). FAQ schema 7/7 exact. Article 1,740
+words, 10 H2s. Originality 0.00% against calculator.net and 0.00% body overlap against the GCF, LCM
+and Ratio pages.
+
+### Notes
+
+The page stays in the **Math** category, where this site already files it, even though calculator.net
+files it under Other. Changing a category was not asked for.
+
+`/og/base64-encode-decode.png` generated with the same Instrument Sans substitution as the rest of
+this batch.
