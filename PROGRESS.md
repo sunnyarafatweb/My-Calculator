@@ -12582,3 +12582,91 @@ cells, with `font-variant-ligatures:none` and `letter-spacing:.035em`, and the o
 explicit owner request for this page. It is not a licence to vary fonts elsewhere: the design system
 is still IBM Plex Sans and IBM Plex Mono everywhere else, and this page keeps those for its prose,
 headings and chrome. The exception covers only the places where a Base64 string itself is displayed.
+
+## Big Number Calculator — rebuilt to 3-card custom tier (Oct 25, 2026)
+
+`/big-number-calculator/` was a 484-line stub. The reference is a single form with three fields and
+eleven operation buttons, and almost all the parity work was in the arithmetic rules rather than the
+field list.
+
+### Live audit
+
+Fields: `cx` (X), `cy` (Y), `cp` (precision, default 20). Eleven submit buttons sharing the name
+`co`: plus, minus, multiple, divide, pow, sqrt, square, factor, mod, gcd, lcm. Server-rendered, so
+every rule below was established by probing URLs directly.
+
+What the probing settled, none of it visible on the page:
+
+- **Division and square root truncate, they do not round.** 2 / 3 at five places returns `0.66666`,
+  not `0.66667`. Confirmed again with 2 / 3 at one place returning `0.6`.
+- **Trailing zeros are stripped.** &radic;3 at six places returns `1.73205` (five digits shown, not
+  six), and 10 / 4 returns `2.5` rather than 2.5 followed by nineteen zeros.
+- **Precision must be a whole number of at least 1.** Zero, blank and negative are all refused.
+- **No ceiling on precision** up to at least 10,000 digits, which was tested and returned 10,000.
+- Integer part is comma-grouped, the decimal part is not: `123,456.789`.
+- E-notation accepted in either field; `23E18 + 3.5e19` returns `58,000,000,000,000,000,000`.
+- `X^Y` requires a whole exponent but allows a negative one: `2^-3` returns `0.125`.
+- &radic;X, X^2 and X! read X only; whatever sits in Y is ignored rather than erroring.
+- Five distinct error messages, mapped to: invalid X, negative X for a root, non-positive-integer X
+  for !/MOD/GCD/LCM, zero Y for division, fractional Y for a power, and bad precision.
+
+### The engine
+
+No library. A value is held as a BigInt plus a scale (`n / 10^s`), so 12.75 is the pair 1275 and 2.
+Addition aligns scales, multiplication adds them, division multiplies through by `10^p` before a
+BigInt divide (which truncates toward zero, exactly matching the reference), and square root is an
+integer Newton iteration over `n * 10^(2p - s)`. Powers use repeated squaring with a scale cap so a
+large exponent on a decimal cannot explode. Factorial, MOD, GCD and LCM run on plain BigInt.
+
+Written and tested standalone in Node **before** being put in the page, then the page's copy was
+checked function-for-function against the tested file.
+
+### Parity verification
+
+Twenty-two values captured from the live reference, replayed through the finished page in a browser:
+**22/22 exact**, including the truncation cases, the stripped-trailing-zero cases, E-notation,
+negative numbers, and `123456789 LCM 987654321 = 13,548,070,123,626,141`. Eleven error cases:
+**11/11** produce a message and no result. Long outputs checked by length and prefix: 2^1000 is 302
+digits starting `10715086071862673209`, 500! is 1,135 digits, and 1 / 7 at 1,000 places returns
+exactly 1,000 decimals.
+
+### Beyond the reference, as outputs not controls
+
+A digit count, an exact-or-cut row, a whole-number view (quotient and remainder) on integer
+division, a "how big is this answer" card marking which familiar magnitudes the result has passed,
+and a reuse-as-X button for chaining steps. The control set is still three fields and eleven buttons.
+
+### The isTrusted guard, again
+
+Same pattern as the Base64 page and for the same reason: all eleven operation buttons carry a
+`[id*="-calc"]` id so each one scrolls and flashes the result card, and cb_ux synthesises a click on
+the first of them after every keystroke. Without a guard, typing while on MOD would snap back to
+X + Y. The handler sets the operation only when `event.isTrusted` is true. Verified: choosing X / Y
+then editing X leaves X / Y selected.
+
+### One real bug found in our own build
+
+The first browser pass showed **160px of horizontal overflow at 430px and 200px at 390px**, while the
+grid itself was a clean single track with every child at full width. The cause was in the article,
+not the calculator: the comparison table carries 26-digit figures, and a plain `<table>` takes its
+min-content width from the longest unbreakable string. Fixed by letting article tables scroll inside
+themselves below 860px rather than widening the page. Overflow is now 0 at 430, 390 **and 360px**.
+
+### Keyword research
+
+Head term **big number calculator**, with *large number calculator* and *arbitrary precision
+calculator* as the close variants. The long tails with their own competitor pages, each given a
+section or a table: *factorial calculator*, *exact division*, *scientific notation input*,
+*floating point error* (the 0.1 + 0.2 question, which is the highest-intent query in the set and gets
+its own worked row). Title 44 chars, description 153.
+
+### Checks run
+
+Zero page errors, zero overflow at 1280/430/390/360, h1 weight 700, single-track mobile grid, 0px
+drift on Clear, jsPDF lazy, 11 buttons wired to cb_ux. FAQ schema 7/7 exact against the visible text.
+Article 1,843 words, 10 H2s. Every figure quoted in the article was computed in Node first, which
+caught one wrong number before publication: the float result of 123456789123456789 x 2 is
+246913578246913570, not ...580 as first written.
+
+Originality 0.00% against calculator.net and 0.00% body overlap against the GCF, LCM, Ratio and
+Base64 pages.
