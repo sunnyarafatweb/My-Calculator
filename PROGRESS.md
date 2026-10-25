@@ -12559,3 +12559,26 @@ Clear returns both tabs to Encode. The swap button and the example chips set the
 same state, so the button highlight never disagrees with what the page is doing. Checked at 1280, 430
 and 390px: the three-button row does not wrap at any of them, drift on Clear is 0px, and the flash
 fires on a real press of either action button.
+
+### A clearer monospace for this page only (Oct 25, 2026, owner request)
+
+The owner reported the Base64 output reading as a jumble, with a screenshot circling both the result
+head and the output box. Two causes:
+
+1. The big result-head value inherited **IBM Plex Sans bold**, not a monospace at all. In a long
+   Base64 string that makes `1`, `l` and `I` nearly identical and `0` indistinguishable from `O`.
+2. IBM Plex Mono, used in the output box, draws an unslashed zero, so the `0` / `O` pair stayed
+   ambiguous even where the font was already monospace.
+
+Fixed with a page-local token `--b64-mono` on `.b64-wrap`:
+`ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Consolas, "Roboto Mono", Menlo, monospace`
+— every one of those draws a slashed or dotted zero and a distinct `1`/`l`/`I`. All system fonts, so
+nothing extra is downloaded. Applied to the result head (also dropped from weight 700 to 600, since
+bold monospace at that size is heavy), both textareas, the example chips and the `b64-mono` table
+cells, with `font-variant-ligatures:none` and `letter-spacing:.035em`, and the output box raised from
+13px to 14px with line-height 1.75.
+
+**This is a deliberate, scoped exception to the IBM Plex font tokens in section 1**, made on an
+explicit owner request for this page. It is not a licence to vary fonts elsewhere: the design system
+is still IBM Plex Sans and IBM Plex Mono everywhere else, and this page keeps those for its prose,
+headings and chrome. The exception covers only the places where a Base64 string itself is displayed.
