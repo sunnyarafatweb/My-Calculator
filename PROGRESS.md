@@ -13032,3 +13032,89 @@ debt-payoff). Not my change to make, so I reverted them — flagging here instea
 
 Article 2,278 words, 9 H2s, one H1. Originality 0.00% against calculator.net; sibling-page overlap is
 0.66% and is entirely the shared byline and "On this page" boilerplate.
+
+---
+
+## 2026-10-25 — Exponent Calculator rebuilt to full parity
+
+`/exponent-calculator/` had 219 words and no real calculator. Rebuilt on the 3-card shell against
+https://www.calculator.net/exponent-calculator.html.
+
+### The reference is a server-side three-way solver
+
+No JavaScript at all: `form method=get`, fields `base`, `exponent`, `fresult`, and the page reloads
+with the answer. Probing it meant fetching the GET URL from inside the page and parsing the returned
+HTML, which let me run forty cases in two calls instead of forty navigations.
+
+"Enter values into any two of the input fields to solve for the third." Fill base+exponent and it
+multiplies; fill exponent+result and it takes a root; fill base+result and it takes a logarithm.
+`use e as base` is not a mode or a checkbox — it is an anchor whose onclick types the letter `e` into
+the base field, and the server treats that literal as Euler's number.
+
+Their behaviour, probed rather than assumed:
+
+| Case | Reference |
+|---|---|
+| `0^0` | 1 |
+| `0^-2` | INF |
+| `-2^0.5` | Unable to solve! |
+| `?^2 = 16` | `4² = 16 or (-4)² = 16` — reports both roots |
+| `?^2 = -16` | Unable to solve! |
+| `?^0 = 5` | **blank Result panel — their bug** |
+| `5^? = 0` | "This calculator can only deal with positive values in this case." |
+| `-3^? = 81` | same message |
+| `2^1000` | `1.0715086071863E+301` |
+| `2^10000` | `INF` |
+| no fields | "Please provide 2 values to calculate." |
+
+Precision is 14 significant digits throughout.
+
+### Field map
+
+Input fields:  3/3 matched  (base, exponent, result — plus the `e` shortcut)
+Result fields: 1/1 matched  (the solved value, with the working shown)
+
+### Test cases
+
+30 parity cases replayed through the finished page against the reference's own answers, all matching:
+
+| Input | Expected (theirs) | Actual (ours) |
+|---|---|---|
+| 2 ^ 0.5 | 1.4142135623731 | 1.4142135623731 |
+| e ^ 2 | 7.3890560989307 | 7.3890560989307 |
+| ? ^ 4 = 81 | ±3 | ±3 |
+| 2 ^ ? = 0.125 | -3 | -3 |
+| e ^ ? = 7.389056 | 1.9999999866112 | 1.9999999866112 |
+| ? ^ 2.5 = 5 | 1.9036539387159 | 1.9036539387159 |
+
+Eleven error cases, all reported: 11/11.
+
+Matching `e^2` to the last digit needed `Math.exp(e)` rather than `Math.pow(Math.E, e)` — the two
+differ in the 15th digit, and only the first rounds to their 7.3890560989307.
+
+### Intentional differences
+
+- **Exact whole-number powers.** Base and exponent both integers → arbitrary-precision integer
+  arithmetic by repeated squaring. `2^1000` prints all 302 digits where they print
+  `1.0715086071863E+301`; `2^10000` prints all 3,011 where they print `INF`.
+- **Whole-number answers when solving for the exponent.** `10^? = 1000` through floating-point
+  logarithms is 2.9999999999999996; the result is checked against an exact power before being shown,
+  so it prints 3.
+- **`0^-2` is called undefined**, not INF — it is a division by zero.
+- **`?^0 = 5` gets an explanation** instead of a blank panel.
+- **Errors say what is wrong** in a sentence rather than "Unable to solve!".
+- Bar chart of the base's growth on a log scale, a powers-1-to-10 table, and the working written out
+  as repeated multiplication — none of which the reference shows for every case.
+- Defaults differ: ours 7 ^ 4, theirs 2 ^ 5.
+
+### Checks run
+
+Zero page errors, zero overflow at 1280/430/390/360 including the 3,011-digit answer at 360px, 0px
+drift on Clear, jsPDF not requested until the button is pressed, flash on Calculate, cb_ux wired.
+The related-links block the internal-linking pass had injected was carried across the rebuild rather
+than lost — the build script lifts it out of the old page and re-inserts it.
+
+Article 2,114 words, 9 H2s, one H1. Originality 0.00% against calculator.net; sibling overlap 0.62%
+and entirely the shared byline boilerplate. Verified against log-calculator, root-calculator and
+scientific-notation-calculator at 0.00% each, which matters because those three are the nearest
+topical neighbours.
