@@ -12670,3 +12670,75 @@ caught one wrong number before publication: the float result of 1234567891234567
 
 Originality 0.00% against calculator.net and 0.00% body overlap against the GCF, LCM, Ratio and
 Base64 pages.
+
+## Binary Calculator — rebuilt to 3-card custom tier, three tabs (Oct 25, 2026)
+
+`/binary-calculator/` was a 484-line stub. The reference stacks **three separate forms** on one page,
+which is the first thing the audit had to establish.
+
+### Live audit
+
+- `calctype=op` — `number1`, `c2op` (`+`, `-`, `x`, `/`), `number2`. Note the multiply value is the
+  letter **x**, not `*` or `×`; sending the wrong one silently falls through to division, which cost
+  one probe round to notice.
+- `calctype=b2d` — `b2dnumber1`, binary to decimal.
+- `calctype=d2b` — `d2bnumber1`, decimal to binary.
+
+Result block shows **both bases**: "Binary value: A op B = R" and "Decimal value: a op b = r".
+Division appends "Remainder : r", and omits it entirely when the division is exact.
+
+Probed behaviour: an empty operand is treated as 0 rather than refused; a negative binary input is
+rejected; `d2b` accepts negatives and **truncates a fractional part silently** (10.75 becomes 1010);
+`b2d` rejects a binary fraction outright. Four error strings, one per failure mode.
+
+### The deviation: their leading zero is a bug, not a convention
+
+Their output carries a stray leading zero much of the time — `170 + 204` prints as `0101110110`
+where the value is `101110110`, and `1000 - 1` prints `0111` for `111`. It is **not** a consistent
+width rule: `1111 + 1` prints `10000` with no padding at all, and `100000 / 10` prints `10000`.
+Their own output is internally inconsistent, which is what settles it as an artifact rather than a
+convention worth mirroring. The same stray zero appears in `d2b`: 170 converts to `010101010`.
+
+So the decimal line is matched exactly and the binary line is printed as the correct value. Flagged
+here rather than done quietly.
+
+### Field map
+
+| calculator.net | ours |
+|---|---|
+| three stacked forms | three tabs: Binary Math, Binary &rarr; Decimal, Decimal &rarr; Binary |
+| `number1` / `c2op` / `number2` | two inputs with a four-button operation row (buttons, not a dropdown, per the design guide) |
+| `b2dnumber1`, `d2bnumber1` | one input per conversion tab |
+| Binary value line + Decimal value line | both, as the result head and the first two result rows |
+| "Remainder : r", hidden when exact | same, with "none — it divides exactly" stated rather than left blank |
+| four error strings | four equivalents in our own wording |
+
+### Verification
+
+Twelve arithmetic cases and three division cases captured from the live reference and replayed in a
+browser: **12/12 and 3/3**, matching their decimal line exactly and the corrected binary line.
+Conversions: **3/3** binary-to-decimal including a 40-bit string returning 1,099,511,627,775, and
+**4/4** decimal-to-binary including 2^40 and a negative. Four error paths all produce a message and
+no result.
+
+### Beyond the reference, as outputs not controls
+
+A column-working table showing carries for addition and borrows for subtraction, aligned digit over
+digit; partial products for multiplication; a bring-down trace for division; a place-value table for
+binary-to-decimal; the repeated-halving steps for decimal-to-binary; and hex and octal equivalents
+alongside. The control set is still two inputs and four operations per the reference.
+
+Where they drop a fraction silently, ours drops it too but **says so** — "The fractional part is
+dropped — 10.75 is converted as 10." Same value, stated rather than assumed.
+
+### Checks run
+
+Three grids, so cb_ux was checked on the **third** tab: 6 buttons wired, auto-calculate and flash
+both fire there. The isTrusted guard is in place on the four operation buttons for the same reason as
+the Base64 and Big Number pages; verified that choosing × then editing the first value leaves ×
+selected. Zero page errors, zero overflow at 1280/430/390/**360**, h1 weight 700, 0px drift on Clear,
+jsPDF lazy. FAQ schema 7/7 exact. Article 1,675 words, 10 H2s, and every figure in it was checked in
+Node first.
+
+Originality 0.00% against calculator.net and 0.00% body overlap against the GCF, LCM, Ratio, Base64
+and Big Number pages.
