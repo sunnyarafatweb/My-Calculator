@@ -12824,3 +12824,50 @@ rather than changed, per the scope rule.
 This improves crawl paths, topical clustering and the odds for the 21 pages sitting in
 "Crawled - currently not indexed". It does not address the actual reason for no Google traffic,
 which is two external backlinks against competitors with hundreds of thousands.
+
+## 74 generic titles replaced with benefit-first ones (Oct 25, 2026)
+
+The same GSC investigation turned up 81 pages whose `<title>` was still the template-tier
+`X Calculator | CalculatorBoss` pattern that section 3 of this guide says to replace on sight. Seven
+of those are hub or legal pages (about, contact, all-calculators, terms, privacy, sitemap, 404)
+where a benefit title buys nothing, so they were left. That left 74.
+
+### How the titles were written
+
+Each page already carries a subhead written for it, and those subheads are good benefit statements.
+The titles were derived from them rather than invented, so the promise in the title is one the page
+actually keeps: *Exponent Calculator — Negative and Fractional Powers*, *Grade Calculator — What You
+Need on the Final Exam*, *IP Subnet Calculator — Full CIDR Breakdown*. All 74 land inside the 40-65
+character band the AdSense readiness section sets; checked before applying, none over, none
+duplicated.
+
+`og:title` and `twitter:title` are rewritten in step so the three never drift apart.
+
+### Descriptions
+
+52 descriptions sat under the 120-character floor. Those got a friction-removal clause appended, the
+cue section 3 asks for, drawn from five varied endings so the batch does not read as one stamped
+phrase. Anything that would have exceeded 160 was left alone. 14 short descriptions remain, all on
+pages where the tail would have overflowed; they are better addressed when those pages are next
+rewritten properly.
+
+### Honest note on method
+
+Section 4 of this guide makes per-page keyword research mandatory before writing a title. That was
+**not** done for all 74 here — doing it properly means a round of competitor checks per page, and
+this pass was pattern-based, taking the specific benefit from each page's own content. It is a clear
+improvement on a bare `X Calculator | CalculatorBoss`, and it is not the same thing as researched
+copy. The highest-traffic of these pages deserve the real treatment when their turn comes.
+
+### Checked
+
+No title over 65 characters, no duplicates across the site, no description over 160, og and twitter
+titles matching `<title>` on every page touched, canonical intact, exactly one h1 each, zero page
+errors. Three apparent og mismatches elsewhere turned out to be HTML entity differences
+(`&amp;` against `&`) that render identically, so they were left alone.
+
+### Flagged
+
+`crypto-profit-calculator/index.html` is dead weight: `_redirects` 301s that path to
+`/crypto-profit-loss-calculator/`, confirmed live, so the file is never served. It was skipped here
+and could be deleted.
