@@ -460,6 +460,12 @@
 .b64-tab.active{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
 .b64-hidden{display:none !important}
 .b64-radio-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:2px 0 6px}
+.b64-btn-row3 .b64-btn-calc{flex:1.15}
+.b64-btn-row3 .b64-btn-clear{flex:1}
+.b64-btn-calc{background:var(--surface);color:#128A3D;border:1px solid #9BD6B0}
+.b64-btn-calc:hover{background:var(--gold-tint);color:#0F7A35}
+.b64-btn-calc.active{background:#16A34A;color:#fff;border-color:#16A34A}
+.b64-btn-calc.active:hover{background:#128A3D;color:#fff}
 .b64-radio{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13.5px;color:var(--ink)}
 .b64-radio input{width:16px;height:16px;accent-color:#16A34A;cursor:pointer}
 .b64-select{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid var(--border-fine);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--surface-sunken)}
@@ -489,12 +495,6 @@
       <span class="b64-pill">Text</span>
       <p class="b64-intro">Paste text to turn into Base64, or Base64 to turn back into text. The conversion runs as you type.</p>
 
-      <p class="b64-section-title">Direction</p>
-      <div class="b64-radio-row">
-        <label class="b64-radio"><input type="radio" name="b64-dir" value="encode" checked> Encode to Base64</label>
-        <label class="b64-radio"><input type="radio" name="b64-dir" value="decode"> Decode from Base64</label>
-      </div>
-
       <label class="b64-label" for="b64-input" id="b64-inLabel">Text to encode</label>
       <textarea id="b64-input" class="b64-input" spellcheck="false" autocomplete="off" aria-label="Text or Base64 to convert">The quick brown fox jumps over the lazy dog.</textarea>
 
@@ -509,8 +509,9 @@
         <button type="button" class="b64-ex" data-dir="encode" data-fill="caf&eacute;">caf&eacute;</button>
       </div>
 
-      <div class="b64-btn-row">
-        <button type="button" class="b64-btn-calc" id="b64-calcBtn">Calculate</button>
+      <div class="b64-btn-row b64-btn-row3">
+        <button type="button" class="b64-btn-calc active" id="b64-calcEncBtn" data-mode="encode">Encode</button>
+        <button type="button" class="b64-btn-calc" id="b64-calcDecBtn" data-mode="decode">Decode</button>
         <button type="button" class="b64-btn-clear" id="b64-clearBtn">Clear</button>
       </div>
       <div class="b64-err" id="b64-err"></div>
@@ -567,12 +568,6 @@
       <span class="b64-pill">File or image</span>
       <p class="b64-intro">Turn a file into a Base64 string, or a Base64 string back into a file. Nothing is uploaded.</p>
 
-      <p class="b64-section-title">Direction</p>
-      <div class="b64-radio-row">
-        <label class="b64-radio"><input type="radio" name="b64-fdir" value="encode" checked> Encode a file</label>
-        <label class="b64-radio"><input type="radio" name="b64-fdir" value="decode"> Decode to a file</label>
-      </div>
-
       <div id="b64-filePick">
         <label class="b64-filebtn" for="b64-file">Choose a file
           <input type="file" id="b64-file" aria-label="File to encode">
@@ -605,8 +600,9 @@
         <input type="text" id="b64-fname" class="b64-select" placeholder="decoded" autocomplete="off" aria-label="Name for the downloaded file">
       </div>
 
-      <div class="b64-btn-row">
-        <button type="button" class="b64-btn-calc" id="b64-fcalcBtn">Calculate</button>
+      <div class="b64-btn-row b64-btn-row3">
+        <button type="button" class="b64-btn-calc active" id="b64-fcalcEncBtn" data-mode="encode">Encode</button>
+        <button type="button" class="b64-btn-calc" id="b64-fcalcDecBtn" data-mode="decode">Decode</button>
         <button type="button" class="b64-btn-clear" id="b64-fclearBtn">Clear</button>
       </div>
       <div class="b64-err" id="b64-ferr"></div>
@@ -912,7 +908,14 @@ function sizeBars(inB,outB){
 }
 
 /* ============================ Tab 1 — text ============================ */
-function dirText(){ var e=document.querySelector('input[name="b64-dir"]:checked'); return e?e.value:'encode'; }
+var textMode='encode';
+function dirText(){ return textMode; }
+function setTextMode(m){
+  textMode=m;
+  var a=$('b64-calcEncBtn'), b=$('b64-calcDecBtn');
+  if(a) a.classList.toggle('active',m==='encode');
+  if(b) b.classList.toggle('active',m==='decode');
+}
 function blankText(msg){
   $('b64-out').value='';
   $('b64-value').textContent='—'; $('b64-value').className='v';
@@ -995,7 +998,14 @@ function calcText(){
 
 /* ============================ Tab 2 — file ============================ */
 var fileBytes=null, fileName='', fileType='';
-function dirFile(){ var e=document.querySelector('input[name="b64-fdir"]:checked'); return e?e.value:'encode'; }
+var fileMode='encode';
+function dirFile(){ return fileMode; }
+function setFileMode(m){
+  fileMode=m;
+  var a=$('b64-fcalcEncBtn'), b=$('b64-fcalcDecBtn');
+  if(a) a.classList.toggle('active',m==='encode');
+  if(b) b.classList.toggle('active',m==='decode');
+}
 function syncFilePanels(){
   var enc = dirFile()==='encode';
   $('b64-filePick').classList.toggle('b64-hidden',!enc);
@@ -1144,38 +1154,55 @@ function copyFrom(area,btn){
 }
 
 function init(){
-  /* text tab */
+  /* text tab.
+     Both action buttons carry an id matching the shared cb_ux snippet's
+     [id*="-calc"] selector, so each one scrolls and flashes the result card on a
+     real press. cb_ux also synthesises a click on the first one after every
+     keystroke to drive auto-calculate -- a synthetic click reports
+     isTrusted === false, so it re-runs the current direction instead of
+     yanking the visitor back to Encode mid-typing. */
   $('b64-input').addEventListener('input',calcText);
-  document.querySelectorAll('input[name="b64-dir"]').forEach(function(e){ e.addEventListener('change',calcText); });
   $('b64-charset').addEventListener('change',calcText);
-  $('b64-calcBtn').addEventListener('click',calcText);
-  $('b64-clearBtn').addEventListener('click',function(){ $('b64-input').value=''; $('b64-out').value=''; calcText(); });
+  ['b64-calcEncBtn','b64-calcDecBtn'].forEach(function(id){
+    var b=$(id); if(!b) return;
+    b.addEventListener('click',function(ev){
+      if(ev.isTrusted) setTextMode(b.getAttribute('data-mode'));
+      calcText();
+    });
+  });
+  $('b64-clearBtn').addEventListener('click',function(){
+    $('b64-input').value=''; $('b64-out').value=''; setTextMode('encode'); calcText(); });
   $('b64-copyBtn').addEventListener('click',function(){ copyFrom($('b64-out'),this); });
   $('b64-swapBtn').addEventListener('click',function(){
     var out=$('b64-out').value; if(!out) return;
-    var other = dirText()==='encode' ? 'decode' : 'encode';
-    document.querySelector('input[name="b64-dir"][value="'+other+'"]').checked=true;
+    setTextMode(dirText()==='encode' ? 'decode' : 'encode');
     $('b64-input').value=out; calcText();
   });
   document.querySelectorAll('.b64-ex').forEach(function(b){
     b.addEventListener('click',function(){
       var d=b.getAttribute('data-dir');
-      if(d) document.querySelector('input[name="b64-dir"][value="'+d+'"]').checked=true;
+      if(d) setTextMode(d);
       $('b64-input').value=b.getAttribute('data-fill'); calcText(); }); });
 
-  /* file tab */
-  document.querySelectorAll('input[name="b64-fdir"]').forEach(function(e){ e.addEventListener('change',calcFile); });
+  /* file tab -- same arrangement as the text tab above */
   document.querySelectorAll('input[name="b64-outtype"]').forEach(function(e){ e.addEventListener('change',calcFile); });
   $('b64-fileCharset').addEventListener('change',calcFile);
-  $('b64-paste').addEventListener('input',calcFile);
-  $('b64-fcalcBtn').addEventListener('click',calcFile);
+  $('b64-paste').addEventListener('input',function(){ if($('b64-paste').value.trim()) setFileMode('decode'); calcFile(); });
+  ['b64-fcalcEncBtn','b64-fcalcDecBtn'].forEach(function(id){
+    var b=$(id); if(!b) return;
+    b.addEventListener('click',function(ev){
+      if(ev.isTrusted) setFileMode(b.getAttribute('data-mode'));
+      calcFile();
+    });
+  });
   $('b64-fclearBtn').addEventListener('click',function(){
     fileBytes=null; fileName=''; fileType='';
     $('b64-file').value=''; $('b64-paste').value=''; $('b64-fname').value=''; $('b64-fout').value='';
     $('b64-fileLabel').textContent='No file chosen';
-    calcFile(); });
+    setFileMode('encode'); calcFile(); });
   $('b64-file').addEventListener('change',function(){
     var f=this.files&&this.files[0];
+    setFileMode('encode');
     if(!f){ fileBytes=null; $('b64-fileLabel').textContent='No file chosen'; return calcFile(); }
     fileName=f.name; fileType=f.type||'';
     $('b64-fileLabel').textContent=f.name+' — '+fmtBytes(f.size);

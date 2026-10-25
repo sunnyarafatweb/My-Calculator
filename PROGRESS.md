@@ -12537,3 +12537,25 @@ files it under Other. Changing a category was not asked for.
 
 `/og/base64-encode-decode.png` generated with the same Instrument Sans substitution as the rest of
 this batch.
+
+### Three buttons instead of a direction radio (Oct 25, 2026, owner request)
+
+The owner asked for Encode / Decode / Clear as three buttons, matching the reference's own text form,
+rather than a direction radio pair plus one Calculate button. Done on both tabs. The active direction
+is carried on the button itself: solid green for the current one, outlined for the other.
+
+**The trap this walked into, and the fix.** The shared `cb_ux` snippet drives auto-calculate by
+synthesising a `.click()` on the first visible `[data-cb-calc]` button after every keystroke. With two
+action buttons that meant every character typed while decoding snapped the page back to Encode.
+Naming only one button `-calc` would have fixed the snapping and lost the flash-and-scroll on the
+other.
+
+Both buttons therefore keep an id matching `[id*="-calc"]`, so cb_ux wires both, and the click handler
+branches on **`event.isTrusted`**: a real press sets the direction, a synthetic one re-runs whatever
+direction is already active. Verified directly — pressing Decode then typing `U3Vu` leaves Decode
+active and returns `Sun`, and changing the character set mid-decode also stays put.
+
+Clear returns both tabs to Encode. The swap button and the example chips set the direction through the
+same state, so the button highlight never disagrees with what the page is doing. Checked at 1280, 430
+and 390px: the three-button row does not wrap at any of them, drift on Clear is 0px, and the flash
+fires on a real press of either action button.
