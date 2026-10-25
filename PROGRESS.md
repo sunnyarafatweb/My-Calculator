@@ -12757,3 +12757,70 @@ the result card like every other Calculate on the site. The operation buttons ke
 `-calc` ids and their isTrusted guard, so pressing Calculate re-runs whichever operation is selected
 rather than resetting to +: verified by choosing x, pressing Calculate, and confirming x stays
 selected and the answer is unchanged. Button row does not wrap at 430, 390 or 360px.
+
+## Internal linking: 53 dead-end pages given a related-calculators block (Oct 25, 2026)
+
+Prompted by a GSC investigation into why Google traffic is effectively zero (findings in the
+section below this one). Internal linking was the one lever available that is entirely on-site.
+
+### What the link graph actually showed
+
+Built the full internal graph from `<main>` on all 223 pages:
+
+- **51 template-tier pages carried zero links out of `<main>`.** No sidebar, no contextual links.
+  They receive equity from the sitewide footer and pass none on, and they tell Google nothing about
+  what they sit beside.
+- Two more (`love-calculator`, `mining-profit-calculator`) were dead ends on different templates.
+- The footer links the same six calculators from all 220 pages (income-tax, percentage, mortgage,
+  compound-interest, loan, bmi), so internal equity pools there.
+- `about` and `privacy-policy` each take ~60 body links, almost all from the disclaimer paragraph in
+  articles written this year. Left alone: that is a deliberate AdSense and E-E-A-T trust signal.
+
+### The fix
+
+`scripts/add_related_links.py` appends a quiet Related-calculators line to the end of the existing
+prose article: same `font-display text-xl text-ink mb-5` heading as the FAQ above it, muted link
+colour, middot separators, no card and no colour block. The owner asked for something that does not
+catch the eye, and this reads as a footnote rather than an SEO module.
+
+### Picking the links, and the mistake on the first pass
+
+First version scored candidates on same-category plus slug word overlap plus an under-linked bonus.
+It produced **exponent-calculator -> dice-roller, confidence-interval, matrix**: all genuinely
+filed under Math, all useless to a visitor. The under-linked bonus was driving the choice rather
+than breaking ties.
+
+Reworked around eleven hand-drawn topical clusters (numbers and notation, bases and encoding,
+factors and fractions, statistics, geometry, algebra, building materials, vehicles, time and dates,
+physical sciences, everyday). Cluster membership scores 60, a shared slug word 14, same category 8,
+and the equity spread is down to 0.8 per missing inbound link so it only separates equals. The same
+page now gets **root, log, scientific notation, big number, rounding** — which is what a person
+would have written.
+
+Spot-checked across the batch: hex -> binary, base64, URL encode, IP subnet, bandwidth, password.
+Concrete -> gravel, mulch, roofing, stair, tile. Day counter -> date, day of the week, hours, time,
+time card, time zone.
+
+### Result
+
+- Dead-end pages: **53 -> 0**
+- Internal body links: 1,699 -> **2,005**
+- 88 distinct pages now receive links they did not have
+- Pages with two or fewer inbound body links: 38 -> 12
+
+Verified across all 53: zero broken targets, zero self-links, zero duplicated CSS, header and footer
+still byte-identical to the homepage, protected style block untouched, zero page errors and zero
+horizontal overflow at 390px.
+
+### Flagged, not fixed
+
+`crypto-profit-loss-calculator` and `dca-calculator` have **no `<main>` element at all**, which is
+why they fell out of the graph analysis. Content, canonical and h1 are all fine and they carry 21
+internal links each, so this is a semantic and accessibility gap rather than an SEO one. Raised
+rather than changed, per the scope rule.
+
+### Honest expectation
+
+This improves crawl paths, topical clustering and the odds for the 21 pages sitting in
+"Crawled - currently not indexed". It does not address the actual reason for no Google traffic,
+which is two external backlinks against competitors with hundreds of thousands.
