@@ -12935,3 +12935,100 @@ flash on Calculate. FAQ schema 7/7 exact. Article 1,771 words, 10 H2s.
 Originality 0.00% against calculator.net. Against our own pages it came in at 0.30% versus the Ratio
 page on the first pass — five runs, all from the shared closing sentence about computing locally.
 Reworded, now 0.00% against all six pages written this weekend.
+
+---
+
+## 2026-10-25 — Dice Roller rebuilt to full parity
+
+`/dice-roller/` was one of the thin pages: 269 words, no working calculator worth the name. Rebuilt
+on the 3-card shell against https://www.calculator.net/dice-roller.html.
+
+### Auditing the reference took longer than the build
+
+The reference has two tools and the second one does not behave the way a first read suggests. Early
+probes came back internally inconsistent — `6 sides x 3` showed only the values, while `20 sides x 4`
+in the same batch showed `Sum` and `Product`. Three wrong theories later (timing, dice count,
+progressive rendering), the actual mechanism turned up by reading the submit button's label:
+
+- **Virtual Dice Roller** — `lennumber` number field bound two-way to a `lenrange` slider (1–100),
+  submit "Roll Dice". Renders only dice-face images (`dice1.svg`…`dice6.svg`, 110×110). No numbers,
+  no sum. One press, one throw.
+- **Non-Conventional Dice Roller** — `diceside` (default 8) and `dicenum` (default 2). The button is
+  **Start**, and it starts a *continuous* tumble that never stops on its own; the button becomes
+  **Stop**, and only on Stop do the values freeze and `Sum:` / `Product:` get appended.
+
+Every inconsistent read was a read taken mid-tumble. Programmatic `.value` writes also had no effect
+until `input`/`change` events were dispatched, which is why the first dice-count probes were all
+stuck at the default of 2.
+
+Clamping on the reference, once probed properly: invalid, blank or non-numeric sides fall back to 2;
+0 or negative dice falls back to 1; decimals truncate; and there is no upper cap on either field —
+`6 sides x 5000 dice` is accepted.
+
+### Field map
+
+| Reference | Ours |
+|---|---|
+| Virtual roller: number of dice (1–100) + slider | Standard dice tab: same field, same slider, 1–200 |
+| "Roll Dice" | "Roll dice" |
+| d6 face images | d6 pip faces drawn as inline SVG |
+| Non-conventional: sides on a dice | Custom dice tab: sides on each die |
+| Non-conventional: number of dice | Custom dice tab: how many dice |
+| Start / Stop | Roll dice (short tumble, then settles) |
+| Values list | Values list (faces for d6, chips above 60 dice or non-d6) |
+| Sum | Sum |
+| Product | Product |
+
+Input fields:  4/4 matched
+Result fields: 3/3 matched
+
+### Test cases
+
+| Input | Expected | Actual |
+|---|---|---|
+| 5 × d6 → values 2,1,4,5,5 | sum 17, product 200, avg 3.4 | 17, 200, 3.4 |
+| 200 × d6 | exact integer product, 95–96 digits | exact, no `e+` and no `Infinity` |
+| 3 × d20 | every value in 1..20, sum = Σ values | passed over 10 cases |
+| 5 × d1 | 1,1,1,1,1 | 1,1,1,1,1 |
+
+Fairness was verified outside the browser first: 600,000 d6 rolls gave χ² = 1.39 on 5 degrees of
+freedom (11.07 is the 5% threshold), and 200,000 d20 rolls hit all twenty faces with counts between
+9,749 and 10,315 against an expectation of 10,000. Every figure quoted in the article — the 2d6
+distribution table, 1 in 7,776, 1 in 216, 30.56%, 9.75% — was computed in Node before it was written,
+which caught a wrong claim about the size of the modulo bias (the draft said one part in seven
+hundred million; it is four values out of 2³², so about one in a billion).
+
+### Intentional differences
+
+- **Start/Stop replaced by a single Roll.** The reference's roller tumbles until the visitor presses
+  Stop, which leaves the page in a state where no sum exists. Ours tumbles for ~450ms and settles by
+  itself, so every throw always has a sum. This also makes auto-calculate workable at all.
+- **Exact product.** The reference computes the product in floating point: 60 dice gives
+  `8.625959983006819e+28` and 1,000 dice gives `Infinity`. Ours uses BigInt, so 200 × d6 prints all
+  96 digits.
+- **Capped at 200 dice.** The reference accepts 5,000 and freezes the tab. Ours reports the cap.
+- **Errors are reported, not swallowed.** Invalid sides on the reference silently become 2. Ours says
+  what is wrong and shows no result until it is fixed.
+- **Sum, average, highest and lowest on the d6 tab too.** The reference's d6 roller shows faces only.
+- Pie-free by house rule: the per-value frequency is a bar chart.
+- Defaults differ, as always — ours 5 × d6 and 20 sides × 3, against their 2 and 8 × 2.
+
+### Randomness
+
+`crypto.getRandomValues` with rejection sampling rather than `Math.random` and a modulo. Taking a
+32-bit value mod 6 gives the four lowest faces one extra chance each; the four values in that tail
+are discarded and redrawn.
+
+### Checks run
+
+Zero page errors, zero overflow at 1280/430/390/360 (including a 120 × d100 throw at 360px), 0px
+drift on Clear, jsPDF not requested until the button is pressed, flash on Calculate, cb_ux wired
+(1 button). The `event.isTrusted` guard is on both the roll button and the tabs, so the synthetic
+click cb_ux fires on every keystroke re-rolls the current tab instead of resetting to Standard —
+verified by typing in the Custom tab and checking the active tab afterwards.
+
+`sync_header_footer.py` reported three unrelated pages out of sync (debt-to-income, profit-loss,
+debt-payoff). Not my change to make, so I reverted them — flagging here instead.
+
+Article 2,278 words, 9 H2s, one H1. Originality 0.00% against calculator.net; sibling-page overlap is
+0.66% and is entirely the shared byline and "On this page" boilerplate.
