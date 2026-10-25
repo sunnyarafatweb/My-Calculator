@@ -12871,3 +12871,67 @@ errors. Three apparent og mismatches elsewhere turned out to be HTML entity diff
 `crypto-profit-calculator/index.html` is dead weight: `_redirects` 301s that path to
 `/crypto-profit-loss-calculator/`, confirmed live, so the file is never served. It was skipped here
 and could be deleted.
+
+## Confidence Interval Calculator — rebuilt to 3-card custom tier (Oct 25, 2026)
+
+A single form with four fields, and almost all the parity work was in the statistical rules behind
+them rather than the field list.
+
+### Live audit
+
+Fields: `size` (n), `mean`, `sd`, `cl`. Defaults 50, 20.6, 3.2, 95. Result line reads
+`Confidence Interval: 20.6 ±0.887 (±4.3%) [19.713 – 21.487]`, followed by an error bar and a Steps
+block showing `CI = X̄ ± Z×s/√n`.
+
+What probing settled:
+
+- **It uses z, not t**, and the z is computed from the normal distribution rather than read from a
+  table. Ten confidence levels from 70 to 99.9 were fetched and every margin matched an exact
+  inverse-normal z to three decimals. Arbitrary levels work: 97.3 returns ±1.001.
+- Confidence level must be strictly between 0 and 100; both ends are refused.
+- Sample size must be a positive integer — 0, 50.7 and text are all refused.
+- Standard deviation must be positive; **zero is refused**, not treated as a zero-width interval.
+- Mean may be negative or zero.
+- **Below 30 observations it prints a warning** and still gives the result: "When sample size is less
+  than 30, population standard deviation (σ) should be used."
+- With a mean of zero the percentage is dropped from the line, since it would divide by zero.
+- Rounding: three decimals on the margin and bounds, one on the percentage, four on the z.
+
+### Deliberate deviation
+
+With a **negative mean** the reference prints `(±-4.3%)` — a negative percentage attached to a
+plus-or-minus. The margin as a share of the mean is a magnitude; the sign is meaningless there. Ours
+prints `±4.3%`. Everything else about that case matches, bounds included.
+
+### Verification
+
+Seventeen cases captured from the live tool and replayed through the finished page: **17/17**,
+covering all ten confidence levels, an arbitrary 97.3, the n=1 and n=29 warning cases, the n=30
+boundary, and the negative and zero mean cases. Seven error paths: **7/7** show a message and no
+result. The warning appears at 29 and is gone at 30.
+
+### Beyond the reference, as outputs not controls
+
+Interval width, standard error and the z value as their own rows; the same sample priced at six
+confidence levels side by side, with the current one highlighted; a to-scale error bar; and six
+one-tap level presets. The form is still the reference's four fields.
+
+### The article
+
+Led with the interpretation problem rather than the formula, because "there is a 95% chance the mean
+is in this interval" is the error that survives a statistics course and is the highest-intent query
+in the cluster. Also covers the z-against-t question with a table of how much wider t is at n = 5,
+10, 30 and 100, which is what the sub-30 warning is really about.
+
+Every figure was computed in Node before being written, which caught four wrong numbers in the first
+draft: the worked interval was off by a thousandth at both bounds, and three margins in the z and
+sample-size tables were rounded the wrong way.
+
+### Checks run
+
+Zero page errors, zero overflow at 1280/430/390/360, h1 weight 700, 0px drift on Clear, jsPDF lazy,
+flash on Calculate. FAQ schema 7/7 exact. Article 1,771 words, 10 H2s.
+
+Originality 0.00% against calculator.net. Against our own pages it came in at 0.30% versus the Ratio
+page on the first pass — five runs, all from the shared closing sentence about computing locally.
+Reworded, now 0.00% against all six pages written this weekend.
