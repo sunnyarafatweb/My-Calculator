@@ -12742,3 +12742,18 @@ Node first.
 
 Originality 0.00% against calculator.net and 0.00% body overlap against the GCF, LCM, Ratio, Base64
 and Big Number pages.
+
+### A Calculate button on the Binary Math tab (Oct 25, 2026, owner request)
+
+The owner noticed the arithmetic tab had only a Clear button while the two conversion tabs carried
+Calculate and Clear. He was right, and the reasoning that produced it was an assumption: because the
+four operation buttons each run the calculation, a separate Calculate looked redundant. But the
+reference carries a Calculate button on all three of its forms, section 5 of the design guide sets
+the button row as Calculate + Clear, and our own other two tabs already did it that way. Three
+reasons against one assumption.
+
+Added as `#bin-calcBtn`, which matches cb_ux's `[id*="calcBtn"]` selector, so it scrolls and flashes
+the result card like every other Calculate on the site. The operation buttons keep their own
+`-calc` ids and their isTrusted guard, so pressing Calculate re-runs whichever operation is selected
+rather than resetting to +: verified by choosing x, pressing Calculate, and confirming x stays
+selected and the answer is unchanged. Button row does not wrap at 430, 390 or 360px.

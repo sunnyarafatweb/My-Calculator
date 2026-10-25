@@ -515,7 +515,8 @@
       </div>
 
       <div class="bin-btn-row">
-        <button type="button" class="bin-btn-clear" id="bin-clearBtn" style="flex:1">Clear</button>
+        <button type="button" class="bin-btn-calc" id="bin-calcBtn">Calculate</button>
+        <button type="button" class="bin-btn-clear" id="bin-clearBtn">Clear</button>
       </div>
       <div class="bin-err" id="bin-err"></div>
     </div>
@@ -1134,6 +1135,7 @@ function init(){
       calcOp();
     });
   });
+  $('bin-calcBtn').addEventListener('click',calcOp);
   $('bin-clearBtn').addEventListener('click',function(){
     $('bin-x').value=''; $('bin-y').value=''; setOp('+'); calcOp(); });
 
