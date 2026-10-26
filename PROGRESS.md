@@ -13204,3 +13204,86 @@ Found while verifying, outside what was asked:
 
 All 149 built pages now have `<main>`, a resolving `og:image`, the shared UX layer, and both FAQPage
 and WebApplication schema, and every `ld+json` block on them parses.
+
+---
+
+## 2026-10-26 — The four flagged items, fixed
+
+### 1. Mobile overflow — not the tables after all
+
+The nine overflowing pages all showed a wide table as the culprit, and all nine tables were already
+wrapped in `.table-scroll{overflow-x:auto}`, which works. Measuring the widest *right edge* instead
+of the widest element found the real cause: `DIV.foot-col` sitting at x=482 on a 390px screen.
+
+The footer markup is byte-identical to the homepage on all 215 pages. The *CSS* is not. Every other
+page carries these inside its `@media(max-width:680px)` block; eight crypto pages carry none of them:
+
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-cta .btn-ghost{display:none}
+    .nav-spacer{display:none}
+    .nav{gap:10px}
+
+Without the first, the four-column footer grid stays four columns at phone width. Without the other
+three, the header nav keeps its 34px desktop gap, which pushes the menu button 9px past the edge —
+that was the residual 9px at 360px after the footer was fixed. Added all four rules to the eight
+pages, inside the media block they already had.
+
+`resistor-calculator` was the one genuine table case: `.rc-color-table` with no scroll container.
+Gave the article's tables their own horizontal scroll below 860px, the same treatment the rebuilt
+pages use.
+
+All nine now measure 0 at 1280, 430, 390 and 360.
+
+### 2. The clipped tab row
+
+`.calc-tabs` was `flex-wrap:nowrap` with `overflow-x:auto` and `scrollbar-width:none`, so the row did
+scroll — with nothing on screen to say so. At the 380px form-card width five tabs cannot fit, so
+"Max Open" and "Open Price" were simply invisible. Switched to `flex-wrap:wrap`: two rows at every
+width, all five tabs reachable, no hidden scroll.
+
+### 3. The breadcrumb — my report was wrong, the page had a different problem
+
+I reported the category as "Crypto & Trading 💹". That was my scan's error, not the page's: it
+regex-matched the first `all-calculators/#…` link anywhere in the file, which was a sidebar link. The
+breadcrumb actually read "Finance & Tax" and pointed at `/all-calculators/` with no anchor, where
+every other tax page uses "Finance" and `#fin`. Aligned the nav and the BreadcrumbList schema with
+the others.
+
+Checking that turned up a real problem the scan had not been looking for: three pages are missing
+from the `/all-calculators/` directory entirely. `crypto-profit-calculator` should stay out, since it
+sits behind a 301. The other two, `no-tax-on-tips-calculator` and `profit-loss-calculator`, were
+orphaned from the directory while still being in the sitemap and linked from a few calculators.
+Added both to the Finance section using the existing card markup.
+
+### 4. The two thin articles
+
+`crypto-profit-loss-calculator` went from 1,224 to 1,915 words, `dca-calculator` from 982 to 1,786.
+Written to each page's existing voice and markup, placed before the FAQ heading.
+
+P&L gained: round-trip fee drag with the number of flat trades it takes to lose a tenth of an account
+(53 at 0.10% a side, 21 at 0.26%, 9 at 0.60%); the difference between ROI on margin and ROI on
+notional, using the page's own default figures (+81.72% against +8.17% on the same trade); the three
+costs the calculator does not charge for — funding, slippage and spread, with funding worked out at
+0.03% a day on the default position; a start-to-finish worked example; and the recovery asymmetry.
+
+DCA gained: why the average cost is the harmonic mean and therefore always at or below the average
+price, with a four-purchase example ($44.44 against $56.25 on the same four prices); what a backtest
+cannot tell you, including the survivorship problem in picking a coin that is still trading today;
+drawdown and the gain needed to recover from it; an honest statement that DCA does not rescue a
+failing asset; and the tax-lot count a schedule generates (1,095 lots for three years of daily buys)
+plus why a flat recurring-buy fee is punishing on small purchases.
+
+Every figure was computed in Node before being written. Originality: 0.00% against all 223 pages on
+the site for both new sections.
+
+One rendering bug caught in the screenshot pass: `.formula` on these two pages is a single-line
+`inline-block` with no `white-space:pre`, so multi-line blocks collapsed into one run-on line.
+Converted them to `<br>` lines with `&nbsp;` padding to keep the columns aligned, rather than
+changing the shared rule.
+
+### Flagged, not changed
+
+The 360px scan across all 153 working pages found five more pages with small overflow that the 390px
+scan had missed: `simple-interest-calculator` (19px, `sim-tbl`), `business-loan-calculator` (9px,
+`biz-table`), `ratio-calculator` (7px), `due-date-calculator` and `pregnancy-calculator` (5px each).
+Same class of problem, different pages from the nine that were in scope.

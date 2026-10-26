@@ -392,7 +392,7 @@
     .snap-bar{flex-direction:column;align-items:flex-start}
     .snap-price{margin-left:0}
     .menu-btn{display:grid}.icon-btn.cf-search-trigger{width:44px}.cf-search-trigger-text,.cf-search-trigger-go{display:none}
-  }
+   .foot-grid{grid-template-columns:1fr 1fr} .nav-cta .btn-ghost{display:none} .nav-spacer{display:none} .nav{gap:10px}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
 </style>
@@ -697,7 +697,73 @@
     <h3>Why frequency matters less than you'd think</h3>
     <p>Daily, weekly, and monthly DCA schedules tend to produce very similar long-run outcomes for the same total amount invested over the same period — the schedule mostly affects how smooth the ride feels, not the destination. Pick whatever cadence matches your actual paycheck or habits.</p>
 
-    <h2>Frequently asked questions</h2>
+    
+<h3>Why the average cost lands below the average price</h3>
+<p>A fixed dollar amount buys more units when the price is low and fewer when it is high, so the
+average you end up paying is pulled toward the cheap purchases. Four $100 buys at $100, $50, $25 and
+$50 make the point:</p>
+<div class="formula">coins bought&nbsp;&nbsp;&nbsp;= 1.00 + 2.00 + 4.00 + 2.00 = 9.00<br>total invested = $400<br>average cost&nbsp;&nbsp;&nbsp;= $400 &divide; 9.00 = $44.44<br>average price&nbsp;&nbsp;= ($100 + $50 + $25 + $50) &divide; 4 = $56.25</div>
+<p>$44.44 against $56.25, on exactly the same four prices. This is not luck or clever timing: a fixed
+dollar amount always produces the harmonic mean of the prices, which is never higher than the ordinary
+average and is lower whenever the prices vary at all. The more volatile the asset, the wider the gap.</p>
+<p>In that example the final price of $50 leaves the DCA buyer up 12.5% while someone who had put the
+whole $400 in at $100 on day one is down 50%. Reverse the price path so it rises steadily and the
+result reverses with it. Which approach wins is decided by the shape of the price path, and nobody
+knows that shape in advance — which is the actual argument for DCA, rather than any claim that it
+earns more.</p>
+
+<h3>What a backtest can and cannot tell you</h3>
+<p>The simulation above uses real historical prices, so the result is what would genuinely have
+happened. That is narrower than it sounds.</p>
+<p>You are choosing the coin today, knowing which ones survived. Running the numbers on an asset that
+is still trading in 2026 quietly excludes every project that went to zero in between, and the
+exclusion flatters every strategy applied to it, DCA included. You are also choosing a period, and
+crypto's returns are concentrated enough that moving a start date by a few months can change the
+answer entirely. The "Does the start date matter?" section exists to make that visible instead of
+letting one convenient window stand in for the whole picture.</p>
+<p>A backtest tells you what a rule would have produced on one path through history. It does not tell
+you what it will produce, and it cannot tell you whether you would actually have kept making the
+purchases.</p>
+
+<h3>Drawdown is the number that decides whether you stick with it</h3>
+<p>Max drawdown is the worst peak-to-trough fall the portfolio went through along the way. It is
+reported separately from the return because the two answer different questions: the return tells you
+where the strategy finished, the drawdown tells you what you had to sit through to get there.</p>
+<table class="whatif-table">
+  <thead><tr><th>Drawdown</th><th>Gain needed to get back to even</th></tr></thead>
+  <tbody>
+    <tr><td>&minus;20%</td><td>+25%</td></tr>
+    <tr><td>&minus;50%</td><td>+100%</td></tr>
+    <tr><td>&minus;70%</td><td>+233%</td></tr>
+    <tr><td>&minus;85%</td><td>+567%</td></tr>
+  </tbody>
+</table>
+<p>A strategy that finished the period up 40% after an 80% drawdown is not the same proposition as one
+that finished up 30% after a 25% drawdown, even though the first has the better headline. Most people
+who abandon a DCA plan abandon it in the middle of the drawdown, which converts a paper fall into a
+realised loss and forfeits the recovery. Look at the drawdown figure before deciding what you can
+commit to monthly.</p>
+
+<h3>DCA does not rescue a failing asset</h3>
+<p>Averaging down works when the price recovers. If it does not, buying more on the way to zero turns
+a small loss into a complete one, and the mechanism that makes DCA look good in a volatile sideways
+market — more units bought at lower prices — is precisely what makes it worse in a terminal decline.
+DCA is a way of spreading timing risk across a position you already believe in. It is not a reason to
+hold something you have stopped believing in.</p>
+
+<h3>The paperwork a DCA schedule creates</h3>
+<p>Every purchase is a separate tax lot with its own date and cost basis, and that adds up faster than
+people expect over a few years:</p>
+<div class="formula">monthly for 3 years&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;36 lots<br>weekly&nbsp;&nbsp;for 3 years&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;156 lots<br>daily&nbsp;&nbsp;&nbsp;for 3 years&nbsp;&nbsp;= 1,095 lots</div>
+<p>When you eventually sell part of the position, the gain depends on which lots the sale is matched
+against, and the holding period of each lot decides whether it is taxed at the short-term or long-term
+rate. Exchange exports handle this if you keep them; reconstructing three years of daily buys from
+memory does not. The <a href="/crypto-tax-calculator/">crypto tax calculator</a> covers how the US
+rules treat a disposal once you get there.</p>
+<p>Recurring-buy fees deserve the same attention. A flat fee on a small automated purchase is a large
+percentage: $0.99 on a $20 weekly buy is just under 5%, taken every week before the investment has
+done anything at all. A percentage fee scales with the purchase; a flat one punishes small ones.</p>
+<h2>Frequently asked questions</h2>
     <div class="faq-list" id="faqList"></div>
 
     <div class="disclaimer">This calculator uses real historical price data where available and a realistic sample price history as a fallback when live data can't be reached. Past performance does not predict future results. This is not financial advice — consider consulting a licensed advisor before making investment decisions.</div>

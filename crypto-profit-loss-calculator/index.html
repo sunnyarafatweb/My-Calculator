@@ -248,7 +248,7 @@
   .at-btn.on{background:var(--cx-tint);color:var(--cx)}
 
   /* ===== CALC TABS (PnL / Target / Liquidation / Max Open / Open Price) ===== */
-  .calc-tabs{display:flex;flex-wrap:nowrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .calc-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .calc-tabs::-webkit-scrollbar{display:none}
   .ctab-btn{flex-shrink:0;font-family:var(--f-mono);font-size:11.5px;font-weight:600;color:var(--text-soft);background:var(--panel-2);border:1px solid var(--border-fine);border-radius:100px;padding:7px 13px;cursor:pointer;transition:.18s}
   .ctab-btn:hover{border-color:#1E3A5F}
@@ -411,7 +411,7 @@
     .menu-btn{display:grid}.icon-btn.cf-search-trigger{width:44px}.cf-search-trigger-text,.cf-search-trigger-go{display:none}
     .calc-tabs{margin:0 -20px 20px;padding:0 20px 16px;width:calc(100% + 40px)}
     .ctab-btn{font-size:11px;padding:6px 11px}
-  }
+   .foot-grid{grid-template-columns:1fr 1fr} .nav-cta .btn-ghost{display:none} .nav-spacer{display:none} .nav{gap:10px}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
 </style>
@@ -744,7 +744,66 @@
     <h3>Realized vs. unrealized P&amp;L</h3>
     <p>If you haven't sold yet, the number shown here is <b>unrealized</b> — it reflects your position's paper value at the current market price, which can still change. P&amp;L only becomes <b>realized</b>, and taxable in most jurisdictions, once you actually close the position. For a full year of trades, the <a href="../crypto-tax-calculator/" style="color:var(--cx)">Crypto Tax Calculator</a> estimates what you may owe.</p>
 
-    <h2>Frequently asked questions</h2>
+    
+<h3>Fees cost more than the percentage suggests</h3>
+<p>A fee looks small in isolation and compounds brutally in repetition. You pay on the way in and
+again on the way out, so a venue charging 0.26% a side takes 0.52% off a round trip. On a $1,000
+position that is $5.20, and more to the point the price has to move 0.52% in your favour before you
+are back to level.</p>
+<table class="coins-table">
+  <thead><tr><th>Fee each side</th><th>Round trip</th><th>Cost on $1,000</th><th>Round trips to lose 10% of capital</th></tr></thead>
+  <tbody>
+    <tr><td>0.10%</td><td>0.20%</td><td>$2.00</td><td>53</td></tr>
+    <tr><td>0.26%</td><td>0.52%</td><td>$5.20</td><td>21</td></tr>
+    <tr><td>0.60%</td><td>1.20%</td><td>$12.00</td><td>9</td></tr>
+  </tbody>
+</table>
+<p>The last column is the one worth sitting with. At 0.60% a side, nine round trips that each finish
+exactly flat still leave you down a tenth of your account. Fee tier is not a detail for anyone who
+trades more than occasionally, and it is the reason the fee fields here default to on rather than
+hidden behind an advanced toggle.</p>
+
+<h3>Leverage changes which number you are looking at</h3>
+<p>With leverage there are two returns, and they differ by the leverage multiple. Take the default
+figures above: $1,000 of margin at 10&times;, entering at $58,000 and exiting at $62,740. That is
+0.172414 BTC, a gross profit of $817.24, and:</p>
+<div class="formula">price move&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= +8.17%<br>ROI on notional&nbsp;&nbsp;&nbsp;= +8.17%&nbsp;&nbsp;&nbsp;(profit &divide; $10,000 position)<br>ROI on margin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= +81.72%&nbsp;&nbsp;(profit &divide; $1,000 you actually put up)</div>
+<p>Both are true. Screenshots circulate because the second number is the one people post. The result
+panel here reports ROI on margin, which is the honest answer to "what did this trade do to my
+account", but the price only moved eight percent and the same multiple applies in the other
+direction. A 10% move against a 10&times; position is the whole margin. The
+<a href="/liquidation-price-calculator/">liquidation price calculator</a> gives the exact level where
+that happens.</p>
+
+<h3>What this calculator does not charge you for</h3>
+<p>Three real costs sit outside the arithmetic here, and all three are worth knowing before you treat
+a result as final.</p>
+<p><strong>Funding.</strong> Perpetual futures have no expiry, so exchanges keep them tethered to spot
+by making one side pay the other every few hours. A typical rate of 0.01% every eight hours is 0.03%
+a day. On the $10,000 notional above that is $3 a day, $21 over a week, $90 over a month — on a
+position whose margin is only $1,000. Funding is why a leveraged position that is directionally right
+can still bleed out while you wait.</p>
+<p><strong>Slippage.</strong> Your fill is the price the order book actually gives you, which on a
+thin pair or a fast move is not the price on the screen. Market orders pay this; limit orders avoid
+it and risk not filling at all.</p>
+<p><strong>The spread.</strong> Buying at the ask and selling at the bid costs you the gap between
+them, before any fee is applied.</p>
+
+<h3>A worked example, start to finish</h3>
+<p>Say you buy 0.5 ETH at $2,400 and sell at $2,650, paying 0.1% on each side.</p>
+<div class="formula">position in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0.5 &times; $2,400 = $1,200.00<br>buy fee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= $1,200 &times; 0.1%&nbsp;&nbsp;= $1.20<br>position out&nbsp;&nbsp;&nbsp;&nbsp;= 0.5 &times; $2,650 = $1,325.00<br>sell fee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= $1,325 &times; 0.1%&nbsp;&nbsp;= $1.33<br>gross profit&nbsp;&nbsp;&nbsp;&nbsp;= $1,325.00 &minus; $1,200.00 = $125.00<br>net profit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= $125.00 &minus; $1.20 &minus; $1.33 = $122.47<br>ROI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= $122.47 &divide; $1,200.00 = +10.21%</div>
+<p>The gross and net figures differ by $2.53, which is 2% of the profit on a trade that went well. On
+a trade that barely moved, the same $2.53 is the difference between a small win and a small loss.
+That is the whole case for including fees by default.</p>
+
+<h3>Reading a loss honestly</h3>
+<p>Losses are not symmetrical with gains, and the asymmetry gets worse the deeper the hole. A position
+down 20% needs a 25% gain to return to breakeven. Down 50% needs 100%. Down 70% needs 233%. This is
+arithmetic rather than market commentary, and it is the reason position sizing is decided before the
+trade rather than renegotiated during it. The
+<a href="/crypto-position-size-calculator/">position size calculator</a> works backwards from how much
+you are willing to lose to how large the position may be.</p>
+<h2>Frequently asked questions</h2>
     <div class="faq-list" id="faqList"></div>
 
     <div class="disclaimer">This calculator provides estimates for informational purposes only and does not account for slippage, funding rates, or tax treatment in your jurisdiction. It is not financial or tax advice — verify final figures with your exchange statement before filing or trading further.</div>
