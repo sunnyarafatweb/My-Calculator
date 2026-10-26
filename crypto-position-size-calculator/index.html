@@ -471,7 +471,7 @@
   .tradebar-empty{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center;padding:40px 0}
 
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Position Size Calculator","item":"https://calculatorboss.com/crypto-position-size-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Position Size Calculator","item":"https://calculatorboss.com/crypto-position-size-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is position sizing and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Position sizing is deciding how much of an asset to buy or sell on a trade so that your dollar risk stays consistent with a rule you’ve set in advance. It matters because it’s the one part of a trade fully within your control — you can’t control whether price hits your stop, but you can control how much that stop costs you."}},{"@type":"Question","name":"How is crypto position size calculated?","acceptedAnswer":{"@type":"Answer","text":"Multiply your account balance by your chosen risk percentage to get your risk amount in dollars. Divide that by the distance between your entry price and stop-loss price (your risk per unit) to get the number of coins or tokens to buy or sell."}},{"@type":"Question","name":"Does leverage increase my risk?","acceptedAnswer":{"@type":"Answer","text":"Not directly. Leverage changes how much margin (collateral) you need to open a given position size — it doesn’t change your dollar loss if your stop-loss is hit, since that’s driven by position size and stop distance. Higher leverage does move your liquidation price closer to your entry, so your stop-loss needs to sit safely before it."}},{"@type":"Question","name":"What risk percentage should I use per trade?","acceptedAnswer":{"@type":"Answer","text":"Commonly cited guidance is 0.5-1% per trade for conservative accounts, 1-2% for active traders, and rarely above 2-3% even for high-conviction setups. At 1% risk per trade, it takes roughly 69 straight losses to cut an account in half; at 5% risk, only around 13-14 straight losses do the same."}},{"@type":"Question","name":"How do trading fees affect position size?","acceptedAnswer":{"@type":"Answer","text":"Entry and exit fees are an additional cost on top of your intended risk, so ignoring them means your real loss if stopped out is larger than planned. This calculator’s advanced settings let you add a fee percentage that’s factored into a fee-adjusted risk figure."}},{"@type":"Question","name":"What’s the difference between position size and leverage?","acceptedAnswer":{"@type":"Answer","text":"Position size (or notional value) is the total dollar value of the trade. Leverage determines how much of your own capital (margin) you need to post to control that notional value — a $10,000 position at 10x leverage needs $1,000 margin, but your risk is still set by where your stop-loss sits, not by the leverage number."}},{"@type":"Question","name":"Why do volatile altcoins need a wider stop-loss?","acceptedAnswer":{"@type":"Answer","text":"A stop placed too close to entry on a volatile asset is likely to be hit by normal price noise rather than an actual change in trend. Since position size is risk amount divided by stop distance, a wider stop for a volatile coin automatically produces a smaller position size for the same dollar risk."}},{"@type":"Question","name":"Can I use this calculator for short positions?","acceptedAnswer":{"@type":"Answer","text":"Yes — switch the direction toggle to Short. The math is identical, just mirrored: your stop-loss sits above your entry price instead of below it, and the calculator validates that automatically."}},{"@type":"Question","name":"What if the required margin exceeds my account balance?","acceptedAnswer":{"@type":"Answer","text":"That means the position size your risk rule calls for needs more leverage than you’ve entered, or more capital than you have available. The calculator flags this so you can raise leverage, reduce the position, tighten the stop, or skip the trade rather than accidentally over-committing your account."}},{"@type":"Question","name":"Should I risk a fixed percentage or a fixed dollar amount?","acceptedAnswer":{"@type":"Answer","text":"A fixed percentage is generally recommended because it scales with your account — as your balance grows or shrinks, the dollar amount at risk adjusts automatically, keeping your risk proportionate. A fixed dollar amount stays static even as your account changes, which can quietly become too large or too small a share of your capital over time."}},{"@type":"Question","name":"What is ATR and how does it help set a stop-loss?","acceptedAnswer":{"@type":"Answer","text":"ATR (Average True Range) measures how much an asset typically moves over a lookback period, usually 14 days. Setting a stop at a multiple of ATR — commonly 1.5x to 3x — scales the stop distance to the asset’s real volatility instead of a fixed percentage picked out of habit."}},{"@type":"Question","name":"What’s the difference between isolated and cross margin?","acceptedAnswer":{"@type":"Answer","text":"With isolated margin, only the margin allocated to that specific position can be lost if it’s liquidated. With cross margin, your entire account balance backs every open position, which allows more room before liquidation but means a bad outcome can draw down your whole balance rather than just one position’s margin."}},{"@type":"Question","name":"Can I download, print or share my results?","acceptedAnswer":{"@type":"Answer","text":"Yes — use \"Print / Save as PDF\" for a printable summary of your current trade plan, \"Download as CSV\" to export the full breakdown, or \"Copy shareable link\" to send a URL that reloads your exact inputs for someone else."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Position Size Calculator","url":"https://calculatorboss.com/crypto-position-size-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","description":"Free crypto position size calculator: account size, risk %, entry and stop-loss give your exact trade size, margin and risk:reward.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </head>
 <body>
 
@@ -1964,5 +1964,247 @@
 })();
 </script>
 
+<!-- CB-UX: shared 3-card behaviour (auto-calculate, result flash, jump link). Injected by scripts/apply_cb_ux.py -->
+<style id="cb-ux-style">
+.cb-flash{animation:cbFlash .95s ease}
+.cb-flash.cb-area{border-radius:16px}
+@keyframes cbFlash{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  45%{box-shadow:0 0 0 10px rgba(22,163,74,.18)}
+  100%{box-shadow:0 0 0 20px rgba(22,163,74,0)}
+}
+.cb-jump{display:block;margin:14px 0 0;padding:11px 12px;background:var(--surface-sunken);border:1px solid var(--border-fine);border-radius:8px;font-size:12.5px;font-weight:600;color:#1E3A5F;text-decoration:none;text-align:center}
+.cb-jump:hover{background:var(--gold-tint);border-color:#BADEC6}
+.cb-scroll-target{scroll-margin-top:88px}
+@media(prefers-reduced-motion:reduce){.cb-flash{animation:none}}
+</style>
+<script>
+/* CB-UX — one shared implementation for every 3-card calculator page.
+   Wrapped in try/catch so it can never break the page it is added to. */
+(function(){
+  "use strict";
+  var BAR_TEXT = 'Just enter your values below \u2014 results update automatically.';
+
+  /* ---- shared scroll mute (installed once, used by every grid) ----
+     Most pages already scroll to the result inside their own Calculate
+     handler, often from a requestAnimationFrame callback. Auto-calculate
+     fires that handler, so without this the page jumped on every keystroke,
+     checkbox toggle and tab switch. Armed in the capture phase because a few
+     pages scroll from their own listener, which runs before ours. A real
+     press of Calculate calls releaseScroll() first, so it always moves. */
+  var suppress = false, supTimer = null;
+  try {
+    var realScrollTo = window.scrollTo.bind(window);
+    var realSIV = Element.prototype.scrollIntoView;
+    window.scrollTo = function(){
+      if (suppress) return;
+      return realScrollTo.apply(null, arguments);
+    };
+    Element.prototype.scrollIntoView = function(){
+      if (suppress) return;
+      return realSIV.apply(this, arguments);
+    };
+  } catch(e){}
+  function armSuppress(){
+    suppress = true;
+    clearTimeout(supTimer);
+    supTimer = setTimeout(function(){ suppress = false; }, 700);
+  }
+  function releaseScroll(){ clearTimeout(supTimer); suppress = false; }
+
+
+  function init(){
+    try{
+      var all = document.querySelectorAll('div'), grids = [];
+      for (var i=0;i<all.length;i++){
+        var ta = getComputedStyle(all[i]).gridTemplateAreas || '';
+        /* the mobile media query re-orders these areas, so match on the tokens, not the order */
+        if (/\bform\b/.test(ta) && /\b(result|rightstack)\b/.test(ta) && /\bsidebar\b/.test(ta)) grids.push(all[i]);
+      }
+      if (!grids.length) return;
+      /* Tabbed pages carry ONE GRID PER TAB - retirement-calculator has four.
+         Wiring only the first left the other tabs with no auto-calculate, no
+         flash and no jump at all. */
+      grids.forEach(function(grid){ try { wireGrid(grid); } catch(e){} });
+      return;
+
+      function wireGrid(grid){
+
+      /* --- locate the pieces by the grid area they occupy --- */
+      function areaChild(name){
+        var kids = grid.children;
+        for (var i=0;i<kids.length;i++){
+          if ((getComputedStyle(kids[i]).gridArea||'').split('/')[0].trim() === name) return kids[i];
+        }
+        return null;
+      }
+      var barArea    = areaChild('bar');
+      var formArea   = areaChild('form');
+      var resultArea = areaChild('result') || areaChild('rightstack');
+      var bottomArea = areaChild('bottomgrid');
+
+      /* --- 1. status bar: same sentence on every calculator --- */
+      if (barArea){
+        var bar = barArea.matches('[class*="-bar"]') ? barArea : barArea.querySelector('[class*="-bar"]');
+        if (bar){
+          var span = bar.querySelector('span');
+          if (span){
+            var badge = span.querySelector('span');   /* some pages prefix a small badge */
+            if (badge){
+              /* keep the badge, replace only the sentence after it */
+              while (badge.nextSibling) span.removeChild(badge.nextSibling);
+              span.appendChild(document.createTextNode(BAR_TEXT));
+            } else if (!span.querySelector('*')) {
+              span.textContent = BAR_TEXT;
+            }
+          }
+        }
+      }
+
+      /* --- 2. the calculate button --- */
+      var btns = [], seen = [];
+      function addBtn(b){ if (b && seen.indexOf(b) < 0){ seen.push(b); btns.push(b); b.setAttribute('data-cb-calc','1'); } }
+      var scope = formArea || grid;
+      Array.prototype.forEach.call(scope.querySelectorAll('[id*="calcBtn"], [id*="-calc"]'), function(b){
+        if (b.tagName === 'BUTTON') addBtn(b);
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('button'), function(b){
+        if (/^\s*calculate\s*$/i.test(b.textContent)) addBtn(b);
+      });
+      var btn = btns[0] || null;
+
+      /* --- 3. the card that shows the answer --- */
+      /* Multi-tab pages swap the whole result card when the tab changes, so the
+         one found at start-up can end up display:none. Re-resolve on every use,
+         otherwise Calculate scrolls to and flashes a hidden element. */
+      function resolveCard(){
+        if (!resultArea) return null;
+        var vis = function(el){ return el && el.offsetParent !== null; };
+        var list = resultArea.querySelectorAll('[class*="-result-card"]'), i;
+        for (i = 0; i < list.length; i++){ if (vis(list[i])) return list[i]; }
+        var kids = resultArea.children, only = null, n = 0;
+        for (i = 0; i < kids.length; i++){
+          if (/-card\b/.test(kids[i].className || '') && vis(kids[i])){ only = kids[i]; n++; }
+        }
+        return (n === 1) ? only : resultArea;
+      }
+
+      var card = null;
+      if (resultArea){
+        /* Prefer a real result CARD. Some pages hang the coloured head straight off
+           the result area with no card wrapper, and matching '-result' there grabs
+           the 95px header, so the ring only appeared under the green strip. Falling
+           back to the whole area puts the ring around everything instead. */
+        card = resultArea.querySelector('[class*="-result-card"]');
+        if (!card){
+          var kids = resultArea.children, only = null, n = 0;
+          for (var c = 0; c < kids.length; c++){
+            if (/-card\b/.test(kids[c].className || '')){ only = kids[c]; n++; }
+          }
+          card = (n === 1) ? only : resultArea;
+        }
+        if (card === resultArea) card.classList.add('cb-area');
+        card.classList.add('cb-scroll-target');
+        card.setAttribute('data-cb-result','1');
+      }
+
+      function flash(){
+        var c = resolveCard() || card;
+        if (!c) return;
+        if (c === resultArea) c.classList.add('cb-area');
+        c.classList.add('cb-scroll-target');
+        c.classList.remove('cb-flash');
+        void c.offsetWidth;
+        c.classList.add('cb-flash');
+        setTimeout(function(){ c.classList.remove('cb-flash'); }, 1000);
+      }
+
+      /* --- 4. auto-calculate as the visitor types --- */
+      var auto = false, timer = null;
+
+      function runCalc(){
+        auto = true;
+        suppress = true;
+        clearTimeout(supTimer);
+        try {
+          var target = null;
+          for (var k=0;k<btns.length;k++){ if (btns[k].offsetParent !== null){ target = btns[k]; break; } }
+          (target || btns[0]).click();
+          window.__cbAutoRuns = (window.__cbAutoRuns || 0) + 1;
+        } finally {
+          auto = false;
+          /* the page's own scroll may be deferred a frame or two, so hold the
+             mute briefly rather than releasing it synchronously */
+          supTimer = setTimeout(function(){ suppress = false; }, 500);
+        }
+      }
+      if (btns.length && scope){
+        /* Any click inside the calculator that is NOT the Calculate button and
+           NOT the jump link must not move the page either. Tabs, unit toggles
+           and show/hide switches all re-run the page's own calculate, which
+           carries its own scroll-to-result - so a tab switch was jumping 400px.
+           Bound on the whole grid because tabs sit in their own grid area,
+           outside the form. */
+        grid.addEventListener('click', function(e){
+          var t = e.target;
+          if (!t || !t.closest) return;
+          if (t.closest('[data-cb-calc]') || t.closest('.cb-jump')) return;
+          armSuppress();
+        }, true);
+
+        scope.addEventListener('input', function(){
+          armSuppress();
+          clearTimeout(timer);
+          timer = setTimeout(runCalc, 180);
+        }, true);
+        scope.addEventListener('change', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'SELECT' || /radio|checkbox/i.test(t.type || ''))){
+            armSuppress();
+            runCalc();
+          }
+        }, true);
+
+        /* --- 5. pressing Calculate confirms itself --- */
+        btns.forEach(function(b){
+          b.addEventListener('click', function(){
+            if (auto) return;
+            releaseScroll();      /* a real press always gets to move the page */
+            var live = resolveCard() || card;
+            if (!live){ return; }
+            /* Always bring the answer to the visitor. On a long form they have
+               scrolled well past the result card, so flashing alone is invisible
+               and reads as "nothing happened" - scroll first, then flash. */
+            var r = live.getBoundingClientRect();
+            var settled = r.top >= 60 && r.top <= (window.innerHeight * 0.5);
+            if (settled){
+              flash();
+            } else {
+              live.scrollIntoView({behavior:'smooth', block:'start'});
+              setTimeout(flash, 420);
+            }
+          });
+        });
+      }
+
+      /* --- 6. link down to the detail section --- */
+      if (card && bottomArea && !resultArea.querySelector('.cb-jump')){
+        var target = bottomArea.querySelector('[class*="-card"]') || bottomArea;
+        if (!target.id) target.id = 'cb-detail-' + Math.random().toString(36).slice(2,7);
+        target.classList.add('cb-scroll-target');
+        var a = document.createElement('a');
+        a.className = 'cb-jump';
+        a.href = '#' + target.id;
+        a.innerHTML = 'See the full breakdown \u2193';
+        (resultArea || card.parentNode).appendChild(a);
+      }
+      }
+    }catch(e){ /* never break the page */ }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,120); });
+  else setTimeout(init,120);
+})();
+</script>
 </body>
 </html>

@@ -13118,3 +13118,89 @@ Article 2,114 words, 9 H2s, one H1. Originality 0.00% against calculator.net; si
 and entirely the shared byline boilerplate. Verified against log-calculator, root-calculator and
 scientific-notation-calculator at 0.00% each, which matters because those three are the nearest
 topical neighbours.
+
+---
+
+## 2026-10-26 — Pre-AdSense cleanup (list ক)
+
+Six small defects found by a full-site health scan, all fixed in one pass. No page was hidden,
+removed or redirected — the plan is to build the 62 static pages rather than take them down.
+
+### 1. Two pages had no `<main>` element
+
+`crypto-profit-loss-calculator` and `dca-calculator` ran header → content → footer with no landmark,
+so the body text sat outside any main region. Wrapped the existing content in `<main role="main">`
+without touching layout or logic: `body` is normal block flow on both pages and `main` is block by
+default, so nothing moved. Verified 1,224 and 982 words now inside `main`, zero page errors, one H1,
+no overflow, calculators still computing.
+
+### 2–3. Open Graph images
+
+Four built pages carried no `og:image` at all (`gpa`, `profit-loss`, `resistor`, `tip`) and
+`no-tax-on-tips-calculator` pointed at a file that did not exist. Generated the five missing images
+and added `og:image` + `twitter:image` to the four, anchored after the existing `og:url` tag.
+All five now resolve.
+
+### 4. Shared UX layer missing on nine pages
+
+The whole crypto cluster plus `profit-loss-calculator` had never had `scripts/apply_cb_ux.py` run on
+them, so they had no auto-calculate, no result flash and no mobile jump link. Patched all nine, then
+replayed each one in Playwright: typed into the first visible input and checked the result text
+changed, the active tab stayed put, and no new errors appeared.
+
+Two notes from that check, both correct behaviour rather than defects:
+
+- `dca-calculator` wires zero buttons because it has no Calculate button at all — it recalculates on
+  input from its own script. cb_ux still normalised its status-bar sentence. I did not add a button,
+  since that would be a design change nobody asked for.
+- `mining-profit-calculator` wires its button but did not auto-run on my synthetic input, because the
+  input I typed into sits outside the form grid area that cb_ux listens on.
+
+### 5. FAQ and WebApplication schema
+
+Seven crypto pages had no `FAQPage` JSON-LD. Each already renders its FAQ from a `var FAQ=[[q,a],…]`
+array in its own script, so the schema was generated from that exact array — parsed by evaluating the
+balanced literal in Node — rather than from anything invented. 8 to 13 questions per page.
+
+Five of those pages also turned out to have no `WebApplication` schema, which the first scan missed:
+the scan string-matched "WebApplication" and was fooled by each page's own script, which looks for a
+WebApplication block to stamp `dateModified` onto. There was no such block for it to find. The second
+pass parsed every `ld+json` block properly and added the missing schema, which also makes that
+existing `dateModified` code do its job for the first time.
+
+### 6. The twelve crawl 404s
+
+Cause found. Both CoinGecko pages built their endpoint as
+
+    'https://api.coingecko.com/api/v3/coins/' + id + '/market_chart?vs_currency=usd&days=' + days
+
+and Googlebot's URL extractor reads the fragment `/market_chart?vs_currency=usd&days=` out of the
+script source as a root-relative link, requests `calculatorboss.com/market_chart?...`, and gets a 404.
+
+Replaced the three call sites with a small `cgCoin(id, segments, query)` helper that joins the parts,
+so no string literal starts with a slash and carries a query. Verified the built URLs are byte-identical
+to before by intercepting the requests: `…/coins/bitcoin/market_chart?vs_currency=usd&days=7` still
+goes out exactly as it did. A site-wide re-scan finds no site-relative URL literals left in any page's
+JavaScript. The first draft of the explanatory comment contained the offending path as an example,
+which would have left the problem in place; reworded.
+
+### Flagged, not changed
+
+Found while verifying, outside what was asked:
+
+- **Nine pages overflow horizontally at 390px** — all wide tables with no scroll container:
+  `coins-table` on crypto-position-size, crypto-profit-loss, leverage, liquidation-price,
+  staking-reward (and crypto-tax and risk-reward, culprit not isolated), `whatif-table` on dca,
+  `rc-color-table` on resistor. Confirmed pre-existing by rendering the pre-patch file from HEAD:
+  the overflow is 1px *smaller* after cb_ux, not larger. 144 of 153 pages are clean.
+- `crypto-profit-loss-calculator` clips its tab row ("PnL / Target Price / Liquidation Price / Max
+  Open…") on the right at desktop width.
+- `no-tax-on-tips-calculator` has the breadcrumb category "Crypto & Trading 💹", which is wrong for a
+  tax calculator.
+- `crypto-profit-loss-calculator` and `dca-calculator` carry ~1,200 and ~1,000 words, well under the
+  1,500–7,700 the rebuilt pages run to.
+
+### Result
+
+All 149 built pages now have `<main>`, a resolving `og:image`, the shared UX layer, and both FAQPage
+and WebApplication schema, and every `ld+json` block on them parses.

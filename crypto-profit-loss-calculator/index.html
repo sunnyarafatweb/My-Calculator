@@ -415,7 +415,7 @@
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Profit / Loss Calculator","url":"https://calculatorboss.com/crypto-profit-loss-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free crypto profit/loss calculator \u2014 exact P&L, ROI, breakeven price and fees, with live BTC, ETH and altcoin prices auto-filled."}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Profit / Loss Calculator","item":"https://calculatorboss.com/crypto-profit-loss-calculator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Profit / Loss Calculator","url":"https://calculatorboss.com/crypto-profit-loss-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free crypto profit/loss calculator \u2014 exact P&L, ROI, breakeven price and fees, with live BTC, ETH and altcoin prices auto-filled."}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calculatorboss.com/"},{"@type":"ListItem","position":2,"name":"Crypto & Trading","item":"https://calculatorboss.com/all-calculators/#cry"},{"@type":"ListItem","position":3,"name":"Profit / Loss Calculator","item":"https://calculatorboss.com/crypto-profit-loss-calculator/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this include exchange trading fees?","acceptedAnswer":{"@type":"Answer","text":"Yes — toggle \"Include exchange fees\" to add your buy-side and sell-side fee percentages. Fees are subtracted from your gross profit to show the real net P&L."}},{"@type":"Question","name":"What's the difference between long and short?","acceptedAnswer":{"@type":"Answer","text":"A long position profits when price rises above your entry; a short position profits when price falls below it. Use the Long/Short switch to model either."}},{"@type":"Question","name":"How is breakeven price calculated?","acceptedAnswer":{"@type":"Answer","text":"Breakeven is the exit price at which fees exactly offset your gain — slightly above entry for longs, slightly below for shorts, once fees are included."}},{"@type":"Question","name":"Is my crypto profit taxable?","acceptedAnswer":{"@type":"Answer","text":"In most jurisdictions, profit becomes taxable once a position is closed (realized). Rules vary by country — see the Crypto Tax Calculator for an estimate, and confirm with a tax professional."}},{"@type":"Question","name":"Can I calculate multiple buys at different prices?","acceptedAnswer":{"@type":"Answer","text":"This tool assumes a single entry price. For multiple purchases at different prices, use the DCA Calculator first to find your average entry price, then enter that here."}},{"@type":"Question","name":"What is liquidation price?","acceptedAnswer":{"@type":"Answer","text":"It's the price at which your leveraged position is forcibly closed because losses have consumed your margin. Higher leverage brings liquidation much closer to your entry price — always check this before opening a leveraged trade."}},{"@type":"Question","name":"How does leverage affect my ROI?","acceptedAnswer":{"@type":"Answer","text":"Leverage multiplies your position size relative to your margin, which multiplies both gains and losses. A 10× leveraged trade with a 5% price move produces roughly a 50% ROI on margin — before fees — in either direction."}},{"@type":"Question","name":"What is \"Max Open\" position size?","acceptedAnswer":{"@type":"Answer","text":"It's the largest notional position your available balance can support at a given leverage (balance × leverage). Opening at your max leaves zero buffer, so most traders use well under this limit."}},{"@type":"Question","name":"What is the funding rate, and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"On perpetual futures, longs and shorts exchange a small funding payment (typically every 8 hours) to keep the contract price tied to the spot price. A positive rate means longs pay shorts. Held over days or weeks, funding can meaningfully add to or eat into your P&L — toggle \"Include funding rate\" above to model it."}}]}</script>
 </head>
 <body>
 
@@ -495,6 +495,8 @@
   })();
   </script>
 </header>
+<main role="main">
+
 
 <div class="wrap" style="padding-top:20px">
   <style>.crumb2{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.crumb2 a{color:var(--muted);transition:.2s}.crumb2 a:hover{color:var(--ink)}.crumb2 .sep2{color:var(--ink-faint)}.crumb2 .cur2{color:var(--ink-soft);font-weight:500}</style>
@@ -763,6 +765,8 @@
   </div>
 </section>
 
+
+</main>
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
@@ -1286,7 +1290,14 @@
        reuse data instead of re-hitting the API — fewer calls overall as traffic grows
      - every caller falls back to the existing built-in sample data on any failure, so the
        page always looks complete and works even if CoinGecko is slow, down, or rate-limiting ---------- */
-  function fetchJson(url, timeoutMs){
+  /* Builds a CoinGecko endpoint from separate parts. The path segments are kept
+   out of a single string literal on purpose: a literal that starts with a slash
+   and carries a query string is read by crawlers as a link to a page on this
+   site, which then 404s in Search Console. */
+function cgCoin(id, segments, query){
+  return 'https://api.coingecko.com/api/v3/coins/' + id + '/' + segments.join('/') + '?' + query;
+}
+function fetchJson(url, timeoutMs){
     timeoutMs = timeoutMs || 6000;
     return new Promise(function(resolve, reject){
       var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
@@ -1360,7 +1371,7 @@
 
     if(chartCache[fetchKey]){ finish(chartCache[fetchKey]); return; }
 
-    fetchJson('https://api.coingecko.com/api/v3/coins/'+c.id+'/market_chart?vs_currency=usd&days='+fetchDays, 6000)
+    fetchJson(cgCoin(c.id, ['market_chart'], 'vs_currency=usd&days='+fetchDays), 6000)
       .then(function(d){
         if(d && d.prices && d.prices.length>1){ chartCache[fetchKey]=d.prices; cacheSet('cf_chart_'+fetchKey, d.prices); finish(d.prices); }
         else { fallbackChart(c); }
