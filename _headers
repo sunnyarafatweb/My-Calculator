@@ -22,3 +22,10 @@
 # them private; it stops them appearing in search results.
 /*.md
   X-Robots-Tag: noindex, nofollow
+
+# calculators-index.json feeds the header search box, so Googlebot must still be
+# able to fetch it while rendering. Blocking it in robots.txt would stop that, so
+# it is served with noindex instead: fetchable, but never reported as a page.
+# Search Console was listing it under "Crawled - currently not indexed".
+/calculators-index.json
+  X-Robots-Tag: noindex

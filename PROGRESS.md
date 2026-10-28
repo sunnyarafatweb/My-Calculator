@@ -13287,3 +13287,93 @@ The 360px scan across all 153 working pages found five more pages with small ove
 scan had missed: `simple-interest-calculator` (19px, `sim-tbl`), `business-loan-calculator` (9px,
 `biz-table`), `ratio-calculator` (7px), `due-date-calculator` and `pregnancy-calculator` (5px each).
 Same class of problem, different pages from the nine that were in scope.
+
+---
+
+## 2026-10-28 — Why Google will not index the best pages
+
+### Checked the backlinks first
+
+Search Console still reports **External links: Total 2** — arafatsunny.com and
+techbasedirectory.com, the same two as before. Nothing new has been picked up yet. Worth knowing that
+the Links report lags by weeks and only counts links Google has crawled, so very recent placements
+would not show, and nofollow directory listings never will.
+
+Internal links: 2,946.
+
+### The finding that changes the picture
+
+Page indexing: **200 indexed, 194 not.** The breakdown:
+
+| Reason | Pages |
+|---|---|
+| Page with redirect | 152 (verified benign — the trailing-slash variants) |
+| Crawled – currently not indexed | **24** |
+| Not found (404) | 12 (the JS-extracted URLs, fixed in code on the 26th, validation not started) |
+| Alternate page with proper canonical | 3 |
+| Redirect error | 1 |
+| Discovered – currently not indexed | 2 |
+
+The 24 are not the thin static pages, which is what I expected. They are the site's **strongest**
+pages: inflation-calculator (7,771 words), take-home-paycheck (5,524), fha-loan (5,219),
+canadian-mortgage (5,203), ira (4,966), interest-rate (4,800), mortgage-calculator-uk (4,893),
+mutual-fund (4,681), estate-tax (4,686), amortization, simple-interest, repayment, va-mortgage,
+business-loan, one-rep-max, lean-body-mass, army-body-fat, healthy-weight, conception, bra-size.
+
+Google crawled all of them and declined to index them. Bing, meanwhile, ranks inflation-calculator
+at position 9 for "inflation calculator".
+
+### The cause, and it was ours
+
+Those 20 pages sit on **3 to 5 internal links each**, against a site median of 9. And not one of them
+appears in a single related-links block anywhere on the site.
+
+The reason is in `scripts/add_related_links.py`. Its hand-drawn clusters cover numbers, encoding,
+factors, statistics, geometry, algebra, building, vehicles, time, physical sciences and everyday —
+and nothing else. Every page on the unindexed list is a mortgage, loan, retirement, tax or body
+calculator. No cluster ever matched, so the scoring never picked them, and the October linking pass
+left the site's best finance and health pages as orphans.
+
+### Fix
+
+`scripts/link_unindexed.py` adds the nine missing clusters — home loans, borrowing, interest and the
+time value of money, investing and retirement, tax and pay, body composition, training, pregnancy and
+cycle, body measurements — and runs the same block over pages in those clusters that do not have one,
+with a +45 weight on an unindexed page where it genuinely shares a cluster.
+
+Result: 66 pages gained a block, 392 links added, and every one of the 20 improved.
+
+| Page | Links before | After |
+|---|---|---|
+| mortgage-calculator-uk | 2 | 10 |
+| repayment-calculator | 2 | 12 |
+| simple-interest-calculator | 2 | 8 |
+| canadian-mortgage-calculator | 3 | 11 |
+| estate-tax-calculator | 3 | 10 |
+| one-rep-max-calculator | 3 | 10 |
+| va-mortgage-calculator | 4 | 12 |
+| bra-size-calculator | 4 | 7 |
+| fha-loan-calculator | 5 | 13 |
+| mutual-fund-calculator | 6 | 19 |
+| business-loan-calculator | 6 | 16 |
+| conception-calculator | 6 | 12 |
+
+The health pages needed a second insertion point: they have no `<article>` wrapper and end with a
+disclaimer paragraph, so the block goes above that. Without it the pregnancy and body-measurement
+clusters gained nothing — conception-calculator stayed at 6 on the first run.
+
+Verified: 117 pages now carry a block, every link target exists, every block sits inside `<main>`,
+zero page errors, zero overflow at 1280 and 390 on both templates.
+
+### Also
+
+`calculators-index.json` was being crawled and reported as an unindexed page. It feeds the header
+search box, so robots.txt would stop Googlebot fetching it while rendering; `_headers` now serves it
+with `X-Robots-Tag: noindex` instead — fetchable, not indexable.
+
+### Still outstanding, not ours to fix in code
+
+The 12 old `/money-markets/` URLs still hold 245 impressions and 2 of the site's 22 clicks, with
+leverage-calculator indexed at both the old URL (position 53.6) and the new one (38.9). The redirects
+return 301 correctly and the sitemap is clean — Google simply has not dropped them. Requesting
+indexing on the new URLs would speed that up.
