@@ -13377,3 +13377,72 @@ The 12 old `/money-markets/` URLs still hold 245 impressions and 2 of the site's
 leverage-calculator indexed at both the old URL (position 53.6) and the new one (38.9). The redirects
 return 301 correctly and the sitemap is clean — Google simply has not dropped them. Requesting
 indexing on the new URLs would speed that up.
+
+---
+
+## 2026-10-28 — Log Calculator rebuilt (1 of 62)
+
+First of the 62 static pages. `/log-calculator/` had 273 words and a dead form showing a hard-coded
+`log₂(8) = 3`. Rebuilt against https://www.calculator.net/log-calculator.html.
+
+### The reference
+
+Same shape as their exponent calculator: a server-side GET solver, no JavaScript, fields `xv`, `base`
+and `yv` for log_b(x) = y. Fill any two, it returns the third. Probed by fetching the GET URLs from
+inside the page rather than clicking through, which got 34 cases into three calls.
+
+| Case | Reference |
+|---|---|
+| x=100, b=e | 4.6051701859881 |
+| x=0.5, b=2 | -1 |
+| x=100, b=0.5 | -6.6438561897747 (fractional bases allowed) |
+| b=10, y=-2 | x = 0.01 |
+| x=8, y=0.5 | b = 64 |
+| x=0 or negative | "Please provide any two values…" |
+| b=1 | "Unable to solve!" |
+| b=0 or negative | "Please provide any two values…" |
+| x=1, y=5 | **b = 1** — their bug; log₁(1) fixes no base |
+
+Precision 14 significant digits throughout.
+
+Input fields:  3/3 matched  (number, base, logarithm — plus the `e` base)
+Result fields: 1/1 matched
+
+### Test cases
+
+24 parity cases replayed through the finished page against the reference's own answers: 24/24.
+Eleven error cases: 11/11.
+
+| Input | Theirs | Ours |
+|---|---|---|
+| log_e(100) | 4.6051701859881 | 4.6051701859881 |
+| log_0.5(100) | -6.6438561897747 | -6.6438561897747 |
+| b=10, y=0.5 | 3.1622776601684 | 3.1622776601684 |
+| x=8, y=0.5 | 64 | 64 |
+| x=0.125, y=-3 | 2 | 2 |
+
+### Intentional differences
+
+- **Clean powers come back clean.** A logarithm is computed as one natural log divided by another,
+  and that division misses: log₁₀(1000) is 2.9999999999999996, log₅(125) is 3.0000000000000004,
+  log₃(6561) is 8.000000000000002, log₉(59049) is 4.999999999999999. The answer is checked against
+  exact integer arithmetic before being shown, so all four print whole. The reference gets these
+  right too; most calculators do not.
+- **x=1 with any logarithm** is reported as not fixing a base, rather than returning 1.
+- **Errors say which value is wrong** instead of one sentence covering every case.
+- Change-of-base working shown step by step, the same number in all three common bases, and a
+  log-scale chart of the base's powers.
+- Defaults differ: ours 1024 base 2, theirs 100 base e.
+
+### Checks
+
+Zero page errors, zero overflow at 1280/430/390/360, 0px drift on Clear, jsPDF lazy, flash on
+Calculate, cb_ux wired, one H1, and the related-links block carried across the rebuild (7 links).
+
+Article 1,910 words. Originality 0.00% against calculator.net.
+
+The first originality pass came back at **2.17% against our own exponent-calculator** — not byline
+boilerplate but real drift: the same sentence about the `e` box, the same "worth checking with small
+numbers in the calculator above", the same "14 significant digits, which is the last digit", and an
+identical disclaimer. Six passages reworded; now 0.69%, which is the shared byline alone, and
+exponent-calculator is no longer the nearest neighbour.
