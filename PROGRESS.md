@@ -13446,3 +13446,95 @@ boilerplate but real drift: the same sentence about the `e` box, the same "worth
 numbers in the calculator above", the same "14 significant digits, which is the last digit", and an
 identical disclaimer. Six passages reworded; now 0.69%, which is the shared byline alone, and
 exponent-calculator is no longer the nearest neighbour.
+
+---
+
+## 2026-10-31 — Hiding the unbuilt pages, and an AdSense readiness pass
+
+Decision: hide the 60 unbuilt pages now, apply for AdSense, rebuild them one at a time afterwards.
+Nothing is deleted — every file stays in the repo and comes back as it is rebuilt.
+
+### What a reviewer would have found first
+
+Before the hiding, a full AdSense-readiness scan turned up something worse than thin content:
+**fifteen visible boxes across eight crypto pages reading**
+
+> Advertisement
+> In-content unit — paste AdSense code here
+
+A reviewer landing on any of them sees an unfinished page. Removed all fifteen along with the now
+unused `.ad`, `.ad .lbl` and `.ad .hint` rules, leaving the print rule's other selectors intact.
+Pages verified afterwards at 1280 and 390: no overflow, no errors, no `.ad` node left anywhere.
+
+### Hiding the 60
+
+`scripts/hide_unbuilt.py`. Cloudflare Pages' `_redirects` cannot return 404 — it supports only
+301/302/303/307/308 and 200 — and 301-ing sixty pages at one hub reads to Google as a soft 404. So
+`X-Robots-Tag: noindex` in `_headers` instead, which is also the honest signal: the page exists, it
+is simply not ready. Reversing it is one line per page.
+
+Three things had to happen together:
+
+| | |
+|---|---|
+| noindex rules added | 61 |
+| sitemap entries removed | 60 (221 → 161) |
+| internal links removed | 515 across 94 pages |
+
+Link removal is not one operation, and getting it wrong either leaves links behind or damages the
+prose. Four shapes, handled separately:
+
+- directory cards in `/all-calculators/` — deleted whole (60)
+- `sm-link` rows on the HTML sitemap page — deleted whole (60)
+- sidebar rows in the navy Related-calculators card — deleted whole (100)
+- links inside sentences — **anchor removed, words kept** (295), because the sentence still reads and
+  deleting it would damage the article
+
+Three passes were needed to find every sidebar shape. The first run left 43 links behind in
+`age-calc-card`, which uses `<span class="arrow">` instead of the `&rarr;` entity; the second left 10
+in `rc-side-card`, which puts the label before a bare `<span>`; the third left one in
+take-home-paycheck, whose span carries `aria-hidden`. Widening the pattern to any span attributes
+cleared it. Final check: **zero links from a visible page to a hidden one.**
+
+### Repairing what the removal broke
+
+Eleven sidebars on built pages collapsed — confidence-interval went 12 → 3, random-number-generator
+9 → 3 — because they listed mostly unbuilt maths pages. A navy card with three links reads as broken,
+so the script tops any sidebar it damaged back to ten from built pages, same category first. It only
+repairs a sidebar this change damaged; an early version refilled every short sidebar on the site,
+271 links across 113 pages, which was scope creep and was reverted.
+
+`age-calculator` and `resistor-calculator` use their own card markup and fell outside the refill, so
+they were topped up by hand — the electronics cluster is entirely hidden, so resistor now points at
+binary, base64, big-number, scientific, exponent and random-number instead.
+
+### Two of my own findings were wrong
+
+Worth recording, because both came from a sloppy scan rather than the site:
+
+- **"Privacy policy missing third-party language."** It is not. My keyword check searched for
+  `third part` with a space; the policy says "Third-party vendors, including Google, use cookies to
+  serve ads…" — the exact wording AdSense asks for — plus links to policies.google.com/technologies/ads,
+  adssettings.google.com and optout.aboutads.info. Nothing needed.
+- **"bra-size-calculator has no disclaimer."** It does; it closes with a fit-estimate disclaimer. My
+  check looked for the literal word "disclaimer" in a class or in the text, and that page uses
+  neither.
+
+### The duplicate-content figure, read properly
+
+Pairwise 8-gram overlap across 154 built pages, boilerplate stripped, put due-date-calculator and
+pregnancy-calculator at 13.99%. Reading the matched text rather than the number: most of it is form
+labels and table headers the two pages must share — last period, average cycle length, ultrasound
+date, IVF transfer, embryo age at transfer, trimester weeks, week-by-week. Genuine prose duplication
+is nearer 5%. Left alone and recorded rather than rewritten. The crypto cluster at 4.5–6.5% is a
+shared glossary of genuinely shared terms; 28 pairs sit above 2% in total.
+
+### Also
+
+grade-calculator had no `og:image` at all — generated and tagged.
+
+### Where the site stands
+
+150 built pages visible, 61 hidden, 4 on the old layout. Sitemap 161 URLs. Zero broken internal
+links, every image has alt text, median page 94 KB, no overflow at 1280/390/360 on any page checked,
+no page errors.

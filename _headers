@@ -29,3 +29,129 @@
 # Search Console was listing it under "Crawled - currently not indexed".
 /calculators-index.json
   X-Robots-Tag: noindex
+
+# --- unbuilt pages: hidden until each one is rebuilt ---
+# Each line goes when that page is rebuilt. The files stay in the repo.
+/bandwidth-calculator/*
+  X-Robots-Tag: noindex
+/btu-calculator/*
+  X-Robots-Tag: noindex
+/concrete-calculator/*
+  X-Robots-Tag: noindex
+/conversion-calculator/*
+  X-Robots-Tag: noindex
+/crypto-profit-calculator/*
+  X-Robots-Tag: noindex
+/date-calculator/*
+  X-Robots-Tag: noindex
+/day-counter/*
+  X-Robots-Tag: noindex
+/day-of-the-week-calculator/*
+  X-Robots-Tag: noindex
+/density-calculator/*
+  X-Robots-Tag: noindex
+/dew-point-calculator/*
+  X-Robots-Tag: noindex
+/electricity-calculator/*
+  X-Robots-Tag: noindex
+/factor-calculator/*
+  X-Robots-Tag: noindex
+/fuel-cost-calculator/*
+  X-Robots-Tag: noindex
+/gas-mileage-calculator/*
+  X-Robots-Tag: noindex
+/golf-handicap-calculator/*
+  X-Robots-Tag: noindex
+/gravel-calculator/*
+  X-Robots-Tag: noindex
+/half-life-calculator/*
+  X-Robots-Tag: noindex
+/heat-index-calculator/*
+  X-Robots-Tag: noindex
+/hex-calculator/*
+  X-Robots-Tag: noindex
+/hours-calculator/*
+  X-Robots-Tag: noindex
+/ip-subnet-calculator/*
+  X-Robots-Tag: noindex
+/love-calculator/*
+  X-Robots-Tag: noindex
+/mass-calculator/*
+  X-Robots-Tag: noindex
+/matrix-calculator/*
+  X-Robots-Tag: noindex
+/mean-median-mode-range-calculator/*
+  X-Robots-Tag: noindex
+/mileage-calculator/*
+  X-Robots-Tag: noindex
+/molarity-calculator/*
+  X-Robots-Tag: noindex
+/molecular-weight-calculator/*
+  X-Robots-Tag: noindex
+/mulch-calculator/*
+  X-Robots-Tag: noindex
+/number-sequence-calculator/*
+  X-Robots-Tag: noindex
+/ohms-law-calculator/*
+  X-Robots-Tag: noindex
+/password-generator/*
+  X-Robots-Tag: noindex
+/percent-error-calculator/*
+  X-Robots-Tag: noindex
+/percent-off-calculator/*
+  X-Robots-Tag: noindex
+/permutation-and-combination-calculator/*
+  X-Robots-Tag: noindex
+/probability-calculator/*
+  X-Robots-Tag: noindex
+/pythagorean-theorem-calculator/*
+  X-Robots-Tag: noindex
+/quadratic-formula-calculator/*
+  X-Robots-Tag: noindex
+/right-triangle-calculator/*
+  X-Robots-Tag: noindex
+/roman-numeral-converter/*
+  X-Robots-Tag: noindex
+/roofing-calculator/*
+  X-Robots-Tag: noindex
+/root-calculator/*
+  X-Robots-Tag: noindex
+/rounding-calculator/*
+  X-Robots-Tag: noindex
+/sample-size-calculator/*
+  X-Robots-Tag: noindex
+/scientific-notation-calculator/*
+  X-Robots-Tag: noindex
+/slope-calculator/*
+  X-Robots-Tag: noindex
+/square-footage-calculator/*
+  X-Robots-Tag: noindex
+/stair-calculator/*
+  X-Robots-Tag: noindex
+/statistics-calculator/*
+  X-Robots-Tag: noindex
+/surface-area-calculator/*
+  X-Robots-Tag: noindex
+/tile-calculator/*
+  X-Robots-Tag: noindex
+/time-calculator/*
+  X-Robots-Tag: noindex
+/time-card-calculator/*
+  X-Robots-Tag: noindex
+/time-duration-calculator/*
+  X-Robots-Tag: noindex
+/tire-size-calculator/*
+  X-Robots-Tag: noindex
+/url-encode-decode/*
+  X-Robots-Tag: noindex
+/voltage-drop-calculator/*
+  X-Robots-Tag: noindex
+/volume-calculator/*
+  X-Robots-Tag: noindex
+/weight-calculator/*
+  X-Robots-Tag: noindex
+/wind-chill-calculator/*
+  X-Robots-Tag: noindex
+/z-score-calculator/*
+  X-Robots-Tag: noindex
+# --- end unbuilt pages ---
