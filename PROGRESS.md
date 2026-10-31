@@ -13578,3 +13578,69 @@ change to h1 count, title or horizontal overflow.
 
 Noted, not changed (pre-existing, unrelated): `resistor-calculator/index.html`
 opens with a duplicated `<!DOCTYPE html><html lang="en" class="h-full">` pair.
+
+## Rebuild the Root Calculator to full parity
+
+/root-calculator/ was one of the sixty static pages: a form whose answer was
+written into the markup. Rebuilt on the shared 3-card shell and taken back out
+of hiding.
+
+**Reference audit.** calculator.net/root-calculator.html runs three separate
+forms on one page — square root (ctype=1), cube root (ctype=2) and general root
+(ctype=3, order plus number). Four input fields, three results, each with a
+check line. No defaults; 14 significant digits.
+
+**Parity report**
+
+    Input fields:  4/4 matched   (order + number, across three tabs)
+    Result fields: 3/3 matched   (root, check line, precision)
+    Test cases:
+      √72        → 8.4852813742386 → 8.4852813742386
+      ∛54        → 3.7797631496846 → 3.7797631496846
+      ⁵√3125     → 5               → 5
+      ∛−27       → −3              → −3
+      ∛10²¹      → 10000000        → 10,000,000
+      ⁴√2401     → 7               → 7
+      √−4        → refused         → refused, with the reason
+
+    Intentional differences:
+      - One tool with three tabs rather than three stacked forms.
+      - Simplified radical form (√72 → 6√2) — the reference has none.
+      - Perfect powers confirmed by BigInt arithmetic, so ∛10²¹ reads
+        10,000,000 instead of a float that lands a hair low.
+      - A negative even root gets an explanation, not "provide positive values".
+
+**Engine.** Newton's method on BigInt for the exact integer root, verified by
+raising the candidate back to the power and comparing digit for digit; trial
+division for the largest perfect nth power dividing the radicand, which is what
+produces the radical form. A float result is snapped to a whole number only when
+exact arithmetic confirms that whole number reproduces the input.
+
+**Article.** 2,222 words, 6 FAQ entries. 8-gram overlap: 0.00% against the
+reference, 0.73% at worst against our own pages (the shared byline and one
+factorisation). Covers simplified radical form, floating-point error in roots,
+hand estimation, negative radicands and fractional orders — the reference's own
+article is 347 words on hand estimation alone.
+
+**Unhidden.** Removed its noindex line from `_headers` (63 → 62 rules), re-added
+it to sitemap.xml, and restored all 10 inbound internal links that
+`hide_unbuilt.py` had stripped: the directory card, the HTML sitemap row,
+sidebar rows on six pages, a list item on triangle-calculator and an in-sentence
+anchor on scientific-calculator. Links from pages that are themselves still
+hidden (rounding, scientific-notation) were left out; they return when those
+pages are rebuilt.
+
+**Verified** over HTTP at 1280/1024/860/430/390/360 — zero horizontal overflow,
+one h1, no console errors — across the rebuilt page and all nine pages whose
+links changed. Note for future runs: testing these pages over `file://` is
+misleading, because the external stylesheet fails to load and every page reports
+a phantom 32px overflow from an unset `box-sizing`.
+
+Noted, not changed: `scripts/sync_header_footer.py` again wanted to rewrite
+three unrelated pages (debt-payoff, debt-to-income, profit-loss); reverted.
+
+Also noted: `scripts/update_sitemap.py --write` re-adds every hidden page to
+sitemap.xml (59 of them), because it works from the directory listing and knows
+nothing about `_headers`. It must not be run while pages are hidden. The one
+new entry here was added by hand instead. The script needs a hidden-page filter
+before it is used again.
