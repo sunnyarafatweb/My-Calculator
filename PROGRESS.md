@@ -13644,3 +13644,33 @@ sitemap.xml (59 of them), because it works from the directory listing and knows
 nothing about `_headers`. It must not be run while pages are hidden. The one
 new entry here was added by hand instead. The script needs a hidden-page filter
 before it is used again.
+
+## Two fixes from the last review
+
+**1. update_sitemap.py no longer re-lists hidden pages.** The script built its
+page list from the directory listing alone, so running it with `--write` added
+all 59 noindexed pages straight back into sitemap.xml — half-undoing the hide
+and leaving the file advertising pages Google is told to ignore. Added
+`noindexed_slugs()`, which parses `_headers` for any rule carrying
+`X-Robots-Tag: noindex` and holds those slugs out. It reads the header itself
+rather than the unbuilt-pages comment markers, so it keeps working whatever the
+reason for a noindex. The report now prints how many are being held out, and
+warns if a noindexed page is somehow already listed.
+
+Verified: 62 noindex rules found, of which 60 are page directories (the other
+two are `*.md` and `calculators-index.json`); "live pages absent from sitemap:
+none"; nothing would be added.
+
+**2. log-calculator's two corrupted class names.** `build_log.py` had been
+derived from an earlier page's build script by a blind `ex-` → `lg-` rename,
+which also hit two Tailwind-style names inside unrelated strings:
+`<main class="flex-1">` became `fllg-1`, and `.crumb{...flex-wrap:wrap}` became
+`fllg-wrap`. The page rendered, but the main column lost its `flex-grow` and
+the breadcrumb could not wrap on narrow screens.
+
+Both corrected. Verified at 1280/390/360: `flex-wrap` computes to `wrap`,
+`flex-grow` to `1`, matching exponent-calculator, with no overflow and the
+calculator still answering. A repo-wide scan found no other mangled class
+(`overflow-wrap` in bitcoin-calculator matched the search pattern but is
+correct CSS). build_root.py was written with the literal names, so the root
+page was never affected.

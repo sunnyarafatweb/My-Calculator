@@ -53,10 +53,39 @@ def redirected_slugs():
     return out
 
 
+def noindexed_slugs():
+    """Slugs carrying X-Robots-Tag: noindex in _headers must stay out.
+
+    A page is hidden by two things together, a noindex header and no sitemap
+    entry, so listing one here would half-undo the other and leave the file
+    advertising pages Google is told to ignore. Reads the rule's own header
+    block rather than the unbuilt-pages markers, so it keeps working whatever
+    the reason for the noindex.
+    """
+    out = set()
+    hp = os.path.join(REPO, '_headers')
+    if not os.path.exists(hp):
+        return out
+    current = None
+    for line in open(hp, encoding='utf-8'):
+        stripped = line.strip()
+        if not stripped or stripped.startswith('#'):
+            continue
+        if not line[0].isspace():          # a path pattern starts a new rule
+            current = stripped.strip('/').split('/')[0]
+        elif current and re.match(r'(?i)X-Robots-Tag:.*\bnoindex\b', stripped):
+            out.add(current)
+    return out
+
+
 def page_dirs():
+    """Directories that hold a page which belongs in the sitemap."""
+    hidden = noindexed_slugs()
     out = set()
     for d in sorted(os.listdir(REPO)):
         if d in SKIP_DIRS or d.startswith('.') or not os.path.isdir(os.path.join(REPO, d)):
+            continue
+        if d in hidden:
             continue
         if os.path.exists(os.path.join(REPO, d, 'index.html')):
             out.add(d)
@@ -116,6 +145,14 @@ def main():
             print(f'   {d}')
     else:
         print('\nlive pages absent from sitemap: none')
+
+    hidden = noindexed_slugs()
+    print(f'\nnoindexed pages held out of the sitemap: {len(hidden)}')
+    leaked = sorted(listed & hidden)
+    if leaked:
+        print(f'WARNING: {len(leaked)} noindexed page(s) are listed in the sitemap, '
+              f'which contradicts their header. Remove them by hand or lift the '
+              f'noindex: {leaked}')
 
     added = 0
     if args.write and absent:
