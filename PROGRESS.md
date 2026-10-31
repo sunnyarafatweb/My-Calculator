@@ -13557,3 +13557,24 @@ all eight.
 
 Real ad units will come from AdSense's own script after approval; nothing has
 to be pasted into the markup by hand.
+
+## Install the AdSense verification snippet
+
+Added the one `adsbygoogle.js` script tag for publisher `ca-pub-4634150050639085`
+to all 225 pages, and an `ads.txt` at the root declaring the same publisher.
+AdSense verifies ownership by finding this tag in the head, and the same tag
+serves the ads after approval, so it belongs on every page rather than just the
+homepage.
+
+Inserted directly after `<head>` rather than before `</head>`: three older
+pages (`resistor-calculator`, `404`, `_not-found`) carry an opening `<head>`
+with no literal closing tag, and anchoring to the opening tag treats every page
+alike. Position within the head affects neither verification nor serving.
+`scripts/cb_ux.html` is a fragment, not a page, and was skipped.
+
+Verified in Playwright across 12 pages spanning every layout generation:
+exactly one snippet each, present in `document.head`, no console errors, no
+change to h1 count, title or horizontal overflow.
+
+Noted, not changed (pre-existing, unrelated): `resistor-calculator/index.html`
+opens with a duplicated `<!DOCTYPE html><html lang="en" class="h-full">` pair.
