@@ -13538,3 +13538,22 @@ grade-calculator had no `og:image` at all — generated and tagged.
 150 built pages visible, 61 hidden, 4 on the old layout. Sitemap 161 URLs. Zero broken internal
 links, every image has alt text, median page 94 KB, no overflow at 1280/390/360 on any page checked,
 no page errors.
+
+## Remove the AdSense placeholder boxes (re-do)
+
+Eight crypto pages carried grey boxes reading "Advertisement — In-content unit
+— paste AdSense code here". Fifteen of them, visible to every visitor and to
+any AdSense reviewer, who reads an unfinished page as an unfinished site.
+
+These were removed earlier in the same session but the change never reached a
+commit: three `git checkout -- .` calls, used to reset the tree between runs of
+`scripts/hide_unbuilt.py`, discarded it. `f74f344e` shipped without it and
+production still served the boxes. Re-applied here, with the wrapper and the
+now-unused `.ad` / `.lbl` / `.hint` CSS and its section comment.
+
+Verified in Playwright at 1280: 0 `.ad` nodes, no "advertisement" text, no
+console errors, no horizontal overflow, h1 count and section count unchanged on
+all eight.
+
+Real ad units will come from AdSense's own script after approval; nothing has
+to be pasted into the markup by hand.
