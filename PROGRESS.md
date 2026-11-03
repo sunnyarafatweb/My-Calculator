@@ -13674,3 +13674,47 @@ calculator still answering. A repo-wide scan found no other mangled class
 (`overflow-wrap` in bitcoin-calculator matched the search pattern but is
 correct CSS). build_root.py was written with the literal names, so the root
 page was never affected.
+
+## On-page SEO sweep across the 162 live pages
+
+Scanned every non-hidden page for title and description length, h1 count,
+canonical, Open Graph and Twitter tags, JSON-LD types, image alt text, internal
+link count, and links pointing at noindexed pages. Script kept at
+`scripts/seo_audit.py`.
+
+Fixed:
+
+**root-calculator linked to four hidden pages.** Its sidebar carried
+rounding-calculator, scientific-notation-calculator, number-sequence-calculator
+and quadratic-formula-calculator, all of which are noindexed. A regression I
+introduced in yesterday's rebuild: `build_root.py` had a hard-coded sidebar list
+written before the hide, and nothing checked it against `_headers`. Swapped for
+four built maths pages (fraction, GCF, LCM, ratio).
+
+**Two meta descriptions over the 160-character limit** — dice-roller (164) and
+exponent-calculator (169), both now under 145. Each appears three times per page
+(meta, og:description, twitter:description) and all three were updated.
+
+**The homepage had no Open Graph or Twitter tags at all.** Shared anywhere it
+rendered as a bare link with no image or title. Added og:type, og:site_name,
+og:title, og:description, og:url, og:image and the four Twitter equivalents,
+plus a new `og/home.png`.
+
+**`/all-calculators/` had the same gap**, and its description still claimed "all
+203 free calculators" when 62 are hidden and the page shows 156. Rewritten
+without a number, so it cannot go stale again, and given the same tag set with
+a new `og/all-calculators.png`.
+
+Verified over HTTP at 1280 and 390: no overflow, one h1, no console errors, card
+counts unchanged.
+
+Left alone, with reasons:
+
+- **15 titles at 61–62 characters.** Google truncates by pixel width rather than
+  character count, and these are one or two characters over a rule of thumb.
+  Trimming them risks the keyword for no measurable gain.
+- **about, contact, privacy-policy, terms, sitemap** lack og:image and some
+  JSON-LD types. They are utility pages that are not shared and not meant to
+  rank; the audit flags them because it is strict, not because it matters.
+- **No FAQPage or WebApplication on those same pages** is correct, not a defect.
+  A privacy policy is not a web application.
