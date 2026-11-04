@@ -13718,3 +13718,43 @@ Left alone, with reasons:
   rank; the audit flags them because it is strict, not because it matters.
 - **No FAQPage or WebApplication on those same pages** is correct, not a defect.
   A privacy policy is not a web application.
+
+## Act on Bing's AI Performance (Copilot citation) data
+
+Bing Webmaster Tools' Topic Portfolio shows which topics Microsoft Copilot
+associates the site with, and which queries it cites *other* sites for. Over
+Jul–Sep it placed us in four topics — Cryptocurrency & Digital Assets, Stock
+Market & Portfolio Management, Debt Management, Personal Finance — and listed
+21 opportunity queries.
+
+The useful finding was not the missing pages. It was that several opportunity
+queries name things we already have a page for, and Copilot still cites someone
+else:
+
+- "calculate debt to income ratio" (500–1K citations) — our DTI page had eight
+  FAQs and not one of them was *how to calculate it*. The formula was in the
+  article prose but never stated as a question with a direct answer.
+- "debt payoff plan" and "debt pay off" (101–500) — same shape on the debt
+  payoff page: plenty on avalanche versus snowball, nothing answering "how do I
+  make a plan".
+
+Assistants quote a short, self-contained answer to the question as asked. Added
+one FAQ to each page, worded as the query is worded, in both the visible article
+and the FAQPage JSON-LD:
+
+- Debt-to-income: the formula, with a worked example (1,800 / 6,000 = 30%), and
+  the front-end versus back-end distinction.
+- Debt payoff: the five steps, ending on the rolling payment, which is the part
+  that actually produces a payoff date.
+
+Verified at 1280 and 390: JSON-LD parses on both pages, nine FAQs each, no
+overflow, no console errors.
+
+Not acted on, deliberately: the crypto yield queries ("how to earn yield on idle
+crypto", 500–1K) are advice questions rather than calculator questions, and the
+Chinese and Portuguese queries are outside the site's audience. Chasing either
+would mean writing content we have no reason to be the best answer for.
+
+Scale note for future reference: these are Copilot citation counts in the
+hundreds over three months, not Google traffic. Worth a cheap targeted fix
+because the same FAQs help Google, not worth a change of direction.
