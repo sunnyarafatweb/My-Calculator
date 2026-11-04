@@ -13758,3 +13758,47 @@ would mean writing content we have no reason to be the best answer for.
 Scale note for future reference: these are Copilot citation counts in the
 hundreds over three months, not Google traffic. Worth a cheap targeted fix
 because the same FAQs help Google, not worth a change of direction.
+
+## The missing "how is it calculated" FAQ, across the whole site
+
+After adding that FAQ by hand to two pages, I swept all 155 live calculator
+pages for the same gap. `scripts/faq_gap.py` looks for an FAQ phrased as "how
+is/do you calculate…" or "what is the formula for…".
+
+    pages that have one   :  57
+    pages that do not     :  98
+    pages with no FAQ     :   0
+
+Spot-checked before believing the number, and it holds:
+
+- bmi-calculator: five FAQs, none of them "How is BMI calculated?"
+- compound-interest-calculator: no statement of the compound interest formula
+- tip-calculator: nothing on how to work out 20 percent
+- mortgage-calculator: nine FAQs, none on how the payment is derived
+
+These are the highest-volume question in each of those niches, and the pages
+explain the maths at length in prose while never shaping it as the question.
+That is what loses the snippet and the assistant citation.
+
+First batch of five written, numbers checked in Node before being published:
+BMI 70 kg / 1.75 m = 22.9 and 703 x 154 / 68² = 23.4; a 320,000 dollar mortgage
+at 6.5 percent over 30 years = 2,022.62; 1,000 dollars at 7 percent for 10 years
+= 1,967.15 annually and 2,009.66 monthly; 20 percent of 48.50 = 9.70; 25,000
+dollars at 7.2 percent over 60 months = 497.39.
+
+`scripts/add_howto_faq.py` does the insertion. It parses the JSON-LD rather than
+editing its text, because some pages minify it and others pretty-print it, and
+it refuses to write if the result would not parse. The visible article and the
+FAQPage block always get the same wording.
+
+Verified at 1280 and 390 across all five: JSON-LD parses, the FAQ renders, no
+overflow, no console errors.
+
+93 pages left. They need the real formula for each calculator with a checked
+example, so they go in batches rather than from a template.
+
+Honest note on what this is worth: it makes a page eligible for a snippet or a
+citation it currently cannot win. It does not move a page that sits at position
+51, and most of ours do. It is worth doing on the pages that already rank in the
+top twenty, and worth doing to every page eventually, but it is not a substitute
+for the backlink work.
