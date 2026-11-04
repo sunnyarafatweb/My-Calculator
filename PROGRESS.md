@@ -13802,3 +13802,39 @@ citation it currently cannot win. It does not move a page that sits at position
 51, and most of ours do. It is worth doing on the pages that already rank in the
 top twenty, and worth doing to every page eventually, but it is not a substitute
 for the backlink work.
+
+## Drop the monospace from four number pages
+
+The confidence interval page is the one offered to a Strathclyde librarian, and
+its inputs, headline answer and result rows were all in a monospace stack. On a
+page of plain decimal numbers that reads as a code listing rather than as a
+finished tool. Changed to the same IBM Plex Sans the mortgage and GCF pages use,
+with `font-variant-numeric: tabular-nums` so columns of figures still align.
+
+Changed: confidence-interval, log, root, exponent.
+
+**Kept monospace deliberately** on binary-calculator, base64-encode-decode and
+big-number-calculator, where fixed-width characters are the whole point —
+binary strings, base64 output and integers hundreds of digits long. Verified
+after the change that all three still render monospace.
+
+Also unchanged: the shared `--f-mono`, which the shell uses for pills, eyebrows,
+category counts and footer headings across all 224 pages. Those are meant to be
+monospace.
+
+**A bug in my own first attempt, caught before it shipped.** The script picked
+the variable prefix with `re.search(r'--([a-z0-9]+)-mono:')`, which matches the
+*first* definition in the file. That is `--f-mono`, the shared one, not the
+page's `--ci-mono` / `--lg-mono` / `--rt-mono` / `--ex-mono`. So the first run
+rewrote 13 shared-shell declarations per page and left the four page rules
+exactly as they were — the opposite of the intent, and it would have changed
+pills and footers site-wide.
+
+It was caught because the browser still reported `ui-monospace` after a run that
+claimed success. Reverted with `git checkout --`, then rewritten to enumerate
+every `var(--X-mono)` actually used, exclude `f`, and refuse to write at all if
+the count of `--f-mono` uses changes. `scripts/unmono.py` carries that guard.
+
+Verified at 1280 and 390 on all four: inputs, answer and rows in IBM Plex Sans,
+pills still monospace, no overflow, no console errors, answers unchanged
+(46.363 – 50.037, log 10, root 8.4852813742386, exponent 2,401).
